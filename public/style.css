@@ -170,12 +170,19 @@ footer.glass-footer {
   margin-top: 60px;
   padding: 20px 0 40px;
 }
-.plan-card:hover,
+.plan-card:hover {
+  transform: scale(1.05) !important;
+  background: linear-gradient(135deg, #6c5ce7, #74b9ff) !important;
+  color: white !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
 .character-card:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #6c5ce7, #74b9ff);
-  color: white;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05) !important;
+  background: linear-gradient(135deg, #6c5ce7, #74b9ff) !important;
+  color: white !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
   transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
   cursor: pointer;
 }
