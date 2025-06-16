@@ -175,8 +175,10 @@ git commit -m "Fix: fully resolve style.css merge conflict and preserve both blo
 git push origin main
 .plan-card:hover,
 .character-card:hover {
-  transform: translateY(-5px);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #6c5ce7, #74b9ff);
+  color: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, background 0.3s ease, color 0.3s ease;
   cursor: pointer;
 }
