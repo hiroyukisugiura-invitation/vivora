@@ -154,10 +154,10 @@ body {
   margin-top: 5px;
 }
 .character-img {
-  width: 150px;
-  height: 150px;
+  width: 150px !important;
+  height: 150px !important;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: contain !important;
   margin-bottom: 10px;
 }
 
