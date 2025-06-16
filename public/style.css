@@ -153,6 +153,14 @@ body {
   opacity: 0.8;
   margin-top: 5px;
 }
+.character-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
 footer.glass-footer {
   text-align: center;
   color: #888;
@@ -160,3 +168,7 @@ footer.glass-footer {
   margin-top: 60px;
   padding: 20px 0 40px;
 }
+git add public/style.css
+git commit -m "Fix: fully resolve style.css merge conflict and preserve both blocks"
+git push origin main
+
