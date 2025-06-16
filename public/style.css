@@ -148,3 +148,8 @@ body {
     font-size: 14px;
   }
 }
+.plan-card p {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-top: 5px;
+}
