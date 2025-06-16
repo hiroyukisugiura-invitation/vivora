@@ -95,6 +95,7 @@ body {
 .character-card {
   background: rgba(255, 255, 255, 0.4);
   padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
   border-radius: 12px;
   max-width: 200px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
@@ -171,7 +172,6 @@ footer.glass-footer {
 git add public/style.css
 git commit -m "Fix: fully resolve style.css merge conflict and preserve both blocks"
 git push origin main
-
 .plan-card:hover,
 .character-card:hover {
   transform: translateY(-5px);
