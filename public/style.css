@@ -172,3 +172,10 @@ git add public/style.css
 git commit -m "Fix: fully resolve style.css merge conflict and preserve both blocks"
 git push origin main
 
+.plan-card:hover,
+.character-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
