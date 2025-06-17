@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vivora - Style your tomorrow.</title>
+  <title>Vivora – Style your tomorrow.</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,14 +12,16 @@
 </head>
 <body>
   <header class="glass-header">
-    <img src="Logo/Vivora_Logo-main.png" alt="Vivora Logo" class="logo">
+    <a href="/"><img src="Logo/Vivora_Logo-main.png" alt="Vivora Logo" class="logo"></a>
     <nav>
-      <a href="#">Clothing</a>
-      <a href="#">Plans</a>
-      <a href="#">Kids</a>
-      <a href="#">Log In</a>
-      <a href="#">Sign Up</a>
-      <span class="sub-link">or See Plans</span>
+      <ul>
+        <li><a href="#">Clothing</a></li>
+        <li><a href="#">Plans</a></li>
+        <li><a href="#">Kids</a></li>
+        <li><a href="#">Log In</a></li>
+        <li><a href="#">Sign Up</a></li>
+        <li><span class="sub-link">or See Plans</span></li>
+      </ul>
     </nav>
   </header>
 
@@ -27,20 +29,20 @@
     <section class="assistant-section">
       <p>Hi! Can I help you?</p>
       <div class="assistant-chars">
-        <img src="character/vivo.png" alt="Vivo">
-        <img src="character/vora.png" alt="Vora">
+        <img src="character/vivo.png" alt="Vivo assistant character">
+        <img src="character/vora.png" alt="Vora assistant character">
       </div>
       <button class="assistant-btn">Assistant</button>
     </section>
 
-    <section class="features">
-      <div class="feature"><img src="contents/Clothing Design.png"><p>Clothing Design</p></div>
-     <img src="contents/Fabric_Matching.png" alt="">
-      <div class="feature"><img src="contents/Fabric Matching.png"><p>Fabric Matching</p></div>
-      <div class="feature"><img src="contents/Grading.png"><p>Grading</p></div>
-      <div class="feature"><img src="contents/Print Layout & Cut.png"><p>Print Layout & Cut</p></div>
-      <div class="feature"><img src="contents/Fashion Illustrations.png"><p>Fashion Illustrations</p></div>
-      <div class="feature"><img src="contents/Digital Dressing Kids Mode.png"><p>Digital Dressing Kids Mode</p></div>
+    <section id="features" class="features">
+      <div class="feature"><img src="contents/Clothing Design.png" alt="Clothing Design"><p>Clothing Design</p></div>
+      <div class="feature"><img src="contents/Pattern Creation.png" alt="Pattern Creation"><p>Pattern Creation</p></div>
+      <div class="feature"><img src="contents/Fabric_Matching.png" alt="Fabric Matching"><p>Fabric Matching</p></div>
+      <div class="feature"><img src="contents/Grading.png" alt="Grading"><p>Grading</p></div>
+      <div class="feature"><img src="contents/Print Layout & Cut.png" alt="Print Layout and Cut"><p>Print Layout & Cut</p></div>
+      <div class="feature"><img src="contents/Fashion Illustrations.png" alt="Fashion Illustrations"><p>Fashion Illustrations</p></div>
+      <div class="feature"><img src="contents/Digital Dressing Kids Mode.png" alt="Digital Dressing Kids Mode"><p>Digital Dressing Kids Mode</p></div>
     </section>
 
     <section class="cta-buttons">
@@ -55,9 +57,4 @@
     <p><img src="Logo/Vivora_insta.png" alt="Instagram" style="height: 16px; vertical-align: middle;"> @vivora.app</p>
   </footer>
 </body>
-</html>cd ~/Desktop/vivora  # ルートにいる前提で
-
-git add public/index.html public/style.css
-git commit -m "Vivora main UI and CSS fully updated"
-git push origin main
-
+</html>
