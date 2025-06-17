@@ -5,6 +5,7 @@ body, html {
   font-family: 'Inter', sans-serif;
   background: #fffaf7;
   color: #333;
+  box-sizing: border-box;
 }
 
 /* Header */
@@ -25,22 +26,28 @@ body, html {
   height: 40px;
 }
 
-nav a {
-  margin-left: 20px;
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu li a {
   text-decoration: none;
   color: #333;
   font-weight: 500;
   transition: color 0.3s;
 }
 
-nav a:hover {
+.nav-menu li a:hover {
   color: #d17c66;
 }
 
 .sub-link {
   font-size: 12px;
   color: #999;
-  margin-left: 10px;
 }
 
 /* Assistant */
@@ -78,6 +85,7 @@ nav a:hover {
   width: 220px;
   border-radius: 12px;
   overflow: hidden;
+  border: 1px solid #ccc;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   background: white;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -144,8 +152,16 @@ nav a:hover {
     gap: 10px;
   }
 
-  nav a {
-    margin-left: 0;
-    margin-right: 15px;
+  .nav-menu {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .nav-menu li {
+    margin: 0;
+  }
+
+  .nav-menu li a {
+    display: inline-block;
   }
 }
