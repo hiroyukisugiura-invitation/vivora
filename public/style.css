@@ -98,6 +98,19 @@ body, html {
   object-fit: cover;
   display: block;
 }
+.feature button {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border: 1px solid #333; /* ✅ ここを強めに */
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .feature p {
   padding: 12px 0;
   font-weight: 500;
