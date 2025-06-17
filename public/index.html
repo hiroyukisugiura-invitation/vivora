@@ -1,50 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vivora - Design Your Self</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vivora - Style your tomorrow.</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0e6a7ef.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <header class="glass-header">
-    <h1>Vivora</h1>
-    <p class="tagline">Design your self. Craft your world.</p>
+    <img src="Logo/Vivora_Logo-main.png" alt="Vivora Logo" class="logo">
+    <nav>
+      <a href="#">Clothing</a>
+      <a href="#">Plans</a>
+      <a href="#">Kids</a>
+      <a href="#">Log In</a>
+      <a href="#">Sign Up</a>
+      <span class="sub-link">or See Plans</span>
+    </nav>
   </header>
 
-  <section class="glass-section">
-    <h2>Plans</h2>
-    <div class="plans">
-      <div class="plan-card">Try<br><small>Free</small></div>
-      <div class="plan-card">Flow<br><small>¥3,000</small></div>
-      <div class="plan-card">Craft<br><small>¥6,000</small></div>
-      <div class="plan-card">Master<br><small>¥8,000</small></div>
-    </div>
-  </section>
+  <main>
+    <section class="assistant-section">
+      <p>Hi! Can I help you?</p>
+      <div class="assistant-chars">
+        <img src="character/vivo.png" alt="Vivo">
+        <img src="character/vora.png" alt="Vora">
+      </div>
+      <button class="assistant-btn">Assistant</button>
+    </section>
+
+    <section class="features">
+      <div class="feature"><img src="contents/Clothing Design.png"><p>Clothing Design</p></div>
+      <div class="feature"><img src="contents/Pattern Creation.png"><p>Pattern Creation</p></div>
+      <div class="feature"><img src="contents/Fabric Matching.png"><p>Fabric Matching</p></div>
+      <div class="feature"><img src="contents/Grading.png"><p>Grading</p></div>
+      <div class="feature"><img src="contents/Print Layout & Cut.png"><p>Print Layout & Cut</p></div>
+      <div class="feature"><img src="contents/Fashion Illustrations.png"><p>Fashion Illustrations</p></div>
+      <div class="feature"><img src="contents/Digital Dressing Kids Mode.png"><p>Digital Dressing Kids Mode</p></div>
+    </section>
+
+    <section class="cta-buttons">
+      <button class="cta">Start Designing Now</button>
+      <button class="cta">Explore Plans</button>
+      <button class="cta">Try Free Demo</button>
+    </section>
+  </main>
 
   <footer class="glass-footer">
-<section class="cta-section">
-  <h2>Start Your Journey</h2>
-  <p>Create your designs. Empower your style.</p>
-  <a href="#" class="signup-btn">Sign Up Now</a>
-</section>
-<section class="characters-section">
-  <h2>Meet Your Assistants</h2>
-  <div class="character-cards">
-    <div class="character-card">
-      <img src="vivo.png" alt="Vivo" class="character-img" />
-      <h3>Vivo</h3>
-      <p>Creative and curious, Vivo guides you through design adventures!</p>
-    </div>
-    <div class="character-card">
-      <img src="vora.png" alt="Vora" class="character-img" />
-      <h3>Vora</h3>
-      <p>Bright and supportive, Vora helps bring your ideas to life!</p>
-    </div>
-  </div>
-</section>
-<footer class="glass-footer">
-  <p>© 2025 Vivora. All rights reserved.</p>
-</footer>
+    <p>&copy; 2005–2025 INViTATION.co . All rights reserved .</p>
+    <p><img src="Logo/Vivora_insta.png" alt="Instagram" style="height: 16px; vertical-align: middle;"> @vivora.app</p>
+  </footer>
 </body>
-</html>
+</html>cd ~/Desktop/vivora  # ルートにいる前提で
+
+git add public/index.html public/style.css
+git commit -m "Vivora main UI and CSS fully updated"
+git push origin main
+
