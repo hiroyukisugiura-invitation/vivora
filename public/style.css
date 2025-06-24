@@ -121,6 +121,7 @@ header {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  row-gap: 16px;            /* 縦の隙間も調整可能 */
 }
 
 .actions button {
@@ -131,7 +132,11 @@ header {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s, color 0.3s;
-  color: #333; /* 追加 */
+  color: #333;
+  min-width: 180px;         /* ← ボタンの横幅を一定に */
+  text-align: center;       /* ← テキスト中央揃え */
+  flex: 1 0 auto;           /* ← レスポンシブで折り返せるように */
+  max-width: 280px;         /* ← 上限を設定して崩れ防止 */
 }
 
 .actions button:hover {
