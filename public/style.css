@@ -127,7 +127,6 @@ input:checked + .slider:before {
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
-  border: none;
 }
 
 .pricing-card.popular {
@@ -175,14 +174,6 @@ input:checked + .slider:before {
   margin-top: auto;
   outline: none;
   box-shadow: none;
-}
-
-.pricing-card button:focus,
-.pricing-card button:focus-visible,
-.pricing-card button:focus-within {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
 }
 
 .pricing-card button[disabled] {
