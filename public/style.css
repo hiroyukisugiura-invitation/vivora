@@ -294,6 +294,12 @@ input:checked + .slider:before {
   font-weight: bold;
   font-size: 14px;
   margin-top: auto;
+  outline: none;
+}
+
+.pricing-card button:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .pricing-card button[disabled] {
