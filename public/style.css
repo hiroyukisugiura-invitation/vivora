@@ -246,7 +246,7 @@ input:checked + .slider:before {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 280px;
-  height: 440px;
+  height: 460px;
   text-align: center;
   transition: transform 0.3s;
   display: flex;
@@ -301,11 +301,11 @@ input:checked + .slider:before {
   cursor: not-allowed;
 }
 
-.pricing-card img[alt$="badge"] {
+.pricing-card img.ribbon-badge {
   position: absolute;
   top: 0;
   right: 0;
-  width: 80px;
+  width: 90px;
   height: auto;
   z-index: 10;
 }
