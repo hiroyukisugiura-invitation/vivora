@@ -121,6 +121,17 @@
     </div>
   </div>
 </section>
+
+<script>
+  const toggle = document.getElementById('billing-toggle');
+  const prices = document.querySelectorAll('.price');
+
+  toggle.addEventListener('change', () => {
+    prices.forEach(price => {
+      price.textContent = toggle.checked ? price.dataset.yearly : price.dataset.monthly;
+    });
+  });
+</script>
   
 </body>
 </html>
