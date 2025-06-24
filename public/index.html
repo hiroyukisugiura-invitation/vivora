@@ -5,9 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- アシスタント -->
+  <div class="assistant-container">
+    <p class="assistant-greeting">Hi! Can I help you?</p>
+    <div class="assistant-images">
+      <img src="character/vivo.png" alt="Vivo" class="assistant-character" />
+      <img src="character/vora.png" alt="Vora" class="assistant-character" />
+    </div>
+    <button class="assistant-button">Assistant</button>
+  </div>
 
   <!-- ヘッダー -->
   <header>
@@ -23,6 +33,24 @@
     <a href="#">Sign Up</a>
   </nav>
 
+  <!-- コンテンツ -->
+  <section class="features">
+    <div class="feature-card"><img src="contents/clothing-design.png" alt="Clothing Design" /></div>
+    <div class="feature-card"><img src="contents/pattern-creation.png" alt="Pattern Creation" /></div>
+    <div class="feature-card"><img src="contents/fabric-matching.png" alt="Fabric Matching" /></div>
+    <div class="feature-card"><img src="contents/grading.png" alt="Grading" /></div>
+    <div class="feature-card"><img src="contents/print-layout-cut.png" alt="Print Layout & Cut" /></div>
+    <div class="feature-card"><img src="contents/fashion-illustrations.png" alt="Fashion Illustrations" /></div>
+    <div class="feature-card"><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode" /></div>
+  </section>
+
+  <!-- ボタン群 -->
+  <div class="actions">
+    <button>Start Designing Now</button>
+    <button>Explore Plans</button>
+    <button>Try Free Demo</button>
+  </div>
+
   <!-- プラン表示 -->
   <section class="pricing-section">
     <h2 class="pricing-title">Choose Your Plan</h2>
@@ -30,7 +58,7 @@
     <div class="toggle-container">
       <span>Monthly</span>
       <label class="switch">
-        <input type="checkbox" id="billing-toggle" />
+        <input type="checkbox" id="billing-toggle">
         <span class="slider"></span>
       </label>
       <span>Yearly</span>
@@ -38,7 +66,7 @@
 
     <div class="pricing-cards">
 
-      <!-- Try -->
+      <!-- 🆓 Try -->
       <div class="pricing-card">
         <img src="ribbon/ribbon_free.png" alt="Free badge" class="ribbon-badge" />
         <h3>Try</h3>
@@ -51,7 +79,7 @@
         <button disabled>Start Free</button>
       </div>
 
-      <!-- Flow -->
+      <!-- 💡 Flow -->
       <div class="pricing-card">
         <h3>Flow</h3>
         <p class="price" data-monthly="¥2,980" data-yearly="¥30,384（¥2,532/月）">¥2,980</p>
@@ -63,7 +91,7 @@
         <button>Select</button>
       </div>
 
-      <!-- Craft -->
+      <!-- 🌟 Craft -->
       <div class="pricing-card popular">
         <img src="ribbon/ribbon_Popularity.png" alt="Popular badge" class="ribbon-badge" />
         <h3>Craft</h3>
@@ -76,7 +104,7 @@
         <button>Select</button>
       </div>
 
-      <!-- Master -->
+      <!-- 👑 Master -->
       <div class="pricing-card">
         <img src="ribbon/ribbon_Popularity.png" alt="Popular badge" class="ribbon-badge" />
         <h3>Master</h3>
@@ -102,7 +130,7 @@
     </div>
   </footer>
 
-  <!-- スクリプト：月額/年額トグル -->
+  <!-- プラン切り替えスクリプト -->
   <script>
     const toggle = document.getElementById('billing-toggle');
     const prices = document.querySelectorAll('.price');
@@ -110,10 +138,8 @@
     toggle.addEventListener('change', () => {
       const isYearly = toggle.checked;
       prices.forEach(price => {
-        const monthly = price.getAttribute('data-monthly');
-        const yearly = price.getAttribute('data-yearly');
-        if (monthly && yearly) {
-          price.textContent = isYearly ? yearly : monthly;
+        if (price.dataset.yearly && price.dataset.monthly) {
+          price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
         }
       });
     });
