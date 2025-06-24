@@ -319,3 +319,14 @@ input:checked + .slider:before {
   z-index: 10;
   pointer-events: none;
 }
+@media (max-width: 600px) {
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .actions button {
+    width: 90%;
+    max-width: 300px;
+  }
+}
