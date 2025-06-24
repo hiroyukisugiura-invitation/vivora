@@ -176,6 +176,7 @@ footer {
   padding: 60px 20px;
   background: #fff5f0;
   text-align: center;
+  flex: 1 0 auto;
 }
 
 .pricing-title {
@@ -241,7 +242,7 @@ input:checked + .slider:before {
 
 .pricing-card {
   background: #fff;
-  padding: 30px 20px 20px;
+  padding: 24px 20px 16px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 280px;
@@ -250,7 +251,7 @@ input:checked + .slider:before {
   transition: transform 0.3s;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .pricing-card:hover {
@@ -260,21 +261,22 @@ input:checked + .slider:before {
 .pricing-card h3 {
   font-size: 20px;
   margin-bottom: 10px;
+  min-height: 30px;
 }
 
 .pricing-card .price {
   font-size: 22px;
   font-weight: bold;
   color: #d63031;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .pricing-card ul {
   list-style: none;
   padding: 0;
   font-size: 14px;
+  margin: 0 0 20px;
   flex-grow: 1;
-  margin: 10px 0;
 }
 
 .pricing-card li {
@@ -290,7 +292,7 @@ input:checked + .slider:before {
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: auto;
 }
 
 .pricing-card button[disabled] {
