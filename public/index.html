@@ -2,26 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- ✅ Google Material Iconsを読み込み -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
-    <div class="logo">Vivora</div>
-    <nav class="nav-icons">
-      <div class="icon" title="Home"><span class="material-icons-outlined">home</span></div>
-      <div class="icon" title="Gallery"><span class="material-icons-outlined">photo_library</span></div>
-      <div class="icon" title="Profile"><span class="material-icons-outlined">person</span></div>
+    <div class="logo">
+      <img src="Logo/Vivora_Logo-main.png" alt="Vivora Logo" height="36" />
+    </div>
+    <nav class="nav-menu">
+      <a href="#">Clothing</a>
+      <a href="#">Plans</a>
+      <a href="#">Kids</a>
+      <a href="#">Log In</a>
+      <a href="#">Sign Up</a>
+      <a href="https://www.instagram.com/vivora.app" target="_blank" class="sns-icon" title="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
     </nav>
   </header>
+
   <main>
-    <section class="hero">
-      <h1>Design Your Identity</h1>
-      <p>Fashion begins with freedom and creation. Welcome to Vivora.</p>
+    <section class="grid">
+      <a href="#" class="card">
+        <img src="contents/clothing-design.png" alt="Clothing Design">
+      </a>
+      <a href="#" class="card">
+        <img src="contents/pattern-creation.png" alt="Pattern Creation">
+      </a>
+      <a href="#" class="card">
+        <img src="contents/fabric-matching.png" alt="Fabric Matching">
+      </a>
+      <a href="#" class="card">
+        <img src="contents/print-layout-cut.png" alt="Print Layout & Cut">
+      </a>
+      <a href="#" class="card">
+        <img src="contents/fashion-illustrations.png" alt="Fashion Illustrations">
+      </a>
+      <a href="#" class="card">
+        <img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode">
+      </a>
     </section>
+
+    <div class="cta-buttons">
+      <button class="glass-btn">Start Designing Now</button>
+      <button class="glass-btn">Explore Plans</button>
+      <button class="glass-btn">Try Free Demo</button>
+    </div>
   </main>
+
+  <div class="assistants">
+    <img src="character/vivo.png" alt="Vivo" class="assistant" />
+    <img src="character/vora.png" alt="Vora" class="assistant" />
+  </div>
+
+  <footer>
+    <p>©copy: 2005–2025 INVITATION.co. All rights reserved. <br>
+    🌐 @vivora.app</p>
+  </footer>
 </body>
 </html>
