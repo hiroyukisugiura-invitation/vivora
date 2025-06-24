@@ -301,13 +301,14 @@ input:checked + .slider:before {
   cursor: not-allowed;
 }
 
-.pricing-card img.ribbon-badge {
+.ribbon-badge {
   position: absolute;
   top: 0;
   right: 0;
   width: 110px;
   height: auto;
   z-index: 10;
+  pointer-events: none;
 }
 
 .popular {
