@@ -1,15 +1,16 @@
+<!-- ✅ 最新版 Vivora index.html フル修正反映済み -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- ヘッダー -->
   <header>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
     <img src="logo/vivora_logo-main.png" class="logo" />
   </header>
 
@@ -29,40 +30,23 @@
     </div>
   </nav>
 
-  <!-- アシスタント（右上固定） -->
+  <!-- アシスタント（右上固定、画像のみ） -->
   <div class="assistant-container">
-    <p class="assistant-greeting">Hi! Can I help you?</p>
-    <div class="assistant-images">
-      <img src="character/vivo.png" alt="Vivo" class="assistant-character" />
-      <img src="character/vora.png" alt="Vora" class="assistant-character" />
-    </div>
+    <img src="character/vivo.png" alt="Vivo" class="assistant-character" />
+    <img src="character/vora.png" alt="Vora" class="assistant-character" />
     <button class="assistant-button">Assistant</button>
   </div>
 
-  <!-- 機能カード一覧 -->
- <section class="features">
-  <div class="feature-card">
-    <img src="contents/clothing-design.png" alt="Clothing Design" />
-  </div>
-  <div class="feature-card">
-    <img src="contents/pattern-creation.png" alt="Pattern Creation" />
-  </div>
-  <div class="feature-card">
-    <img src="contents/fabric-matching.png" alt="Fabric Matching" />
-  </div>
-  <div class="feature-card">
-    <img src="contents/grading.png" alt="Grading" />
-  </div>
-  <div class="feature-card">
-    <img src="contents/print-layout-cut.png" alt="Print Layout & Cut" />
-  </div>
-  <div class="feature-card">
-    <img src="contents/fashion-illustrations.png" alt="Fashion Illustrations" />
-  </div>
-  <div class="feature-card">
-    <img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode" />
-  </div>
-</section>
+  <!-- コンテンツ一覧 -->
+  <section class="features">
+    <div class="feature-card"><img src="contents/clothing-design.png" alt="Clothing Design" /></div>
+    <div class="feature-card"><img src="contents/pattern-creation.png" alt="Pattern Creation" /></div>
+    <div class="feature-card"><img src="contents/fabric-matching.png" alt="Fabric Matching" /></div>
+    <div class="feature-card"><img src="contents/grading.png" alt="Grading" /></div>
+    <div class="feature-card"><img src="contents/print-layout-cut.png" alt="Print Layout & Cut" /></div>
+    <div class="feature-card"><img src="contents/fashion-illustrations.png" alt="Fashion Illustrations" /></div>
+    <div class="feature-card"><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode" /></div>
+  </section>
 
   <!-- アクションボタン -->
   <div class="actions">
@@ -71,12 +55,14 @@
     <button>Try Free Demo</button>
   </div>
 
-  <!-- フッター -->
- <footer>
-  <div class="footer-content">
-   <img src="logo/vivora_copy.png" />
-    <div class="insta">
-      <img src="logo/vivora_insta.png" alt="Instagram" class="insta-icon" />
+  <!-- フッター（小さめサイズ + アイコン横並び） -->
+  <footer>
+    <div class="footer-content">
+      <p class="copyright">
+        <img src="logo/vivora_insta.png" class="footer-icon" alt="Instagram" />
+        © 2005–2025 INVITATION.co . All rights reserved . @vivora.app
+      </p>
     </div>
-  </div>
-</footer>
+  </footer>
+</body>
+</html>
