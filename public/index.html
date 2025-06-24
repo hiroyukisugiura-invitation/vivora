@@ -1,4 +1,3 @@
-<!-- ✅ 最新版 Vivora index.html フル修正反映済み -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,11 +30,16 @@
   </nav>
 
   <!-- アシスタント（右上固定、画像のみ） -->
-  <div class="assistant-container">
-    <img src="character/vivo.png" alt="Vivo" class="assistant-character" />
-    <img src="character/vora.png" alt="Vora" class="assistant-character" />
-    <button class="assistant-button">Assistant</button>
+ <div style="position: fixed; top: 20px; right: 20px; text-align: center; z-index: 1000;">
+  <div>
+    <img src="vivo.png" alt="Vivo" style="width: 60px; margin-right: 5px;">
+    <img src="vora.png" alt="Vora" style="width: 60px;">
   </div>
+  
+  <button style="margin-top: 10px; background: white; color: #333; border-radius: 8px; padding: 5px 12px; font-weight: bold; border: 1px solid #ccc;">
+    Assistant
+  </button>
+</div>
 
   <!-- コンテンツ一覧 -->
   <section class="features">
@@ -55,14 +59,9 @@
     <button>Try Free Demo</button>
   </div>
 
-  <!-- フッター（小さめサイズ + アイコン横並び） -->
-  <footer>
-    <div class="footer-content">
-      <p class="copyright">
-         <img src="logo/vivora_copy.png" class="footer-icon" />
-        <img src="logo/vivora_insta.png" class="footer-icon" alt="Instagram" />
-      </p>
-    </div>
-  </footer>
+  <!-- フッター -->
+  <footer style="margin-top: 80px;">
+  <img src="Vivora_copy.png" alt="Vivora Footer" style="width: 600px; height: auto;">
+</footer>
 </body>
 </html>
