@@ -295,6 +295,7 @@ input:checked + .slider:before {
   font-size: 14px;
   margin-top: auto;
   outline: none;
+  box-shadow: none;
 }
 
 .pricing-card button:focus {
