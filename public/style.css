@@ -147,10 +147,15 @@ header {
 }
 
 /* ===== フッター ===== */
-footer {
-  padding: 40px 0;
+.feature-card {
+  transition: transform 0.3s ease;
 }
-.footer-image {
-  width: 300px;
-  height: auto;
+
+.feature-card:hover {
+  transform: scale(1.03);
+}
+
+.feature-card img {
+  width: 100%;
+  border-radius: 8px;
 }
