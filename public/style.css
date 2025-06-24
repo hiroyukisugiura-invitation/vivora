@@ -10,10 +10,10 @@ body {
 
 /* ===== ヘッダー（ロゴ） ===== */
 header {
-  padding: 30px;
+  padding: 50px;
 }
 .logo {
-  width: 300px;
+  width: 450px;
   height: auto;
 }
 
