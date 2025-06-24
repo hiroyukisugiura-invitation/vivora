@@ -22,22 +22,34 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  font-size: 16px;
-  margin: 10px 0 20px;
+  gap: 24px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
+  margin: 10px 0 30px;
   flex-wrap: wrap;
 }
+
 .navbar a {
   text-decoration: none;
   color: #333;
+  transition: color 0.3s ease;
 }
+
+.navbar a:hover {
+  color: #6c5ce7; /* ホバー時にアクセントカラー */
+}
+
 .signup-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 8px;
 }
+
 .subtext {
-  font-size: 11px;
+  font-size: 10px;
   color: #777;
   margin-top: -2px;
 }
