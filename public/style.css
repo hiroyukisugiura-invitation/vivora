@@ -322,3 +322,10 @@ input:checked + .slider:before {
 .popular {
   border: 2px solid #d63031;
 }
+
+.pricing-card button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
