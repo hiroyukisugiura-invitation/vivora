@@ -1,67 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vivora</title>
-  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="logo">
-      <img src="Logo/Vivora_Logo-main.png" alt="Vivora Logo" class="logo-image" />
-      <h2 class="tagline">Style your tomorrow.</h2>
-    </div>
-    <nav class="nav">
-      <ul class="nav-list">
-        <li><a href="#">Clothing</a></li>
-        <li><a href="#">Plans</a></li>
-        <li><a href="#">Kids</a></li>
-        <li><a href="#">Log In</a></li>
-        <li><a href="#">Sign Up</a></li>
-        <li class="see-plans"><a href="#">or See Plans</a></li>
-      </ul>
-    </nav>
-    <div class="assistant-area">
-      <p>Hi! Can I help you?</p>
-      <div class="characters">
-        <div class="char-block">
-          <img src="character/vivo.png" alt="Vivo" />
-          <span>Vivo</span>
-        </div>
-        <div class="char-block">
-          <img src="character/vora.png" alt="Vora" />
-          <span>Vora</span>
-        </div>
-      </div>
-      <button class="assistant-btn">Assistant</button>
-    </div>
+  <!-- ヘッダー -->
+  <header>
+    <img src="Vivora_Logo-main.png" alt="Vivora Logo" class="logo">
   </header>
 
-  <main>
-    <section class="grid">
-      <div class="card"><img src="contents/clothing-design.png" alt="Clothing Design"><p>Clothing Design</p></div>
-      <div class="card"><img src="contents/pattern-creation.png" alt="Pattern Creation"><p>Pattern Creation</p></div>
-      <div class="card"><img src="contents/fabric-matching.png" alt="Fabric Matching"><p>Fabric Matching</p></div>
-      <div class="card"><img src="contents/grading.png" alt="Grading"><p>Grading</p></div>
-      <div class="card"><img src="contents/print-layout-cut.png" alt="Print Layout & Cut"><p>Print Layout & Cut</p></div>
-      <div class="card"><img src="contents/fashion-illustrations.png" alt="Fashion Illustrations"><p>Fashion Illustrations</p></div>
-      <div class="card"><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode"><p>Digital Dressing Kids Mode</p></div>
-    </section>
-
-    <div class="cta-buttons">
-      <button class="glass-btn">Start Designing Now</button>
-      <button class="glass-btn">Explore Plans</button>
-      <button class="glass-btn">Try Free Demo</button>
+  <!-- アシスタント（固定表示） -->
+  <div class="assistant-container">
+    <p class="assistant-greeting">Hi! Can I help you?</p>
+    <div class="assistant-images">
+      <img src="vivo.png" alt="Vivo" class="assistant-character">
+      <img src="vora.png" alt="Vora" class="assistant-character">
     </div>
+    <button class="assistant-button">Assistant</button>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main>
+    <!-- ここにVivoraの機能UIを今後追加していきます -->
   </main>
 
+  <!-- フッター -->
   <footer>
-    <div class="footer-container">
-      <img src="Logo/Vivora_copy.png" alt="Vivora footer logo" class="footer-full" />
-      <p class="copyright">2005–2025 INVITATION.co . All rights reserved .</p>
-      <p class="insta-link">@vivora.app <img src="Logo/Vivora_insta.png" alt="Instagram" class="insta-icon" /></p>
-    </div>
+    <img src="Vivora_copy.png" alt="Vivora Footer" class="footer-image">
   </footer>
 </body>
 </html>
