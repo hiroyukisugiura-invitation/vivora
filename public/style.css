@@ -329,3 +329,11 @@ input:checked + .slider:before {
   border: none !important;
 }
 
+.pricing-card button:focus,
+.pricing-card button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
