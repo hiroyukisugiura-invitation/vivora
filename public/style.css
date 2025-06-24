@@ -330,17 +330,7 @@ input:checked + .slider:before {
     max-width: 300px;
   }
 }
-@media (max-width: 600px) {
-  .actions {
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .actions button {
-    width: 90%;
-    max-width: 300px;
-  }
-}
 @media (max-width: 600px) {
   .actions {
     flex-direction: column;
