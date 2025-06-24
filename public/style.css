@@ -242,11 +242,11 @@ input:checked + .slider:before {
 
 .pricing-card {
   background: #fff;
-  padding: 24px 20px 16px;
-  border-radius: 12px;
+  padding: 30px 24px 24px;
+  border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 280px;
-  height: 460px;
+  width: 240px;            /* ← 横幅を少し細めに */
+  height: 400px;           /* ← 高さも調整 */
   text-align: center;
   transition: transform 0.3s;
   display: flex;
