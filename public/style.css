@@ -23,7 +23,7 @@ header {
   justify-content: center;
   align-items: center;
   gap: 28px;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 500;
   font-family: 'Playfair Display', serif;
   color: #3b2f2f;
@@ -39,7 +39,7 @@ header {
 }
 
 .navbar a:hover {
-  color: #6c5ce7; /* ホバー時にアクセントカラー */
+  color: #6c5ce7;
 }
 
 .signup-container {
@@ -67,21 +67,13 @@ header {
   text-align: center;
   z-index: 1000;
 }
-.assistant-greeting {
-  margin: 0;
-  font-size: 13px;
-  font-weight: bold;
-}
-.assistant-images {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 8px 0;
-}
+
 .assistant-character {
   width: 50px;
   height: auto;
+  margin: 4px;
 }
+
 .assistant-button {
   background: white;
   color: black;
@@ -91,12 +83,14 @@ header {
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
+  margin-top: 4px;
 }
+
 .assistant-button:hover {
   background: #f0f0f0;
 }
 
-/* ===== 機能カード一覧 ===== */
+/* ===== コンテンツ一覧（装飾なし） ===== */
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -105,25 +99,18 @@ header {
   max-width: 1100px;
   margin: 0 auto;
 }
+
 .feature-card {
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
 }
+
 .feature-card:hover {
   transform: scale(1.03);
 }
+
 .feature-card img {
   width: 100%;
   border-radius: 8px;
-}
-.feature-card p {
-  margin-top: 10px;
-  font-weight: bold;
-  color: #444;
 }
 
 /* ===== アクションボタン ===== */
@@ -134,6 +121,7 @@ header {
   gap: 20px;
   flex-wrap: wrap;
 }
+
 .actions button {
   background: white;
   border: 1px solid #ccc;
@@ -143,20 +131,30 @@ header {
   cursor: pointer;
   transition: background 0.3s;
 }
+
 .actions button:hover {
   background: #eee;
 }
 
 /* ===== フッター ===== */
-.feature-card {
-  transition: transform 0.3s ease;
+footer {
+  padding: 40px 0;
+  text-align: center;
+  font-size: 13px;
 }
 
-.feature-card:hover {
-  transform: scale(1.03);
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #444;
 }
 
-.feature-card img {
-  width: 75%;
-  border-radius: 6px;
+.footer-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 6px;
 }
