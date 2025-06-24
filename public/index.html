@@ -67,150 +67,101 @@
 
   <!-- フッター -->
   <footer>
-  <div class="footer-content">
-    <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
-    <a href="https://www.instagram.com/vivora.app" target="_blank">
-      <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
-    </a>
-  </div>
-</footer>
-
-<section class="pricing-section">
-  <h2 class="pricing-title">Choose Your Plan</h2>
-  <div class="toggle-container">
-    <span>Monthly</span>
-    <label class="switch">
-      <input type="checkbox" id="billing-toggle">
-      <span class="slider"></span>
-    </label>
-    <span>Yearly</span>
-  </div>
-
-  <div class="pricing-card popular">
-  <div class="badge">人気！</div>
-  <h3>Craft</h3>
-  <p class="price" data-monthly="¥6,980" data-yearly="¥71,232（¥5,936/月）">¥6,980</p>
-  <ul>
-    <li>All clothing types</li>
-    <li>Pattern / grading / illustration</li>
-    <li>Unlimited saves</li>
-  </ul>
-  <button>Select</button>
-</div>
-
-    <div class="pricing-card popular">
-      <h3>Craft</h3>
-      <p class="price" data-monthly="¥6,980" data-yearly="¥71,232（¥5,936/月）">¥6,980</p>
-      <ul>
-        <li>All clothing types</li>
-        <li>Pattern / grading / illustration</li>
-        <li>Unlimited saves</li>
-      </ul>
-      <button>Select</button>
+    <div class="footer-content">
+      <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
+      <a href="https://www.instagram.com/vivora.app" target="_blank">
+        <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
+      </a>
     </div>
+  </footer>
 
-    <div class="pricing-card">
-      <h3>Master</h3>
-      <p class="price" data-monthly="¥9,800" data-yearly="¥99,960（¥8,330/月）">¥9,800</p>
-      <ul>
-        <li>Full access</li>
-        <li>Print-ready output</li>
-        <li>Team & Pro tools</li>
-      </ul>
-      <button>Select</button>
-    </div>
-  </div>
-</section>
-
-<script>
-  const toggle = document.getElementById('billing-toggle');
-  const prices = document.querySelectorAll('.price');
-
-  toggle.addEventListener('change', () => {
-    prices.forEach(price => {
-      price.textContent = toggle.checked ? price.dataset.yearly : price.dataset.monthly;
-    });
-  });
-</script>
-
+  <!-- プラン表示セクション -->
   <section class="pricing-section">
-  <h2 class="pricing-title">Choose Your Plan</h2>
-  <div class="toggle-container">
-    <span>Monthly</span>
-    <label class="switch">
-      <input type="checkbox" id="billing-toggle">
-      <span class="slider"></span>
-    </label>
-    <span>Yearly</span>
-  </div>
+    <h2 class="pricing-title">Choose Your Plan</h2>
 
-  <div class="pricing-cards">
-    <div class="pricing-card">
-      <div class="badge">Free</div>
-      <h3>Try</h3>
-      <p class="price">¥0</p>
-      <ul>
-        <li>Basic demo only</li>
-        <li>Limited templates</li>
-        <li>No save or export</li>
-      </ul>
-      <button disabled>Start Free</button>
+    <!-- トグル切替 -->
+    <div class="toggle-container">
+      <span>Monthly</span>
+      <label class="switch">
+        <input type="checkbox" id="billing-toggle">
+        <span class="slider"></span>
+      </label>
+      <span>Yearly</span>
     </div>
 
-    <div class="pricing-card">
-      <h3>Flow</h3>
-      <p class="price" data-monthly="¥2,980" data-yearly="¥30,384（¥2,532/月）">¥2,980</p>
-      <ul>
-        <li>Basic clothing tools</li>
-        <li>Kid design & save</li>
-        <li>Assistant support</li>
-      </ul>
-      <button>Select</button>
+    <!-- プランカード一覧 -->
+    <div class="pricing-cards">
+
+      <!-- Try プラン -->
+      <div class="pricing-card" id="plan-try">
+        <div class="badge">Free</div>
+        <h3>Try</h3>
+        <p class="price">¥0</p>
+        <ul>
+          <li>Basic demo only</li>
+          <li>Limited templates</li>
+          <li>No save or export</li>
+        </ul>
+        <button disabled>Start Free</button>
+      </div>
+
+      <!-- Flow プラン -->
+      <div class="pricing-card" id="plan-flow">
+        <h3>Flow</h3>
+        <p class="price" data-monthly="¥2,980" data-yearly="¥30,384（¥2,532/月）">¥2,980</p>
+        <ul>
+          <li>Basic clothing tools</li>
+          <li>Kid design & save</li>
+          <li>Assistant support</li>
+        </ul>
+        <button>Select</button>
+      </div>
+
+      <!-- Craft プラン -->
+      <div class="pricing-card popular" id="plan-craft">
+        <div class="badge" id="craft-badge">人気！</div>
+        <h3>Craft</h3>
+        <p class="price" data-monthly="¥6,980" data-yearly="¥71,232（¥5,936/月）">¥6,980</p>
+        <ul>
+          <li>All clothing types</li>
+          <li>Pattern / grading / illustration</li>
+          <li>Unlimited saves</li>
+        </ul>
+        <button>Select</button>
+      </div>
+
+      <!-- Master プラン -->
+      <div class="pricing-card" id="plan-master">
+        <div class="badge" id="master-badge" style="display: none;">お得！</div>
+        <h3>Master</h3>
+        <p class="price" data-monthly="¥9,800" data-yearly="¥99,960（¥8,330/月）">¥9,800</p>
+        <ul>
+          <li>Full access</li>
+          <li>Print-ready output</li>
+          <li>Team & Pro tools</li>
+        </ul>
+        <button>Select</button>
+      </div>
+
     </div>
+  </section>
 
-    <div class="pricing-card popular">
-      <div class="badge" id="craft-badge">人気！</div>
-      <h3>Craft</h3>
-      <p class="price" data-monthly="¥6,980" data-yearly="¥71,232（¥5,936/月）">¥6,980</p>
-      <ul>
-        <li>All clothing types</li>
-        <li>Pattern / grading / illustration</li>
-        <li>Unlimited saves</li>
-      </ul>
-      <button>Select</button>
-    </div>
+  <!-- プラン切り替えスクリプト -->
+  <script>
+    const toggle = document.getElementById('billing-toggle');
+    const prices = document.querySelectorAll('.price');
+    const masterBadge = document.getElementById('master-badge');
 
-    <div class="pricing-card">
-      <div class="badge" id="master-badge" style="display: none;">お得！</div>
-      <h3>Master</h3>
-      <p class="price" data-monthly="¥9,800" data-yearly="¥99,960（¥8,330/月）">¥9,800</p>
-      <ul>
-        <li>Full access</li>
-        <li>Print-ready output</li>
-        <li>Team & Pro tools</li>
-      </ul>
-      <button>Select</button>
-    </div>
-  </div>
-</section>
-
-<script>
-  const toggle = document.getElementById('billing-toggle');
-  const prices = document.querySelectorAll('.price');
-  const masterBadge = document.getElementById('master-badge');
-
-  toggle.addEventListener('change', () => {
-    const isYearly = toggle.checked;
-    prices.forEach(price => {
-      if (price.dataset.yearly && price.dataset.monthly) {
-        price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
-      }
+    toggle.addEventListener('change', () => {
+      const isYearly = toggle.checked;
+      prices.forEach(price => {
+        if (price.dataset.yearly && price.dataset.monthly) {
+          price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
+        }
+      });
+      masterBadge.style.display = isYearly ? 'inline-block' : 'none';
     });
+  </script>
 
-    // 年額切替時に「お得！」バッジ表示
-    masterBadge.style.display = isYearly ? 'inline-block' : 'none';
-  });
-</script>
-  
 </body>
 </html>
