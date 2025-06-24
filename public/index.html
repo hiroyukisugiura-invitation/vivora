@@ -1,35 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- ヘッダー -->
   <header>
-    <img src="Vivora_Logo-main.png" alt="Vivora Logo" class="logo">
+    <img src="logo/vivora_logo-main.png" alt="Vivora Logo" class="logo" />
   </header>
 
-  <!-- アシスタント（固定表示） -->
+  <!-- ナビゲーションバー -->
+  <nav class="navbar">
+    <a href="#">Clothing</a>
+    <span>|</span>
+    <a href="#">Plans</a>
+    <span>|</span>
+    <a href="#">Kids</a>
+    <span>|</span>
+    <a href="#">Log In</a>
+    <span>|</span>
+    <div class="signup-container">
+      <a href="#">Sign Up</a>
+      <p class="subtext">or See Plans</p>
+    </div>
+  </nav>
+
+  <!-- アシスタント（右上固定） -->
   <div class="assistant-container">
     <p class="assistant-greeting">Hi! Can I help you?</p>
     <div class="assistant-images">
-      <img src="vivo.png" alt="Vivo" class="assistant-character">
-      <img src="vora.png" alt="Vora" class="assistant-character">
+      <img src="character/vivo.png" alt="Vivo" class="assistant-character" />
+      <img src="character/vora.png" alt="Vora" class="assistant-character" />
     </div>
     <button class="assistant-button">Assistant</button>
   </div>
 
-  <!-- メインコンテンツ -->
-  <main>
-    <!-- ここにVivoraの機能UIを今後追加していきます -->
-  </main>
+  <!-- 機能カード一覧 -->
+  <section class="features">
+    <div class="feature-card">
+      <img src="contents/clothing-design.png" alt="Clothing Design" />
+      <p>Clothing Design</p>
+    </div>
+    <div class="feature-card">
+      <img src="contents/pattern-creation.png" alt="Pattern Creation" />
+      <p>Pattern Creation</p>
+    </div>
+    <div class="feature-card">
+      <img src="contents/fabric-matching.png" alt="Fabric Matching" />
+      <p>Fabric Matching</p>
+    </div>
+    <div class="feature-card">
+      <img src="contents/grading.png" alt="Grading" />
+      <p>Grading</p>
+    </div>
+    <div class="feature-card">
+      <img src="contents/print-layout-cut.png" alt="Print Layout & Cut" />
+      <p>Print Layout & Cut</p>
+    </div>
+    <div class="feature-card">
+      <img src="contents/fashion-illustrations.png" alt="Fashion Illustrations" />
+      <p>Fashion Illustrations</p>
+    </div>
+    <div class="feature-card">
+      <img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode" />
+      <p>Digital Dressing Kids Mode</p>
+    </div>
+  </section>
+
+  <!-- アクションボタン -->
+  <div class="actions">
+    <button>Start Designing Now</button>
+    <button>Explore Plans</button>
+    <button>Try Free Demo</button>
+  </div>
 
   <!-- フッター -->
   <footer>
-    <img src="Vivora_copy.png" alt="Vivora Footer" class="footer-image">
+    <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-image" />
   </footer>
 </body>
 </html>
