@@ -305,7 +305,7 @@ input:checked + .slider:before {
   position: absolute;
   top: 0;
   right: 0;
-  width: 90px;
+  width: 110px;
   height: auto;
   z-index: 10;
 }
