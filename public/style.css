@@ -171,7 +171,7 @@ footer {
   opacity: 0.7;
 }
 
-/* ===== プラン表示セクション（統一版）===== */
+/* ===== プラン表示セクション（画像バッジ対応） ===== */
 .pricing-section {
   padding: 60px 20px;
   background: #fff5f0;
@@ -299,33 +299,6 @@ input:checked + .slider:before {
 .pricing-card button[disabled] {
   background: #ccc;
   cursor: not-allowed;
-}
-
-.badge {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  border-top: 60px solid #d63031;
-  border-left: 60px solid transparent;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 0;
-  transform: rotate(45deg);
-  transform-origin: top right;
-  text-align: center;
-}
-
-.badge::after {
-  content: attr(data-label);
-  position: absolute;
-  top: -45px;
-  right: -25px;
-  width: 100px;
-  text-align: center;
-  transform: rotate(-45deg);
 }
 
 .popular {
