@@ -33,7 +33,7 @@
     <a href="#">Sign Up</a>
   </nav>
 
-  <!-- カード一覧 -->
+  <!-- コンテンツ -->
   <section class="features">
     <div class="feature-card"><img src="contents/clothing-design.png" alt="Clothing Design" /></div>
     <div class="feature-card"><img src="contents/pattern-creation.png" alt="Pattern Creation" /></div>
@@ -51,21 +51,10 @@
     <button>Try Free Demo</button>
   </div>
 
-  <!-- フッター -->
-  <footer>
-    <div class="footer-content">
-      <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
-      <a href="https://www.instagram.com/vivora.app" target="_blank">
-        <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
-      </a>
-    </div>
-  </footer>
-
-  <!-- プラン表示セクション -->
+  <!-- プラン表示 -->
   <section class="pricing-section">
     <h2 class="pricing-title">Choose Your Plan</h2>
 
-    <!-- トグル -->
     <div class="toggle-container">
       <span>Monthly</span>
       <label class="switch">
@@ -75,12 +64,11 @@
       <span>Yearly</span>
     </div>
 
-    <!-- プランカード -->
     <div class="pricing-cards">
 
-      <!-- 🆓 Try プラン -->
-      <div class="pricing-card" id="plan-try">
-        <div class="badge">Free</div>
+      <!-- 🆓 Try -->
+      <div class="pricing-card">
+        <img src="ribbon/tab_free.png" alt="Free badge" style="position: absolute; top: 0; right: 0; width: 70px;" />
         <h3>Try</h3>
         <p class="price">¥0</p>
         <ul>
@@ -91,8 +79,8 @@
         <button disabled>Start Free</button>
       </div>
 
-      <!-- 💡 Flow プラン -->
-      <div class="pricing-card" id="plan-flow">
+      <!-- 💡 Flow -->
+      <div class="pricing-card">
         <h3>Flow</h3>
         <p class="price" data-monthly="¥2,980" data-yearly="¥30,384（¥2,532/月）">¥2,980</p>
         <ul>
@@ -103,9 +91,9 @@
         <button>Select</button>
       </div>
 
-      <!-- 🌟 Craft プラン -->
-      <div class="pricing-card popular" id="plan-craft">
-        <div class="badge" id="craft-badge">人気！</div>
+      <!-- 🌟 Craft -->
+      <div class="pricing-card popular">
+        <img src="ribbon/tab_Popularity.png" alt="Popular badge" style="position: absolute; top: 0; right: 0; width: 70px;" />
         <h3>Craft</h3>
         <p class="price" data-monthly="¥6,980" data-yearly="¥71,232（¥5,936/月）">¥6,980</p>
         <ul>
@@ -116,9 +104,9 @@
         <button>Select</button>
       </div>
 
-      <!-- 👑 Master プラン -->
-      <div class="pricing-card" id="plan-master">
-        <div class="badge" id="master-badge" style="display: none;">お得！</div>
+      <!-- 👑 Master -->
+      <div class="pricing-card">
+        <img src="ribbon/tab_Popularity.png" alt="Popular badge" style="position: absolute; top: 0; right: 0; width: 70px;" />
         <h3>Master</h3>
         <p class="price" data-monthly="¥9,800" data-yearly="¥99,960（¥8,330/月）">¥9,800</p>
         <ul>
@@ -132,11 +120,20 @@
     </div>
   </section>
 
-  <!-- スクリプト -->
+  <!-- フッター -->
+  <footer>
+    <div class="footer-content">
+      <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
+      <a href="https://www.instagram.com/vivora.app" target="_blank">
+        <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
+      </a>
+    </div>
+  </footer>
+
+  <!-- プラン切り替えスクリプト -->
   <script>
     const toggle = document.getElementById('billing-toggle');
     const prices = document.querySelectorAll('.price');
-    const masterBadge = document.getElementById('master-badge');
 
     toggle.addEventListener('change', () => {
       const isYearly = toggle.checked;
@@ -145,7 +142,6 @@
           price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
         }
       });
-      masterBadge.style.display = isYearly ? 'inline-block' : 'none';
     });
   </script>
 
