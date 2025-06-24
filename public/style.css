@@ -291,3 +291,14 @@ input:checked + .slider:before {
 .popular {
   border: 2px solid #d63031;
 }
+
+.badge {
+  background: #d63031;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
