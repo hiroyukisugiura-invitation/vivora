@@ -8,7 +8,7 @@ body {
   text-align: center;
 }
 
-/* ===== ヘッダー（ロゴ） ===== */
+/* ===== ヘッダー ===== */
 header {
   padding: 50px;
 }
@@ -68,10 +68,22 @@ header {
   z-index: 1000;
 }
 
+.assistant-greeting {
+  margin: 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.assistant-images {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
 .assistant-character {
   width: 50px;
   height: auto;
-  margin: 4px;
 }
 
 .assistant-button {
@@ -83,14 +95,13 @@ header {
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
-  margin-top: 4px;
 }
 
 .assistant-button:hover {
   background: #f0f0f0;
 }
 
-/* ===== コンテンツ一覧（装飾なし） ===== */
+/* ===== コンテンツ一覧 ===== */
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -145,16 +156,20 @@ footer {
 
 .footer-content {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  flex-wrap: wrap;
   font-size: 13px;
   color: #444;
+}
+
+.footer-logo {
+  height: 20px;
 }
 
 .footer-icon {
   width: 20px;
   height: 20px;
   vertical-align: middle;
-  margin-right: 6px;
 }
