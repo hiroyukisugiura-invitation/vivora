@@ -4,64 +4,200 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap">
+  <style>
+    /* ===== 全体レイアウト ===== */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f8f1ee;
+      font-family: 'Helvetica Neue', sans-serif;
+      color: #333;
+      text-align: center;
+    }
+
+    /* ===== ヘッダー ===== */
+    header {
+      padding: 50px;
+    }
+    .logo {
+      width: 450px;
+      height: auto;
+    }
+
+    /* ===== ナビゲーションバー ===== */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: 'Playfair Display', serif;
+      color: #3b2f2f;
+      margin: 20px 0 30px;
+      flex-wrap: wrap;
+      letter-spacing: 0.3px;
+    }
+    .navbar a {
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+    .navbar a:hover {
+      color: #6e4f4f;
+    }
+
+    /* ===== コンテンツカード ===== */
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    .card {
+      width: 180px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+    .card-title {
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ===== ボタン群 ===== */
+    .button-group {
+      margin: 40px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .button-group button {
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      background: #333;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .button-group button:hover {
+      background: #555;
+    }
+
+    /* ===== フッター ===== */
+    footer {
+      margin-top: 80px;
+    }
+
+    /* ===== アシスタント固定配置 ===== */
+    .assistant {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      text-align: center;
+      z-index: 1000;
+    }
+    .assistant img {
+      width: 60px;
+      margin: 0 5px;
+    }
+    .assistant button {
+      margin-top: 10px;
+      background: white;
+      color: #333;
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-weight: bold;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
+
   <!-- ヘッダー -->
   <header>
-    <img src="logo/vivora_logo-main.png" class="logo" />
+    <img src="Vivora_Logo-main.png" alt="Vivora Logo" class="logo">
   </header>
 
-  <!-- ナビゲーションバー -->
+  <!-- ナビゲーション -->
   <nav class="navbar">
     <a href="#">Clothing</a>
-    <span>|</span>
     <a href="#">Plans</a>
-    <span>|</span>
     <a href="#">Kids</a>
-    <span>|</span>
     <a href="#">Log In</a>
-    <span>|</span>
-    <div class="signup-container">
-      <a href="#">Sign Up</a>
-      <p class="subtext">or See Plans</p>
-    </div>
+    <a href="#">Sign Up</a>
   </nav>
 
-  <!-- アシスタント（右上固定、画像のみ） -->
- <div style="position: fixed; top: 20px; right: 20px; text-align: center; z-index: 1000;">
-  <div>
-    <img src="vivo.png" alt="Vivo" style="width: 60px; margin-right: 5px;">
-    <img src="vora.png" alt="Vora" style="width: 60px;">
+  <!-- カード -->
+  <div class="cards">
+    <div class="card">
+      <img src="img_clothing.jpg" alt="Clothing Design">
+      <div class="card-title">Clothing Design</div>
+    </div>
+    <div class="card">
+      <img src="img_pattern.jpg" alt="Pattern Creation">
+      <div class="card-title">Pattern Creation</div>
+    </div>
+    <div class="card">
+      <img src="img_fabric.jpg" alt="Fabric Matching">
+      <div class="card-title">Fabric Matching</div>
+    </div>
+    <div class="card">
+      <img src="img_grading.jpg" alt="Grading">
+      <div class="card-title">Grading</div>
+    </div>
+    <div class="card">
+      <img src="img_print.jpg" alt="Print Layout & Cut">
+      <div class="card-title">Print Layout & Cut</div>
+    </div>
+    <div class="card">
+      <img src="img_illustration.jpg" alt="Fashion Illustrations">
+      <div class="card-title">Fashion Illustrations</div>
+    </div>
+    <div class="card">
+      <img src="img_kidsmode.jpg" alt="Digital Dressing Kids Mode">
+      <div class="card-title">Digital Dressing Kids Mode</div>
+    </div>
   </div>
-  
-  <button style="margin-top: 10px; background: white; color: #333; border-radius: 8px; padding: 5px 12px; font-weight: bold; border: 1px solid #ccc;">
-    Assistant
-  </button>
-</div>
 
-  <!-- コンテンツ一覧 -->
-  <section class="features">
-    <div class="feature-card"><img src="contents/clothing-design.png" alt="Clothing Design" /></div>
-    <div class="feature-card"><img src="contents/pattern-creation.png" alt="Pattern Creation" /></div>
-    <div class="feature-card"><img src="contents/fabric-matching.png" alt="Fabric Matching" /></div>
-    <div class="feature-card"><img src="contents/grading.png" alt="Grading" /></div>
-    <div class="feature-card"><img src="contents/print-layout-cut.png" alt="Print Layout & Cut" /></div>
-    <div class="feature-card"><img src="contents/fashion-illustrations.png" alt="Fashion Illustrations" /></div>
-    <div class="feature-card"><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode" /></div>
-  </section>
-
-  <!-- アクションボタン -->
-  <div class="actions">
+  <!-- ボタン群 -->
+  <div class="button-group">
     <button>Start Designing Now</button>
     <button>Explore Plans</button>
     <button>Try Free Demo</button>
   </div>
 
-  <!-- フッター -->
-  <footer style="margin-top: 80px;">
-  <img src="Vivora_copy.png" alt="Vivora Footer" style="width: 600px; height: auto;">
-</footer>
+  <!-- フッター画像 -->
+  <footer>
+    <img src="Vivora_copy.png" alt="Vivora Footer" style="width: 600px; height: auto;">
+  </footer>
+
+  <!-- アシスタント -->
+  <div class="assistant">
+    <div>
+      <img src="vivo.png" alt="Vivo">
+      <img src="vora.png" alt="Vora">
+    </div>
+    <button>Assistant</button>
+  </div>
+
 </body>
 </html>
