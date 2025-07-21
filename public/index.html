@@ -3,77 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="fashion-illustrations.css" />
+  <title>Vivora</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- ヘッダー部分 -->
-  <div class="header">
-    <div class="title">Vivora Fashion Illustration 2025</div>
-    <button class="next-step">Next Step ▶︎▶︎</button>
+  
+  <!-- ヘッダー -->
+  <header>
+    <img src="logo/vivora_logo-main.png" alt="Vivora Logo" class="logo">
+  </header>
+
+  <!-- ナビゲーション -->
+  <nav class="navbar">
+    <a href="#">Clothing</a>
+    <a href="#">Plans</a>
+    <a href="#">Kids</a>
+    <a href="#">Log In</a>
+    <a href="#">Sign Up</a>
+  </nav>
+
+  <!-- コンテンツ -->
+ <section class="features">
+  <div class="feature-card"><img src="contents/fashion-illustrations.png" alt="Fashion Illustration" /></div>
+  <div class="feature-card"><img src="contents/fabric-matching.png" alt="Fabric Matching" /></div>
+  <div class="feature-card"><img src="contents/clothing-design.png" alt="Clothing Design" /></div>
+  <div class="feature-card"><img src="contents/pattern-creation.png" alt="Pattern Creation" /></div>
+  <div class="feature-card"><img src="contents/grading.png" alt="Grading" /></div>
+  <div class="feature-card"><img src="contents/print-layout-cut.png" alt="Print Layout & Cut" /></div>
+  <div class="feature-card"><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids" /></div>
+</section>
+
+  <!-- ボタン群 -->
+  <div class="actions">
+    <button>Start Designing Now</button>
+    <button>Explore Plans</button>
+    <button>Try Free Demo</button>
   </div>
 
-  <!-- 性別切り替えボタン（Woman / Man / Kids） -->
-  <div class="gender-switch">
-    <button>Woman</button>
-    <button>Man</button>
-    <button>Kids</button>
-  </div>
+  <!-- プラン表示 -->
+  <section class="pricing-section">
+    <h2 class="pricing-title">Choose Your Plan</h2>
 
-  <!-- メインコンテナ：左／中央／右の3カラム構成 -->
-  <div class="main-container">
-    <!-- 左パネル：ツールバーやボディ編集アイコンなど -->
-    <div class="left-panel">
-      <div style="background:#555; width:30px; height:160px; border-radius:8px;"></div>
+    <div class="toggle-container">
+      <span>Monthly</span>
+      <label class="switch">
+        <input type="checkbox" id="billing-toggle">
+        <span class="slider"></span>
+      </label>
+      <span>Yearly</span>
     </div>
 
-    <!-- 中央パネル：マネキン表示／描画キャンバス領域など -->
-    <div class="center-panel">
-      <img src="mannequin/male_base.png" alt="Body Illustration" />
+    <div class="pricing-cards">
+
+      <!-- 🆓 Try -->
+      <div class="pricing-card">
+        <img src="ribbon/ribbon_free.png" alt="Free badge" class="ribbon-badge" />
+        <h3>Try</h3>
+        <p class="price">¥0</p>
+        <ul>
+          <li>Basic demo only</li>
+          <li>Limited templates</li>
+          <li>No save or export</li>
+        </ul>
+        <button disabled>Start Free</button>
+      </div>
+
+      <!-- 💡 Flow -->
+      <div class="pricing-card">
+        <h3>Flow</h3>
+        <p class="price" data-monthly="¥2,980" data-yearly="¥30,384（¥2,532/月）">¥2,980</p>
+        <ul>
+          <li>Basic clothing tools</li>
+          <li>Kid design & save</li>
+          <li>Assistant support</li>
+        </ul>
+        <button>Select</button>
+      </div>
+
+      <!-- 🌟 Craft -->
+      <div class="pricing-card popular">
+        <img src="ribbon/ribbon_toppick.png" alt="Top Pick badge" class="ribbon-badge" />
+        <h3>Craft</h3>
+        <p class="price" data-monthly="¥6,980" data-yearly="¥71,232（¥5,936/月）">¥6,980</p>
+        <ul>
+          <li>All clothing types</li>
+          <li>Pattern / grading / illustration</li>
+          <li>Unlimited saves</li>
+        </ul>
+        <button>Select</button>
+      </div>
+
+      <!-- 👑 Master -->
+      <div class="pricing-card">
+        <img src="ribbon/ribbon_bestvalue.png" alt="Best Value badge" class="ribbon-badge" />
+        <h3>Master</h3>
+        <p class="price" data-monthly="¥9,800" data-yearly="¥99,960（¥8,330/月）">¥9,800</p>
+        <ul>
+          <li>Full access</li>
+          <li>Print-ready output</li>
+          <li>Team & Pro tools</li>
+        </ul>
+        <button>Select</button>
+      </div>
+
     </div>
+  </section>
 
-    <!-- 右パネル：ボディタイプ切り替え（例：male01, male02） -->
-    <div class="right-panel">
-      <img src="mannequin/male01.png" alt="Male 1" />
-      <img src="mannequin/male02.png" alt="Male 2" />
-      <img src="mannequin/kids01.png" alt="Kids" />
+  <!-- フッター -->
+  <footer>
+    <div class="footer-content">
+      <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
+      <a href="https://www.instagram.com/vivora.app" target="_blank">
+        <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
+      </a>
     </div>
-  </div>
+  </footer>
 
-  <!-- カラーパレットバー -->
-  <div class="color-bar">
-    <div class="color-circle" style="background:#f9c;"></div>
-    <div class="color-circle" style="background:#f33;"></div>
-    <div class="color-circle" style="background:#3c3;"></div>
-    <div class="color-circle" style="background:#396;"></div>
-    <div class="color-circle" style="background:#9cf;"></div>
-    <div class="color-circle" style="background:#36f;"></div>
-    <div class="color-circle" style="background:#63c;"></div>
-    <div class="color-circle" style="background:#933;"></div>
-    <div class="color-circle" style="background:#666;"></div>
-    <div class="color-circle" style="background:#000;"></div>
-    <div class="color-circle" style="background:#eee;"></div>
-  </div>
+  <!-- プラン切り替えスクリプト -->
+  <script>
+    const toggle = document.getElementById('billing-toggle');
+    const prices = document.querySelectorAll('.price');
 
-  <!-- ツールバーアイコン（ブラシ／保存／アップロードなど） -->
-  <div class="toolbar">
-    <img src="icons/brush.png" alt="Brush" />
-    <img src="icons/eraser.png" alt="Eraser" />
-    <img src="icons/undo.png" alt="Undo" />
-    <img src="icons/redo.png" alt="Redo" />
-    <img src="icons/download.png" alt="Download" />
-    <img src="icons/upload.png" alt="Upload" />
-    <img src="icons/save.png" alt="Save" />
-    <img src="icons/grid.png" alt="Grid" />
-    <img src="icons/fi.png" alt="Fashion Illustration" />
-    <img src="icons/fm.png" alt="Fabric Matching" />
-    <img src="icons/cd.png" alt="Clothing Design" />
-    <img src="icons/pc.png" alt="Pattern Creation" />
-    <img src="icons/sizes.png" alt="Grading / Sizes" />
-    <img src="icons/gd.png" alt="Garment Details" />
-    <img src="icons/plc.png" alt="Print Layout & Cut" />
-    <img src="icons/dk.png" alt="Digital Kids" />
-  </div>
+    toggle.addEventListener('change', () => {
+      const isYearly = toggle.checked;
+      prices.forEach(price => {
+        if (price.dataset.yearly && price.dataset.monthly) {
+          price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
