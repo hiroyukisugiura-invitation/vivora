@@ -266,12 +266,14 @@ input:checked + .slider:before {
 
 .ribbon-badge {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 110px;
+  top: -10px;
+  right: -10px;
+  width: 80px;
   height: auto;
-  z-index: 10;
+  z-index: 1000;
   pointer-events: none;
+  object-fit: contain;
+  transform: rotate(15deg);
 }
 
 @media (max-width: 768px) {
@@ -286,3 +288,15 @@ input:checked + .slider:before {
   }
 }
 
+.board-grid {
+  display: grid;
+  place-items: center;
+  height: 300px;
+  background-color: #fff;
+  background-image: linear-gradient(#ccc 1px, transparent 1px),
+                    linear-gradient(90deg, #ccc 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.board-grid.plain {
+  background-image: none;
+}
