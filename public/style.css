@@ -330,3 +330,8 @@ input:checked + .slider:before {
     grid-template-columns: 1fr;
   }
 }
+
+.header-logo {
+  background-image: url("logo/vivora_logo-main.png");
+  background-size: contain;
+}
