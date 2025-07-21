@@ -268,17 +268,17 @@ input:checked + .slider:before {
   position: absolute;
   top: 0px;
   right: 0px;
-  width: 75px;
+  width: 62px;               /* ← 横幅を小さめに */
   height: auto;
   z-index: 1000;
   pointer-events: none;
   object-fit: contain;
-  transform: none; /* ← 傾けないのがポイント！ */
+  transform: none;
 }
 
 @media (max-width: 768px) {
-  .features {
-    grid-template-columns: repeat(2, 1fr);
+  .ribbon-badge {
+    width: 48px;
   }
 }
 
