@@ -4,10 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap">
   <link rel="stylesheet" href="fashion-illustrations.css" />
 </head>
 <body>
-  <!-- ヘッダー部分 -->
+
+  <!-- ヘッダー -->
   <div class="header">
     <div class="title">Vivora Fashion Illustration 2025</div>
     <button class="next-step">Next Step ▶︎▶︎</button>
@@ -20,23 +22,24 @@
     <button>Kids</button>
   </div>
 
-  <!-- メインコンテナ：左／中央／右の3カラム構成 -->
+  <!-- メインレイアウト -->
   <div class="main-container">
-    <!-- 左パネル：ツールバーやボディ編集アイコンなど -->
+
+    <!-- 左パネル（スライダー風バー） -->
     <div class="left-panel">
       <div style="background:#555; width:30px; height:160px; border-radius:8px;"></div>
     </div>
 
-    <!-- 中央パネル：マネキン表示／描画キャンバス領域など -->
+    <!-- 中央（イラスト描画領域＋マネキン） -->
     <div class="center-panel">
       <img src="mannequin/male_base.png" alt="Body Illustration" />
     </div>
 
-    <!-- 右パネル：ボディタイプ切り替え（例：male01, male02） -->
+    <!-- 右パネル（ボディ選択切り替え） -->
     <div class="right-panel">
       <img src="mannequin/male01.png" alt="Male 1" />
       <img src="mannequin/male02.png" alt="Male 2" />
-      <img src="mannequin/kids01.png" alt="Kids" />
+      <img src="mannequin/kids01.png" alt="Kids 1" />
     </div>
   </div>
 
@@ -55,7 +58,7 @@
     <div class="color-circle" style="background:#eee;"></div>
   </div>
 
-  <!-- ツールバーアイコン（ブラシ／保存／アップロードなど） -->
+  <!-- ツールバー（ブラシ／消しゴム／保存など） -->
   <div class="toolbar">
     <img src="icons/brush.png" alt="Brush" />
     <img src="icons/eraser.png" alt="Eraser" />
@@ -74,5 +77,6 @@
     <img src="icons/plc.png" alt="Print Layout & Cut" />
     <img src="icons/dk.png" alt="Digital Kids" />
   </div>
+
 </body>
 </html>
