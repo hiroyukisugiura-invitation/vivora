@@ -9,4 +9,3 @@ function changeMannequin(type) {
     mannequin.src = basePath + "mannequin_kids.png";
   }
 }
-
