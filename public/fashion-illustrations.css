@@ -12,92 +12,114 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 20px 40px;
   font-size: 18px;
-  font-weight: 500;
-}
-
-.header .title {
-  font-size: 20px;
   font-weight: bold;
 }
 
-.header .next-step {
+.next-step {
   background: white;
   border: none;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 8px 14px;
+  padding: 8px 16px;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: bold;
 }
 
-/* ===== 性別切り替えボタン ===== */
+/* ===== 性別ボタン ===== */
 .gender-switch {
   display: flex;
-  gap: 8px;
-  margin: 10px 24px;
+  justify-content: center;
+  margin-top: 12px;
+  gap: 12px;
 }
 
 .gender-switch button {
-  flex: 1;
-  padding: 10px;
-  font-weight: bold;
-  border: none;
+  padding: 10px 20px;
   background: white;
-  border-radius: 8px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s;
 }
 
 .gender-switch button:hover {
   background: #ddd;
 }
 
-/* ===== メイン3カラム構成 ===== */
+/* ===== メインコンテナ ===== */
 .main-container {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  padding: 0 16px;
-  margin-top: 10px;
+  align-items: flex-start;
+  padding: 24px 40px;
 }
 
-.left-panel,
-.right-panel {
+/* ===== 左パネル ===== */
+.left-panel {
   width: 80px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
 }
 
+.side-bar {
+  background: #555;
+  width: 20px;
+  height: 160px;
+  border-radius: 8px;
+}
+
+/* ===== 中央パネル（マネキン）===== */
 .center-panel {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.center-panel img {
-  max-width: 100%;
+.mannequin {
+  width: 240px;
   height: auto;
+  border-radius: 16px;
   background: #fff;
-  border-radius: 24px;
 }
 
-/* ===== カラーパレットバー ===== */
+/* ===== 右パネル（切り替え画像）===== */
+.right-panel {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.right-panel img {
+  width: 60px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.right-panel img:hover {
+  transform: scale(1.05);
+}
+
+/* ===== カラーパレット ===== */
 .color-bar {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  padding: 16px 0;
   flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 0;
 }
 
 .color-circle {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   border: 1px solid #ccc;
   cursor: pointer;
@@ -108,8 +130,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
-  padding: 16px;
+  gap: 10px;
+  padding: 24px;
 }
 
 .toolbar img {
@@ -121,16 +143,4 @@ body {
 
 .toolbar img:hover {
   transform: scale(1.1);
-}
-
-.right-panel img {
-  width: 60px;
-  border-radius: 12px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  transition: transform 0.2s;
-}
-
-.right-panel img:hover {
-  transform: scale(1.05);
 }
