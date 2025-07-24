@@ -1,40 +1,50 @@
-// =====================
-// Mannequin Switching
-// =====================
+// 🟥 マネキン切替（性別タイプ）
 const mannequin = document.getElementById("mannequin");
 
-const womanBtn = document.getElementById("womanBtn");
-const manBtn = document.getElementById("manBtn");
-const kidsBtn = document.getElementById("kidsBtn");
-
-womanBtn.addEventListener("click", () => {
-  mannequin.src = "../../mannequin/mannequin_woman.png";
+document.getElementById("womanBtn").addEventListener("click", () => {
+  currentGender = "woman";
+  currentPose = 1;
+  updateMannequin();
 });
 
-manBtn.addEventListener("click", () => {
-  mannequin.src = "../../mannequin/mannequin_man.png";
+document.getElementById("manBtn").addEventListener("click", () => {
+  currentGender = "man";
+  currentPose = 1;
+  updateMannequin();
 });
 
-kidsBtn.addEventListener("click", () => {
-  mannequin.src = "../../mannequin/mannequin_kids.png";
+document.getElementById("kidsBtn").addEventListener("click", () => {
+  currentGender = "kids";
+  currentPose = 1;
+  updateMannequin();
 });
 
-// =====================
-// Stationery Hover Effect (Optional Future Interaction)
-// =====================
-// const stationeryIcons = document.querySelectorAll(".stationery-icons img");
-// stationeryIcons.forEach(icon => {
-//   icon.addEventListener("click", () => {
-//     alert("Tool selected: " + icon.alt);
-//   });
-// });
+// 🟥 マネキン左右遷移（pose: 0 = left, 1 = center, 2 = right）
+let currentPose = 1;
+let currentGender = "woman";
 
-// =====================
-// Color Swatch Click (Optional Future Interaction)
-// =====================
-// const colorSwatches = document.querySelectorAll(".color-swatches img");
-// colorSwatches.forEach(swatch => {
-//   swatch.addEventListener("click", () => {
-//     document.body.style.borderColor = swatch.alt;
-//   });
-// });
+document.getElementById("leftBtn").addEventListener("click", () => {
+  if (currentPose > 0) {
+    currentPose--;
+    updateMannequin();
+  }
+});
+
+document.getElementById("rightBtn").addEventListener("click", () => {
+  if (currentPose < 2) {
+    currentPose++;
+    updateMannequin();
+  }
+});
+
+function updateMannequin() {
+  const poses = ["_left", "", "_right"];
+  const poseSuffix = poses[currentPose];
+  const src = `../../mannequin/mannequin_${currentGender}${poseSuffix}.png`;
+  mannequin.src = src;
+}
+
+// 🟥 Next Step ボタンのクリックアクション（仮）
+document.querySelector(".next-step").addEventListener("click", () => {
+  alert("Next step に進みます（仮動作）");
+});
