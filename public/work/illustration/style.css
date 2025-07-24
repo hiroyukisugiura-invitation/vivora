@@ -1,10 +1,11 @@
-/* ===== 全体レイアウト ===== */
+/* ===== 全体設定 ===== */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  padding: 0;
   background: #f6f1eb;
   font-family: 'Helvetica Neue', sans-serif;
   color: #333;
@@ -14,7 +15,8 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 20px 40px;
+  align-items: center;
+  padding: 24px 40px;
 }
 .title {
   font-family: 'Playfair Display', serif;
@@ -53,19 +55,19 @@ body {
   cursor: pointer;
 }
 
-/* ===== メイン ===== */
+/* ===== メインエリア構成 ===== */
 .main-area {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 40px;
   padding: 40px;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   flex-wrap: wrap;
 }
 
-/* ===== マネキンエリア ===== */
+/* ===== マネキンキャンバスブロック ===== */
 .mannequin-box {
   flex: 1 1 640px;
   display: flex;
@@ -73,7 +75,7 @@ body {
   align-items: center;
 }
 
-/* ===== マネキン上部の操作ボタン ===== */
+/* ===== 操作ボタン群（キャンバスの上） ===== */
 .toolbar-above-board {
   display: flex;
   justify-content: center;
@@ -81,17 +83,16 @@ body {
   margin-bottom: 16px;
 }
 .toolbar-above-board img {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   cursor: pointer;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
-/* ===== キャンバス（ホワイトボード） ===== */
+/* ===== ホワイトボード（中央キャンバス） ===== */
 .board-bg {
-  width: 100%;
-  max-width: 640px;
-  aspect-ratio: 3 / 5;
+  width: clamp(600px, 80vw, 840px);
+  height: clamp(900px, 88vh, 1080px);
   background: #fff;
   border-radius: 30px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
@@ -101,13 +102,13 @@ body {
   overflow: hidden;
 }
 .board-bg img {
-  max-height: 95%;
-  max-width: 95%;
+  height: 94%;
+  max-width: 94%;
   object-fit: contain;
   opacity: 0.95;
 }
 
-/* ===== サイドパネル ===== */
+/* ===== サイドパネルエリア ===== */
 .side-panel {
   display: flex;
   flex-direction: column;
@@ -115,7 +116,7 @@ body {
   min-width: 320px;
 }
 
-/* ===== パネル共通 ===== */
+/* ===== パネル共通（Stationery / Color） ===== */
 .panel-box {
   background: #fff;
   padding: 20px;
@@ -145,9 +146,10 @@ body {
   border-radius: 8px;
   background: white;
   padding: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
-/* ===== カスタムボタン ===== */
+/* ===== カスタムボタン（Colorセクション） ===== */
 .custom-button {
   font-size: 12px;
   padding: 4px 8px;
