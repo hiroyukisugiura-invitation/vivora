@@ -9,106 +9,103 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 24px 40px;
-}
-.title {
-  font-size: 20px;
-  font-weight: bold;
+  padding: 20px 40px;
+  font-size: 18px;
 }
 .next-step {
   background: white;
   border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
+  padding: 8px 16px;
   font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
 }
 
-/* ===== コンテンツ切替 ===== */
-.content-nav {
+/* ===== トップバー ===== */
+.topbar {
   display: flex;
-  justify-content: center;
-  gap: 16px;
-  padding: 16px 0;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 40px;
 }
-.content-nav img {
-  width: 40px;
-  height: 40px;
+.gender-buttons button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.action-icons img,
+.content-icons img {
+  width: 28px;
+  margin-left: 12px;
   cursor: pointer;
 }
 
-/* ===== メインエリア構造 ===== */
+/* ===== メイン構成（2カラム） ===== */
 .main-area {
   display: flex;
   justify-content: center;
   gap: 40px;
-  padding: 20px 40px 60px;
+  padding: 30px 40px;
 }
 
-/* ===== 作業スペース ===== */
-.workspace {
+/* ===== マネキンエリア ===== */
+.board {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-/* 操作アイコン（Undoなど） */
-.action-icons {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 16px;
+.mannequin-container img {
+  width: 360px;
 }
-.action-icons img {
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-}
-
-/* マネキン表示 */
-.mannequin-board img {
-  width: 380px;
-  border-radius: 12px;
-  background: #fff;
-}
-
-/* マネキン切替ボタン */
 .mannequin-switch {
   display: flex;
   gap: 12px;
-  margin-top: 12px;
+  margin-top: 16px;
 }
 .mannequin-switch img {
-  width: 48px;
+  width: 50px;
   cursor: pointer;
 }
 
 /* ===== サイドパネル ===== */
-.side-panel {
+.sidebar {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 30px;
 }
 
 /* ステーショナリー */
 .stationery {
   display: grid;
-  grid-template-columns: repeat(4, 48px);
+  grid-template-columns: repeat(3, 50px);
   gap: 12px;
 }
 .stationery img {
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
+  width: 44px;
+  height: 44px;
   border: 1px solid #ccc;
+  border-radius: 6px;
   background: white;
   padding: 4px;
 }
 
-/* カラーパネル */
-.color-panel .color-title {
+/* カラー */
+.color-title {
+  display: flex;
+  justify-content: space-between;
   font-weight: bold;
   margin-bottom: 8px;
+}
+.custom-button {
+  font-size: 13px;
+  padding: 4px 8px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
 }
 .color-grid {
   display: grid;
@@ -116,10 +113,9 @@ body {
   gap: 10px;
 }
 .color-grid img {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background: white;
-  cursor: pointer;
 }
