@@ -17,11 +17,14 @@
 
   <!-- 🔷 トップバー -->
   <div class="topbar">
+    <!-- マネキン切替 -->
     <div class="gender-buttons">
-      <button onclick="changeMannequin('woman')">Woman</button>
-      <button onclick="changeMannequin('man')">Man</button>
-      <button onclick="changeMannequin('kids')">Kids</button>
+      <img src="../../../create parts/create button/button_woman.png" alt="Woman" onclick="changeMannequin('woman')" />
+      <img src="../../../create parts/create button/button_man.png" alt="Man" onclick="changeMannequin('man')" />
+      <img src="../../../create parts/create button/button_kids.png" alt="Kids" onclick="changeMannequin('kids')" />
     </div>
+
+    <!-- 操作ボタン（上部） -->
     <div class="action-icons">
       <img src="../../../create parts/design button/undo.png" />
       <img src="../../../create parts/design button/redo.png" />
@@ -30,6 +33,8 @@
       <img src="../../../create parts/design button/save.png" />
       <img src="../../../create parts/design button/grid.png" />
     </div>
+
+    <!-- コンテンツアイコン -->
     <div class="content-icons">
       <img src="../../../create parts/contents button/1_fashion-illustrations.png" />
       <img src="../../../create parts/contents button/2_fabric-matching.png" />
@@ -44,10 +49,10 @@
   <!-- 🔷 メインエリア -->
   <main class="main-area">
 
-    <!-- 🧍‍♀️ マネキンキャンバス -->
+    <!-- マネキンエリア -->
     <section class="mannequin-box">
 
-      <!-- 🔘 操作ボタン（キャンバス上） -->
+      <!-- キャンバス上の操作アイコン -->
       <div class="toolbar-above-board">
         <img src="../../../create parts/design button/undo.png" />
         <img src="../../../create parts/design button/redo.png" />
@@ -57,15 +62,16 @@
         <img src="../../../create parts/design button/grid.png" />
       </div>
 
-      <!-- 🧱 ホワイトキャンバス -->
+      <!-- ホワイトボード -->
       <div class="board-bg">
         <img id="mainMannequin" src="../../../mannequin/mannequin_woman.png" />
       </div>
 
     </section>
 
-    <!-- 🎨 サイドパネル -->
+    <!-- サイドパネル -->
     <aside class="side-panel">
+
       <!-- ステーショナリー -->
       <div class="panel-box">
         <div class="panel-title">Stationery</div>
@@ -85,7 +91,7 @@
         </div>
       </div>
 
-      <!-- カラー -->
+      <!-- カラーパネル -->
       <div class="panel-box">
         <div class="panel-title color-title">
           <span>Color</span>
@@ -110,9 +116,11 @@
           <img src="../../../color/pc%20color/spuit.png" />
         </div>
       </div>
+
     </aside>
   </main>
 
+  <!-- JS -->
   <script src="script.js"></script>
 </body>
 </html>
