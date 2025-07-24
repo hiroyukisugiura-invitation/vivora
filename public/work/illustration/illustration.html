@@ -14,41 +14,49 @@
     <button class="next-step">Next Step ▶︎▶︎</button>
   </header>
 
-  <!-- ツールバー（性別＋操作アイコン） -->
-  <div class="toolbar-top">
-    <div class="gender-buttons">
-      <button>Woman</button>
-      <button>Man</button>
-      <button>Kids</button>
-    </div>
-    <div class="action-icons">
-      <img src="../../../design button/undo.png" alt="Undo" />
-      <img src="../../../design button/redo.png" alt="Redo" />
-      <img src="../../../design button/download.png" alt="Download" />
-      <img src="../../../design button/upload.png" alt="Upload" />
-      <img src="../../../design button/save.png" alt="Save" />
-      <img src="../../../design button/grid.png" alt="Grid" />
-    </div>
+  <!-- コンテンツ切替ボタン -->
+  <div class="content-nav">
+    <img src="../../../contents/1_fashion-illustrations.png" alt="FI" />
+    <img src="../../../contents/2_fabric-matching.png" alt="FM" />
+    <img src="../../../contents/3_clothing-design.png" alt="CD" />
+    <img src="../../../contents/4_pattern-creation.png" alt="PC" />
+    <img src="../../../contents/5_grading.png" alt="Sizes" />
+    <img src="../../../contents/6_print-layout-cut.png" alt="Print" />
+    <img src="../../../contents/digital-dressing-kids-mode.png" alt="Kids" />
   </div>
 
-  <!-- メインエリア -->
-  <div class="main-container">
-    <!-- 左：マネキン -->
-    <div class="mannequin-box">
-      <img src="../../../mannequin/mannequin_woman.png" alt="Mannequin" class="mannequin" />
-    </div>
+  <!-- メイン操作エリア -->
+  <div class="main-area">
+    <!-- 左：作業エリア -->
+    <div class="workspace">
 
-    <!-- 右：サイドパネル -->
-    <div class="sidebar">
-      
-      <!-- マネキン切替 -->
-      <div class="body-switch">
-        <img src="../../../mannequin/mannequin_woman.png" alt="Woman" />
-        <img src="../../../mannequin/mannequin_man.png" alt="Man" />
-        <img src="../../../mannequin/mannequin_kids.png" alt="Kids" />
+      <!-- 操作アイコン（Undoなど） -->
+      <div class="action-icons">
+        <img src="../../../design button/undo.png" alt="Undo" />
+        <img src="../../../design button/redo.png" alt="Redo" />
+        <img src="../../../design button/upload.png" alt="Upload" />
+        <img src="../../../design button/download.png" alt="Download" />
+        <img src="../../../design button/save.png" alt="Save" />
+        <img src="../../../design button/grid.png" alt="Grid" />
       </div>
 
-      <!-- ステーショナリーツール -->
+      <!-- マネキン表示 -->
+      <div class="mannequin-board">
+        <img id="mainMannequin" src="../../../mannequin/mannequin_woman.png" alt="Mannequin" />
+      </div>
+
+      <!-- マネキン切替ボタン -->
+      <div class="mannequin-switch">
+        <img src="../../../create button/button_woman.png" alt="Woman" onclick="changeMannequin('woman')" />
+        <img src="../../../create button/button_man.png" alt="Man" onclick="changeMannequin('man')" />
+        <img src="../../../create button/button_kids.png" alt="Kids" onclick="changeMannequin('kids')" />
+      </div>
+    </div>
+
+    <!-- 右：ステーショナリーとカラーパネル -->
+    <div class="side-panel">
+
+      <!-- ステーショナリー -->
       <div class="stationery">
         <img src="../../../design button/pen.png" alt="Pen" />
         <img src="../../../design button/eraser.png" alt="Eraser" />
@@ -60,33 +68,32 @@
         <img src="../../../design button/rotate.png" alt="Rotate" />
       </div>
 
-      <!-- カラー -->
+      <!-- カラーパネル -->
       <div class="color-panel">
-        <div class="color-header">
-          <span>Color</span>
-          <button class="custom-button">Custom...</button>
-        </div>
+        <div class="color-title">Color</div>
         <div class="color-grid">
-          <img src="../../../pc color/gray.png" alt="gray" />
-          <img src="../../../pc color/white.png" alt="white" />
-          <img src="../../../pc color/yellow.png" alt="yellow" />
-          <img src="../../../pc color/orange.png" alt="orange" />
-          <img src="../../../pc color/pink.png" alt="pink" />
-          <img src="../../../pc color/red.png" alt="red" />
-          <img src="../../../pc color/green.png" alt="green" />
-          <img src="../../../pc color/lime.png" alt="lime" />
-          <img src="../../../pc color/sky blue.png" alt="sky" />
-          <img src="../../../pc color/blue.png" alt="blue" />
-          <img src="../../../pc color/purple.png" alt="purple" />
-          <img src="../../../pc color/brown.png" alt="brown" />
-          <img src="../../../pc color/dark gray.png" alt="darkgray" />
-          <img src="../../../pc color/black.png" alt="black" />
-          <img src="../../../pc color/color upload.png" alt="plus" />
-          <img src="../../../pc color/spuit.png" alt="spuit" />
+          <img src="../../../pc color/red.png" />
+          <img src="../../../pc color/blue.png" />
+          <img src="../../../pc color/yellow.png" />
+          <img src="../../../pc color/green.png" />
+          <img src="../../../pc color/pink.png" />
+          <img src="../../../pc color/orange.png" />
+          <img src="../../../pc color/purple.png" />
+          <img src="../../../pc color/brown.png" />
+          <img src="../../../pc color/light gray.png" />
+          <img src="../../../pc color/dark gray.png" />
+          <img src="../../../pc color/white.png" />
+          <img src="../../../pc color/black.png" />
+          <img src="../../../pc color/sky blue.png" />
+          <img src="../../../pc color/lime.png" />
+          <img src="../../../pc color/spuit.png" />
+          <img src="../../../pc color/color upload.png" />
         </div>
       </div>
+
     </div>
   </div>
 
+  <script src="script.js"></script>
 </body>
 </html>
