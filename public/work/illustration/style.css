@@ -56,6 +56,44 @@ body {
   padding: 40px;
 }
 
+/* キャンバス領域 */
+.mannequin-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* ホワイトボード（中央キャンバス） */
+.board-bg {
+  width: min(70vw, 700px);      /* 画面の70%か最大700pxまで */
+  aspect-ratio: 3 / 5;          /* 縦長比率を維持 */
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* マネキン画像 */
+.board-bg img {
+  width: auto;
+  height: 95%;
+  object-fit: contain;
+  opacity: 0.95;
+}
+
+/* スマホ以下は縮小（※将来的に無効化も可能） */
+@media (max-width: 768px) {
+  .board-bg {
+    width: 90vw;
+    aspect-ratio: 3 / 5;
+  }
+}
+
 /* マネキンボックス（中央キャンバス） */
 .mannequin-box {
   display: flex;
