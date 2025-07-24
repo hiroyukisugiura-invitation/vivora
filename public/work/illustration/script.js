@@ -1,5 +1,12 @@
-// 🟥 マネキン切替（性別タイプ）
+// マネキン切替処理（woman/man/kids）
 const mannequin = document.getElementById("mannequin");
+let currentPose = 1;
+let currentGender = "woman";
+
+const updateMannequin = () => {
+  const poseSuffix = ["_left", "", "_right"][currentPose];
+  mannequin.src = `../../mannequin/mannequin_${currentGender}${poseSuffix}.png`;
+};
 
 document.getElementById("womanBtn").addEventListener("click", () => {
   currentGender = "woman";
@@ -19,10 +26,6 @@ document.getElementById("kidsBtn").addEventListener("click", () => {
   updateMannequin();
 });
 
-// 🟥 マネキン左右遷移（pose: 0 = left, 1 = center, 2 = right）
-let currentPose = 1;
-let currentGender = "woman";
-
 document.getElementById("leftBtn").addEventListener("click", () => {
   if (currentPose > 0) {
     currentPose--;
@@ -37,14 +40,6 @@ document.getElementById("rightBtn").addEventListener("click", () => {
   }
 });
 
-function updateMannequin() {
-  const poses = ["_left", "", "_right"];
-  const poseSuffix = poses[currentPose];
-  const src = `../../mannequin/mannequin_${currentGender}${poseSuffix}.png`;
-  mannequin.src = src;
-}
-
-// 🟥 Next Step ボタンのクリックアクション（仮）
 document.querySelector(".next-step").addEventListener("click", () => {
-  alert("Next step に進みます（仮動作）");
+  alert("Next Step clicked (仮機能)");
 });
