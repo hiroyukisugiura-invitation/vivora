@@ -5,7 +5,7 @@ body {
   color: #333;
 }
 
-/* ===== ヘッダー ===== */
+/* ヘッダー */
 .header {
   display: flex;
   justify-content: space-between;
@@ -21,7 +21,7 @@ body {
   cursor: pointer;
 }
 
-/* ===== トップバー ===== */
+/* トップバー */
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -43,7 +43,7 @@ body {
   cursor: pointer;
 }
 
-/* ===== メイン構成（2カラム） ===== */
+/* メイン */
 .main-area {
   display: flex;
   justify-content: center;
@@ -51,7 +51,7 @@ body {
   padding: 30px 40px;
 }
 
-/* ===== マネキンエリア ===== */
+/* マネキン */
 .board {
   display: flex;
   flex-direction: column;
@@ -70,7 +70,7 @@ body {
   cursor: pointer;
 }
 
-/* ===== サイドパネル ===== */
+/* サイドバー */
 .sidebar {
   display: flex;
   flex-direction: column;
