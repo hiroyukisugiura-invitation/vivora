@@ -5,12 +5,17 @@ body {
   color: #333;
 }
 
+/* フォントカスタム */
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+}
+
 /* ヘッダー */
 .header {
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
-  font-size: 18px;
 }
 .next-step {
   background: white;
@@ -21,12 +26,12 @@ body {
   cursor: pointer;
 }
 
-/* トップバー */
+/* 上部バー */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 40px;
+  margin: 16px 40px;
   gap: 20px;
 }
 .gender-buttons button {
@@ -49,38 +54,69 @@ body {
   display: flex;
   justify-content: center;
   gap: 40px;
-  padding: 30px 40px;
+  padding: 20px 40px 40px;
 }
 
-/* マネキン */
+/* マネキンボード */
 .board {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.mannequin-container img {
-  width: 380px;
-  opacity: 0.85;
+.board-bg {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  width: 400px;
+  height: 600px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.board-bg img {
+  width: 300px;
+  opacity: 0.95;
+}
+.floating-icons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+}
+.floating-icons img {
+  width: 24px;
+}
+.saved-thumbnails {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+.saved-thumbnails img {
+  width: 60px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
 }
 
 /* サイドバー */
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 32px;
 }
 
-/* ステーショナリー（3列） */
+/* ステーショナリー（4列×3） */
 .stationery {
   display: grid;
-  grid-template-columns: repeat(3, 60px);
+  grid-template-columns: repeat(4, 60px);
   gap: 14px;
 }
 .stationery img {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 6px;
   background: white;
   padding: 5px;
 }
@@ -90,6 +126,7 @@ body {
   display: flex;
   justify-content: space-between;
   font-weight: bold;
+  font-family: 'Playfair Display', serif;
   margin-bottom: 8px;
 }
 .custom-button {
@@ -106,8 +143,8 @@ body {
   gap: 10px;
 }
 .color-grid img {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background: white;
