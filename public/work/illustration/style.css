@@ -1,118 +1,134 @@
 body {
   margin: 0;
-  font-family: "Helvetica Neue", sans-serif;
-  background: #f2e9e4;
+  background: #f5f1ea;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 
 header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   position: relative;
-  text-align: center;
-  padding: 20px 20px 10px;
+}
+
+header h1 {
+  flex: 1 1 100%;
+  font-size: 20px;
+  margin: 0;
 }
 
 .mode-buttons button {
-  margin: 0 5px;
   padding: 6px 12px;
-  font-size: 14px;
+  margin-right: 5px;
+}
+
+.toolbar-icons img {
+  width: 28px;
+  margin-right: 8px;
 }
 
 .next-step {
   position: absolute;
   top: 20px;
   right: 30px;
-  padding: 6px 12px;
-  font-size: 13px;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  background: white;
+  border: 1px solid #999;
+  cursor: pointer;
 }
 
 main {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 40px;
-  padding: 0 40px 40px;
-  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 20px 40px;
 }
 
-.left-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.content-icons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.content-icons img {
-  width: 42px;
-}
-
-.toolbar-top {
-  margin-bottom: 10px;
-}
-
-.toolbar-top img {
-  width: 26px;
-  margin: 4px;
-}
-
-.illustration-container {
+.canvas-area {
+  flex: 1;
   position: relative;
 }
 
-.mannequin {
-  width: 320px;
+.main-mannequin {
+  width: 360px;
   display: block;
-  margin: 0 auto;
+  margin: 30px auto 0;
   opacity: 0.95;
 }
 
-.side-buttons {
-  position: absolute;
-  right: -90px;
-  top: 90px;
-  text-align: center;
+.mannequin-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-.side-buttons img {
-  width: 28px;
-  margin: 6px 0;
-}
-
-.mannequin-select img {
-  display: block;
-  width: 36px;
-  margin: 10px auto;
-}
-
-.tools {
-  width: 220px;
-}
-
-.tools h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.icons img {
+.mannequin-toggle img {
   width: 30px;
-  margin: 6px;
+}
+
+.toggle-images img {
+  width: 50px;
+  margin: 0 4px;
+}
+
+.sidebar {
+  width: 250px;
+  padding-left: 20px;
+}
+
+.stationery h3,
+.color h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.color h3 span {
+  font-size: 13px;
+  color: #666;
+  margin-left: 8px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+  gap: 10px;
+}
+
+.tools-grid img {
+  width: 32px;
+  height: 32px;
 }
 
 .color-swatches {
   display: grid;
-  grid-template-columns: repeat(4, 24px);
-  gap: 8px;
-  margin-top: 10px;
+  grid-template-columns: repeat(4, 32px);
+  gap: 10px;
+  margin-top: 12px;
 }
 
 .color-swatches div {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  border: 1px solid #aaa;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+}
+
+.color-swatches .custom-plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #444;
+  border: 1px dashed #aaa;
+}
+
+.color-swatches .empty {
+  background: none;
+  border: none;
 }
