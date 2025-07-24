@@ -1,4 +1,4 @@
-/* ===== 全体レイアウト ===== */
+/* ===== 全体 ===== */
 body {
   margin: 0;
   padding: 0;
@@ -17,11 +17,6 @@ body {
   font-weight: bold;
 }
 
-.title {
-  font-size: 20px;
-  font-weight: bold;
-}
-
 .next-step {
   background: white;
   border: none;
@@ -31,121 +26,112 @@ body {
   font-weight: bold;
 }
 
-/* ===== 性別ボタン ===== */
-.gender-switch {
+/* ===== 性別スイッチ ===== */
+.top-toolbar {
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 16px 0;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 40px;
 }
 
 .gender-switch button {
-  padding: 10px 20px;
+  margin-right: 12px;
+  padding: 8px 16px;
   background: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
 }
 
 .gender-switch button:hover {
   background: #ddd;
 }
 
-/* ===== メインレイアウト ===== */
+/* ===== トップアイコン ===== */
+.top-icons img {
+  width: 28px;
+  height: 28px;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.top-icons img:hover {
+  transform: scale(1.1);
+}
+
+/* ===== メイン構造（左＝マネキン, 右＝ツール）===== */
 .main-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 24px 40px;
-}
-
-/* ===== 左パネル ===== */
-.left-panel {
-  width: 80px;
-  display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 0 40px 40px;
 }
 
-.side-bar {
-  background: #555;
-  width: 12px;
-  height: 160px;
-  border-radius: 8px;
-}
-
-/* ===== 中央パネル（マネキン）===== */
-.center-panel {
+/* ===== マネキン表示エリア ===== */
+.mannequin-area {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .mannequin {
-  width: 240px;
-  height: auto;
-  border-radius: 16px;
-  background: #fff;
+  width: 320px;
+  max-height: 680px;
 }
 
-/* ===== 右パネル ===== */
-.right-panel {
-  width: 100px;
+/* ===== サイドパネル ===== */
+.side-panel {
+  width: 280px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  align-items: center;
+  gap: 30px;
+  padding-left: 40px;
 }
 
-.right-panel img {
-  width: 60px;
-  height: auto;
+/* ===== ボディ選択 ===== */
+.body-switch img {
+  width: 70px;
+  margin: 8px;
   border-radius: 8px;
+  cursor: pointer;
   border: 1px solid #ccc;
-  cursor: pointer;
-  transition: transform 0.2s;
 }
-
-.right-panel img:hover {
-  transform: scale(1.05);
-}
-
-/* ===== カラーパレット ===== */
-.color-bar {
+.body-switch {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 20px 0;
+  justify-content: space-between;
 }
 
-.color-circle {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+/* ===== ステーショナリーアイコン ===== */
+.stationery {
+  display: grid;
+  grid-template-columns: repeat(4, 48px);
+  gap: 12px;
+}
+.stationery img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 6px;
   border: 1px solid #ccc;
+}
+
+/* ===== カラーパネル ===== */
+.color-panel {
+  margin-top: 10px;
+}
+.color-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 32px);
+  gap: 10px;
+}
+.color-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
   cursor: pointer;
-}
-
-/* ===== ツールバー ===== */
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  padding: 24px;
-}
-
-.toolbar img {
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.toolbar img:hover {
-  transform: scale(1.1);
 }
