@@ -15,69 +15,67 @@
       <button>Man</button>
       <button>Kids</button>
     </div>
-    <button class="next-step">Next Step</button>
+    <div class="toolbar-icons">
+      <img src="/create_parts/create_button/reset.png" alt="Reset" />
+      <img src="/create_parts/create_button/retreat.png" alt="Undo" />
+      <img src="/create_parts/create_button/save.png" alt="Save" />
+      <img src="/create_parts/create_button/upload.png" alt="Upload" />
+      <img src="/create_parts/create_button/graph_paper.png" alt="Grid" />
+    </div>
+    <button class="next-step">Next Step ▶▶</button>
   </header>
 
   <main>
-    <div class="left-panel">
-      <div class="content-icons">
-        <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="FI" />
-        <img src="/create_parts/contents_button/2_fabric-matching.png" alt="FM" />
-        <img src="/create_parts/contents_button/3_clothing-design.png" alt="CD" />
-        <img src="/create_parts/contents_button/4_pattern-creation.png" alt="PC" />
-        <img src="/create_parts/contents_button/5_grading.png" alt="Sizes" />
-        <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Print" />
-        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids" />
-      </div>
-
-      <div class="toolbar-top">
-        <img src="/create_parts/create_button/reset.png" alt="Reset" />
-        <img src="/create_parts/create_button/retreat.png" alt="Undo" />
-        <img src="/create_parts/create_button/save.png" alt="Save" />
-        <img src="/create_parts/create_button/upload.png" alt="Upload" />
-      </div>
-
-      <div class="illustration-container">
-        <img src="/mannequin/mannequin_kids.png" alt="Kids Mannequin" class="mannequin"/>
-        <div class="side-buttons">
-          <img src="/create_parts/create_button/forward.png" alt="Left" />
-          <div class="mannequin-select">
-            <img src="/create_parts/create_button/button_woman.png" alt="Woman" />
-            <img src="/create_parts/create_button/button_man.png" alt="Man" />
-            <img src="/create_parts/create_button/button_kids.png" alt="Kids" />
-          </div>
-          <img src="/create_parts/create_button/forward.png" alt="Right" />
+    <section class="canvas-area">
+      <div class="mannequin-toggle">
+        <img src="/create_parts/create_button/forward.png" alt="Left" />
+        <div class="toggle-images">
+          <img src="/mannequin/mannequin_woman.png" alt="Woman" />
+          <img src="/mannequin/mannequin_man.png" alt="Man" />
+          <img src="/mannequin/mannequin_kids.png" alt="Kids" />
         </div>
+        <img src="/create_parts/create_button/forward.png" alt="Right" />
       </div>
-    </div>
+      <img src="/mannequin/mannequin_kids.png" alt="Main Mannequin" class="main-mannequin" />
+    </section>
 
-    <aside class="tools">
-      <section class="stationery">
+    <aside class="sidebar">
+      <div class="stationery">
         <h3>Stationery</h3>
-        <div class="icons">
-          <img src="/create_parts/design_button/brush.png" alt="Brush" />
-          <img src="/create_parts/design_button/pen.png" alt="Pen" />
-          <img src="/create_parts/design_button/eraser.png" alt="Eraser" />
-          <img src="/create_parts/design_button/sentence.png" alt="Text" />
-          <img src="/create_parts/design_button/photo.png" alt="Camera" />
-          <img src="/create_parts/design_button/select.png" alt="Select" />
-          <img src="/create_parts/design_button/rotate.png" alt="Rotate" />
-          <img src="/create_parts/design_button/painting_color.png" alt="Fill" />
+        <div class="tools-grid">
+          <img src="/create_parts/design_button/select.png" />
+          <img src="/create_parts/design_button/sentence.png" />
+          <img src="/create_parts/design_button/painting_color.png" />
+          <img src="/create_parts/design_button/brush.png" />
+          <img src="/create_parts/design_button/pen.png" />
+          <img src="/create_parts/design_button/eraser.png" />
+          <img src="/create_parts/design_button/rotate.png" />
+          <img src="/create_parts/design_button/photo.png" />
+          <img src="/create_parts/design_button/painting_none.png" />
         </div>
-      </section>
+      </div>
 
-      <section class="color">
-        <h3>Color</h3>
+      <div class="color">
+        <h3>Color <span>Custom…</span></h3>
         <div class="color-swatches">
-          <div style="background:#999;"></div>
-          <div style="background:#ff0;"></div>
-          <div style="background:#f00;"></div>
-          <div style="background:#0f0;"></div>
-          <div style="background:#00f;"></div>
-          <div style="background:#f0f;"></div>
+          <div style="background:#ffffff;"></div>
+          <div style="background:#cccccc;"></div>
+          <div style="background:#ffff00;"></div>
+          <div style="background:#ffcc00;"></div>
+          <div style="background:#f4a9a9;"></div>
+          <div style="background:#e73333;"></div>
+          <div style="background:#3cb043;"></div>
+          <div style="background:#177f3a;"></div>
+          <div style="background:#6ab1f4;"></div>
+          <div style="background:#2c5aa0;"></div>
+          <div style="background:#7b4da6;"></div>
+          <div style="background:#44136e;"></div>
+          <div style="background:#555;"></div>
           <div style="background:#000;"></div>
+          <div class="empty"></div>
+          <div class="custom-plus">＋</div>
         </div>
-      </section>
+      </div>
     </aside>
   </main>
 
