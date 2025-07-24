@@ -1,17 +1,12 @@
 body {
   margin: 0;
+  background: #f2e9e4;
   font-family: "Helvetica Neue", sans-serif;
-  background-color: #f2e9e4;
-  color: #333;
 }
 
 header {
   padding: 20px;
   text-align: center;
-}
-
-.mode-buttons {
-  margin-top: 10px;
 }
 
 .mode-buttons button {
@@ -24,7 +19,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 20px;
+  padding: 30px;
   gap: 40px;
 }
 
@@ -32,17 +27,16 @@ main {
   position: relative;
 }
 
-.toolbar-top {
-  text-align: center;
-  margin-bottom: 10px;
+.toolbar-top img {
+  width: 28px;
+  margin: 0 4px;
 }
 
 .mannequin {
-  width: 350px;
-  height: auto;
+  width: 330px;
   display: block;
-  margin: 0 auto;
-  opacity: 0.8;
+  margin: 20px auto;
+  opacity: 0.9;
 }
 
 .side-buttons {
@@ -53,18 +47,18 @@ main {
 }
 
 .side-buttons img {
-  width: 32px;
-  margin: 5px 0;
+  width: 30px;
+  margin: 6px;
 }
 
 .mannequin-select img {
   display: block;
-  width: 30px;
-  margin: 8px auto;
+  width: 36px;
+  margin: 10px auto;
 }
 
 .tools {
-  width: 200px;
+  width: 220px;
 }
 
 .tools h3 {
@@ -72,15 +66,21 @@ main {
   margin-bottom: 10px;
 }
 
-.stationery .icons img,
-.color .color-swatches img {
-  width: 28px;
+.icons img {
+  width: 30px;
   margin: 6px;
 }
 
-.next-step {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 8px 14px;
+.color-swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 24px);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.color-swatches div {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #999;
 }
