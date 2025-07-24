@@ -5,11 +5,9 @@ body {
   color: #333;
 }
 
-/* ヘッダー */
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 20px 40px;
 }
 .title {
@@ -25,12 +23,11 @@ body {
   cursor: pointer;
 }
 
-/* トップバー */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 16px 40px;
+  margin: 20px 40px;
   gap: 20px;
 }
 .gender-buttons button {
@@ -48,7 +45,6 @@ body {
   cursor: pointer;
 }
 
-/* メイン構成 */
 .main-area {
   display: flex;
   justify-content: center;
@@ -56,81 +52,37 @@ body {
   padding: 40px;
 }
 
-/* キャンバス領域 */
+/* ✅ キャンバスを大きくして中央配置 */
 .mannequin-box {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
-
-/* ホワイトボード（中央キャンバス） */
 .board-bg {
-  width: min(70vw, 700px);      /* 画面の70%か最大700pxまで */
-  aspect-ratio: 3 / 5;          /* 縦長比率を維持 */
+  width: clamp(600px, 75vw, 900px);
+  height: clamp(900px, 90vh, 1100px);
   background: #ffffff;
-  border-radius: 28px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 30px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
   overflow: hidden;
 }
-
-/* マネキン画像 */
 .board-bg img {
-  width: auto;
-  height: 95%;
+  height: 94%;
   object-fit: contain;
   opacity: 0.95;
 }
 
-/* スマホ以下は縮小（※将来的に無効化も可能） */
-@media (max-width: 768px) {
-  .board-bg {
-    width: 90vw;
-    aspect-ratio: 3 / 5;
-  }
-}
-
-/* マネキンボックス（中央キャンバス） */
-.mannequin-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ホワイトボード本体 */
-.board-bg {
-  width: 520px;              /* 以前より広く設定 */
-  height: 860px;             /* 高さを大幅に拡大 */
-  background: #ffffff;
-  border-radius: 28px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  overflow: hidden;
-}
-
-/* マネキン画像 */
-.board-bg img {
-  max-height: 95%;           /* 上下に少し余白を残す */
-  max-width: 80%;            /* 横幅には少し余裕を持たせる */
-  object-fit: contain;
-  opacity: 0.95;
-}
-
-/* サイドパネル */
 .side-panel {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-/* 共通パネルボックス */
+/* 共通パネル */
 .panel-box {
   background: #fff;
   padding: 20px;
@@ -147,7 +99,6 @@ body {
   align-items: center;
 }
 
-/* ボタン配置（共通） */
 .grid-buttons {
   display: grid;
   grid-template-columns: repeat(4, 60px);
@@ -160,10 +111,8 @@ body {
   border-radius: 8px;
   background: white;
   padding: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-/* カスタムボタン */
 .custom-button {
   font-size: 12px;
   padding: 4px 8px;
