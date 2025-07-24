@@ -17,6 +17,11 @@ body {
   font-weight: bold;
 }
 
+.title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .next-step {
   background: white;
   border: none;
@@ -30,8 +35,8 @@ body {
 .gender-switch {
   display: flex;
   justify-content: center;
-  margin-top: 12px;
   gap: 12px;
+  margin: 16px 0;
 }
 
 .gender-switch button {
@@ -48,7 +53,7 @@ body {
   background: #ddd;
 }
 
-/* ===== メインコンテナ ===== */
+/* ===== メインレイアウト ===== */
 .main-container {
   display: flex;
   justify-content: space-between;
@@ -66,7 +71,7 @@ body {
 
 .side-bar {
   background: #555;
-  width: 20px;
+  width: 12px;
   height: 160px;
   border-radius: 8px;
 }
@@ -86,7 +91,7 @@ body {
   background: #fff;
 }
 
-/* ===== 右パネル（切り替え画像）===== */
+/* ===== 右パネル ===== */
 .right-panel {
   width: 100px;
   display: flex;
@@ -130,7 +135,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   padding: 24px;
 }
 
