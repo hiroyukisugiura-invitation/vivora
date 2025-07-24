@@ -1,3 +1,4 @@
+/* ===== ベーススタイル ===== */
 body {
   margin: 0;
   background: #f6f1eb;
@@ -5,6 +6,7 @@ body {
   color: #333;
 }
 
+/* ===== ヘッダー ===== */
 .header {
   display: flex;
   justify-content: space-between;
@@ -23,6 +25,7 @@ body {
   cursor: pointer;
 }
 
+/* ===== トップバー（性別 / 機能 / コンテンツ）===== */
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -45,6 +48,7 @@ body {
   cursor: pointer;
 }
 
+/* ===== メインレイアウト構成 ===== */
 .main-area {
   display: flex;
   justify-content: center;
@@ -52,31 +56,17 @@ body {
   padding: 40px;
 }
 
-/* マネキン上部ツールバー */
-.toolbar-over-board {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 2;
-}
-.toolbar-over-board img {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  opacity: 0.9;
-}
-
-/* ✅ キャンバスを大きくして中央配置 */
+/* ===== マネキンエリア ===== */
 .mannequin-box {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+/* ===== ホワイトボード（中央キャンバス）===== */
 .board-bg {
+  position: relative; /* ボタンを内側に配置するため必須 */
   width: clamp(600px, 75vw, 900px);
   height: clamp(900px, 90vh, 1100px);
   background: #ffffff;
@@ -93,13 +83,31 @@ body {
   opacity: 0.95;
 }
 
+/* ===== マネキン上部の操作ボタン ===== */
+.toolbar-over-board {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+.toolbar-over-board img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+/* ===== サイドパネル構成 ===== */
 .side-panel {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-/* 共通パネル */
+/* ===== 共通パネルボックス（Stationery / Color） ===== */
 .panel-box {
   background: #fff;
   padding: 20px;
@@ -116,6 +124,7 @@ body {
   align-items: center;
 }
 
+/* ===== 4列グリッド（共通）===== */
 .grid-buttons {
   display: grid;
   grid-template-columns: repeat(4, 60px);
@@ -130,6 +139,7 @@ body {
   padding: 4px;
 }
 
+/* ===== カスタムボタン ===== */
 .custom-button {
   font-size: 12px;
   padding: 4px 8px;
