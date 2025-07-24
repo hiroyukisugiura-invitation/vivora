@@ -1,12 +1,13 @@
 body {
   margin: 0;
-  background: #f2e9e4;
   font-family: "Helvetica Neue", sans-serif;
+  background: #f2e9e4;
 }
 
 header {
-  padding: 20px;
+  padding: 20px 20px 10px;
   text-align: center;
+  position: relative;
 }
 
 .mode-buttons button {
@@ -15,12 +16,33 @@ header {
   font-size: 14px;
 }
 
+.next-step {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
 main {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 30px;
   gap: 40px;
+  padding: 0 40px 40px;
+  flex-wrap: wrap;
+}
+
+.content-icons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.content-icons img {
+  width: 42px;
 }
 
 .illustration-container {
@@ -28,27 +50,27 @@ main {
 }
 
 .toolbar-top img {
-  width: 28px;
-  margin: 0 4px;
+  width: 26px;
+  margin: 4px;
 }
 
 .mannequin {
-  width: 330px;
+  width: 320px;
   display: block;
-  margin: 20px auto;
-  opacity: 0.9;
+  margin: 16px auto;
+  opacity: 0.95;
 }
 
 .side-buttons {
   position: absolute;
-  right: -100px;
-  top: 100px;
+  right: -90px;
+  top: 90px;
   text-align: center;
 }
 
 .side-buttons img {
-  width: 30px;
-  margin: 6px;
+  width: 28px;
+  margin: 6px 0;
 }
 
 .mannequin-select img {
@@ -82,5 +104,5 @@ main {
   width: 24px;
   height: 24px;
   border-radius: 4px;
-  border: 1px solid #999;
+  border: 1px solid #aaa;
 }
