@@ -4,88 +4,66 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-  <header class="header">
-    <div class="title">Vivora Fashion Illustration 2025</div>
-    <button class="next-step">Next Step ▶︎▶︎</button>
-  </header>
-
-  <div class="topbar">
-    <div class="gender-buttons">
-      <button>Woman</button>
-      <button>Man</button>
-      <button>Kids</button>
+  <div class="top-bar">
+    <div class="gender-toggle">
+      <button id="womanBtn">Woman</button>
+      <button id="manBtn">Man</button>
+      <button id="kidsBtn">Kids</button>
     </div>
-    <div class="toolbar-icons">
-      <img src="../../../create parts/create button/undo.png" alt="Undo" />
-      <img src="../../../create parts/create button/redo.png" alt="Redo" />
-      <img src="../../../create parts/create button/upload.png" alt="Upload" />
-      <img src="../../../create parts/create button/download.png" alt="Download" />
-      <img src="../../../create parts/create button/save.png" alt="Save" />
-      <img src="../../../create parts/create button/grid.png" alt="Grid" />
+    <div class="action-buttons">
+      <button><img src="../create_parts/create_button/upload.png" /></button>
+      <button><img src="../create_parts/create_button/download.png" /></button>
+      <button><img src="../create_parts/create_button/save.png" /></button>
+      <button class="next-step">Next Step ▶▶</button>
     </div>
   </div>
 
-  <main class="main-area">
-    <div class="mannequin-box">
-      <div class="board-bg">
-        <img id="mainMannequin" src="../../../mannequin/mannequin_woman.png" alt="Mannequin" />
-      </div>
+  <div class="workspace">
+    <div class="canvas-container">
+      <img id="mannequin" src="../mannequin/mannequin_woman.png" alt="Mannequin" />
     </div>
 
     <div class="side-panel">
-      <div class="panel-box">
-        <div class="panel-title">Stationery</div>
-        <div class="grid-buttons">
-          <img src="../../../create parts/design button/select.png" alt="Select" />
-          <img src="../../../create parts/design button/direct_select.png" alt="Direct Select" />
-          <img src="../../../create parts/design button/sentence.png" alt="Text" />
-          <img src="../../../create parts/design button/painting_none.png" alt="None" />
-
-          <img src="../../../create parts/design button/pen.png" alt="Pen" />
-          <img src="../../../create parts/design button/painting.png" alt="Paint" />
-          <img src="../../../create parts/design button/eraser.png" alt="Eraser" />
-          <img src="../../../create parts/design button/rotate.png" alt="Rotate" />
-
-          <img src="../../../create parts/design button/percent.png" alt="%" />
-          <img src="../../../create parts/design button/photo.png" alt="Photo" />
-          <img src="../../../create parts/design button/plus.png" alt="Add" />
-          <img src="../../../create parts/design button/setting.png" alt="Setting" />
+      <div class="panel-section">
+        <div class="undo-redo">
+          <img src="../create_parts/create_button/reset.png" />
+          <img src="../create_parts/create_button/retreat.png" />
         </div>
       </div>
 
-      <div class="panel-box">
-        <div class="panel-title">
-          <span>Color</span>
-          <button class="custom-button">Custom...</button>
+      <div class="panel-section">
+        <div class="stationery">
+          <img src="../create_parts/design_button/brush.png" />
+          <img src="../create_parts/design_button/pen.png" />
+          <img src="../create_parts/design_button/eraser.png" />
+          <img src="../create_parts/design_button/painting.png" />
+          <img src="../create_parts/design_button/sentence.png" />
+          <img src="../create_parts/design_button/select.png" />
+          <img src="../create_parts/design_button/photo.png" />
+          <img src="../create_parts/design_button/rotate.png" />
+          <img src="../create_parts/design_button/shapes.png" />
+          <img src="../create_parts/design_button/direct_select.png" />
         </div>
-        <div class="grid-buttons">
-          <img src="../../../color/pc color/white.png" />
-          <img src="../../../color/pc color/gray.png" />
-          <img src="../../../color/pc color/yellow.png" />
-          <img src="../../../color/pc color/orange.png" />
+      </div>
 
-          <img src="../../../color/pc color/pink.png" />
-          <img src="../../../color/pc color/red.png" />
-          <img src="../../../color/pc color/green.png" />
-          <img src="../../../color/pc color/lime.png" />
-
-          <img src="../../../color/pc color/sky blue.png" />
-          <img src="../../../color/pc color/blue.png" />
-          <img src="../../../color/pc color/purple.png" />
-          <img src="../../../color/pc color/brown.png" />
-
-          <img src="../../../color/pc color/dark gray.png" />
-          <img src="../../../color/pc color/black.png" />
-          <img src="../../../color/pc color/plus.png" />
-          <img src="../../../color/pc color/spuit.png" />
+      <div class="panel-section">
+        <div class="color-palette">
+          <img src="../color/pc_color/red.png" />
+          <img src="../color/pc_color/pink.png" />
+          <img src="../color/pc_color/yellow.png" />
+          <img src="../color/pc_color/green.png" />
+          <img src="../color/pc_color/blue.png" />
+          <img src="../color/pc_color/purple.png" />
+          <img src="../color/pc_color/gray.png" />
+          <img src="../color/pc_color/black.png" />
         </div>
       </div>
     </div>
-  </main>
+  </div>
 
-  <script src="script.js"></script>
+  <script src="../script.js"></script>
 </body>
 </html>
