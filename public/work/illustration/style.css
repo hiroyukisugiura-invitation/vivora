@@ -1,193 +1,213 @@
-/* ===================
-  Base Layout Styles
-=================== */
+/* ===============================
+  🟩 共通フォント・ベース設定
+================================ */
 body {
   margin: 0;
   padding: 0;
-  background: #f7f3ee;
-  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #f5f0eb;
+  font-family: "Helvetica Neue", sans-serif;
   color: #333;
 }
 
+/* ===============================
+  🟩 ヘッダー（タイトル）
+================================ */
 header {
-  padding: 20px 40px;
+  padding: 30px;
+  text-align: center;
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 600;
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  margin: 0;
 }
 
-/* ===================
-  Top Toolbar
-=================== */
+/* ===============================
+  🟩 上部ツールバー
+================================ */
 .toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px 10px;
+  padding: 0 40px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.gender-buttons {
+  display: flex;
+  gap: 12px;
 }
 
 .gender-buttons button {
-  margin-right: 10px;
+  font-family: "Helvetica Neue", sans-serif;
   padding: 8px 16px;
-  background: #fff;
+  background-color: white;
   border: 1px solid #ccc;
-  font-weight: bold;
   cursor: pointer;
 }
 
+.control-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .control-icons img {
-  width: 28px;
-  margin: 0 4px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
 }
 
 .next-step {
-  background: white;
-  border: 1px solid #ccc;
-  font-weight: bold;
-  padding: 8px 12px;
+  font-family: "Helvetica Neue", sans-serif;
+  background-color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
   cursor: pointer;
 }
 
-/* ===================
-  Workspace Area
-=================== */
-.workspace {
-  display: flex;
-  padding: 10px 40px 40px;
+.next-step img {
+  width: 18px;
+  height: 18px;
 }
 
+/* ===============================
+  🟩 メイン作業エリア全体
+================================ */
+.workspace {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 40px;
+}
+
+/* ===============================
+  🟩 キャンバス（マネキン表示エリア）
+================================ */
 .canvas {
-  flex: 1;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  background-color: white;
+  width: 700px;
+  height: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   margin-right: 40px;
 }
 
 .canvas img {
-  width: 100%;
-  max-height: 680px;
-  object-fit: contain;
+  max-width: 80%;
+  height: auto;
   opacity: 0.9;
 }
 
+/* ===============================
+  🟩 右パネル（ツール・カラー）
+================================ */
 .tools {
-  width: 260px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
 }
 
-/* ===================
-  Mannequin Select Panel
-=================== */
+/* ===============================
+  🟩 マネキン切替（左右＋タイプ）
+================================ */
 .mannequin-select {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
+  gap: 10px;
 }
 
 .mannequin-select img {
-  width: 42px;
-  height: auto;
+  width: 50px;
   cursor: pointer;
-  border-radius: 6px;
 }
 
-/* ===================
-  Stationery Panel
-=================== */
-.stationery-panel {
-  background: #fff;
-  padding: 16px;
-  border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-}
-
-.stationery-panel h2 {
+/* ===============================
+  🟩 ステーショナリーパネル
+================================ */
+.stationery-panel h2,
+.color-panel h2 {
   font-size: 16px;
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stationery-panel {
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .stationery-icons {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(5, 40px);
+  gap: 10px;
+  justify-content: center;
 }
 
 .stationery-icons img {
   width: 36px;
   height: 36px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: 0.2s;
+  border-radius: 6px;
+  transition: transform 0.2s ease;
 }
 
 .stationery-icons img:hover {
-  background: #eee;
+  transform: scale(1.1);
 }
 
-/* ===================
-  Color Panel
-=================== */
+/* ===============================
+  🟩 カラーパレットパネル
+================================ */
 .color-panel {
-  background: #fff;
-  padding: 16px;
+  background-color: #fff;
+  padding: 12px;
   border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-}
-
-.color-panel h2 {
-  font-size: 16px;
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .color-swatches {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 8px;
+  grid-template-columns: repeat(4, 40px);
+  gap: 10px;
+  justify-content: center;
 }
 
 .color-swatches img {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .color-extend {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(5, 40px);
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
 }
 
-.swatch-placeholder,
-.eyedropper {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #ccc;
+.swatch-placeholder {
+  width: 32px;
+  height: 32px;
+  background-color: #f1f1f1;
   border-radius: 4px;
-  background: #fafafa;
 }
 
-.custom-btn {
-  font-size: 12px;
-  font-weight: normal;
-  margin-left: 8px;
-  color: #555;
-  cursor: pointer;
+.eyedropper {
+  width: 32px;
+  height: 32px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
 }
