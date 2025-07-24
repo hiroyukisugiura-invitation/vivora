@@ -1,208 +1,184 @@
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #f1ede7;
-      font-family: "Helvetica Neue", sans-serif;
-      color: #333;
-    }
+/* ====== Global ====== */
+body {
+  margin: 0;
+  padding: 0;
+  background: #f4f1ec;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #333;
+}
 
-    .title {
-      font-family: "Playfair Display", serif;
-      font-size: 18px;
-      margin: 20px;
-    }
+h1.title {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  padding: 20px;
+  margin: 0;
+}
 
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      flex-wrap: wrap;
-    }
+button {
+  font-family: inherit;
+}
 
-    .gender-buttons {
-      display: flex;
-      gap: 10px;
-    }
+.panel {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  padding: 16px;
+}
 
-    .gender-buttons button {
-      padding: 6px 12px;
-      font-weight: bold;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+.tool-button, .color-box {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f9f9f9;
+  cursor: pointer;
+}
 
-    .control-icons {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
+.tool-button:hover, .color-box:hover {
+  background: #eaeaea;
+}
 
-    .control-icons img {
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      background: #fff;
-      border-radius: 4px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-      padding: 4px;
-    }
+.tool-button.selected, .color-box.selected {
+  border-color: #000;
+  background: #ddd;
+}
 
-    .next-step {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: white;
-      border: 1px solid #ccc;
-      padding: 6px 12px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 6px;
-    }
+/* ====== Layout ====== */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
 
-    .next-step img {
-      width: 18px;
-      height: 18px;
-    }
+.gender-buttons {
+  display: flex;
+  gap: 10px;
+}
 
-    .workspace {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 20px;
-      gap: 40px;
-    }
+.gender-buttons button {
+  padding: 6px 12px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .canvas {
-      width: 600px;
-      height: 720px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+.workspace {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 40px;
+}
 
-    .canvas img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
+.canvas {
+  width: 600px;
+  height: 800px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .tools {
-      width: 280px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
+.canvas img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
 
-    .mannequin-select {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.tools {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-    .mannequin-select img {
-      width: 36px;
-      height: auto;
-      cursor: pointer;
-    }
+/* ====== Pose Selector ====== */
+.pose-panel .pose-thumbnails {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
 
-    .pose-thumbnails {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-    }
+.pose-panel img.pose {
+  width: 70px;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-    .pose-thumbnails img {
-      width: 48px;
-      height: auto;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
+.pose-panel img.selected {
+  border: 2px solid #000;
+}
 
-    .stationery-panel,
-    .color-panel {
-      background: #fff;
-      padding: 14px;
-      border-radius: 10px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
+.pose-nav {
+  display: flex;
+  justify-content: space-between;
+}
 
-    .stationery-panel h2,
-    .color-panel h2 {
-      font-size: 16px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.pose-nav button {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
 
-    .stationery-icons {
-      display: grid;
-      grid-template-columns: repeat(5, 40px);
-      gap: 10px;
-      justify-content: center;
-    }
+/* ====== Stationery ====== */
+.stationery-panel .stationery-icons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
 
-    .stationery-icons img {
-      width: 36px;
-      height: 36px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
+.stationery-panel .tool-button img {
+  width: 20px;
+  height: 20px;
+}
 
-    .stationery-icons img:hover {
-      transform: scale(1.1);
-    }
+/* ====== Color Panel ====== */
+.color-panel h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
 
-    .custom-btn {
-      font-size: 12px;
-      color: #555;
-      cursor: pointer;
-    }
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
 
-    .color-swatches {
-      display: grid;
-      grid-template-columns: repeat(4, 40px);
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 10px;
-    }
+.color-box.plus::before {
+  content: "+";
+  font-size: 20px;
+}
 
-    .color-swatches img {
-      width: 32px;
-      height: 32px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+.color-box.eyedropper img {
+  width: 20px;
+  height: 20px;
+}
 
-    .color-extend {
-      display: grid;
-      grid-template-columns: repeat(5, 40px);
-      gap: 10px;
-      justify-content: center;
-    }
-
-    .swatch-placeholder,
-    .eyedropper {
-      width: 32px;
-      height: 32px;
-      background-color: #eee;
-      border-radius: 4px;
-    }
-  </style>
-</head>
+/* ====== Next Step Button ====== */
+.next-step {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #000;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
