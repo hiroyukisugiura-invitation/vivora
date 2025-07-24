@@ -1,4 +1,4 @@
-/* ===== 全体 ===== */
+/* ===== 共通レイアウト ===== */
 body {
   margin: 0;
   padding: 0;
@@ -12,124 +12,127 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 24px 40px;
   font-size: 18px;
   font-weight: bold;
 }
-
 .next-step {
   background: white;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 18px;
   border-radius: 8px;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
 }
 
-/* ===== トップバー（性別＋アイコン）===== */
-.top-toolbar {
+/* ===== トップ操作バー ===== */
+.toolbar-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 40px;
+  margin: 0 40px 20px;
 }
-
-.gender-switch button {
+.gender-buttons button {
   margin-right: 12px;
-  padding: 8px 16px;
+  padding: 8px 20px;
   background: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
 }
-.gender-switch button:hover {
+.gender-buttons button:hover {
   background: #ddd;
 }
-
-.top-icons img {
+.action-icons img {
   width: 28px;
-  height: 28px;
   margin-left: 12px;
   cursor: pointer;
-  transition: transform 0.2s;
-}
-.top-icons img:hover {
-  transform: scale(1.1);
 }
 
-/* ===== メインエリア ===== */
+/* ===== メイン構成（マネキンとサイド） ===== */
 .main-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 0 40px 40px;
+  padding: 0 40px 60px;
 }
 
-/* ===== マネキン表示エリア ===== */
-.mannequin-area {
+/* ===== 左：マネキン表示エリア ===== */
+.mannequin-box {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .mannequin {
-  width: 320px;
-  max-height: 680px;
+  width: 380px;
 }
 
-/* ===== サイドパネル ===== */
-.side-panel {
-  width: 280px;
+/* ===== 右：サイドバー ===== */
+.sidebar {
+  width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  padding-left: 40px;
+  gap: 32px;
+  margin-left: 60px;
 }
 
-/* ===== ボディ切替エリア ===== */
+/* ===== マネキン切替（3体）===== */
 .body-switch {
   display: flex;
   justify-content: space-between;
 }
 .body-switch img {
-  width: 70px;
-  margin: 8px;
-  border-radius: 8px;
-  cursor: pointer;
+  width: 80px;
+  border-radius: 6px;
   border: 1px solid #ccc;
+  cursor: pointer;
 }
 
-/* ===== ステーショナリーアイコン ===== */
+/* ===== ステーショナリーエリア ===== */
 .stationery {
   display: grid;
-  grid-template-columns: repeat(4, 48px);
+  grid-template-columns: repeat(4, 56px);
   gap: 12px;
 }
 .stationery img {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 6px;
+  width: 48px;
+  height: 48px;
   border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  padding: 4px;
 }
 
-/* ===== カラーパネル ===== */
+/* ===== カラーエリア ===== */
 .color-panel {
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
 }
-.color-title {
-  font-weight: bold;
-  margin-bottom: 10px;
+.color-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.custom-button {
+  font-size: 13px;
+  padding: 4px 10px;
+  background: white;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  cursor: pointer;
 }
 .color-grid {
   display: grid;
-  grid-template-columns: repeat(5, 32px);
+  grid-template-columns: repeat(4, 42px);
   gap: 10px;
 }
 .color-grid img {
-  width: 30px;
-  height: 30px;
-  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: white;
   cursor: pointer;
 }
