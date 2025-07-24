@@ -83,21 +83,18 @@ body {
   opacity: 0.95;
 }
 
-/* ===== マネキン上部の操作ボタン ===== */
-.toolbar-over-board {
-  position: absolute;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
+/* マネキンボードの上に操作バーを配置（外側） */
+.toolbar-above-board {
   display: flex;
-  gap: 10px;
-  z-index: 2;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
 }
-.toolbar-over-board img {
-  width: 24px;
-  height: 24px;
+.toolbar-above-board img {
+  width: 28px;
+  height: 28px;
   cursor: pointer;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 /* ===== サイドパネル構成 ===== */
