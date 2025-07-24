@@ -56,18 +56,20 @@ body {
   padding: 40px;
 }
 
-/* マネキンボード（白背景付き） */
+/* マネキンボックス（中央キャンバス） */
 .mannequin-box {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* ホワイトボード本体 */
 .board-bg {
-  width: 360px;            /* 横幅を少し狭くして余白を強調 */
-  height: 740px;           /* 縦を長くして余白を上下に確保 */
-  background: #fff;
-  border-radius: 24px;
+  width: 520px;              /* 以前より広く設定 */
+  height: 860px;             /* 高さを大幅に拡大 */
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,9 +77,10 @@ body {
   overflow: hidden;
 }
 
+/* マネキン画像 */
 .board-bg img {
-  height: 90%;             /* 縦いっぱいに近づける */
-  width: auto;
+  max-height: 95%;           /* 上下に少し余白を残す */
+  max-width: 80%;            /* 横幅には少し余裕を持たせる */
   object-fit: contain;
   opacity: 0.95;
 }
