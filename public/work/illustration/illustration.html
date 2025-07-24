@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="../style.css" />
+
   <style>
     body {
       margin: 0;
@@ -170,6 +169,16 @@
     </div>
   </div>
 
-  <script src="../script.js"></script>
+  <script>
+    document.getElementById('womanBtn').addEventListener('click', () => {
+      document.getElementById('mannequin').src = '../mannequin/mannequin_woman.png';
+    });
+    document.getElementById('manBtn').addEventListener('click', () => {
+      document.getElementById('mannequin').src = '../mannequin/mannequin_man.png';
+    });
+    document.getElementById('kidsBtn').addEventListener('click', () => {
+      document.getElementById('mannequin').src = '../mannequin/mannequin_kids.png';
+    });
+  </script>
 </body>
 </html>
