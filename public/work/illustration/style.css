@@ -26,7 +26,7 @@ body {
   font-weight: bold;
 }
 
-/* ===== 性別スイッチ ===== */
+/* ===== トップバー（性別＋アイコン）===== */
 .top-toolbar {
   display: flex;
   justify-content: space-between;
@@ -43,12 +43,10 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
-
 .gender-switch button:hover {
   background: #ddd;
 }
 
-/* ===== トップアイコン ===== */
 .top-icons img {
   width: 28px;
   height: 28px;
@@ -60,7 +58,7 @@ body {
   transform: scale(1.1);
 }
 
-/* ===== メイン構造（左＝マネキン, 右＝ツール）===== */
+/* ===== メインエリア ===== */
 .main-container {
   display: flex;
   justify-content: center;
@@ -89,17 +87,17 @@ body {
   padding-left: 40px;
 }
 
-/* ===== ボディ選択 ===== */
+/* ===== ボディ切替エリア ===== */
+.body-switch {
+  display: flex;
+  justify-content: space-between;
+}
 .body-switch img {
   width: 70px;
   margin: 8px;
   border-radius: 8px;
   cursor: pointer;
   border: 1px solid #ccc;
-}
-.body-switch {
-  display: flex;
-  justify-content: space-between;
 }
 
 /* ===== ステーショナリーアイコン ===== */
@@ -129,7 +127,7 @@ body {
   grid-template-columns: repeat(5, 32px);
   gap: 10px;
 }
-.color-swatch {
+.color-grid img {
   width: 30px;
   height: 30px;
   border-radius: 4px;
