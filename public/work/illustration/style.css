@@ -1,6 +1,3 @@
-/* ===============================
-  ベース設定
-================================ */
 body {
   margin: 0;
   padding: 0;
@@ -15,9 +12,6 @@ h1 {
   margin: 20px 40px;
 }
 
-/* ===============================
-  上部ツールバー
-================================ */
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -43,6 +37,7 @@ h1 {
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .control-icons img {
@@ -68,9 +63,6 @@ h1 {
   height: 18px;
 }
 
-/* ===============================
-  ワークスペース（メイン表示）
-================================ */
 .workspace {
   display: flex;
   justify-content: center;
@@ -79,9 +71,6 @@ h1 {
   gap: 40px;
 }
 
-/* ===============================
-  キャンバス：マネキン表示
-================================ */
 .canvas {
   width: 680px;
   height: 720px;
@@ -101,9 +90,6 @@ h1 {
   opacity: 0.9;
 }
 
-/* ===============================
-  右側パネル全体
-================================ */
 .tools {
   width: 260px;
   display: flex;
@@ -111,9 +97,6 @@ h1 {
   gap: 28px;
 }
 
-/* ===============================
-  マネキン切替（左右・種別）
-================================ */
 .mannequin-select {
   display: flex;
   justify-content: space-between;
@@ -127,9 +110,6 @@ h1 {
   border-radius: 6px;
 }
 
-/* ===============================
-  ステーショナリーパネル
-================================ */
 .stationery-panel {
   background: #fff;
   padding: 14px;
@@ -161,9 +141,6 @@ h1 {
   transform: scale(1.1);
 }
 
-/* ===============================
-  カラーパネル
-================================ */
 .color-panel {
   background: #fff;
   padding: 14px;
@@ -187,30 +164,24 @@ h1 {
 
 .color-swatches {
   display: grid;
-  grid-template-columns: repeat(4, 40px);
+  grid-template-columns: repeat(5, 40px);
   gap: 10px;
   justify-content: center;
   margin-bottom: 10px;
 }
 
-.color-swatches img {
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.color-extend {
-  display: grid;
-  grid-template-columns: repeat(5, 40px);
-  gap: 10px;
-  justify-content: center;
-}
-
+.color-swatches img,
 .swatch-placeholder,
 .eyedropper {
   width: 32px;
   height: 32px;
-  background-color: #eee;
   border-radius: 4px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.eyedropper {
+  background-image: url('../../create_parts/design_button/eyedropper.png');
+  background-size: cover;
+  background-position: center;
 }
