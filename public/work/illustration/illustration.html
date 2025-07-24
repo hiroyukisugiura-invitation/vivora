@@ -4,69 +4,92 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <!-- ヘッダー -->
   <header class="header">
     <div class="title">Vivora Fashion Illustration 2025</div>
     <button class="next-step">Next Step ▶︎▶︎</button>
   </header>
 
-  <!-- トップバー：マネキン切替 -->
+  <!-- 上部操作バー -->
   <div class="topbar">
     <div class="gender-buttons">
-      <button onclick="changeMannequin('woman')">Woman</button>
-      <button onclick="changeMannequin('man')">Man</button>
-      <button onclick="changeMannequin('kids')">Kids</button>
+      <button class="active">Woman</button>
+      <button>Man</button>
+      <button>Kids</button>
+    </div>
+
+    <div class="action-icons">
+      <img src="../../../create parts/create button/undo.png" alt="Undo" />
+      <img src="../../../create parts/create button/redo.png" alt="Redo" />
+      <img src="../../../create parts/create button/upload.png" alt="Upload" />
+      <img src="../../../create parts/create button/download.png" alt="Download" />
+      <img src="../../../create parts/create button/save.png" alt="Save" />
+      <img src="../../../create parts/create button/grid.png" alt="Grid" />
+    </div>
+
+    <div class="content-icons">
+      <img src="../../../create parts/contents button/1_fashion-illustrations.png" alt="FI" />
+      <img src="../../../create parts/contents button/2_fabric-matching.png" alt="FM" />
+      <img src="../../../create parts/contents button/3_clothing-design.png" alt="CD" />
+      <img src="../../../create parts/contents button/4_pattern-creation.png" alt="PC" />
+      <img src="../../../create parts/contents button/5_grading.png" alt="Sizes" />
+      <img src="../../../create parts/contents button/6_print-layout-cut.png" alt="Print" />
+      <img src="../../../create parts/contents button/digital-dressing-kids-mode.png" alt="Kids" />
     </div>
   </div>
 
   <!-- メインエリア -->
   <main class="main-area">
-    <!-- 中央キャンバス -->
-    <div class="mannequin-box">
-      <!-- マネキン操作ボタン（キャンバス上部） -->
+    <!-- キャンバス -->
+    <section class="mannequin-box">
+      <!-- 上に重ねるツールバー -->
       <div class="toolbar-over-board">
-        <img src="../../../create parts/create button/undo.png" alt="Undo" />
-        <img src="../../../create parts/create button/redo.png" alt="Redo" />
+        <img src="../../../create parts/create button/reset.png" alt="Reset" />
+        <img src="../../../create parts/create button/retreat.png" alt="Back" />
+        <img src="../../../create parts/create button/forward.png" alt="Forward" />
         <img src="../../../create parts/create button/upload.png" alt="Upload" />
         <img src="../../../create parts/create button/download.png" alt="Download" />
         <img src="../../../create parts/create button/save.png" alt="Save" />
         <img src="../../../create parts/create button/grid.png" alt="Grid" />
       </div>
-      <!-- マネキン表示エリア -->
+
       <div class="board-bg">
         <img id="mainMannequin" src="../../../mannequin/mannequin_woman.png" alt="Mannequin" />
       </div>
-    </div>
+    </section>
 
-    <!-- 右パネル -->
-    <div class="side-panel">
-      <!-- Stationery -->
+    <!-- サイドパネル -->
+    <aside class="side-panel">
+
+      <!-- ステーショナリー -->
       <div class="panel-box">
         <div class="panel-title">Stationery</div>
         <div class="grid-buttons">
           <img src="../../../create parts/design button/select.png" alt="Select" />
-          <img src="../../../create parts/design button/direct_select.png" alt="Direct" />
+          <img src="../../../create parts/design button/direct_select.png" alt="Direct Select" />
           <img src="../../../create parts/design button/sentence.png" alt="Text" />
-          <img src="../../../create parts/design button/painting_none.png" alt="None" />
+          <img src="../../../create parts/design button/painting_none.png" alt="Fill None" />
+
           <img src="../../../create parts/design button/pen.png" alt="Pen" />
           <img src="../../../create parts/design button/brush.png" alt="Brush" />
           <img src="../../../create parts/design button/eraser.png" alt="Eraser" />
           <img src="../../../create parts/design button/rotate.png" alt="Rotate" />
-          <img src="../../../create parts/design button/transparency.png" alt="Transparency" />
+
+          <img src="../../../create parts/design button/percentage.png" alt="%" />
           <img src="../../../create parts/design button/photo.png" alt="Photo" />
-          <img src="../../../create parts/design button/painting_color.png" alt="ColorFill" />
-          <img src="../../../create parts/design button/painting_line.png" alt="Outline" />
+          <img src="../../../create parts/design button/plus.png" alt="Add" />
+          <img src="../../../create parts/design button/paint_setting.png" alt="Setting" />
         </div>
       </div>
 
-      <!-- Color -->
+      <!-- カラーパネル -->
       <div class="panel-box">
         <div class="panel-title">
-          <span>Color</span>
+          Color
           <button class="custom-button">Custom...</button>
         </div>
         <div class="grid-buttons">
@@ -74,21 +97,25 @@
           <img src="../../../color/pc color/gray.png" />
           <img src="../../../color/pc color/yellow.png" />
           <img src="../../../color/pc color/orange.png" />
+
           <img src="../../../color/pc color/pink.png" />
           <img src="../../../color/pc color/red.png" />
           <img src="../../../color/pc color/green.png" />
           <img src="../../../color/pc color/lime.png" />
+
           <img src="../../../color/pc color/sky blue.png" />
           <img src="../../../color/pc color/blue.png" />
           <img src="../../../color/pc color/purple.png" />
           <img src="../../../color/pc color/brown.png" />
+
           <img src="../../../color/pc color/dark gray.png" />
           <img src="../../../color/pc color/black.png" />
-          <img src="../../../color/pc color/color upload.png" />
+          <img src="../../../color/pc color/plus.png" />
           <img src="../../../color/pc color/spuit.png" />
         </div>
       </div>
-    </div>
+
+    </aside>
   </main>
 
   <script src="script.js"></script>
