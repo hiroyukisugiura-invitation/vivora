@@ -11,65 +11,70 @@
 
   <!-- ヘッダー -->
   <header class="header">
-    <div class="title">Vivora Fashion Illustration 2025</div>
+    <div class="header-left">Vivora Fashion Illustration 2025</div>
     <button class="next-step">Next Step ▶︎▶︎</button>
   </header>
 
-  <!-- 性別切り替え -->
-  <div class="gender-switch">
-    <button>Woman</button>
-    <button>Man</button>
-    <button>Kids</button>
-  </div>
-
-  <!-- メインレイアウト -->
-  <div class="main-container">
-    <div class="left-panel">
-      <div class="side-bar"></div>
-    </div>
-    <div class="center-panel">
-      <img src="../../mannequin/mannequin_man.png" alt="Body Illustration" class="mannequin" />
-    </div>
-    <div class="right-panel">
-      <img src="../../mannequin/mannequin_man.png" alt="Male 1" />
-      <img src="../../mannequin/mannequin_woman.png" alt="Male 2" />
-      <img src="../../mannequin/mannequin_kids.png" alt="Kids 1" />
-    </div>
-  </div>
-
-  <!-- カラーパレット -->
-  <div class="color-bar">
-    <div class="color-circle" style="background:#f9c;"></div>
-    <div class="color-circle" style="background:#f33;"></div>
-    <div class="color-circle" style="background:#3c3;"></div>
-    <div class="color-circle" style="background:#396;"></div>
-    <div class="color-circle" style="background:#9cf;"></div>
-    <div class="color-circle" style="background:#36f;"></div>
-    <div class="color-circle" style="background:#63c;"></div>
-    <div class="color-circle" style="background:#933;"></div>
-    <div class="color-circle" style="background:#666;"></div>
-    <div class="color-circle" style="background:#000;"></div>
-    <div class="color-circle" style="background:#eee;"></div>
-  </div>
-
   <!-- ツールバー -->
-  <div class="toolbar">
-    <img src="../../icons/brush.png" alt="Brush" />
-    <img src="../../icons/eraser.png" alt="Eraser" />
-    <img src="../../icons/undo.png" alt="Undo" />
-    <img src="../../icons/redo.png" alt="Redo" />
-    <img src="../../icons/download.png" alt="Download" />
-    <img src="../../icons/upload.png" alt="Upload" />
-    <img src="../../icons/save.png" alt="Save" />
-    <img src="../../icons/grid.png" alt="Grid" />
-    <img src="../../icons/fi.png" alt="Fashion Illustration" />
-    <img src="../../icons/fm.png" alt="Fabric Matching" />
-    <img src="../../icons/cd.png" alt="Clothing Design" />
-    <img src="../../icons/pc.png" alt="Pattern Creation" />
-    <img src="../../icons/sizes.png" alt="Grading / Sizes" />
-    <img src="../../icons/gd.png" alt="Garment Details" />
-    <img src="../../icons/plc.png" alt="Print Layout & Cut" />
-    <img src="../../icons/dk.png" alt="Digital Kids" />
+  <div class="top-toolbar">
+    <div class="gender-switch">
+      <button>Woman</button>
+      <button>Man</button>
+      <button>Kids</button>
+    </div>
+    <div class="top-icons">
+      <img src="../../icons/undo.png" alt="Undo" />
+      <img src="../../icons/redo.png" alt="Redo" />
+      <img src="../../icons/download.png" alt="Download" />
+      <img src="../../icons/upload.png" alt="Upload" />
+      <img src="../../icons/save.png" alt="Save" />
+      <img src="../../icons/grid.png" alt="Grid" />
+    </div>
+  </div>
+
+  <!-- メインエリア -->
+  <div class="main-container">
+    <!-- マネキンエリア -->
+    <div class="mannequin-area">
+      <img src="../../mannequin/mannequin_woman.png" alt="Mannequin" class="mannequin" />
+    </div>
+
+    <!-- サイドパネル -->
+    <div class="side-panel">
+      <!-- ボディ選択 -->
+      <div class="body-switch">
+        <img src="../../mannequin/mannequin_woman.png" alt="Body 1" />
+        <img src="../../mannequin/mannequin_man.png" alt="Body 2" />
+        <img src="../../mannequin/mannequin_kids.png" alt="Body 3" />
+      </div>
+
+      <!-- ステーショナリー -->
+      <div class="stationery">
+        <img src="../../icons/pen.png" alt="Pen" />
+        <img src="../../icons/eraser.png" alt="Eraser" />
+        <img src="../../icons/text.png" alt="Text" />
+        <img src="../../icons/shape.png" alt="Shape" />
+        <!-- 他のツールもここに -->
+      </div>
+
+      <!-- カラーパレット -->
+      <div class="color-panel">
+        <div class="color-title">Color</div>
+        <div class="color-grid">
+          <div class="color-swatch" style="background:#f9c;"></div>
+          <div class="color-swatch" style="background:#f33;"></div>
+          <div class="color-swatch" style="background:#3c3;"></div>
+          <div class="color-swatch" style="background:#396;"></div>
+          <div class="color-swatch" style="background:#9cf;"></div>
+          <div class="color-swatch" style="background:#36f;"></div>
+          <div class="color-swatch" style="background:#63c;"></div>
+          <div class="color-swatch" style="background:#933;"></div>
+          <div class="color-swatch" style="background:#666;"></div>
+          <div class="color-swatch" style="background:#000;"></div>
+          <div class="color-swatch" style="background:#fff; border:1px solid #ccc;"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </body>
