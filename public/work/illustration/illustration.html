@@ -2,69 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ヘッダー：タイトル・モード切替・ツール・Next Step -->
   <header>
-    <h1>Vivora Fashion Illustration 2025</h1>
-    <div class="top-bar">
-      <!-- 左上：Woman / Man / Kids 切替 -->
-      <div class="mode-buttons">
-        <button>Woman</button>
-        <button>Man</button>
-        <button>Kids</button>
-      </div>
-      <!-- 中央：ツールアイコン群（Undo〜各種アイコン） -->
-      <div class="action-icons">
-        <img src="/create_parts/create_button/reset.png" alt="Reset" />
-        <img src="/create_parts/create_button/retreat.png" alt="Undo" />
-        <img src="/create_parts/create_button/save.png" alt="Save" />
-        <img src="/create_parts/create_button/upload.png" alt="Upload" />
-        <img src="/create_parts/create_button/graph_paper.png" alt="Grid" />
-        <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="FI" />
-        <img src="/create_parts/contents_button/2_fabric-matching.png" alt="FM" />
-        <img src="/create_parts/contents_button/3_clothing-design.png" alt="CD" />
-        <img src="/create_parts/contents_button/4_pattern-creation.png" alt="PC" />
-        <img src="/create_parts/contents_button/5_grading.png" alt="GR" />
-        <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="PL" />
-        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="DD" />
-      </div>
-      <!-- 右上：Next Step ボタン -->
+    <div class="header-top">
+      <h1>Vivora Fashion Illustration 2025</h1>
       <button class="next-step">Next Step ▶▶</button>
+    </div>
+    <div class="mode-buttons">
+      <button>Woman</button>
+      <button>Man</button>
+      <button>Kids</button>
+    </div>
+    <div class="toolbar-center">
+      <img src="/create_parts/create_button/reset.png" />
+      <img src="/create_parts/create_button/retreat.png" />
+      <img src="/create_parts/create_button/save.png" />
+      <img src="/create_parts/create_button/upload.png" />
+      <img src="/create_parts/create_button/graph_paper.png" />
+      <img src="/create_parts/contents_button/1_fashion-illustrations.png" />
+      <img src="/create_parts/contents_button/2_fabric-matching.png" />
+      <img src="/create_parts/contents_button/3_clothing-design.png" />
+      <img src="/create_parts/contents_button/4_pattern-creation.png" />
+      <img src="/create_parts/contents_button/5_grading.png" />
+      <img src="/create_parts/contents_button/6_print-layout-cut.png" />
+      <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" />
     </div>
   </header>
 
-  <!-- メイン：マネキン表示＋右パネル -->
   <main>
-    <!-- マネキン表示エリア -->
-    <div class="canvas">
-      <div class="mannequin-switch">
+    <div class="main-area">
+      <div class="mannequin-toggle">
         <button class="arrow">◀</button>
-        <img src="/mannequin/mannequin_man.png" alt="Man" />
-        <img src="/mannequin/mannequin_woman.png" alt="Woman" />
-        <img src="/mannequin/mannequin_kids.png" alt="Kids" />
+        <div class="mannequin-icons">
+          <img src="/mannequin/mannequin_man.png" />
+          <img src="/mannequin/mannequin_woman.png" />
+          <img src="/mannequin/mannequin_kids.png" />
+        </div>
         <button class="arrow">▶</button>
       </div>
-      <img src="/mannequin/mannequin_woman.png" class="main-mannequin" alt="Main" />
+      <img class="main-mannequin" src="/mannequin/mannequin_woman.png" alt="Main" />
     </div>
 
-    <!-- 右パネル：Stationery + Color -->
-    <aside class="tool-panel">
+    <aside class="side-panel">
       <div class="stationery">
         <h3>Stationery</h3>
         <div class="stationery-grid">
-          <img src="/create_parts/design_button/select.png" alt="Select" />
-          <img src="/create_parts/design_button/painting_none.png" alt="None" />
-          <img src="/create_parts/design_button/sentence.png" alt="Text" />
-          <img src="/create_parts/design_button/painting_color.png" alt="Fill" />
-          <img src="/create_parts/design_button/brush.png" alt="Brush" />
-          <img src="/create_parts/design_button/pen.png" alt="Pen" />
-          <img src="/create_parts/design_button/eraser.png" alt="Eraser" />
-          <img src="/create_parts/design_button/rotate.png" alt="Rotate" />
-          <img src="/create_parts/design_button/photo.png" alt="Camera" />
+          <img src="/create_parts/design_button/select.png" />
+          <img src="/create_parts/design_button/painting_none.png" />
+          <img src="/create_parts/design_button/sentence.png" />
+          <img src="/create_parts/design_button/painting_color.png" />
+          <img src="/create_parts/design_button/brush.png" />
+          <img src="/create_parts/design_button/pen.png" />
+          <img src="/create_parts/design_button/eraser.png" />
+          <img src="/create_parts/design_button/rotate.png" />
+          <img src="/create_parts/design_button/photo.png" />
         </div>
       </div>
 
@@ -85,8 +80,8 @@
           <div style="background:#44136e"></div>
           <div style="background:#555555"></div>
           <div style="background:#000000"></div>
-          <div class="empty"></div>
           <div class="plus">＋</div>
+          <img src="/create_parts/design_button/select.png" class="color-icon" />
         </div>
       </div>
     </aside>
