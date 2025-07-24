@@ -26,7 +26,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 40px;
+  margin: 20px 40px;
+  gap: 20px;
 }
 .gender-buttons button {
   margin-right: 10px;
@@ -39,7 +40,7 @@ body {
 .action-icons img,
 .content-icons img {
   width: 28px;
-  margin-left: 12px;
+  margin-left: 10px;
   cursor: pointer;
 }
 
@@ -58,16 +59,8 @@ body {
   align-items: center;
 }
 .mannequin-container img {
-  width: 360px;
-}
-.mannequin-switch {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-}
-.mannequin-switch img {
-  width: 50px;
-  cursor: pointer;
+  width: 380px;
+  opacity: 0.85;
 }
 
 /* サイドバー */
@@ -77,19 +70,19 @@ body {
   gap: 30px;
 }
 
-/* ステーショナリー */
+/* ステーショナリー（3列） */
 .stationery {
   display: grid;
-  grid-template-columns: repeat(3, 50px);
-  gap: 12px;
+  grid-template-columns: repeat(3, 60px);
+  gap: 14px;
 }
 .stationery img {
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
   background: white;
-  padding: 4px;
+  padding: 5px;
 }
 
 /* カラー */
@@ -109,12 +102,12 @@ body {
 }
 .color-grid {
   display: grid;
-  grid-template-columns: repeat(4, 40px);
+  grid-template-columns: repeat(4, 44px);
   gap: 10px;
 }
 .color-grid img {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background: white;
