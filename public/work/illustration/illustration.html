@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -14,16 +15,13 @@
     <button class="next-step">Next Step ▶︎▶︎</button>
   </header>
 
-  <!-- 🔷 上部操作バー -->
+  <!-- 🔷 上部バー（性別選択 / ツール / コンテンツ） -->
   <div class="topbar">
-    <!-- マネキン切替 -->
     <div class="gender-buttons">
       <button onclick="changeMannequin('woman')">Woman</button>
       <button onclick="changeMannequin('man')">Man</button>
       <button onclick="changeMannequin('kids')">Kids</button>
     </div>
-
-    <!-- 機能アイコン -->
     <div class="action-icons">
       <img src="../../../create parts/design button/undo.png" />
       <img src="../../../create parts/design button/redo.png" />
@@ -32,8 +30,6 @@
       <img src="../../../create parts/design button/save.png" />
       <img src="../../../create parts/design button/grid.png" />
     </div>
-
-    <!-- コンテンツ切替 -->
     <div class="content-icons">
       <img src="../../../create parts/contents button/1_fashion-illustrations.png" />
       <img src="../../../create parts/contents button/2_fabric-matching.png" />
@@ -47,15 +43,31 @@
 
   <!-- 🔷 メインエリア -->
   <main class="main-area">
-
-    <!-- 🧍‍♀️ マネキン表示 -->
+    <!-- マネキンボード -->
     <section class="board">
-      <div class="mannequin-container">
+      <!-- ボード背景 -->
+      <div class="board-bg">
+        <!-- 操作バー -->
+        <div class="floating-icons">
+          <img src="../../../create parts/design button/undo.png" />
+          <img src="../../../create parts/design button/redo.png" />
+          <img src="../../../create parts/design button/upload.png" />
+          <img src="../../../create parts/design button/download.png" />
+          <img src="../../../create parts/design button/save.png" />
+          <img src="../../../create parts/design button/grid.png" />
+        </div>
+        <!-- マネキン本体 -->
         <img id="mainMannequin" src="../../../mannequin/mannequin_woman.png" alt="Mannequin" />
+      </div>
+      <!-- 保存済みデータサムネ -->
+      <div class="saved-thumbnails">
+        <img src="../../../mannequin/mannequin_woman.png" />
+        <img src="../../../mannequin/mannequin_man.png" />
+        <img src="../../../mannequin/mannequin_kids.png" />
       </div>
     </section>
 
-    <!-- 🎨 サイドパネル -->
+    <!-- サイドパネル -->
     <aside class="sidebar">
 
       <!-- ステーショナリー -->
@@ -69,9 +81,12 @@
         <img src="../../../create parts/design button/photo.png" />
         <img src="../../../create parts/design button/rotate.png" />
         <img src="../../../create parts/design button/transparency.png" />
+        <img src="../../../create parts/design button/inversion.png" />
+        <img src="../../../create parts/design button/direct_select.png" />
+        <img src="../../../create parts/design button/painting_none.png" />
       </div>
 
-      <!-- カラーパレット -->
+      <!-- カラーパネル -->
       <div class="color-panel">
         <div class="color-title">
           <span>Color</span>
