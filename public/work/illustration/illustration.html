@@ -7,58 +7,75 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="top-bar">
-    <div class="gender-toggle">
+  <header>
+    <h1 class="title">Vivora Fashion Illustration 2025</h1>
+  </header>
+
+  <div class="toolbar">
+    <div class="gender-buttons">
       <button id="womanBtn">Woman</button>
       <button id="manBtn">Man</button>
       <button id="kidsBtn">Kids</button>
     </div>
-    <div class="action-buttons">
-      <button><img src="../../create_parts/create_button/upload.png" /></button>
-      <button><img src="../../create_parts/create_button/download.png" /></button>
-      <button><img src="../../create_parts/create_button/save.png" /></button>
-      <button class="next-step">Next Step ▶▶</button>
+    <div class="control-icons">
+      <img src="../../create_parts/create_button/reset.png" alt="Reset">
+      <img src="../../create_parts/create_button/retreat.png" alt="Undo">
+      <img src="../../create_parts/create_button/forward.png" alt="Redo">
+      <img src="../../create_parts/create_button/upload.png" alt="Upload">
+      <img src="../../create_parts/create_button/download.png" alt="Download">
+      <img src="../../create_parts/create_button/save.png" alt="Save">
+      <img src="../../create_parts/create_button/grid.png" alt="Grid">
     </div>
+    <button class="next-step">Next Step ▶▶</button>
   </div>
 
   <div class="workspace">
-    <div class="canvas-container">
-      <img id="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin" />
+    <div class="canvas">
+      <img id="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
     </div>
+    <div class="tools">
+      <div class="mannequin-select">
+        <img src="../../mannequin/select_left.png" alt="Left">
+        <img src="../../mannequin/mannequin_woman.png" alt="Woman">
+        <img src="../../mannequin/mannequin_man.png" alt="Man">
+        <img src="../../mannequin/mannequin_kids.png" alt="Kids">
+        <img src="../../mannequin/select_right.png" alt="Right">
+      </div>
 
-    <div class="side-panel">
-      <div class="panel-section">
-        <div class="undo-redo">
-          <img src="../../create_parts/create_button/reset.png" />
-          <img src="../../create_parts/create_button/retreat.png" />
+      <div class="stationery-panel">
+        <h2>Stationery</h2>
+        <div class="stationery-icons">
+          <img src="../../create_parts/design_button/brush.png" alt="Brush">
+          <img src="../../create_parts/design_button/pen.png" alt="Pen">
+          <img src="../../create_parts/design_button/eraser.png" alt="Eraser">
+          <img src="../../create_parts/design_button/painting.png" alt="Fill">
+          <img src="../../create_parts/design_button/sentence.png" alt="Text">
+          <img src="../../create_parts/design_button/select.png" alt="Select">
+          <img src="../../create_parts/design_button/photo.png" alt="Camera">
+          <img src="../../create_parts/design_button/rotate.png" alt="Rotate">
+          <img src="../../create_parts/design_button/shapes.png" alt="Shapes">
+          <img src="../../create_parts/design_button/direct_select.png" alt="Direct Select">
         </div>
       </div>
 
-      <div class="panel-section">
-        <div class="stationery">
-          <img src="../../create_parts/design_button/brush.png" />
-          <img src="../../create_parts/design_button/pen.png" />
-          <img src="../../create_parts/design_button/eraser.png" />
-          <img src="../../create_parts/design_button/painting.png" />
-          <img src="../../create_parts/design_button/sentence.png" />
-          <img src="../../create_parts/design_button/select.png" />
-          <img src="../../create_parts/design_button/photo.png" />
-          <img src="../../create_parts/design_button/rotate.png" />
-          <img src="../../create_parts/design_button/shapes.png" />
-          <img src="../../create_parts/design_button/direct_select.png" />
+      <div class="color-panel">
+        <h2>Color <span class="custom-btn">Custom...</span></h2>
+        <div class="color-swatches">
+          <img src="../../color/pc_color/gray.png" alt="Gray">
+          <img src="../../color/pc_color/yellow.png" alt="Yellow">
+          <img src="../../color/pc_color/red.png" alt="Red">
+          <img src="../../color/pc_color/green.png" alt="Green">
+          <img src="../../color/pc_color/pink.png" alt="Pink">
+          <img src="../../color/pc_color/blue.png" alt="Blue">
+          <img src="../../color/pc_color/purple.png" alt="Purple">
+          <img src="../../color/pc_color/black.png" alt="Black">
         </div>
-      </div>
-
-      <div class="panel-section">
-        <div class="color-palette">
-          <img src="../../color/pc_color/red.png" />
-          <img src="../../color/pc_color/pink.png" />
-          <img src="../../color/pc_color/yellow.png" />
-          <img src="../../color/pc_color/green.png" />
-          <img src="../../color/pc_color/blue.png" />
-          <img src="../../color/pc_color/purple.png" />
-          <img src="../../color/pc_color/gray.png" />
-          <img src="../../color/pc_color/black.png" />
+        <div class="color-extend">
+          <div class="swatch-placeholder"></div>
+          <div class="swatch-placeholder"></div>
+          <div class="swatch-placeholder"></div>
+          <div class="swatch-placeholder"></div>
+          <div class="eyedropper"></div>
         </div>
       </div>
     </div>
