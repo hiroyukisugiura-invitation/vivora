@@ -10,32 +10,26 @@
 <body>
 
   <!-- ヘッダー -->
-  <div class="header">
+  <header class="header">
     <div class="title">Vivora Fashion Illustration 2025</div>
     <button class="next-step">Next Step ▶︎▶︎</button>
-  </div>
+  </header>
 
-  <!-- 性別切り替えボタン（Woman / Man / Kids） -->
+  <!-- 性別切り替え -->
   <div class="gender-switch">
     <button>Woman</button>
     <button>Man</button>
     <button>Kids</button>
   </div>
 
-  <!-- メインレイアウト -->
+  <!-- メインコンテンツ -->
   <div class="main-container">
-
-    <!-- 左パネル（スライダー風バー） -->
     <div class="left-panel">
-      <div style="background:#555; width:30px; height:160px; border-radius:8px;"></div>
+      <div class="side-bar"></div>
     </div>
-
-    <!-- 中央（イラスト描画領域＋マネキン） -->
     <div class="center-panel">
-      <img src="mannequin/male_base.png" alt="Body Illustration" />
+      <img src="mannequin/male_base.png" alt="Body Illustration" class="mannequin" />
     </div>
-
-    <!-- 右パネル（ボディ選択切り替え） -->
     <div class="right-panel">
       <img src="mannequin/male01.png" alt="Male 1" />
       <img src="mannequin/male02.png" alt="Male 2" />
@@ -43,7 +37,7 @@
     </div>
   </div>
 
-  <!-- カラーパレットバー -->
+  <!-- カラーパレット -->
   <div class="color-bar">
     <div class="color-circle" style="background:#f9c;"></div>
     <div class="color-circle" style="background:#f33;"></div>
@@ -58,7 +52,7 @@
     <div class="color-circle" style="background:#eee;"></div>
   </div>
 
-  <!-- ツールバー（ブラシ／消しゴム／保存など） -->
+  <!-- ツールバー -->
   <div class="toolbar">
     <img src="icons/brush.png" alt="Brush" />
     <img src="icons/eraser.png" alt="Eraser" />
