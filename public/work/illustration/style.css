@@ -52,6 +52,23 @@ body {
   padding: 40px;
 }
 
+/* マネキン上部ツールバー */
+.toolbar-over-board {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+.toolbar-over-board img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
 /* ✅ キャンバスを大きくして中央配置 */
 .mannequin-box {
   flex: 1;
