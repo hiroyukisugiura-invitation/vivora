@@ -15,7 +15,7 @@
     <button class="next-step">Next Step ▶︎▶︎</button>
   </header>
 
-  <!-- 🔷 上部バー（性別選択 / ツール / コンテンツ） -->
+  <!-- 🔷 トップバー -->
   <div class="topbar">
     <div class="gender-buttons">
       <button onclick="changeMannequin('woman')">Woman</button>
@@ -43,56 +43,43 @@
 
   <!-- 🔷 メインエリア -->
   <main class="main-area">
-    <!-- マネキンボード -->
-    <section class="board">
-      <!-- ボード背景 -->
+
+    <!-- 🧍‍♀️ マネキンボード -->
+    <section class="mannequin-box">
       <div class="board-bg">
-        <!-- 操作バー -->
-        <div class="floating-icons">
-          <img src="../../../create parts/design button/undo.png" />
-          <img src="../../../create parts/design button/redo.png" />
-          <img src="../../../create parts/design button/upload.png" />
-          <img src="../../../create parts/design button/download.png" />
-          <img src="../../../create parts/design button/save.png" />
-          <img src="../../../create parts/design button/grid.png" />
-        </div>
-        <!-- マネキン本体 -->
         <img id="mainMannequin" src="../../../mannequin/mannequin_woman.png" alt="Mannequin" />
-      </div>
-      <!-- 保存済みデータサムネ -->
-      <div class="saved-thumbnails">
-        <img src="../../../mannequin/mannequin_woman.png" />
-        <img src="../../../mannequin/mannequin_man.png" />
-        <img src="../../../mannequin/mannequin_kids.png" />
       </div>
     </section>
 
-    <!-- サイドパネル -->
-    <aside class="sidebar">
+    <!-- 🔧 サイドパネル -->
+    <aside class="side-panel">
 
       <!-- ステーショナリー -->
-      <div class="stationery">
-        <img src="../../../create parts/design button/pen.png" />
-        <img src="../../../create parts/design button/eraser.png" />
-        <img src="../../../create parts/design button/sentence.png" />
-        <img src="../../../create parts/design button/shapes.png" />
-        <img src="../../../create parts/design button/painting.png" />
-        <img src="../../../create parts/design button/select.png" />
-        <img src="../../../create parts/design button/photo.png" />
-        <img src="../../../create parts/design button/rotate.png" />
-        <img src="../../../create parts/design button/transparency.png" />
-        <img src="../../../create parts/design button/inversion.png" />
-        <img src="../../../create parts/design button/direct_select.png" />
-        <img src="../../../create parts/design button/painting_none.png" />
+      <div class="panel-box">
+        <div class="panel-title">Stationery</div>
+        <div class="grid-buttons">
+          <img src="../../../create parts/design button/direct_select.png" />
+          <img src="../../../create parts/design button/select.png" />
+          <img src="../../../create parts/design button/sentence.png" />
+          <img src="../../../create parts/design button/painting_none.png" />
+          <img src="../../../create parts/design button/pen.png" />
+          <img src="../../../create parts/design button/painting.png" />
+          <img src="../../../create parts/design button/eraser.png" />
+          <img src="../../../create parts/design button/rotate.png" />
+          <img src="../../../create parts/design button/transparency.png" />
+          <img src="../../../create parts/design button/photo.png" />
+          <img src="../../../create parts/design button/painting_color.png" />
+          <img src="../../../create parts/design button/painting_gradation.png" />
+        </div>
       </div>
 
-      <!-- カラーパネル -->
-      <div class="color-panel">
-        <div class="color-title">
+      <!-- カラーパレット -->
+      <div class="panel-box">
+        <div class="panel-title color-title">
           <span>Color</span>
           <button class="custom-button">Custom...</button>
         </div>
-        <div class="color-grid">
+        <div class="grid-buttons">
           <img src="../../../color/pc%20color/gray.png" />
           <img src="../../../color/pc%20color/white.png" />
           <img src="../../../color/pc%20color/yellow.png" />
