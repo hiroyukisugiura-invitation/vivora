@@ -1,8 +1,3 @@
-/* ===== 基本設定 ===== */
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   background: #f6f1eb;
@@ -10,19 +5,17 @@ body {
   color: #333;
 }
 
-/* ===== ヘッダー ===== */
+/* ヘッダー */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 40px;
+  padding: 24px 40px 0;
 }
-
 .title {
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
+  font-size: 18px;
 }
-
 .next-step {
   background: white;
   border: none;
@@ -31,24 +24,36 @@ body {
   border-radius: 8px;
   cursor: pointer;
 }
+.next-step:hover {
+  background: #eee;
+}
 
-/* ===== トップバー（性別・機能・コンテンツ） ===== */
+/* トップバー */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  margin: 20px 40px;
+  margin: 16px 40px 0;
   gap: 20px;
 }
-
+.gender-buttons {
+  display: flex;
+  gap: 12px;
+}
 .gender-buttons button {
-  margin-right: 10px;
-  padding: 8px 16px;
+  padding: 6px 18px;
   font-weight: bold;
   border: none;
   border-radius: 6px;
+  background: white;
+  font-size: 14px;
   cursor: pointer;
+}
+.gender-buttons button:hover {
+  background: #ddd;
+}
+.gender-buttons button.active {
+  border: 2px solid #333;
 }
 
 .action-icons img,
@@ -57,79 +62,82 @@ body {
   margin-left: 10px;
   cursor: pointer;
 }
+.action-icons img:hover,
+.content-icons img:hover {
+  opacity: 0.7;
+}
 
-/* ===== メインエリア（キャンバス + サイド） ===== */
+/* メイン構成 */
 .main-area {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
   gap: 40px;
   padding: 40px;
-  max-width: 1440px;
-  margin: 0 auto;
-  flex-wrap: wrap;
 }
 
-/* ===== マネキンブロック ===== */
+/* 左：マネキン */
 .mannequin-box {
-  flex: 1 1 720px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* ===== キャンバス上の操作ボタン ===== */
-.toolbar-above-board {
+  flex: 1;
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 16px;
+  align-items: center;
+  position: relative;
 }
 
-.toolbar-above-board img {
-  width: 26px;
-  height: 26px;
-  cursor: pointer;
-  opacity: 0.95;
-}
-
-/* ===== 中央のホワイトキャンバス ===== */
+/* キャンバス背景 */
 .board-bg {
-  width: clamp(600px, 80vw, 900px);
-  height: clamp(900px, 90vh, 1080px);
+  width: clamp(600px, 65vw, 850px);
+  height: clamp(880px, 85vh, 1080px);
   background: #fff;
   border-radius: 30px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
+/* マネキン画像 */
 .board-bg img {
-  max-height: 94%;
-  max-width: 94%;
+  height: 94%;
   object-fit: contain;
   opacity: 0.95;
 }
 
-/* ===== サイドパネル ===== */
+/* 上部ツールバー */
+.toolbar-over-board {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+.toolbar-over-board img {
+  width: 22px;
+  height: 22px;
+  opacity: 0.9;
+  cursor: pointer;
+}
+.toolbar-over-board img:hover {
+  opacity: 1;
+}
+
+/* 右：サイドパネル */
 .side-panel {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  min-width: 320px;
-  max-width: 360px;
+  gap: 32px;
 }
 
-/* ===== ステーショナリー / カラーパネル共通枠 ===== */
+/* パネル共通デザイン */
 .panel-box {
   background: #fff;
-  padding: 20px;
+  padding: 18px 20px;
   border-radius: 16px;
-  width: 100%;
+  width: 320px;
 }
-
 .panel-title {
   font-weight: bold;
   font-family: 'Playfair Display', serif;
@@ -140,13 +148,12 @@ body {
   align-items: center;
 }
 
-/* ===== ボタン配置（4列） ===== */
+/* ボタン配置：共通 */
 .grid-buttons {
   display: grid;
   grid-template-columns: repeat(4, 60px);
   gap: 12px;
 }
-
 .grid-buttons img {
   width: 48px;
   height: 48px;
@@ -154,10 +161,14 @@ body {
   border-radius: 8px;
   background: white;
   padding: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+.grid-buttons img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
 }
 
-/* ===== カスタムボタン（右上） ===== */
+/* カスタムボタン */
 .custom-button {
   font-size: 12px;
   padding: 4px 8px;
@@ -165,4 +176,7 @@ body {
   border-radius: 6px;
   background: white;
   cursor: pointer;
+}
+.custom-button:hover {
+  background: #eee;
 }
