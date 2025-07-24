@@ -1,4 +1,8 @@
-/* ===== ベーススタイル ===== */
+/* ===== 全体レイアウト ===== */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   background: #f6f1eb;
@@ -25,11 +29,12 @@ body {
   cursor: pointer;
 }
 
-/* ===== トップバー（性別 / 機能 / コンテンツ）===== */
+/* ===== トップバー ===== */
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   margin: 20px 40px;
   gap: 20px;
 }
@@ -48,28 +53,46 @@ body {
   cursor: pointer;
 }
 
-/* ===== メインレイアウト構成 ===== */
+/* ===== メイン ===== */
 .main-area {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   gap: 40px;
   padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 /* ===== マネキンエリア ===== */
 .mannequin-box {
-  flex: 1;
+  flex: 1 1 640px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
-/* ===== ホワイトボード（中央キャンバス）===== */
+/* ===== マネキン上部の操作ボタン ===== */
+.toolbar-above-board {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.toolbar-above-board img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+/* ===== キャンバス（ホワイトボード） ===== */
 .board-bg {
-  position: relative; /* ボタンを内側に配置するため必須 */
-  width: clamp(600px, 75vw, 900px);
-  height: clamp(900px, 90vh, 1100px);
-  background: #ffffff;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 3 / 5;
+  background: #fff;
   border-radius: 30px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -78,38 +101,26 @@ body {
   overflow: hidden;
 }
 .board-bg img {
-  height: 94%;
+  max-height: 95%;
+  max-width: 95%;
   object-fit: contain;
   opacity: 0.95;
 }
 
-/* マネキンボードの上に操作バーを配置（外側） */
-.toolbar-above-board {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.toolbar-above-board img {
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-  opacity: 0.95;
-}
-
-/* ===== サイドパネル構成 ===== */
+/* ===== サイドパネル ===== */
 .side-panel {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  min-width: 320px;
 }
 
-/* ===== 共通パネルボックス（Stationery / Color） ===== */
+/* ===== パネル共通 ===== */
 .panel-box {
   background: #fff;
   padding: 20px;
   border-radius: 16px;
-  width: 320px;
+  width: 100%;
 }
 .panel-title {
   font-weight: bold;
@@ -121,7 +132,7 @@ body {
   align-items: center;
 }
 
-/* ===== 4列グリッド（共通）===== */
+/* ===== ボタン4列グリッド ===== */
 .grid-buttons {
   display: grid;
   grid-template-columns: repeat(4, 60px);
