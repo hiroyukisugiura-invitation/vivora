@@ -7,19 +7,29 @@ body {
 
 header {
   padding: 20px 30px 10px;
-  position: relative;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 h1 {
   font-size: 16px;
-  margin-bottom: 10px;
+  margin: 0;
 }
 
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.next-step {
+  background: white;
+  border: 1px solid #888;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.mode-buttons {
+  margin: 12px 0;
 }
 
 .mode-buttons button {
@@ -31,34 +41,33 @@ h1 {
   cursor: pointer;
 }
 
-.action-icons img {
-  width: 28px;
-  margin-right: 6px;
+.toolbar-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
-.next-step {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  background: white;
-  border: 1px solid #888;
-  padding: 8px 14px;
-  font-weight: bold;
-  cursor: pointer;
+.toolbar-center img {
+  width: 28px;
 }
 
 main {
   display: flex;
   justify-content: space-between;
-  padding: 10px 30px 30px;
+  padding: 10px 30px 40px;
+  gap: 40px;
 }
 
-.canvas {
+.main-area {
   flex: 1;
   text-align: center;
+  position: relative;
 }
 
-.mannequin-switch {
+.mannequin-toggle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,16 +75,16 @@ main {
   margin-bottom: 10px;
 }
 
-.mannequin-switch .arrow {
+.mannequin-icons img {
+  width: 44px;
+  opacity: 0.6;
+}
+
+.arrow {
   background: none;
   border: none;
   font-size: 18px;
   cursor: pointer;
-}
-
-.mannequin-switch img {
-  width: 44px;
-  opacity: 0.6;
 }
 
 .main-mannequin {
@@ -83,8 +92,11 @@ main {
   opacity: 0.95;
 }
 
-.tool-panel {
+.side-panel {
   width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .stationery h3,
@@ -97,7 +109,6 @@ main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 20px;
 }
 
 .stationery-grid img {
@@ -124,7 +135,8 @@ main {
   margin-top: 10px;
 }
 
-.color-grid div {
+.color-grid div,
+.color-grid img {
   width: 30px;
   height: 30px;
   border-radius: 4px;
@@ -137,6 +149,13 @@ main {
   justify-content: center;
   font-size: 18px;
   border: 1px dashed #aaa;
+}
+
+.color-icon {
+  padding: 4px;
+  object-fit: contain;
+  background: white;
+  border-radius: 4px;
 }
 
 .empty {
