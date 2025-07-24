@@ -5,9 +5,9 @@ body {
 }
 
 header {
-  padding: 20px 20px 10px;
-  text-align: center;
   position: relative;
+  text-align: center;
+  padding: 20px 20px 10px;
 }
 
 .mode-buttons button {
@@ -30,23 +30,29 @@ main {
   align-items: flex-start;
   gap: 40px;
   padding: 0 40px 40px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .content-icons {
   display: flex;
-  gap: 10px;
   justify-content: center;
-  margin-bottom: 10px;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .content-icons img {
   width: 42px;
 }
 
-.illustration-container {
-  position: relative;
+.toolbar-top {
+  margin-bottom: 10px;
 }
 
 .toolbar-top img {
@@ -54,10 +60,14 @@ main {
   margin: 4px;
 }
 
+.illustration-container {
+  position: relative;
+}
+
 .mannequin {
   width: 320px;
   display: block;
-  margin: 16px auto;
+  margin: 0 auto;
   opacity: 0.95;
 }
 
