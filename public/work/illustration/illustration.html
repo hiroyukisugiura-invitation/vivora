@@ -14,15 +14,17 @@
     <button class="next-step">Next Step ▶︎▶︎</button>
   </header>
 
-  <!-- 上部操作バー -->
+  <!-- 上部メニュー -->
   <div class="topbar">
+    <!-- 性別切り替え -->
     <div class="gender-buttons">
       <button class="active">Woman</button>
       <button>Man</button>
       <button>Kids</button>
     </div>
 
-    <div class="action-icons">
+    <!-- 左ツール群 -->
+    <div class="tool-group">
       <img src="../../../create parts/create button/undo.png" alt="Undo" />
       <img src="../../../create parts/create button/redo.png" alt="Redo" />
       <img src="../../../create parts/create button/upload.png" alt="Upload" />
@@ -31,41 +33,36 @@
       <img src="../../../create parts/create button/grid.png" alt="Grid" />
     </div>
 
-    <div class="content-icons">
-      <img src="../../../create parts/contents button/1_fashion-illustrations.png" alt="FI" />
-      <img src="../../../create parts/contents button/2_fabric-matching.png" alt="FM" />
-      <img src="../../../create parts/contents button/3_clothing-design.png" alt="CD" />
-      <img src="../../../create parts/contents button/4_pattern-creation.png" alt="PC" />
-      <img src="../../../create parts/contents button/5_grading.png" alt="Sizes" />
-      <img src="../../../create parts/contents button/6_print-layout-cut.png" alt="Print" />
-      <img src="../../../create parts/contents button/digital-dressing-kids-mode.png" alt="Kids" />
+    <!-- 右ツール群 -->
+    <div class="tool-group">
+      <img src="../../../create parts/create button/graph paper.png" alt="Grid" />
+      <img src="../../../create parts/create button/reset.png" alt="Reset" />
+      <img src="../../../create parts/create button/retreat.png" alt="Back" />
+      <img src="../../../create parts/create button/forward.png" alt="Forward" />
+      <img src="../../../create parts/create button/upload.png" alt="Upload" />
+      <img src="../../../create parts/create button/download.png" alt="Download" />
+      <img src="../../../create parts/create button/save.png" alt="Save" />
+    </div>
+
+    <!-- マネキンセレクター -->
+    <div class="mannequin-selector">
+      <button class="arrow">◀︎</button>
+      <img src="../../../mannequin/mannequin_woman.png" alt="Woman" class="thumb" />
+      <img src="../../../mannequin/mannequin_man.png" alt="Man" class="thumb" />
+      <img src="../../../mannequin/mannequin_kids.png" alt="Kids" class="thumb" />
+      <button class="arrow">▶︎</button>
     </div>
   </div>
 
-  <!-- メインエリア -->
+  <!-- メイン -->
   <main class="main-area">
-    <!-- キャンバス -->
-    <section class="mannequin-box">
-      <!-- 上に重ねるツールバー -->
-      <div class="toolbar-over-board">
-        <img src="../../../create parts/create button/reset.png" alt="Reset" />
-        <img src="../../../create parts/create button/retreat.png" alt="Back" />
-        <img src="../../../create parts/create button/forward.png" alt="Forward" />
-        <img src="../../../create parts/create button/upload.png" alt="Upload" />
-        <img src="../../../create parts/create button/download.png" alt="Download" />
-        <img src="../../../create parts/create button/save.png" alt="Save" />
-        <img src="../../../create parts/create button/grid.png" alt="Grid" />
-      </div>
-
+    <div class="mannequin-box">
       <div class="board-bg">
         <img id="mainMannequin" src="../../../mannequin/mannequin_woman.png" alt="Mannequin" />
       </div>
-    </section>
+    </div>
 
-    <!-- サイドパネル -->
     <aside class="side-panel">
-
-      <!-- ステーショナリー -->
       <div class="panel-box">
         <div class="panel-title">Stationery</div>
         <div class="grid-buttons">
@@ -73,12 +70,10 @@
           <img src="../../../create parts/design button/direct_select.png" alt="Direct Select" />
           <img src="../../../create parts/design button/sentence.png" alt="Text" />
           <img src="../../../create parts/design button/painting_none.png" alt="Fill None" />
-
           <img src="../../../create parts/design button/pen.png" alt="Pen" />
           <img src="../../../create parts/design button/brush.png" alt="Brush" />
           <img src="../../../create parts/design button/eraser.png" alt="Eraser" />
           <img src="../../../create parts/design button/rotate.png" alt="Rotate" />
-
           <img src="../../../create parts/design button/percentage.png" alt="%" />
           <img src="../../../create parts/design button/photo.png" alt="Photo" />
           <img src="../../../create parts/design button/plus.png" alt="Add" />
@@ -86,35 +81,29 @@
         </div>
       </div>
 
-      <!-- カラーパネル -->
       <div class="panel-box">
         <div class="panel-title">
-          Color
-          <button class="custom-button">Custom...</button>
+          Color <button class="custom-button">Custom...</button>
         </div>
         <div class="grid-buttons">
           <img src="../../../color/pc color/white.png" />
           <img src="../../../color/pc color/gray.png" />
           <img src="../../../color/pc color/yellow.png" />
           <img src="../../../color/pc color/orange.png" />
-
           <img src="../../../color/pc color/pink.png" />
           <img src="../../../color/pc color/red.png" />
           <img src="../../../color/pc color/green.png" />
           <img src="../../../color/pc color/lime.png" />
-
           <img src="../../../color/pc color/sky blue.png" />
           <img src="../../../color/pc color/blue.png" />
           <img src="../../../color/pc color/purple.png" />
           <img src="../../../color/pc color/brown.png" />
-
           <img src="../../../color/pc color/dark gray.png" />
           <img src="../../../color/pc color/black.png" />
           <img src="../../../color/pc color/plus.png" />
           <img src="../../../color/pc color/spuit.png" />
         </div>
       </div>
-
     </aside>
   </main>
 
