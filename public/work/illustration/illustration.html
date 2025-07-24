@@ -8,19 +8,23 @@
 </head>
 <body>
 
-  <!-- ヘッダー -->
+  <!-- 🔷 ヘッダー -->
   <header class="header">
     <div class="title">Vivora Fashion Illustration 2025</div>
     <button class="next-step">Next Step ▶︎▶︎</button>
   </header>
 
-  <!-- ツールバー（性別切替＋操作アイコン＋コンテンツ） -->
+  <!-- 🔷 上部ツールバー -->
   <div class="topbar">
+
+    <!-- 🔹 性別切替ボタン -->
     <div class="gender-buttons">
       <button>Woman</button>
       <button>Man</button>
       <button>Kids</button>
     </div>
+
+    <!-- 🔹 操作アイコン -->
     <div class="action-icons">
       <img src="../../../design button/undo.png" alt="Undo" />
       <img src="../../../design button/redo.png" alt="Redo" />
@@ -29,6 +33,8 @@
       <img src="../../../design button/save.png" alt="Save" />
       <img src="../../../design button/grid.png" alt="Grid" />
     </div>
+
+    <!-- 🔹 コンテンツ切替ボタン -->
     <div class="content-icons">
       <img src="../../../contents/1_fashion-illustrations.png" alt="FI" />
       <img src="../../../contents/2_fabric-matching.png" alt="FM" />
@@ -40,22 +46,30 @@
     </div>
   </div>
 
-  <!-- メインエリア -->
+  <!-- 🔷 メインエリア -->
   <main class="main-area">
-    <!-- 中央ボード -->
+
+    <!-- 🔹 中央ボード -->
     <section class="board">
+
+      <!-- 🧍‍♀️ マネキン表示 -->
       <div class="mannequin-container">
         <img id="mainMannequin" src="../../../mannequin/mannequin_woman.png" alt="Mannequin" />
       </div>
+
+      <!-- 🔘 マネキン切替ボタン -->
       <div class="mannequin-switch">
         <img src="../../../create button/button_woman.png" alt="Woman" onclick="changeMannequin('woman')" />
         <img src="../../../create button/button_man.png" alt="Man" onclick="changeMannequin('man')" />
         <img src="../../../create button/button_kids.png" alt="Kids" onclick="changeMannequin('kids')" />
       </div>
+
     </section>
 
-    <!-- サイドパネル -->
+    <!-- 🔹 サイドパネル -->
     <aside class="sidebar">
+
+      <!-- 🛠 ステーショナリー -->
       <div class="stationery">
         <img src="../../../design button/pen.png" alt="Pen" />
         <img src="../../../design button/eraser.png" alt="Eraser" />
@@ -67,6 +81,7 @@
         <img src="../../../design button/rotate.png" alt="Rotate" />
       </div>
 
+      <!-- 🎨 カラーパネル -->
       <div class="color-panel">
         <div class="color-title">
           <span>Color</span>
@@ -91,9 +106,12 @@
           <img src="../../../pc color/spuit.png" />
         </div>
       </div>
+
     </aside>
+
   </main>
 
+  <!-- 🔷 JS読み込み -->
   <script src="script.js"></script>
 </body>
 </html>
