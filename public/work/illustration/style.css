@@ -1,4 +1,4 @@
-/* ====== Global ====== */
+/* ===== Global Settings ===== */
 body {
   margin: 0;
   padding: 0;
@@ -19,7 +19,7 @@ button {
   cursor: pointer;
 }
 
-/* ====== Header and Toolbar ====== */
+/* ===== Header and Toolbar ===== */
 .toolbar {
   padding: 20px;
   display: flex;
@@ -71,7 +71,7 @@ button {
   cursor: pointer;
 }
 
-/* ====== Layout Main ====== */
+/* ===== Layout ===== */
 .main {
   display: flex;
   flex-direction: column;
@@ -100,32 +100,36 @@ button {
   object-fit: contain;
 }
 
-/* ====== Mannequin Slider ====== */
-.mannequin-slider {
+/* ===== Saved Design Slider ===== */
+.design-slider {
   display: flex;
   align-items: center;
-  gap: 10px;
   justify-content: center;
-  margin-top: 16px;
+  gap: 10px;
+  margin: 20px auto;
+  max-width: 90%;
 }
 
 .slider-track {
   display: flex;
   overflow-x: auto;
-  gap: 10px;
+  gap: 12px;
+  padding: 4px;
   max-width: 100%;
 }
 
-.mannequin-thumb {
-  width: 60px;
-  height: auto;
-  border-radius: 8px;
-  cursor: pointer;
+.design-thumb {
+  width: 64px;
+  height: 100px;
+  object-fit: contain;
   border: 2px solid transparent;
-  background-color: #fff;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
 }
 
-.mannequin-thumb.selected {
+.design-thumb:hover,
+.design-thumb.selected {
   border-color: #000;
 }
 
@@ -134,8 +138,10 @@ button {
   border: none;
   font-size: 20px;
   cursor: pointer;
+  color: #333;
 }
 
+/* ===== Sidebar Panels ===== */
 .sidebar {
   display: flex;
   flex-direction: column;
