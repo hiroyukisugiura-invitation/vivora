@@ -214,7 +214,7 @@ button {
   height: 20px;
 }
 
-<!-- CSS 追記（style.css） -->
+/* ====== content-toolbar ====== */
 .content-toolbar {
   display: flex;
   flex-wrap: wrap;
