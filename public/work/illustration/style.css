@@ -2,59 +2,29 @@
 body {
   margin: 0;
   padding: 0;
-  background: #f4f1ec; /* ベージュ系の落ち着いた背景 */
+  background: #f4f1ec;
   font-family: "Helvetica Neue", sans-serif;
   color: #333;
 }
 
-h1.title {
+.title {
   font-family: "Playfair Display", serif;
   font-size: 18px;
-  padding: 20px;
-  margin: 0;
+  margin-bottom: 10px;
 }
 
 button {
   font-family: inherit;
-}
-
-/* 共通パネルスタイル（Stationery / Color / Pose） */
-.panel {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  padding: 16px;
-}
-
-/* ツールボタン・カラーボックス共通スタイル */
-.tool-button, .color-box {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f9f9f9;
   cursor: pointer;
 }
 
-.tool-button:hover, .color-box:hover {
-  background: #eaeaea;
-}
-
-.tool-button.selected, .color-box.selected {
-  border-color: #000;
-  background: #ddd;
-}
-
-/* ====== Layout ====== */
+/* ====== Header and Toolbar ====== */
 .toolbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 10px;
 }
 
 .gender-buttons {
@@ -62,13 +32,12 @@ button {
   gap: 10px;
 }
 
-.gender-buttons button {
+.gender-button {
   padding: 6px 12px;
-  background: #fff;
+  font-weight: bold;
+  background: white;
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 .gender-button.active {
@@ -77,18 +46,35 @@ button {
   border-color: #000;
 }
 
-.workspace {
+/* ====== Layout ====== */
+.content-area {
+  padding: 0 20px;
+}
+
+.content-toolbar {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 20px;
+  gap: 8px;
+  padding-bottom: 10px;
+}
+
+.icon-button {
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.main {
+  display: flex;
   gap: 40px;
 }
 
 .canvas {
   width: 600px;
   height: 800px;
-  background: #fff;
+  background: white;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   display: flex;
@@ -102,14 +88,27 @@ button {
   object-fit: contain;
 }
 
-.tools {
-  width: 300px;
+.sidebar {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: relative;
+  width: 300px;
 }
 
-/* ====== Pose Selector ====== */
+/* ====== Next Step Button ====== */
+.next-step {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1px solid #000;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+/* ====== Pose Panel ====== */
 .pose-panel .pose-thumbnails {
   display: flex;
   justify-content: space-between;
@@ -118,7 +117,6 @@ button {
 
 .pose-panel img.pose {
   width: 70px;
-  height: auto;
   border: 1px solid #ccc;
   border-radius: 6px;
   cursor: pointer;
@@ -135,57 +133,74 @@ button {
 
 .nav-arrow {
   width: 24px;
-  height: auto;
   cursor: pointer;
 }
 
 /* ====== Stationery ====== */
-.stationery-panel .stationery-icons {
+.panel {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  padding: 16px;
+}
+
+.stationery-panel h2,
+.color-panel h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stationery-icons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
-.stationery-panel .tool-button img {
+.tool-button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f9f9f9;
+}
+
+.tool-button img {
   width: 20px;
   height: 20px;
   object-fit: contain;
 }
 
 /* ====== Color Panel ====== */
-.color-panel h2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
 .color-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
+.color-box {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .color-box.plus::before {
   content: "+";
   font-size: 20px;
+  color: #555;
 }
 
 .color-box.eyedropper img {
   width: 20px;
   height: 20px;
-}
-
-/* ====== Next Step Button（右上固定） ====== */
-.next-step {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 8px 16px;
-  background: #fff;
-  border: 1px solid #000;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
 }
