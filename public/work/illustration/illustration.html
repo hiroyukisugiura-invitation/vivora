@@ -12,9 +12,9 @@
   <header class="toolbar">
     <h1 class="title">Vivora Fashion Illustration 2025</h1>
     <div class="gender-buttons">
-      <button>Woman</button>
-      <button>Man</button>
-      <button>Kids</button>
+      <button class="gender-button active" data-gender="woman">Woman</button>
+      <button class="gender-button" data-gender="man">Man</button>
+      <button class="gender-button" data-gender="kids">Kids</button>
     </div>
   </header>
 
@@ -22,55 +22,59 @@
 
   <div class="workspace">
     <div class="canvas">
-      <img id="mannequin" src="mannequin_woman.png" alt="Mannequin">
+      <img id="mannequin" src="mannequin/mannequin_woman.png" alt="Mannequin">
     </div>
 
     <div class="tools">
       <div class="pose-panel panel">
         <div class="pose-thumbnails">
-          <img class="pose selected" src="pose1.png">
-          <img class="pose" src="pose2.png">
-          <img class="pose" src="pose3.png">
+          <img class="pose selected" src="mannequin/pose1.png" alt="Pose 1">
+          <img class="pose" src="mannequin/pose2.png" alt="Pose 2">
+          <img class="pose" src="mannequin/pose3.png" alt="Pose 3">
         </div>
         <div class="pose-nav">
-          <button>&lt;</button>
-          <button>&gt;</button>
+          <img class="nav-arrow" src="mannequin/select_left.png" alt="Left">
+          <img class="nav-arrow" src="mannequin/select_right.png" alt="Right">
         </div>
       </div>
 
       <div class="stationery-panel panel">
         <h2>Stationery</h2>
         <div class="stationery-icons">
-          <div class="tool-button"><img src="select.png" alt="Select"></div>
-          <div class="tool-button"><img src="text.png" alt="Text"></div>
-          <div class="tool-button"><img src="fill.png" alt="Fill"></div>
-          <div class="tool-button"><img src="brush.png" alt="Brush"></div>
-          <div class="tool-button"><img src="pen.png" alt="Pen"></div>
-          <div class="tool-button"><img src="eraser.png" alt="Eraser"></div>
-          <div class="tool-button"><img src="rotate.png" alt="Rotate"></div>
-          <div class="tool-button"><img src="camera.png" alt="Camera"></div>
+          <div class="tool-button"><img src="create_parts/design_button/select.png" alt="Select"></div>
+          <div class="tool-button"><img src="create_parts/design_button/text.png" alt="Text"></div>
+          <div class="tool-button"><img src="create_parts/design_button/fill.png" alt="Fill"></div>
+          <div class="tool-button"><img src="create_parts/design_button/brush.png" alt="Brush"></div>
+          <div class="tool-button"><img src="create_parts/design_button/pen.png" alt="Pen"></div>
+          <div class="tool-button"><img src="create_parts/design_button/eraser.png" alt="Eraser"></div>
+          <div class="tool-button"><img src="create_parts/design_button/rotate.png" alt="Rotate"></div>
+          <div class="tool-button"><img src="create_parts/design_button/photo.png" alt="Camera"></div>
+          <div class="tool-button"><img src="create_parts/design_button/percent.png" alt="Percent"></div>
+          <div class="tool-button"><img src="create_parts/design_button/add.png" alt="Add"></div>
+          <div class="tool-button"><img src="create_parts/design_button/more.png" alt="More"></div>
+          <div class="tool-button"><img src="create_parts/design_button/edge.png" alt="Edge"></div>
         </div>
       </div>
 
       <div class="color-panel panel">
         <h2>Color <span class="custom-btn">Custom...</span></h2>
         <div class="color-grid">
-          <div class="color-box" style="background: #fff;"></div>
-          <div class="color-box" style="background: #ccc;"></div>
-          <div class="color-box" style="background: #ff0;"></div>
-          <div class="color-box" style="background: #fa0;"></div>
-          <div class="color-box" style="background: #f88;"></div>
-          <div class="color-box" style="background: #f00;"></div>
-          <div class="color-box" style="background: #090;"></div>
-          <div class="color-box" style="background: #060;"></div>
-          <div class="color-box" style="background: #0af;"></div>
-          <div class="color-box" style="background: #00f;"></div>
-          <div class="color-box" style="background: #909;"></div>
-          <div class="color-box" style="background: #303030;"></div>
+          <div class="color-box" style="background: #ffffff;"></div>
+          <div class="color-box" style="background: #cccccc;"></div>
+          <div class="color-box" style="background: #ffff00;"></div>
+          <div class="color-box" style="background: #ff9900;"></div>
+          <div class="color-box" style="background: #f4a2a2;"></div>
+          <div class="color-box" style="background: #ff0000;"></div>
+          <div class="color-box" style="background: #009900;"></div>
+          <div class="color-box" style="background: #006600;"></div>
+          <div class="color-box" style="background: #3399ff;"></div>
+          <div class="color-box" style="background: #0000ff;"></div>
+          <div class="color-box" style="background: #990099;"></div>
+          <div class="color-box" style="background: #000000;"></div>
           <div class="color-box plus"></div>
           <div class="color-box plus"></div>
           <div class="color-box plus"></div>
-          <div class="color-box eyedropper"><img src="eyedropper.png" alt="Eyedropper"></div>
+          <div class="color-box eyedropper"><img src="color/pc_color/eyedropper.png" alt="Eyedropper"></div>
         </div>
       </div>
     </div>
