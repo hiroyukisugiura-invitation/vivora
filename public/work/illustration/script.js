@@ -1,45 +1,48 @@
-// マネキン切替処理（woman/man/kids）
-const mannequin = document.getElementById("mannequin");
-let currentPose = 1;
-let currentGender = "woman";
+// ===== Gender Button Toggle =====
+const genderButtons = document.querySelectorAll('.gender-button');
+const mannequinImg = document.getElementById('mannequin');
 
-const updateMannequin = () => {
-  const poseSuffix = ["_left", "", "_right"][currentPose];
-  mannequin.src = `../../mannequin/mannequin_${currentGender}${poseSuffix}.png`;
+const genderImageMap = {
+  woman: '../../mannequin/mannequin_woman.png',
+  man: '../../mannequin/mannequin_man.png',
+  kids: '../../mannequin/mannequin_kids.png'
 };
 
-document.getElementById("womanBtn").addEventListener("click", () => {
-  currentGender = "woman";
-  currentPose = 1;
-  updateMannequin();
+genderButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    genderButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+    const gender = button.dataset.gender;
+    mannequinImg.src = genderImageMap[gender];
+  });
 });
 
-document.getElementById("manBtn").addEventListener("click", () => {
-  currentGender = "man";
-  currentPose = 1;
-  updateMannequin();
+// ===== Pose Selection Toggle =====
+const poseImages = document.querySelectorAll('.pose');
+poseImages.forEach(pose => {
+  pose.addEventListener('click', () => {
+    poseImages.forEach(p => p.classList.remove('selected'));
+    pose.classList.add('selected');
+    mannequinImg.src = pose.src; // Optional: apply selected pose image directly
+  });
 });
 
-document.getElementById("kidsBtn").addEventListener("click", () => {
-  currentGender = "kids";
-  currentPose = 1;
-  updateMannequin();
+// ===== Tool Selection =====
+const toolButtons = document.querySelectorAll('.tool-button');
+toolButtons.forEach(tool => {
+  tool.addEventListener('click', () => {
+    toolButtons.forEach(t => t.classList.remove('selected'));
+    tool.classList.add('selected');
+  });
 });
 
-document.getElementById("leftBtn").addEventListener("click", () => {
-  if (currentPose > 0) {
-    currentPose--;
-    updateMannequin();
-  }
-});
-
-document.getElementById("rightBtn").addEventListener("click", () => {
-  if (currentPose < 2) {
-    currentPose++;
-    updateMannequin();
-  }
-});
-
-document.querySelector(".next-step").addEventListener("click", () => {
-  alert("Next Step clicked (仮機能)");
+// ===== Color Selection =====
+const colorBoxes = document.querySelectorAll('.color-box');
+colorBoxes.forEach(color => {
+  color.addEventListener('click', () => {
+    if (!color.classList.contains('plus') && !color.classList.contains('eyedropper')) {
+      colorBoxes.forEach(c => c.classList.remove('selected'));
+      color.classList.add('selected');
+    }
+  });
 });
