@@ -101,3 +101,24 @@ document.addEventListener('mousemove', (e) => {
 document.addEventListener('mouseup', () => {
   isDragging = false;
 });
+
+// ===== Custom Color (+) Picker =====
+const plusBoxes = document.querySelectorAll('.color-box.plus');
+
+plusBoxes.forEach(plusBox => {
+  plusBox.addEventListener('click', () => {
+    const colorInput = document.createElement('input');
+    colorInput.type = 'color';
+    colorInput.style.display = 'none';
+    document.body.appendChild(colorInput);
+    colorInput.click();
+    colorInput.addEventListener('input', () => {
+      plusBox.style.background = colorInput.value;
+      plusBox.classList.remove('plus');
+      plusBox.classList.add('selected');
+      colorBoxes.forEach(c => c.classList.remove('selected'));
+      plusBox.classList.add('selected');
+      document.body.removeChild(colorInput);
+    });
+  });
+});
