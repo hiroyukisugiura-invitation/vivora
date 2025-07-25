@@ -78,7 +78,6 @@ button {
   align-items: flex-start;
   gap: 40px;
   padding: 20px;
-  flex-wrap: wrap;
 }
 
 .canvas {
@@ -101,49 +100,6 @@ button {
   object-fit: contain;
 }
 
-/* ===== Saved Design Slider ===== */
-.design-slider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 24px;
-  width: 100%;
-}
-
-.slider-track {
-  display: flex;
-  overflow-x: auto;
-  gap: 12px;
-  padding: 4px;
-  max-width: 300px;
-}
-
-.design-thumb {
-  width: 64px;
-  height: auto;
-  max-height: 100px;
-  object-fit: contain;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  background: #fff;
-  cursor: pointer;
-  display: block;
-}
-
-.design-thumb:hover,
-.design-thumb.selected {
-  border-color: #000;
-}
-
-.slider-arrow {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: #333;
-}
-
 /* ===== Sidebar Panels ===== */
 .sidebar {
   display: flex;
@@ -159,62 +115,12 @@ button {
   padding: 16px;
 }
 
-.pose-panel .pose-thumbnails {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.pose-panel img.pose {
-  width: 70px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.pose-panel img.selected {
-  border: 2px solid #000;
-}
-
-.pose-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.nav-arrow {
-  width: 24px;
-  cursor: pointer;
-}
-
-.next-step-fixed {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  padding: 8px 16px;
-  background: #fff;
-  border: 1px solid #000;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.stationery-panel h2,
-.color-panel h2 {
-  font-size: 16px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .stationery-icons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 10px;
+  position: relative;
 }
 
 .tool-button {
@@ -226,6 +132,7 @@ button {
   justify-content: center;
   align-items: center;
   background: #f9f9f9;
+  position: relative;
 }
 
 .tool-button img {
@@ -234,31 +141,44 @@ button {
   object-fit: contain;
 }
 
-.color-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+/* ===== Illustrator-style Fill/Stroke ===== */
+.tool-button.fill-stroke {
+  grid-column: 4;
+  grid-row: 3;
+  flex-direction: column;
+  padding: 0;
 }
 
-.color-box {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #f9f9f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+.fill-stroke-box {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 4px;
 }
 
-.color-box.plus::before {
-  content: "+";
-  font-size: 20px;
-  color: #555;
-}
-
-.color-box.eyedropper img {
+.fill-box, .stroke-box {
+  position: absolute;
   width: 20px;
   height: 20px;
+  border: 1px solid #000;
+  background-color: #fff;
+}
+
+.fill-box {
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.stroke-box {
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+}
+
+.fill-stroke-options {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  font-size: 10px;
 }
