@@ -122,3 +122,25 @@ plusBoxes.forEach(plusBox => {
     });
   });
 });
+
+// ===== Eyedropper Tool (basic color pick from canvas) =====
+const eyedropper = document.querySelector('.color-box.eyedropper');
+if (eyedropper && window.EyeDropper) {
+  eyedropper.addEventListener('click', async () => {
+    try {
+      const eyeDropper = new EyeDropper();
+      const result = await eyeDropper.open();
+      const hexColor = result.sRGBHex;
+
+      // 塗り替える新しいカラーBOXを探す or 再利用
+      const availableBox = [...colorBoxes].find(box => box.classList.contains('plus')) || colorBoxes[colorBoxes.length - 1];
+      availableBox.style.background = hexColor;
+      availableBox.classList.remove('plus');
+      colorBoxes.forEach(c => c.classList.remove('selected'));
+      availableBox.classList.add('selected');
+
+    } catch (err) {
+      console.warn('Eyedropper canceled or not supported.');
+    }
+  });
+}
