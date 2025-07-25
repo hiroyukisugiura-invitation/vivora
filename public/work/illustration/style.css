@@ -20,11 +20,17 @@ button {
 
 /* ====== Header and Toolbar ====== */
 .toolbar {
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 20px;
-  gap: 10px;
+  gap: 12px;
+}
+
+.toolbar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .gender-buttons {
@@ -46,15 +52,10 @@ button {
   border-color: #000;
 }
 
-/* ====== Layout ====== */
-.content-area {
-  padding: 0 20px;
-}
-
+/* ====== Top Icon Toolbar ====== */
 .content-toolbar {
   display: flex;
   gap: 8px;
-  padding-bottom: 10px;
 }
 
 .icon-button {
@@ -66,9 +67,11 @@ button {
   box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
+/* ====== Layout Main ====== */
 .main {
   display: flex;
   gap: 40px;
+  padding: 20px;
 }
 
 .canvas {
@@ -97,15 +100,12 @@ button {
   width: 300px;
 }
 
-/* ====== Next Step Button ====== */
-.next-step {
-  margin-top: 10px;
-  padding: 8px 16px;
+/* ====== Panel ====== */
+.panel {
   background: #fff;
-  border: 1px solid #000;
-  font-weight: bold;
-  border-radius: 8px;
-  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  padding: 16px;
 }
 
 /* ====== Pose Panel ====== */
@@ -131,6 +131,7 @@ button {
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  margin-bottom: 10px;
 }
 
 .nav-arrow {
@@ -138,12 +139,13 @@ button {
   cursor: pointer;
 }
 
-/* ====== Panel Common ====== */
-.panel {
+.next-step {
+  padding: 8px 16px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  padding: 16px;
+  border: 1px solid #000;
+  font-weight: bold;
+  border-radius: 8px;
+  width: 100%;
 }
 
 /* ====== Stationery Panel ====== */
