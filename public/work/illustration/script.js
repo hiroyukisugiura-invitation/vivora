@@ -23,7 +23,7 @@ poseImages.forEach(pose => {
   pose.addEventListener('click', () => {
     poseImages.forEach(p => p.classList.remove('selected'));
     pose.classList.add('selected');
-    mannequinImg.src = pose.src; // Optional: apply selected pose image directly
+    mannequinImg.src = pose.src;
   });
 });
 
@@ -45,4 +45,59 @@ colorBoxes.forEach(color => {
       color.classList.add('selected');
     }
   });
+});
+
+// ===== Next Step Button =====
+document.querySelector('.next-step').addEventListener('click', () => {
+  alert('Proceeding to the next step... (Add actual navigation logic here)');
+});
+
+// ===== Canvas Grid Toggle =====
+let gridVisible = false;
+const gridButton = document.querySelector("img[src*='grid.png']");
+if (gridButton) {
+  gridButton.addEventListener('click', () => {
+    gridVisible = !gridVisible;
+    document.querySelector('.canvas').style.backgroundImage = gridVisible ?
+      "repeating-linear-gradient(#ddd 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, #ddd 0 1px, transparent 1px 100%)" :
+      "none";
+  });
+}
+
+// ===== Canvas Scroll + Zoom Support (wheel + drag + touch) =====
+const canvas = document.querySelector('.canvas');
+let scale = 1;
+let originX = 0;
+let originY = 0;
+
+canvas.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? -0.1 : 0.1;
+  scale = Math.min(3, Math.max(0.5, scale + delta));
+  canvas.style.transform = `scale(${scale}) translate(${originX}px, ${originY}px)`;
+}, { passive: false });
+
+let isDragging = false;
+let startX, startY;
+
+canvas.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.clientX;
+  startY = e.clientY;
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (isDragging) {
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    originX += dx / scale;
+    originY += dy / scale;
+    canvas.style.transform = `scale(${scale}) translate(${originX}px, ${originY}px)`;
+    startX = e.clientX;
+    startY = e.clientY;
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  isDragging = false;
 });
