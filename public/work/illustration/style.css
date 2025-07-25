@@ -5,6 +5,7 @@ body {
   background: #f4f1ec;
   font-family: "Helvetica Neue", sans-serif;
   color: #333;
+  overflow-x: hidden;
 }
 
 .title {
@@ -72,6 +73,7 @@ button {
   display: flex;
   gap: 40px;
   padding: 20px;
+  justify-content: center;
 }
 
 .canvas {
@@ -85,11 +87,12 @@ button {
   align-items: center;
   position: relative;
   overflow: hidden;
+  margin: 0 auto;
 }
 
-.canvas img {
+.canvas img#mannequin {
   max-width: 100%;
-  max-height: 100%;
+  height: auto;
   object-fit: contain;
 }
 
