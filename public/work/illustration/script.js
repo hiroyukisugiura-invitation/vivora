@@ -108,6 +108,10 @@ document.addEventListener('mousemove', (e) => {
 
 document.addEventListener('mouseup', () => {
   isDragging = false;
+  if (isDrawing) {
+    saveHistory();
+    isDrawing = false;
+  }
 });
 
 // ===== Custom Color (+) Picker =====
@@ -184,6 +188,83 @@ overlayCanvas.addEventListener('mousemove', (e) => {
   }
 });
 
-document.addEventListener('mouseup', () => {
-  isDrawing = false;
-});
+// ===== Undo / Redo Implementation =====
+let history = [];
+let redoStack = [];
+
+function saveHistory() {
+  history.push(overlayCanvas.toDataURL());
+  if (history.length > 30) history.shift();
+  redoStack = [];
+}
+
+const undoBtn = document.querySelector("img[src*='undo.png']");
+const redoBtn = document.querySelector("img[src*='redo.png']");
+
+if (undoBtn) {
+  undoBtn.addEventListener('click', () => {
+    if (history.length > 0) {
+      const last = history.pop();
+      redoStack.push(overlayCanvas.toDataURL());
+      const img = new Image();
+      img.onload = () => {
+        ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+        ctx.drawImage(img, 0, 0);
+      };
+      img.src = last;
+    }
+  });
+}
+
+if (redoBtn) {
+  redoBtn.addEventListener('click', () => {
+    if (redoStack.length > 0) {
+      const next = redoStack.pop();
+      history.push(overlayCanvas.toDataURL());
+      const img = new Image();
+      img.onload = () => {
+        ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+        ctx.drawImage(img, 0, 0);
+      };
+      img.src = next;
+    }
+  });
+}
+
+// ===== Save Drawing to Image (Download) =====
+const downloadBtn = document.querySelector("img[src*='download.png']");
+if (downloadBtn) {
+  downloadBtn.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = 'illustration.png';
+    link.href = overlayCanvas.toDataURL();
+    link.click();
+  });
+}
+
+// ===== Upload Image to Canvas =====
+const uploadBtn = document.querySelector("img[src*='upload.png']");
+if (uploadBtn) {
+  uploadBtn.addEventListener('click', () => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.style.display = 'none';
+    document.body.appendChild(fileInput);
+    fileInput.click();
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = () => {
+          ctx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+          ctx.drawImage(img, 0, 0, overlayCanvas.width, overlayCanvas.height);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      document.body.removeChild(fileInput);
+    });
+  });
+}
