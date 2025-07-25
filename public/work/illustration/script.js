@@ -9,9 +9,9 @@ const genderImageMap = {
 };
 
 const genderSizeMap = {
-  woman: '720px', // 平均身長 約160cm
-  man: '800px',   // 平均身長 約175cm
-  kids: '540px'   // 平均身長 約120cm
+  woman: '720px',
+  man: '800px',
+  kids: '540px'
 };
 
 genderButtons.forEach(button => {
@@ -65,7 +65,7 @@ document.querySelector('.next-step').addEventListener('click', () => {
   alert('Proceeding to the next step...');
 });
 
-// ===== Grid Button (no transform canvas shift anymore) =====
+// ===== Grid Toggle =====
 let gridVisible = false;
 const gridButton = document.querySelector("img[src*='grid.png']");
 if (gridButton) {
@@ -77,7 +77,7 @@ if (gridButton) {
   });
 }
 
-// ===== Drawing: Brush / Pen / Eraser =====
+// ===== Drawing (Brush / Pen / Eraser) =====
 const canvas = document.querySelector('.canvas');
 const overlayCanvas = document.createElement('canvas');
 overlayCanvas.width = canvas.clientWidth;
@@ -113,5 +113,45 @@ document.addEventListener('mouseup', () => {
   if (isDrawing) {
     saveHistory();
     isDrawing = false;
+  }
+});
+
+// ===== 保存済みデザインスライダー（保存 / 読込 / 表示） =====
+function loadSavedDesigns() {
+  const track = document.getElementById('saved-designs');
+  if (!track) return;
+  track.innerHTML = '';
+  const saved = JSON.parse(localStorage.getItem('vivora_designs') || '[]');
+  saved.forEach((dataUrl, index) => {
+    const img = document.createElement('img');
+    img.src = dataUrl;
+    img.className = 'design-thumb';
+    img.alt = `Design ${index + 1}`;
+    img.addEventListener('click', () => {
+      const main = document.getElementById('mannequin');
+      if (main) main.src = dataUrl;
+    });
+    track.appendChild(img);
+  });
+}
+
+function saveCurrentDesign() {
+  const canvas = document.querySelector('canvas');
+  if (!canvas) return;
+  const data = canvas.toDataURL();
+  const saved = JSON.parse(localStorage.getItem('vivora_designs') || '[]');
+  saved.push(data);
+  localStorage.setItem('vivora_designs', JSON.stringify(saved));
+  loadSavedDesigns();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadSavedDesigns();
+  const left = document.getElementById('slider-left');
+  const right = document.getElementById('slider-right');
+  const track = document.getElementById('saved-designs');
+  if (left && right && track) {
+    left.addEventListener('click', () => { track.scrollBy({ left: -100, behavior: 'smooth' }); });
+    right.addEventListener('click', () => { track.scrollBy({ left: 100, behavior: 'smooth' }); });
   }
 });
