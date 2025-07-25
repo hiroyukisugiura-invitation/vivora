@@ -25,121 +25,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css" />
-</head>
-<body>
-  <button class="next-step-fixed">Next Step ▶▶</button>
-
-  <header class="toolbar">
-    <div class="toolbar-top">
-      <h1 class="title">Vivora Fashion Illustration 2025</h1>
-      <div class="gender-buttons">
-        <button class="gender-button active" data-gender="woman">Woman</button>
-        <button class="gender-button" data-gender="man">Man</button>
-        <button class="gender-button" data-gender="kids">Kids</button>
-      </div>
-    </div>
-
-    <div class="content-toolbar">
-      <img class="icon-button" src="../../create_parts/create_button/retreat.png" alt="Undo">
-      <img class="icon-button" src="../../create_parts/create_button/forward.png" alt="Redo">
-      <img class="icon-button" src="../../create_parts/create_button/reset.png" alt="Reset">
-      <img class="icon-button" src="../../create_parts/create_button/download.png" alt="Download">
-      <img class="icon-button" src="../../create_parts/create_button/upload.png" alt="Upload">
-      <img class="icon-button" src="../../create_parts/create_button/save.png" alt="Save">
-      <img class="icon-button" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
-    </div>
-
-    <div class="content-toolbar">
-      <img class="icon-button" src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration">
-      <img class="icon-button" src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching">
-      <img class="icon-button" src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design">
-      <img class="icon-button" src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation">
-      <img class="icon-button" src="../../create_parts/contents_button/5_grading.png" alt="Grading">
-      <img class="icon-button" src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout">
-      <img class="icon-button" src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing">
-    </div>
-  </header>
-
-  <div class="main">
-    <div class="canvas">
-      <img id="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
-    </div>
-
-    <div class="design-slider">
-      <button class="slider-arrow" id="slider-left">◀︎</button>
-      <div class="slider-track" id="saved-designs">
-        <img class="design-thumb" src="../../mannequin/sample_saved.png" alt="Sample Design">
-      </div>
-      <button class="slider-arrow" id="slider-right">▶︎</button>
-    </div>
-
-    <div class="sidebar">
-      <div class="pose-panel panel">
-        <div class="pose-thumbnails">
-          <img class="pose selected" src="../../mannequin/pose1.png" alt="Pose 1">
-          <img class="pose" src="../../mannequin/pose2.png" alt="Pose 2">
-          <img class="pose" src="../../mannequin/pose3.png" alt="Pose 3">
-        </div>
-        <div class="pose-nav">
-          <img class="nav-arrow" src="../../mannequin/select_left.png" alt="Left">
-          <img class="nav-arrow" src="../../mannequin/select_right.png" alt="Right">
-        </div>
-      </div>
-
-      <div class="stationery-panel panel">
-        <h2>Stationery</h2>
-        <div class="stationery-icons">
-          <div class="tool-button"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/text.png" alt="Text"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/fill.png" alt="Fill"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/brush.png" alt="Brush"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/pen.png" alt="Pen"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/eraser.png" alt="Eraser"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/rotate.png" alt="Rotate"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/photo.png" alt="Camera"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/percent.png" alt="Percent"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/add.png" alt="Add"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/more.png" alt="More"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/edge.png" alt="Edge"></div>
-        </div>
-      </div>
-
-      <div class="color-panel panel">
-        <h2>Color <span class="custom-btn">Custom...</span></h2>
-        <div class="color-grid">
-          <div class="color-box" style="background: #ffffff;"></div>
-          <div class="color-box" style="background: #cccccc;"></div>
-          <div class="color-box" style="background: #ffff00;"></div>
-          <div class="color-box" style="background: #ff9900;"></div>
-          <div class="color-box" style="background: #f4a2a2;"></div>
-          <div class="color-box" style="background: #ff0000;"></div>
-          <div class="color-box" style="background: #009900;"></div>
-          <div class="color-box" style="background: #006600;"></div>
-          <div class="color-box" style="background: #3399ff;"></div>
-          <div class="color-box" style="background: #0000ff;"></div>
-          <div class="color-box" style="background: #990099;"></div>
-          <div class="color-box" style="background: #000000;"></div>
-          <div class="color-box plus"></div>
-          <div class="color-box plus"></div>
-          <div class="color-box plus"></div>
-          <div class="color-box eyedropper"><img src="../../color/pc_color/eyedropper.png" alt="Eyedropper"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="./script.js"></script>
-</body>
-</html>
-
+}
 
 .toolbar-top {
   display: flex;
@@ -195,21 +81,18 @@ button {
   flex-wrap: wrap;
 }
 
-.canvas img#mannequin {
-  max-height: 100%;
-  width: auto;
-  object-fit: contain;
-}
-
-.design-thumb {
-  width: 64px;
-  height: 100px;
-  object-fit: contain;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  background: #fff;
-  cursor: pointer;
-  display: block;
+.canvas {
+  width: 600px;
+  height: 800px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
 }
 
 .canvas img#mannequin {
@@ -224,8 +107,8 @@ button {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin: 20px auto;
-  max-width: 90%;
+  margin-bottom: 24px;
+  width: 100%;
 }
 
 .slider-track {
@@ -233,17 +116,19 @@ button {
   overflow-x: auto;
   gap: 12px;
   padding: 4px;
-  max-width: 100%;
+  max-width: 300px;
 }
 
 .design-thumb {
   width: 64px;
-  height: 100px;
+  height: auto;
+  max-height: 100px;
   object-fit: contain;
   border: 2px solid transparent;
   border-radius: 8px;
   background: #fff;
   cursor: pointer;
+  display: block;
 }
 
 .design-thumb:hover,
@@ -305,10 +190,10 @@ button {
 }
 
 .next-step-fixed {
-  position: absolute;
+  position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 10;
+  z-index: 1000;
   padding: 8px 16px;
   background: #fff;
   border: 1px solid #000;
