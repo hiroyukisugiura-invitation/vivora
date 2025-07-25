@@ -155,3 +155,4 @@ document.addEventListener('DOMContentLoaded', () => {
     right.addEventListener('click', () => { track.scrollBy({ left: 100, behavior: 'smooth' }); });
   }
 });
+
