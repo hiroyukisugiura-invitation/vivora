@@ -29,27 +29,33 @@ poseImages.forEach(pose => {
 
 // ===== Tool Selection =====
 const toolButtons = document.querySelectorAll('.tool-button');
+let currentTool = null;
+
 toolButtons.forEach(tool => {
   tool.addEventListener('click', () => {
     toolButtons.forEach(t => t.classList.remove('selected'));
     tool.classList.add('selected');
+    currentTool = tool.querySelector('img')?.alt.toLowerCase();
   });
 });
 
 // ===== Color Selection =====
+let currentColor = '#000000';
+
 const colorBoxes = document.querySelectorAll('.color-box');
 colorBoxes.forEach(color => {
   color.addEventListener('click', () => {
     if (!color.classList.contains('plus') && !color.classList.contains('eyedropper')) {
       colorBoxes.forEach(c => c.classList.remove('selected'));
       color.classList.add('selected');
+      currentColor = window.getComputedStyle(color).backgroundColor;
     }
   });
 });
 
 // ===== Next Step Button =====
 document.querySelector('.next-step').addEventListener('click', () => {
-  alert('Proceeding to the next step... (Add actual navigation logic here)');
+  alert('Proceeding to the next step...');
 });
 
 // ===== Canvas Grid Toggle =====
@@ -64,7 +70,7 @@ if (gridButton) {
   });
 }
 
-// ===== Canvas Scroll + Zoom Support (wheel + drag + touch) =====
+// ===== Canvas Scroll + Zoom Support =====
 const canvas = document.querySelector('.canvas');
 let scale = 1;
 let originX = 0;
@@ -81,9 +87,11 @@ let isDragging = false;
 let startX, startY;
 
 canvas.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.clientX;
-  startY = e.clientY;
+  if (currentTool !== 'brush' && currentTool !== 'pen' && currentTool !== 'eraser') {
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+  }
 });
 
 document.addEventListener('mousemove', (e) => {
@@ -118,12 +126,13 @@ plusBoxes.forEach(plusBox => {
       plusBox.classList.add('selected');
       colorBoxes.forEach(c => c.classList.remove('selected'));
       plusBox.classList.add('selected');
+      currentColor = colorInput.value;
       document.body.removeChild(colorInput);
     });
   });
 });
 
-// ===== Eyedropper Tool (basic color pick from canvas) =====
+// ===== Eyedropper Tool =====
 const eyedropper = document.querySelector('.color-box.eyedropper');
 if (eyedropper && window.EyeDropper) {
   eyedropper.addEventListener('click', async () => {
@@ -132,15 +141,49 @@ if (eyedropper && window.EyeDropper) {
       const result = await eyeDropper.open();
       const hexColor = result.sRGBHex;
 
-      // 塗り替える新しいカラーBOXを探す or 再利用
       const availableBox = [...colorBoxes].find(box => box.classList.contains('plus')) || colorBoxes[colorBoxes.length - 1];
       availableBox.style.background = hexColor;
       availableBox.classList.remove('plus');
       colorBoxes.forEach(c => c.classList.remove('selected'));
       availableBox.classList.add('selected');
-
+      currentColor = hexColor;
     } catch (err) {
       console.warn('Eyedropper canceled or not supported.');
     }
   });
 }
+
+// ===== Drawing Feature (Brush, Pen, Eraser) =====
+const overlayCanvas = document.createElement('canvas');
+overlayCanvas.width = canvas.clientWidth;
+overlayCanvas.height = canvas.clientHeight;
+overlayCanvas.style.position = 'absolute';
+overlayCanvas.style.top = '0';
+overlayCanvas.style.left = '0';
+overlayCanvas.style.zIndex = '2';
+canvas.appendChild(overlayCanvas);
+
+const ctx = overlayCanvas.getContext('2d');
+let isDrawing = false;
+
+overlayCanvas.addEventListener('mousedown', (e) => {
+  if (currentTool === 'brush' || currentTool === 'pen' || currentTool === 'eraser') {
+    isDrawing = true;
+    ctx.beginPath();
+    ctx.moveTo(e.offsetX, e.offsetY);
+  }
+});
+
+overlayCanvas.addEventListener('mousemove', (e) => {
+  if (isDrawing) {
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.strokeStyle = currentTool === 'eraser' ? '#f4f1ec' : currentColor;
+    ctx.lineWidth = currentTool === 'pen' ? 1 : 4;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  }
+});
+
+document.addEventListener('mouseup', () => {
+  isDrawing = false;
+});
