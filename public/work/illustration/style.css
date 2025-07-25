@@ -81,17 +81,21 @@ button {
   flex-wrap: wrap;
 }
 
-.canvas {
-  width: 600px;
-  height: 800px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
+.canvas img#mannequin {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+.design-thumb {
+  width: 64px;
+  height: 100px;
+  object-fit: contain;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  display: block;
 }
 
 .canvas img#mannequin {
