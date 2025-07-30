@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvasWrapper = document.getElementById('canvas-wrapper');
 
     // --- マネキン画像のパスを管理 ---
-    // 【重要】現在のファイル構成に合わせた正しいパス
     const mannequinSources = {
         woman: '../../mannequin/mannequin_woman.png',
         man: '../../mannequin/mannequin_man.png',
@@ -66,11 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
         appState.activeGender = selectedGender;
         
         const newSrc = mannequinSources[selectedGender];
-        // 新しいパスが存在し、かつ現在の表示と違う場合のみ画像を更新
         if (newSrc && mannequinImg.getAttribute('src') !== newSrc) { 
             mannequinImg.src = newSrc;
             mannequinImg.onload = () => {
-                panzoom.reset(); // 画像が読み込めたら表示をリセット
+                // ★★★ 修正点 ★★★
+                // アニメーションなしで、拡大率と位置を即座にリセット
+                panzoom.reset({ animate: false }); 
             };
             mannequinImg.onerror = () => {
                 console.error('画像の読み込みに失敗。パスを確認してください:', newSrc);
@@ -78,6 +78,107 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 他のイベントリスナーは変更なしのため省略...
+    // 2. ポーズ切り替え
+    poseSelector.addEventListener('click', (e) => {
+        const targetPose = e.target.closest('.pose-thumb');
+        if(!targetPose) return;
+        poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
+        targetPose.classList.add('selected');
+        const poseSrc = targetPose.dataset.poseSrc;
+        if(poseSrc) {
+            mannequinImg.src = poseSrc;
+            mannequinImg.onload = () => {
+                // ★★★ 修正点 ★★★
+                // こちらも同様に、即座にリセット
+                panzoom.reset({ animate: false });
+            }
+        }
+    });
+  
+    // 3. ツール選択
+    stationeryPanel.addEventListener('click', (e) => {
+        const targetTool = e.target.closest('.tool-button');
+        if (!targetTool) return;
+        stationeryPanel.querySelectorAll('.tool-button').forEach(btn => btn.classList.remove('selected'));
+        targetTool.classList.add('selected');
+        appState.activeTool = targetTool.dataset.tool;
 
+        const isDrawingTool = ['pen', 'brush', 'eraser'].includes(appState.activeTool);
+        canvasWrapper.classList.toggle('drawing-mode', isDrawingTool);
+        // Panzoomのドラッグ移動と描画を切り替えるため、drawingCanvasのイベントを制御
+        drawingCanvas.style.pointerEvents = isDrawingTool ? 'auto' : 'none'; 
+    });
+
+    // 4. カラー選択
+    colorPanel.addEventListener('click', (e) => {
+        const targetColorBox = e.target.closest('.color-box');
+        if (!targetColorBox || targetColorBox.classList.contains('add-color-button')) return;
+        colorPanel.querySelectorAll('.color-box').forEach(box => box.classList.remove('selected'));
+        targetColorBox.classList.add('selected');
+        if (targetColorBox.dataset.color) {
+            appState.activeColor = targetColorBox.dataset.color;
+        }
+    });
+  
+    // 5. グリッドON/OFF
+    gridToggleButton.addEventListener('click', () => {
+        appState.gridVisible = !appState.gridVisible;
+        canvasWrapper.classList.toggle('grid-active', appState.gridVisible);
+    });
+
+    // ===== Pan & Zoom 対応の描画処理 =====
+    // （これ以降の描画処理に関するコードは変更ありません）
+    function getTransformedPoint(x, y) {
+        const { scale, x: panX, y: panY } = panzoom.getPanzoom();
+        const rect = drawingCanvas.getBoundingClientRect();
+        return {
+            x: (x - rect.left - panX) / scale,
+            y: (y - rect.top - panY) / scale,
+        };
+    }
+  
+    function startDrawing(e) {
+        const isDrawingTool = ['pen', 'brush', 'eraser'].includes(appState.activeTool);
+        if (!isDrawingTool) return;
+        appState.isDrawing = true;
+
+        const { scale, x, y } = panzoom.getPanzoom();
+        ctx.setTransform(scale, 0, 0, scale, x, y);
+    
+        const point = getTransformedPoint(e.clientX, e.clientY);
+        ctx.beginPath();
+        ctx.moveTo(point.x, point.y);
+    }
+
+    function draw(e) {
+        if (!appState.isDrawing) return;
+        e.preventDefault();
+
+        if (appState.activeTool === 'eraser') {
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.lineWidth = 15;
+        } else {
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.strokeStyle = appState.activeColor;
+            ctx.lineWidth = (appState.activeTool === 'pen') ? 2 : 5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        }
+    
+        const point = getTransformedPoint(e.clientX, e.clientY);
+        ctx.lineTo(point.x, point.y);
+        ctx.stroke();
+    }
+  
+    function stopDrawing() {
+        if (appState.isDrawing) {
+            ctx.closePath();
+            appState.isDrawing = false;
+        }
+    }
+
+    canvasWrapper.addEventListener('mousedown', startDrawing);
+    canvasWrapper.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDrawing);
+    window.addEventListener('mouseleave', stopDrawing);
 });
