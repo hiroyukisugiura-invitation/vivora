@@ -4,11 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-  <!-- Google Fontsの読み込み（デザインに合わせてPlayfair Displayを指定） -->
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css" />
+  
+  <!-- スタイルシートの読み込み -->
+  <link rel="stylesheet" href="../../style.css" />
 </head>
 <body>
   <!-- 全体を囲むアプリケーションコンテナ -->
@@ -42,20 +45,20 @@
         
         <!-- コンテンツボタン -->
         <div class="content-toolbar">
-            <button class="icon-button" aria-label="Fashion Illustration"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
-            <button class="icon-button" aria-label="Fabric Matching"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
-            <button class="icon-button" aria-label="Clothing Design"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
-            <button class="icon-button" aria-label="Pattern Creation"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
-            <button class="icon-button" aria-label="Grading"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
-            <button class="icon-button" aria-label="Print Layout"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
-            <button class="icon-button" aria-label="Digital Kids Dressing"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
+          <button class="icon-button" aria-label="Fashion Illustration"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
+          <button class="icon-button" aria-label="Fabric Matching"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
+          <button class="icon-button" aria-label="Clothing Design"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
+          <button class="icon-button" aria-label="Pattern Creation"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
+          <button class="icon-button" aria-label="Grading"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
+          <button class="icon-button" aria-label="Print Layout"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
+          <button class="icon-button" aria-label="Digital Kids Dressing"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
         </div>
       </div>
 
-      <!-- キャンバスエリア（Pan&Zoomのためにラッパーを追加） -->
+      <!-- キャンバスエリア -->
       <div id="canvas-wrapper" class="canvas-wrapper">
         <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
-        <!-- JSで描画用のCanvasがここに追加されます -->
+        <!-- JSによって描画用の透明なCanvasがここに追加されます -->
       </div>
     </main>
 
@@ -71,10 +74,10 @@
       <div id="pose-selector" class="panel pose-selector">
         <button class="arrow left-arrow">‹</button>
         <div class="pose-thumbnails">
-            <img class="pose-thumb selected" src="../../mannequin/pose1.png" alt="Pose 1" data-pose-src="../../mannequin/mannequin_woman.png">
-            <img class="pose-thumb" src="../../mannequin/pose2.png" alt="Pose 2" data-pose-src="../../mannequin/mannequin_woman_pose2.png">
-            <img class="pose-thumb" src="../../mannequin/pose3.png" alt="Pose 3" data-pose-src="../../mannequin/mannequin_woman_pose3.png">
-            <img class="pose-thumb" src="../../mannequin/pose4.png" alt="Pose 4" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
+          <img class="pose-thumb selected" src="../../mannequin/pose1.png" alt="Pose 1" data-pose-src="../../mannequin/mannequin_woman.png">
+          <img class="pose-thumb" src="../../mannequin/pose2.png" alt="Pose 2" data-pose-src="../../mannequin/mannequin_woman_pose2.png">
+          <img class="pose-thumb" src="../../mannequin/pose3.png" alt="Pose 3" data-pose-src="../../mannequin/mannequin_woman_pose3.png">
+          <img class="pose-thumb" src="../../mannequin/pose4.png" alt="Pose 4" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
         </div>
         <button class="arrow right-arrow">›</button>
       </div>
@@ -83,7 +86,6 @@
       <div id="stationery-panel" class="panel stationery-panel">
         <h2 class="panel-title">Stationery</h2>
         <div id="stationery-grid" class="stationery-grid">
-          <!-- ツールはJSで動的に生成するのが望ましい -->
           <div class="tool-button" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
           <div class="tool-button" data-tool="direct_select"><img src="../../create_parts/design_button/direct_select.png" alt="Direct Select"></div>
           <div class="tool-button" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt="Text"></div>
@@ -104,7 +106,6 @@
       <div id="color-panel" class="panel color-panel">
           <h2 class="panel-title">Color <button class="custom-button">Custom...</button></h2>
           <div id="color-grid" class="color-grid">
-              <!-- カラーもJSで動的に生成するのが望ましい -->
               <div class="color-box selected" style="background-color: #ffffff;" data-color="#ffffff"></div>
               <div class="color-box" style="background-color: #cccccc;" data-color="#cccccc"></div>
               <div class="color-box" style="background-color: #ffff00;" data-color="#ffff00"></div>
@@ -117,7 +118,6 @@
               <div class="color-box" style="background-color: #0000ff;" data-color="#0000ff"></div>
               <div class="color-box" style="background-color: #990099;" data-color="#990099"></div>
               <div class="color-box" style="background-color: #000000;" data-color="#000000"></div>
-              <!-- 追加出来る仕様 -->
               <button class="color-box add-color-button">+</button>
               <button class="color-box add-color-button">+</button>
               <button class="color-box add-color-button">+</button>
@@ -127,8 +127,10 @@
     </aside>
 
   </div>
-  
-  <!-- JavaScriptファイル（HTML構造の変更に伴い、このファイルも大幅な修正が必要です） -->
-  <script src="./script.js"></script>
+
+  <!-- ★★★ 修正点 ★★★ -->
+  <!-- Panzoomライブラリを、自分のscript.jsより「前」に読み込む -->
+  <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+  <script src="../../script.js"></script>
 </body>
 </html>
