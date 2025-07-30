@@ -24,7 +24,6 @@ body {
   background-color: var(--bg-main);
   color: var(--text-primary);
   font-family: 'Helvetica Neue', sans-serif;
-  overflow: hidden; /* アプリ全体のスクロールバーを非表示 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -40,18 +39,18 @@ body {
   display: flex;
   flex-direction: column;
   padding: var(--spacing-lg);
-  overflow: hidden; 
+  overflow: hidden; /* Canvas以外はスクロールしない */
 }
 
 .sidebar-controls {
   width: 320px;
+  background-color: var(--bg-main); /* or var(--bg-panel) if you prefer */
   padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
   overflow-y: auto; /* サイドバーが長くなった場合にスクロール */
   border-left: 1px solid var(--border-color);
-  background-color: var(--bg-main);
 }
 
 /* ===== 左側：メインエリアのスタイル ===== */
@@ -93,14 +92,12 @@ body {
 .toolbar-area {
   margin-bottom: var(--spacing-md);
   display: flex;
-  flex-wrap: wrap;
   gap: var(--spacing-lg);
   align-items: center;
 }
 
 .action-toolbar, .content-toolbar {
   display: flex;
-  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -111,7 +108,6 @@ body {
   cursor: pointer;
   opacity: 0.7;
   transition: opacity 0.2s;
-  display: flex;
 }
 
 .icon-button:hover {
@@ -126,40 +122,30 @@ body {
 
 /* ===== キャンバスエリア ===== */
 .canvas-wrapper {
-  flex-grow: 1; 
+  flex-grow: 1; /* 残りの高さを全て使う */
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
   border-radius: 8px;
-  overflow: hidden; 
+  overflow: hidden; /* Pan&Zoomではみ出した部分を隠す */
   box-shadow: var(--shadow-light);
-  /* ツールに応じたカーソル形状 */
-  cursor: grab;
-}
-
-.canvas-wrapper:active {
-    cursor: grabbing;
-}
-.canvas-wrapper.drawing-mode {
-    cursor: crosshair;
 }
 
 /* 方眼紙のスタイル（JSでこのクラスを付け外しする） */
 .canvas-wrapper.grid-active {
   background-image:
-    linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
 .mannequin-base {
-  max-width: 90%;
+  max-width: 100%;
   max-height: 90%;
   object-fit: contain;
-  /* Panzoomによってtransformが制御されるのでCSSのtransitionは不要 */
-  pointer-events: none; /* 画像自体がマウスイベントを拾わないように */
+  transition: transform 0.3s ease; /* Pan&Zoomアニメーション用 */
 }
 
 /* ===== 右側：サイドバーのスタイル ===== */
@@ -167,7 +153,6 @@ body {
   text-align: right;
   margin-bottom: var(--spacing-md);
 }
-
 .next-step-button {
   background-color: var(--text-primary);
   color: white;
@@ -179,7 +164,6 @@ body {
   cursor: pointer;
   transition: background-color 0.2s;
 }
-
 .next-step-button:hover {
   background-color: #000;
 }
@@ -200,22 +184,20 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
 .custom-button {
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  text-decoration: underline;
-  font-size: 12px;
-  cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    text-decoration: underline;
+    font-size: 12px;
+    cursor: pointer;
 }
-
 .panel-footer {
   text-align: center;
   font-size: 18px;
-  color: #aaa;
   margin-top: 8px;
 }
+
 
 /* ポーズ選択パネル */
 .pose-selector {
@@ -223,22 +205,15 @@ body {
   align-items: center;
   gap: 8px;
 }
-
 .pose-thumbnails {
-  flex-grow: 1;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  /* スクロールバーの非表示（IE以外） */
-  scrollbar-width: none; /* Firefox */
+    flex-grow: 1;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto; /* はみ出した場合にスクロール */
+    scrollbar-width: none; /* Firefox */
 }
-/* スクロールバーの非表示（Chrome, Safari） */
-.pose-thumbnails::-webkit-scrollbar { 
-  display: none; 
-}
-
+.pose-thumbnails::-webkit-scrollbar { display: none; } /* Chrome, Safari */
 .pose-thumb {
-  flex-shrink: 0; /* カルーセル内で画像が縮まないように */
   width: 50px;
   height: 80px;
   object-fit: contain;
@@ -246,24 +221,14 @@ body {
   border-radius: 8px;
   cursor: pointer;
   padding: 4px;
-  background-color: #fff;
   transition: border-color 0.2s;
 }
-
 .pose-thumb.selected,
 .pose-thumb:hover {
   border-color: var(--text-primary);
 }
+.arrow { background: none; border: none; font-size: 24px; cursor: pointer; color: #aaa;}
 
-.arrow { 
-  background: none; 
-  border: none; 
-  font-size: 24px; 
-  cursor: pointer; 
-  color: #aaa;
-  flex-shrink: 0;
-  padding: 0 8px;
-}
 
 /* 作業ボード＆カラーパネルのグリッド */
 .stationery-grid, .color-grid {
@@ -272,32 +237,26 @@ body {
   gap: 12px;
   justify-items: center;
 }
-
 .tool-button, .color-box {
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  width: 54px;
-  height: 54px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease-out;
-  position: relative;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    width: 54px;
+    height: 54px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
 }
-
 .tool-button:hover, .color-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
-
+.tool-button img { width: 32px; height: 32px; }
 .tool-button.selected, .color-box.selected {
   border: 2px solid var(--text-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
-
-.tool-button img { width: 32px; height: 32px; }
 .add-color-button { font-size: 24px; color: #ccc; }
 .eyedropper-button img { width: 32px; }
