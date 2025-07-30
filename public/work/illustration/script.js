@@ -216,3 +216,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // ウィンドウ全体でmouseupを監視して描画を終了
   window.addEventListener('mouseup', stopDrawing);
 });
+
