@@ -5,22 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
   
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   
-  <!-- スタイルシートの読み込み -->
-  <link rel="stylesheet" href="../../style.css" />
+  <!-- 正しいパスに修正 -->
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- 全体を囲むアプリケーションコンテナ -->
   <div class="app-container">
 
-    <!-- ===== 左側：メインの作業エリア ===== -->
     <main class="main-workspace">
       
-      <!-- トップヘッダー -->
       <header class="main-header">
         <h1 class="title">Vivora Fashion Illustration 2025</h1>
         <div class="gender-selector">
@@ -30,9 +26,7 @@
         </div>
       </header>
 
-      <!-- ツールバーエリア -->
       <div class="toolbar-area">
-        <!-- 作業修正ボタン -->
         <div class="action-toolbar">
           <button class="icon-button" aria-label="Undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
           <button class="icon-button" aria-label="Redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
@@ -43,7 +37,6 @@
           <button class="icon-button" id="grid-toggle" aria-label="Toggle Grid"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
         </div>
         
-        <!-- コンテンツボタン -->
         <div class="content-toolbar">
           <button class="icon-button" aria-label="Fashion Illustration"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
           <button class="icon-button" aria-label="Fabric Matching"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
@@ -55,22 +48,17 @@
         </div>
       </div>
 
-      <!-- キャンバスエリア -->
       <div id="canvas-wrapper" class="canvas-wrapper">
         <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
-        <!-- JSによって描画用の透明なCanvasがここに追加されます -->
       </div>
     </main>
 
-    <!-- ===== 右側：コントロールパネル（サイドバー） ===== -->
     <aside class="sidebar-controls">
 
-      <!-- Next Step ボタン -->
       <div class="next-step-panel">
         <button class="next-step-button">Next Step ▶▶</button>
       </div>
 
-      <!-- ポーズ選択パネル（既存データ） -->
       <div id="pose-selector" class="panel pose-selector">
         <button class="arrow left-arrow">‹</button>
         <div class="pose-thumbnails">
@@ -82,7 +70,6 @@
         <button class="arrow right-arrow">›</button>
       </div>
       
-      <!-- 作業ボード (Stationery) -->
       <div id="stationery-panel" class="panel stationery-panel">
         <h2 class="panel-title">Stationery</h2>
         <div id="stationery-grid" class="stationery-grid">
@@ -97,12 +84,11 @@
           <div class="tool-button" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt="Percent"></div>
           <div class="tool-button" data-tool="photo"><img src="../../create_parts/design_button/photo.png" alt="Camera"></div>
           <div class="tool-button" data-tool="add"><img src="../../create_parts/design_button/add.png" alt="Add"></div>
-          <div class="tool-button fill-stroke-button" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt="Fill & Stroke"></div>
+          <div class="tool-button" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt="Fill & Stroke"></div>
         </div>
         <div class="panel-footer">...</div>
       </div>
       
-      <!-- カラーパネル -->
       <div id="color-panel" class="panel color-panel">
           <h2 class="panel-title">Color <button class="custom-button">Custom...</button></h2>
           <div id="color-grid" class="color-grid">
@@ -128,9 +114,8 @@
 
   </div>
 
-  <!-- ★★★ 修正点 ★★★ -->
-  <!-- Panzoomライブラリを、自分のscript.jsより「前」に読み込む -->
   <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
-  <script src="../../script.js"></script>
+  <!-- 正しいパスに修正 -->
+  <script src="./script.js"></script>
 </body>
 </html>
