@@ -1,303 +1,168 @@
-/* ===== CSSカスタムプロパティ（変数）定義 ===== */
-:root {
-  /* Colors */
-  --bg-main: #f8f1ee;
-  --bg-panel: #faf6f3;
-  --text-primary: #3d3d3d;
-  --font-accent: 'Playfair Display', serif;
-  --border-color: #e0d5d0;
-  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+// ===== アプリケーション初期化 =====
+document.addEventListener('DOMContentLoaded', () => {
 
-  /* Spacing */
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-}
+  // --- 状態管理オブジェクト ---
+  const appState = {
+    activeGender: 'woman',
+    activeTool: 'select',
+    activeColor: '#000000',
+    isDrawing: false,
+    gridVisible: false,
+  };
 
-/* ===== 基本リセットとボディスタイル ===== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  // --- DOM要素の取得 ---
+  const genderSelector = document.querySelector('.gender-selector');
+  const mannequinImg = document.getElementById('mannequin');
+  const poseSelector = document.getElementById('pose-selector');
+  const stationeryPanel = document.getElementById('stationery-panel');
+  const colorPanel = document.getElementById('color-panel');
+  const gridToggleButton = document.getElementById('grid-toggle');
+  const canvasWrapper = document.getElementById('canvas-wrapper');
 
-body {
-  background-color: var(--bg-main);
-  color: var(--text-primary);
-  font-family: 'Helvetica Neue', sans-serif;
-  overflow: hidden; /* アプリ全体のスクロールバーを非表示 */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  // --- 描画用Canvasのセットアップ ---
+  const drawingCanvas = document.createElement('canvas');
+  const ctx = drawingCanvas.getContext('2d');
+  
+  function resizeDrawingCanvas() {
+    drawingCanvas.width = canvasWrapper.clientWidth;
+    drawingCanvas.height = canvasWrapper.clientHeight;
+  }
+  resizeDrawingCanvas();
+  drawingCanvas.style.position = 'absolute';
+  drawingCanvas.style.top = '0';
+  drawingCanvas.style.left = '0';
+  drawingCanvas.style.pointerEvents = 'none'; // ★重要：下のマネキンの操作を妨げないように
+  canvasWrapper.appendChild(drawingCanvas);
+  
+  window.addEventListener('resize', resizeDrawingCanvas);
 
-/* ===== アプリケーション全体レイアウト ===== */
-.app-container {
-  display: flex;
-  height: 100vh;
-}
+  // --- Pan & Zoom機能の有効化 ---
+  const panzoom = Panzoom(mannequinImg, {
+    maxScale: 5,
+    minScale: 0.5,
+    contain: 'outside',
+    canvas: true,
+  });
 
-.main-workspace {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-lg);
-  overflow: hidden; 
-}
+  // マウスホイールでのズーム。対象はラッパー要素にする。
+  canvasWrapper.addEventListener('wheel', panzoom.zoomWithWheel);
+  // Panzoomが有効な場合、描画Canvasのマウス操作を有効化
+  drawingCanvas.style.pointerEvents = 'auto';
 
-.sidebar-controls {
-  width: 320px;
-  padding: var(--spacing-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  overflow-y: auto; /* サイドバーが長くなった場合にスクロール */
-  border-left: 1px solid var(--border-color);
-  background-color: var(--bg-main);
-}
 
-/* ===== 左側：メインエリアのスタイル ===== */
-.main-header {
-  margin-bottom: var(--spacing-md);
-}
+  // ===== イベントリスナーの設定 =====
 
-.title {
-  font-family: var(--font-accent);
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: var(--spacing-md);
-  text-align: left;
-}
+  // 1. 性別切り替え
+  genderSelector.addEventListener('click', (e) => {
+    const targetButton = e.target.closest('.gender-button');
+    if (!targetButton) return;
+    genderSelector.querySelectorAll('.gender-button').forEach(btn => btn.classList.remove('active'));
+    targetButton.classList.add('active');
+    appState.activeGender = targetButton.dataset.gender;
+    console.log(`Gender changed to: ${appState.activeGender}`);
+  });
 
-.gender-selector {
-  display: flex;
-  gap: 8px;
-}
+  // 2. ポーズ切り替え
+  poseSelector.addEventListener('click', (e) => {
+    const targetPose = e.target.closest('.pose-thumb');
+    if(!targetPose) return;
+    poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
+    targetPose.classList.add('selected');
+    if(targetPose.dataset.poseSrc) {
+        mannequinImg.src = targetPose.dataset.poseSrc;
+    }
+    console.log(`Pose changed to: ${targetPose.alt}`);
+  });
+  
+  // 3. ツール選択
+  stationeryPanel.addEventListener('click', (e) => {
+    const targetTool = e.target.closest('.tool-button');
+    if (!targetTool) return;
+    stationeryPanel.querySelectorAll('.tool-button').forEach(btn => btn.classList.remove('selected'));
+    targetTool.classList.add('selected');
+    appState.activeTool = targetTool.dataset.tool;
+    console.log(`Tool selected: ${appState.activeTool}`);
+  });
 
-.gender-button {
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  padding: 8px 18px;
-  font-size: 14px;
-  cursor: pointer;
-  border-radius: 20px;
-  transition: all 0.2s ease-in-out;
-  box-shadow: var(--shadow-light);
-}
+  // 4. カラー選択
+  colorPanel.addEventListener('click', (e) => {
+    const targetColorBox = e.target.closest('.color-box');
+    if (!targetColorBox || targetColorBox.classList.contains('add-color-button')) return;
+    colorPanel.querySelectorAll('.color-box').forEach(box => box.classList.remove('selected'));
+    targetColorBox.classList.add('selected');
+    if (targetColorBox.dataset.color) {
+      appState.activeColor = targetColorBox.dataset.color;
+    }
+    console.log(`Color selected: ${appState.activeColor}`);
+  });
+  
+  // 5. グリッドON/OFF
+  gridToggleButton.addEventListener('click', () => {
+    appState.gridVisible = !appState.gridVisible;
+    canvasWrapper.classList.toggle('grid-active', appState.gridVisible);
+  });
 
-.gender-button.active,
-.gender-button:hover {
-  background-color: var(--text-primary);
-  color: #fff;
-  border-color: var(--text-primary);
-}
+  // ===== Pan & Zoom 対応の描画処理 =====
 
-.toolbar-area {
-  margin-bottom: var(--spacing-md);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-lg);
-  align-items: center;
-}
+  // マウス座標をPanzoomのスケールと位置に合わせて変換するヘルパー関数
+  function getTransformedPoint(x, y) {
+      const transform = panzoom.getTransform();
+      const rect = drawingCanvas.getBoundingClientRect();
+      // アフィン変換の逆行列を計算して座標を求める
+      const point = {
+          x: (x - rect.left - transform.x) / transform.scale,
+          y: (y - rect.top - transform.y) / transform.scale,
+      };
+      return point;
+  }
+  
+  function startDrawing(e) {
+    if (appState.activeTool !== 'pen' && appState.activeTool !== 'brush' && appState.activeTool !== 'eraser') {
+      panzoom.pan(e.movementX, e.movementY, { relative: true }); // 描画ツール以外はドラッグで画像を動かす
+      return;
+    }
+    appState.isDrawing = true;
 
-.action-toolbar, .content-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
+    // Panzoomの状態を反映したコンテキストを設定
+    const scale = panzoom.getScale();
+    ctx.setTransform(scale, 0, 0, scale, panzoom.getPan().x, panzoom.getPan().y);
+    
+    // 変換後の座標を取得して描画開始
+    const point = getTransformedPoint(e.clientX, e.clientY);
+    ctx.beginPath();
+    ctx.moveTo(point.x, point.y);
+  }
 
-.icon-button {
-  background-color: transparent;
-  border: none;
-  padding: 4px;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-  display: flex;
-}
+  function draw(e) {
+    if (!appState.isDrawing) return;
 
-.icon-button:hover {
-  opacity: 1;
-}
+    // 消しゴムの場合の設定
+    if (appState.activeTool === 'eraser') {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineWidth = 15 / panzoom.getScale(); // スケールに応じてブラシサイズも変更
+    } else {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.strokeStyle = appState.activeColor;
+      ctx.lineWidth = ((appState.activeTool === 'pen') ? 2 : 5) / panzoom.getScale(); // スケールに応じてブラシサイズも変更
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+    }
+    
+    // 変換後の座標を取得して線を描く
+    const point = getTransformedPoint(e.clientX, e.clientY);
+    ctx.lineTo(point.x, point.y);
+    ctx.stroke();
+  }
+  
+  function stopDrawing() {
+    if (appState.isDrawing) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0); // コンテキストをリセット
+      appState.isDrawing = false;
+    }
+  }
 
-.icon-button img {
-  display: block;
-  width: 28px;
-  height: 28px;
-}
-
-/* ===== キャンバスエリア ===== */
-.canvas-wrapper {
-  flex-grow: 1; 
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden; 
-  box-shadow: var(--shadow-light);
-  /* ツールに応じたカーソル形状 */
-  cursor: grab;
-}
-
-.canvas-wrapper:active {
-    cursor: grabbing;
-}
-.canvas-wrapper.drawing-mode {
-    cursor: crosshair;
-}
-
-/* 方眼紙のスタイル（JSでこのクラスを付け外しする） */
-.canvas-wrapper.grid-active {
-  background-image:
-    linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-.mannequin-base {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  /* Panzoomによってtransformが制御されるのでCSSのtransitionは不要 */
-  pointer-events: none; /* 画像自体がマウスイベントを拾わないように */
-}
-
-/* ===== 右側：サイドバーのスタイル ===== */
-.next-step-panel {
-  text-align: right;
-  margin-bottom: var(--spacing-md);
-}
-
-.next-step-button {
-  background-color: var(--text-primary);
-  color: white;
-  font-family: var(--font-accent);
-  font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.next-step-button:hover {
-  background-color: #000;
-}
-
-.panel {
-  background-color: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: var(--spacing-md);
-  box-shadow: var(--shadow-light);
-}
-
-.panel-title {
-  font-family: var(--font-accent);
-  font-size: 18px;
-  margin-bottom: var(--spacing-md);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.custom-button {
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  text-decoration: underline;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.panel-footer {
-  text-align: center;
-  font-size: 18px;
-  color: #aaa;
-  margin-top: 8px;
-}
-
-/* ポーズ選択パネル */
-.pose-selector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.pose-thumbnails {
-  flex-grow: 1;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  /* スクロールバーの非表示（IE以外） */
-  scrollbar-width: none; /* Firefox */
-}
-/* スクロールバーの非表示（Chrome, Safari） */
-.pose-thumbnails::-webkit-scrollbar { 
-  display: none; 
-}
-
-.pose-thumb {
-  flex-shrink: 0; /* カルーセル内で画像が縮まないように */
-  width: 50px;
-  height: 80px;
-  object-fit: contain;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 4px;
-  background-color: #fff;
-  transition: border-color 0.2s;
-}
-
-.pose-thumb.selected,
-.pose-thumb:hover {
-  border-color: var(--text-primary);
-}
-
-.arrow { 
-  background: none; 
-  border: none; 
-  font-size: 24px; 
-  cursor: pointer; 
-  color: #aaa;
-  flex-shrink: 0;
-  padding: 0 8px;
-}
-
-/* 作業ボード＆カラーパネルのグリッド */
-.stationery-grid, .color-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  justify-items: center;
-}
-
-.tool-button, .color-box {
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  width: 54px;
-  height: 54px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease-out;
-  position: relative;
-}
-
-.tool-button:hover, .color-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-}
-
-.tool-button.selected, .color-box.selected {
-  border: 2px solid var(--text-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-}
-
-.tool-button img { width: 32px; height: 32px; }
-.add-color-button { font-size: 24px; color: #ccc; }
-.eyedropper-button img { width: 32px; }
+  // CanvasではなくWrapperにリスナーを設定
+  canvasWrapper.addEventListener('mousedown', startDrawing);
+  canvasWrapper.addEventListener('mousemove', draw);
+  window.addEventListener('mouseup', stopDrawing);
+});
