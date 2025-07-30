@@ -34,31 +34,30 @@
       <div class="toolbar-area">
         <!-- 作業修正ボタン -->
         <div class="action-toolbar">
-          <button class="icon-button" aria-label="Undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
-          <button class="icon-button" aria-label="Redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
-          <button class="icon-button" aria-label="Reset"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
-          <!-- ここが修正された行です -->
-          <button class="icon-button" aria-label="Download"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
-          <button class="icon-button" aria-label="Upload"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
-          <button class="icon-button" aria-label="Save"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
-          <button class="icon-button" id="grid-toggle" aria-label="Toggle Grid"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
+          <button class="icon-button" aria-label="Undo"><img src="./create_parts/create_button/retreat.png" alt="Undo"></button>
+          <button class="icon-button" aria-label="Redo"><img src="./create_parts/create_button/forward.png" alt="Redo"></button>
+          <button class="icon-button" aria-label="Reset"><img src="./create_parts/create_button/reset.png" alt="Reset"></button>
+          <button class="icon-button" aria-label="Download"><img src="./create_parts/create_button/download.png" alt="Download"></button>
+          <button class="icon-button" aria-label="Upload"><img src="./create_parts/create_button/upload.png" alt="Upload"></button>
+          <button class="icon-button" aria-label="Save"><img src="./create_parts/create_button/save.png" alt="Save"></button>
+          <button class="icon-button" id="grid-toggle" aria-label="Toggle Grid"><img src="./create_parts/create_button/graph_paper.png" alt="Grid"></button>
         </div>
         
         <!-- コンテンツボタン -->
         <div class="content-toolbar">
-          <button class="icon-button" aria-label="Fashion Illustration"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
-          <button class="icon-button" aria-label="Fabric Matching"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
-          <button class="icon-button" aria-label="Clothing Design"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
-          <button class="icon-button" aria-label="Pattern Creation"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
-          <button class="icon-button" aria-label="Grading"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
-          <button class="icon-button" aria-label="Print Layout"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
-          <button class="icon-button" aria-label="Digital Kids Dressing"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
+          <button class="icon-button" aria-label="Fashion Illustration"><img src="./create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
+          <button class="icon-button" aria-label="Fabric Matching"><img src="./create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
+          <button class="icon-button" aria-label="Clothing Design"><img src="./create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
+          <button class="icon-button" aria-label="Pattern Creation"><img src="./create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
+          <button class="icon-button" aria-label="Grading"><img src="./create_parts/contents_button/5_grading.png" alt="Grading"></button>
+          <button class="icon-button" aria-label="Print Layout"><img src="./create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
+          <button class="icon-button" aria-label="Digital Kids Dressing"><img src="./create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
         </div>
       </div>
 
       <!-- キャンバスエリア -->
       <div id="canvas-wrapper" class="canvas-wrapper">
-        <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+        <img id="mannequin" class="mannequin-base" src="./mannequin/mannequin_woman.png" alt="Mannequin">
         <!-- JSによって描画用の透明なCanvasがここに追加されます -->
       </div>
     </main>
@@ -75,10 +74,10 @@
       <div id="pose-selector" class="panel pose-selector">
         <button class="arrow left-arrow">‹</button>
         <div class="pose-thumbnails">
-          <img class="pose-thumb selected" src="../../mannequin/pose1.png" alt="Pose 1" data-pose-src="../../mannequin/mannequin_woman.png">
-          <img class="pose-thumb" src="../../mannequin/pose2.png" alt="Pose 2" data-pose-src="../../mannequin/mannequin_woman_pose2.png">
-          <img class="pose-thumb" src="../../mannequin/pose3.png" alt="Pose 3" data-pose-src="../../mannequin/mannequin_woman_pose3.png">
-          <img class="pose-thumb" src="../../mannequin/pose4.png" alt="Pose 4" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
+          <img class="pose-thumb selected" src="./mannequin/pose1.png" alt="Pose 1" data-pose-src="./mannequin/mannequin_woman.png">
+          <img class="pose-thumb" src="./mannequin/pose2.png" alt="Pose 2" data-pose-src="./mannequin/mannequin_woman_pose2.png">
+          <img class="pose-thumb" src="./mannequin/pose3.png" alt="Pose 3" data-pose-src="./mannequin/mannequin_woman_pose3.png">
+          <img class="pose-thumb" src="./mannequin/pose4.png" alt="Pose 4" data-pose-src="./mannequin/mannequin_woman_pose4.png">
         </div>
         <button class="arrow right-arrow">›</button>
       </div>
@@ -87,18 +86,18 @@
       <div id="stationery-panel" class="panel stationery-panel">
         <h2 class="panel-title">Stationery</h2>
         <div id="stationery-grid" class="stationery-grid">
-          <div class="tool-button" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
-          <div class="tool-button" data-tool="direct_select"><img src="../../create_parts/design_button/direct_select.png" alt="Direct Select"></div>
-          <div class="tool-button" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt="Text"></div>
-          <div class="tool-button" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt="Fill"></div>
-          <div class="tool-button" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen"></div>
-          <div class="tool-button" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush"></div>
-          <div class="tool-button" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt="Eraser"></div>
-          <div class="tool-button" data-tool="rotate"><img src="../../create_parts/design_button/rotate.png" alt="Rotate"></div>
-          <div class="tool-button" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt="Percent"></div>
-          <div class="tool-button" data-tool="photo"><img src="../../create_parts/design_button/photo.png" alt="Camera"></div>
-          <div class="tool-button" data-tool="add"><img src="../../create_parts/design_button/add.png" alt="Add"></div>
-          <div class="tool-button fill-stroke-button" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt="Fill & Stroke"></div>
+          <div class="tool-button" data-tool="select"><img src="./create_parts/design_button/select.png" alt="Select"></div>
+          <div class="tool-button" data-tool="direct_select"><img src="./create_parts/design_button/direct_select.png" alt="Direct Select"></div>
+          <div class="tool-button" data-tool="text"><img src="./create_parts/design_button/sentence.png" alt="Text"></div>
+          <div class="tool-button" data-tool="fill"><img src="./create_parts/design_button/fill.png" alt="Fill"></div>
+          <div class="tool-button" data-tool="pen"><img src="./create_parts/design_button/pen.png" alt="Pen"></div>
+          <div class="tool-button" data-tool="brush"><img src="./create_parts/design_button/brush.png" alt="Brush"></div>
+          <div class="tool-button" data-tool="eraser"><img src="./create_parts/design_button/eraser.png" alt="Eraser"></div>
+          <div class="tool-button" data-tool="rotate"><img src="./create_parts/design_button/rotate.png" alt="Rotate"></div>
+          <div class="tool-button" data-tool="percent"><img src="./create_parts/design_button/percent.png" alt="Percent"></div>
+          <div class="tool-button" data-tool="photo"><img src="./create_parts/design_button/photo.png" alt="Camera"></div>
+          <div class="tool-button" data-tool="add"><img src="./create_parts/design_button/add.png" alt="Add"></div>
+          <div class="tool-button fill-stroke-button" data-tool="shapes"><img src="./create_parts/design_button/shapes.png" alt="Fill & Stroke"></div>
         </div>
         <div class="panel-footer">...</div>
       </div>
@@ -122,7 +121,7 @@
               <button class="color-box add-color-button">+</button>
               <button class="color-box add-color-button">+</button>
               <button class="color-box add-color-button">+</button>
-              <button class="color-box eyedropper-button"><img src="../../color/pc_color/eyedropper.png" alt="Eyedropper"></button>
+              <button class="color-box eyedropper-button"><img src="./color/pc_color/eyedropper.png" alt="Eyedropper"></button>
           </div>
       </div>
     </aside>
@@ -135,4 +134,311 @@
   <!-- 自分のアプリケーション用スクリプトを後に読み込む -->
   <script src="./script.js"></script>
 </body>
-</html>
+</html>```
+
+#### CSS (`style.css`)
+(変更はありません)
+```css
+/* ===== CSSカスタムプロパティ（変数）定義 ===== */
+:root {
+  /* Colors */
+  --bg-main: #f8f1ee;
+  --bg-panel: #faf6f3;
+  --text-primary: #3d3d3d;
+  --font-accent: 'Playfair Display', serif;
+  --border-color: #e0d5d0;
+  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  /* Spacing */
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+}
+
+/* ===== 基本リセットとボディスタイル ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Helvetica Neue', sans-serif;
+  overflow: hidden; /* アプリ全体のスクロールバーを非表示 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== アプリケーション全体レイアウト ===== */
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.main-workspace {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-lg);
+  overflow: hidden; 
+}
+
+.sidebar-controls {
+  width: 320px;
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  overflow-y: auto; /* サイドバーが長くなった場合にスクロール */
+  border-left: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+}
+
+/* ===== 左側：メインエリアのスタイル ===== */
+.main-header {
+  margin-bottom: var(--spacing-md);
+}
+
+.title {
+  font-family: var(--font-accent);
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: var(--spacing-md);
+  text-align: left;
+}
+
+.gender-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.gender-button {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: var(--shadow-light);
+}
+
+.gender-button.active,
+.gender-button:hover {
+  background-color: var(--text-primary);
+  color: #fff;
+  border-color: var(--text-primary);
+}
+
+.toolbar-area {
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+  align-items: center;
+}
+
+.action-toolbar, .content-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.icon-button {
+  background-color: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  display: flex;
+}
+
+.icon-button:hover {
+  opacity: 1;
+}
+
+.icon-button img {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+/* ===== キャンバスエリア ===== */
+.canvas-wrapper {
+  flex-grow: 1; 
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden; 
+  box-shadow: var(--shadow-light);
+  /* ツールに応じたカーソル形状 */
+  cursor: grab;
+}
+
+.canvas-wrapper:active {
+    cursor: grabbing;
+}
+.canvas-wrapper.drawing-mode {
+    cursor: crosshair;
+}
+
+/* 方眼紙のスタイル（JSでこのクラスを付け外しする） */
+.canvas-wrapper.grid-active {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.mannequin-base {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  /* Panzoomによってtransformが制御されるのでCSSのtransitionは不要 */
+  pointer-events: none; /* 画像自体がマウスイベントを拾わないように */
+}
+
+/* ===== 右側：サイドバーのスタイル ===== */
+.next-step-panel {
+  text-align: right;
+  margin-bottom: var(--spacing-md);
+}
+
+.next-step-button {
+  background-color: var(--text-primary);
+  color: white;
+  font-family: var(--font-accent);
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.next-step-button:hover {
+  background-color: #000;
+}
+
+.panel {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-light);
+}
+
+.panel-title {
+  font-family: var(--font-accent);
+  font-size: 18px;
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-button {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  text-decoration: underline;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.panel-footer {
+  text-align: center;
+  font-size: 18px;
+  color: #aaa;
+  margin-top: 8px;
+}
+
+/* ポーズ選択パネル */
+.pose-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pose-thumbnails {
+  flex-grow: 1;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  /* スクロールバーの非表示（IE以外） */
+  scrollbar-width: none; /* Firefox */
+}
+/* スクロールバーの非表示（Chrome, Safari） */
+.pose-thumbnails::-webkit-scrollbar { 
+  display: none; 
+}
+
+.pose-thumb {
+  flex-shrink: 0; /* カルーセル内で画像が縮まないように */
+  width: 50px;
+  height: 80px;
+  object-fit: contain;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 4px;
+  background-color: #fff;
+  transition: border-color 0.2s;
+}
+
+.pose-thumb.selected,
+.pose-thumb:hover {
+  border-color: var(--text-primary);
+}
+
+.arrow { 
+  background: none; 
+  border: none; 
+  font-size: 24px; 
+  cursor: pointer; 
+  color: #aaa;
+  flex-shrink: 0;
+  padding: 0 8px;
+}
+
+/* 作業ボード＆カラーパネルのグリッド */
+.stationery-grid, .color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  justify-items: center;
+}
+
+.tool-button, .color-box {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  position: relative;
+}
+
+.tool-button:hover, .color-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.tool-button.selected, .color-box.selected {
+  border: 2px solid var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.tool-button img { width: 32px; height: 32px; }
+.add-color-button { font-size: 24px; color: #ccc; }
+.eyedropper-button img { width: 32px; }
