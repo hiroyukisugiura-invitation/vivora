@@ -1,157 +1,157 @@
-// ===== Gender Button Toggle =====
-const genderButtons = document.querySelectorAll('.gender-button');
-const mannequinImg = document.getElementById('mannequin');
+// ===== アプリケーション初期化 =====
+document.addEventListener('DOMContentLoaded', () => {
 
-const genderImageMap = {
-  woman: '../../mannequin/mannequin_woman.png',
-  man: '../../mannequin/mannequin_man.png',
-  kids: '../../mannequin/mannequin_kids.png'
-};
+  // --- 状態管理オブジェクト ---
+  // アプリケーションの全ての状態をここに集約
+  const appState = {
+    activeGender: 'woman',
+    activeTool: 'select',
+    activeColor: '#000000',
+    isDrawing: false,
+    gridVisible: false,
+  };
 
-const genderSizeMap = {
-  woman: '720px',
-  man: '800px',
-  kids: '540px'
-};
+  // --- DOM要素の取得 ---
+  // 必要な要素を最初にまとめて取得
+  const genderSelector = document.querySelector('.gender-selector');
+  const mannequinImg = document.getElementById('mannequin');
+  const poseSelector = document.getElementById('pose-selector');
+  const stationeryPanel = document.getElementById('stationery-panel');
+  const colorPanel = document.getElementById('color-panel');
+  const gridToggleButton = document.getElementById('grid-toggle');
+  const canvasWrapper = document.getElementById('canvas-wrapper');
 
-genderButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    genderButtons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-    const gender = button.dataset.gender;
-    mannequinImg.src = genderImageMap[gender];
-    mannequinImg.style.height = genderSizeMap[gender];
-  });
-});
-
-// ===== Pose Selection Toggle =====
-const poseImages = document.querySelectorAll('.pose');
-poseImages.forEach(pose => {
-  pose.addEventListener('click', () => {
-    poseImages.forEach(p => p.classList.remove('selected'));
-    pose.classList.add('selected');
-    mannequinImg.src = pose.src;
-  });
-});
-
-// ===== Tool Selection =====
-const toolButtons = document.querySelectorAll('.tool-button');
-let currentTool = null;
-
-toolButtons.forEach(tool => {
-  tool.addEventListener('click', () => {
-    toolButtons.forEach(t => t.classList.remove('selected'));
-    tool.classList.add('selected');
-    currentTool = tool.querySelector('img')?.alt.toLowerCase();
-  });
-});
-
-// ===== Color Selection =====
-let currentColor = '#000000';
-
-const colorBoxes = document.querySelectorAll('.color-box');
-colorBoxes.forEach(color => {
-  color.addEventListener('click', () => {
-    if (!color.classList.contains('plus') && !color.classList.contains('eyedropper')) {
-      colorBoxes.forEach(c => c.classList.remove('selected'));
-      color.classList.add('selected');
-      currentColor = window.getComputedStyle(color).backgroundColor;
-    }
-  });
-});
-
-// ===== Next Step Button =====
-document.querySelector('.next-step').addEventListener('click', () => {
-  alert('Proceeding to the next step...');
-});
-
-// ===== Grid Toggle =====
-let gridVisible = false;
-const gridButton = document.querySelector("img[src*='grid.png']");
-if (gridButton) {
-  gridButton.addEventListener('click', () => {
-    gridVisible = !gridVisible;
-    document.querySelector('.canvas').style.backgroundImage = gridVisible ?
-      "repeating-linear-gradient(#ddd 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, #ddd 0 1px, transparent 1px 100%)" :
-      "none";
-  });
-}
-
-// ===== Drawing (Brush / Pen / Eraser) =====
-const canvas = document.querySelector('.canvas');
-const overlayCanvas = document.createElement('canvas');
-overlayCanvas.width = canvas.clientWidth;
-overlayCanvas.height = canvas.clientHeight;
-overlayCanvas.style.position = 'absolute';
-overlayCanvas.style.top = '0';
-overlayCanvas.style.left = '0';
-overlayCanvas.style.zIndex = '2';
-canvas.appendChild(overlayCanvas);
-
-const ctx = overlayCanvas.getContext('2d');
-let isDrawing = false;
-
-overlayCanvas.addEventListener('mousedown', (e) => {
-  if (currentTool === 'brush' || currentTool === 'pen' || currentTool === 'eraser') {
-    isDrawing = true;
-    ctx.beginPath();
-    ctx.moveTo(e.offsetX, e.offsetY);
+  // --- 描画用Canvasのセットアップ ---
+  // マネキンの上に重ねる、お絵描き用の透明なキャンバスを生成
+  const drawingCanvas = document.createElement('canvas');
+  const ctx = drawingCanvas.getContext('2d');
+  
+  // ラッパーのサイズに合わせてCanvasサイズを調整する関数
+  function resizeDrawingCanvas() {
+    drawingCanvas.width = canvasWrapper.clientWidth;
+    drawingCanvas.height = canvasWrapper.clientHeight;
   }
-});
 
-overlayCanvas.addEventListener('mousemove', (e) => {
-  if (isDrawing) {
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.strokeStyle = currentTool === 'eraser' ? '#f4f1ec' : currentColor;
-    ctx.lineWidth = currentTool === 'pen' ? 1 : 4;
-    ctx.lineCap = 'round';
+  // 初期化
+  resizeDrawingCanvas();
+  drawingCanvas.style.position = 'absolute';
+  drawingCanvas.style.top = '0';
+  drawingCanvas.style.left = '0';
+  canvasWrapper.appendChild(drawingCanvas);
+  
+  // ウィンドウサイズが変わったらCanvasもリサイズ
+  window.addEventListener('resize', resizeDrawingCanvas);
+
+
+  // ===== イベントリスナーの設定 =====
+
+  // 1. 性別(Woman/Man/Kids)の切り替え
+  genderSelector.addEventListener('click', (e) => {
+    const targetButton = e.target.closest('.gender-button');
+    if (!targetButton) return;
+
+    // 全てのボタンからactiveクラスを削除
+    genderSelector.querySelectorAll('.gender-button').forEach(btn => btn.classList.remove('active'));
+    // クリックされたボタンにactiveクラスを追加
+    targetButton.classList.add('active');
+
+    appState.activeGender = targetButton.dataset.gender;
+    
+    // TODO: 性別ごとのマネキン画像に切り替える処理
+    // 例: mannequinImg.src = `../../mannequin/mannequin_${appState.activeGender}.png`;
+    console.log(`Gender changed to: ${appState.activeGender}`);
+  });
+
+  // 2. ポーズの切り替え
+  poseSelector.addEventListener('click', (e) => {
+    const targetPose = e.target.closest('.pose-thumb');
+    if(!targetPose) return;
+
+    poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
+    targetPose.classList.add('selected');
+
+    // 実際のマネキン画像をポーズに合わせて変更
+    if(targetPose.dataset.poseSrc) {
+        mannequinImg.src = targetPose.dataset.poseSrc;
+    }
+    console.log(`Pose changed to: ${targetPose.alt}`);
+  });
+  
+  // 3. 作業ツール（Stationery）の選択
+  stationeryPanel.addEventListener('click', (e) => {
+    const targetTool = e.target.closest('.tool-button');
+    if (!targetTool) return;
+    
+    stationeryPanel.querySelectorAll('.tool-button').forEach(btn => btn.classList.remove('selected'));
+    targetTool.classList.add('selected');
+    
+    appState.activeTool = targetTool.dataset.tool;
+    console.log(`Tool selected: ${appState.activeTool}`);
+  });
+
+  // 4. カラーの選択
+  colorPanel.addEventListener('click', (e) => {
+    const targetColorBox = e.target.closest('.color-box');
+    if (!targetColorBox || targetColorBox.classList.contains('add-color-button')) return;
+    
+    colorPanel.querySelectorAll('.color-box').forEach(box => box.classList.remove('selected'));
+    targetColorBox.classList.add('selected');
+    
+    if (targetColorBox.dataset.color) {
+      appState.activeColor = targetColorBox.dataset.color;
+    }
+    console.log(`Color selected: ${appState.activeColor}`);
+  });
+  
+  // 5. 方眼紙（グリッド）のON/OFF
+  gridToggleButton.addEventListener('click', () => {
+    appState.gridVisible = !appState.gridVisible;
+    canvasWrapper.classList.toggle('grid-active', appState.gridVisible);
+  });
+
+
+  // ===== 描画処理 =====
+  function startDrawing(e) {
+    // ツールが描画系（pen, brush, eraser）でなければ何もしない
+    if (appState.activeTool !== 'pen' && appState.activeTool !== 'brush' && appState.activeTool !== 'eraser') {
+      return;
+    }
+    appState.isDrawing = true;
+    ctx.beginPath();
+    // getBoundingClientRect().left を使うことで、ページのどこにCanvasがあっても正確な座標を取得
+    ctx.moveTo(e.clientX - drawingCanvas.getBoundingClientRect().left, e.clientY - drawingCanvas.getBoundingClientRect().top);
+  }
+
+  function draw(e) {
+    if (!appState.isDrawing) return;
+
+    // 消しゴムツールの場合は「描く」のではなく「消す」
+    if (appState.activeTool === 'eraser') {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineWidth = 15; // 消しゴムの太さ
+    } else {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.strokeStyle = appState.activeColor;
+      ctx.lineWidth = (appState.activeTool === 'pen') ? 2 : 5; // ペンとブラシで太さを変える
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+    }
+    
+    ctx.lineTo(e.clientX - drawingCanvas.getBoundingClientRect().left, e.clientY - drawingCanvas.getBoundingClientRect().top);
     ctx.stroke();
   }
-});
-
-document.addEventListener('mouseup', () => {
-  if (isDrawing) {
-    saveHistory();
-    isDrawing = false;
+  
+  function stopDrawing() {
+    if (appState.isDrawing) {
+      // TODO: ここでUndo/Redoのための履歴を保存する処理を呼び出す
+      appState.isDrawing = false;
+    }
   }
-});
 
-// ===== 保存済みデザインスライダー（保存 / 読込 / 表示） =====
-function loadSavedDesigns() {
-  const track = document.getElementById('saved-designs');
-  if (!track) return;
-  track.innerHTML = '';
-  const saved = JSON.parse(localStorage.getItem('vivora_designs') || '[]');
-  saved.forEach((dataUrl, index) => {
-    const img = document.createElement('img');
-    img.src = dataUrl;
-    img.className = 'design-thumb';
-    img.alt = `Design ${index + 1}`;
-    img.addEventListener('click', () => {
-      const main = document.getElementById('mannequin');
-      if (main) main.src = dataUrl;
-    });
-    track.appendChild(img);
-  });
-}
+  // Canvasに描画用のイベントリスナーを設定
+  drawingCanvas.addEventListener('mousedown', startDrawing);
+  drawingCanvas.addEventListener('mousemove', draw);
+  // canvasの外やウィンドウの外でマウスアップしても描画を止める
+  window.addEventListener('mouseup', stopDrawing);
 
-function saveCurrentDesign() {
-  const canvas = document.querySelector('canvas');
-  if (!canvas) return;
-  const data = canvas.toDataURL();
-  const saved = JSON.parse(localStorage.getItem('vivora_designs') || '[]');
-  saved.push(data);
-  localStorage.setItem('vivora_designs', JSON.stringify(saved));
-  loadSavedDesigns();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  loadSavedDesigns();
-  const left = document.getElementById('slider-left');
-  const right = document.getElementById('slider-right');
-  const track = document.getElementById('saved-designs');
-  if (left && right && track) {
-    left.addEventListener('click', () => { track.scrollBy({ left: -100, behavior: 'smooth' }); });
-    right.addEventListener('click', () => { track.scrollBy({ left: 100, behavior: 'smooth' }); });
-  }
 });
