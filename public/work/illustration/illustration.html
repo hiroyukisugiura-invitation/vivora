@@ -1,118 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <!-- Google Fontsの読み込み（デザインに合わせてPlayfair Displayを指定） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <button class="next-step-fixed">Next Step ▶▶</button>
+  <!-- 全体を囲むアプリケーションコンテナ -->
+  <div class="app-container">
 
-  <header class="toolbar">
-    <div class="toolbar-top">
-      <h1 class="title">Vivora Fashion Illustration 2025</h1>
-      <div class="gender-buttons">
-        <button class="gender-button active" data-gender="woman">Woman</button>
-        <button class="gender-button" data-gender="man">Man</button>
-        <button class="gender-button" data-gender="kids">Kids</button>
+    <!-- ===== 左側：メインの作業エリア ===== -->
+    <main class="main-workspace">
+      
+      <!-- トップヘッダー -->
+      <header class="main-header">
+        <h1 class="title">Vivora Fashion Illustration 2025</h1>
+        <div class="gender-selector">
+          <button class="gender-button active" data-gender="woman">Woman</button>
+          <button class="gender-button" data-gender="man">Man</button>
+          <button class="gender-button" data-gender="kids">Kids</button>
+        </div>
+      </header>
+
+      <!-- ツールバーエリア -->
+      <div class="toolbar-area">
+        <!-- 作業修正ボタン -->
+        <div class="action-toolbar">
+          <button class="icon-button" aria-label="Undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
+          <button class="icon-button" aria-label="Redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
+          <button class="icon-button" aria-label="Reset"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
+          <button class="icon-button" aria-label="Download"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
+          <button class="icon-button" aria-label="Upload"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
+          <button class="icon-button" aria-label="Save"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
+          <button class="icon-button" id="grid-toggle" aria-label="Toggle Grid"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
+        </div>
+        
+        <!-- コンテンツボタン -->
+        <div class="content-toolbar">
+            <button class="icon-button" aria-label="Fashion Illustration"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
+            <button class="icon-button" aria-label="Fabric Matching"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
+            <button class="icon-button" aria-label="Clothing Design"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
+            <button class="icon-button" aria-label="Pattern Creation"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
+            <button class="icon-button" aria-label="Grading"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
+            <button class="icon-button" aria-label="Print Layout"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
+            <button class="icon-button" aria-label="Digital Kids Dressing"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
+        </div>
       </div>
-    </div>
 
-    <div class="content-toolbar">
-      <img class="icon-button" src="../../create_parts/create_button/retreat.png" alt="Undo">
-      <img class="icon-button" src="../../create_parts/create_button/forward.png" alt="Redo">
-      <img class="icon-button" src="../../create_parts/create_button/reset.png" alt="Reset">
-      <img class="icon-button" src="../../create_parts/create_button/download.png" alt="Download">
-      <img class="icon-button" src="../../create_parts/create_button/upload.png" alt="Upload">
-      <img class="icon-button" src="../../create_parts/create_button/save.png" alt="Save">
-      <img class="icon-button" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
-    </div>
-
-    <div class="content-toolbar">
-      <img class="icon-button" src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration">
-      <img class="icon-button" src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching">
-      <img class="icon-button" src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design">
-      <img class="icon-button" src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation">
-      <img class="icon-button" src="../../create_parts/contents_button/5_grading.png" alt="Grading">
-      <img class="icon-button" src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout">
-      <img class="icon-button" src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing">
-    </div>
-  </header>
-
-  <div class="main">
-    <div class="canvas">
-      <img id="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
-    </div>
-
-    <div class="design-slider">
-      <button class="slider-arrow" id="slider-left">◀︎</button>
-      <div class="slider-track" id="saved-designs">
-        <img class="design-thumb" src="../../mannequin/sample_saved.png" alt="Sample Design">
+      <!-- キャンバスエリア（Pan&Zoomのためにラッパーを追加） -->
+      <div id="canvas-wrapper" class="canvas-wrapper">
+        <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+        <!-- JSで描画用のCanvasがここに追加されます -->
       </div>
-      <button class="slider-arrow" id="slider-right">▶︎</button>
-    </div>
+    </main>
 
-    <div class="sidebar">
-      <div class="pose-panel panel">
+    <!-- ===== 右側：コントロールパネル（サイドバー） ===== -->
+    <aside class="sidebar-controls">
+
+      <!-- Next Step ボタン -->
+      <div class="next-step-panel">
+        <button class="next-step-button">Next Step ▶▶</button>
+      </div>
+
+      <!-- ポーズ選択パネル（既存データ） -->
+      <div id="pose-selector" class="panel pose-selector">
+        <button class="arrow left-arrow">‹</button>
         <div class="pose-thumbnails">
-          <img class="pose selected" src="../../mannequin/pose1.png" alt="Pose 1">
-          <img class="pose" src="../../mannequin/pose2.png" alt="Pose 2">
-          <img class="pose" src="../../mannequin/pose3.png" alt="Pose 3">
+            <img class="pose-thumb selected" src="../../mannequin/pose1.png" alt="Pose 1" data-pose-src="../../mannequin/mannequin_woman.png">
+            <img class="pose-thumb" src="../../mannequin/pose2.png" alt="Pose 2" data-pose-src="../../mannequin/mannequin_woman_pose2.png">
+            <img class="pose-thumb" src="../../mannequin/pose3.png" alt="Pose 3" data-pose-src="../../mannequin/mannequin_woman_pose3.png">
+            <img class="pose-thumb" src="../../mannequin/pose4.png" alt="Pose 4" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
         </div>
-        <div class="pose-nav">
-          <img class="nav-arrow" src="../../mannequin/select_left.png" alt="Left">
-          <img class="nav-arrow" src="../../mannequin/select_right.png" alt="Right">
-        </div>
+        <button class="arrow right-arrow">›</button>
       </div>
-
-      <div class="stationery-panel panel">
-        <h2>Stationery</h2>
-        <div class="stationery-grid">
-          <div class="tool-button"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/direct_select.png" alt="Direct Select"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/sentence.png" alt="Text"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/fill.png" alt="Fill"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/pen.png" alt="Pen"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/brush.png" alt="Brush"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/eraser.png" alt="Eraser"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/rotate.png" alt="Rotate"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/percent.png" alt="Percent"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/photo.png" alt="Camera"></div>
-          <div class="tool-button"><img src="../../create_parts/design_button/add.png" alt="Add"></div>
-          <div class="tool-button fill-stroke">
-            <img src="../../create_parts/design_button/shapes.png" alt="Fill & Stroke">
-            <div class="stroke-sample"></div>
+      
+      <!-- 作業ボード (Stationery) -->
+      <div id="stationery-panel" class="panel stationery-panel">
+        <h2 class="panel-title">Stationery</h2>
+        <div id="stationery-grid" class="stationery-grid">
+          <!-- ツールはJSで動的に生成するのが望ましい -->
+          <div class="tool-button" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
+          <div class="tool-button" data-tool="direct_select"><img src="../../create_parts/design_button/direct_select.png" alt="Direct Select"></div>
+          <div class="tool-button" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt="Text"></div>
+          <div class="tool-button" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt="Fill"></div>
+          <div class="tool-button" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen"></div>
+          <div class="tool-button" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush"></div>
+          <div class="tool-button" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt="Eraser"></div>
+          <div class="tool-button" data-tool="rotate"><img src="../../create_parts/design_button/rotate.png" alt="Rotate"></div>
+          <div class="tool-button" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt="Percent"></div>
+          <div class="tool-button" data-tool="photo"><img src="../../create_parts/design_button/photo.png" alt="Camera"></div>
+          <div class="tool-button" data-tool="add"><img src="../../create_parts/design_button/add.png" alt="Add"></div>
+          <div class="tool-button fill-stroke-button" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt="Fill & Stroke"></div>
+        </div>
+        <div class="panel-footer">...</div>
+      </div>
+      
+      <!-- カラーパネル -->
+      <div id="color-panel" class="panel color-panel">
+          <h2 class="panel-title">Color <button class="custom-button">Custom...</button></h2>
+          <div id="color-grid" class="color-grid">
+              <!-- カラーもJSで動的に生成するのが望ましい -->
+              <div class="color-box selected" style="background-color: #ffffff;" data-color="#ffffff"></div>
+              <div class="color-box" style="background-color: #cccccc;" data-color="#cccccc"></div>
+              <div class="color-box" style="background-color: #ffff00;" data-color="#ffff00"></div>
+              <div class="color-box" style="background-color: #ff9900;" data-color="#ff9900"></div>
+              <div class="color-box" style="background-color: #f4a2a2;" data-color="#f4a2a2"></div>
+              <div class="color-box" style="background-color: #ff0000;" data-color="#ff0000"></div>
+              <div class="color-box" style="background-color: #009900;" data-color="#009900"></div>
+              <div class="color-box" style="background-color: #006600;" data-color="#006600"></div>
+              <div class="color-box" style="background-color: #3399ff;" data-color="#3399ff"></div>
+              <div class="color-box" style="background-color: #0000ff;" data-color="#0000ff"></div>
+              <div class="color-box" style="background-color: #990099;" data-color="#990099"></div>
+              <div class="color-box" style="background-color: #000000;" data-color="#000000"></div>
+              <!-- 追加出来る仕様 -->
+              <button class="color-box add-color-button">+</button>
+              <button class="color-box add-color-button">+</button>
+              <button class="color-box add-color-button">+</button>
+              <button class="color-box eyedropper-button"><img src="../../color/pc_color/eyedropper.png" alt="Eyedropper"></button>
           </div>
-        </div>
       </div>
+    </aside>
 
-      <div class="color-panel panel">
-        <h2>Color <span class="custom-btn">Custom...</span></h2>
-        <div class="color-grid">
-          <div class="color-box" style="background: #ffffff;"></div>
-          <div class="color-box" style="background: #cccccc;"></div>
-          <div class="color-box" style="background: #ffff00;"></div>
-          <div class="color-box" style="background: #ff9900;"></div>
-          <div class="color-box" style="background: #f4a2a2;"></div>
-          <div class="color-box" style="background: #ff0000;"></div>
-          <div class="color-box" style="background: #009900;"></div>
-          <div class="color-box" style="background: #006600;"></div>
-          <div class="color-box" style="background: #3399ff;"></div>
-          <div class="color-box" style="background: #0000ff;"></div>
-          <div class="color-box" style="background: #990099;"></div>
-          <div class="color-box" style="background: #000000;"></div>
-          <div class="color-box plus"></div>
-          <div class="color-box plus"></div>
-          <div class="color-box plus"></div>
-          <div class="color-box eyedropper"><img src="../../color/pc_color/eyedropper.png" alt="Eyedropper"></div>
-        </div>
-      </div>
-    </div>
   </div>
-
+  
+  <!-- JavaScriptファイル（HTML構造の変更に伴い、このファイルも大幅な修正が必要です） -->
   <script src="./script.js"></script>
 </body>
 </html>
-
