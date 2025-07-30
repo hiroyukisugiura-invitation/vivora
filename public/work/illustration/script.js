@@ -53,6 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== イベントリスナーの設定 =====
 
+    // ★★★ 中央揃えを確実にするためのヘルパー関数 ★★★
+    function resetView() {
+        // 少しだけ待ってからリセットを実行することで、描画のズレを防ぐ
+        setTimeout(() => {
+            panzoom.reset({ animate: false });
+        }, 100); // 100ミリ秒（0.1秒）待つ
+    }
+
     // 1. 性別切り替え
     genderSelector.addEventListener('click', (e) => {
         const targetButton = e.target.closest('.gender-button');
@@ -67,11 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const newSrc = mannequinSources[selectedGender];
         if (newSrc && mannequinImg.getAttribute('src') !== newSrc) { 
             mannequinImg.src = newSrc;
-            mannequinImg.onload = () => {
-                // ★★★ 修正点 ★★★
-                // アニメーションなしで、拡大率と位置を即座にリセット
-                panzoom.reset({ animate: false }); 
-            };
+            // 画像が読み込まれたら、新しいヘルパー関数を呼び出す
+            mannequinImg.onload = resetView;
             mannequinImg.onerror = () => {
                 console.error('画像の読み込みに失敗。パスを確認してください:', newSrc);
             };
@@ -87,14 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const poseSrc = targetPose.dataset.poseSrc;
         if(poseSrc) {
             mannequinImg.src = poseSrc;
-            mannequinImg.onload = () => {
-                // ★★★ 修正点 ★★★
-                // こちらも同様に、即座にリセット
-                panzoom.reset({ animate: false });
-            }
+            // こちらも同様に、新しいヘルパー関数を呼び出す
+            mannequinImg.onload = resetView;
         }
     });
   
+    // （これ以降のコードに変更はありません）
     // 3. ツール選択
     stationeryPanel.addEventListener('click', (e) => {
         const targetTool = e.target.closest('.tool-button');
@@ -105,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isDrawingTool = ['pen', 'brush', 'eraser'].includes(appState.activeTool);
         canvasWrapper.classList.toggle('drawing-mode', isDrawingTool);
-        // Panzoomのドラッグ移動と描画を切り替えるため、drawingCanvasのイベントを制御
         drawingCanvas.style.pointerEvents = isDrawingTool ? 'auto' : 'none'; 
     });
 
@@ -127,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ===== Pan & Zoom 対応の描画処理 =====
-    // （これ以降の描画処理に関するコードは変更ありません）
     function getTransformedPoint(x, y) {
         const { scale, x: panX, y: panY } = panzoom.getPanzoom();
         const rect = drawingCanvas.getBoundingClientRect();
