@@ -153,5 +153,19 @@ document.addEventListener('DOMContentLoaded', () => {
   drawingCanvas.addEventListener('mousemove', draw);
   // canvasの外やウィンドウの外でマウスアップしても描画を止める
   window.addEventListener('mouseup', stopDrawing);
+// ===== Pan & Zoom機能の有効化 =====
+const mannequinElement = document.getElementById('mannequin');
+const panzoom = Panzoom(mannequinElement, {
+  maxScale: 5, // 最大5倍までズーム可能
+  minScale: 0.5, // 最小0.5倍まで
+  contain: 'outside', // キャンバスの外側を基準に移動範囲を制限
+  canvas: true, // trueにすると描画用キャンバスとの連携に有利
+});
 
+// マウスホイールでのズームを有効にする
+mannequinElement.parentElement.addEventListener('wheel', panzoom.zoomWithWheel);
+
+// 注意：描画座標の計算が複雑になります！
+// Pan & Zoomを有効にした場合、`draw`関数内の座標計算もPanzoomの状態を考慮する必要があります。
+// (x - panzoom.getPan().x) / panzoom.getScale() のような計算が必要になります。
 });
