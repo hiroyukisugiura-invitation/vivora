@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   
-  <!-- スタイルシートの読み込み（ルート相対パスに修正） -->
-  <link rel="stylesheet" href="/style.css" />
+  <!-- スタイルシートの読み込み -->
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <!-- 全体を囲むアプリケーションコンテナ -->
@@ -34,30 +34,30 @@
       <div class="toolbar-area">
         <!-- 作業修正ボタン -->
         <div class="action-toolbar">
-          <button class="icon-button" aria-label="Undo"><img src="/create_parts/create_button/retreat.png" alt="Undo"></button>
-          <button class="icon-button" aria-label="Redo"><img src="/create_parts/create_button/forward.png" alt="Redo"></button>
-          <button class="icon-button" aria-label="Reset"><img src="/create_parts/create_button/reset.png" alt="Reset"></button>
-          <button class="icon-button" aria-label="Download"><img src="/create_parts/create_button/download.png" alt="Download"></button>
-          <button class="icon-button" aria-label="Upload"><img src="/create_parts/create_button/upload.png" alt="Upload"></button>
-          <button class="icon-button" aria-label="Save"><img src="/create_parts/create_button/save.png" alt="Save"></button>
-          <button class="icon-button" id="grid-toggle" aria-label="Toggle Grid"><img src="/create_parts/create_button/graph_paper.png" alt="Grid"></button>
+          <button class="icon-button" aria-label="Undo"><img src="./create_parts/create_button/retreat.png" alt="Undo"></button>
+          <button class="icon-button" aria-label="Redo"><img src="./create_parts/create_button/forward.png" alt="Redo"></button>
+          <button class="icon-button" aria-label="Reset"><img src="./create_parts/create_button/reset.png" alt="Reset"></button>
+          <button class="icon-button" aria-label="Download"><img src="./create_parts/create_button/download.png" alt="Download"></button>
+          <button class="icon-button" aria-label="Upload"><img src="./create_parts/create_button/upload.png" alt="Upload"></button>
+          <button class="icon-button" aria-label="Save"><img src="./create_parts/create_button/save.png" alt="Save"></button>
+          <button class="icon-button" id="grid-toggle" aria-label="Toggle Grid"><img src="./create_parts/create_button/graph_paper.png" alt="Grid"></button>
         </div>
         
         <!-- コンテンツボタン -->
         <div class="content-toolbar">
-          <button class="icon-button" aria-label="Fashion Illustration"><img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
-          <button class="icon-button" aria-label="Fabric Matching"><img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
-          <button class="icon-button" aria-label="Clothing Design"><img src="/create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
-          <button class="icon-button" aria-label="Pattern Creation"><img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
-          <button class="icon-button" aria-label="Grading"><img src="/create_parts/contents_button/5_grading.png" alt="Grading"></button>
-          <button class="icon-button" aria-label="Print Layout"><img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
-          <button class="icon-button" aria-label="Digital Kids Dressing"><img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
+          <button class="icon-button" aria-label="Fashion Illustration"><img src="./create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
+          <button class="icon-button" aria-label="Fabric Matching"><img src="./create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
+          <button class="icon-button" aria-label="Clothing Design"><img src="./create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
+          <button class="icon-button" aria-label="Pattern Creation"><img src="./create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
+          <button class="icon-button" aria-label="Grading"><img src="./create_parts/contents_button/5_grading.png" alt="Grading"></button>
+          <button class="icon-button" aria-label="Print Layout"><img src="./create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
+          <button class="icon-button" aria-label="Digital Kids Dressing"><img src="./create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
         </div>
       </div>
 
       <!-- キャンバスエリア -->
       <div id="canvas-wrapper" class="canvas-wrapper">
-        <img id="mannequin" class="mannequin-base" src="/mannequin/mannequin_woman.png" alt="Mannequin">
+        <img id="mannequin" class="mannequin-base" src="./mannequin/mannequin_woman.png" alt="Mannequin">
         <!-- JSによって描画用の透明なCanvasがここに追加されます -->
       </div>
     </main>
@@ -74,10 +74,10 @@
       <div id="pose-selector" class="panel pose-selector">
         <button class="arrow left-arrow">‹</button>
         <div class="pose-thumbnails">
-          <img class="pose-thumb selected" src="/mannequin/pose1.png" alt="Pose 1" data-pose-src="/mannequin/mannequin_woman.png">
-          <img class="pose-thumb" src="/mannequin/pose2.png" alt="Pose 2" data-pose-src="/mannequin/mannequin_woman_pose2.png">
-          <img class="pose-thumb" src="/mannequin/pose3.png" alt="Pose 3" data-pose-src="/mannequin/mannequin_woman_pose3.png">
-          <img class="pose-thumb" src="/mannequin/pose4.png" alt="Pose 4" data-pose-src="/mannequin/mannequin_woman_pose4.png">
+          <img class="pose-thumb selected" src="./mannequin/pose1.png" alt="Pose 1" data-pose-src="./mannequin/mannequin_woman.png">
+          <img class="pose-thumb" src="./mannequin/pose2.png" alt="Pose 2" data-pose-src="./mannequin/mannequin_woman_pose2.png">
+          <img class="pose-thumb" src="./mannequin/pose3.png" alt="Pose 3" data-pose-src="./mannequin/mannequin_woman_pose3.png">
+          <img class="pose-thumb" src="./mannequin/pose4.png" alt="Pose 4" data-pose-src="./mannequin/mannequin_woman_pose4.png">
         </div>
         <button class="arrow right-arrow">›</button>
       </div>
@@ -86,18 +86,18 @@
       <div id="stationery-panel" class="panel stationery-panel">
         <h2 class="panel-title">Stationery</h2>
         <div id="stationery-grid" class="stationery-grid">
-          <div class="tool-button" data-tool="select"><img src="/create_parts/design_button/select.png" alt="Select"></div>
-          <div class="tool-button" data-tool="direct_select"><img src="/create_parts/design_button/direct_select.png" alt="Direct Select"></div>
-          <div class="tool-button" data-tool="text"><img src="/create_parts/design_button/sentence.png" alt="Text"></div>
-          <div class="tool-button" data-tool="fill"><img src="/create_parts/design_button/fill.png" alt="Fill"></div>
-          <div class="tool-button" data-tool="pen"><img src="/create_parts/design_button/pen.png" alt="Pen"></div>
-          <div class="tool-button" data-tool="brush"><img src="/create_parts/design_button/brush.png" alt="Brush"></div>
-          <div class="tool-button" data-tool="eraser"><img src="/create_parts/design_button/eraser.png" alt="Eraser"></div>
-          <div class="tool-button" data-tool="rotate"><img src="/create_parts/design_button/rotate.png" alt="Rotate"></div>
-          <div class="tool-button" data-tool="percent"><img src="/create_parts/design_button/percent.png" alt="Percent"></div>
-          <div class="tool-button" data-tool="photo"><img src="/create_parts/design_button/photo.png" alt="Camera"></div>
-          <div class="tool-button" data-tool="add"><img src="/create_parts/design_button/add.png" alt="Add"></div>
-          <div class="tool-button fill-stroke-button" data-tool="shapes"><img src="/create_parts/design_button/shapes.png" alt="Fill & Stroke"></div>
+          <div class="tool-button" data-tool="select"><img src="./create_parts/design_button/select.png" alt="Select"></div>
+          <div class="tool-button" data-tool="direct_select"><img src="./create_parts/design_button/direct_select.png" alt="Direct Select"></div>
+          <div class="tool-button" data-tool="text"><img src="./create_parts/design_button/sentence.png" alt="Text"></div>
+          <div class="tool-button" data-tool="fill"><img src="./create_parts/design_button/fill.png" alt="Fill"></div>
+          <div class="tool-button" data-tool="pen"><img src="./create_parts/design_button/pen.png" alt="Pen"></div>
+          <div class="tool-button" data-tool="brush"><img src="./create_parts/design_button/brush.png" alt="Brush"></div>
+          <div class="tool-button" data-tool="eraser"><img src="./create_parts/design_button/eraser.png" alt="Eraser"></div>
+          <div class="tool-button" data-tool="rotate"><img src="./create_parts/design_button/rotate.png" alt="Rotate"></div>
+          <div class="tool-button" data-tool="percent"><img src="./create_parts/design_button/percent.png" alt="Percent"></div>
+          <div class="tool-button" data-tool="photo"><img src="./create_parts/design_button/photo.png" alt="Camera"></div>
+          <div class="tool-button" data-tool="add"><img src="./create_parts/design_button/add.png" alt="Add"></div>
+          <div class="tool-button fill-stroke-button" data-tool="shapes"><img src="./create_parts/design_button/shapes.png" alt="Fill & Stroke"></div>
         </div>
         <div class="panel-footer">...</div>
       </div>
@@ -121,7 +121,7 @@
               <button class="color-box add-color-button">+</button>
               <button class="color-box add-color-button">+</button>
               <button class="color-box add-color-button">+</button>
-              <button class="color-box eyedropper-button"><img src="/color/pc_color/eyedropper.png" alt="Eyedropper"></button>
+              <button class="color-box eyedropper-button"><img src="./color/pc_color/eyedropper.png" alt="Eyedropper"></button>
           </div>
       </div>
     </aside>
@@ -131,7 +131,7 @@
   <!-- スクリプトの読み込み順序が重要です -->
   <!-- 外部ライブラリ（Panzoom.js）を先に読み込む -->
   <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
-  <!-- 自分のアプリケーション用スクリプトを後に読み込む（ルート相対パスに修正） -->
-  <script src="/script.js"></script>
+  <!-- 自分のアプリケーション用スクリプトを後に読み込む -->
+  <script src="./script.js"></script>
 </body>
-</html>
+</html>```
