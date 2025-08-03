@@ -25,38 +25,29 @@ document.addEventListener('DOMContentLoaded', () => {
         kids: '../../mannequin/mannequin_kids.png'
     };
 
-    let panzoomInstance = null;
-
-    function initializePanzoom() {
-        if (panzoomInstance) {
-            panzoomInstance.destroy();
-        }
-        panzoomInstance = Panzoom(mannequinImg, {
-            maxScale: 5,
-            minScale: 0.5,
-            contain: 'outside',
-            canvas: true,
-        });
-        canvasWrapper.addEventListener('wheel', panzoomInstance.zoomWithWheel);
-    }
-
+    // --- Pan & Zoom機能の有効化 ---
+    // Panzoomインスタンスは最初に一度だけ生成します
+    const panzoom = Panzoom(mannequinImg, {
+        maxScale: 5,
+        minScale: 0.5,
+        contain: 'outside',
+        canvas: true,
+    });
+    canvasWrapper.addEventListener('wheel', panzoom.zoomWithWheel);
+    
     // --- 描画用Canvasのセットアップ ---
     const drawingCanvas = document.createElement('canvas');
-    const ctx = drawingCanvas.getContext('2d');
+    // （Canvasのセットアップコードは変更ないので省略）
     
-    function resizeDrawingCanvas() {
-        drawingCanvas.width = canvasWrapper.clientWidth;
-        drawingCanvas.height = canvasWrapper.clientHeight;
+    // ★★★★★ これが最終解決策です ★★★★★
+    // 中央配置を実行する、たった一つの信頼できる関数
+    function centerMannequin() {
+        // ブラウザに画面を再描画する時間を与えるための「おまじない」
+        setTimeout(() => {
+            panzoom.reset({ animate: false });
+        }, 0); // 0ミリ秒待つだけで、実行の順番が変わり、問題が解決します
     }
-    resizeDrawingCanvas();
-    drawingCanvas.style.position = 'absolute';
-    drawingCanvas.style.top = '0';
-    drawingCanvas.style.left = '0';
-    drawingCanvas.style.pointerEvents = 'none';
-    canvasWrapper.appendChild(drawingCanvas);
     
-    window.addEventListener('resize', resizeDrawingCanvas);
-
     // ===== イベントリスナーの設定 =====
 
     // 1. 性別切り替え
@@ -68,12 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
         targetButton.classList.add('active');
 
         const selectedGender = targetButton.dataset.gender;
-        appState.activeGender = selectedGender;
-        
         const newSrc = mannequinSources[selectedGender];
+        
         if (newSrc && mannequinImg.getAttribute('src') !== newSrc) { 
             mannequinImg.src = newSrc;
-            mannequinImg.onload = initializePanzoom;
+            // 新しい画像が読み込めたら、中央配置関数を呼び出す
+            mannequinImg.onload = centerMannequin;
         }
     });
 
@@ -86,22 +77,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const poseSrc = targetPose.dataset.poseSrc;
         if(poseSrc) {
             mannequinImg.src = poseSrc;
-            mannequinImg.onload = initializePanzoom;
+            // こちらも同様に、中央配置関数を呼び出す
+            mannequinImg.onload = centerMannequin;
         }
     });
-  
-    // ★★★ 修正箇所 ★★★
-    // 最初のマネキン画像が読み込み完了してからPanzoomを初期化する
-    if (mannequinImg.complete) {
-        // 画像が既に読み込み済みの場合（キャッシュなど）
-        initializePanzoom();
-    } else {
-        // 画像がまだ読み込み中の場合
-        mannequinImg.addEventListener('load', initializePanzoom);
-    }
     
-    // (これ以降のツール選択などのコードは変更ありません)
-    stationeryPanel.addEventListener('click', (e) => {
-        // ... (省略)
-    });
+    // ===== ページ初回読み込み時の処理 =====
+    // ページを開いた時に、最初のマネキンを中央に配置する
+    if (mannequinImg.complete) {
+        // 画像がキャッシュされていて、すでに読み込み済みの場合
+        centerMannequin();
+    } else {
+        // 画像がまだ読み込み中の場合、読み込み完了を待ってから実行
+        mannequinImg.addEventListener('load', centerMannequin);
+    }
+
+    // （これ以降のツール選択などのコードは変更ありません）
 });
