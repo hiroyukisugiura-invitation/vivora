@@ -45,14 +45,17 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     panzoom.reset({ animate: false });
 
-    const bounds = mannequinImg.getBoundingClientRect();
-    const wrapperBounds = canvasWrapper.getBoundingClientRect();
+    // レイアウトが反映された「次の描画タイミング」で位置を取得
+    requestAnimationFrame(() => {
+      const bounds = mannequinImg.getBoundingClientRect();
+      const wrapperBounds = canvasWrapper.getBoundingClientRect();
 
-    const dx = (wrapperBounds.width / 2) - (bounds.left + bounds.width / 2);
-    const dy = (wrapperBounds.height / 2) - (bounds.top + bounds.height / 2);
+      const dx = (wrapperBounds.width / 2) - (bounds.left + bounds.width / 2);
+      const dy = (wrapperBounds.height / 2) - (bounds.top + bounds.height / 2);
 
-    panzoom.pan(dx, dy);
-  }, 50); // ← 重要！遅延を少し入れる
+      panzoom.pan(dx, dy);
+    });
+  }, 50);
 }
     
     // ===== イベントリスナーの設定 =====
