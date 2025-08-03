@@ -44,15 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function centerMannequin() {
   setTimeout(() => {
     panzoom.reset({ animate: false });
-    
+
     const bounds = mannequinImg.getBoundingClientRect();
     const wrapperBounds = canvasWrapper.getBoundingClientRect();
 
     const dx = (wrapperBounds.width / 2) - (bounds.left + bounds.width / 2);
     const dy = (wrapperBounds.height / 2) - (bounds.top + bounds.height / 2);
 
-    panzoom.pan(dx, dy);  // 中心に移動
-  }, 0);
+    panzoom.pan(dx, dy);
+  }, 50); // ← 重要！遅延を少し入れる
 }
     
     // ===== イベントリスナーの設定 =====
