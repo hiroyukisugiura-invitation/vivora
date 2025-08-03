@@ -1,21 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 状態管理オブジェクト ---
-    const appState = {
-        activeGender: 'woman',
-        activeTool: 'select',
-        activeColor: '#000000',
-        isDrawing: false,
-        gridVisible: false,
-    };
-
     // --- DOM要素の取得 ---
     const genderSelector = document.querySelector('.gender-selector');
     const mannequinImg = document.getElementById('mannequin');
     const poseSelector = document.getElementById('pose-selector');
-    const stationeryPanel = document.getElementById('stationery-panel');
-    const colorPanel = document.getElementById('color-panel');
-    const gridToggleButton = document.getElementById('grid-toggle');
     const canvasWrapper = document.getElementById('canvas-wrapper');
 
     // --- マネキン画像のパスを管理 ---
@@ -26,19 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ★★★★★ 修正の核心 ① ★★★★★
-    // Panzoomのインスタンスを保持するための変数を準備します (constではなくlet)
+    // Panzoomのインスタンス（記憶そのもの）を保持するための変数を準備します
     let panzoomInstance = null;
 
     /**
-     * Panzoomをセットアップ（または再セットアップ）する決定版の関数
+     * Panzoomをセットアップ（または再セットアップ）する、これが決定版の関数です
      */
     function setupPanzoom() {
-        // 1. もし古いPanzoomの記憶が残っていたら、完全に破壊して消去します
+        // 1. もし古いPanzoomの記憶が残っていたら、それを完全に破壊して消し去ります
         if (panzoomInstance) {
             panzoomInstance.destroy();
         }
 
-        // 2. まっさらな状態で、現在のマネキンに新しくPanzoomをかけ直します
+        // 2. まっさらな状態で、現在のマネキンに「新しく」Panzoomをかけ直します
+        //    これにより、画像の正しいサイズと位置がゼロから計算されます
         panzoomInstance = Panzoom(mannequinImg, {
             maxScale: 5,
             minScale: 0.5,
@@ -46,28 +35,27 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas: true,
         });
 
-        // 3. 新しく作ったPanzoomに、ホイール操作を改めて教え込みます
+        // 3. 新しく作ったPanzoomに、マウスホイールでの拡大・縮小操作を改めて教え込みます
         canvasWrapper.addEventListener('wheel', (event) => {
+            // panzoomInstanceが存在する場合のみ、処理を実行
             if (panzoomInstance) {
                 panzoomInstance.zoomWithWheel(event);
             }
         });
 
         // 4. 最後に、表示を中央にリセットします
+        //    ブラウザの描画を待つための僅かな遅延が、確実な動作の鍵です
         setTimeout(() => {
             if(panzoomInstance) {
                 panzoomInstance.reset({ animate: false });
             }
-        }, 0);
+        }, 50); // 50ミリ秒(0.05秒)待つ
     }
-
-    // --- 描画用Canvasのセットアップ ---
-    // (省略)
 
     // ===== イベントリスナーの設定 =====
 
     // 1. 性別切り替え
-    function handleGenderChange(e) {
+    genderSelector.addEventListener('click', (e) => {
         const targetButton = e.target.closest('.gender-button');
         if (!targetButton) return;
 
@@ -83,11 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // 新しい画像が読み込めたら、Panzoomをゼロから作り直す関数を呼び出します
             mannequinImg.onload = setupPanzoom;
         }
-    }
-    genderSelector.addEventListener('click', handleGenderChange);
+    });
 
     // 2. ポーズ切り替え
-    function handlePoseChange(e) {
+    poseSelector.addEventListener('click', (e) => {
         const targetPose = e.target.closest('.pose-thumb');
         if(!targetPose) return;
         poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
@@ -98,9 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // こちらも同様に、Panzoomをゼロから作り直します
             mannequinImg.onload = setupPanzoom;
         }
-    }
-    poseSelector.addEventListener('click', handlePoseChange);
-
+    });
+    
     // ===== ページ初回読み込み時の処理 =====
     // 最初のマネキン画像が読み込まれたことを確認してから、Panzoomをセットアップします
     if (mannequinImg.complete) {
@@ -109,5 +95,5 @@ document.addEventListener('DOMContentLoaded', () => {
         mannequinImg.addEventListener('load', setupPanzoom);
     }
 
-    // （これ以降のツール選択などのコードは変更ありません）
+    // （これ以降のコードに変更はありません）
 });
