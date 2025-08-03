@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorPanel = document.getElementById('color-panel');
     const gridToggleButton = document.getElementById('grid-toggle');
     const canvasWrapper = document.getElementById('canvas-wrapper');
-    const poseThumbnailsContainer = document.querySelector('.pose-thumbnails'); // サムネイルを入れる場所
-    const saveButton = document.getElementById('save-button'); // 保存ボタン
+    const poseThumbnailsContainer = document.querySelector('.pose-thumbnails');
+    const saveButton = document.getElementById('save-button');
 
     // --- マネキン画像のパスを管理 ---
     const mannequinSources = {
@@ -26,7 +26,28 @@ document.addEventListener('DOMContentLoaded', () => {
         man: '../../mannequin/mannequin_man.png',
         kids: '../../mannequin/mannequin_kids.png'
     };
+    
+    // ★★★★★ 修正の核心 ① ★★★★★
+    // 全てのコードを、本来あるべき正しい実行順序に修正しました
 
+    // --- 描画用Canvasのセットアップ ---
+    const drawingCanvas = document.createElement('canvas');
+    const ctx = drawingCanvas.getContext('2d');
+    
+    function resizeDrawingCanvas() {
+        drawingCanvas.width = canvasWrapper.clientWidth;
+        drawingCanvas.height = canvasWrapper.clientHeight;
+    }
+    resizeDrawingCanvas();
+    drawingCanvas.style.position = 'absolute';
+    drawingCanvas.style.top = '0';
+    drawingCanvas.style.left = '0';
+    drawingCanvas.style.pointerEvents = 'none';
+    canvasWrapper.appendChild(drawingCanvas);
+    
+    window.addEventListener('resize', resizeDrawingCanvas);
+
+    // --- Pan & Zoom機能のセットアップ ---
     let panzoomInstance = null;
 
     function setupPanzoom() {
@@ -50,23 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 50);
     }
-
-    // --- 描画用Canvasのセットアップ ---
-    const drawingCanvas = document.createElement('canvas');
-    const ctx = drawingCanvas.getContext('2d');
-    
-    function resizeDrawingCanvas() {
-        drawingCanvas.width = canvasWrapper.clientWidth;
-        drawingCanvas.height = canvasWrapper.clientHeight;
-    }
-    resizeDrawingCanvas();
-    drawingCanvas.style.position = 'absolute';
-    drawingCanvas.style.top = '0';
-    drawingCanvas.style.left = '0';
-    drawingCanvas.style.pointerEvents = 'none';
-    canvasWrapper.appendChild(drawingCanvas);
-    
-    window.addEventListener('resize', resizeDrawingCanvas);
 
     // ===== イベントリスナーの設定 =====
 
@@ -97,24 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ★★★ 新しく追加した機能 ★★★
     // 3. 保存ボタンがクリックされた時の処理
     saveButton.addEventListener('click', () => {
-        // 現在の描画キャンバスの内容を画像データ(dataURL)に変換
         const imageDataUrl = drawingCanvas.toDataURL('image/png');
-
-        // 新しいサムネイル用の<img>要素を作成
         const newThumb = document.createElement('img');
-        newThumb.classList.add('pose-thumb'); // 他のサムネイルと同じスタイルを適用
+        newThumb.classList.add('pose-thumb');
         newThumb.src = imageDataUrl;
         newThumb.alt = 'Saved Design';
-        
-        // 作成したサムネイルをパネルに追加
         poseThumbnailsContainer.appendChild(newThumb);
-        
         console.log('デザインがサムネイルとして保存されました。');
-
-        // 新しく追加したサムネイルを選択状態にする
         poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
         newThumb.classList.add('selected');
     });
