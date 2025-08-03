@@ -5,141 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="./style.css" />
-  <style>
-    :root {
-      --text-primary: #3d3d3d;
-      --border-color: #e0d5d0;
-      --bg-panel: #faf6f3;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f8f1ee;
-    }
-
-    .saved-data-slider {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 16px;
-      background-color: var(--bg-panel);
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .arrow {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: #aaa;
-    }
-
-    .saved-thumbnails {
-      flex-grow: 1;
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .saved-thumbnails::-webkit-scrollbar {
-      display: none;
-    }
-
-    .saved-thumb-container {
-      position: relative;
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: border-color 0.2s;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-
-    .saved-thumb-container.selected {
-      border-color: var(--text-primary);
-    }
-
-    .saved-thumb-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .thumb-label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      color: #fff;
-      font-size: 10px;
-      text-align: center;
-      padding: 2px 4px;
-    }
-  </style>
 </head>
 <body>
-  <div class="saved-data-slider">
-    <button class="arrow" onclick="scrollSlider(-1)">‹</button>
-    <div class="saved-thumbnails" id="savedThumbnails">
-      <!-- JS generates thumbnails here -->
-    </div>
-    <button class="arrow" onclick="scrollSlider(1)">›</button>
+  <div class="app-container">
+    <main class="main-workspace">
+      <header class="main-header">
+        <h1 class="title">Vivora Fashion Illustration 2025</h1>
+        <div class="gender-selector">
+          <button class="gender-button active" data-gender="woman">Woman</button>
+          <button class="gender-button" data-gender="man">Man</button>
+          <button class="gender-button" data-gender="kids">Kids</button>
+        </div>
+      </header>
+
+      <div class="toolbar-area">
+        <div class="action-toolbar">
+          <button class="icon-button" aria-label="Undo">
+            <img src="../../create_parts/create_button/retreat.png" alt="Undo" />
+          </button>
+          <button class="icon-button" aria-label="Redo">
+            <img src="../../create_parts/create_button/forward.png" alt="Redo" />
+          </button>
+          <button class="icon-button" aria-label="Reset">
+            <img src="../../create_parts/create_button/reset.png" alt="Reset" />
+          </button>
+          <button class="icon-button" aria-label="Download">
+            <img src="../../create_parts/create_button/download.png" alt="Download" />
+          </button>
+          <button class="icon-button" aria-label="Upload">
+            <img src="../../create_parts/create_button/upload.png" alt="Upload" />
+          </button>
+          <button class="icon-button" aria-label="Save" id="save-button">
+            <img src="../../create_parts/create_button/save.png" alt="Save" />
+          </button>
+          <button class="icon-button" id="grid-toggle" aria-label="Toggle Grid">
+            <img src="../../create_parts/create_button/graph_paper.png" alt="Grid" />
+          </button>
+        </div>
+      </div>
+
+      <div id="canvas-wrapper" class="canvas-wrapper">
+        <img
+          id="mannequin"
+          class="mannequin-base"
+          src="../../mannequin/mannequin_woman.png"
+          alt="Mannequin"
+        />
+      </div>
+    </main>
+
+    <aside class="sidebar-controls">
+      <!-- 保存スライダー：右上に表示 -->
+      <div class="saved-data-slider">
+        <button class="arrow" onclick="scrollSlider(-1)">‹</button>
+        <div class="saved-thumbnails" id="savedThumbnails"></div>
+        <button class="arrow" onclick="scrollSlider(1)">›</button>
+      </div>
+
+      <!-- ポーズセレクタ -->
+      <div id="pose-selector" class="panel pose-selector">
+        <button class="arrow left-arrow">‹</button>
+        <div class="pose-thumbnails">
+          <img
+            class="pose-thumb selected"
+            src="../../mannequin/pose1.png"
+            alt="Pose 1"
+            data-pose-src="../../mannequin/mannequin_woman.png"
+          />
+          <img
+            class="pose-thumb"
+            src="../../mannequin/pose2.png"
+            alt="Pose 2"
+            data-pose-src="../../mannequin/mannequin_woman_pose2.png"
+          />
+          <img
+            class="pose-thumb"
+            src="../../mannequin/pose3.png"
+            alt="Pose 3"
+            data-pose-src="../../mannequin/mannequin_woman_pose3.png"
+          />
+          <img
+            class="pose-thumb"
+            src="../../mannequin/pose4.png"
+            alt="Pose 4"
+            data-pose-src="../../mannequin/mannequin_woman_pose4.png"
+          />
+        </div>
+        <button class="arrow right-arrow">›</button>
+      </div>
+    </aside>
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedDataList = [
-        { id: 1, name: "Design A", thumbnail: "https://via.placeholder.com/60?text=A" },
-        { id: 2, name: "Design B", thumbnail: "https://via.placeholder.com/60?text=B" },
-        { id: 3, name: "Design C", thumbnail: "https://via.placeholder.com/60?text=C" },
-        { id: 4, name: "Design D", thumbnail: "https://via.placeholder.com/60?text=D" },
-        { id: 5, name: "Design E", thumbnail: "https://via.placeholder.com/60?text=E" }
-      ];
-
-      const container = document.getElementById('savedThumbnails');
-
-      function renderSavedThumbnails() {
-        container.innerHTML = '';
-        savedDataList.forEach(data => {
-          const div = document.createElement('div');
-          div.className = 'saved-thumb-container';
-          div.dataset.id = data.id;
-
-          const img = document.createElement('img');
-          img.src = data.thumbnail;
-          img.alt = data.name;
-
-          const label = document.createElement('div');
-          label.className = 'thumb-label';
-          label.textContent = data.name;
-
-          div.appendChild(img);
-          div.appendChild(label);
-
-          div.addEventListener('click', () => {
-            document.querySelectorAll('.saved-thumb-container').forEach(el => el.classList.remove('selected'));
-            div.classList.add('selected');
-            console.log('Selected:', data);
-          });
-
-          container.appendChild(div);
-        });
-      }
-
-      renderSavedThumbnails();
-    });
-
-    function scrollSlider(direction) {
-      const container = document.getElementById('savedThumbnails');
-      container.scrollLeft += direction * 80;
-    }
-  </script>
+  <script src="./script.js"></script>
 </body>
 </html>
