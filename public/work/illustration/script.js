@@ -25,56 +25,69 @@ document.addEventListener('DOMContentLoaded', () => {
         kids: '../../mannequin/mannequin_kids.png'
     };
 
-    // --- Pan & Zoom機能の有効化 ---
-    const panzoom = Panzoom(mannequinImg, {
-        maxScale: 5,
-        minScale: 0.5,
-        contain: 'outside',
-        canvas: true,
-        // ★★★ 修正点① ★★★
-        // startXとstartYを、ラッパー要素の中央に設定
-        startX: canvasWrapper.clientWidth / 2 - mannequinImg.clientWidth / 2,
-        startY: canvasWrapper.clientHeight / 2 - mannequinImg.clientHeight / 2,
-    });
-    canvasWrapper.addEventListener('wheel', panzoom.zoomWithWheel);
-    
+    // ★★★★★ 修正の核心 ① ★★★★★
+    // Panzoomのインスタンスを保持するための変数を準備します (constではなくlet)
+    let panzoomInstance = null;
+
+    /**
+     * Panzoomをセットアップ（または再セットアップ）する決定版の関数
+     */
+    function setupPanzoom() {
+        // 1. もし古いPanzoomの記憶が残っていたら、完全に破壊して消去します
+        if (panzoomInstance) {
+            panzoomInstance.destroy();
+        }
+
+        // 2. まっさらな状態で、現在のマネキンに新しくPanzoomをかけ直します
+        panzoomInstance = Panzoom(mannequinImg, {
+            maxScale: 5,
+            minScale: 0.5,
+            contain: 'outside',
+            canvas: true,
+        });
+
+        // 3. 新しく作ったPanzoomに、ホイール操作を改めて教え込みます
+        canvasWrapper.addEventListener('wheel', (event) => {
+            if (panzoomInstance) {
+                panzoomInstance.zoomWithWheel(event);
+            }
+        });
+
+        // 4. 最後に、表示を中央にリセットします
+        setTimeout(() => {
+            if(panzoomInstance) {
+                panzoomInstance.reset({ animate: false });
+            }
+        }, 0);
+    }
+
     // --- 描画用Canvasのセットアップ ---
     // (省略)
-    
-    // ★★★ 修正点② ★★★
-    // 中央配置を実行する、よりシンプルな関数
-    function centerMannequin() {
-        // 遅延を入れることで、ブラウザの描画更新を待つ
-        setTimeout(() => {
-            // 拡大率のみをリセットし、アニメーションはオフ
-            panzoom.zoom(1, { animate: false });
-            // ラッパー要素と画像の中央が一致するように移動させる
-            panzoom.pan(
-                (canvasWrapper.clientWidth / 2) - (mannequinImg.clientWidth / 2),
-                (canvasWrapper.clientHeight / 2) - (mannequinImg.clientHeight / 2),
-                { animate: false }
-            );
-        }, 50); // 50ミリ秒の遅延
-    }
-    
+
     // ===== イベントリスナーの設定 =====
 
     // 1. 性別切り替え
-    genderSelector.addEventListener('click', (e) => {
+    function handleGenderChange(e) {
         const targetButton = e.target.closest('.gender-button');
         if (!targetButton) return;
+
         genderSelector.querySelectorAll('.gender-button').forEach(btn => btn.classList.remove('active'));
         targetButton.classList.add('active');
+
         const selectedGender = targetButton.dataset.gender;
         const newSrc = mannequinSources[selectedGender];
+        
         if (newSrc && mannequinImg.getAttribute('src') !== newSrc) { 
             mannequinImg.src = newSrc;
-            mannequinImg.onload = centerMannequin;
+            // ★★★★★ 修正の核心 ② ★★★★★
+            // 新しい画像が読み込めたら、Panzoomをゼロから作り直す関数を呼び出します
+            mannequinImg.onload = setupPanzoom;
         }
-    });
+    }
+    genderSelector.addEventListener('click', handleGenderChange);
 
     // 2. ポーズ切り替え
-    poseSelector.addEventListener('click', (e) => {
+    function handlePoseChange(e) {
         const targetPose = e.target.closest('.pose-thumb');
         if(!targetPose) return;
         poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
@@ -82,15 +95,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const poseSrc = targetPose.dataset.poseSrc;
         if(poseSrc) {
             mannequinImg.src = poseSrc;
-            mannequinImg.onload = centerMannequin;
+            // こちらも同様に、Panzoomをゼロから作り直します
+            mannequinImg.onload = setupPanzoom;
         }
-    });
-    
+    }
+    poseSelector.addEventListener('click', handlePoseChange);
+
     // ===== ページ初回読み込み時の処理 =====
+    // 最初のマネキン画像が読み込まれたことを確認してから、Panzoomをセットアップします
     if (mannequinImg.complete) {
-        centerMannequin();
+        setupPanzoom();
     } else {
-        mannequinImg.addEventListener('load', centerMannequin);
+        mannequinImg.addEventListener('load', setupPanzoom);
     }
 
     // （これ以降のツール選択などのコードは変更ありません）
