@@ -54,7 +54,6 @@
     </main>
 
     <aside class="sidebar-controls">
-
       <div class="next-step-panel">
         <button class="next-step-button">Next Step ▶▶</button>
       </div>
@@ -65,14 +64,14 @@
           <img class="pose-thumb selected" src="../../mannequin/pose1.png" alt="Pose 1" data-pose-src="../../mannequin/mannequin_woman.png">
           <img class="pose-thumb" src="../../mannequin/pose2.png" alt="Pose 2" data-pose-src="../../mannequin/mannequin_woman_pose2.png">
           <img class="pose-thumb" src="../../mannequin/pose3.png" alt="Pose 3" data-pose-src="../../mannequin/mannequin_woman_pose3.png">
-          <img class="pose-thumb" src="../../mannequin/pose4.png" alt="Pose 4" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
+          <img class="pose-thumb" src="../../mannequin/mannequin_woman_pose4.png" alt="Pose 4" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
         </div>
         <button class="arrow right-arrow">›</button>
       </div>
       
       <div id="stationery-panel" class="panel stationery-panel">
         <h2 class="panel-title">Stationery</h2>
-        <div id="stationery-grid" class="stationery-grid">
+        <div class="stationery-grid">
           <div class="tool-button" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
           <div class="tool-button" data-tool="direct_select"><img src="../../create_parts/design_button/direct_select.png" alt="Direct Select"></div>
           <div class="tool-button" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt="Text"></div>
@@ -90,20 +89,26 @@
       </div>
       
       <div id="color-panel" class="panel color-panel">
-          <h2 class="panel-title">Color <button class="custom-button">Custom...</button></h2>
+          <h2 class="panel-title">Color <button id="custom-color-button" class="custom-button">Custom...</button></h2>
           <div id="color-grid" class="color-grid">
-              <div class="color-box selected" style="background-color: #ffffff;" data-color="#ffffff"></div>
-              <div class="color-box" style="background-color: #cccccc;" data-color="#cccccc"></div>
-              <div class="color-box" style="background-color: #ffff00;" data-color="#ffff00"></div>
-              <div class="color-box" style="background-color: #ff9900;" data-color="#ff9900"></div>
-              <div class="color-box" style="background-color: #f4a2a2;" data-color="#f4a2a2"></div>
-              <div class="color-box" style="background-color: #ff0000;" data-color="#ff0000"></div>
-              <div class="color-box" style="background-color: #009900;" data-color="#009900"></div>
-              <div class="color-box" style="background-color: #006600;" data-color="#006600"></div>
-              <div class="color-box" style="background-color: #3399ff;" data-color="#3399ff"></div>
-              <div class="color-box" style="background-color: #0000ff;" data-color="#0000ff"></div>
-              <div class="color-box" style="background-color: #990099;" data-color="#990099"></div>
-              <div class="color-box" style="background-color: #000000;" data-color="#000000"></div>
+              <div class="color-box" style="background-color: #ffffff;"></div>
+              <div class="color-box" style="background-color: #adadad;"></div>
+              <div class="color-box" style="background-color: #f7d93d;"></div>
+              <div class="color-box" style="background-color: #f7a23d;"></div>
+              <div class="color-box" style="background-color: #f4a2a2;"></div>
+              <div class="color-box" style="background-color: #eb4334;"></div>
+              <div class="color-box" style="background-color: #61b846;"></div>
+              <div class="color-box" style="background-color: #3f7e2c;"></div>
+              <div class="color-box" style="background-color: #83c6f4;"></div>
+              <div class="color-box" style="background-color: #3b5998;"></div>
+              <div class="color-box" style="background-color: #8b008b;"></div>
+              <div class="color-box" style="background-color: #a52a2a;"></div>
+              <div class="color-box" style="background-color: #555555;"></div>
+              <div class="color-box" style="background-color: #000000;"></div>
+              <button class="color-box add-color-button">+</button>
+              <button class="color-box add-color-button">+</button>
+              <button class="color-box add-color-button">+</button>
+              <button class="color-box add-color-button">+</button>
               <button class="color-box add-color-button">+</button>
               <button class="color-box add-color-button">+</button>
               <button class="color-box add-color-button">+</button>
@@ -111,7 +116,6 @@
           </div>
       </div>
     </aside>
-
   </div>
 
   <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
