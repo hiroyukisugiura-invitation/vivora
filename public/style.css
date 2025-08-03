@@ -1,12 +1,12 @@
-/* ===== 1. 基本設定とタイポグラフィ ===== */
 :root {
-  --primary-color: #d35454; /* Vivoraの赤色 */
-  --secondary-color: #3b2f2f; /* 濃いブラウン */
+  --primary-color: #d35454;
+  --secondary-color: #3b2f2f;
   --background-color: #f8f1ee;
   --card-background: #ffffff;
   --font-body: 'Helvetica Neue', Arial, sans-serif;
   --font-heading: 'Playfair Display', serif;
 }
+
 body {
   margin: 0;
   background-color: var(--background-color);
@@ -14,23 +14,42 @@ body {
   color: var(--secondary-color);
   text-align: center;
 }
-img { max-width: 100%; height: auto; display: block; }
-a { color: var(--secondary-color); text-decoration: none; }
 
-/* ===== 2. ヘッダーとナビゲーション ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+/* ヘッダー */
 .header {
   padding: 40px 20px 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
+
 .logo-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
-.logo { max-width: 380px; }
-.tagline { font-family: var(--font-heading); font-size: 20px; margin: 0; }
+
+.logo {
+  max-width: 380px;
+}
+
+.tagline {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  margin: 0;
+}
+
 .navbar {
   display: flex;
   justify-content: center;
@@ -41,6 +60,7 @@ a { color: var(--secondary-color); text-decoration: none; }
   font-size: 16px;
   flex-wrap: wrap;
 }
+
 .signup-button {
   background-color: var(--secondary-color);
   color: #fff;
@@ -48,9 +68,12 @@ a { color: var(--secondary-color); text-decoration: none; }
   border-radius: 20px;
   transition: opacity 0.3s;
 }
-.signup-button:hover { opacity: 0.8; }
 
-/* ===== 3. コンテンツ機能グリッド ===== */
+.signup-button:hover {
+  opacity: 0.8;
+}
+
+/* 機能グリッド */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -59,28 +82,33 @@ a { color: var(--secondary-color); text-decoration: none; }
   max-width: 1200px;
   margin: 0 auto;
 }
+
 .feature-card {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s;
 }
-.feature-card:hover { transform: translateY(-5px); }
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
 .card-label {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   padding: 15px;
-  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
   color: #fff;
   font-family: var(--font-heading);
   font-size: 20px;
   text-align: left;
 }
 
-/* ===== 4. アクションボタン ===== */
+/* ボタン */
 .actions-container {
   padding: 30px 20px 60px;
   display: flex;
@@ -88,6 +116,7 @@ a { color: var(--secondary-color); text-decoration: none; }
   gap: 20px;
   flex-wrap: wrap;
 }
+
 .action-button {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -98,25 +127,34 @@ a { color: var(--secondary-color); text-decoration: none; }
   cursor: pointer;
   transition: all 0.3s;
 }
-.action-button:hover { background-color: #f0f0f0; }
+
+.action-button:hover {
+  background-color: #f0f0f0;
+}
+
 .action-button.primary {
   background-color: var(--primary-color);
   color: #fff;
   border-color: var(--primary-color);
 }
-.action-button.primary:hover { background-color: #b94242; }
 
-/* ===== 5. 料金プランセクション ===== */
+.action-button.primary:hover {
+  background-color: #b94242;
+}
+
+/* 料金セクション */
 .pricing-section {
   background-color: #fff5f0;
   padding: 80px 20px;
 }
+
 .section-title {
   font-family: var(--font-heading);
   font-size: 36px;
   font-weight: 500;
   margin-bottom: 20px;
 }
+
 .toggle-container {
   display: flex;
   justify-content: center;
@@ -124,12 +162,52 @@ a { color: var(--secondary-color); text-decoration: none; }
   gap: 15px;
   margin-bottom: 50px;
 }
-.switch { position: relative; display: inline-block; width: 50px; height: 26px; }
-.switch input { opacity: 0; width: 0; height: 0; }
-.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius: 26px; transition: .4s; }
-.slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: .4s; }
-input:checked + .slider { background-color: var(--primary-color); }
-input:checked + .slider:before { transform: translateX(24px); }
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
 .discount-badge {
   background-color: var(--primary-color);
   color: #fff;
@@ -138,26 +216,32 @@ input:checked + .slider:before { transform: translateX(24px); }
   border-radius: 12px;
   margin-left: 5px;
 }
+
 .pricing-cards-container {
   display: flex;
   justify-content: center;
   gap: 30px;
   flex-wrap: wrap;
 }
+
 .pricing-card {
   background-color: var(--card-background);
   width: 280px;
   border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  overflow: hidden; /* For badges */
+  overflow: hidden;
   border: 2px solid transparent;
 }
-.pricing-card.recommended { border-color: var(--primary-color); }
+
+.pricing-card.recommended {
+  border-color: var(--primary-color);
+}
+
 .card-header {
   font-family: var(--font-heading);
   font-size: 24px;
@@ -168,15 +252,69 @@ input:checked + .slider:before { transform: translateX(24px); }
   color: #fff;
   min-width: 120px;
 }
-.card-header.free-badge { background-color: #a0a0a0; }
-.card-header.top-pick-badge { background-color: var(--primary-color); }
-.card-header.best-value-badge { background-color: #f7b731; }
-.price-container { display: flex; align-items: baseline; gap: 5px; margin-bottom: 20px; }
-.price { font-size: 36px; font-weight: 700; color: var(--secondary-color); }
-.billing-cycle { font-size: 14px; color: #777; }
-.features-list { list-style: none; padding: 0; text-align: center; font-size: 15px; margin: 0; flex-grow: 1; }
-.features-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
-.features-list li:last-child { border-bottom: none; }
+
+.card-header.free-badge {
+  background-color: #a0a0a0;
+}
+
+.card-header.top-pick-badge {
+  background-color: var(--primary-color);
+}
+
+.card-header.best-value-badge {
+  background-color: #f7b731;
+}
+
+.ribbon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: var(--primary-color);
+  color: white;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.price-container {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.price {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.billing-cycle {
+  font-size: 14px;
+  color: #777;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  font-size: 15px;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.features-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.features-list li:last-child {
+  border-bottom: none;
+}
+
 .select-button {
   background: var(--secondary-color);
   color: white;
@@ -189,10 +327,17 @@ input:checked + .slider:before { transform: translateX(24px); }
   margin-top: 30px;
   width: 100%;
 }
-.select-button.primary { background-color: var(--primary-color); }
-.select-button.disabled { background-color: #ccc; cursor: not-allowed; }
 
-/* ===== 6. フッター ===== */
+.select-button.primary {
+  background-color: var(--primary-color);
+}
+
+.select-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* フッター */
 .footer {
   padding: 50px 20px;
   display: flex;
@@ -200,6 +345,17 @@ input:checked + .slider:before { transform: translateX(24px); }
   align-items: center;
   gap: 20px;
 }
-.footer-logo { max-width: 320px; }
-.instagram-link img { height: 40px; opacity: 0.7; transition: opacity 0.3s; }
-.instagram-link:hover img { opacity: 1; }
+
+.footer-logo {
+  max-width: 320px;
+}
+
+.instagram-link img {
+  height: 40px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.instagram-link:hover img {
+  opacity: 1;
+}
