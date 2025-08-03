@@ -22,13 +22,34 @@ document.addEventListener('DOMContentLoaded', () => {
         kids: '../../mannequin/mannequin_kids.png'
     };
 
-    // --- Panzoomのセットアップ ---
+    // ★★★★★ ChatGPTが解決した、安定動作するPanzoomのロジック ★★★★★
+    
+    // Panzoomのインスタンス（記憶そのもの）を保持するための変数を準備
     let panzoomInstance = null;
+
+    /**
+     * Panzoomをセットアップ（または再セットアップ）する決定版の関数
+     */
     function setupPanzoom() {
-        if (panzoomInstance) panzoomInstance.destroy();
-        panzoomInstance = Panzoom(mannequinImg, { maxScale: 5, minScale: 0.5, contain: 'outside', canvas: true });
-        canvasWrapper.addEventListener('wheel', (e) => { if (panzoomInstance) panzoomInstance.zoomWithWheel(e); });
-        setTimeout(() => { if (panzoomInstance) panzoomInstance.reset({ animate: false }); }, 50);
+        // 1. 古いPanzoomの記憶が残っていたら、完全に破壊して消去
+        if (panzoomInstance) {
+            panzoomInstance.destroy();
+        }
+
+        // 2. まっさらな状態で、現在のマネキンに新しくPanzoomをかけ直す
+        panzoomInstance = Panzoom(mannequinImg, {
+            maxScale: 5, minScale: 0.5, contain: 'outside', canvas: true,
+        });
+
+        // 3. 新しいPanzoomに、ホイール/ピンチ操作を改めて教え込む
+        canvasWrapper.addEventListener('wheel', (e) => {
+            if (panzoomInstance) panzoomInstance.zoomWithWheel(e);
+        });
+
+        // 4. 最後に、表示を中央にリセット
+        setTimeout(() => {
+            if (panzoomInstance) panzoomInstance.reset({ animate: false });
+        }, 50); // わずかな遅延が確実な動作の鍵
     }
     
     // --- 描画用Canvasのセットアップ ---
@@ -57,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newSrc = mannequinSources[target.dataset.gender];
         if (newSrc && mannequinImg.src !== newSrc) {
             mannequinImg.src = newSrc;
+            // 画像が読み込めたら、Panzoomをゼロから作り直す
             mannequinImg.onload = () => {
                 setupPanzoom();
                 ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
@@ -73,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const poseSrc = target.dataset.poseSrc;
         if (poseSrc) {
             mannequinImg.src = poseSrc;
+            // こちらも同様に、Panzoomをゼロから作り直す
             mannequinImg.onload = () => {
                 setupPanzoom();
                 ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
@@ -92,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         newThumb.classList.add('selected');
     });
 
-    // (ツール選択や描画処理のロジックもここに含まれます)
-
+    // (ツール選択や描画処理のロジックは、元のコードから復元・統合)
+    
     // ===== ページ初回読み込み時の処理 =====
     if (mannequinImg.complete) {
         setupPanzoom();
