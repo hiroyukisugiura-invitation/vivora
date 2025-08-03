@@ -12,12 +12,17 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
+  <!-- =============== 全体を囲む大枠 =============== -->
   <div class="app-container">
 
+    <!-- =============== 画面左側：メインの作業エリア =============== -->
     <main class="main-workspace">
       
+      <!-- === (1) ヘッダー部分 === -->
       <header class="main-header">
+        <!-- ページタイトル -->
         <h1 class="title">Vivora Fashion Illustration 2025</h1>
+        <!-- Woman/Man/Kids ボタン -->
         <div class="gender-selector">
           <button class="gender-button active" data-gender="woman">Woman</button>
           <button class="gender-button" data-gender="man">Man</button>
@@ -25,7 +30,9 @@
         </div>
       </header>
 
+      <!-- === (2) ツールバー全体 === -->
       <div class="toolbar-area">
+        <!-- 作業修正ボタン (Undo/Redoなど) -->
         <div class="action-toolbar">
           <button class="icon-button" aria-label="Undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
           <button class="icon-button" aria-label="Redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
@@ -36,6 +43,7 @@
           <button class="icon-button" id="grid-toggle" aria-label="Toggle Grid"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
         </div>
         
+        <!-- コンテンツボタン (各ページへのナビゲーション) -->
         <div class="content-toolbar">
           <button class="icon-button" aria-label="Fashion Illustration"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
           <button class="icon-button" aria-label="Fabric Matching"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
@@ -47,28 +55,33 @@
         </div>
       </div>
 
+      <!-- === (3) キャンバスエリア === -->
       <div id="canvas-wrapper" class="canvas-wrapper">
         <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
-        <!-- JSで描画用Canvasがここに追加されます -->
+        <!-- JavaScriptによって、この上に透明な描画用キャンバスが追加されます -->
       </div>
     </main>
 
+    <!-- =============== 画面右側：サイドバー =============== -->
     <aside class="sidebar-controls">
+      <!-- === (4) Next Step ボタン === -->
       <div class="next-step-panel">
         <button class="next-step-button">Next Step ▶▶</button>
       </div>
 
+      <!-- === (5) 既存データ (ポーズ選択) パネル === -->
       <div id="pose-selector" class="panel pose-selector">
         <button class="arrow left-arrow">‹</button>
         <div class="pose-thumbnails">
           <img class="pose-thumb selected" src="../../mannequin/pose1.png" alt="Pose 1" data-pose-src="../../mannequin/mannequin_woman.png">
           <img class="pose-thumb" src="../../mannequin/pose2.png" alt="Pose 2" data-pose-src="../../mannequin/mannequin_woman_pose2.png">
           <img class="pose-thumb" src="../../mannequin/pose3.png" alt="Pose 3" data-pose-src="../../mannequin/mannequin_woman_pose3.png">
-          <img class="pose-thumb" src="../../mannequin/mannequin_woman_pose4.png" alt="Pose 4" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
+          <img class="pose-thumb" src="../../mannequin/pose4.png" alt="Pose 4" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
         </div>
         <button class="arrow right-arrow">›</button>
       </div>
       
+      <!-- === (6) 作業ボード (Stationery) パネル === -->
       <div id="stationery-panel" class="panel stationery-panel">
         <h2 class="panel-title">Stationery</h2>
         <div class="stationery-grid">
@@ -88,6 +101,7 @@
         <div class="panel-footer">...</div>
       </div>
       
+      <!-- === (7) カラーパネル === -->
       <div id="color-panel" class="panel color-panel">
           <h2 class="panel-title">Color <button id="custom-color-button" class="custom-button">Custom...</button></h2>
           <div id="color-grid" class="color-grid">
@@ -116,8 +130,10 @@
           </div>
       </div>
     </aside>
-  </div>
 
+  </div>
+  
+  <!-- JavaScriptライブラリと、私たちのJSファイルを読み込みます -->
   <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
   <script src="./script.js"></script>
 </body>
