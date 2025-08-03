@@ -1,115 +1,139 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // === 状態管理 ===
+  const appState = {
+    activeGender: 'woman',
+    activeTool: 'select',
+    activeColor: '#000000',
+    isDrawing: false,
+    gridVisible: false,
+  };
 
-    // --- DOM要素の取得 ---
-    const genderSelector = document.querySelector('.gender-selector');
-    const mannequinImg = document.getElementById('mannequin');
-    const poseSelector = document.getElementById('pose-selector');
-    const canvasWrapper = document.getElementById('canvas-wrapper');
-    const saveButton = document.getElementById('save-button');
-    const poseThumbnailsContainer = document.querySelector('.pose-thumbnails');
-    // 他の要素も必要に応じてここに追加
+  const genderSelector = document.querySelector('.gender-selector');
+  const mannequinImg = document.getElementById('mannequin');
+  const poseSelector = document.getElementById('pose-selector');
+  const canvasWrapper = document.getElementById('canvas-wrapper');
+  const saveButton = document.getElementById('save-button');
+  const poseThumbnailsContainer = document.querySelector('.pose-thumbnails');
+  const savedThumbnailsContainer = document.getElementById('savedThumbnails');
 
-    // --- マネキン画像のパスを管理 ---
-    const mannequinSources = {
-        woman: '../../mannequin/mannequin_woman.png',
-        man: '../../mannequin/mannequin_man.png',
-        kids: '../../mannequin/mannequin_kids.png'
-    };
+  const mannequinSources = {
+    woman: '../../mannequin/mannequin_woman.png',
+    man: '../../mannequin/mannequin_man.png',
+    kids: '../../mannequin/mannequin_kids.png'
+  };
 
-    // ★★★★★ 修正の核心 ① ★★★★★
-    // Panzoomのインスタンス（記憶そのもの）を保持するための変数を準備します
-    let panzoomInstance = null;
+  let panzoomInstance = null;
 
-    /**
-     * Panzoomをセットアップ（または再セットアップ）する、これが決定版の関数です
-     */
-    function setupPanzoom() {
-        // 1. もし古いPanzoomの記憶がゾンビのように残っていたら、それを完全に破壊して消し去ります
-        if (panzoomInstance) {
-            panzoomInstance.destroy();
-        }
-
-        // 2. まっさらな状態で、現在のマネキンに「新しく」Panzoomをかけ直します
-        //    これにより、画像の正しいサイズと位置がゼロから計算されます
-        panzoomInstance = Panzoom(mannequinImg, {
-            maxScale: 5,
-            minScale: 0.5,
-            contain: 'outside',
-            canvas: true,
-        });
-
-        // 3. 新しく作ったPanzoomに、マウスホイールでの拡大・縮小操作を改めて教え込みます
-        canvasWrapper.addEventListener('wheel', (event) => {
-            if (panzoomInstance) {
-                panzoomInstance.zoomWithWheel(event);
-            }
-        });
-
-        // 4. 最後に、表示を中央にリセットします
-        //    ブラウザの描画を待つための僅かな遅延が、確実な動作の鍵です
-        setTimeout(() => {
-            if(panzoomInstance) {
-                panzoomInstance.reset({ animate: false });
-            }
-        }, 50); // 50ミリ秒(0.05秒)待つ
+  function setupPanzoom() {
+    if (panzoomInstance) {
+      panzoomInstance.destroy();
     }
-
-    // --- 描画用Canvasのセットアップ ---
-    const drawingCanvas = document.createElement('canvas');
-    // ... (Canvasセットアップのコードは変更ないので省略)
-
-    // ===== イベントリスナーの設定 =====
-
-    // 1. 性別切り替え
-    genderSelector.addEventListener('click', (e) => {
-        const targetButton = e.target.closest('.gender-button');
-        if (!targetButton) return;
-        genderSelector.querySelectorAll('.gender-button').forEach(btn => btn.classList.remove('active'));
-        targetButton.classList.add('active');
-        const selectedGender = targetButton.dataset.gender;
-        const newSrc = mannequinSources[selectedGender];
-        if (newSrc && mannequinImg.getAttribute('src') !== newSrc) { 
-            mannequinImg.src = newSrc;
-            // ★★★★★ 修正の核心 ② ★★★★★
-            // 新しい画像が読み込めたら、Panzoomをゼロから作り直す関数を呼び出します
-            mannequinImg.onload = setupPanzoom;
-        }
+    panzoomInstance = Panzoom(mannequinImg, {
+      maxScale: 5,
+      minScale: 0.5,
+      contain: 'outside',
+      canvas: true,
     });
-
-    // 2. ポーズ切り替え
-    poseSelector.addEventListener('click', (e) => {
-        const targetPose = e.target.closest('.pose-thumb');
-        if(!targetPose) return;
-        poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
-        targetPose.classList.add('selected');
-        const poseSrc = targetPose.dataset.poseSrc;
-        if(poseSrc) {
-            mannequinImg.src = poseSrc;
-            // こちらも同様に、Panzoomをゼロから作り直します
-            mannequinImg.onload = setupPanzoom;
-        }
+    canvasWrapper.addEventListener('wheel', (event) => {
+      if (panzoomInstance) {
+        panzoomInstance.zoomWithWheel(event);
+      }
     });
+    setTimeout(() => {
+      if (panzoomInstance) {
+        panzoomInstance.reset({ animate: false });
+      }
+    }, 50);
+  }
 
-    // 3. 保存ボタンの処理 (これも念のため修正)
-    saveButton.addEventListener('click', () => {
-        if (!drawingCanvas) return;
-        const imageDataUrl = drawingCanvas.toDataURL('image/png');
-        const newThumb = document.createElement('img');
-        newThumb.classList.add('pose-thumb');
-        newThumb.src = imageDataUrl;
-        newThumb.alt = 'Saved Design';
-        poseThumbnailsContainer.appendChild(newThumb);
-        poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
-        newThumb.classList.add('selected');
-    });
-    
-    // ===== ページ初回読み込み時の処理 =====
-    // 最初のマネキン画像が読み込まれたことを確認してから、Panzoomをセットアップします
-    if (mannequinImg.complete) {
-        setupPanzoom();
-    } else {
-        mannequinImg.addEventListener('load', setupPanzoom);
+  const drawingCanvas = document.createElement('canvas');
+
+  genderSelector.addEventListener('click', (e) => {
+    const targetButton = e.target.closest('.gender-button');
+    if (!targetButton) return;
+    genderSelector.querySelectorAll('.gender-button').forEach(btn => btn.classList.remove('active'));
+    targetButton.classList.add('active');
+    const selectedGender = targetButton.dataset.gender;
+    const newSrc = mannequinSources[selectedGender];
+    if (newSrc && mannequinImg.getAttribute('src') !== newSrc) {
+      mannequinImg.src = newSrc;
+      mannequinImg.onload = setupPanzoom;
     }
+  });
 
-    // （これ以降の描画処理などのコードは、元のままで問題ありません）
+  poseSelector.addEventListener('click', (e) => {
+    const targetPose = e.target.closest('.pose-thumb');
+    if (!targetPose) return;
+    poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
+    targetPose.classList.add('selected');
+    const poseSrc = targetPose.dataset.poseSrc;
+    if (poseSrc) {
+      mannequinImg.src = poseSrc;
+      mannequinImg.onload = setupPanzoom;
+    }
+  });
+
+  saveButton?.addEventListener('click', () => {
+    if (!drawingCanvas) return;
+    const imageDataUrl = drawingCanvas.toDataURL('image/png');
+    const newThumb = document.createElement('img');
+    newThumb.classList.add('pose-thumb');
+    newThumb.src = imageDataUrl;
+    newThumb.alt = 'Saved Design';
+    poseThumbnailsContainer.appendChild(newThumb);
+    poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
+    newThumb.classList.add('selected');
+  });
+
+  const savedDataList = [
+    { id: 1, name: "Design A", thumbnail: "https://via.placeholder.com/60?text=A" },
+    { id: 2, name: "Design B", thumbnail: "https://via.placeholder.com/60?text=B" },
+    { id: 3, name: "Design C", thumbnail: "https://via.placeholder.com/60?text=C" },
+    { id: 4, name: "Design D", thumbnail: "https://via.placeholder.com/60?text=D" },
+    { id: 5, name: "Design E", thumbnail: "https://via.placeholder.com/60?text=E" }
+  ];
+
+  function renderSavedThumbnails() {
+    if (!savedThumbnailsContainer) return;
+    savedThumbnailsContainer.innerHTML = '';
+    savedDataList.forEach(data => {
+      const div = document.createElement('div');
+      div.className = 'saved-thumb-container';
+      div.dataset.id = data.id;
+
+      const img = document.createElement('img');
+      img.src = data.thumbnail;
+      img.alt = data.name;
+
+      const label = document.createElement('div');
+      label.className = 'thumb-label';
+      label.textContent = data.name;
+
+      div.appendChild(img);
+      div.appendChild(label);
+
+      div.addEventListener('click', () => {
+        document.querySelectorAll('.saved-thumb-container').forEach(el => el.classList.remove('selected'));
+        div.classList.add('selected');
+        console.log('Selected:', data);
+      });
+
+      savedThumbnailsContainer.appendChild(div);
+    });
+  }
+
+  renderSavedThumbnails();
+
+  if (mannequinImg.complete) {
+    setupPanzoom();
+  } else {
+    mannequinImg.addEventListener('load', setupPanzoom);
+  }
 });
+
+function scrollSlider(direction) {
+  const container = document.getElementById('savedThumbnails');
+  if (container) {
+    container.scrollLeft += direction * 80;
+  }
+}
