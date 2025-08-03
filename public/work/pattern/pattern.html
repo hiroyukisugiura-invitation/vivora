@@ -1,37 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pattern | Vivora</title>
-  <link rel="stylesheet" href="../style.css" />
+  <title>Vivora Pattern Creation 2025</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <header>
-    <img src="../../logo/vivora_logo-main.png" alt="Vivora Logo" class="logo" />
-  </header>
+  <div class="app-container">
 
-  <nav class="navbar">
-    <a href="../../index.html">Home</a>
-    <a href="#">Plans</a>
-    <a href="#">Kids</a>
-    <a href="#">Log In</a>
-    <a href="#">Sign Up</a>
-  </nav>
+    <main class="main-workspace">
+      
+      <header class="main-header">
+        <h1 class="title">Vivora Pattern Creation 2025</h1>
+      </header>
 
-  <section class="features">
-    <h2>Pattern</h2>
-    <p>This is a placeholder page for pattern content. Customize this section.</p>
-    <button class="actions-button">Start</button>
-  </section>
+      <div class="toolbar-area">
+        <div class="action-toolbar">
+          <button class="icon-button"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
+        </div>
+      </div>
 
-  <footer>
-    <div class="footer-content">
-      <img src="../../logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
-      <a href="https://www.instagram.com/vivora.app" target="_blank">
-        <img src="../../logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
-      </a>
-    </div>
-  </footer>
+      <div class="canvas-wrapper">
+        <div class="pattern-title">絵型</div>
+        <!-- ここにパターン描画エリアが入る -->
+      </div>
+      
+      <div class="spec-sheet">
+        <table class="spec-table header-table">
+          <tr>
+            <td>ブランド名</td>
+            <td><input type="text"></td>
+            <td>品名</td>
+            <td><input type="text" value="JK"></td>
+            <td>シーズン</td>
+            <td><input type="text" value="AW"></td>
+            <td>アイテム品番</td>
+            <td><input type="text" value="250701"></td>
+            <td>サイズ</td>
+            <td><input type="text" value="02"></td>
+            <td>カラー</td>
+            <td><input type="text" value="002"></td>
+            <td>作成日</td>
+            <td><input type="date"></td>
+          </tr>
+        </table>
+
+        <div class="spec-grid">
+          <table class="spec-table size-table">
+            <tr><th></th><th>パーツ</th><th>mm</th></tr>
+            <tr><td>A</td><td>衿巾</td><td><input type="text"></td></tr>
+            <tr><td>B</td><td>肩幅</td><td><input type="text"></td></tr>
+            <tr><td>C</td><td>袖丈</td><td><input type="text"></td></tr>
+            <tr><td>D</td><td>袖巾</td><td><input type="text"></td></tr>
+            <tr><td>E</td><td>身幅丈</td><td><input type="text"></td></tr>
+            <tr><td>F</td><td>裄丈</td><td><input type="text"></td></tr>
+            <tr><td>G</td><td>前下がり</td><td><input type="text"></td></tr>
+            <tr><td>H</td><td>後下がり</td><td><input type="text"></td></tr>
+            <tr><td>I</td><td>カフス</td><td><input type="text"></td></tr>
+          </table>
+
+          <table class="spec-table size-table">
+            <tr><th></th><th>パーツ</th><th>mm</th></tr>
+            <tr><td>J</td><td>ボトム丈</td><td><input type="text"></td></tr>
+            <tr><td>K</td><td>股上</td><td><input type="text"></td></tr>
+            <tr><td>L</td><td>ヒップ</td><td><input type="text"></td></tr>
+            <tr><td>M</td><td>裾巾</td><td><input type="text"></td></tr>
+            <tr><td>N</td><td>股下</td><td><input type="text"></td></tr>
+            <tr><td>O</td><td>ベルト丈</td><td><input type="text"></td></tr>
+            <tr><td colspan="3" class="empty-row"></td></tr>
+            <tr><td colspan="3" class="empty-row"></td></tr>
+            <tr><td colspan="3" class="empty-row"></td></tr>
+          </table>
+          
+          <div class="expansion-tables">
+            <table class="spec-table expansion-table">
+              <tr><th></th><th>サイズ展開</th></tr>
+              <tr><td>01</td><td><input type="text"></td></tr>
+              <tr><td>02</td><td><input type="text" value="001"></td></tr>
+              <tr><td>03</td><td><input type="text" value="002"></td></tr>
+              <tr><td>04</td><td><input type="text" value="003"></td></tr>
+              <tr><td></td><td><input type="text" value="004"></td></tr>
+              <tr><td></td><td><input type="text" value="005"></td></tr>
+              <tr><td></td><td><input type="text" value="006"></td></tr>
+            </table>
+
+            <table class="spec-table expansion-table">
+              <tr><th></th><th>カラー展開</th></tr>
+              <tr><td>000</td><td><input type="text" value="007"></td></tr>
+              <tr><td>001</td><td><input type="text" value="008"></td></tr>
+              <tr><td>002</td><td><input type="text" value="009"></td></tr>
+              <tr><td>003</td><td><input type="text" value="010"></td></tr>
+              <tr><td>004</td><td><input type="text" value="011"></td></tr>
+              <tr><td>005</td><td><input type="text" value="012"></td></tr>
+              <tr><td>006</td><td><input type="text" value="013"></td></tr>
+            </table>
+
+            <table class="spec-table material-table">
+                <tr><th></th><th>素材</th></tr>
+                <tr><td></td><td><input type="text" value="綿"></td></tr>
+                <tr><td></td><td><input type="text" value="麻"></td></tr>
+                <tr><td></td><td><input type="text" value="ウール"></td></tr>
+                <tr><td></td><td><input type="text" value="ポリエステル"></td></tr>
+                <tr><td></td><td><input type="text" value="シルク"></td></tr>
+                <tr><td></td><td><input type="text" value="サテン"></td></tr>
+                <tr><td colspan="2" class="empty-row"></td></tr>
+            </table>
+          </div>
+
+          <div class="notes-area">
+            <!-- 罫線はCSSで描画 -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar-controls">
+      <div class="top-bar">
+        <div class="content-toolbar">
+            <button class="icon-button"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
+            <button class="icon-button active"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
+        </div>
+        <button class="next-step-button">Next Step ▶▶</button>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="./script.js"></script>
 </body>
 </html>
