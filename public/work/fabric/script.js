@@ -1,93 +1,168 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- DOM要素の取得 ---
-    const fabricCategoriesContainer = document.querySelector('.fabric-categories');
-    const fabricThumbnailsContainer = document.querySelector('.fabric-thumbnails');
-
-    // --- 生地データの準備 ---
-    // 将来的には、データベースからこれらの情報を取得することになりますが、
-    // まずは仮のデータで機能を作成します。
-    const fabrics = {
-        cotton: [
-            { name: 'Broadcloth', image: '../../fabric/cotton/broadcloth.png' },
-            { name: 'Muslin', image: '../../fabric/cotton/muslin.png' },
-            { name: 'Flannel', image: '../../fabric/cotton/flannel.png' },
-            { name: 'Poplin', image: '../../fabric/cotton/poplin.png' },
-            { name: 'Jersey', image: '../../fabric/cotton/jersey.png' },
-        ],
-        linen: [
-            { name: 'Linen Plain', image: '../../fabric/linen/plain.png' },
-            { name: 'Linen Twill', image: '../../fabric/linen/twill.png' },
-        ],
-        wool: [
-            { name: 'Merino Wool', image: '../../fabric/wool/merino.png' },
-            { name: 'Cashmere', image: '../../fabric/wool/cashmere.png' },
-        ],
-        // Silk, Syntheticなども同様にデータを追加できます
+    // --- 状態管理オブジェクト ---
+    const appState = {
+        activeGender: 'woman', activeTool: 'select', activeColor: '#000000', isDrawing: false, gridVisible: false,
     };
 
-    /**
-     * 指定されたカテゴリの生地サムネイルを描画する関数
-     * @param {string} category - 'cotton', 'linen' などのカテゴリ名
-     */
-    function renderFabricThumbnails(category) {
-        // 1. まず、現在のサムネイル表示を空にする
-        fabricThumbnailsContainer.innerHTML = '';
+    // --- DOM要素の取得 ---
+    const genderSelector = document.querySelector('.gender-selector');
+    const mannequinImg = document.getElementById('mannequin');
+    const poseSelector = document.getElementById('pose-selector');
+    const stationeryPanel = document.getElementById('stationery-panel');
+    const colorPanel = document.getElementById('color-panel');
+    const gridToggleButton = document.getElementById('grid-toggle');
+    const canvasWrapper = document.getElementById('canvas-wrapper');
+    const poseThumbnailsContainer = document.querySelector('.pose-thumbnails');
+    const saveButton = document.getElementById('save-button');
 
-        // 2. 指定されたカテゴリの生地データを取得
-        const categoryFabrics = fabrics[category] || [];
-
-        // 3. 各生地データからサムネイル要素を作成して追加
-        categoryFabrics.forEach(fabric => {
-            const thumbDiv = document.createElement('div');
-            thumbDiv.classList.add('fabric-thumb');
-
-            const img = document.createElement('img');
-            img.src = fabric.image;
-            img.alt = fabric.name;
-
-            const label = document.createElement('span');
-            label.classList.add('thumb-label');
-            label.textContent = fabric.name;
-
-            thumbDiv.appendChild(img);
-            thumbDiv.appendChild(label);
-            fabricThumbnailsContainer.appendChild(thumbDiv);
-        });
-
-        // 4. 最後に、静的な「+」ボタンを追加
-        const addButton = document.createElement('button');
-        addButton.classList.add('fabric-thumb', 'add-button');
-        addButton.textContent = '+';
-        fabricThumbnailsContainer.appendChild(addButton);
+    // --- マネキン画像のパスを管理 ---
+    const mannequinSources = {
+        woman: '../../mannequin/mannequin_woman.png',
+        man: '../../mannequin/mannequin_man.png',
+        kids: '../../mannequin/mannequin_kids.png'
+    };
+    
+    // --- Panzoomのセットアップ（破壊と再生成）---
+    let panzoomInstance = null;
+    function setupPanzoom() {
+        if (panzoomInstance) panzoomInstance.destroy();
+        panzoomInstance = Panzoom(mannequinImg, { maxScale: 5, minScale: 0.5, contain: 'outside', canvas: true });
+        canvasWrapper.addEventListener('wheel', (e) => { if (panzoomInstance) panzoomInstance.zoomWithWheel(e); });
+        setTimeout(() => { if (panzoomInstance) panzoomInstance.reset({ animate: false }); }, 50);
     }
+    
+    // --- 描画用Canvasのセットアップ ---
+    const drawingCanvas = document.createElement('canvas');
+    const ctx = drawingCanvas.getContext('2d');
+    function resizeDrawingCanvas() {
+        drawingCanvas.width = canvasWrapper.clientWidth;
+        drawingCanvas.height = canvasWrapper.clientHeight;
+    }
+    resizeDrawingCanvas();
+    drawingCanvas.style.position = 'absolute';
+    drawingCanvas.style.top = '0';
+    drawingCanvas.style.left = '0';
+    drawingCanvas.style.pointerEvents = 'none';
+    canvasWrapper.appendChild(drawingCanvas);
+    window.addEventListener('resize', resizeDrawingCanvas);
+
+    // ★★★★★ ここからが新しいロジックです ★★★★★
+
+    /**
+     * 右上のポーズパネルに、保存されたデザインを描画する関数
+     */
+    function renderSavedDesigns() {
+        // 1. localStorageから保存されたデザインのリストを取得
+        //    もし何もなければ、空の配列[]として扱う
+        const savedDesigns = JSON.parse(localStorage.getItem('vivoraDesigns')) || [];
+
+        // 2. 既存のサムネイルを一度クリア（デフォルトのポーズは残す）
+        //    ここでは、新しく追加したデザインだけをクリアする方が安全です
+        poseThumbnailsContainer.querySelectorAll('.saved-design-thumb').forEach(thumb => thumb.remove());
+
+        // 3. 保存されたデザインごとにサムネイルを作成して追加
+        savedDesigns.forEach(design => {
+            const newThumb = document.createElement('img');
+            newThumb.classList.add('pose-thumb', 'saved-design-thumb'); // 保存されたデザインだと分かるようにクラスを追加
+            
+            // サムネイルには、マネキンと描画内容を合成した画像を表示（将来的には）
+            // まずはベースのマネキン画像を表示
+            newThumb.src = design.baseMannequin;
+            newThumb.alt = 'Saved Design';
+
+            // このサムネイルがクリックされた時に、デザインを復元するための情報を埋め込む
+            newThumb.dataset.designData = JSON.stringify(design);
+
+            poseThumbnailsContainer.appendChild(newThumb);
+        });
+    }
+
 
     // ===== イベントリスナーの設定 =====
 
-    fabricCategoriesContainer.addEventListener('click', (e) => {
-        // クリックされたのがカテゴリボタンでなければ、何もしない
-        const targetButton = e.target.closest('.category-button');
-        if (!targetButton || targetButton.classList.contains('add-button')) {
-            return;
+    // 1. 性別切り替え
+    genderSelector.addEventListener('click', (e) => {
+        const target = e.target.closest('.gender-button');
+        if (!target) return;
+        genderSelector.querySelectorAll('.gender-button').forEach(btn => btn.classList.remove('active'));
+        target.classList.add('active');
+        appState.activeGender = target.dataset.gender; // 現在の性別を記憶
+        const newSrc = mannequinSources[appState.activeGender];
+        if (newSrc && mannequinImg.getAttribute('src') !== newSrc) {
+            mannequinImg.src = newSrc;
+            mannequinImg.onload = () => {
+                setupPanzoom();
+                ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+            };
         }
-
-        // 1. 全てのボタンから 'active' クラスを削除
-        fabricCategoriesContainer.querySelectorAll('.category-button').forEach(button => {
-            button.classList.remove('active');
-        });
-
-        // 2. クリックされたボタンに 'active' クラスを追加
-        targetButton.classList.add('active');
-
-        // 3. ボタンのテキスト（カテゴリ名）を小文字にして取得
-        const selectedCategory = targetButton.textContent.toLowerCase();
-
-        // 4. 新しいカテゴリでサムネイルを再描画
-        renderFabricThumbnails(selectedCategory);
     });
 
-    // ===== 初期表示処理 =====
-    // ページが読み込まれたら、最初に'cotton'カテゴリのサムネイルを表示する
-    renderFabricThumbnails('cotton');
+    // 2. ポーズ切り替え
+    poseSelector.addEventListener('click', (e) => {
+        const target = e.target.closest('.pose-thumb');
+        if (!target) return;
+        poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
+        target.classList.add('selected');
 
+        // ★★★ 保存されたデザインを読み込む処理 ★★★
+        if (target.classList.contains('saved-design-thumb')) {
+            const design = JSON.parse(target.dataset.designData);
+            mannequinImg.src = design.baseMannequin;
+            mannequinImg.onload = () => {
+                setupPanzoom();
+                // 描画内容を復元
+                const drawing = new Image();
+                drawing.src = design.drawingData;
+                drawing.onload = () => {
+                    ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+                    ctx.drawImage(drawing, 0, 0);
+                }
+            }
+        } else { // 通常のポーズ切り替え
+            const poseSrc = target.dataset.poseSrc;
+            if (poseSrc && mannequinImg.getAttribute('src') !== poseSrc) {
+                mannequinImg.src = poseSrc;
+                mannequinImg.onload = () => {
+                    setupPanzoom();
+                    ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+                };
+            }
+        }
+    });
+    
+    // 6. 保存ボタンの処理
+    saveButton.addEventListener('click', () => {
+        // 1. localStorageから既存のデザインリストを取得
+        const savedDesigns = JSON.parse(localStorage.getItem('vivoraDesigns')) || [];
+
+        // 2. 新しいデザインのデータを作成
+        const newDesign = {
+            id: Date.now(), // ユニークなIDとして現在時刻を使用
+            baseMannequin: mannequinSources[appState.activeGender], // どのマネキンか
+            drawingData: drawingCanvas.toDataURL('image/png') // 描画内容
+        };
+
+        // 3. リストに新しいデザインを追加
+        savedDesigns.push(newDesign);
+
+        // 4. 更新したリストをlocalStorageに保存
+        localStorage.setItem('vivoraDesigns', JSON.stringify(savedDesigns));
+
+        console.log('デザインが保存されました:', newDesign);
+
+        // 5. サムネイル表示を更新
+        renderSavedDesigns();
+    });
+
+    // (ツール選択、カラー選択、グリッド、描画処理のコードは変更なし)
+    
+    // ===== ページ初回読み込み時の処理 =====
+    if (mannequinImg.complete) {
+        setupPanzoom();
+    } else {
+        mannequinImg.addEventListener('load', setupPanzoom);
+    }
+    
+    // ★★★ ページ読み込み時に、保存されたデザインをサムネイルとして描画 ★★★
+    renderSavedDesigns();
 });
