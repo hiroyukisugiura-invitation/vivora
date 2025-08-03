@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mannequinImg = document.getElementById('mannequin');
     const poseSelector = document.getElementById('pose-selector');
     const canvasWrapper = document.getElementById('canvas-wrapper');
+    // 他のDOM要素取得は変更ないので省略
 
     // --- マネキン画像のパスを管理 ---
     const mannequinSources = {
@@ -27,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 2. まっさらな状態で、現在のマネキンに「新しく」Panzoomをかけ直します
-        //    これにより、画像の正しいサイズと位置がゼロから計算されます
         panzoomInstance = Panzoom(mannequinImg, {
             maxScale: 5,
             minScale: 0.5,
@@ -35,23 +35,21 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas: true,
         });
 
-        // 3. 新しく作ったPanzoomに、マウスホイールでの拡大・縮小操作を改めて教え込みます
+        // 3. 新しく作ったPanzoomに、ホイール/ピンチ操作を改めて教え込みます
         canvasWrapper.addEventListener('wheel', (event) => {
-            // panzoomInstanceが存在する場合のみ、処理を実行
             if (panzoomInstance) {
                 panzoomInstance.zoomWithWheel(event);
             }
         });
 
         // 4. 最後に、表示を中央にリセットします
-        //    ブラウザの描画を待つための僅かな遅延が、確実な動作の鍵です
         setTimeout(() => {
             if(panzoomInstance) {
                 panzoomInstance.reset({ animate: false });
             }
-        }, 50); // 50ミリ秒(0.05秒)待つ
+        }, 50); // わずかな遅延が確実な動作の鍵です
     }
-
+    
     // ===== イベントリスナーの設定 =====
 
     // 1. 性別切り替え
