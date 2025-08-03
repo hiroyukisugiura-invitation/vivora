@@ -1,8 +1,3 @@
-/* ==========================================================================
-   1. 基本設定（変数、リセット、全体レイアウト）
-   ========================================================================== */
-
-/* --- (A) CSS変数：サイト全体の色や余白のルールをここで一括管理 --- */
 :root {
   --bg-main: #f0ebe8;
   --bg-panel: #faf6f3;
@@ -14,42 +9,27 @@
   --spacing-md: 16px;
   --spacing-lg: 24px;
 }
-
-/* --- (B) 基本リセットと全体のスタイル --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background-color: var(--bg-main); color: var(--text-primary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; overflow: hidden; }
-
-/* --- (C) 全体を囲む大枠 --- */
 .app-container { display: flex; height: 100vh; }
 .main-workspace { flex: 1; display: flex; flex-direction: column; padding: var(--spacing-md) var(--spacing-lg); }
 .sidebar-controls { width: 340px; padding: var(--spacing-lg); display: flex; flex-direction: column; gap: var(--spacing-md); overflow-y: auto; background-color: var(--bg-main); }
-
-
-/* ==========================================================================
-   2. 左側：メインワークスペースのパーツ
-   ========================================================================== */
-
-/* --- ヘッダー --- */
 .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-md); }
 .title { font-family: var(--font-accent); font-size: 26px; font-weight: 500; flex-shrink: 0; margin-right: var(--spacing-lg); }
 .gender-selector { display: flex; background-color: #fff; border-radius: 8px; box-shadow: var(--shadow-light); overflow: hidden; }
 .gender-button { background-color: transparent; border: none; padding: 10px 24px; font-size: 14px; cursor: pointer; color: var(--text-primary); transition: all 0.2s; }
 .gender-button.active { background-color: var(--text-primary); color: #fff; }
-
-/* --- ツールバー --- */
 .toolbar-area { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--spacing-md); }
 .action-toolbar, .content-toolbar { display: flex; gap: var(--spacing-md); }
 .icon-button { background: none; border: none; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; padding: 0; }
 .icon-button:hover, .icon-button.active { opacity: 1; }
 .icon-button img { display: block; height: 24px; }
-
-/* --- キャンバス ★★★★★ ここが修正の核心です ★★★★★ --- */
 .canvas-wrapper {
   flex-grow: 1;
   position: relative;
-  display: flex; /* Flexboxで中身を中央揃えにします */
-  justify-content: center; /* 水平中央 */
-  align-items: center; /* 垂直中央 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: var(--bg-panel);
   border-radius: 12px;
   overflow: hidden;
@@ -59,36 +39,22 @@ body { background-color: var(--bg-main); color: var(--text-primary); font-family
 .canvas-wrapper.drawing-mode { cursor: crosshair; }
 .canvas-wrapper.grid-active { background-image: linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px); background-size: 20px 20px; }
 .mannequin-base {
-  display: block; /* Panzoomの計算を安定させるため */
+  display: block;
   max-width: 90%;
   max-height: 90%;
   object-fit: contain;
-  pointer-events: none;
-  /* position:absolute を使わないことで、レイアウトを完全にFlexboxに委ねます */
+  /* position, transformはPanzoomが管理するのでCSSでは指定しない */
 }
-
-
-/* ==========================================================================
-   3. 右側：サイドバーのパーツ (全て復元)
-   ========================================================================== */
-
-/* --- Next Step ボタン --- */
 .next-step-panel { text-align: right; margin-bottom: var(--spacing-md); }
 .next-step-button { background-color: var(--text-primary); color: white; font-family: var(--font-accent); font-size: 18px; letter-spacing: 1px; padding: 12px 28px; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.2s; box-shadow: var(--shadow-light); }
 .next-step-button:hover { background-color: #000; }
-
-/* --- 各パネル共通 --- */
 .panel { background-color: var(--bg-panel); border-radius: 12px; padding: var(--spacing-md); }
-
-/* --- ポーズ選択パネル --- */
 .pose-selector { display: flex; align-items: center; justify-content: center; gap: var(--spacing-sm); }
 .pose-thumbnails { display: flex; gap: var(--spacing-sm); }
 .pose-thumb { width: 60px; height: 100px; padding: var(--spacing-sm); border: 2px solid #fff; border-radius: 8px; cursor: pointer; transition: border-color 0.2s; background-color: #fff; }
 .pose-thumb.selected, .pose-thumb:hover { border-color: var(--text-primary); }
 .pose-thumb img { width: 100%; height: 100%; object-fit: contain; }
 .arrow { background: none; border: none; font-size: 24px; cursor: pointer; color: #aaa; }
-
-/* --- Stationery & Colorパネル共通 --- */
 .panel-title { font-family: var(--font-accent); font-size: 22px; margin-bottom: var(--spacing-md); display: flex; justify-content: space-between; align-items: center; }
 .custom-button { background: none; border: 1px solid var(--border-color); color: var(--text-primary); font-size: 12px; cursor: pointer; padding: 4px 10px; border-radius: 6px; }
 .stationery-grid, .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
