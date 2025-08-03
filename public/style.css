@@ -1,107 +1,127 @@
-/* ==========================================================================
-   Vivora Main Page - Final CSS (Re:Designed from Scratch)
-   ========================================================================== */
-
-/* ===== 1. 基本設定とフォント ===== */
+/* ===== 1. 基本設定とタイポグラフィ ===== */
 :root {
-  --primary-color: #d63031; /* ブランドの赤 */
-  --secondary-color: #3b2f2f; /* テキストの濃いブラウン */
-  --background-color: #f8f1ee; /* 全体の背景色 */
-  --card-background: #ffffff; /* カードの背景色 */
-  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --primary-color: #d35454; /* Vivoraの赤色 */
+  --secondary-color: #3b2f2f; /* 濃いブラウン */
+  --background-color: #f8f1ee;
+  --card-background: #ffffff;
+  --font-body: 'Helvetica Neue', Arial, sans-serif;
   --font-heading: 'Playfair Display', serif;
 }
 body {
   margin: 0;
-  padding: 0;
   background-color: var(--background-color);
   font-family: var(--font-body);
   color: var(--secondary-color);
   text-align: center;
 }
-img { max-width: 100%; height: auto; vertical-align: middle; }
-a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--secondary-color); text-decoration: none; }
 
 /* ===== 2. ヘッダーとナビゲーション ===== */
-header {
-  padding: 50px 20px 30px;
-}
-.logo {
-  max-width: 450px;
-  width: 90%;
+.header {
+  padding: 40px 20px 20px;
+  max-width: 1200px;
   margin: 0 auto;
 }
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.logo { max-width: 380px; }
+.tagline { font-family: var(--font-heading); font-size: 20px; margin: 0; }
 .navbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 28px;
-  font-size: 15px;
-  font-weight: 500;
-  font-family: var(--font-heading);
+  gap: 30px;
   margin-top: 40px;
+  font-family: var(--font-heading);
+  font-size: 16px;
   flex-wrap: wrap;
 }
+.signup-button {
+  background-color: var(--secondary-color);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: opacity 0.3s;
+}
+.signup-button:hover { opacity: 0.8; }
 
-/* ===== 3. コンテンツ一覧 ===== */
-.features {
+/* ===== 3. コンテンツ機能グリッド ===== */
+.features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  padding: 40px;
-  max-width: 1100px;
+  padding: 50px 20px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 .feature-card {
-  transition: transform 0.3s ease;
-}
-.feature-card:hover {
-  transform: scale(1.03);
-}
-.feature-card img {
-  width: 100%;
+  position: relative;
+  overflow: hidden;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s;
+}
+.feature-card:hover { transform: translateY(-5px); }
+.card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  text-align: left;
 }
 
 /* ===== 4. アクションボタン ===== */
-.actions {
-  margin: 40px 0;
+.actions-container {
+  padding: 30px 20px 60px;
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
 }
-.actions button {
-  background: white;
+.action-button {
+  background-color: #fff;
   border: 1px solid #ddd;
-  padding: 12px 24px;
-  border-radius: 24px;
-  font-weight: bold;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 15px;
   cursor: pointer;
   transition: all 0.3s;
 }
-.actions button:hover {
-  background: var(--secondary-color);
-  color: white;
-  border-color: var(--secondary-color);
+.action-button:hover { background-color: #f0f0f0; }
+.action-button.primary {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
 }
+.action-button.primary:hover { background-color: #b94242; }
 
-/* ===== 5. プラン表示セクション ===== */
+/* ===== 5. 料金プランセクション ===== */
 .pricing-section {
-  padding: 60px 20px;
-  background: #fff5f0;
+  background-color: #fff5f0;
+  padding: 80px 20px;
 }
-.pricing-title {
-  font-size: 28px;
+.section-title {
   font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 .toggle-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   margin-bottom: 50px;
 }
 .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
@@ -110,99 +130,76 @@ header {
 .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: .4s; }
 input:checked + .slider { background-color: var(--primary-color); }
 input:checked + .slider:before { transform: translateX(24px); }
-.discount-badge { display: inline-block; } /* 初期表示用 */
-.pricing-cards {
+.discount-badge {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin-left: 5px;
+}
+.pricing-cards-container {
   display: flex;
   justify-content: center;
-  gap: 24px;
+  gap: 30px;
   flex-wrap: wrap;
 }
 .pricing-card {
-  background: #fff;
-  padding: 30px 20px;
+  background-color: var(--card-background);
+  width: 280px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 260px;
-  min-height: 350px;
-  text-align: center;
-  transition: transform 0.3s;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  padding: 30px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   position: relative;
-  overflow: hidden; /* リボンのため */
+  overflow: hidden; /* For badges */
   border: 2px solid transparent;
 }
-.pricing-card:hover { transform: translateY(-5px); }
-.popular { border-color: var(--primary-color); }
-
-/* --- リボン --- */
-.ribbon-wrapper {
-  width: 120px;
-  height: 120px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-}
-.ribbon {
-  padding: 5px 0;
-  color: #fff;
-  font-size: 13px;
-  font-weight: bold;
-  text-align: center;
-  width: 150px;
-  position: absolute;
-  transform: rotate(-45deg);
-  left: -35px;
-  top: 30px;
-}
-.ribbon.blue { background-color: #4a90e2; }
-.ribbon.red { background-color: var(--primary-color); }
-.ribbon.yellow { background-color: #f5a623; }
-
-.pricing-card h3 {
-  font-size: 22px;
+.pricing-card.recommended { border-color: var(--primary-color); }
+.card-header {
   font-family: var(--font-heading);
-  margin-top: 10px;
-  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+  min-width: 120px;
 }
-.price {
-  font-size: 28px;
-  font-weight: bold;
-  color: var(--primary-color);
-  margin-bottom: 5px;
-}
-.billing-cycle { font-size: 13px; color: #777; margin-bottom: 20px; display: block; }
-.pricing-card ul {
-  list-style: none;
-  padding: 0;
-  font-size: 14px;
-  margin: 0 0 20px;
-  flex-grow: 1;
-  text-align: left;
-}
-.pricing-card li { margin: 8px 0; }
+.card-header.free-badge { background-color: #a0a0a0; }
+.card-header.top-pick-badge { background-color: var(--primary-color); }
+.card-header.best-value-badge { background-color: #f7b731; }
+.price-container { display: flex; align-items: baseline; gap: 5px; margin-bottom: 20px; }
+.price { font-size: 36px; font-weight: 700; color: var(--secondary-color); }
+.billing-cycle { font-size: 14px; color: #777; }
+.features-list { list-style: none; padding: 0; text-align: center; font-size: 15px; margin: 0; flex-grow: 1; }
+.features-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+.features-list li:last-child { border-bottom: none; }
 .select-button {
-  background: var(--primary-color);
+  background: var(--secondary-color);
   color: white;
   border: none;
-  padding: 12px 20px;
+  padding: 12px 30px;
   border-radius: 24px;
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
-  margin-top: auto;
+  margin-top: 30px;
+  width: 100%;
 }
-.select-button[disabled] { background: #e0e0e0; cursor: not-allowed; color: #a0a0a0; }
-/* ===== フッター ===== */
-footer {
-  padding: 40px 0;
-}
-.footer-content {
+.select-button.primary { background-color: var(--primary-color); }
+.select-button.disabled { background-color: #ccc; cursor: not-allowed; }
+
+/* ===== 6. フッター ===== */
+.footer {
+  padding: 50px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
-.footer-logo { max-width: 360px; }
-.footer-icon { height: 50px; }
+.footer-logo { max-width: 320px; }
+.instagram-link img { height: 40px; opacity: 0.7; transition: opacity 0.3s; }
+.instagram-link:hover img { opacity: 1; }
