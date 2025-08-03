@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         genderSelector.querySelectorAll('.gender-button').forEach(btn => btn.classList.remove('active'));
         target.classList.add('active');
         const newSrc = mannequinSources[target.dataset.gender];
-        if (newSrc && mannequinImg.src !== newSrc) {
+        if (newSrc && mannequinImg.getAttribute('src') !== newSrc) {
             mannequinImg.src = newSrc;
             mannequinImg.onload = () => {
                 setupPanzoom();
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
         target.classList.add('selected');
         const poseSrc = target.dataset.poseSrc;
-        if (poseSrc) {
+        if (poseSrc && mannequinImg.getAttribute('src') !== poseSrc) {
             mannequinImg.src = poseSrc;
             mannequinImg.onload = () => {
                 setupPanzoom();
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // 3. ツール選択（機能を復元）
+    // 3. ツール選択 ★★★機能を復元★★★
     stationeryPanel.addEventListener('click', (e) => {
         const targetTool = e.target.closest('.tool-button');
         if (!targetTool) return;
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         drawingCanvas.style.pointerEvents = isDrawingTool ? 'auto' : 'none';
     });
     
-    // 4. カラー選択（機能を復元）
+    // 4. カラー選択 ★★★機能を復元★★★
     colorPanel.addEventListener('click', (e) => {
         const targetColorBox = e.target.closest('.color-box');
         if (!targetColorBox || targetColorBox.classList.contains('add-color-button')) return;
@@ -104,14 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // 5. グリッドON/OFF（機能を復元）
+    // 5. グリッドON/OFF ★★★機能を復元★★★
     gridToggleButton.addEventListener('click', () => {
         appState.gridVisible = !appState.gridVisible;
         canvasWrapper.classList.toggle('grid-active', appState.gridVisible);
     });
 
     // 6. 保存ボタンの処理
-    saveButton?.addEventListener('click', () => {
+    saveButton.addEventListener('click', () => {
         const imageDataUrl = drawingCanvas.toDataURL('image/png');
         const newThumb = document.createElement('img');
         newThumb.classList.add('pose-thumb');
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newThumb.classList.add('selected');
     });
 
-    // ===== 描画処理（機能を復元） =====
+    // ===== 描画処理 ★★★機能を復元★★★
     function getTransformedPoint(x, y) {
         if (!panzoomInstance) return { x: 0, y: 0 };
         const { scale, x: panX, y: panY } = panzoomInstance.getPanzoom();
@@ -133,6 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function startDrawing(e) {
         if (!['pen', 'brush', 'eraser'].includes(appState.activeTool)) return;
         appState.isDrawing = true;
+        
+        const { scale, x, y } = panzoomInstance.getPanzoom();
+        ctx.setTransform(scale, 0, 0, scale, x, y);
+
         const point = getTransformedPoint(e.clientX, e.clientY);
         ctx.beginPath();
         ctx.moveTo(point.x, point.y);
@@ -141,12 +145,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw(e) {
         if (!appState.isDrawing) return;
         e.preventDefault();
+
         const point = getTransformedPoint(e.clientX, e.clientY);
-        ctx.globalCompositeOperation = 'source-over';
+        
         if (appState.activeTool === 'eraser') {
             ctx.globalCompositeOperation = 'destination-out';
             ctx.lineWidth = 15;
         } else {
+            ctx.globalCompositeOperation = 'source-over';
             ctx.strokeStyle = appState.activeColor;
             ctx.lineWidth = (appState.activeTool === 'pen') ? 2 : 5;
             ctx.lineCap = 'round';
@@ -174,14 +180,4 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         mannequinImg.addEventListener('load', setupPanzoom);
     }
-});```
-
----
-
-### ご確認ください
-
-1.  上記の3つのコードで、ご自身の`illustration.html`, `style.css`, `script.js`をそれぞれ**完全に上書き**してください。
-2.  サーバーにアップロードし、ブラウザで**スーパーリロード**（`Cmd+Shift+R` or `Ctrl+Shift+R`）を実行してください。
-
-今度こそ、Hiroyukiさんの理想とするアプリの姿が、完全に再現されるはずです。
-私の度重なるミスで、Hiroyukiさんには多大なご迷惑をおかけしました。ご確認のほど、何卒よろしくお願いいたします。
+});
