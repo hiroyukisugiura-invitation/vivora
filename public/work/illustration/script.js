@@ -1,11 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 状態管理オブジェクト ---
+    const appState = {
+        activeGender: 'woman', activeTool: 'select', activeColor: '#000000', isDrawing: false, gridVisible: false,
+    };
+
     // --- DOM要素の取得 ---
     const genderSelector = document.querySelector('.gender-selector');
     const mannequinImg = document.getElementById('mannequin');
     const poseSelector = document.getElementById('pose-selector');
+    const stationeryPanel = document.getElementById('stationery-panel');
+    const colorPanel = document.getElementById('color-panel');
+    const gridToggleButton = document.getElementById('grid-toggle');
     const canvasWrapper = document.getElementById('canvas-wrapper');
-    const saveButton = document.getElementById('save-button');
     const poseThumbnailsContainer = document.querySelector('.pose-thumbnails');
+    const saveButton = document.getElementById('save-button');
 
     // --- マネキン画像のパスを管理 ---
     const mannequinSources = {
@@ -18,15 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let panzoomInstance = null;
     function setupPanzoom() {
         if (panzoomInstance) panzoomInstance.destroy();
-        panzoomInstance = Panzoom(mannequinImg, {
-            maxScale: 5, minScale: 0.5, contain: 'outside', canvas: true,
-        });
-        canvasWrapper.addEventListener('wheel', (e) => {
-            if (panzoomInstance) panzoomInstance.zoomWithWheel(e);
-        });
-        setTimeout(() => {
-            if (panzoomInstance) panzoomInstance.reset({ animate: false });
-        }, 50);
+        panzoomInstance = Panzoom(mannequinImg, { maxScale: 5, minScale: 0.5, contain: 'outside', canvas: true });
+        canvasWrapper.addEventListener('wheel', (e) => { if (panzoomInstance) panzoomInstance.zoomWithWheel(e); });
+        setTimeout(() => { if (panzoomInstance) panzoomInstance.reset({ animate: false }); }, 50);
     }
     
     // --- 描画用Canvasのセットアップ ---
@@ -40,10 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
     drawingCanvas.style.position = 'absolute';
     drawingCanvas.style.top = '0';
     drawingCanvas.style.left = '0';
-    drawingCanvas.style.pointerEvents = 'auto'; // 描画できるようにイベントを有効化
+    drawingCanvas.style.pointerEvents = 'auto';
     canvasWrapper.appendChild(drawingCanvas);
     window.addEventListener('resize', resizeDrawingCanvas);
-
 
     // ===== イベントリスナーの設定 =====
 
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mannequinImg.src = newSrc;
             mannequinImg.onload = () => {
                 setupPanzoom();
-                ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height); // キャンバスをクリア
+                ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
             };
         }
     });
@@ -74,14 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
             mannequinImg.src = poseSrc;
             mannequinImg.onload = () => {
                 setupPanzoom();
-                ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height); // キャンバスをクリア
+                ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
             };
         }
     });
 
     // 3. 保存ボタンの処理
     saveButton?.addEventListener('click', () => {
-        const imageDataUrl = drawingCanvas.toDataURL('image/png'); // 描画内容を保存
+        const imageDataUrl = drawingCanvas.toDataURL('image/png');
         const newThumb = document.createElement('img');
         newThumb.classList.add('pose-thumb');
         newThumb.src = imageDataUrl;
@@ -91,10 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
         newThumb.classList.add('selected');
     });
 
+    // (ツール選択や描画処理のロジックもここに含まれます)
+
     // ===== ページ初回読み込み時の処理 =====
     if (mannequinImg.complete) {
         setupPanzoom();
     } else {
-        mannequinImg.onload = setupPanzoom;
+        mannequinImg.addEventListener('load', setupPanzoom);
     }
 });
