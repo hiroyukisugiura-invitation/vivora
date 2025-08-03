@@ -1,11 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- 状態管理オブジェクト ---
+    const appState = {
+        activeGender: 'woman',
+        activeTool: 'select',
+        activeColor: '#000000',
+        isDrawing: false,
+        gridVisible: false,
+    };
+
     // --- DOM要素の取得 ---
     const genderSelector = document.querySelector('.gender-selector');
     const mannequinImg = document.getElementById('mannequin');
     const poseSelector = document.getElementById('pose-selector');
+    const stationeryPanel = document.getElementById('stationery-panel');
+    const colorPanel = document.getElementById('color-panel');
+    const gridToggleButton = document.getElementById('grid-toggle');
     const canvasWrapper = document.getElementById('canvas-wrapper');
-    // 他のDOM要素取得は変更ないので省略
+    const poseThumbnailsContainer = document.querySelector('.pose-thumbnails'); // サムネイルを入れる場所
+    const saveButton = document.getElementById('save-button'); // 保存ボタン
 
     // --- マネキン画像のパスを管理 ---
     const mannequinSources = {
@@ -14,59 +27,59 @@ document.addEventListener('DOMContentLoaded', () => {
         kids: '../../mannequin/mannequin_kids.png'
     };
 
-    // ★★★★★ 修正の核心 ① ★★★★★
-    // Panzoomのインスタンス（記憶そのもの）を保持するための変数を準備します
     let panzoomInstance = null;
 
-    /**
-     * Panzoomをセットアップ（または再セットアップ）する、これが決定版の関数です
-     */
     function setupPanzoom() {
-        // 1. もし古いPanzoomの記憶が残っていたら、それを完全に破壊して消し去ります
         if (panzoomInstance) {
             panzoomInstance.destroy();
         }
-
-        // 2. まっさらな状態で、現在のマネキンに「新しく」Panzoomをかけ直します
         panzoomInstance = Panzoom(mannequinImg, {
             maxScale: 5,
             minScale: 0.5,
             contain: 'outside',
             canvas: true,
         });
-
-        // 3. 新しく作ったPanzoomに、ホイール/ピンチ操作を改めて教え込みます
         canvasWrapper.addEventListener('wheel', (event) => {
             if (panzoomInstance) {
                 panzoomInstance.zoomWithWheel(event);
             }
         });
-
-        // 4. 最後に、表示を中央にリセットします
         setTimeout(() => {
             if(panzoomInstance) {
                 panzoomInstance.reset({ animate: false });
             }
-        }, 50); // わずかな遅延が確実な動作の鍵です
+        }, 50);
     }
+
+    // --- 描画用Canvasのセットアップ ---
+    const drawingCanvas = document.createElement('canvas');
+    const ctx = drawingCanvas.getContext('2d');
     
+    function resizeDrawingCanvas() {
+        drawingCanvas.width = canvasWrapper.clientWidth;
+        drawingCanvas.height = canvasWrapper.clientHeight;
+    }
+    resizeDrawingCanvas();
+    drawingCanvas.style.position = 'absolute';
+    drawingCanvas.style.top = '0';
+    drawingCanvas.style.left = '0';
+    drawingCanvas.style.pointerEvents = 'none';
+    canvasWrapper.appendChild(drawingCanvas);
+    
+    window.addEventListener('resize', resizeDrawingCanvas);
+
     // ===== イベントリスナーの設定 =====
 
     // 1. 性別切り替え
     genderSelector.addEventListener('click', (e) => {
         const targetButton = e.target.closest('.gender-button');
         if (!targetButton) return;
-
         genderSelector.querySelectorAll('.gender-button').forEach(btn => btn.classList.remove('active'));
         targetButton.classList.add('active');
-
         const selectedGender = targetButton.dataset.gender;
         const newSrc = mannequinSources[selectedGender];
-        
         if (newSrc && mannequinImg.getAttribute('src') !== newSrc) { 
             mannequinImg.src = newSrc;
-            // ★★★★★ 修正の核心 ② ★★★★★
-            // 新しい画像が読み込めたら、Panzoomをゼロから作り直す関数を呼び出します
             mannequinImg.onload = setupPanzoom;
         }
     });
@@ -80,18 +93,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const poseSrc = targetPose.dataset.poseSrc;
         if(poseSrc) {
             mannequinImg.src = poseSrc;
-            // こちらも同様に、Panzoomをゼロから作り直します
             mannequinImg.onload = setupPanzoom;
         }
     });
+
+    // ★★★ 新しく追加した機能 ★★★
+    // 3. 保存ボタンがクリックされた時の処理
+    saveButton.addEventListener('click', () => {
+        // 現在の描画キャンバスの内容を画像データ(dataURL)に変換
+        const imageDataUrl = drawingCanvas.toDataURL('image/png');
+
+        // 新しいサムネイル用の<img>要素を作成
+        const newThumb = document.createElement('img');
+        newThumb.classList.add('pose-thumb'); // 他のサムネイルと同じスタイルを適用
+        newThumb.src = imageDataUrl;
+        newThumb.alt = 'Saved Design';
+        
+        // 作成したサムネイルをパネルに追加
+        poseThumbnailsContainer.appendChild(newThumb);
+        
+        console.log('デザインがサムネイルとして保存されました。');
+
+        // 新しく追加したサムネイルを選択状態にする
+        poseSelector.querySelectorAll('.pose-thumb').forEach(thumb => thumb.classList.remove('selected'));
+        newThumb.classList.add('selected');
+    });
     
+    // (これ以降のツール選択や描画処理のコードは変更ありません)
+    // ...
+
     // ===== ページ初回読み込み時の処理 =====
-    // 最初のマネキン画像が読み込まれたことを確認してから、Panzoomをセットアップします
     if (mannequinImg.complete) {
         setupPanzoom();
     } else {
         mannequinImg.addEventListener('load', setupPanzoom);
     }
-
-    // （これ以降のコードに変更はありません）
 });
