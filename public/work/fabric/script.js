@@ -34,40 +34,39 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /* --------------------------------------------------------------------------
-     D) 初期化処理
+     D) 初期化処理 & メイン機能
      -------------------------------------------------------------------------- */
     
-    // --- 1. 描画用キャンバスのセットアップ ---
+    // --- 描画用キャンバスのセットアップ ---
     function setupDrawingCanvas() {
         drawingCanvas.width = canvasWrapper.clientWidth;
         drawingCanvas.height = canvasWrapper.clientHeight;
         drawingCanvas.style.position = 'absolute';
         drawingCanvas.style.top = '0';
         drawingCanvas.style.left = '0';
-        drawingCanvas.style.pointerEvents = 'none'; // ★重要：最初は常に無効
+        drawingCanvas.style.pointerEvents = 'none'; // 通常は操作させない
         canvasWrapper.appendChild(drawingCanvas);
     }
 
-    // --- 2. Panzoom機能のセットアップ ---
+    // --- Panzoom機能のセットアップ (★最終ロジック) ---
     let panzoomInstance = null;
     function setupPanzoom() {
         if (panzoomInstance) panzoomInstance.destroy();
         
+        // CSSの中央配置を信頼し、Panzoomは動的操作にのみ専念
         panzoomInstance = Panzoom(mannequinImg, {
-            maxScale: 5, minScale: 0.5, contain: 'outside', canvas: true,
+            maxScale: 5, minScale: 0.5, contain: 'outside',
         });
 
+        // ホイール・ピンチ操作を有効化
         canvasWrapper.addEventListener('wheel', (e) => {
+             // 描画ツール使用中はズームを無効化
+            if (['pen', 'brush', 'eraser'].includes(appState.activeTool)) return;
             if (panzoomInstance) panzoomInstance.zoomWithWheel(e);
         });
-
-        // 確実な中央表示のための「おまじない」
-        setTimeout(() => {
-            if (panzoomInstance) panzoomInstance.reset({ animate: false });
-        }, 50);
     }
     
-    // --- 3. アプリケーションの起動 ---
+    // --- アプリケーションの起動 ---
     setupDrawingCanvas();
     if (mannequinImg.complete) {
         setupPanzoom();
@@ -90,12 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
         target.classList.add('active');
         
         const newSrc = mannequinSources[target.dataset.gender];
-        if (newSrc && mannequinImg.getAttribute('src') !== newSrc) {
+        if (newSrc && mannequinImg.src !== newSrc) {
             mannequinImg.src = newSrc;
-            mannequinImg.onload = () => {
-                setupPanzoom();
-                ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
-            };
+            // onloadで再セットアップすることで、新しい画像の正しいサイズでPanzoomが初期化される
+            mannequinImg.onload = setupPanzoom;
         }
     });
     
@@ -108,16 +105,13 @@ document.addEventListener('DOMContentLoaded', () => {
         target.classList.add('selected');
 
         const poseSrc = target.dataset.poseSrc;
-        if (poseSrc && mannequinImg.getAttribute('src') !== poseSrc) {
+        if (poseSrc && mannequinImg.src !== poseSrc) {
             mannequinImg.src = poseSrc;
-            mannequinImg.onload = () => {
-                setupPanzoom();
-                ctx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
-            };
+            mannequinImg.onload = setupPanzoom;
         }
     });
 
-    // --- Stationeryのツールボタン ---
+    // --- Stationeryのツールボタン (★交通整理ロジック) ---
     stationeryPanel.addEventListener('click', (e) => {
         const target = e.target.closest('.tool-button');
         if (!target) return;
@@ -126,13 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
         target.classList.add('selected');
         appState.activeTool = target.dataset.tool;
         
-        // ★★★ ここが交通整理の核心 ★★★
         const isDrawingTool = ['pen', 'brush', 'eraser'].includes(appState.activeTool);
-
-        // Panzoomのドラッグ移動を有効/無効に切り替える
+        
+        // Panzoomのドラッグ移動(Pan)を有効/無効に切り替える
         panzoomInstance.setOptions({ disablePan: isDrawingTool });
         
-        // 描画キャンバスの操作を有効/無効に切り替える
+        // 描画キャンバスの操作(クリックやマウス移動)を有効/無効に切り替える
         drawingCanvas.style.pointerEvents = isDrawingTool ? 'auto' : 'none';
         
         // 全体のカーソル形状を切り替える
@@ -158,11 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 描画処理：マウスが押された時 ---
     drawingCanvas.addEventListener('mousedown', (e) => {
         appState.isDrawing = true;
-        const point = getTransformedPoint(e.clientX, e.clientY);
         
         const { scale, x, y } = panzoomInstance.getPanzoom();
-        ctx.setTransform(scale, 0, 0, scale, x, y);
+        ctx.setTransform(scale, 0, 0, scale, x, y); // Panzoomの状態に座標系を同期
 
+        const point = getTransformedPoint(e.clientX, e.clientY);
         ctx.beginPath();
         ctx.moveTo(point.x, point.y);
     });
@@ -172,26 +165,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!appState.isDrawing) return;
         
         const point = getTransformedPoint(e.clientX, e.clientY);
-
+        
         if (appState.activeTool === 'eraser') {
             ctx.globalCompositeOperation = 'destination-out';
-            ctx.lineWidth = 15;
+            ctx.lineWidth = 15 / panzoomInstance.getScale();
         } else {
             ctx.globalCompositeOperation = 'source-over';
             ctx.strokeStyle = appState.activeColor;
-            ctx.lineWidth = appState.activeTool === 'pen' ? 2 : 5;
+            ctx.lineWidth = (appState.activeTool === 'pen' ? 2 : 5) / panzoomInstance.getScale(); // ズーム率に応じて線の太さを調整
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
         }
-        
         ctx.lineTo(point.x, point.y);
         ctx.stroke();
     });
 
     // --- 描画処理：マウスが離れた時 ---
     function stopDrawing() {
-        appState.isDrawing = false;
-        ctx.closePath();
+        if (appState.isDrawing) {
+            appState.isDrawing = false;
+            ctx.closePath();
+        }
     }
     window.addEventListener('mouseup', stopDrawing);
     window.addEventListener('mouseleave', stopDrawing);
