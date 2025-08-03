@@ -42,11 +42,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ★★★★★ これが最終解決策です ★★★★★
     // 中央配置を実行する、たった一つの信頼できる関数
     function centerMannequin() {
-        // ブラウザに画面を再描画する時間を与えるための「おまじない」
-        setTimeout(() => {
-            panzoom.reset({ animate: false });
-        }, 0); // 0ミリ秒待つだけで、実行の順番が変わり、問題が解決します
-    }
+  setTimeout(() => {
+    panzoom.reset({ animate: false });
+    
+    const bounds = mannequinImg.getBoundingClientRect();
+    const wrapperBounds = canvasWrapper.getBoundingClientRect();
+
+    const dx = (wrapperBounds.width / 2) - (bounds.left + bounds.width / 2);
+    const dy = (wrapperBounds.height / 2) - (bounds.top + bounds.height / 2);
+
+    panzoom.pan(dx, dy);  // 中心に移動
+  }, 0);
+}
     
     // ===== イベントリスナーの設定 =====
 
