@@ -109,17 +109,35 @@
         </div>
       </header>
 
-      <div class="canvas-wrapper">
+      <div id="canvas-wrapper" class="canvas-wrapper">
         <div class="fabric-info">
             <div class="info-box">Fabric width : 110 cm</div>
             <div class="info-box">seam allowance : 1.5 mm</div>
         </div>
-        <!-- ここに生地とパターンのレイアウトが表示される -->
-        <img src="../../layout_example.png" alt="Layout Example" class="layout-example-img">
+        
+        <!-- interact.jsで操作するパーツ要素 -->
+        <div class="pattern-part draggable" style="left: 50px; top: 50px;">
+            <img src="../../patterns/front.png" alt="Front Piece">
+            <div class="part-label">Front</div>
+        </div>
+        <div class="pattern-part draggable" style="left: 250px; top: 50px;">
+            <img src="../../patterns/back.png" alt="Back Piece">
+            <div class="part-label">Back</div>
+        </div>
+        <div class="pattern-part draggable" style="left: 450px; top: 50px;">
+            <img src="../../patterns/sleeve.png" alt="Sleeve Piece">
+            <div class="part-label">L.Sleeve</div>
+        </div>
+        <div class="pattern-part draggable" style="left: 650px; top: 50px;">
+            <img src="../../patterns/sleeve.png" alt="Sleeve Piece">
+            <div class="part-label">R.Sleeve</div>
+        </div>
+
       </div>
     </main>
-
   </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
   <script src="./script.js"></script>
 </body>
 </html>
