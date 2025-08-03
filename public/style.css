@@ -1,303 +1,205 @@
-/* ===== 全体レイアウト ===== */
+/* ===== 1. 基本設定とタイポグラフィ ===== */
+:root {
+  --primary-color: #d35454; /* Vivoraの赤色 */
+  --secondary-color: #3b2f2f; /* 濃いブラウン */
+  --background-color: #f8f1ee;
+  --card-background: #ffffff;
+  --font-body: 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Playfair Display', serif;
+}
 body {
   margin: 0;
-  padding: 0;
-  background: #f8f1ee;
-  font-family: 'Helvetica Neue', sans-serif;
-  color: #333;
+  background-color: var(--background-color);
+  font-family: var(--font-body);
+  color: var(--secondary-color);
   text-align: center;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--secondary-color); text-decoration: none; }
+
+/* ===== 2. ヘッダーとナビゲーション ===== */
+.header {
+  padding: 40px 20px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.logo-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  align-items: center;
+  gap: 10px;
 }
-
-/* ===== ヘッダー ===== */
-header {
-  padding: 50px;
-}
-.logo {
-  width: 450px;
-  height: auto;
-}
-
-/* ===== ナビゲーションバー ===== */
+.logo { max-width: 380px; }
+.tagline { font-family: var(--font-heading); font-size: 20px; margin: 0; }
 .navbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 28px;
-  font-size: 15px;
-  font-weight: 500;
-  font-family: 'Playfair Display', serif;
-  color: #3b2f2f;
-  margin: 20px 0 30px;
+  gap: 30px;
+  margin-top: 40px;
+  font-family: var(--font-heading);
+  font-size: 16px;
   flex-wrap: wrap;
-  letter-spacing: 0.3px;
 }
-
-.navbar a {
-  text-decoration: none;
-  color: #333;
-  transition: color 0.3s ease;
+.signup-button {
+  background-color: var(--secondary-color);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: opacity 0.3s;
 }
+.signup-button:hover { opacity: 0.8; }
 
-.navbar a:hover {
-  color: #6c5ce7;
-}
-
-/* ===== コンテンツ一覧 ===== */
-.features {
+/* ===== 3. コンテンツ機能グリッド ===== */
+.features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 25px;
-  padding: 40px;
-  max-width: 1100px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 50px 20px;
+  max-width: 1200px;
   margin: 0 auto;
 }
-
 .feature-card {
-  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s;
 }
-
-.feature-card:hover {
-  transform: scale(1.03);
-}
-
-.feature-card img {
+.feature-card:hover { transform: translateY(-5px); }
+.card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  border-radius: 8px;
+  padding: 15px;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  text-align: left;
 }
 
-/* ===== アクションボタン ===== */
-.actions {
-  margin: 40px 0 20px;
+/* ===== 4. アクションボタン ===== */
+.actions-container {
+  padding: 30px 20px 60px;
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
-  row-gap: 16px;            /* 縦の隙間も調整可能 */
 }
-
-.actions button {
-  background: white;
-  border: 1px solid #ccc;
-  padding: 12px 24px;
-  border-radius: 24px;
-  font-weight: bold;
+.action-button {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 15px;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s;
-  color: #333;
-  min-width: 180px;         /* ← ボタンの横幅を一定に */
-  text-align: center;       /* ← テキスト中央揃え */
-  flex: 1 0 auto;           /* ← レスポンシブで折り返せるように */
-  max-width: 280px;         /* ← 上限を設定して崩れ防止 */
+  transition: all 0.3s;
 }
-
-.actions button:hover {
-  background: #6c5ce7;  /* パープルに変化 */
-  color: white;         /* 白文字に */
-  border: 1px solid #6c5ce7; /* 境界線も変化 */
+.action-button:hover { background-color: #f0f0f0; }
+.action-button.primary {
+  background-color: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
 }
+.action-button.primary:hover { background-color: #b94242; }
 
-/* ===== フッター ===== */
-footer {
-  padding: 40px 0;
-  text-align: center;
-  font-size: 13px;
-  margin-top: 10px;
-}
-
-.footer-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-size: 13px;
-  color: #444;
-}
-
-.footer-logo {
-  max-width: 360px;
-  width: 80%;
-  height: auto;
-}
-
-.footer-icon {
-  height: 50px;
-  width: auto;
-  vertical-align: middle;
-  transition: opacity 0.3s ease;
-}
-
-.footer-icon:hover {
-  opacity: 0.7;
-}
-
-/* ===== プラン表示セクション（画像バッジ対応） ===== */
+/* ===== 5. 料金プランセクション ===== */
 .pricing-section {
-    padding: 60px 20px 10px;
-  background: #fff5f0;
-  text-align: center;
-  flex: 1 0 auto;
+  background-color: #fff5f0;
+  padding: 80px 20px;
 }
-
-.pricing-title {
-  font-size: 28px;
-  font-family: 'Playfair Display', serif;
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 500;
   margin-bottom: 20px;
 }
-
 .toggle-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 40px;
+  gap: 15px;
+  margin-bottom: 50px;
 }
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
+.switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; border-radius: 26px; transition: .4s; }
+.slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: .4s; }
+input:checked + .slider { background-color: var(--primary-color); }
+input:checked + .slider:before { transform: translateX(24px); }
+.discount-badge {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin-left: 5px;
 }
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  border-radius: 26px;
-  transition: 0.4s;
-}
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
-}
-input:checked + .slider {
-  background-color: #ff7675;
-}
-input:checked + .slider:before {
-  transform: translateX(24px);
-}
-
-.pricing-cards {
+.pricing-cards-container {
   display: flex;
   justify-content: center;
-  gap: 24px;
+  gap: 30px;
   flex-wrap: wrap;
 }
-
 .pricing-card {
-  background: #fff;
-  padding: 20px;
+  background-color: var(--card-background);
+  width: 280px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 240px;
-  min-height: 240px;
-  text-align: center;
-  transition: transform 0.3s;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: center;
   position: relative;
+  overflow: hidden; /* For badges */
+  border: 2px solid transparent;
 }
-
-.pricing-card:hover {
-  transform: translateY(-5px);
+.pricing-card.recommended { border-color: var(--primary-color); }
+.card-header {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+  min-width: 120px;
 }
-
-.pricing-card h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  min-height: 30px;
-}
-
-.pricing-card .price {
-  font-size: 22px;
-  font-weight: bold;
-  color: #d63031;
-  margin-bottom: 12px;
-}
-
-.pricing-card ul {
-  list-style: none;
-  padding: 0;
-  font-size: 14px;
-  margin: 0 0 20px;
-  flex-grow: 1;
-}
-
-.pricing-card li {
-  margin: 6px 0;
-}
-
-.pricing-card button {
-  background: #d63031;
+.card-header.free-badge { background-color: #a0a0a0; }
+.card-header.top-pick-badge { background-color: var(--primary-color); }
+.card-header.best-value-badge { background-color: #f7b731; }
+.price-container { display: flex; align-items: baseline; gap: 5px; margin-bottom: 20px; }
+.price { font-size: 36px; font-weight: 700; color: var(--secondary-color); }
+.billing-cycle { font-size: 14px; color: #777; }
+.features-list { list-style: none; padding: 0; text-align: center; font-size: 15px; margin: 0; flex-grow: 1; }
+.features-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+.features-list li:last-child { border-bottom: none; }
+.select-button {
+  background: var(--secondary-color);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 30px;
   border-radius: 24px;
   cursor: pointer;
   font-weight: bold;
   font-size: 14px;
-  margin-top: auto;
+  margin-top: 30px;
+  width: 100%;
 }
+.select-button.primary { background-color: var(--primary-color); }
+.select-button.disabled { background-color: #ccc; cursor: not-allowed; }
 
-.pricing-card button[disabled] {
-  background: #ccc;
-  cursor: not-allowed;
+/* ===== 6. フッター ===== */
+.footer {
+  padding: 50px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
-
-.ribbon-badge {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;             /* カード幅にフィット */
-  height: auto;
-  z-index: 1000;
-  object-fit: contain;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  pointer-events: none;
-}
-
-@media (max-width: 768px) {
-  .ribbon-badge {
-    width: 48px;
-  }
-}
-
-@media (max-width: 480px) {
-  .features {
-    grid-template-columns: 1fr;
-  }
-}
-
-.board-grid {
-  display: grid;
-  place-items: center;
-  height: 300px;
-  background-color: #fff;
-  background-image: linear-gradient(#ccc 1px, transparent 1px),
-                    linear-gradient(90deg, #ccc 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-.board-grid.plain {
-  background-image: none;
-}
+.footer-logo { max-width: 320px; }
+.instagram-link img { height: 40px; opacity: 0.7; transition: opacity 0.3s; }
+.instagram-link:hover img { opacity: 1; }
