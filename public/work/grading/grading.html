@@ -1,37 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grading | Vivora</title>
-  <link rel="stylesheet" href="../style.css" />
+  <title>Vivora Grading 2025</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <header>
-    <img src="../../logo/vivora_logo-main.png" alt="Vivora Logo" class="logo" />
-  </header>
+  <div class="app-container">
 
-  <nav class="navbar">
-    <a href="../../index.html">Home</a>
-    <a href="#">Plans</a>
-    <a href="#">Kids</a>
-    <a href="#">Log In</a>
-    <a href="#">Sign Up</a>
-  </nav>
+    <main class="main-workspace">
+      
+      <header class="main-header">
+        <h1 class="title">Vivora Grading 2025</h1>
+      </header>
 
-  <section class="features">
-    <h2>Grading</h2>
-    <p>This is a placeholder page for grading content. Customize this section.</p>
-    <button class="actions-button">Start</button>
-  </section>
+      <div class="toolbar-area">
+        <div class="action-toolbar">
+          <button class="icon-button"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
+          <button class="icon-button"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
+        </div>
+      </div>
 
-  <footer>
-    <div class="footer-content">
-      <img src="../../logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
-      <a href="https://www.instagram.com/vivora.app" target="_blank">
-        <img src="../../logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
-      </a>
-    </div>
-  </footer>
+      <div class="grading-canvas-area">
+        <div class="size-column">
+          <h2 class="size-label">S</h2>
+          <div class="pattern-canvas"></div>
+        </div>
+        <div class="size-column">
+          <h2 class="size-label">M</h2>
+          <div class="pattern-canvas"></div>
+        </div>
+        <div class="size-column">
+          <h2 class="size-label">L</h2>
+          <div class="pattern-canvas"></div>
+        </div>
+        <div class="size-column">
+          <h2 class="size-label">LL</h2>
+          <div class="pattern-canvas"></div>
+        </div>
+      </div>
+      
+      <div class="spec-sheet">
+        <div class="pitch-table-area">
+            <table class="pitch-table">
+              <thead>
+                <tr>
+                  <th>パーツ</th>
+                  <th>S → M</th>
+                  <th>M → L</th>
+                  <th>L → LL</th>
+                  <th>単位</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>首周り</td>
+                  <td><input type="text" value="+10"></td>
+                  <td><input type="text" value="+10"></td>
+                  <td><input type="text" value="+10"></td>
+                  <td>mm</td>
+                </tr>
+                <tr>
+                  <td>肩幅</td>
+                  <td><input type="text" value="+15"></td>
+                  <td><input type="text" value="+15"></td>
+                  <td><input type="text" value="+15"></td>
+                  <td>mm</td>
+                </tr>
+                <tr>
+                  <td>袖丈</td>
+                  <td><input type="text" value="+12"></td>
+                  <td><input type="text" value="+12"></td>
+                  <td><input type="text" value="+12"></td>
+                  <td>mm</td>
+                </tr>
+                <tr>
+                  <td>着丈</td>
+                  <td><input type="text" value="+20"></td>
+                  <td><input type="text" value="+20"></td>
+                  <td><input type="text" value="+20"></td>
+                  <td>mm</td>
+                </tr>
+                <tr>
+                  <td>身幅</td>
+                  <td><input type="text" value="+20"></td>
+                  <td><input type="text" value="+20"></td>
+                  <td><input type="text" value="+20"></td>
+                  <td>mm</td>
+                </tr>
+                <tr>
+                  <td>裾幅</td>
+                  <td><input type="text" value="+5"></td>
+                  <td><input type="text" value="+5"></td>
+                  <td><input type="text" value="+5"></td>
+                  <td>mm</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <div class="notes-area">
+            <!-- 罫線はCSSで描画 -->
+        </div>
+      </div>
+    </main>
+
+    <aside class="sidebar-controls">
+      <div class="top-bar">
+        <div class="content-toolbar">
+            <button class="icon-button"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
+            <button class="icon-button active"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
+            <button class="icon-button"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
+        </div>
+        <button class="next-step-button">Next Step ▶▶</button>
+      </div>
+
+      <div class="saved-designs-panel">
+          <div class="design-thumb"><img src="../../mannequin/mannequin_woman.png" alt="Design"></div>
+          <div class="design-thumb"><img src="../../mannequin/mannequin_man.png" alt="Design"></div>
+          <div class="design-thumb"><img src="../../mannequin/mannequin_kids.png" alt="Design"></div>
+          <div class="design-thumb"><img src="../../mannequin/mannequin_woman_pose2.png" alt="Design"></div>
+          <button class="design-thumb add-button">+</button>
+      </div>
+      <button class="scroll-arrow down-arrow">▼</button>
+
+    </aside>
+
+  </div>
+
+  <script src="./script.js"></script>
 </body>
 </html>
