@@ -1,6 +1,7 @@
-<!-- HTML (pricing section) -->
+<!-- プラン表示セクション -->
 <section class="pricing-section">
   <h2 class="pricing-title">Choose Your Plan</h2>
+
   <div class="toggle-container">
     <span>Monthly</span>
     <label class="switch">
@@ -9,67 +10,59 @@
     </label>
     <span>Yearly</span>
   </div>
+
   <div class="pricing-cards">
-    <!-- Spark Plan -->
+
+    <!-- Try Plan -->
     <div class="pricing-card">
       <img src="ribbon/ribbon_free.png" alt="Free badge" class="ribbon-badge" />
-      <h3>Spark</h3>
-      <p class="price" data-monthly="¥0" data-yearly="¥0">¥0</p>
+      <h3>Try</h3>
+      <p class="price">¥0</p>
       <ul>
-        <li>「ひらめき」を形にする最初の火花</li>
         <li>Basic demo only</li>
         <li>Limited templates</li>
+        <li>No save or export</li>
       </ul>
       <button disabled>Start Free</button>
     </div>
-    <!-- Creator Plan -->
+
+    <!-- Flow Plan -->
     <div class="pricing-card">
-      <h3>Creator</h3>
+      <h3>Flow</h3>
       <p class="price" data-monthly="¥3,600" data-yearly="¥36,000（¥3,000/月）">¥3,600</p>
       <ul>
-        <li>「クリエイター」としての第一歩</li>
-        <li>All design tools</li>
-        <li>Save & export</li>
+        <li>Basic clothing tools</li>
+        <li>Kid design & save</li>
+        <li>Assistant support</li>
       </ul>
       <button>Select</button>
     </div>
-    <!-- Brand Plan -->
-    <div class="pricing-card">
+
+    <!-- Craft Plan -->
+    <div class="pricing-card popular">
       <img src="ribbon/ribbon_toppick.png" alt="Top Pick badge" class="ribbon-badge" />
-      <h3>Brand</h3>
+      <h3>Craft</h3>
       <p class="price" data-monthly="¥7,200" data-yearly="¥72,000（¥6,000/月）">¥7,200</p>
       <ul>
-        <li>自分の「ブランド」を立ち上げる</li>
-        <li>Full pattern / grading</li>
-        <li>Print layout & cut</li>
+        <li>All clothing types</li>
+        <li>Pattern / grading / illustration</li>
+        <li>Unlimited saves</li>
       </ul>
       <button>Select</button>
     </div>
-    <!-- Atelier Plan -->
+
+    <!-- Master Plan -->
     <div class="pricing-card">
       <img src="ribbon/ribbon_bestvalue.png" alt="Best Value badge" class="ribbon-badge" />
-      <h3>Atelier</h3>
+      <h3>Master</h3>
       <p class="price" data-monthly="¥12,000" data-yearly="¥120,000（¥10,000/月）">¥12,000</p>
       <ul>
-        <li>プロの「アトリエ」としてビジネスを拡大</li>
-        <li>Team collaboration</li>
-        <li>Advanced pro tools</li>
+        <li>Full access</li>
+        <li>Print-ready output</li>
+        <li>Team & Pro tools</li>
       </ul>
       <button>Select</button>
     </div>
+
   </div>
 </section>
-
-<!-- JS only -->
-<script>
-  const toggle = document.getElementById('billing-toggle');
-  const prices = document.querySelectorAll('.price');
-  toggle.addEventListener('change', () => {
-    const isYearly = toggle.checked;
-    prices.forEach(price => {
-      if (price.dataset.yearly && price.dataset.monthly) {
-        price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
-      }
-    });
-  });
-</script>
