@@ -11,15 +11,38 @@ body {
   min-height: 100vh;
 }
 
-/* ===== ヘッダー ===== */
-header {
-  padding: 50px;
-  position: relative;
+/* ===== ヘッダー内リンク ===== */
+.auth-links {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  gap: 20px;
 }
 
+.login-btn,
+.signup-btn {
+  background: #6c5ce7;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+  background: #5f4fd8;
+  transform: translateY(-2px);
+}
+
+/* ===== ヘッダーロゴとサブタイトル ===== */
 .logo {
   width: 450px;
   height: auto;
+  margin-top: 80px;
 }
 
 .tagline {
@@ -30,67 +53,7 @@ header {
   margin-top: 10px;
 }
 
-.login-btn {
-  background: #6c5ce7;
-  color: white;
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-weight: 500;
-  transition: all 0.3s;
-}
-
-.login-btn:hover {
-  background: #5f4fd8;
-  transform: translateY(-2px);
-}
-
-.login-btn {
-  background: #6c5ce7;
-  color: white;
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-weight: 500;
-  transition: all 0.3s;
-}
-
-.login-btn:hover {
-  background: #5f4fd8;
-  transform: translateY(-2px);
-
-/* ===== 認証リンク ===== */
-.auth-links {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  display: flex;
-  gap: 20px;
-}
-
-.auth-links a {
-  color: #333;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.3s;
-}
-
-.auth-links a:hover {
-  color: #6c5ce7;
-}
-
-.auth-links .signup-btn {
-  background: #6c5ce7;
-  color: white;
-  padding: 8px 20px;
-  border-radius: 20px;
-}
-
-.auth-links .signup-btn:hover {
-  background: #5f4fd8;
-  transform: translateY(-2px);
-}
-
-/* ===== コンテンツ一覧 ===== */
+/* ===== コンテンツカード ===== */
 .features {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -98,18 +61,6 @@ header {
   padding: 40px;
   max-width: 1100px;
   margin: 0 auto;
-}
-
-.features .feature-card:nth-child(5) {
-  grid-column: 1;
-}
-
-.features .feature-card:nth-child(6) {
-  grid-column: 2;
-}
-
-.features .feature-card:nth-child(7) {
-  grid-column: 3;
 }
 
 .feature-card {
@@ -126,7 +77,7 @@ header {
   border-radius: 8px;
 }
 
-/* ===== メインCTA ===== */
+/* ===== CTAセクション ===== */
 .main-cta {
   text-align: center;
   padding: 50px 20px;
@@ -155,41 +106,6 @@ header {
   margin-top: 15px;
   color: #999;
   font-size: 13px;
-}
-
-/* ===== フッター ===== */
-footer {
-  padding: 40px 0;
-  text-align: center;
-  font-size: 13px;
-  margin-top: 10px;
-}
-
-.footer-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-size: 13px;
-  color: #444;
-}
-
-.footer-logo {
-  max-width: 360px;
-  width: 80%;
-  height: auto;
-}
-
-.footer-icon {
-  height: 50px;
-  width: auto;
-  vertical-align: middle;
-  transition: opacity 0.3s ease;
-}
-
-.footer-icon:hover {
-  opacity: 0.7;
 }
 
 /* ===== プラン表示セクション ===== */
@@ -375,6 +291,7 @@ input:checked + .slider:before {
   transform: scale(1.05);
 }
 
+/* ===== リボンバッジ調整 ===== */
 .ribbon-badge {
   position: absolute;
   top: 0;
@@ -391,58 +308,52 @@ input:checked + .slider:before {
   .features {
     grid-template-columns: repeat(3, 1fr);
   }
-  
-  .features .feature-card:nth-child(5),
-  .features .feature-card:nth-child(6),
-  .features .feature-card:nth-child(7) {
-    grid-column: auto;
-  }
 }
 
 @media (max-width: 768px) {
   .logo {
     width: 300px;
   }
-  
+
   .auth-links {
     top: 10px;
     right: 10px;
   }
-  
+
   .features {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .cta-primary {
     font-size: 16px;
     padding: 15px 40px;
   }
-  
+
   .ribbon-badge {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
 }
 
 @media (max-width: 480px) {
-  .auth-links {
-    gap: 10px;
-  }
-  
-  .auth-links a {
-    font-size: 13px;
-  }
-  
-  .auth-links .signup-btn {
-    padding: 6px 15px;
-  }
-  
   .features {
     grid-template-columns: 1fr;
   }
-  
+
   .pricing-cards {
     flex-direction: column;
     align-items: center;
+  }
+
+  .auth-links a {
+    font-size: 13px;
+  }
+
+  .signup-btn {
+    padding: 6px 15px;
+  }
+
+  .login-btn {
+    padding: 6px 15px;
   }
 }
