@@ -255,13 +255,12 @@ img {
 
 /* プランカード */
 .plans-container {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px;
-  flex-wrap: wrap;
 }
 
 .plan-card {
@@ -269,11 +268,18 @@ img {
   border-radius: 15px;
   padding: 25px 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 240px;
   text-align: center;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .plan-card.recommended {
@@ -285,34 +291,45 @@ img {
   transform: scale(1.05) translateY(-5px);
 }
 
-.plan-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* リボンスタイル */
+/* 美しいリボンスタイル（画像基準） */
 .plan-ribbon {
   position: absolute;
-  top: 15px;
-  right: -30px;
-  padding: 5px 35px;
-  font-size: 10px;
-  font-weight: bold;
-  color: white;
-  transform: rotate(45deg);
-  text-align: center;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  z-index: 10;
 }
 
 .ribbon-free {
-  background: linear-gradient(135deg, #4169E1, #1E90FF);
+  border-left: 50px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 50px solid #4169E1;
 }
 
 .ribbon-popular {
-  background: linear-gradient(135deg, #DC143C, #B22222);
+  border-left: 50px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 50px solid #DC143C;
 }
 
 .ribbon-value {
-  background: linear-gradient(135deg, #FF8C00, #FF6347);
+  border-left: 50px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 50px solid #FF8C00;
+}
+
+.ribbon-text {
+  position: absolute;
+  top: -40px;
+  right: -15px;
+  transform: rotate(45deg);
+  font-size: 9px;
+  font-weight: bold;
+  color: white;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .plan-name {
@@ -320,6 +337,7 @@ img {
   font-weight: 700;
   margin-bottom: 10px;
   color: #333;
+  margin-top: 10px;
 }
 
 .plan-price {
@@ -350,6 +368,7 @@ img {
   text-align: left;
   font-size: 12px;
   line-height: 1.5;
+  flex-grow: 1;
 }
 
 .plan-features li {
@@ -376,6 +395,7 @@ img {
   font-size: 13px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-top: auto;
 }
 
 .btn-free {
@@ -449,6 +469,11 @@ img {
 
   .plans-container {
     grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .plan-card {
+    min-height: 380px;
   }
 }
 
@@ -472,13 +497,29 @@ img {
   }
 
   .plans-container {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
   .plan-card {
-    width: 90%;
+    min-height: 350px;
+  }
+
+  .plan-card.recommended {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .plans-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .plan-card {
     max-width: 300px;
+    margin: 0 auto;
+    min-height: 380px;
   }
 }
 
