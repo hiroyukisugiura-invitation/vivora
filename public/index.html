@@ -5,162 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivora - Style your tomorrow.</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- ヘッダー -->
-    <header class="header">
-        <div class="logo-container">
+    <!-- ロゴとタグライン -->
+    <header>
+        <div class="logo-section">
             <img src="logo/vivora_logo.png" alt="Vivora" class="logo">
             <p class="tagline">Style your tomorrow.</p>
         </div>
         
         <!-- ナビゲーション -->
-        <nav class="main-nav">
+        <nav class="navigation">
             <a href="#clothing">Clothing</a>
-            <span class="divider">|</span>
+            <span>|</span>
             <a href="#plans">Plans</a>
-            <span class="divider">|</span>
+            <span>|</span>
             <a href="work/kids/">Kids</a>
-            <span class="divider">|</span>
+            <span>|</span>
             <a href="#">Log In</a>
-            <span class="divider">|</span>
+            <span>|</span>
             <a href="#">Sign Up</a>
-            <div class="see-plans">or See Plans</div>
+            <span class="or-plans">or See Plans</span>
         </nav>
     </header>
 
     <!-- 機能カード -->
     <section class="features">
-        <div class="features-grid">
-            <div class="feature-card" onclick="location.href='work/illustration/'">
-                <span class="card-number">1</span>
+        <div class="card-grid">
+            <div class="card" onclick="location.href='work/illustration/'">
+                <span class="number">1</span>
                 <img src="contents/content1.png" alt="Fashion Illustrations">
                 <h3>Fashion Illustrations</h3>
             </div>
             
-            <div class="feature-card" onclick="location.href='work/fabric/'">
-                <span class="card-number">2</span>
+            <div class="card" onclick="location.href='work/fabric/'">
+                <span class="number">2</span>
                 <img src="contents/content2.png" alt="Fabric Matching">
                 <h3>Fabric Matching</h3>
             </div>
             
-            <div class="feature-card" onclick="location.href='work/clothing/'">
-                <span class="card-number">3</span>
+            <div class="card" onclick="location.href='work/clothing/'">
+                <span class="number">3</span>
                 <img src="contents/content3.png" alt="Clothing Design">
                 <h3>Clothing Design</h3>
             </div>
             
-            <div class="feature-card" onclick="location.href='work/pattern/'">
-                <span class="card-number">4</span>
+            <div class="card" onclick="location.href='work/pattern/'">
+                <span class="number">4</span>
                 <img src="contents/content4.png" alt="Pattern Creation">
                 <h3>Pattern Creation</h3>
             </div>
             
-            <div class="feature-card" onclick="location.href='work/grading/'">
-                <span class="card-number">5</span>
+            <div class="card" onclick="location.href='work/grading/'">
+                <span class="number">5</span>
                 <img src="contents/content5.png" alt="Grading">
                 <h3>Grading</h3>
             </div>
             
-            <div class="feature-card" onclick="location.href='work/print/'">
-                <span class="card-number">6</span>
+            <div class="card" onclick="location.href='work/print/'">
+                <span class="number">6</span>
                 <img src="contents/content6.png" alt="Print Layout & Cut">
                 <h3>Print Layout & Cut</h3>
             </div>
             
-            <div class="feature-card last-card" onclick="location.href='work/kids/'">
+            <div class="card" onclick="location.href='work/kids/'">
                 <img src="contents/content7.png" alt="Digital Dressing Kids Mode">
                 <h3>Digital Dressing Kids Mode</h3>
             </div>
         </div>
     </section>
 
-    <!-- CTAボタン -->
-    <section class="cta-section">
-        <button class="cta-btn primary">Start Designing Now</button>
-        <button class="cta-btn secondary">Explore Plans</button>
-        <button class="cta-btn tertiary">Try Free Demo</button>
+    <!-- アクションボタン -->
+    <section class="actions">
+        <button class="btn-action primary">Start Designing Now</button>
+        <button class="btn-action secondary">Explore Plans</button>
+        <button class="btn-action tertiary">Try Free Demo</button>
     </section>
 
-    <!-- プランセクション -->
+    <!-- 料金プラン -->
     <section class="pricing">
         <h2>Choose Your Plan</h2>
         
-        <div class="toggle-container">
+        <div class="toggle">
             <span>Monthly</span>
-            <label class="toggle">
-                <input type="checkbox" id="priceToggle">
+            <label class="switch">
+                <input type="checkbox" id="yearlyToggle">
                 <span class="slider"></span>
             </label>
             <span>Yearly</span>
         </div>
 
-        <div class="pricing-cards">
-            <!-- Try Plan -->
-            <div class="pricing-card">
-                <div class="ribbon free">FREE</div>
+        <div class="plan-cards">
+            <div class="plan">
+                <div class="corner-ribbon blue">FREE</div>
                 <h3>Try</h3>
-                <div class="price">
-                    <span class="currency">¥</span>0
-                </div>
-                <p class="desc">Basic demo only<br>Limited templates<br>No save or export</p>
-                <button class="btn-plan free">Start Free</button>
+                <p class="price">¥0</p>
+                <p class="details">Basic demo only<br>Limited templates<br>No save or export</p>
+                <button class="btn-select gray">Start Free</button>
             </div>
 
-            <!-- Flow Plan -->
-            <div class="pricing-card">
+            <div class="plan">
                 <h3>Flow</h3>
-                <div class="price">
-                    <span class="currency">¥</span><span class="amount" data-monthly="2,950" data-yearly="29,500">2,950</span>
-                </div>
-                <p class="desc">Basic clothing tools<br>Add design & save<br>Advanced support</p>
-                <button class="btn-plan">Select</button>
+                <p class="price">¥<span class="amount" data-m="2,950" data-y="29,500">2,950</span></p>
+                <p class="details">Basic clothing tools<br>Add design & save<br>Advanced support</p>
+                <button class="btn-select">Select</button>
             </div>
 
-            <!-- Craft Plan -->
-            <div class="pricing-card featured">
-                <div class="ribbon toppick">Top Pick</div>
+            <div class="plan highlight">
+                <div class="corner-ribbon red">Top Pick</div>
                 <h3>Craft</h3>
-                <div class="price">
-                    <span class="currency">¥</span><span class="amount" data-monthly="6,980" data-yearly="69,800">6,980</span>
-                </div>
-                <p class="desc">All clothing types<br>Pattern / grading / illustration<br>Business clients</p>
-                <button class="btn-plan">Select</button>
+                <p class="price">¥<span class="amount" data-m="6,980" data-y="69,800">6,980</span></p>
+                <p class="details">All clothing types<br>Pattern / grading / illustration<br>Business clients</p>
+                <button class="btn-select">Select</button>
             </div>
 
-            <!-- Master Plan -->
-            <div class="pricing-card">
-                <div class="ribbon bestvalue">Best Value</div>
+            <div class="plan">
+                <div class="corner-ribbon yellow">Best Value</div>
                 <h3>Master</h3>
-                <div class="price">
-                    <span class="currency">¥</span><span class="amount" data-monthly="9,800" data-yearly="98,000">9,800</span>
-                </div>
-                <p class="desc">Full access<br>Print ready output<br>Team & Pro tools</p>
-                <button class="btn-plan">Select</button>
+                <p class="price">¥<span class="amount" data-m="9,800" data-y="98,000">9,800</span></p>
+                <p class="details">Full access<br>Print ready output<br>Team & Pro tools</p>
+                <button class="btn-select">Select</button>
             </div>
         </div>
     </section>
 
     <!-- フッター -->
-    <footer class="footer">
-        <img src="logo/invitation_logo.png" alt="INVITATION" class="footer-logo">
+    <footer>
+        <img src="logo/invitation_logo.png" alt="INVITATION">
         <p>© 2005-2025 INVITATION co. All rights reserved.</p>
-        <a href="https://instagram.com/vivora.app" class="instagram">
-            <img src="logo/instagram.png" alt="Instagram">
+        <a href="https://instagram.com/vivora.app">
+            <img src="logo/instagram.png" alt="Instagram" class="social">
         </a>
-        <p class="app-name">@vivora.app</p>
+        <p class="handle">@vivora.app</p>
     </footer>
 
     <script>
-        document.getElementById('priceToggle').addEventListener('change', function() {
-            const amounts = document.querySelectorAll('.amount');
-            amounts.forEach(amount => {
-                if (this.checked) {
-                    amount.textContent = amount.getAttribute('data-yearly');
-                } else {
-                    amount.textContent = amount.getAttribute('data-monthly');
-                }
+        document.getElementById('yearlyToggle').addEventListener('change', function() {
+            document.querySelectorAll('.amount').forEach(el => {
+                el.textContent = this.checked ? el.dataset.y : el.dataset.m;
             });
         });
     </script>
