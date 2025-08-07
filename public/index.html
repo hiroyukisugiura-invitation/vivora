@@ -8,6 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
+
+  <!-- ロゴとナビ -->
   <header>
     <img src="logo/vivora_logo-main.png" alt="Vivora" class="main-logo" />
     <p class="tagline">Style your tomorrow.</p>
@@ -25,24 +27,27 @@
     </nav>
   </header>
 
+  <!-- 機能カード -->
   <section class="features">
     <div class="card-grid">
-      <div class="card"><span class="num">1</span><img src="contents/fashion-illustrations.png" alt="Fashion Illustrations"><p>Fashion Illustrations</p></div>
-      <div class="card"><span class="num">2</span><img src="contents/fabric-matching.png" alt="Fabric Matching"><p>Fabric Matching</p></div>
-      <div class="card"><span class="num">3</span><img src="contents/clothing-design.png" alt="Clothing Design"><p>Clothing Design</p></div>
-      <div class="card"><span class="num">4</span><img src="contents/pattern-creation.png" alt="Pattern Creation"><p>Pattern Creation</p></div>
-      <div class="card"><span class="num">5</span><img src="contents/grading.png" alt="Grading"><p>Grading</p></div>
-      <div class="card"><span class="num">6</span><img src="contents/print-layout-cut.png" alt="Print Layout & Cut"><p>Print Layout & Cut</p></div>
-      <div class="card"><span class="num">7</span><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode"><p>Digital Dressing Kids Mode</p></div>
+      <div class="card"><span class="num">1</span><img src="contents/fashion-illustrations.png" alt=""><p>Fashion Illustrations</p></div>
+      <div class="card"><span class="num">2</span><img src="contents/fabric-matching.png" alt=""><p>Fabric Matching</p></div>
+      <div class="card"><span class="num">3</span><img src="contents/clothing-design.png" alt=""><p>Clothing Design</p></div>
+      <div class="card"><span class="num">4</span><img src="contents/pattern-creation.png" alt=""><p>Pattern Creation</p></div>
+      <div class="card"><span class="num">5</span><img src="contents/grading.png" alt=""><p>Grading</p></div>
+      <div class="card"><span class="num">6</span><img src="contents/print-layout-cut.png" alt=""><p>Print Layout & Cut</p></div>
+      <div class="card"><span class="num">7</span><img src="contents/digital-dressing-kids-mode.png" alt=""><p>Digital Dressing Kids Mode</p></div>
     </div>
   </section>
 
+  <!-- アクションボタン -->
   <section class="actions">
     <button class="pill red">Start Designing Now</button>
     <button class="pill white-red">Explore Plans</button>
     <button class="pill brown">Try Free Demo</button>
   </section>
 
+  <!-- プランセクション -->
   <section class="plans">
     <h2>Choose Your Plan</h2>
     <div class="toggle">
@@ -53,58 +58,62 @@
       </label>
       <span>Yearly</span>
     </div>
+
     <div class="plan-grid">
       <div class="plan">
         <img src="ribbon/ribbon_free.png" alt="FREE" class="ribbon-img">
-        <h3>Try</h3>
+        <h3>Spark</h3>
         <p class="price">¥0</p>
-        <p class="desc">Basic demo only<br>Limited templates<br>No save or export</p>
+        <p class="desc">「ひらめき」を形にする最初の火花</p>
         <button class="pill gray">Start Free</button>
       </div>
       <div class="plan">
-        <h3>Flow</h3>
-        <p class="price">¥<span id="flow-price">2,980</span></p>
-        <p class="desc">Basic clothing tools<br>Add design & save<br>Assistant support</p>
+        <h3>Creator</h3>
+        <p class="price">¥<span id="creator-price">3,600</span></p>
+        <p class="desc">「クリエイター」としての第一歩</p>
         <button class="pill red">Select</button>
       </div>
       <div class="plan highlight">
         <img src="ribbon/ribbon_toppick.png" alt="Top Pick" class="ribbon-img">
-        <h3>Craft</h3>
-        <p class="price">¥<span id="craft-price">6,980</span></p>
-        <p class="desc">All clothing types<br>Pattern / grading / illustration<br>Unlimited saves</p>
+        <h3>Brand</h3>
+        <p class="price">¥<span id="brand-price">7,200</span></p>
+        <p class="desc">自分の「ブランド」を立ち上げる</p>
         <button class="pill red">Select</button>
       </div>
       <div class="plan">
         <img src="ribbon/ribbon_bestvalue.png" alt="Best Value" class="ribbon-img">
-        <h3>Master</h3>
-        <p class="price">¥<span id="master-price">9,800</span></p>
-        <p class="desc">Full access<br>Print ready output<br>Team & Pro tools</p>
+        <h3>Atelier</h3>
+        <p class="price">¥<span id="atelier-price">12,000</span></p>
+        <p class="desc">プロの「アトリエ」としてビジネスを拡大</p>
         <button class="pill red">Select</button>
       </div>
     </div>
   </section>
 
+  <!-- フッター -->
   <footer>
     <img src="logo/vivora_copy.png" alt="Invitation" class="footer-logo">
-    <p>© 2005-2025 INVITATION co . All rights reserved .</p>
+    <p>© 2005–2025 INVITATION co . All rights reserved .</p>
     <a href="https://instagram.com/vivora.app">
       <img src="logo/vivora_insta.png" alt="Instagram" class="insta-icon" />
     </a>
     <p class="handle">@vivora.app</p>
   </footer>
 
+  <!-- JS スクリプト -->
   <script>
     const prices = {
-      flow: { monthly: '2,980', yearly: '29,800' },
-      craft: { monthly: '6,980', yearly: '69,800' },
-      master: { monthly: '9,800', yearly: '98,000' }
+      creator: { monthly: '3,600', yearly: '36,000' },
+      brand: { monthly: '7,200', yearly: '72,000' },
+      atelier: { monthly: '12,000', yearly: '120,000' }
     };
     document.getElementById('toggle').addEventListener('change', function () {
       const isYearly = this.checked;
-      document.getElementById('flow-price').textContent = isYearly ? prices.flow.yearly : prices.flow.monthly;
-      document.getElementById('craft-price').textContent = isYearly ? prices.craft.yearly : prices.craft.monthly;
-      document.getElementById('master-price').textContent = isYearly ? prices.master.yearly : prices.master.monthly;
+      document.getElementById('creator-price').textContent = isYearly ? prices.creator.yearly : prices.creator.monthly;
+      document.getElementById('brand-price').textContent = isYearly ? prices.brand.yearly : prices.brand.monthly;
+      document.getElementById('atelier-price').textContent = isYearly ? prices.atelier.yearly : prices.atelier.monthly;
     });
   </script>
+
 </body>
 </html>
