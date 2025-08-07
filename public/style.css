@@ -361,16 +361,26 @@ input:checked + .slider:before {
 .ribbon-badge {
   position: absolute;
   top: 0;
-  right: 0;
-  width: 60px;
-  height: 60px;
+  left: 0;
+  width: 100%;             /* カード幅にフィット */
+  height: auto;
+  z-index: 1000;
   object-fit: contain;
-  z-index: 10;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   pointer-events: none;
 }
-.pricing-card {
-  position: relative;
-  overflow: hidden; /* 追加でリボンのはみ出し防止 */
+
+@media (max-width: 768px) {
+  .ribbon-badge {
+    width: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
 }
 
 .footer-content {
