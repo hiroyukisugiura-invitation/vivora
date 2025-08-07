@@ -70,6 +70,7 @@
             </div>
             
             <div class="card" onclick="location.href='work/kids/'">
+                <span class="number">7</span>
                 <img src="contents/content7.png" alt="Digital Dressing Kids Mode">
                 <h3>Digital Dressing Kids Mode</h3>
             </div>
@@ -107,7 +108,7 @@
 
             <div class="plan">
                 <h3>Flow</h3>
-                <p class="price">¥<span class="amount" data-m="2,950" data-y="29,500">2,950</span></p>
+                <p class="price">¥<span id="flow-price">2,950</span></p>
                 <p class="details">Basic clothing tools<br>Add design & save<br>Advanced support</p>
                 <button class="btn-select">Select</button>
             </div>
@@ -115,7 +116,7 @@
             <div class="plan highlight">
                 <div class="corner-ribbon red">Top Pick</div>
                 <h3>Craft</h3>
-                <p class="price">¥<span class="amount" data-m="6,980" data-y="69,800">6,980</span></p>
+                <p class="price">¥<span id="craft-price">6,980</span></p>
                 <p class="details">All clothing types<br>Pattern / grading / illustration<br>Business clients</p>
                 <button class="btn-select">Select</button>
             </div>
@@ -123,7 +124,7 @@
             <div class="plan">
                 <div class="corner-ribbon yellow">Best Value</div>
                 <h3>Master</h3>
-                <p class="price">¥<span class="amount" data-m="9,800" data-y="98,000">9,800</span></p>
+                <p class="price">¥<span id="master-price">9,800</span></p>
                 <p class="details">Full access<br>Print ready output<br>Team & Pro tools</p>
                 <button class="btn-select">Select</button>
             </div>
@@ -141,10 +142,25 @@
     </footer>
 
     <script>
+        // 価格データ
+        const prices = {
+            flow: { monthly: '2,950', yearly: '29,500' },
+            craft: { monthly: '6,980', yearly: '69,800' },
+            master: { monthly: '9,800', yearly: '98,000' }
+        };
+
+        // トグル切り替え
         document.getElementById('yearlyToggle').addEventListener('change', function() {
-            document.querySelectorAll('.amount').forEach(el => {
-                el.textContent = this.checked ? el.dataset.y : el.dataset.m;
-            });
+            const isYearly = this.checked;
+            
+            document.getElementById('flow-price').textContent = 
+                isYearly ? prices.flow.yearly : prices.flow.monthly;
+            
+            document.getElementById('craft-price').textContent = 
+                isYearly ? prices.craft.yearly : prices.craft.monthly;
+            
+            document.getElementById('master-price').textContent = 
+                isYearly ? prices.master.yearly : prices.master.monthly;
         });
     </script>
 </body>
