@@ -12,14 +12,14 @@
     <nav class="navbar">
         <div class="nav-menu">
             <a href="#" class="nav-link">AI</a>
-            <a href="#" class="nav-link">ALL</a>
-            <a href="#" class="nav-link">NEWS</a>
+            <a href="#" class="nav-link">All</a>
+            <a href="#" class="nav-link">News</a>
             <a href="#" class="nav-link">SNS</a>
             <a href="#" class="nav-link">INVITATION</a>
             <a href="#" class="nav-link">SHOP</a>
-            <a href="#" class="nav-link">DESIGN</a>
-            <a href="#" class="nav-link">SHOP</a>
-            <a href="#" class="nav-link">LISTS</a>
+            <a href="#" class="nav-link">Design</a>
+            <a href="#" class="nav-link">Shop</a>
+            <a href="#" class="nav-link">Lists</a>
         </div>
     </nav>
 
@@ -36,7 +36,7 @@
         <a href="work/kids/" class="nav-link">Kids</a>
         <a href="#" class="nav-link">Log In</a>
         <a href="#" class="nav-link">Sign Up</a>
-        <span class="see-plans">or See Plans</span>
+        <a href="#plans" class="nav-link see-plans">or See Plans</a>
     </nav>
 
     <!-- メインコンテンツ -->
@@ -44,37 +44,37 @@
         <!-- 機能カードセクション -->
         <section id="clothing" class="features-section">
             <div class="features-grid">
-                <div class="feature-card" onclick="location.href='work/illustration/'">
+                <div class="feature-card">
                     <span class="card-number">1</span>
                     <img src="contents/content1.png" alt="Fashion Illustrations">
                     <h3>Fashion Illustrations</h3>
                 </div>
-                <div class="feature-card" onclick="location.href='work/fabric/'">
+                <div class="feature-card">
                     <span class="card-number">2</span>
                     <img src="contents/content2.png" alt="Fabric Matching">
                     <h3>Fabric Matching</h3>
                 </div>
-                <div class="feature-card" onclick="location.href='work/clothing/'">
+                <div class="feature-card">
                     <span class="card-number">3</span>
                     <img src="contents/content3.png" alt="Clothing Design">
                     <h3>Clothing Design</h3>
                 </div>
-                <div class="feature-card" onclick="location.href='work/pattern/'">
+                <div class="feature-card">
                     <span class="card-number">4</span>
                     <img src="contents/content4.png" alt="Pattern Creation">
                     <h3>Pattern Creation</h3>
                 </div>
-                <div class="feature-card" onclick="location.href='work/grading/'">
+                <div class="feature-card">
                     <span class="card-number">5</span>
                     <img src="contents/content5.png" alt="Grading">
                     <h3>Grading</h3>
                 </div>
-                <div class="feature-card" onclick="location.href='work/print/'">
+                <div class="feature-card">
                     <span class="card-number">6</span>
                     <img src="contents/content6.png" alt="Print Layout & Cut">
                     <h3>Print Layout & Cut</h3>
                 </div>
-                <div class="feature-card" onclick="location.href='work/kids/'">
+                <div class="feature-card">
                     <span class="card-number">7</span>
                     <img src="contents/content7.png" alt="Digital Dressing Kids Mode">
                     <h3>Digital Dressing Kids Mode</h3>
@@ -126,7 +126,7 @@
                 <div class="plan-card">
                     <h3>Creator</h3>
                     <div class="price">
-                        <span class="amount monthly-price" data-monthly="3600" data-yearly="36000">¥3,600</span>
+                        <span class="amount monthly-price">¥3,600</span>
                         <span class="period">/month</span>
                     </div>
                     <p class="concept">「クリエイター」としての第一歩</p>
@@ -144,7 +144,7 @@
                     <img src="ribbon/ribbon_toppick.png" alt="Top Pick" class="ribbon">
                     <h3>Brand</h3>
                     <div class="price">
-                        <span class="amount monthly-price" data-monthly="7200" data-yearly="72000">¥7,200</span>
+                        <span class="amount monthly-price">¥7,200</span>
                         <span class="period">/month</span>
                     </div>
                     <p class="concept">自分の「ブランド」を立ち上げる</p>
@@ -154,7 +154,7 @@
                         <li>✓ デザインを製品化し、ビジネスに</li>
                         <li>✓ プロ・小規模ブランド向け</li>
                     </ul>
-                    <button class="plan-button">Select</button>
+                    <button class="plan-button popular">Select</button>
                 </div>
 
                 <!-- Atelier Plan -->
@@ -162,7 +162,7 @@
                     <img src="ribbon/ribbon_bestvalue.png" alt="Best Value" class="ribbon">
                     <h3>Atelier</h3>
                     <div class="price">
-                        <span class="amount monthly-price" data-monthly="12000" data-yearly="120000">¥12,000</span>
+                        <span class="amount monthly-price">¥12,000</span>
                         <span class="period">/month</span>
                     </div>
                     <p class="concept">プロの「アトリエ」としてビジネスを拡大</p>
@@ -184,7 +184,7 @@
             <img src="logo/invitation_logo.png" alt="INVITATION" class="footer-logo">
             <p class="copyright">© 2025 INVITATION Co. All rights reserved.</p>
             <div class="social-links">
-                <a href="https://instagram.com/vivora.app" target="_blank" class="social-link">
+                <a href="#" class="social-link">
                     <img src="logo/instagram.png" alt="Instagram">
                 </a>
             </div>
@@ -192,17 +192,6 @@
         <p class="app-name">@vivora.app</p>
     </footer>
 
-    <script>
-        // プラン価格の切り替え
-        document.getElementById('billing-toggle').addEventListener('change', function() {
-            const monthlyPrices = document.querySelectorAll('.monthly-price');
-            
-            monthlyPrices.forEach(price => {
-                if (this.checked) {
-                    const yearlyPrice = price.getAttribute('data-yearly');
-                    price.textContent = '¥' + parseInt(yearlyPrice).toLocaleString();
-                } else {
-                    const monthlyPrice = price.getAttribute('data-monthly');
-                    price.textContent = '¥' + parseInt(monthlyPrice).toLocaleString();
-                }
-            });
+    <script src="script.js"></script>
+</body>
+</html>t
