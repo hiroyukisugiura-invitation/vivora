@@ -1,83 +1,51 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vivora - Style your tomorrow.</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vivora</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- ヘッダー -->
   <header>
-    <img src="logo/vivora_logo-main.png" alt="Vivora" class="logo">
-    <p class="tagline">Style your tomorrow.</p>
+    <img src="logo/vivora_logo-main.png" alt="Vivora Logo" class="logo">
   </header>
 
   <!-- ナビゲーション -->
   <nav class="navbar">
-    <a href="#clothing">Clothing</a>
-    <span class="divider">|</span>
-    <a href="#plans">Plans</a>
-    <span class="divider">|</span>
+    <a href="#">Clothing</a>
+    <a href="#">Plans</a>
     <a href="#">Kids</a>
-    <span class="divider">|</span>
     <a href="#">Log In</a>
-    <span class="divider">|</span>
     <a href="#">Sign Up</a>
-    <span class="or-text">or See Plans</span>
   </nav>
 
-  <!-- 機能カード -->
+  <!-- コンテンツ一覧 -->
   <section class="features">
-    <div class="feature-card">
-      <span class="card-number">1</span>
-      <img src="contents/fashion-illustrations.png" alt="Fashion Illustrations">
-      <h3>Fashion Illustrations</h3>
-    </div>
-    <div class="feature-card">
-      <span class="card-number">2</span>
-      <img src="contents/fabric-matching.png" alt="Fabric Matching">
-      <h3>Fabric Matching</h3>
-    </div>
-    <div class="feature-card">
-      <span class="card-number">3</span>
-      <img src="contents/clothing-design.png" alt="Clothing Design">
-      <h3>Clothing Design</h3>
-    </div>
-    <div class="feature-card">
-      <span class="card-number">4</span>
-      <img src="contents/pattern-creation.png" alt="Pattern Creation">
-      <h3>Pattern Creation</h3>
-    </div>
-    <div class="feature-card">
-      <span class="card-number">5</span>
-      <img src="contents/grading.png" alt="Grading">
-      <h3>Grading</h3>
-    </div>
-    <div class="feature-card">
-      <span class="card-number">6</span>
-      <img src="contents/print-layout-cut.png" alt="Print Layout & Cut">
-      <h3>Print Layout & Cut</h3>
-    </div>
-    <div class="feature-card">
-      <span class="card-number">7</span>
-      <img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode">
-      <h3>Digital Dressing Kids Mode</h3>
-    </div>
+    <a class="feature-card" href="fashion-illustrations.html">
+      <img src="contents/fashion-illustrations.png" alt="Fashion Illustration" />
+    </a>
+    <div class="feature-card"><img src="contents/fabric-matching.png" alt="Fabric Matching" /></div>
+    <div class="feature-card"><img src="contents/clothing-design.png" alt="Clothing Design" /></div>
+    <div class="feature-card"><img src="contents/pattern-creation.png" alt="Pattern Creation" /></div>
+    <div class="feature-card"><img src="contents/grading.png" alt="Grading" /></div>
+    <div class="feature-card"><img src="contents/print-layout-cut.png" alt="Print Layout & Cut" /></div>
+    <div class="feature-card"><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids" /></div>
   </section>
 
-  <!-- アクションボタン -->
+  <!-- ボタン群 -->
   <div class="actions">
-    <button class="btn primary">Start Designing Now</button>
-    <button class="btn secondary">Explore Plans</button>
-    <button class="btn tertiary">Try Free Demo</button>
+    <button>Start Designing Now</button>
+    <button>Explore Plans</button>
+    <button>Try Free Demo</button>
   </div>
 
-  <!-- プランセクション -->
+  <!-- プラン表示セクション -->
   <section class="pricing-section">
-    <h2>Choose Your Plan</h2>
-    
+    <h2 class="pricing-title">Choose Your Plan</h2>
+
     <div class="toggle-container">
       <span>Monthly</span>
       <label class="switch">
@@ -88,9 +56,10 @@
     </div>
 
     <div class="pricing-cards">
-      <!-- Try -->
+
+      <!-- Try Plan -->
       <div class="pricing-card">
-        <div class="ribbon free">FREE</div>
+        <img src="ribbon/ribbon_free.png" alt="Free badge" class="ribbon-badge" />
         <h3>Try</h3>
         <p class="price">¥0</p>
         <ul>
@@ -98,68 +67,71 @@
           <li>Limited templates</li>
           <li>No save or export</li>
         </ul>
-        <button class="btn-plan" disabled>Start Free</button>
+        <button disabled>Start Free</button>
       </div>
 
-      <!-- Flow -->
+      <!-- Flow Plan -->
       <div class="pricing-card">
         <h3>Flow</h3>
-        <p class="price" data-monthly="¥3,600" data-yearly="¥36,000">¥3,600</p>
+        <p class="price" data-monthly="¥2,980" data-yearly="¥30,384（¥2,532/月）">¥2,980</p>
         <ul>
           <li>Basic clothing tools</li>
           <li>Kid design & save</li>
           <li>Assistant support</li>
         </ul>
-        <button class="btn-plan">Select</button>
+        <button>Select</button>
       </div>
 
-      <!-- Craft -->
+      <!-- Craft Plan -->
       <div class="pricing-card popular">
-        <div class="ribbon toppick">TOP PICK</div>
+        <img src="ribbon/ribbon_toppick.png" alt="Top Pick badge" class="ribbon-badge" />
         <h3>Craft</h3>
-        <p class="price" data-monthly="¥7,200" data-yearly="¥72,000">¥7,200</p>
+        <p class="price" data-monthly="¥6,980" data-yearly="¥71,232（¥5,936/月）">¥6,980</p>
         <ul>
           <li>All clothing types</li>
           <li>Pattern / grading / illustration</li>
           <li>Unlimited saves</li>
         </ul>
-        <button class="btn-plan">Select</button>
+        <button>Select</button>
       </div>
 
-      <!-- Master -->
+      <!-- Master Plan -->
       <div class="pricing-card">
-        <div class="ribbon best">BEST VALUE</div>
+        <img src="ribbon/ribbon_bestvalue.png" alt="Best Value badge" class="ribbon-badge" />
         <h3>Master</h3>
-        <p class="price" data-monthly="¥12,000" data-yearly="¥120,000">¥12,000</p>
+        <p class="price" data-monthly="¥9,800" data-yearly="¥99,960（¥8,330/月）">¥9,800</p>
         <ul>
           <li>Full access</li>
           <li>Print-ready output</li>
           <li>Team & Pro tools</li>
         </ul>
-        <button class="btn-plan">Select</button>
+        <button>Select</button>
       </div>
+
     </div>
   </section>
 
   <!-- フッター -->
   <footer>
-    <img src="logo/vivora_copy.png" alt="INVITATION" class="footer-logo">
-    <p>© 2005-2025 INVITATION co. All rights reserved.</p>
-    <a href="https://instagram.com/vivora.app">
-      <img src="logo/vivora_insta.png" alt="Instagram" class="insta-icon">
-    </a>
-    <p class="app-name">@vivora.app</p>
+    <div class="footer-content">
+      <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
+      <a href="https://www.instagram.com/vivora.app" target="_blank">
+        <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
+      </a>
+    </div>
   </footer>
 
+  <!-- プラン切り替えスクリプト -->
   <script>
     const toggle = document.getElementById('billing-toggle');
-    const prices = document.querySelectorAll('.price[data-monthly]');
-    
+    const prices = document.querySelectorAll('.price');
+
     toggle.addEventListener('change', () => {
+      const isYearly = toggle.checked;
       prices.forEach(price => {
-        price.textContent = toggle.checked 
-          ? price.dataset.yearly 
-          : price.dataset.monthly;
+        if (price.dataset.yearly && price.dataset.monthly) {
+          price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
+        }
       });
     });
   </script>
