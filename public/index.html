@@ -1,6 +1,6 @@
+<!-- HTML (pricing section) -->
 <section class="pricing-section">
   <h2 class="pricing-title">Choose Your Plan</h2>
-
   <div class="toggle-container">
     <span>Monthly</span>
     <label class="switch">
@@ -9,9 +9,7 @@
     </label>
     <span>Yearly</span>
   </div>
-
   <div class="pricing-cards">
-
     <!-- Spark Plan -->
     <div class="pricing-card">
       <img src="ribbon/ribbon_free.png" alt="Free badge" class="ribbon-badge" />
@@ -24,7 +22,6 @@
       </ul>
       <button disabled>Start Free</button>
     </div>
-
     <!-- Creator Plan -->
     <div class="pricing-card">
       <h3>Creator</h3>
@@ -36,9 +33,8 @@
       </ul>
       <button>Select</button>
     </div>
-
     <!-- Brand Plan -->
-    <div class="pricing-card popular">
+    <div class="pricing-card">
       <img src="ribbon/ribbon_toppick.png" alt="Top Pick badge" class="ribbon-badge" />
       <h3>Brand</h3>
       <p class="price" data-monthly="¥7,200" data-yearly="¥72,000（¥6,000/月）">¥7,200</p>
@@ -49,7 +45,6 @@
       </ul>
       <button>Select</button>
     </div>
-
     <!-- Atelier Plan -->
     <div class="pricing-card">
       <img src="ribbon/ribbon_bestvalue.png" alt="Best Value badge" class="ribbon-badge" />
@@ -65,10 +60,10 @@
   </div>
 </section>
 
+<!-- JS only -->
 <script>
   const toggle = document.getElementById('billing-toggle');
   const prices = document.querySelectorAll('.price');
-
   toggle.addEventListener('change', () => {
     const isYearly = toggle.checked;
     prices.forEach(price => {
