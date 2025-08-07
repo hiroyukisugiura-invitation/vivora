@@ -44,6 +44,18 @@ header {
   transform: translateY(-2px);
 }
 
+.login-btn {
+  background: #6c5ce7;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.login-btn:hover {
+  background: #5f4fd8;
+  transform: translateY(-2px);
 
 /* ===== 認証リンク ===== */
 .auth-links {
@@ -364,12 +376,12 @@ input:checked + .slider:before {
 }
 
 .ribbon-badge {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
   position: absolute;
   top: 0;
   right: 0;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
   z-index: 10;
   pointer-events: none;
 }
