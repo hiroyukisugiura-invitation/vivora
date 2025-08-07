@@ -1,278 +1,378 @@
-/* ===== ベース設定 ===== */
+/* リセット */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
 body {
-  font-family: 'Inter', sans-serif;
-  background: #f9f3ef;
-  color: #333;
-  line-height: 1.6;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #faf8f5;
+    color: #333;
 }
 
-/* ===== ロゴとナビ ===== */
-.main-logo {
-  display: block;
-  margin: 0 auto;
-  width: 260px;
-  max-width: 90%;
+/* ヘッダー */
+header {
+    background: white;
+    padding: 40px 20px 0;
 }
+
+.logo-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 300px;
+    height: auto;
+}
+
 .tagline {
-  text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 18px;
-  color: #8b7355;
-  margin-top: 10px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #8b7355;
+    font-size: 16px;
+    margin-top: 8px;
 }
-.nav {
-  text-align: center;
-  margin-top: 20px;
-  padding: 12px 0;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  font-family: 'Playfair Display', serif;
+
+/* ナビゲーション */
+.navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e0d8;
 }
-.nav a {
-  color: #333;
-  text-decoration: none;
-  margin: 0 12px;
-  font-size: 15px;
+
+.navigation a {
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 15px;
 }
-.nav span {
-  color: #aaa;
+
+.navigation span {
+    color: #ccc;
 }
+
 .or-plans {
-  color: #999;
-  font-style: italic;
-  margin-left: 10px;
+    color: #999 !important;
+    font-style: italic;
+    margin-left: 15px;
 }
 
-/* ===== カード ===== */
+/* 機能カード */
 .features {
-  padding: 40px 20px;
+    background: white;
+    padding: 50px 40px;
 }
+
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  max-width: 1100px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
+
+.card-grid .card:nth-child(5) { grid-column: 1; }
+.card-grid .card:nth-child(6) { grid-column: 2; }
+.card-grid .card:nth-child(7) { grid-column: 3; }
+
 .card {
-  background: #fff;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-  position: relative;
-  text-align: center;
-  transition: 0.3s;
-  cursor: pointer;
+    background: white;
+    border: 1px solid #e5e0d8;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
 }
+
 .card:hover {
-  transform: translateY(-4px);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
+
+.number {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 1;
+}
+
 .card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-.card .num {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: #f9f3ef;
-  color: #333;
-  font-weight: bold;
-  padding: 6px 14px 10px 14px;
-  border-bottom-right-radius: 28px;
-  font-size: 14px;
-  z-index: 2;
-  font-family: 'Playfair Display', serif;
-}
-.card p {
-  padding: 14px 10px;
-  font-weight: 500;
-  font-size: 15px;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
 }
 
-/* ===== ボタン ===== */
+.card h3 {
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* アクションボタン */
 .actions {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin: 30px 0 50px;
-}
-.pill {
-  padding: 12px 28px;
-  border: none;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.pill.red {
-  background: #ff5555;
-  color: white;
-}
-.pill.white-red {
-  background: white;
-  color: #ff5555;
-  border: 2px solid #ff5555;
-}
-.pill.brown {
-  background: #8b7355;
-  color: white;
-}
-.pill.gray {
-  background: #aaa;
-  color: white;
-}
-.pill:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 20px;
+    background: white;
 }
 
-/* ===== プラン ===== */
-.plans {
-  background: #fdf8f5;
-  padding: 60px 20px;
-  text-align: center;
+.btn-action {
+    padding: 12px 35px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
 }
-.plans h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  margin-bottom: 30px;
+
+.btn-action.primary {
+    background: #ff5555;
+    color: white;
 }
+
+.btn-action.secondary {
+    background: white;
+    color: #ff5555;
+    border: 2px solid #ff5555;
+}
+
+.btn-action.tertiary {
+    background: #8b7355;
+    color: white;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* 料金プラン */
+.pricing {
+    padding: 60px 40px;
+    background: #faf8f5;
+}
+
+.pricing h2 {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+/* トグル */
 .toggle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 50px;
 }
+
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
+    position: relative;
+    width: 60px;
+    height: 28px;
 }
+
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    display: none;
 }
+
 .slider {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  border-radius: 26px;
-  transition: .4s;
+    position: absolute;
+    cursor: pointer;
+    background: #ddd;
+    border-radius: 28px;
+    inset: 0;
+    transition: 0.4s;
 }
+
 .slider:before {
-  position: absolute;
-  content: \"\";
-  height: 18px;
-  width: 18px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  border-radius: 50%;
-  transition: .4s;
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.4s;
 }
+
 input:checked + .slider {
-  background-color: #ff5555;
+    background: #ff5555;
 }
+
 input:checked + .slider:before {
-  transform: translateX(24px);
+    transform: translateX(32px);
 }
 
-/* ===== プランカード ===== */
-.plan-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
+/* プランカード */
+.plan-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
+
 .plan {
-  background: white;
-  border-radius: 15px;
-  padding: 30px 20px;
-  position: relative;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    background: white;
+    border-radius: 15px;
+    padding: 35px 25px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    min-height: 420px;
 }
+
 .plan.highlight {
-  border: 2px solid #ff5555;
+    border: 2px solid #ff5555;
 }
+
+.ribbon {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 70px;
+    height: 70px;
+}
+
 .plan h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
+    font-size: 24px;
+    margin: 20px 0;
 }
+
 .price {
-  font-size: 28px;
-  font-weight: bold;
-  color: #ff5555;
-  margin-bottom: 16px;
-}
-.desc {
-  font-size: 13px;
-  color: #666;
-  min-height: 60px;
-  margin-bottom: 20px;
-  line-height: 1.7;
-}
-.ribbon-img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;
-  height: auto;
+    font-size: 36px;
+    font-weight: 700;
+    color: #ff5555;
+    margin-bottom: 15px;
 }
 
-/* ===== フッター ===== */
+.concept {
+    font-size: 12px;
+    color: #8b7355;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.details {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.btn-select {
+    background: #ff5555;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-select.gray {
+    background: #999;
+}
+
+.btn-select:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,85,85,0.3);
+}
+
+/* フッター */
 footer {
-  background: white;
-  text-align: center;
-  padding: 40px 20px;
-  border-top: 1px solid #eee;
-  font-family: 'Playfair Display', serif;
-}
-.footer-logo {
-  height: 35px;
-  margin-bottom: 15px;
-}
-footer p {
-  font-size: 13px;
-  color: #999;
-  margin: 6px 0;
-}
-.insta-icon {
-  width: 26px;
-  height: 26px;
-  margin-top: 20px;
-}
-.handle {
-  font-size: 14px;
-  color: #666;
-  margin-top: 8px;
+    background: white;
+    padding: 50px 20px;
+    text-align: center;
+    border-top: 1px solid #e5e0d8;
 }
 
-/* ===== レスポンシブ ===== */
+footer img {
+    height: 35px;
+    margin-bottom: 15px;
+}
+
+footer p {
+    color: #999;
+    font-size: 13px;
+    margin: 10px 0;
+}
+
+.social {
+    width: 30px;
+    height: 30px;
+    margin: 20px 0 10px;
+}
+
+.handle {
+    color: #666;
+    font-size: 14px;
+}
+
+/* レスポンシブ */
+@media (max-width: 992px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .card-grid .card:nth-child(5),
+    .card-grid .card:nth-child(6),
+    .card-grid .card:nth-child(7) {
+        grid-column: auto;
+    }
+    
+    .plan-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
-  .card-grid,
-  .plan-grid {
-    grid-template-columns: 1fr;
-  }
-  .actions {
-    flex-direction: column;
-    gap: 12px;
-  }
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-action {
+        width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navigation {
+        flex-wrap: wrap;
+    }
+    
+    .card-grid,
+    .plan-cards {
+        grid-template-columns: 1fr;
+    }
 }
