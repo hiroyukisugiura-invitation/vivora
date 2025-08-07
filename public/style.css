@@ -1,4 +1,4 @@
-/* リセット */
+/* ===== リセット ===== */
 * {
     margin: 0;
     padding: 0;
@@ -9,9 +9,10 @@ body {
     font-family: 'Inter', -apple-system, sans-serif;
     background: #faf8f5;
     color: #333;
+    line-height: 1.6;
 }
 
-/* ヘッダー */
+/* ===== ヘッダー ===== */
 header {
     background: white;
     padding: 40px 20px 0;
@@ -25,6 +26,7 @@ header {
 .logo {
     width: 300px;
     height: auto;
+    max-width: 90%;
 }
 
 .tagline {
@@ -35,13 +37,14 @@ header {
     margin-top: 8px;
 }
 
-/* ナビゲーション */
+/* ===== ナビゲーション ===== */
 .navigation {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px 0;
     border-bottom: 1px solid #e5e0d8;
+    gap: 5px;
 }
 
 .navigation a {
@@ -49,21 +52,20 @@ header {
     text-decoration: none;
     font-size: 15px;
     font-weight: 500;
-    margin: 0 15px;
+    padding: 0 12px;
 }
 
 .navigation span {
-    color: #ccc;
-    margin: 0 5px;
+    color: #ddd;
 }
 
 .or-plans {
-    color: #999;
+    color: #999 !important;
     font-style: italic;
     margin-left: 15px;
 }
 
-/* 機能カード */
+/* ===== 機能カードセクション ===== */
 .features {
     background: white;
     padding: 50px 40px;
@@ -75,6 +77,19 @@ header {
     gap: 20px;
     max-width: 1100px;
     margin: 0 auto;
+}
+
+/* 7番目のカードは3列目に配置 */
+.card-grid .card:nth-child(5) {
+    grid-column: 1;
+}
+
+.card-grid .card:nth-child(6) {
+    grid-column: 2;
+}
+
+.card-grid .card:nth-child(7) {
+    grid-column: 3;
 }
 
 .card {
@@ -113,6 +128,7 @@ header {
     width: 100%;
     height: 180px;
     object-fit: cover;
+    display: block;
 }
 
 .card h3 {
@@ -120,9 +136,10 @@ header {
     text-align: center;
     font-size: 14px;
     font-weight: 500;
+    background: white;
 }
 
-/* アクションボタン */
+/* ===== アクションボタン ===== */
 .actions {
     display: flex;
     justify-content: center;
@@ -162,7 +179,7 @@ header {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* 料金プラン */
+/* ===== 料金プランセクション ===== */
 .pricing {
     padding: 60px 40px;
     background: #faf8f5;
@@ -174,9 +191,10 @@ header {
     font-size: 32px;
     font-weight: 400;
     margin-bottom: 40px;
+    color: #333;
 }
 
-/* トグル */
+/* ===== トグルスイッチ ===== */
 .toggle {
     display: flex;
     justify-content: center;
@@ -185,8 +203,14 @@ header {
     margin-bottom: 50px;
 }
 
+.toggle span {
+    font-size: 15px;
+    color: #666;
+}
+
 .switch {
     position: relative;
+    display: inline-block;
     width: 60px;
     height: 28px;
 }
@@ -200,10 +224,13 @@ header {
 .slider {
     position: absolute;
     cursor: pointer;
-    background: #ddd;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ddd;
     border-radius: 28px;
-    inset: 0;
-    transition: 0.4s;
+    transition: .4s;
 }
 
 .slider:before {
@@ -213,20 +240,20 @@ header {
     width: 20px;
     left: 4px;
     bottom: 4px;
-    background: white;
+    background-color: white;
     border-radius: 50%;
-    transition: 0.4s;
+    transition: .4s;
 }
 
 input:checked + .slider {
-    background: #ff5555;
+    background-color: #ff5555;
 }
 
 input:checked + .slider:before {
     transform: translateX(32px);
 }
 
-/* プランカード */
+/* ===== プランカード ===== */
 .plan-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -243,12 +270,16 @@ input:checked + .slider:before {
     position: relative;
     overflow: hidden;
     box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
 }
 
 .plan.highlight {
     border: 2px solid #ff5555;
 }
 
+/* ===== リボン ===== */
 .corner-ribbon {
     position: absolute;
     top: 10px;
@@ -259,6 +290,7 @@ input:checked + .slider:before {
     color: white;
     text-transform: uppercase;
     transform: rotate(45deg);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .corner-ribbon.blue {
@@ -274,8 +306,10 @@ input:checked + .slider:before {
     color: #333;
 }
 
+/* ===== プラン内容 ===== */
 .plan h3 {
     font-size: 24px;
+    font-weight: 600;
     margin: 10px 0 20px;
 }
 
@@ -292,6 +326,7 @@ input:checked + .slider:before {
     color: #666;
     margin-bottom: 25px;
     min-height: 60px;
+    flex-grow: 1;
 }
 
 .btn-select {
@@ -304,6 +339,9 @@ input:checked + .slider:before {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    width: 100%;
+    max-width: 150px;
+    margin: 0 auto;
 }
 
 .btn-select.gray {
@@ -315,7 +353,7 @@ input:checked + .slider:before {
     box-shadow: 0 5px 15px rgba(255,85,85,0.3);
 }
 
-/* フッター */
+/* ===== フッター ===== */
 footer {
     background: white;
     padding: 50px 20px;
@@ -345,10 +383,16 @@ footer p {
     font-size: 14px;
 }
 
-/* レスポンシブ */
+/* ===== レスポンシブ ===== */
 @media (max-width: 992px) {
     .card-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .card-grid .card:nth-child(5),
+    .card-grid .card:nth-child(6),
+    .card-grid .card:nth-child(7) {
+        grid-column: auto;
     }
     
     .plan-cards {
@@ -369,14 +413,26 @@ footer p {
     .btn-action {
         width: 250px;
     }
+    
+    .plan-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 480px) {
     .navigation {
         flex-wrap: wrap;
+        gap: 10px;
     }
     
-    .card-grid,
+    .navigation span {
+        display: none;
+    }
+    
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .plan-cards {
         grid-template-columns: 1fr;
     }
