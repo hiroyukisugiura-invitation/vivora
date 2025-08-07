@@ -136,22 +136,6 @@ img {
   object-fit: cover;
 }
 
-.card-number {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #8B4513;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
-}
-
 .card-title {
   padding: 15px;
   text-align: center;
@@ -266,15 +250,16 @@ img {
 .plan-card {
   background: white;
   border-radius: 15px;
-  padding: 25px 20px;
+  padding: 30px 25px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  min-height: 400px;
+  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .plan-card:hover {
@@ -283,7 +268,7 @@ img {
 }
 
 .plan-card.recommended {
-  border: 2px solid #DC143C;
+  border: 3px solid #DC143C;
   transform: scale(1.02);
 }
 
@@ -291,7 +276,7 @@ img {
   transform: scale(1.05) translateY(-5px);
 }
 
-/* 美しいリボンスタイル（画像基準） */
+/* 真四角に合わせた美しいリボン */
 .plan-ribbon {
   position: absolute;
   top: 0;
@@ -303,29 +288,29 @@ img {
 }
 
 .ribbon-free {
-  border-left: 50px solid transparent;
+  border-left: 60px solid transparent;
   border-right: 0px solid transparent;
-  border-top: 50px solid #4169E1;
+  border-top: 60px solid #4169E1;
 }
 
 .ribbon-popular {
-  border-left: 50px solid transparent;
+  border-left: 60px solid transparent;
   border-right: 0px solid transparent;
-  border-top: 50px solid #DC143C;
+  border-top: 60px solid #DC143C;
 }
 
 .ribbon-value {
-  border-left: 50px solid transparent;
+  border-left: 60px solid transparent;
   border-right: 0px solid transparent;
-  border-top: 50px solid #FF8C00;
+  border-top: 60px solid #FF8C00;
 }
 
 .ribbon-text {
   position: absolute;
-  top: -40px;
-  right: -15px;
+  top: -45px;
+  right: -20px;
   transform: rotate(45deg);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: bold;
   color: white;
   white-space: nowrap;
@@ -335,46 +320,46 @@ img {
 .plan-name {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: #333;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .plan-price {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold;
   color: #DC143C;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 .plan-billing {
-  font-size: 12px;
+  font-size: 11px;
   color: #999;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .plan-concept {
-  font-size: 13px;
+  font-size: 12px;
   color: #666;
   font-style: italic;
-  margin-bottom: 20px;
-  line-height: 1.3;
-  min-height: 35px;
+  margin-bottom: 15px;
+  line-height: 1.2;
+  min-height: 24px;
 }
 
 .plan-features {
   list-style: none;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   text-align: left;
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 11px;
+  line-height: 1.3;
   flex-grow: 1;
 }
 
 .plan-features li {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   color: #666;
-  padding-left: 15px;
+  padding-left: 12px;
   position: relative;
 }
 
@@ -384,15 +369,16 @@ img {
   left: 0;
   color: #4CAF50;
   font-weight: bold;
+  font-size: 10px;
 }
 
 .plan-button {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   border: none;
   border-radius: 20px;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: auto;
@@ -473,7 +459,7 @@ img {
   }
 
   .plan-card {
-    min-height: 380px;
+    aspect-ratio: 1;
   }
 }
 
@@ -502,24 +488,79 @@ img {
   }
 
   .plan-card {
-    min-height: 350px;
+    aspect-ratio: 1;
   }
 
   .plan-card.recommended {
-    transform: none;
+    transform: scale(1.02);
   }
 }
 
 @media (max-width: 640px) {
   .plans-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .plan-card {
+    aspect-ratio: 1;
+    padding: 20px 15px;
+  }
+
+  .plan-name {
+    font-size: 16px;
+  }
+
+  .plan-price {
+    font-size: 20px;
+  }
+
+  .plan-features {
+    font-size: 10px;
+  }
+
+  .plan-button {
+    font-size: 11px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 30px 15px;
+  }
+
+  .logo-main {
     max-width: 300px;
+  }
+
+  .nav-menu {
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .features-container {
+    padding: 0 15px;
+  }
+
+  .features-grid {
+    gap: 15px;
+  }
+
+  .pricing-section {
+    margin: 50px 0;
+  }
+
+  .plans-container {
+    padding: 0 15px;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .plan-card {
+    aspect-ratio: 0.9;
+    max-width: 280px;
     margin: 0 auto;
-    min-height: 380px;
   }
 }
 
