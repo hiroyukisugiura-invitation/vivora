@@ -1,4 +1,4 @@
-/* ===== リセットとフォント ===== */
+/* ===== リセット・ベース設定 ===== */
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +11,7 @@ body {
   line-height: 1.6;
 }
 
-/* ===== ヘッダー・ロゴ・ナビ ===== */
+/* ===== ロゴ・ナビゲーション ===== */
 .main-logo {
   display: block;
   margin: 0 auto;
@@ -50,7 +50,7 @@ body {
   margin-left: 10px;
 }
 
-/* ===== 機能カード ===== */
+/* ===== カード表示 ===== */
 .features {
   padding: 40px 20px;
 }
@@ -98,7 +98,7 @@ body {
   font-size: 15px;
 }
 
-/* ===== ボタン ===== */
+/* ===== ボタン（pill型） ===== */
 .actions {
   display: flex;
   justify-content: center;
@@ -178,7 +178,7 @@ body {
 }
 .slider:before {
   position: absolute;
-  content: "";
+  content: \"\";
   height: 18px;
   width: 18px;
   left: 4px;
@@ -194,7 +194,7 @@ input:checked + .slider:before {
   transform: translateX(24px);
 }
 
-/* ===== プランカード ===== */
+/* ===== プランカード表示 ===== */
 .plan-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -268,7 +268,8 @@ footer p {
 
 /* ===== レスポンシブ ===== */
 @media (max-width: 768px) {
-  .card-grid, .plan-grid {
+  .card-grid,
+  .plan-grid {
     grid-template-columns: 1fr;
   }
   .actions {
