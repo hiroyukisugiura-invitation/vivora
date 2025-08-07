@@ -1,339 +1,134 @@
-/* ===== 全体レイアウト ===== */
-body {
-  margin: 0;
-  padding: 0;
-  background: #f8f1ee;
-  font-family: 'Helvetica Neue', sans-serif;
-  color: #333;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vivora</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header>
+    <div class="auth-links">
+      <a href="#">Log In</a>
+      <a href="#" class="signup-btn">Sign Up</a>
+    </div>
+    <img src="logo/vivora_logo-main.png" alt="Vivora Logo" class="logo">
+    <p class="tagline">Style your tomorrow.</p>
+  </header>
 
-/* ===== ヘッダー ===== */
-header {
-  padding: 50px;
-}
-.logo {
-  width: 450px;
-  height: auto;
-}
+  <!-- コンテンツ一覧 -->
+  <section class="features">
+    <a class="feature-card" href="fashion-illustrations.html">
+      <img src="contents/fashion-illustrations.png" alt="Fashion Illustration" />
+    </a>
+    <div class="feature-card"><img src="contents/fabric-matching.png" alt="Fabric Matching" /></div>
+    <div class="feature-card"><img src="contents/clothing-design.png" alt="Clothing Design" /></div>
+    <div class="feature-card"><img src="contents/pattern-creation.png" alt="Pattern Creation" /></div>
+    <div class="feature-card"><img src="contents/grading.png" alt="Grading" /></div>
+    <div class="feature-card"><img src="contents/print-layout-cut.png" alt="Print Layout & Cut" /></div>
+    <div class="feature-card"><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids" /></div>
+  </section>
 
-/* ===== ナビゲーションバー ===== */
-.navbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 28px;
-  font-size: 15px;
-  font-weight: 500;
-  font-family: 'Playfair Display', serif;
-  color: #3b2f2f;
-  margin: 20px 0 30px;
-  flex-wrap: wrap;
-  letter-spacing: 0.3px;
-}
+  <!-- メインCTA -->
+  <div class="main-cta">
+    <button class="cta-primary">今すぐ無料で始める</button>
+    <p class="cta-text">クレジットカード不要・いつでもキャンセル可能</p>
+  </div>
 
-.navbar a {
-  text-decoration: none;
-  color: #333;
-  transition: color 0.3s ease;
-}
+  <!-- プラン表示セクション -->
+  <section class="pricing-section">
+    <h2 class="pricing-title">Choose Your Plan</h2>
 
-.navbar a:hover {
-  color: #6c5ce7;
-}
+    <div class="toggle-container">
+      <span>Monthly</span>
+      <label class="switch">
+        <input type="checkbox" id="billing-toggle">
+        <span class="slider"></span>
+      </label>
+      <span>Yearly</span>
+    </div>
 
-/* ===== コンテンツ一覧（レスポンシブ修正） ===== */
-.features {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);  /* デスクトップは4列 */
-  gap: 25px;
-  padding: 40px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
+    <div class="pricing-cards">
 
-/* 5番目のカードから2行目に配置 */
-.features .feature-card:nth-child(5) {
-  grid-column: 1;
-}
-.features .feature-card:nth-child(6) {
-  grid-column: 2;
-}
-.features .feature-card:nth-child(7) {
-  grid-column: 3;
-}
+      <!-- Try Plan -->
+      <div class="pricing-card">
+        <img src="ribbon/ribbon_free.png" alt="Free badge" class="ribbon-badge" />
+        <h3>Try</h3>
+        <p class="price">¥0</p>
+        <ul>
+          <li>Basic demo only</li>
+          <li>Limited templates</li>
+          <li>No save or export</li>
+        </ul>
+        <button disabled>Start Free</button>
+      </div>
 
-.feature-card {
-  transition: transform 0.3s ease;
-}
+      <!-- Flow Plan -->
+      <div class="pricing-card">
+        <h3>Flow</h3>
+        <p class="price" data-monthly="¥3,600" data-yearly="¥36,000（¥3,000/月）">¥3,600</p>
+        <ul>
+          <li>Basic clothing tools</li>
+          <li>Kid design & save</li>
+          <li>Assistant support</li>
+        </ul>
+        <button>Select</button>
+      </div>
 
-.feature-card:hover {
-  transform: scale(1.03);
-}
+      <!-- Craft Plan -->
+      <div class="pricing-card popular">
+        <img src="ribbon/ribbon_toppick.png" alt="Top Pick badge" class="ribbon-badge" />
+        <h3>Craft</h3>
+        <p class="price" data-monthly="¥7,200" data-yearly="¥72,000（¥6,000/月）">¥7,200</p>
+        <ul>
+          <li>All clothing types</li>
+          <li>Pattern / grading / illustration</li>
+          <li>Unlimited saves</li>
+        </ul>
+        <button>Select</button>
+      </div>
 
-.feature-card img {
-  width: 100%;
-  border-radius: 8px;
-}
+      <!-- Master Plan -->
+      <div class="pricing-card">
+        <img src="ribbon/ribbon_bestvalue.png" alt="Best Value badge" class="ribbon-badge" />
+        <h3>Master</h3>
+        <p class="price" data-monthly="¥12,000" data-yearly="¥120,000（¥10,000/月）">¥12,000</p>
+        <ul>
+          <li>Full access</li>
+          <li>Print-ready output</li>
+          <li>Team & Pro tools</li>
+        </ul>
+        <button>Select</button>
+      </div>
 
-/* ===== レスポンシブ対応 ===== */
-@media (max-width: 992px) {
-  .features {
-    grid-template-columns: repeat(3, 1fr);  /* タブレットは3列 */
-  }
-  
-  /* 3列の場合は自動配置に戻す */
-  .features .feature-card:nth-child(5),
-  .features .feature-card:nth-child(6),
-  .features .feature-card:nth-child(7) {
-    grid-column: auto;
-  }
-}
+    </div>
+  </section>
 
-@media (max-width: 768px) {
-  .features {
-    grid-template-columns: repeat(2, 1fr);  /* 小タブレットは2列 */
-  }
-}
+  <!-- フッター -->
+  <footer>
+    <div class="footer-content">
+      <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
+      <a href="https://www.instagram.com/vivora.app" target="_blank">
+        <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
+      </a>
+    </div>
+  </footer>
 
-@media (max-width: 480px) {
-  .features {
-    grid-template-columns: 1fr;  /* スマホは1列 */
-  }
-}
-/* ===== アクションボタン ===== */
-.actions {
-  margin: 40px 0 20px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  row-gap: 16px;            /* 縦の隙間も調整可能 */
-}
+  <!-- プラン切り替えスクリプト -->
+  <script>
+    const toggle = document.getElementById('billing-toggle');
+    const prices = document.querySelectorAll('.price');
 
-.actions button {
-  background: white;
-  border: 1px solid #ccc;
-  padding: 12px 24px;
-  border-radius: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s;
-  color: #333;
-  min-width: 180px;         /* ← ボタンの横幅を一定に */
-  text-align: center;       /* ← テキスト中央揃え */
-  flex: 1 0 auto;           /* ← レスポンシブで折り返せるように */
-  max-width: 280px;         /* ← 上限を設定して崩れ防止 */
-}
-
-.actions button:hover {
-  background: #6c5ce7;  /* パープルに変化 */
-  color: white;         /* 白文字に */
-  border: 1px solid #6c5ce7; /* 境界線も変化 */
-}
-
-/* ===== フッター ===== */
-footer {
-  padding: 40px 0;
-  text-align: center;
-  font-size: 13px;
-  margin-top: 10px;
-}
-
-.footer-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-size: 13px;
-  color: #444;
-}
-
-.footer-logo {
-  max-width: 360px;
-  width: 80%;
-  height: auto;
-}
-
-.footer-icon {
-  height: 50px;
-  width: auto;
-  vertical-align: middle;
-  transition: opacity 0.3s ease;
-}
-
-.footer-icon:hover {
-  opacity: 0.7;
-}
-
-/* ===== プラン表示セクション（画像バッジ対応） ===== */
-.pricing-section {
-    padding: 60px 20px 10px;
-  background: #fff5f0;
-  text-align: center;
-  flex: 1 0 auto;
-}
-
-.pricing-title {
-  font-size: 28px;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 20px;
-}
-
-.toggle-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 40px;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
-}
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  border-radius: 26px;
-  transition: 0.4s;
-}
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
-}
-input:checked + .slider {
-  background-color: #ff7675;
-}
-input:checked + .slider:before {
-  transform: translateX(24px);
-}
-
-.pricing-cards {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.pricing-card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 240px;
-  min-height: 240px;
-  text-align: center;
-  transition: transform 0.3s;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  position: relative;
-}
-
-.pricing-card:hover {
-  transform: translateY(-5px);
-}
-
-.pricing-card h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  min-height: 30px;
-}
-
-.pricing-card .price {
-  font-size: 22px;
-  font-weight: bold;
-  color: #d63031;
-  margin-bottom: 12px;
-}
-
-.pricing-card ul {
-  list-style: none;
-  padding: 0;
-  font-size: 14px;
-  margin: 0 0 20px;
-  flex-grow: 1;
-}
-
-.pricing-card li {
-  margin: 6px 0;
-}
-
-.pricing-card button {
-  background: #d63031;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 24px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
-  margin-top: auto;
-}
-
-.pricing-card button[disabled] {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-.ribbon-badge {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;             /* カード幅にフィット */
-  height: auto;
-  z-index: 1000;
-  object-fit: contain;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  pointer-events: none;
-}
-
-@media (max-width: 768px) {
-  .ribbon-badge {
-    width: 48px;
-  }
-}
-
-@media (max-width: 480px) {
-  .features {
-    grid-template-columns: 1fr;
-  }
-}
-
-.board-grid {
-  display: grid;
-  place-items: center;
-  height: 300px;
-  background-color: #fff;
-  background-image: linear-gradient(#ccc 1px, transparent 1px),
-                    linear-gradient(90deg, #ccc 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-.board-grid.plain {
-  background-image: none;
-}
+    toggle.addEventListener('change', () => {
+      const isYearly = toggle.checked;
+      prices.forEach(price => {
+        if (price.dataset.yearly && price.dataset.monthly) {
+          price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
