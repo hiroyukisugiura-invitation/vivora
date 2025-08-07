@@ -45,14 +45,25 @@ header {
   color: #6c5ce7;
 }
 
-/* ===== コンテンツ一覧 ===== */
+/* ===== コンテンツ一覧（レスポンシブ修正） ===== */
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr);  /* デスクトップは4列 */
   gap: 25px;
   padding: 40px;
   max-width: 1100px;
   margin: 0 auto;
+}
+
+/* 5番目のカードから2行目に配置 */
+.features .feature-card:nth-child(5) {
+  grid-column: 1;
+}
+.features .feature-card:nth-child(6) {
+  grid-column: 2;
+}
+.features .feature-card:nth-child(7) {
+  grid-column: 3;
 }
 
 .feature-card {
@@ -68,6 +79,31 @@ header {
   border-radius: 8px;
 }
 
+/* ===== レスポンシブ対応 ===== */
+@media (max-width: 992px) {
+  .features {
+    grid-template-columns: repeat(3, 1fr);  /* タブレットは3列 */
+  }
+  
+  /* 3列の場合は自動配置に戻す */
+  .features .feature-card:nth-child(5),
+  .features .feature-card:nth-child(6),
+  .features .feature-card:nth-child(7) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr);  /* 小タブレットは2列 */
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: 1fr;  /* スマホは1列 */
+  }
+}
 /* ===== アクションボタン ===== */
 .actions {
   margin: 40px 0 20px;
