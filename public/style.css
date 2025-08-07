@@ -1,55 +1,72 @@
-/* ===== リセットと基本設定 ===== */
+/* ===== リセット ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background: linear-gradient(135deg, #f5f1ed 0%, #e8dfd5 100%);
-    color: #3b2f2f;
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f1ed;
+    color: #333;
     line-height: 1.6;
+}
+
+/* ===== コンテナ ===== */
+.container {
+    max-width: 100%;
+    background: white;
+    margin: 0 auto;
 }
 
 /* ===== ナビゲーション ===== */
 .navbar {
     background: #2c2c2c;
-    padding: 10px 20px;
+    padding: 12px 20px;
+    width: 100%;
 }
 
 .nav-menu {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
 }
 
-.nav-link {
-    color: #fff;
+.navbar .nav-link {
+    color: white;
     text-decoration: none;
-    font-size: 13px;
-    transition: opacity 0.3s;
+    font-size: 12px;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: opacity 0.3s;
 }
 
-.nav-link:hover {
+.navbar .nav-link:hover {
     opacity: 0.7;
 }
 
 /* ===== ヘッダー ===== */
 .header {
     text-align: center;
-    padding: 40px 20px;
+    padding: 40px 20px 30px;
     background: white;
 }
 
 .logo {
-    width: 280px;
+    width: 260px;
     height: auto;
+    max-width: 90%;
 }
 
 .tagline {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: 16px;
     color: #8b7355;
     margin-top: 10px;
@@ -61,18 +78,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
     padding: 20px;
     background: white;
     border-bottom: 1px solid #e0e0e0;
+    gap: 10px;
 }
 
 .secondary-nav .nav-link {
-    color: #3b2f2f;
+    color: #333;
+    text-decoration: none;
     font-weight: 500;
     font-size: 15px;
-    text-transform: none;
-    padding: 0 10px;
+    padding: 0 15px;
     border-right: 1px solid #d4c4b0;
 }
 
@@ -81,39 +98,395 @@ body {
 }
 
 .see-plans {
-    color: #8b7355;
+    color: #999;
     font-style: italic;
     font-size: 14px;
     margin-left: 10px;
 }
 
-/* ===== メイン ===== */
+/* ===== メインコンテンツ ===== */
 main {
-    background: white;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    background: white;
 }
 
-/* ===== 機能カードセクション ===== */
+/* ===== 機能カード ===== */
 .features-section {
-    padding: 50px 30px;
+    padding: 40px 20px;
+    background: white;
 }
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-.features-grid .feature-card:nth-child(5),
-.features-grid .feature-card:nth-child(6),
-.features-grid .feature-card:nth-child(7) {
-    grid-column: auto;
+@media (min-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 .feature-card {
     background: white;
     border: 1px solid #e0e0e0;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 280px;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card-number {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #8b7355;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 10;
+}
+
+.feature-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.feature-card h3 {
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    background: white;
+}
+
+/* ===== CTAボタン ===== */
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 20px;
+    background: white;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    padding: 12px 35px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 180px;
+}
+
+.cta-button.primary {
+    background: #e74c3c;
+    color: white;
+}
+
+.cta-button.secondary {
+    background: white;
+    color: #e74c3c;
+    border: 2px solid #e74c3c;
+}
+
+.cta-button.tertiary {
+    background: #8b7355;
+    color: white;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* ===== プランセクション ===== */
+.plans-section {
+    padding: 60px 20px;
+    background: #f9f9f9;
+}
+
+.plans-section h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 35px;
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #333;
+}
+
+/* ===== トグルスイッチ ===== */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 45px;
+}
+
+.toggle-label {
+    font-size: 15px;
+    color: #666;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 140px;
+    height: 36px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ddd;
+    border-radius: 36px;
+    transition: .4s;
+}
+
+.slider-text {
+    position: absolute;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.toggle-switch input:checked + .slider {
+    background-color: #e74c3c;
+}
+
+/* ===== プランカード ===== */
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .plans-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.plan-card {
+    background: white;
+    border-radius: 12px;
+    padding: 35px 25px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.plan-card.popular {
+    border: 2px solid #e74c3c;
+}
+
+.ribbon {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+}
+
+.plan-card h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #333;
+}
+
+.price {
+    margin-bottom: 20px;
+}
+
+.amount {
+    font-size: 36px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.period {
+    font-size: 14px;
+    color: #999;
+    margin-left: 5px;
+}
+
+.concept {
+    font-size: 13px;
+    color: #8b7355;
+    margin-bottom: 25px;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.features {
+    list-style: none;
+    margin-bottom: 30px;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.features li {
+    padding: 6px 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.plan-button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: auto;
+    width: 100%;
+    max-width: 200px;
+}
+
+.plan-button.free {
+    background: #8b7355;
+}
+
+.plan-button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* ===== フッター ===== */
+.footer {
+    background: #2c2c2c;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    height: 35px;
+    width: auto;
+}
+
+.copyright {
+    font-size: 13px;
+    color: #999;
+}
+
+.social-links img {
+    width: 28px;
+    height: 28px;
+    transition: opacity 0.3s;
+}
+
+.social-links img:hover {
+    opacity: 0.7;
+}
+
+.app-name {
+    color: #999;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .plans-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .secondary-nav {
+        flex-wrap: wrap;
+    }
+    
+    .secondary-nav .nav-link {
+        border-right: none;
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .plans-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
+    .cta-button {
+        width: 90%;
+        max-width: 250px;
+    }
+}
