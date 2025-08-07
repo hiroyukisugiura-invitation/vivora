@@ -1,453 +1,119 @@
-/* ===== Global Reset ===== */
+/* ===== リセットと基本設定 ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ===== Body ===== */
 body {
-    font-family: 'Noto Sans JP', -apple-system, sans-serif;
-    background: #f5f1ed;
-    color: #333;
+    font-family: 'Noto Sans JP', sans-serif;
+    background: linear-gradient(135deg, #f5f1ed 0%, #e8dfd5 100%);
+    color: #3b2f2f;
+    line-height: 1.6;
 }
 
-/* ===== Topbar ===== */
-.topbar {
-    background: #2a2a2a;
-    padding: 12px 0;
+/* ===== ナビゲーション ===== */
+.navbar {
+    background: #2c2c2c;
+    padding: 10px 20px;
 }
 
-.topbar-nav {
+.nav-menu {
     display: flex;
     justify-content: center;
     gap: 30px;
 }
 
-.topbar-nav a {
-    color: white;
+.nav-link {
+    color: #fff;
     text-decoration: none;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    opacity: 0.9;
+    font-size: 13px;
     transition: opacity 0.3s;
+    text-transform: uppercase;
 }
 
-.topbar-nav a:hover {
-    opacity: 1;
+.nav-link:hover {
+    opacity: 0.7;
 }
 
-/* ===== Container ===== */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background: white;
-    box-shadow: 0 0 30px rgba(0,0,0,0.1);
-}
-
-/* ===== Logo Section ===== */
-.logo-section {
+/* ===== ヘッダー ===== */
+.header {
     text-align: center;
-    padding: 50px 20px 30px;
+    padding: 40px 20px;
+    background: white;
 }
 
-.main-logo {
-    width: 300px;
+.logo {
+    width: 280px;
     height: auto;
 }
 
 .tagline {
     font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: #8b7355;
     font-size: 16px;
+    color: #8b7355;
     margin-top: 10px;
+    font-style: italic;
 }
 
-/* ===== Main Navigation ===== */
-.main-navigation {
+/* ===== セカンダリナビゲーション ===== */
+.secondary-nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
     padding: 20px;
-    border-bottom: 1px solid #e5e5e5;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.main-navigation a {
-    color: #333;
-    text-decoration: none;
-    font-size: 15px;
+.secondary-nav .nav-link {
+    color: #3b2f2f;
     font-weight: 500;
-    padding: 0 15px;
+    font-size: 15px;
+    text-transform: none;
+    padding: 0 10px;
+    border-right: 1px solid #d4c4b0;
 }
 
-.divider {
-    color: #ddd;
-    font-weight: 300;
+.secondary-nav .nav-link:last-of-type {
+    border-right: none;
 }
 
 .see-plans {
-    color: #999;
+    color: #8b7355;
     font-style: italic;
     font-size: 14px;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
-/* ===== Features ===== */
-.features {
-    padding: 50px 30px;
-}
-
-.features-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-.features-container .feature-item:nth-child(5),
-.features-container .feature-item:nth-child(6),
-.features-container .feature-item:nth-child(7) {
-    grid-column: span 1;
-}
-
-.feature-item {
+/* ===== メイン ===== */
+main {
     background: white;
-    border: 1px solid #e5e5e5;
-    border-radius: 15px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s;
-    position: relative;
-}
-
-.feature-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-.feature-number {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 14px;
-    color: #8b7355;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-    z-index: 10;
-}
-
-.feature-image {
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    background: #f9f9f9;
-}
-
-.feature-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.feature-title {
-    padding: 15px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-}
-
-/* ===== Action Buttons ===== */
-.action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 30px;
-}
-
-.action-btn {
-    padding: 12px 35px;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.action-btn.primary {
-    background: #e74c3c;
-    color: white;
-}
-
-.action-btn.secondary {
-    background: white;
-    color: #e74c3c;
-    border: 2px solid #e74c3c;
-}
-
-.action-btn.tertiary {
-    background: #8b7355;
-    color: white;
-}
-
-.action-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* ===== Pricing ===== */
-.pricing {
-    background: #f9f9f9;
-    padding: 60px 30px;
-}
-
-.pricing-title {
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 400;
-    margin-bottom: 40px;
-}
-
-/* ===== Pricing Toggle ===== */
-.pricing-toggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 50px;
-}
-
-.toggle-text {
-    font-size: 15px;
-    color: #666;
-}
-
-.toggle {
-    position: relative;
-    display: inline-block;
-    width: 140px;
-    height: 36px;
-}
-
-.toggle input {
-    display: none;
-}
-
-.toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ddd;
-    border-radius: 34px;
-    transition: .4s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 11px;
-    font-weight: bold;
-}
-
-.toggle input:checked + .toggle-slider {
-    background-color: #e74c3c;
-}
-
-/* ===== Pricing Cards ===== */
-.pricing-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.pricing-card {
+/* ===== 機能カードセクション ===== */
+.features-section {
+    padding: 50px 30px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.features-grid .feature-card:nth-child(5),
+.features-grid .feature-card:nth-child(6),
+.features-grid .feature-card:nth-child(7) {
+    grid-column: auto;
+}
+
+.feature-card {
     background: white;
-    border-radius: 12px;
-    padding: 35px 25px;
-    position: relative;
-    text-align: center;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-    min-height: 500px;
-    display: flex;
-    flex-direction: column;
-}
-
-.pricing-card.featured {
-    border: 2px solid #e74c3c;
-}
-
-.card-ribbon {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 80px;
-    height: 80px;
-}
-
-.card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.card-price {
-    margin-bottom: 20px;
-}
-
-.price-symbol,
-.price-amount {
-    color: #e74c3c;
-    font-weight: bold;
-}
-
-.price-symbol {
-    font-size: 20px;
-}
-
-.price-amount {
-    font-size: 42px;
-}
-
-.price-period {
-    color: #999;
-    font-size: 14px;
-}
-
-.card-subtitle {
-    font-size: 13px;
-    color: #8b7355;
-    margin-bottom: 25px;
-    font-style: italic;
-    line-height: 1.4;
-}
-
-.card-features {
-    list-style: none;
-    text-align: left;
-    margin-bottom: 30px;
-    flex-grow: 1;
-}
-
-.card-features li {
-    padding: 6px 0;
-    font-size: 13px;
-    color: #666;
-    line-height: 1.6;
-}
-
-.card-button {
-    background: #e74c3c;
-    color: white;
-    border: none;
-    padding: 12px 40px;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 500;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
     cursor: pointer;
-    transition: all 0.3s;
-    margin-top: auto;
-}
-
-.card-button.free {
-    background: #8b7355;
-}
-
-.card-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* ===== Footer ===== */
-.footer {
-    background: #2a2a2a;
-    color: white;
-    text-align: center;
-    padding: 50px 20px;
-}
-
-.footer-logo img {
-    height: 35px;
-    margin-bottom: 20px;
-}
-
-.footer-copyright {
-    font-size: 13px;
-    color: #999;
-    margin-bottom: 20px;
-}
-
-.footer-instagram img {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 10px;
-}
-
-.footer-handle {
-    font-size: 13px;
-    color: #666;
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 992px) {
-    .features-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .pricing-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .topbar-nav {
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-    
-    .features-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .action-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .action-btn {
-        width: 250px;
-    }
-}
-
-@media (max-width: 480px) {
-    .main-navigation {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .divider {
-        display: none;
-    }
-    
-    .features-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .pricing-cards {
-        grid-template-columns: 1fr;
-    }
-}
