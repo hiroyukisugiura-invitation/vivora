@@ -112,29 +112,38 @@
   </div>
 </section>
 
-  <!-- フッター -->
-  <footer>
-    <div class="footer-content">
-      <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
-      <a href="https://www.instagram.com/vivora.app" target="_blank">
-        <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
-      </a>
-    </div>
-  </footer>
+<!-- フッター -->
+<footer>
+  <div class="footer-content">
+    <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
+    <a href="https://www.instagram.com/vivora.app" target="_blank">
+      <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
+    </a>
+  </div>
+</footer>
 
-  <!-- プラン切り替えスクリプト -->
-  <script>
-    const toggle = document.getElementById('billing-toggle');
-    const prices = document.querySelectorAll('.price');
+<!-- プラン切り替えスクリプト（組み込み） -->
+<script>
+  const toggle = document.getElementById('billing-toggle');
+  const prices = document.querySelectorAll('.price[data-monthly]');
+  const priceDetails = document.querySelectorAll('.price-detail');
+  const saveAmounts = document.querySelectorAll('.save-amount');
 
-    toggle.addEventListener('change', () => {
-      const isYearly = toggle.checked;
-      prices.forEach(price => {
-        if (price.dataset.yearly && price.dataset.monthly) {
-          price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
-        }
-      });
+  toggle.addEventListener('change', () => {
+    const isYearly = toggle.checked;
+    
+    prices.forEach(price => {
+      price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
     });
-  </script>
+    
+    priceDetails.forEach(detail => {
+      detail.textContent = isYearly ? detail.dataset.yearly : detail.dataset.monthly;
+    });
+    
+    saveAmounts.forEach(amount => {
+      amount.style.display = isYearly ? 'inline-block' : 'none';
+    });
+  });
+</script>
 </body>
 </html>
