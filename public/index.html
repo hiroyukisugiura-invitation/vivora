@@ -5,233 +5,238 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vivora - Style your tomorrow.</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- トップナビゲーション -->
-    <nav class="top-nav">
-        <a href="#">AI</a>
-        <a href="#">All</a>
-        <a href="#">News</a>
-        <a href="#">SNS</a>
-        <a href="#">INVITATION</a>
-        <a href="#">SHOP</a>
-        <a href="#">Design</a>
-        <a href="#">Shop</a>
-        <a href="#">Lists</a>
-    </nav>
+    <!-- トップバー -->
+    <div class="topbar">
+        <nav class="topbar-nav">
+            <a href="#">AI</a>
+            <a href="#">ALL</a>
+            <a href="#">NEWS</a>
+            <a href="#">SNS</a>
+            <a href="#">INVITATION</a>
+            <a href="#">SHOP</a>
+            <a href="#">DESIGN</a>
+            <a href="#">SHOP</a>
+            <a href="#">LISTS</a>
+        </nav>
+    </div>
 
-    <!-- メインコンテナ -->
-    <div class="main-container">
-        <!-- ヘッダー -->
-        <header class="header">
-            <img src="logo/vivora_logo.png" alt="Vivora" class="logo">
+    <!-- メインコンテンツ -->
+    <div class="container">
+        <!-- ロゴセクション -->
+        <header class="logo-section">
+            <img src="logo/vivora_logo.png" alt="Vivora" class="main-logo">
             <p class="tagline">Style your tomorrow.</p>
         </header>
 
-        <!-- メインナビゲーション -->
-        <nav class="main-nav">
+        <!-- ナビゲーション -->
+        <nav class="main-navigation">
             <a href="#clothing">Clothing</a>
+            <span class="divider">|</span>
             <a href="#plans">Plans</a>
+            <span class="divider">|</span>
             <a href="work/kids/">Kids</a>
+            <span class="divider">|</span>
             <a href="#">Log In</a>
+            <span class="divider">|</span>
             <a href="#">Sign Up</a>
             <span class="see-plans">or See Plans</span>
         </nav>
 
-        <!-- 機能カードセクション -->
-        <section class="features-section">
-            <div class="features-grid">
-                <!-- Row 1 -->
-                <div class="feature-card" onclick="location.href='work/illustration/'">
-                    <span class="card-number">1</span>
-                    <div class="card-image">
+        <!-- 機能カード -->
+        <section class="features">
+            <div class="features-container">
+                <!-- 1行目 -->
+                <div class="feature-item" onclick="location.href='work/illustration/'">
+                    <div class="feature-number">1</div>
+                    <div class="feature-image">
                         <img src="contents/content1.png" alt="Fashion Illustrations">
                     </div>
-                    <h3>Fashion Illustrations</h3>
+                    <div class="feature-title">Fashion Illustrations</div>
                 </div>
 
-                <div class="feature-card" onclick="location.href='work/fabric/'">
-                    <span class="card-number">2</span>
-                    <div class="card-image">
+                <div class="feature-item" onclick="location.href='work/fabric/'">
+                    <div class="feature-number">2</div>
+                    <div class="feature-image">
                         <img src="contents/content2.png" alt="Fabric Matching">
                     </div>
-                    <h3>Fabric Matching</h3>
+                    <div class="feature-title">Fabric Matching</div>
                 </div>
 
-                <div class="feature-card" onclick="location.href='work/clothing/'">
-                    <span class="card-number">3</span>
-                    <div class="card-image">
+                <div class="feature-item" onclick="location.href='work/clothing/'">
+                    <div class="feature-number">3</div>
+                    <div class="feature-image">
                         <img src="contents/content3.png" alt="Clothing Design">
                     </div>
-                    <h3>Clothing Design</h3>
+                    <div class="feature-title">Clothing Design</div>
                 </div>
 
-                <div class="feature-card" onclick="location.href='work/pattern/'">
-                    <span class="card-number">4</span>
-                    <div class="card-image">
+                <div class="feature-item" onclick="location.href='work/pattern/'">
+                    <div class="feature-number">4</div>
+                    <div class="feature-image">
                         <img src="contents/content4.png" alt="Pattern Creation">
                     </div>
-                    <h3>Pattern Creation</h3>
+                    <div class="feature-title">Pattern Creation</div>
                 </div>
 
-                <!-- Row 2 -->
-                <div class="feature-card" onclick="location.href='work/grading/'">
-                    <span class="card-number">5</span>
-                    <div class="card-image">
+                <!-- 2行目 -->
+                <div class="feature-item" onclick="location.href='work/grading/'">
+                    <div class="feature-number">5</div>
+                    <div class="feature-image">
                         <img src="contents/content5.png" alt="Grading">
                     </div>
-                    <h3>Grading</h3>
+                    <div class="feature-title">Grading</div>
                 </div>
 
-                <div class="feature-card" onclick="location.href='work/print/'">
-                    <span class="card-number">6</span>
-                    <div class="card-image">
+                <div class="feature-item" onclick="location.href='work/print/'">
+                    <div class="feature-number">6</div>
+                    <div class="feature-image">
                         <img src="contents/content6.png" alt="Print Layout & Cut">
                     </div>
-                    <h3>Print Layout & Cut</h3>
+                    <div class="feature-title">Print Layout & Cut</div>
                 </div>
 
-                <div class="feature-card" onclick="location.href='work/kids/'">
-                    <span class="card-number">7</span>
-                    <div class="card-image">
+                <div class="feature-item" onclick="location.href='work/kids/'">
+                    <div class="feature-number">7</div>
+                    <div class="feature-image">
                         <img src="contents/content7.png" alt="Digital Dressing Kids Mode">
                     </div>
-                    <h3>Digital Dressing Kids Mode</h3>
+                    <div class="feature-title">Digital Dressing Kids Mode</div>
                 </div>
             </div>
         </section>
 
-        <!-- CTAボタン -->
-        <section class="cta-section">
-            <button class="btn btn-primary">Start Designing Now</button>
-            <button class="btn btn-secondary">Explore Plans</button>
-            <button class="btn btn-tertiary">Try Free Demo</button>
+        <!-- アクションボタン -->
+        <section class="action-buttons">
+            <button class="action-btn primary">Start Designing Now</button>
+            <button class="action-btn secondary">Explore Plans</button>
+            <button class="action-btn tertiary">Try Free Demo</button>
         </section>
 
         <!-- プランセクション -->
-        <section class="plans-section">
-            <h2>Choose Your Plan</h2>
+        <section class="pricing">
+            <h2 class="pricing-title">Choose Your Plan</h2>
             
-            <!-- 料金切り替え -->
-            <div class="billing-toggle">
-                <span>Monthly</span>
-                <label class="switch">
-                    <input type="checkbox" id="billingToggle">
-                    <span class="slider">2 months FREE</span>
+            <div class="pricing-toggle">
+                <span class="toggle-text">Monthly</span>
+                <label class="toggle">
+                    <input type="checkbox" id="priceToggle">
+                    <span class="toggle-slider">2 months FREE</span>
                 </label>
-                <span>Yearly</span>
+                <span class="toggle-text">Yearly</span>
             </div>
 
-            <!-- プランカード -->
-            <div class="plans-grid">
+            <div class="pricing-cards">
                 <!-- Spark -->
-                <div class="plan-card">
-                    <div class="ribbon-wrapper">
-                        <img src="ribbon/ribbon_free.png" alt="Free" class="ribbon">
+                <div class="pricing-card">
+                    <img src="ribbon/ribbon_free.png" alt="Free" class="card-ribbon">
+                    <h3 class="card-title">Spark</h3>
+                    <div class="card-price">
+                        <span class="price-symbol">¥</span>
+                        <span class="price-amount">0</span>
+                        <span class="price-period">/month</span>
                     </div>
-                    <h3>Spark</h3>
-                    <div class="price">
-                        <span class="currency">¥</span>
-                        <span class="amount">0</span>
-                        <span class="period">/month</span>
-                    </div>
-                    <p class="tagline">「ひらめき」を形にする最初の一歩</p>
-                    <ul class="features-list">
+                    <p class="card-subtitle">「ひらめき」を形にする最初の一歩</p>
+                    <ul class="card-features">
                         <li>✓ 基本ツール</li>
                         <li>✓ デザインの楽しさを体験</li>
                         <li>✓ 学生・ホビイスト向け</li>
                     </ul>
-                    <button class="btn-plan btn-free">Start Free</button>
+                    <button class="card-button free">Start Free</button>
                 </div>
 
                 <!-- Creator -->
-                <div class="plan-card">
-                    <h3>Creator</h3>
-                    <div class="price">
-                        <span class="currency">¥</span>
-                        <span class="amount" data-monthly="3,600" data-yearly="36,000">3,600</span>
-                        <span class="period">/month</span>
+                <div class="pricing-card">
+                    <h3 class="card-title">Creator</h3>
+                    <div class="card-price">
+                        <span class="price-symbol">¥</span>
+                        <span class="price-amount" data-monthly="3,600" data-yearly="36,000">3,600</span>
+                        <span class="price-period">/month</span>
                     </div>
-                    <p class="tagline">「クリエイター」としての第一歩</p>
-                    <ul class="features-list">
+                    <p class="card-subtitle">「クリエイター」としての第一歩</p>
+                    <ul class="card-features">
                         <li>✓ 全デザインツール</li>
                         <li>✓ 保存・書き出し機能</li>
                         <li>✓ デザインを完成させ、世に出す</li>
                         <li>✓ フリーランス・インディー向け</li>
                     </ul>
-                    <button class="btn-plan">Select</button>
+                    <button class="card-button">Select</button>
                 </div>
 
                 <!-- Brand -->
-                <div class="plan-card featured">
-                    <div class="ribbon-wrapper">
-                        <img src="ribbon/ribbon_toppick.png" alt="Top Pick" class="ribbon">
+                <div class="pricing-card featured">
+                    <img src="ribbon/ribbon_toppick.png" alt="Top Pick" class="card-ribbon">
+                    <h3 class="card-title">Brand</h3>
+                    <div class="card-price">
+                        <span class="price-symbol">¥</span>
+                        <span class="price-amount" data-monthly="7,200" data-yearly="72,000">7,200</span>
+                        <span class="price-period">/month</span>
                     </div>
-                    <h3>Brand</h3>
-                    <div class="price">
-                        <span class="currency">¥</span>
-                        <span class="amount" data-monthly="7,200" data-yearly="72,000">7,200</span>
-                        <span class="period">/month</span>
-                    </div>
-                    <p class="tagline">自分の「ブランド」を立ち上げる</p>
-                    <ul class="features-list">
+                    <p class="card-subtitle">自分の「ブランド」を立ち上げる</p>
+                    <ul class="card-features">
                         <li>✓ 全パターン/グレーディング機能</li>
                         <li>✓ プリントレイアウト</li>
                         <li>✓ デザインを製品化し、ビジネスに</li>
                         <li>✓ プロ・小規模ブランド向け</li>
                     </ul>
-                    <button class="btn-plan">Select</button>
+                    <button class="card-button">Select</button>
                 </div>
 
                 <!-- Atelier -->
-                <div class="plan-card">
-                    <div class="ribbon-wrapper">
-                        <img src="ribbon/ribbon_bestvalue.png" alt="Best Value" class="ribbon">
+                <div class="pricing-card">
+                    <img src="ribbon/ribbon_bestvalue.png" alt="Best Value" class="card-ribbon">
+                    <h3 class="card-title">Atelier</h3>
+                    <div class="card-price">
+                        <span class="price-symbol">¥</span>
+                        <span class="price-amount" data-monthly="12,000" data-yearly="120,000">12,000</span>
+                        <span class="price-period">/month</span>
                     </div>
-                    <h3>Atelier</h3>
-                    <div class="price">
-                        <span class="currency">¥</span>
-                        <span class="amount" data-monthly="12,000" data-yearly="120,000">12,000</span>
-                        <span class="period">/month</span>
-                    </div>
-                    <p class="tagline">プロの「アトリエ」としてビジネスを拡大</p>
-                    <ul class="features-list">
+                    <p class="card-subtitle">プロの「アトリエ」としてビジネスを拡大</p>
+                    <ul class="card-features">
                         <li>✓ チーム共同編集</li>
                         <li>✓ 高度なプロ向けツール</li>
                         <li>✓ チームでビジネスを加速</li>
                         <li>✓ デザインチーム・教育機関向け</li>
                     </ul>
-                    <button class="btn-plan">Select</button>
+                    <button class="card-button">Select</button>
                 </div>
             </div>
         </section>
 
         <!-- フッター -->
         <footer class="footer">
-            <img src="logo/invitation_logo.png" alt="INVITATION" class="footer-logo">
-            <p>© 2025 INVITATION Co. All rights reserved.</p>
-            <a href="https://instagram.com/vivora.app" target="_blank" class="instagram">
+            <div class="footer-logo">
+                <img src="logo/invitation_logo.png" alt="INVITATION">
+            </div>
+            <p class="footer-copyright">© 2025 INVITATION Co. All rights reserved.</p>
+            <a href="https://instagram.com/vivora.app" class="footer-instagram">
                 <img src="logo/instagram.png" alt="Instagram">
             </a>
-            <p class="app-handle">@vivora.app</p>
+            <p class="footer-handle">@vivora.app</p>
         </footer>
     </div>
 
-    <!-- JavaScript -->
     <script>
-        // 料金切り替え
-        document.getElementById('billingToggle').addEventListener('change', function() {
-            const amounts = document.querySelectorAll('.amount[data-monthly]');
-            const periods = document.querySelectorAll('.period');
+        // 価格切り替え
+        document.getElementById('priceToggle').addEventListener('change', function() {
+            const amounts = document.querySelectorAll('.price-amount[data-monthly]');
+            const periods = document.querySelectorAll('.price-period');
             
             amounts.forEach(amount => {
                 if (this.checked) {
                     amount.textContent = amount.getAttribute('data-yearly');
-                    periods.forEach(p => p.textContent = '/year');
                 } else {
                     amount.textContent = amount.getAttribute('data-monthly');
-                    periods.forEach(p => p.textContent = '/month');
+                }
+            });
+            
+            periods.forEach(period => {
+                if (this.checked) {
+                    period.textContent = '/year';
+                } else {
+                    period.textContent = '/month';
                 }
             });
         });
