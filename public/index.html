@@ -93,59 +93,69 @@
         <div class="toggle-switch" id="billing-toggle">
           <div class="toggle-slider"></div>
         </div>
-        <span>Yearly</span>
+        <span>Yearly <span class="discount-text">2 months FREE</span></span>
       </div>
 
       <div class="plans-container">
-        <!-- Try プラン -->
+        <!-- Spark プラン -->
         <div class="plan-card">
           <div class="plan-ribbon ribbon-free">Free</div>
-          <div class="plan-name">Try</div>
-          <div class="plan-price">¥0</div>
+          <div class="plan-name">Spark</div>
+          <div class="plan-price" data-monthly="0" data-yearly="0">¥0</div>
+          <div class="plan-concept">「ひらめき」を形にする最初の火花</div>
           <ul class="plan-features">
-            <li>Basic demo only</li>
-            <li>Limited templates</li>
-            <li>No data or support</li>
+            <li>基本ツール</li>
+            <li>デザインの楽しさを体験</li>
+            <li>学生・ホビイスト向け</li>
           </ul>
-          <button class="plan-button btn-free" onclick="selectPlan('try')">Start Free</button>
+          <button class="plan-button btn-free" onclick="selectPlan('spark')">Start Free</button>
         </div>
 
-        <!-- Flow プラン -->
+        <!-- Creator プラン -->
         <div class="plan-card">
-          <div class="plan-name">Flow</div>
-          <div class="plan-price">¥2,980</div>
+          <div class="plan-name">Creator</div>
+          <div class="plan-price" data-monthly="3600" data-yearly="3000">¥3,600</div>
+          <div class="plan-billing">/ month</div>
+          <div class="plan-concept">「クリエイター」としての第一歩</div>
           <ul class="plan-features">
-            <li>Basic clothing tools</li>
-            <li>Full pattern & drawing</li>
-            <li>Assistant support</li>
+            <li>全デザインツール</li>
+            <li>保存/書き出し機能</li>
+            <li>デザインを完成させ、世に出す</li>
+            <li>フリーランス・インディー向け</li>
           </ul>
-          <button class="plan-button btn-select" onclick="selectPlan('flow')">Select</button>
+          <button class="plan-button btn-select" onclick="selectPlan('creator')">Select</button>
         </div>
 
-        <!-- Craft プラン -->
-        <div class="plan-card">
+        <!-- Brand プラン -->
+        <div class="plan-card recommended">
           <div class="plan-ribbon ribbon-popular">Top Pick</div>
-          <div class="plan-name">Craft</div>
-          <div class="plan-price">¥6,980</div>
+          <div class="plan-name">Brand</div>
+          <div class="plan-price" data-monthly="7200" data-yearly="6000">¥7,200</div>
+          <div class="plan-billing">/ month</div>
+          <div class="plan-concept">自分の「ブランド」を立ち上げる</div>
           <ul class="plan-features">
-            <li>All clothing types</li>
-            <li>Fashion / designing / illustration</li>
-            <li>Unlimited views</li>
+            <li><strong>全パターン/グレーディング機能</strong></li>
+            <li>プリントレイアウト</li>
+            <li>デザインを製品化し、ビジネスに</li>
+            <li>プロ・小規模ブランド向け</li>
           </ul>
-          <button class="plan-button btn-select" onclick="selectPlan('craft')">Select</button>
+          <button class="plan-button btn-select primary" onclick="selectPlan('brand')">Select</button>
         </div>
 
-        <!-- Master プラン -->
+        <!-- Atelier プラン -->
         <div class="plan-card">
           <div class="plan-ribbon ribbon-value">Best Value</div>
-          <div class="plan-name">Master</div>
-          <div class="plan-price">¥9,800</div>
+          <div class="plan-name">Atelier</div>
+          <div class="plan-price" data-monthly="12000" data-yearly="10000">¥12,000</div>
+          <div class="plan-billing">/ month</div>
+          <div class="plan-concept">プロの「アトリエ」としてビジネスを拡大</div>
           <ul class="plan-features">
-            <li>Full access</li>
-            <li>Print-ready output</li>
-            <li>Team & Pro tools</li>
+            <li><strong>チーム共同編集</strong></li>
+            <li>高度なプロ向けツール</li>
+            <li>チームでビジネスを加速</li>
+            <li>デザインチーム・教育機関向け</li>
           </ul>
-          <button class="plan-button btn-select" onclick="selectPlan('master')">Select</button>
+          <button class="plan-button btn-select" onclick="selectPlan('atelier')">Select</button>
         </div>
       </div>
     </section>
@@ -171,15 +181,18 @@
       const prices = document.querySelectorAll('.plan-price');
       
       // 価格更新（年額の場合は割引価格）
-      if (isYearly) {
-        prices[1].textContent = '¥2,483'; // Flow年額
-        prices[2].textContent = '¥5,817'; // Craft年額  
-        prices[3].textContent = '¥8,167'; // Master年額
-      } else {
-        prices[1].textContent = '¥2,980'; // Flow月額
-        prices[2].textContent = '¥6,980'; // Craft月額
-        prices[3].textContent = '¥9,800'; // Master月額
-      }
+      prices.forEach(price => {
+        const monthlyPrice = parseInt(price.dataset.monthly);
+        const yearlyPrice = parseInt(price.dataset.yearly);
+        
+        if (monthlyPrice > 0) { // 無料プラン以外
+          if (isYearly) {
+            price.textContent = `¥${yearlyPrice.toLocaleString()}`;
+          } else {
+            price.textContent = `¥${monthlyPrice.toLocaleString()}`;
+          }
+        }
+      });
     });
 
     // ナビゲーション機能
@@ -251,17 +264,17 @@
       console.log(`Selected plan: ${planType}`);
       
       switch(planType) {
-        case 'try':
+        case 'spark':
           window.location.href = '/signup?plan=free';
           break;
-        case 'flow':
-          window.location.href = '/checkout?plan=flow';
+        case 'creator':
+          window.location.href = '/checkout?plan=creator';
           break;
-        case 'craft':
-          window.location.href = '/checkout?plan=craft';
+        case 'brand':
+          window.location.href = '/checkout?plan=brand';
           break;
-        case 'master':
-          window.location.href = '/checkout?plan=master';
+        case 'atelier':
+          window.location.href = '/checkout?plan=atelier';
           break;
       }
     }
