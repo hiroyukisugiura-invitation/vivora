@@ -1,439 +1,418 @@
 /* ===== リセット ===== */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: #faf8f5;
-    color: #333;
-    line-height: 1.6;
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #faf8f5;
+  color: #333;
+  line-height: 1.6;
 }
 
 /* ===== ヘッダー ===== */
 header {
-    background: white;
-    padding: 40px 20px 0;
+  background: white;
+  padding: 40px 20px 0;
 }
 
 .logo-section {
-    text-align: center;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .logo {
-    width: 300px;
-    height: auto;
-    max-width: 90%;
+  width: 300px;
+  height: auto;
+  max-width: 90%;
 }
 
 .tagline {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: #8b7355;
-    font-size: 16px;
-    margin-top: 8px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #8b7355;
+  font-size: 16px;
+  margin-top: 8px;
 }
 
 /* ===== ナビゲーション ===== */
 .navigation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid #e5e0d8;
-    gap: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #e5e0d8;
+  gap: 5px;
+  flex-wrap: wrap;
 }
 
 .navigation a {
-    color: #333;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 0 12px;
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0 12px;
 }
 
 .navigation span {
-    color: #ddd;
+  color: #ddd;
 }
 
 .or-plans {
-    color: #999 !important;
-    font-style: italic;
-    margin-left: 15px;
+  color: #999 !important;
+  font-style: italic;
+  margin-left: 15px;
 }
 
-/* ===== 機能カードセクション ===== */
+/* ===== 機能カード ===== */
 .features {
-    background: white;
-    padding: 50px 40px;
+  background: white;
+  padding: 50px 40px;
 }
 
 .card-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-/* 7番目のカードは3列目に配置 */
-.card-grid .card:nth-child(5) {
-    grid-column: 1;
-}
-
-.card-grid .card:nth-child(6) {
-    grid-column: 2;
-}
-
-.card-grid .card:nth-child(7) {
-    grid-column: 3;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .card {
-    background: white;
-    border: 1px solid #e5e0d8;
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s;
-    position: relative;
+  background: white;
+  border: 1px solid #e5e0d8;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .number {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    z-index: 1;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1;
 }
 
 .card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
 }
 
 .card h3 {
-    padding: 15px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 500;
-    background: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 /* ===== アクションボタン ===== */
 .actions {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 40px 20px;
-    background: white;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 20px;
+  background: white;
+  flex-wrap: wrap;
 }
 
 .btn-action {
-    padding: 12px 35px;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
+  padding: 12px 35px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .btn-action.primary {
-    background: #ff5555;
-    color: white;
+  background: #ff5555;
+  color: white;
 }
 
 .btn-action.secondary {
-    background: white;
-    color: #ff5555;
-    border: 2px solid #ff5555;
+  background: white;
+  color: #ff5555;
+  border: 2px solid #ff5555;
 }
 
 .btn-action.tertiary {
-    background: #8b7355;
-    color: white;
+  background: #8b7355;
+  color: white;
 }
 
 .btn-action:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== 料金プランセクション ===== */
+/* ===== 料金プラン ===== */
 .pricing {
-    padding: 60px 40px;
-    background: #faf8f5;
+  padding: 60px 40px;
+  background: #faf8f5;
 }
 
 .pricing h2 {
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 400;
-    margin-bottom: 40px;
-    color: #333;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 40px;
+  color: #333;
 }
 
-/* ===== トグルスイッチ ===== */
+/* トグル */
 .toggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 50px;
 }
 
 .toggle span {
-    font-size: 15px;
-    color: #666;
+  font-size: 15px;
+  color: #666;
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 28px;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 28px;
 }
 
 .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ddd;
-    border-radius: 28px;
-    transition: .4s;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ddd;
+  border-radius: 28px;
+  transition: 0.4s;
 }
 
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    border-radius: 50%;
-    transition: .4s;
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
-    background-color: #ff5555;
+  background-color: #ff5555;
 }
 
 input:checked + .slider:before {
-    transform: translateX(32px);
+  transform: translateX(32px);
 }
 
-/* ===== プランカード ===== */
+/* プランカード */
 .plan-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .plan {
-    background: white;
-    border-radius: 15px;
-    padding: 35px 25px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    min-height: 380px;
-    display: flex;
-    flex-direction: column;
+  background: white;
+  border-radius: 15px;
+  padding: 35px 25px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
 }
 
 .plan.highlight {
-    border: 2px solid #ff5555;
+  border: 2px solid #ff5555;
 }
 
-/* ===== リボン ===== */
+/* リボン */
 .corner-ribbon {
-    position: absolute;
-    top: 10px;
-    right: -35px;
-    padding: 8px 40px;
-    font-size: 10px;
-    font-weight: 700;
-    color: white;
-    text-transform: uppercase;
-    transform: rotate(45deg);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: absolute;
+  top: 10px;
+  right: -35px;
+  padding: 8px 40px;
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+  pointer-events: none;
 }
 
 .corner-ribbon.blue {
-    background: #4169e1;
+  background: #4169e1;
 }
 
 .corner-ribbon.red {
-    background: #ff5555;
+  background: #ff5555;
 }
 
 .corner-ribbon.yellow {
-    background: #ffd700;
-    color: #333;
+  background: #ffd700;
+  color: #333;
 }
 
-/* ===== プラン内容 ===== */
+/* プラン内容 */
 .plan h3 {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 10px 0 20px;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 10px 0 20px;
 }
 
 .price {
-    font-size: 36px;
-    font-weight: 700;
-    color: #ff5555;
-    margin-bottom: 20px;
+  font-size: 36px;
+  font-weight: 700;
+  color: #ff5555;
+  margin-bottom: 20px;
 }
 
 .details {
-    font-size: 13px;
-    line-height: 1.8;
-    color: #666;
-    margin-bottom: 25px;
-    min-height: 60px;
-    flex-grow: 1;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 25px;
+  min-height: 60px;
+  flex-grow: 1;
 }
 
 .btn-select {
-    background: #ff5555;
-    color: white;
-    border: none;
-    padding: 12px 40px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    width: 100%;
-    max-width: 150px;
-    margin: 0 auto;
+  background: #ff5555;
+  color: white;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  max-width: 150px;
+  margin: 0 auto;
 }
 
 .btn-select.gray {
-    background: #999;
+  background: #999;
 }
 
 .btn-select:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255,85,85,0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 85, 85, 0.3);
 }
 
 /* ===== フッター ===== */
 footer {
-    background: white;
-    padding: 50px 20px;
-    text-align: center;
-    border-top: 1px solid #e5e0d8;
+  background: white;
+  padding: 50px 20px;
+  text-align: center;
+  border-top: 1px solid #e5e0d8;
 }
 
 footer img {
-    height: 35px;
-    margin-bottom: 15px;
+  height: 35px;
+  margin-bottom: 15px;
 }
 
 footer p {
-    color: #999;
-    font-size: 13px;
-    margin: 10px 0;
+  color: #999;
+  font-size: 13px;
+  margin: 10px 0;
 }
 
 .social {
-    width: 30px;
-    height: 30px;
-    margin: 20px 0 10px;
+  width: 30px;
+  height: 30px;
+  margin: 20px 0 10px;
 }
 
 .handle {
-    color: #666;
-    font-size: 14px;
+  color: #666;
+  font-size: 14px;
 }
 
-/* ===== レスポンシブ ===== */
+/* ===== レスポンシブ対応 ===== */
 @media (max-width: 992px) {
-    .card-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .card-grid .card:nth-child(5),
-    .card-grid .card:nth-child(6),
-    .card-grid .card:nth-child(7) {
-        grid-column: auto;
-    }
-    
-    .plan-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .plan-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-    .card-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .actions {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .btn-action {
-        width: 250px;
-    }
-    
-    .plan-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-action {
+    width: 250px;
+  }
+
+  .plan-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 480px) {
-    .navigation {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    
-    .navigation span {
-        display: none;
-    }
-    
-    .card-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .plan-cards {
-        grid-template-columns: 1fr;
-    }
+  .navigation {
+    flex-direction: column;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan-cards {
+    grid-template-columns: 1fr;
+  }
 }
