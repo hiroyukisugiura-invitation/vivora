@@ -5,138 +5,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora - Style your tomorrow.</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- ロゴ & ナビ -->
   <header>
-    <div class="logo-section">
-      <img src="logo/vivora_logo.png" alt="Vivora" class="logo">
-      <p class="tagline">Style your tomorrow.</p>
-    </div>
-    <nav class="navigation">
-      <a href="#clothing">Clothing</a><span>|</span>
-      <a href="#plans">Plans</a><span>|</span>
-      <a href="work/kids/">Kids</a><span>|</span>
-      <a href="#">Log In</a><span>|</span>
+    <img src="assets/logo/vivora_logo.png" alt="Vivora" class="main-logo" />
+    <p class="tagline">Style your tomorrow.</p>
+    <nav class="nav">
+      <a href="#">Clothing</a>
+      <span>|</span>
+      <a href="#">Plans</a>
+      <span>|</span>
+      <a href="#">Kids</a>
+      <span>|</span>
+      <a href="#">Log In</a>
+      <span>|</span>
       <a href="#">Sign Up</a>
       <span class="or-plans">or See Plans</span>
     </nav>
   </header>
 
-  <!-- Features -->
+  <!-- 機能カード -->
   <section class="features">
     <div class="card-grid">
-      <div class="card" onclick="location.href='work/illustration/'">
-        <span class="number">1</span>
-        <img src="contents/content1.png" alt="Fashion Illustrations" />
-        <h3>Fashion Illustrations</h3>
-      </div>
-      <div class="card" onclick="location.href='work/fabric/'">
-        <span class="number">2</span>
-        <img src="contents/content2.png" alt="Fabric Matching" />
-        <h3>Fabric Matching</h3>
-      </div>
-      <div class="card" onclick="location.href='work/clothing/'">
-        <span class="number">3</span>
-        <img src="contents/content3.png" alt="Clothing Design" />
-        <h3>Clothing Design</h3>
-      </div>
-      <div class="card" onclick="location.href='work/pattern/'">
-        <span class="number">4</span>
-        <img src="contents/content4.png" alt="Pattern Creation" />
-        <h3>Pattern Creation</h3>
-      </div>
-      <div class="card" onclick="location.href='work/grading/'">
-        <span class="number">5</span>
-        <img src="contents/content5.png" alt="Grading" />
-        <h3>Grading</h3>
-      </div>
-      <div class="card" onclick="location.href='work/print/'">
-        <span class="number">6</span>
-        <img src="contents/content6.png" alt="Print Layout & Cut" />
-        <h3>Print Layout & Cut</h3>
-      </div>
-      <div class="card" onclick="location.href='work/kids/'">
-        <span class="number">7</span>
-        <img src="contents/content7.png" alt="Digital Dressing Kids Mode" />
-        <h3>Digital Dressing Kids Mode</h3>
-      </div>
+      <div class="card"><span class="num">1</span><img src="assets/contents/content1.jpg" alt=""><p>Fashion Illustrations</p></div>
+      <div class="card"><span class="num">2</span><img src="assets/contents/content2.jpg" alt=""><p>Fabric Matching</p></div>
+      <div class="card"><span class="num">3</span><img src="assets/contents/content3.jpg" alt=""><p>Clothing Design</p></div>
+      <div class="card"><span class="num">4</span><img src="assets/contents/content4.jpg" alt=""><p>Pattern Creation</p></div>
+      <div class="card"><span class="num">5</span><img src="assets/contents/content5.jpg" alt=""><p>Grading</p></div>
+      <div class="card"><span class="num">6</span><img src="assets/contents/content6.jpg" alt=""><p>Print Layout & Cut</p></div>
+      <div class="card"><span class="num">7</span><img src="assets/contents/content7.jpg" alt=""><p>Digital Dressing Kids Mode</p></div>
     </div>
   </section>
 
-  <!-- CTA Buttons -->
+  <!-- ボタン -->
   <section class="actions">
-    <button class="btn-action primary">Start Designing Now</button>
-    <button class="btn-action secondary">Explore Plans</button>
-    <button class="btn-action tertiary">Try Free Demo</button>
+    <button class="pill red">Start Designing Now</button>
+    <button class="pill white-red">Explore Plans</button>
+    <button class="pill brown">Try Free Demo</button>
   </section>
 
-  <!-- Pricing Plans -->
-  <section class="pricing" id="plans">
+  <!-- プラン -->
+  <section class="plans">
     <h2>Choose Your Plan</h2>
     <div class="toggle">
       <span>Monthly</span>
       <label class="switch">
-        <input type="checkbox" id="yearlyToggle">
+        <input type="checkbox" id="toggle">
         <span class="slider"></span>
       </label>
       <span>Yearly</span>
     </div>
-    <div class="plan-cards">
+    <div class="plan-grid">
       <div class="plan">
-        <div class="corner-ribbon blue">FREE</div>
+        <div class="ribbon blue">FREE</div>
         <h3>Try</h3>
         <p class="price">¥0</p>
-        <p class="details">Basic demo only<br>Limited templates<br>No save or export</p>
-        <button class="btn-select gray">Start Free</button>
+        <p class="desc">Basic demo only<br>Limited templates<br>No save or export</p>
+        <button class="pill gray">Start Free</button>
       </div>
       <div class="plan">
         <h3>Flow</h3>
-        <p class="price">¥<span id="flow-price">2,950</span></p>
-        <p class="details">Basic clothing tools<br>Add design & save<br>Advanced support</p>
-        <button class="btn-select">Select</button>
+        <p class="price">¥<span id="flow-price">2,980</span></p>
+        <p class="desc">Basic clothing tools<br>Add design & save<br>Assistant support</p>
+        <button class="pill red">Select</button>
       </div>
       <div class="plan highlight">
-        <div class="corner-ribbon red">Top Pick</div>
+        <div class="ribbon red">Top Pick</div>
         <h3>Craft</h3>
         <p class="price">¥<span id="craft-price">6,980</span></p>
-        <p class="details">All clothing types<br>Pattern / grading / illustration<br>Business clients</p>
-        <button class="btn-select">Select</button>
+        <p class="desc">All clothing types<br>Pattern / grading / illustration<br>Unlimited saves</p>
+        <button class="pill red">Select</button>
       </div>
       <div class="plan">
-        <div class="corner-ribbon yellow">Best Value</div>
+        <div class="ribbon yellow">Best Value</div>
         <h3>Master</h3>
         <p class="price">¥<span id="master-price">9,800</span></p>
-        <p class="details">Full access<br>Print ready output<br>Team & Pro tools</p>
-        <button class="btn-select">Select</button>
+        <p class="desc">Full access<br>Print ready output<br>Team & Pro tools</p>
+        <button class="pill red">Select</button>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- フッター -->
   <footer>
-    <img src="logo/invitation_logo.png" alt="INVITATION" />
-    <p>© 2005-2025 INVITATION co. All rights reserved.</p>
-    <a href="https://instagram.com/vivora.app"><img src="logo/instagram.png" alt="Instagram" class="social" /></a>
+    <img src="assets/logo/invitation_logo.png" alt="Invitation" class="footer-logo" />
+    <p>© 2005-2025 INVITATION co . All rights reserved .</p>
+    <a href="https://instagram.com/vivora.app">
+      <img src="assets/icons/instagram.png" class="insta-icon" />
+    </a>
     <p class="handle">@vivora.app</p>
   </footer>
 
   <script>
     const prices = {
-      flow: { monthly: '2,950', yearly: '29,500' },
+      flow: { monthly: '2,980', yearly: '29,800' },
       craft: { monthly: '6,980', yearly: '69,800' },
       master: { monthly: '9,800', yearly: '98,000' }
     };
 
-    document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('yearlyToggle').addEventListener('change', function () {
-        const isYearly = this.checked;
-        document.getElementById('flow-price').textContent = isYearly ? prices.flow.yearly : prices.flow.monthly;
-        document.getElementById('craft-price').textContent = isYearly ? prices.craft.yearly : prices.craft.monthly;
-        document.getElementById('master-price').textContent = isYearly ? prices.master.yearly : prices.master.monthly;
-      });
+    document.getElementById('toggle').addEventListener('change', function () {
+      const isYearly = this.checked;
+      document.getElementById('flow-price').textContent = isYearly ? prices.flow.yearly : prices.flow.monthly;
+      document.getElementById('craft-price').textContent = isYearly ? prices.craft.yearly : prices.craft.monthly;
+      document.getElementById('master-price').textContent = isYearly ? prices.master.yearly : prices.master.monthly;
     });
   </script>
 
