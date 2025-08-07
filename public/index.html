@@ -1,288 +1,197 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora - Style your tomorrow.</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivora - Style your tomorrow.</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- ヘッダー -->
-  <header class="header">
-    <div class="logo-section">
-      <img src="logo/vivora_logo-main.png" alt="Vivora Logo" class="logo-main">
-      <div class="tagline">Style your tomorrow.</div>
-    </div>
-    
-    <nav class="nav-menu">
-      <a href="#clothing" onclick="navigateTo('clothing')">Clothing</a>
-      <span class="divider">|</span>
-      <a href="#plans">Plans</a>
-      <span class="divider">|</span>
-      <a href="#kids" onclick="navigateTo('kids')">Kids</a>
-      <span class="divider">|</span>
-      <a href="#login" onclick="navigateTo('login')">Log In</a>
-      <span class="divider">|</span>
-      <a href="#signup" onclick="navigateTo('signup')">Sign Up</a>
-      <div class="signup-text">or See Plans</div>
+    <!-- ナビゲーション -->
+    <nav class="navbar">
+        <div class="nav-menu">
+            <a href="#" class="nav-link">AI</a>
+            <a href="#" class="nav-link">All</a>
+            <a href="#" class="nav-link">News</a>
+            <a href="#" class="nav-link">SNS</a>
+            <a href="#" class="nav-link">INVITATION</a>
+            <a href="#" class="nav-link">SHOP</a>
+            <a href="#" class="nav-link">Design</a>
+            <a href="#" class="nav-link">Shop</a>
+            <a href="#" class="nav-link">Lists</a>
+        </div>
     </nav>
-  </header>
 
-  <!-- メインコンテンツ -->
-  <main>
-    <!-- フィーチャーセクション -->
-    <div class="features-container">
-      <div class="features-grid">
-        <div class="feature-card" onclick="openFeature('illustration')">
-          <img src="contents/fashion-illustrations.png" alt="Fashion Illustrations" class="card-image">
-          <div class="card-title">Fashion Illustrations</div>
-        </div>
-        
-        <div class="feature-card" onclick="openFeature('fabric')">
-          <img src="contents/fabric-matching.png" alt="Fabric Matching" class="card-image">
-          <div class="card-title">Fabric Matching</div>
-        </div>
-        
-        <div class="feature-card" onclick="openFeature('clothing')">
-          <img src="contents/clothing-design.png" alt="Clothing Design" class="card-image">
-          <div class="card-title">Clothing Design</div>
-        </div>
-        
-        <div class="feature-card" onclick="openFeature('pattern')">
-          <img src="contents/pattern-creation.png" alt="Pattern Creation" class="card-image">
-          <div class="card-title">Pattern Creation</div>
-        </div>
-        
-        <div class="feature-card" onclick="openFeature('grading')">
-          <img src="contents/grading.png" alt="Grading" class="card-image">
-          <div class="card-title">Grading</div>
-        </div>
-        
-        <div class="feature-card" onclick="openFeature('print')">
-          <img src="contents/print-layout-cut.png" alt="Print Layout & Cut" class="card-image">
-          <div class="card-title">Print Layout & Cut</div>
-        </div>
-        
-        <div class="feature-card" onclick="openFeature('kids')">
-          <img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids Mode" class="card-image">
-          <div class="card-title">Digital Dressing Kids Mode</div>
-        </div>
-      </div>
-    </div>
+    <!-- ヘッダー -->
+    <header class="header">
+        <img src="logo/vivora_logo.png" alt="Vivora" class="logo">
+        <p class="tagline">Style your tomorrow.</p>
+    </header>
 
-    <!-- アクションボタン -->
-    <div class="action-buttons">
-      <a href="#" class="action-btn" onclick="startDesigning()">Start Designing Now</a>
-      <a href="#plans" class="action-btn">Explore Plans</a>
-      <a href="#" class="action-btn" onclick="tryDemo()">Try Free Demo</a>
-    </div>
+    <!-- セカンダリナビゲーション -->
+    <nav class="secondary-nav">
+        <a href="#clothing" class="nav-link">Clothing</a>
+        <a href="#plans" class="nav-link">Plans</a>
+        <a href="work/kids/" class="nav-link">Kids</a>
+        <a href="#" class="nav-link">Log In</a>
+        <a href="#" class="nav-link">Sign Up</a>
+        <a href="#plans" class="nav-link see-plans">or See Plans</a>
+    </nav>
 
-    <!-- プランセクション -->
-    <section class="pricing-section" id="plans">
-      <h2 class="section-title">Choose Your Plan</h2>
-      
-      <div class="billing-toggle">
-        <span>Monthly</span>
-        <div class="toggle-switch" id="billing-toggle">
-          <div class="toggle-slider"></div>
-        </div>
-        <span>Yearly <span class="discount-text">2 months FREE</span></span>
-      </div>
+    <!-- メインコンテンツ -->
+    <main>
+        <!-- 機能カードセクション -->
+        <section id="clothing" class="features-section">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="card-number">1</span>
+                    <img src="contents/content1.png" alt="Fashion Illustrations">
+                    <h3>Fashion Illustrations</h3>
+                </div>
+                <div class="feature-card">
+                    <span class="card-number">2</span>
+                    <img src="contents/content2.png" alt="Fabric Matching">
+                    <h3>Fabric Matching</h3>
+                </div>
+                <div class="feature-card">
+                    <span class="card-number">3</span>
+                    <img src="contents/content3.png" alt="Clothing Design">
+                    <h3>Clothing Design</h3>
+                </div>
+                <div class="feature-card">
+                    <span class="card-number">4</span>
+                    <img src="contents/content4.png" alt="Pattern Creation">
+                    <h3>Pattern Creation</h3>
+                </div>
+                <div class="feature-card">
+                    <span class="card-number">5</span>
+                    <img src="contents/content5.png" alt="Grading">
+                    <h3>Grading</h3>
+                </div>
+                <div class="feature-card">
+                    <span class="card-number">6</span>
+                    <img src="contents/content6.png" alt="Print Layout & Cut">
+                    <h3>Print Layout & Cut</h3>
+                </div>
+                <div class="feature-card">
+                    <span class="card-number">7</span>
+                    <img src="contents/content7.png" alt="Digital Dressing Kids Mode">
+                    <h3>Digital Dressing Kids Mode</h3>
+                </div>
+            </div>
+        </section>
 
-      <div class="plans-container">
-        <!-- Spark プラン -->
-        <div class="plan-card">
-          <div class="plan-ribbon">
-            <img src="ribbon/ribbon_free.png" alt="Free" class="ribbon-image">
-          </div>
-          <div class="plan-name">Spark</div>
-          <div class="plan-price" data-monthly="0" data-yearly="0">¥0</div>
-          <div class="plan-concept">「ひらめき」を形にする最初の火花</div>
-          <ul class="plan-features">
-            <li>基本ツール</li>
-            <li>デザインの楽しさを体験</li>
-            <li>学生・ホビイスト向け</li>
-          </ul>
-          <button class="plan-button btn-free" onclick="selectPlan('spark')">Start Free</button>
+        <!-- CTAボタン -->
+        <div class="cta-buttons">
+            <button class="cta-button primary">Start Designing Now</button>
+            <button class="cta-button secondary">Explore Plans</button>
+            <button class="cta-button tertiary">Try Free Demo</button>
         </div>
 
-        <!-- Creator プラン -->
-        <div class="plan-card">
-          <div class="plan-name">Creator</div>
-          <div class="plan-price" data-monthly="3600" data-yearly="3000">¥3,600</div>
-          <div class="plan-billing">/ month</div>
-          <div class="plan-concept">「クリエイター」としての第一歩</div>
-          <ul class="plan-features">
-            <li>全デザインツール</li>
-            <li>保存/書き出し機能</li>
-            <li>デザインを完成させ、世に出す</li>
-            <li>フリーランス・インディー向け</li>
-          </ul>
-          <button class="plan-button btn-select" onclick="selectPlan('creator')">Select</button>
+        <!-- プランセクション -->
+        <section id="plans" class="plans-section">
+            <h2>Choose Your Plan</h2>
+            
+            <div class="toggle-container">
+                <span class="toggle-label">Monthly</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="billing-toggle">
+                    <span class="slider">
+                        <span class="slider-text">2 months FREE</span>
+                    </span>
+                </label>
+                <span class="toggle-label">Yearly</span>
+            </div>
+
+            <div class="plans-grid">
+                <!-- Spark Plan -->
+                <div class="plan-card">
+                    <img src="ribbon/ribbon_free.png" alt="Free" class="ribbon">
+                    <h3>Spark</h3>
+                    <div class="price">
+                        <span class="amount">¥0</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="concept">「ひらめき」を形にする最初の一歩</p>
+                    <ul class="features">
+                        <li>✓ 基本ツール</li>
+                        <li>✓ デザインの楽しさを体験</li>
+                        <li>✓ 学生・ホビイスト向け</li>
+                    </ul>
+                    <button class="plan-button free">Start Free</button>
+                </div>
+
+                <!-- Creator Plan -->
+                <div class="plan-card">
+                    <h3>Creator</h3>
+                    <div class="price">
+                        <span class="amount monthly-price">¥3,600</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="concept">「クリエイター」としての第一歩</p>
+                    <ul class="features">
+                        <li>✓ 全デザインツール</li>
+                        <li>✓ 保存・書き出し機能</li>
+                        <li>✓ デザインを完成させ、世に出す</li>
+                        <li>✓ フリーランス・インディー向け</li>
+                    </ul>
+                    <button class="plan-button">Select</button>
+                </div>
+
+                <!-- Brand Plan -->
+                <div class="plan-card popular">
+                    <img src="ribbon/ribbon_toppick.png" alt="Top Pick" class="ribbon">
+                    <h3>Brand</h3>
+                    <div class="price">
+                        <span class="amount monthly-price">¥7,200</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="concept">自分の「ブランド」を立ち上げる</p>
+                    <ul class="features">
+                        <li>✓ 全パターン/グレーディング機能</li>
+                        <li>✓ プリントレイアウト</li>
+                        <li>✓ デザインを製品化し、ビジネスに</li>
+                        <li>✓ プロ・小規模ブランド向け</li>
+                    </ul>
+                    <button class="plan-button popular">Select</button>
+                </div>
+
+                <!-- Atelier Plan -->
+                <div class="plan-card">
+                    <img src="ribbon/ribbon_bestvalue.png" alt="Best Value" class="ribbon">
+                    <h3>Atelier</h3>
+                    <div class="price">
+                        <span class="amount monthly-price">¥12,000</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <p class="concept">プロの「アトリエ」としてビジネスを拡大</p>
+                    <ul class="features">
+                        <li>✓ チーム共同編集</li>
+                        <li>✓ 高度なプロ向けツール</li>
+                        <li>✓ チームでビジネスを加速</li>
+                        <li>✓ デザインチーム・教育機関向け</li>
+                    </ul>
+                    <button class="plan-button">Select</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="logo/invitation_logo.png" alt="INVITATION" class="footer-logo">
+            <p class="copyright">© 2025 INVITATION Co. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">
+                    <img src="logo/instagram.png" alt="Instagram">
+                </a>
+            </div>
         </div>
+        <p class="app-name">@vivora.app</p>
+    </footer>
 
-        <!-- Brand プラン -->
-        <div class="plan-card recommended">
-          <div class="plan-ribbon">
-            <img src="ribbon/ribbon_toppick.png" alt="Top Pick" class="ribbon-image">
-          </div>
-          <div class="plan-name">Brand</div>
-          <div class="plan-price" data-monthly="7200" data-yearly="6000">¥7,200</div>
-          <div class="plan-billing">/ month</div>
-          <div class="plan-concept">自分の「ブランド」を立ち上げる</div>
-          <ul class="plan-features">
-            <li><strong>全パターン/グレーディング機能</strong></li>
-            <li>プリントレイアウト</li>
-            <li>デザインを製品化し、ビジネスに</li>
-            <li>プロ・小規模ブランド向け</li>
-          </ul>
-          <button class="plan-button btn-select primary" onclick="selectPlan('brand')">Select</button>
-        </div>
-
-        <!-- Atelier プラン -->
-        <div class="plan-card">
-          <div class="plan-ribbon">
-            <img src="ribbon/ribbon_bestvalue.png" alt="Best Value" class="ribbon-image">
-          </div>
-          <div class="plan-name">Atelier</div>
-          <div class="plan-price" data-monthly="12000" data-yearly="10000">¥12,000</div>
-          <div class="plan-billing">/ month</div>
-          <div class="plan-concept">プロの「アトリエ」としてビジネスを拡大</div>
-          <ul class="plan-features">
-            <li><strong>チーム共同編集</strong></li>
-            <li>高度なプロ向けツール</li>
-            <li>チームでビジネスを加速</li>
-            <li>デザインチーム・教育機関向け</li>
-          </ul>
-          <button class="plan-button btn-select" onclick="selectPlan('atelier')">Select</button>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- フッター -->
-  <footer class="footer">
-    <div class="footer-content">
-      <img src="logo/vivora_copy.png" alt="© 2005-2025 INVITATION co. All rights reserved." class="copyright-logo">
-      <a href="https://www.instagram.com/vivora.app" target="_blank">
-        <img src="logo/vivora_insta.png" alt="Instagram" class="instagram-icon">
-      </a>
-    </div>
-    <div class="instagram-handle">@vivora.app</div>
-  </footer>
-
-  <script>
-    // 料金プラン切り替え
-    document.getElementById('billing-toggle').addEventListener('click', function() {
-      this.classList.toggle('active');
-      
-      const isYearly = this.classList.contains('active');
-      const prices = document.querySelectorAll('.plan-price');
-      
-      // 価格更新（年額の場合は割引価格）
-      prices.forEach(price => {
-        const monthlyPrice = parseInt(price.dataset.monthly);
-        const yearlyPrice = parseInt(price.dataset.yearly);
-        
-        if (monthlyPrice > 0) { // 無料プラン以外
-          if (isYearly) {
-            price.textContent = `¥${yearlyPrice.toLocaleString()}`;
-          } else {
-            price.textContent = `¥${monthlyPrice.toLocaleString()}`;
-          }
-        }
-      });
-    });
-
-    // ナビゲーション機能
-    function navigateTo(page) {
-      console.log(`Navigating to: ${page}`);
-      
-      switch(page) {
-        case 'clothing':
-          window.location.href = '/work/clothing/clothing.html';
-          break;
-        case 'kids':
-          window.location.href = '/work/kids/kids.html';
-          break;
-        case 'login':
-          window.location.href = '/login.html';
-          break;
-        case 'signup':
-          window.location.href = '/signup.html';
-          break;
-        default:
-          console.warn(`Unknown page: ${page}`);
-      }
-    }
-
-    // 機能ページを開く
-    function openFeature(feature) {
-      console.log(`Opening feature: ${feature}`);
-      
-      switch(feature) {
-        case 'illustration':
-          window.location.href = '/work/illustration/illustration.html';
-          break;
-        case 'fabric':
-          window.location.href = '/work/fabric/fabric.html';
-          break;
-        case 'clothing':
-          window.location.href = '/work/clothing/clothing.html';
-          break;
-        case 'pattern':
-          window.location.href = '/work/pattern/pattern.html';
-          break;
-        case 'grading':
-          window.location.href = '/work/grading/grading.html';
-          break;
-        case 'print':
-          window.location.href = '/work/print/print.html';
-          break;
-        case 'kids':
-          window.location.href = '/work/kids/kids.html';
-          break;
-        default:
-          console.warn(`Unknown feature: ${feature}`);
-      }
-    }
-
-    // CTAボタン機能
-    function startDesigning() {
-      console.log('Starting design process');
-      window.location.href = '/work/illustration/illustration.html';
-    }
-
-    function tryDemo() {
-      console.log('Starting demo');
-      window.location.href = '/demo.html';
-    }
-
-    // プラン選択
-    function selectPlan(planType) {
-      console.log(`Selected plan: ${planType}`);
-      
-      switch(planType) {
-        case 'spark':
-          window.location.href = '/signup?plan=free';
-          break;
-        case 'creator':
-          window.location.href = '/checkout?plan=creator';
-          break;
-        case 'brand':
-          window.location.href = '/checkout?plan=brand';
-          break;
-        case 'atelier':
-          window.location.href = '/checkout?plan=atelier';
-          break;
-      }
-    }
-
-    // ページ初期化
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('Vivora main page loaded');
-    });
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
