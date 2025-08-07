@@ -68,7 +68,7 @@ body {
 /* Features Section */
 .features {
     background: white;
-    padding: 50px 20px;
+    padding: 50px 40px;
 }
 
 .features-grid {
@@ -79,6 +79,23 @@ body {
     margin: 0 auto;
 }
 
+/* 5番目と6番目のカードを最初の2列に配置 */
+.features-grid .feature-card:nth-child(5) {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.features-grid .feature-card:nth-child(6) {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* 7番目のカードを3列目に配置 */
+.features-grid .feature-card:nth-child(7) {
+    grid-column: 3;
+    grid-row: 2;
+}
+
 .feature-card {
     background: white;
     border: 1px solid #e5e2dd;
@@ -87,6 +104,8 @@ body {
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .feature-card:hover {
@@ -114,7 +133,7 @@ body {
 
 .feature-card img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
 }
 
@@ -123,10 +142,11 @@ body {
     text-align: center;
     font-size: 15px;
     font-weight: 500;
-}
-
-.last-card {
-    grid-column: span 1;
+    background: white;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* CTA Section */
@@ -250,34 +270,51 @@ body {
     text-align: center;
     position: relative;
     box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
 }
 
 .pricing-card.featured {
     border: 2px solid #ff5252;
 }
 
+/* リボンスタイル */
 .ribbon {
     position: absolute;
-    top: 20px;
-    right: -30px;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.ribbon::before {
+    content: attr(data-ribbon);
+    position: absolute;
+    top: 25px;
+    right: -25px;
+    width: 140px;
+    padding: 10px 0;
     background: #4169e1;
     color: white;
-    padding: 5px 40px;
+    text-align: center;
     font-size: 11px;
     font-weight: 600;
-    transform: rotate(45deg);
     text-transform: uppercase;
+    transform: rotate(45deg);
 }
 
-.ribbon.free {
+.ribbon.free::before {
+    content: "FREE";
     background: #4169e1;
 }
 
-.ribbon.toppick {
+.ribbon.toppick::before {
+    content: "TOP PICK";
     background: #ff5252;
 }
 
-.ribbon.bestvalue {
+.ribbon.bestvalue::before {
+    content: "BEST VALUE";
     background: #ffd700;
     color: #333;
 }
@@ -285,6 +322,7 @@ body {
 .pricing-card h3 {
     font-size: 28px;
     margin-bottom: 20px;
+    margin-top: 10px;
     font-weight: 600;
 }
 
@@ -364,6 +402,21 @@ body {
 @media (max-width: 992px) {
     .features-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .features-grid .feature-card:nth-child(5) {
+        grid-column: auto;
+        grid-row: auto;
+    }
+    
+    .features-grid .feature-card:nth-child(6) {
+        grid-column: auto;
+        grid-row: auto;
+    }
+    
+    .features-grid .feature-card:nth-child(7) {
+        grid-column: auto;
+        grid-row: auto;
     }
     
     .pricing-cards {
