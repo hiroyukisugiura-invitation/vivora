@@ -1,22 +1,158 @@
-/* ===== Pricing Section Layout ===== */
+/* ===== 全体レイアウト ===== */
+body {
+  margin: 0;
+  padding: 0;
+  background: #f8f1ee;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #333;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== ヘッダー ===== */
+header {
+  padding: 50px;
+}
+.logo {
+  width: 450px;
+  height: auto;
+}
+
+/* ===== ナビゲーションバー ===== */
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Playfair Display', serif;
+  color: #3b2f2f;
+  margin: 20px 0 30px;
+  flex-wrap: wrap;
+  letter-spacing: 0.3px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #6c5ce7;
+}
+
+/* ===== コンテンツ一覧 ===== */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: scale(1.03);
+}
+
+.feature-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* ===== アクションボタン ===== */
+.actions {
+  margin: 40px 0 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  row-gap: 16px;
+}
+
+.actions button {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+  color: #333;
+  min-width: 180px;
+  text-align: center;
+  flex: 1 0 auto;
+  max-width: 280px;
+}
+
+.actions button:hover {
+  background: #6c5ce7;
+  color: white;
+  border: 1px solid #6c5ce7;
+}
+
+/* ===== フッター ===== */
+footer {
+  padding: 40px 0;
+  text-align: center;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #444;
+}
+
+.footer-logo {
+  max-width: 360px;
+  width: 80%;
+  height: auto;
+}
+
+.footer-icon {
+  height: 50px;
+  width: auto;
+  vertical-align: middle;
+  transition: opacity 0.3s ease;
+}
+
+.footer-icon:hover {
+  opacity: 0.7;
+}
+
+/* ===== プラン表示セクション ===== */
 .pricing-section {
-  padding: 60px 20px;
+  padding: 60px 20px 10px;
   background: #fff5f0;
   text-align: center;
+  flex: 1 0 auto;
 }
 
 .pricing-title {
   font-size: 28px;
   font-family: 'Playfair Display', serif;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-/* ===== Billing Toggle ===== */
 .toggle-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 40px;
 }
 
@@ -26,11 +162,13 @@
   width: 50px;
   height: 26px;
 }
+
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -42,6 +180,7 @@
   border-radius: 26px;
   transition: 0.4s;
 }
+
 .slider:before {
   position: absolute;
   content: "";
@@ -53,52 +192,67 @@
   border-radius: 50%;
   transition: 0.4s;
 }
+
 input:checked + .slider {
   background-color: #ff7675;
 }
+
 input:checked + .slider:before {
   transform: translateX(24px);
 }
 
-/* ===== Plan Cards ===== */
 .pricing-cards {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
   gap: 24px;
+  flex-wrap: wrap;
 }
 
 .pricing-card {
   background: #fff;
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 240px;
-  position: relative;
+  min-height: 280px;  /* 金額が大きくなったので高さを少し増やす */
+  text-align: center;
+  transition: transform 0.3s;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  text-align: center;
+  position: relative;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+}
+
+.pricing-card.popular {
+  border: 2px solid #ff7675;  /* Top Pickカードの強調 */
 }
 
 .pricing-card h3 {
   font-size: 20px;
   margin-bottom: 10px;
+  min-height: 30px;
 }
 
 .pricing-card .price {
-  font-size: 22px;
+  font-size: 24px;  /* 金額が大きくなったので少し大きく */
   font-weight: bold;
   color: #d63031;
   margin-bottom: 12px;
+  min-height: 35px;  /* 年額表示時のスペース確保 */
 }
 
 .pricing-card ul {
   list-style: none;
   padding: 0;
   font-size: 14px;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
+  flex-grow: 1;
 }
+
 .pricing-card li {
   margin: 6px 0;
 }
@@ -114,30 +268,71 @@ input:checked + .slider:before {
   font-size: 14px;
   margin-top: auto;
 }
+
 .pricing-card button[disabled] {
   background: #ccc;
   cursor: not-allowed;
 }
 
-/* ===== Ribbon Badge ===== */
+.pricing-card button:hover:not([disabled]) {
+  background: #ff7675;
+  transform: scale(1.05);
+}
+
 .ribbon-badge {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;
-  height: auto;
-  z-index: 10;
+  top: -5px;
+  right: -5px;
+  width: 70px;  /* リボンサイズ調整 */
+  height: 70px;
+  z-index: 1000;
   object-fit: contain;
   pointer-events: none;
 }
 
-/* ===== Responsive Layout ===== */
+/* ===== レスポンシブ対応 ===== */
 @media (max-width: 768px) {
+  .logo {
+    width: 300px;
+  }
+  
+  .pricing-cards {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  
+  .ribbon-badge {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+  
   .pricing-cards {
     flex-direction: column;
     align-items: center;
   }
-  .ribbon-badge {
-    width: 60px;
+  
+  .pricing-card {
+    width: 90%;
+    max-width: 300px;
   }
+}
+
+/* ===== グリッド背景（必要な場合） ===== */
+.board-grid {
+  display: grid;
+  place-items: center;
+  height: 300px;
+  background-color: #fff;
+  background-image: linear-gradient(#ccc 1px, transparent 1px),
+                    linear-gradient(90deg, #ccc 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.board-grid.plain {
+  background-image: none;
 }
