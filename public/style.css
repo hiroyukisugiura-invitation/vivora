@@ -1,209 +1,172 @@
-/* リセット */
-* {
+/* ===== 全体レイアウト ===== */
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Helvetica Neue', -apple-system, sans-serif;
   background: #f8f1ee;
+  font-family: 'Helvetica Neue', sans-serif;
   color: #333;
-  line-height: 1.6;
-}
-
-/* ヘッダー */
-header {
   text-align: center;
-  padding: 40px 20px 20px;
-  background: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+/* ===== ヘッダー ===== */
+header {
+  padding: 50px;
+}
 .logo {
-  width: 320px;
-  max-width: 90%;
+  width: 450px;
   height: auto;
 }
 
-.tagline {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  color: #8b7355;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-/* ナビゲーション */
+/* ===== ナビゲーションバー ===== */
 .navbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  background: white;
-  border-bottom: 1px solid #e0e0e0;
-  gap: 8px;
+  gap: 28px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Playfair Display', serif;
+  color: #3b2f2f;
+  margin: 20px 0 30px;
+  flex-wrap: wrap;
+  letter-spacing: 0.3px;
 }
 
 .navbar a {
-  color: #333;
   text-decoration: none;
-  font-size: 15px;
-  padding: 0 12px;
+  color: #333;
+  transition: color 0.3s ease;
 }
 
 .navbar a:hover {
   color: #6c5ce7;
 }
 
-.divider {
-  color: #ddd;
-}
-
-.or-text {
-  color: #999;
-  font-style: italic;
-  margin-left: 15px;
-}
-
-/* 機能カード */
+/* ===== コンテンツ一覧 ===== */
 .features {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  padding: 50px 30px;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+  padding: 40px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .feature-card {
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.3s;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-}
-
-.card-number {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: white;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 1;
+  transform: scale(1.03);
 }
 
 .feature-card img {
   width: 100%;
-  height: 180px;
-  object-fit: cover;
+  border-radius: 8px;
 }
 
-.feature-card h3 {
-  padding: 15px;
-  font-size: 14px;
-  text-align: center;
-  font-weight: 500;
-}
-
-/* 5番目以降のカード配置 */
-.features .feature-card:nth-child(5) {
-  grid-column: 1;
-}
-.features .feature-card:nth-child(6) {
-  grid-column: 2;
-}
-.features .feature-card:nth-child(7) {
-  grid-column: 3;
-}
-
-/* アクションボタン */
+/* ===== アクションボタン ===== */
 .actions {
+  margin: 40px 0 20px;
   display: flex;
   justify-content: center;
   gap: 20px;
-  padding: 30px 20px;
-  background: white;
+  flex-wrap: wrap;
+  row-gap: 16px;            /* 縦の隙間も調整可能 */
 }
 
-.btn {
-  padding: 12px 30px;
-  border: none;
-  border-radius: 25px;
-  font-size: 15px;
-  font-weight: 600;
+.actions button {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s;
-  min-width: 180px;
+  transition: background 0.3s, color 0.3s;
+  color: #333;
+  min-width: 180px;         /* ← ボタンの横幅を一定に */
+  text-align: center;       /* ← テキスト中央揃え */
+  flex: 1 0 auto;           /* ← レスポンシブで折り返せるように */
+  max-width: 280px;         /* ← 上限を設定して崩れ防止 */
 }
 
-.btn.primary {
-  background: #ff5252;
-  color: white;
+.actions button:hover {
+  background: #6c5ce7;  /* パープルに変化 */
+  color: white;         /* 白文字に */
+  border: 1px solid #6c5ce7; /* 境界線も変化 */
 }
 
-.btn.secondary {
-  background: white;
-  color: #ff5252;
-  border: 2px solid #ff5252;
+/* ===== フッター ===== */
+footer {
+  padding: 40px 0;
+  text-align: center;
+  font-size: 13px;
+  margin-top: 10px;
 }
 
-.btn.tertiary {
-  background: #8b7355;
-  color: white;
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #444;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
+.footer-logo {
+  max-width: 360px;
+  width: 80%;
+  height: auto;
 }
 
-/* プランセクション */
+.footer-icon {
+  height: 50px;
+  width: auto;
+  vertical-align: middle;
+  transition: opacity 0.3s ease;
+}
+
+.footer-icon:hover {
+  opacity: 0.7;
+}
+
+/* ===== プラン表示セクション（画像バッジ対応） ===== */
 .pricing-section {
-  padding: 60px 20px;
+    padding: 60px 20px 10px;
   background: #fff5f0;
   text-align: center;
+  flex: 1 0 auto;
 }
 
-.pricing-section h2 {
+.pricing-title {
+  font-size: 28px;
   font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-/* トグル */
 .toggle-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   margin-bottom: 40px;
 }
 
 .switch {
   position: relative;
+  display: inline-block;
   width: 50px;
   height: 26px;
 }
-
 .switch input {
-  display: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
-
 .slider {
   position: absolute;
   cursor: pointer;
@@ -211,11 +174,10 @@ header {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #ccc;
+  background-color: #ccc;
   border-radius: 26px;
   transition: 0.4s;
 }
-
 .slider:before {
   position: absolute;
   content: "";
@@ -223,178 +185,101 @@ header {
   width: 20px;
   left: 3px;
   bottom: 3px;
-  background: white;
+  background-color: white;
   border-radius: 50%;
   transition: 0.4s;
 }
-
 input:checked + .slider {
-  background: #ff5252;
+  background-color: #ff7675;
 }
-
 input:checked + .slider:before {
   transform: translateX(24px);
 }
 
-/* プランカード */
 .pricing-cards {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
   flex-wrap: wrap;
-  max-width: 1000px;
-  margin: 0 auto;
 }
 
 .pricing-card {
-  background: white;
-  border-radius: 15px;
-  padding: 30px 20px;
-  width: 230px;
-  position: relative;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 240px;
+  min-height: 240px;
+  text-align: center;
   transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
 }
 
 .pricing-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-}
-
-.pricing-card.popular {
-  border: 2px solid #ff5252;
-}
-
-/* CSSリボン */
-.ribbon {
-  position: absolute;
-  top: 10px;
-  right: -30px;
-  background: #4169e1;
-  color: white;
-  padding: 5px 40px;
-  font-size: 11px;
-  font-weight: bold;
-  transform: rotate(45deg);
-}
-
-.ribbon.free {
-  background: #4169e1;
-}
-
-.ribbon.toppick {
-  background: #ff5252;
-}
-
-.ribbon.best {
-  background: #ffd700;
-  color: #333;
 }
 
 .pricing-card h3 {
-  font-size: 24px;
-  margin: 20px 0 15px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  min-height: 30px;
 }
 
-.price {
-  font-size: 32px;
+.pricing-card .price {
+  font-size: 22px;
   font-weight: bold;
-  color: #ff5252;
-  margin-bottom: 20px;
+  color: #d63031;
+  margin-bottom: 12px;
 }
 
 .pricing-card ul {
   list-style: none;
+  padding: 0;
   font-size: 14px;
-  margin-bottom: 25px;
-  min-height: 80px;
+  margin: 0 0 20px;
+  flex-grow: 1;
 }
 
 .pricing-card li {
-  margin: 8px 0;
+  margin: 6px 0;
 }
 
-.btn-plan {
-  background: #ff5252;
+.pricing-card button {
+  background: #d63031;
   color: white;
   border: none;
-  padding: 10px 30px;
-  border-radius: 25px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 24px;
   cursor: pointer;
-  width: 100%;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: auto;
 }
 
-.btn-plan:disabled {
+.pricing-card button[disabled] {
   background: #ccc;
   cursor: not-allowed;
 }
 
-.btn-plan:hover:not(:disabled) {
-  opacity: 0.9;
-}
-
-/* フッター */
-footer {
-  background: white;
-  padding: 40px 20px;
-  text-align: center;
-  border-top: 1px solid #e0e0e0;
-}
-
-.footer-logo {
-  height: 30px;
-  margin-bottom: 15px;
-}
-
-footer p {
-  color: #999;
-  font-size: 13px;
-  margin: 10px 0;
-}
-
-.insta-icon {
-  width: 30px;
-  height: 30px;
-  margin: 15px 0;
-}
-
-.app-name {
-  color: #666;
-  font-size: 14px;
-}
-
-/* レスポンシブ */
-@media (max-width: 992px) {
-  .features {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .features .feature-card:nth-child(5),
-  .features .feature-card:nth-child(6),
-  .features .feature-card:nth-child(7) {
-    grid-column: auto;
-  }
+.ribbon-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;             /* カード幅にフィット */
+  height: auto;
+  z-index: 1000;
+  object-fit: contain;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
-  .features {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .actions {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .btn {
-    width: 200px;
-  }
-  
-  .pricing-cards {
-    flex-direction: column;
-    align-items: center;
+  .ribbon-badge {
+    width: 48px;
   }
 }
 
@@ -402,8 +287,17 @@ footer p {
   .features {
     grid-template-columns: 1fr;
   }
-  
-  .navbar {
-    flex-wrap: wrap;
-  }
+}
+
+.board-grid {
+  display: grid;
+  place-items: center;
+  height: 300px;
+  background-color: #fff;
+  background-image: linear-gradient(#ccc 1px, transparent 1px),
+                    linear-gradient(90deg, #ccc 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.board-grid.plain {
+  background-image: none;
 }
