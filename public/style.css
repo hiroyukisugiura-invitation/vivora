@@ -1,492 +1,402 @@
-/* ===== リセット ===== */
+/* Global Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html, body {
-    width: 100%;
-    overflow-x: hidden;
-}
-
 body {
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #f5f1ed;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f8f6f3;
     color: #333;
-    line-height: 1.6;
 }
 
-/* ===== コンテナ ===== */
-.container {
-    max-width: 100%;
-    background: white;
-    margin: 0 auto;
-}
-
-/* ===== ナビゲーション ===== */
-.navbar {
-    background: #2c2c2c;
-    padding: 12px 20px;
-    width: 100%;
-}
-
-.nav-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    flex-wrap: wrap;
-}
-
-.navbar .nav-link {
-    color: white;
-    text-decoration: none;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: opacity 0.3s;
-}
-
-.navbar .nav-link:hover {
-    opacity: 0.7;
-}
-
-/* ===== ヘッダー ===== */
+/* Header */
 .header {
-    text-align: center;
-    padding: 40px 20px 30px;
     background: white;
+    padding: 40px 20px 0;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .logo {
-    width: 260px;
+    width: 320px;
     height: auto;
-    max-width: 90%;
 }
 
 .tagline {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 16px;
-    color: #8b7355;
-    margin-top: 10px;
+    font-family: 'Playfair Display', serif;
     font-style: italic;
+    color: #8b7062;
+    font-size: 16px;
+    margin-top: 5px;
 }
 
-/* ===== セカンダリナビゲーション ===== */
-.secondary-nav {
+/* Navigation */
+.main-nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    background: white;
-    border-bottom: 1px solid #e0e0e0;
-    gap: 10px;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e2dd;
+    gap: 8px;
 }
 
-.secondary-nav .nav-link {
+.main-nav a {
     color: #333;
     text-decoration: none;
-    font-weight: 500;
     font-size: 15px;
-    padding: 0 15px;
-    border-right: 1px solid #d4c4b0;
+    font-weight: 500;
+    padding: 0 12px;
 }
 
-.secondary-nav .nav-link:last-of-type {
-    border-right: none;
+.divider {
+    color: #d0ccc7;
+    font-weight: 300;
 }
 
 .see-plans {
     color: #999;
     font-style: italic;
     font-size: 14px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
-/* ===== メインコンテンツ ===== */
-main {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+/* Features Section */
+.features {
     background: white;
-}
-
-/* ===== 機能カード ===== */
-.features-section {
-    padding: 40px 20px;
-    background: white;
+    padding: 50px 20px;
 }
 
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     max-width: 1100px;
     margin: 0 auto;
 }
 
-@media (min-width: 1024px) {
-    .features-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
 .feature-card {
     background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
+    border: 1px solid #e5e2dd;
+    border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
     position: relative;
-    min-height: 280px;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .card-number {
     position: absolute;
-    top: 12px;
-    left: 12px;
+    top: 15px;
+    left: 15px;
     background: white;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    font-size: 14px;
-    color: #8b7355;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    z-index: 10;
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 2;
 }
 
 .feature-card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
-    display: block;
 }
 
 .feature-card h3 {
-    padding: 15px;
-    font-size: 14px;
-    font-weight: 500;
+    padding: 18px;
     text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.last-card {
+    grid-column: span 1;
+}
+
+/* CTA Section */
+.cta-section {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 20px;
     background: white;
 }
 
-/* ===== CTAボタン ===== */
-.cta-buttons {
+.cta-btn {
+    padding: 14px 35px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cta-btn.primary {
+    background: #ff5252;
+    color: white;
+}
+
+.cta-btn.secondary {
+    background: white;
+    color: #ff5252;
+    border: 2px solid #ff5252;
+}
+
+.cta-btn.tertiary {
+    background: #8b7062;
+    color: white;
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+/* Pricing Section */
+.pricing {
+    background: #f8f6f3;
+    padding: 60px 20px;
+}
+
+.pricing h2 {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+
+/* Toggle */
+.toggle-container {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding: 40px 20px;
-    background: white;
-    flex-wrap: wrap;
+    margin-bottom: 50px;
 }
 
-.cta-button {
-    padding: 12px 35px;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-    min-width: 180px;
-}
-
-.cta-button.primary {
-    background: #e74c3c;
-    color: white;
-}
-
-.cta-button.secondary {
-    background: white;
-    color: #e74c3c;
-    border: 2px solid #e74c3c;
-}
-
-.cta-button.tertiary {
-    background: #8b7355;
-    color: white;
-}
-
-.cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* ===== プランセクション ===== */
-.plans-section {
-    padding: 60px 20px;
-    background: #f9f9f9;
-}
-
-.plans-section h2 {
-    text-align: center;
-    font-size: 32px;
-    font-weight: 400;
-    margin-bottom: 35px;
-    font-family: 'Playfair Display', Georgia, serif;
-    color: #333;
-}
-
-/* ===== トグルスイッチ ===== */
-.toggle-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 45px;
-}
-
-.toggle-label {
-    font-size: 15px;
-    color: #666;
-}
-
-.toggle-switch {
+.toggle {
     position: relative;
-    display: inline-block;
-    width: 140px;
-    height: 36px;
+    width: 60px;
+    height: 30px;
 }
 
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+.toggle input {
+    display: none;
 }
 
 .slider {
     position: absolute;
     cursor: pointer;
+    background: #ddd;
+    border-radius: 30px;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ddd;
-    border-radius: 36px;
-    transition: .4s;
+    transition: 0.4s;
 }
 
-.slider-text {
+.toggle input:checked + .slider {
+    background: #ff5252;
+}
+
+.slider:before {
     position: absolute;
-    color: white;
-    font-size: 11px;
-    font-weight: bold;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.4s;
 }
 
-.toggle-switch input:checked + .slider {
-    background-color: #e74c3c;
+.toggle input:checked + .slider:before {
+    transform: translateX(30px);
 }
 
-/* ===== プランカード ===== */
-.plans-grid {
+/* Pricing Cards */
+.pricing-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     max-width: 1100px;
     margin: 0 auto;
 }
 
-@media (min-width: 1024px) {
-    .plans-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-.plan-card {
+.pricing-card {
     background: white;
-    border-radius: 12px;
-    padding: 35px 25px;
+    border-radius: 20px;
+    padding: 40px 30px;
     text-align: center;
     position: relative;
     box-shadow: 0 3px 15px rgba(0,0,0,0.08);
-    min-height: 480px;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s;
 }
 
-.plan-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-.plan-card.popular {
-    border: 2px solid #e74c3c;
+.pricing-card.featured {
+    border: 2px solid #ff5252;
 }
 
 .ribbon {
     position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 75px;
-    height: 75px;
-    object-fit: contain;
+    top: 20px;
+    right: -30px;
+    background: #4169e1;
+    color: white;
+    padding: 5px 40px;
+    font-size: 11px;
+    font-weight: 600;
+    transform: rotate(45deg);
+    text-transform: uppercase;
 }
 
-.plan-card h3 {
-    font-size: 26px;
-    margin-bottom: 20px;
-    font-family: 'Playfair Display', Georgia, serif;
+.ribbon.free {
+    background: #4169e1;
+}
+
+.ribbon.toppick {
+    background: #ff5252;
+}
+
+.ribbon.bestvalue {
+    background: #ffd700;
     color: #333;
 }
 
-.price {
+.pricing-card h3 {
+    font-size: 28px;
     margin-bottom: 20px;
+    font-weight: 600;
 }
 
-.amount {
-    font-size: 36px;
-    font-weight: bold;
-    color: #e74c3c;
-}
-
-.period {
-    font-size: 14px;
-    color: #999;
-    margin-left: 5px;
-}
-
-.concept {
-    font-size: 13px;
-    color: #8b7355;
+.price {
+    font-size: 42px;
+    font-weight: 700;
+    color: #ff5252;
     margin-bottom: 25px;
-    font-style: italic;
-    line-height: 1.4;
 }
 
-.features {
-    list-style: none;
-    margin-bottom: 30px;
-    flex-grow: 1;
-    text-align: left;
+.currency {
+    font-size: 24px;
 }
 
-.features li {
-    padding: 6px 0;
-    font-size: 13px;
+.desc {
+    font-size: 14px;
+    line-height: 1.8;
     color: #666;
-    line-height: 1.6;
+    margin-bottom: 30px;
+    min-height: 80px;
 }
 
-.plan-button {
-    background: #e74c3c;
+.btn-plan {
+    background: #ff5252;
     color: white;
     border: none;
-    padding: 12px 35px;
-    border-radius: 6px;
+    padding: 14px 50px;
+    border-radius: 8px;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
-    margin-top: auto;
     width: 100%;
-    max-width: 200px;
+    max-width: 180px;
 }
 
-.plan-button.free {
-    background: #8b7355;
+.btn-plan.free {
+    background: #999;
 }
 
-.plan-button:hover {
-    opacity: 0.9;
+.btn-plan:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 20px rgba(255, 82, 82, 0.3);
 }
 
-/* ===== フッター ===== */
+/* Footer */
 .footer {
-    background: #2c2c2c;
-    color: white;
-    padding: 40px 20px;
+    background: white;
+    padding: 50px 20px;
     text-align: center;
-    margin-top: 0;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    border-top: 1px solid #e5e2dd;
 }
 
 .footer-logo {
-    height: 35px;
-    width: auto;
+    height: 40px;
+    margin-bottom: 20px;
 }
 
-.copyright {
-    font-size: 13px;
+.footer p {
     color: #999;
+    font-size: 13px;
+    margin: 10px 0;
 }
 
-.social-links img {
-    width: 28px;
-    height: 28px;
-    transition: opacity 0.3s;
-}
-
-.social-links img:hover {
-    opacity: 0.7;
+.instagram img {
+    width: 30px;
+    height: 30px;
+    margin: 20px 0 10px;
 }
 
 .app-name {
-    color: #999;
-    font-size: 13px;
-    margin-top: 10px;
+    color: #666;
+    font-size: 14px;
 }
 
-/* ===== レスポンシブ ===== */
+/* Responsive */
+@media (max-width: 992px) {
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .pricing-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .features-grid {
         grid-template-columns: repeat(2, 1fr);
     }
     
-    .plans-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .cta-section {
+        flex-direction: column;
+        align-items: center;
     }
     
-    .secondary-nav {
-        flex-wrap: wrap;
-    }
-    
-    .secondary-nav .nav-link {
-        border-right: none;
-        padding: 5px 10px;
+    .cta-btn {
+        width: 250px;
     }
 }
 
 @media (max-width: 480px) {
-    .features-grid {
+    .main-nav {
+        flex-wrap: wrap;
+    }
+    
+    .divider {
+        display: none;
+    }
+    
+    .features-grid,
+    .pricing-cards {
         grid-template-columns: 1fr;
-    }
-    
-    .plans-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .cta-buttons {
-        flex-direction: column;
-    }
-    
-    .cta-button {
-        width: 90%;
-        max-width: 250px;
     }
 }
