@@ -139,40 +139,111 @@ input:checked + .slider:before { transform: translateX(24px); }
 .pricing-card button[disabled]{ background:#ccc; cursor:not-allowed; }
 .pricing-card button:hover:not([disabled]){ background:#ff7675; transform:scale(1.05); }
 
-/* Ribbon — 右上で安定配置（カードpaddingを気にしない簡易版） */
-.ribbon-badge{
-  position:absolute;
-  top:-8px;                  /* 少しはみ出す */
-  right:-8px;
-  width:70px; height:70px;
-  object-fit:contain;
-  pointer-events:none;
-  z-index:10;
+/* ========== リボン修正 - カード角にピッタリ配置 ========== */
+.ribbon-badge {
+  position: absolute;
+  top: 0;           /* カード上端に合わせる */
+  right: 0;         /* カード右端に合わせる */
+  width: 80px;      /* 少し大きく */
+  height: 80px;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 10;
+  transform-origin: top right;  /* 右上を基準に */
 }
 
-/* ========== Footer（1つだけ） ========== */
-footer { background:#fff5f0; padding:60px 20px; }   /* ← ここで大きさ固定 */
+/* Sparkプラン（左上角） */
+.pricing-card:first-child .ribbon-badge {
+  right: auto;
+  left: 0;
+  transform-origin: top left;
+}
+
+/* リボンが見切れないようにカード間の余白を調整 */
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  gap: 32px;        /* 少し広げてリボンの重なりを防ぐ */
+  flex-wrap: wrap;
+  padding: 0 20px;  /* 左右の余白を追加 */
+}
+
+/* ========== フッター大幅修正 ========== */
+footer {
+  background: white;
+  padding: 80px 20px 60px;  /* 上下のパディングを大きく */
+  border-top: 1px solid #e0e0e0;
+  margin-top: 80px;         /* プランセクションとの間隔を広げる */
+}
+
 .footer-content {
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:12px; color:#444; font-size:13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;               /* 要素間の間隔を広げる */
+  color: #666;
+  font-size: 14px;         /* フォントサイズを少し大きく */
 }
-.footer-logo { max-width:280px; width:100%; height:auto; }
-.footer-icon { width:28px; height:28px; transition:opacity .2s ease; }
-.footer-icon:hover { opacity:.7; }
-.footer-handle { color:#666; font-size:13px; }
 
-/* ========== Responsive ========== */
-@media (max-width: 992px){ .features{ grid-template-columns:repeat(3,1fr); } }
-@media (max-width: 768px){
-  .logo{ width:300px; }
-  .auth-links{ top:10px; right:10px; }
-  .features{ grid-template-columns:repeat(2,1fr); }
-  .cta-primary{ font-size:16px; padding:15px 40px; }
-  .ribbon-badge{ width:60px; height:60px; top:-6px; right:-6px; }
+.footer-logo {
+  max-width: 360px;        /* ロゴを大きく */
+  width: 90%;
+  height: auto;
+  margin-bottom: 20px;     /* 下の要素との間隔 */
 }
-@media (max-width: 480px){
-  .features{ grid-template-columns:1fr; }
-  .pricing-cards{ flex-direction:column; align-items:center; }
-  .auth-links a{ font-size:13px; padding:6px 15px; }
-  .ribbon-badge{ width:54px; height:54px; top:-5px; right:-5px; }
+
+.footer-icon {
+  width: 40px;             /* アイコンを大きく */
+  height: 40px;
+  transition: opacity 0.2s ease;
+  margin: 20px 0;          /* 上下の余白 */
+}
+
+.footer-icon:hover {
+  opacity: 0.7;
+  transform: scale(1.1);   /* ホバー時に少し拡大 */
+}
+
+/* Instagramハンドル追加（もし必要なら） */
+.footer-handle {
+  color: #999;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+/* ========== レスポンシブ対応 ========== */
+@media (max-width: 768px) {
+  .ribbon-badge {
+    width: 65px;
+    height: 65px;
+  }
+  
+  footer {
+    padding: 60px 20px 40px;
+  }
+  
+  .footer-logo {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ribbon-badge {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .pricing-cards {
+    gap: 24px;
+  }
+  
+  footer {
+    padding: 50px 20px 30px;
+  }
+  
+  .footer-icon {
+    width: 35px;
+    height: 35px;
+  }
 }
