@@ -1,17 +1,9 @@
-/* ========== Base (全体) ========== */
-* { 
-  box-sizing: border-box; 
-}
-
-html, body { 
-  height: 100%; 
-}
-
+/* ===== 全体レイアウト ===== */
 body {
   margin: 0;
   padding: 0;
   background: #f8f1ee;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Helvetica Neue', sans-serif;
   color: #333;
   text-align: center;
   display: flex;
@@ -19,358 +11,376 @@ body {
   min-height: 100vh;
 }
 
-/* ========== Header ========== */
-header { 
-  position: relative; 
-  padding: 50px 20px 0; 
-}
-
+/* ===== ヘッダー内リンク ===== */
 .auth-links {
   position: absolute;
   top: 20px;
   right: 30px;
   display: flex;
-  gap: 12px;
+  gap: 20px;
 }
 
 .login-btn,
 .signup-btn {
   background: #6c5ce7;
-  color: #fff;
+  color: white;
   padding: 8px 20px;
   border-radius: 20px;
   font-weight: 500;
   text-decoration: none;
   font-size: 14px;
-  transition: all .25s ease;
+  transition: all 0.3s;
 }
 
 .login-btn:hover,
-.signup-btn:hover { 
-  background: #5f4fd8; 
-  transform: translateY(-2px); 
+.signup-btn:hover {
+  background: #5f4fd8;
+  transform: translateY(-2px);
 }
 
+/* ===== ヘッダーロゴとサブタイトル ===== */
 .logo {
   width: 450px;
   height: auto;
-  margin: 80px auto 8px;
-  display: block;
+  margin-top: 80px;
 }
 
 .tagline {
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   font-style: italic;
   color: #8b7355;
   font-size: 16px;
-  margin: 0 0 24px;
+  margin-top: 10px;
 }
 
-/* ========== Features ========== */
+/* ===== コンテンツカード ===== */
 .features {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 25px;
-  padding: 40px 20px;
+  padding: 40px;
   max-width: 1100px;
   margin: 0 auto;
 }
 
-.feature-card { 
-  cursor: pointer; 
-  transition: transform .25s ease; 
+.feature-card {
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
-.feature-card:hover { 
-  transform: scale(1.03); 
+.feature-card:hover {
+  transform: scale(1.03);
 }
 
-.feature-card img { 
-  width: 100%; 
-  border-radius: 8px; 
-  display: block; 
+.feature-card img {
+  width: 100%;
+  border-radius: 8px;
 }
 
-/* ========== Main CTA ========== */
-.main-cta { 
-  text-align: center; 
-  padding: 50px 20px; 
-  background: #fff; 
+/* ===== CTAセクション ===== */
+.main-cta {
+  text-align: center;
+  padding: 50px 20px;
+  background: white;
 }
 
 .cta-primary {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #fff; 
-  border: none; 
-  padding: 18px 50px; 
+  color: white;
+  border: none;
+  padding: 18px 50px;
   border-radius: 30px;
-  font-size: 18px; 
-  font-weight: 700; 
-  cursor: pointer; 
-  transition: all .25s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, .3);
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
-.cta-primary:hover { 
-  transform: translateY(-3px); 
-  box-shadow: 0 6px 20px rgba(102, 126, 234, .4); 
+.cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-.cta-text { 
-  margin-top: 12px; 
-  color: #999; 
-  font-size: 13px; 
+.cta-text {
+  margin-top: 15px;
+  color: #999;
+  font-size: 13px;
 }
 
-/* ========== Pricing Section ========== */
-.pricing-section { 
-  padding: 60px 20px 30px; 
-  background: #fff5f0; 
-  flex: 1 0 auto; 
+/* ===== プラン表示セクション ===== */
+.pricing-section {
+  padding: 60px 20px 10px;
+  background: #fff5f0;
+  text-align: center;
+  flex: 1 0 auto;
 }
 
-.pricing-title { 
-  font-size: 28px; 
-  font-family: "Playfair Display", serif; 
-  margin: 0 0 20px; 
+.pricing-title {
+  font-size: 28px;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
 }
 
-/* Toggle */
+/* ===== トグルスイッチ ===== */
 .toggle-container {
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
-  margin-bottom: 40px; 
-  user-select: none;
+  margin-bottom: 40px;
 }
 
-.switch { 
-  position: relative; 
-  width: 50px; 
-  height: 26px; 
-  display: inline-block; 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
 }
 
-.switch input { 
-  opacity: 0; 
-  width: 0; 
-  height: 0; 
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.slider { 
-  position: absolute; 
-  inset: 0; 
-  background: #ccc; 
-  border-radius: 26px; 
-  transition: .25s; 
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: 0.4s;
 }
 
 .slider:before {
-  content: ""; 
-  position: absolute; 
-  left: 3px; 
-  bottom: 3px; 
-  width: 20px; 
+  position: absolute;
+  content: "";
   height: 20px;
-  background: #fff; 
-  border-radius: 50%; 
-  transition: .25s;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
 }
 
-input:checked + .slider { 
-  background: #ff7675; 
+input:checked + .slider {
+  background-color: #ff7675;
 }
 
-input:checked + .slider:before { 
-  transform: translateX(24px); 
+input:checked + .slider:before {
+  transform: translateX(24px);
 }
 
-/* Yearly badge */
+/* ===== 年額割引バッジ ===== */
 .save-badge {
-  background: #ff7675; 
-  color: #fff; 
-  padding: 3px 10px; 
+  background: #ff7675;
+  color: white;
+  padding: 3px 10px;
   border-radius: 12px;
-  font-size: 11px; 
-  font-weight: 700; 
-  margin-left: 5px; 
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 5px;
   animation: pulse 2s infinite;
 }
 
-@keyframes pulse { 
-  0% { transform: scale(1) } 
-  50% { transform: scale(1.05) } 
-  100% { transform: scale(1) } 
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
-/* Cards */
-.pricing-cards { 
-  display: flex; 
-  justify-content: center; 
-  gap: 32px; 
+/* ===== プランカード ===== */
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
   flex-wrap: wrap;
-  padding: 0 20px;
 }
 
 .pricing-card {
-  position: relative;
   background: #fff;
   padding: 20px;
-  width: 240px; 
-  min-height: 320px;
   border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 240px;
+  min-height: 320px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
-  display: flex; 
-  flex-direction: column; 
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start;
-  overflow: visible;
-  transition: transform .2s ease, box-shadow .2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.pricing-card:hover { 
-  transform: translateY(-5px); 
+.pricing-card:hover {
+  transform: translateY(-5px);
 }
 
-.pricing-card.popular { 
-  box-shadow: 0 8px 24px rgba(255, 118, 117, .18); 
+.pricing-card.popular {
+  border: 2px solid #ff7675;
 }
 
-.pricing-card h3 { 
-  font-size: 20px; 
-  margin: 0 0 10px; 
-  min-height: 30px; 
+.pricing-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  min-height: 30px;
 }
 
-.pricing-card .price { 
-  font-size: 24px; 
-  font-weight: 700; 
-  color: #d63031; 
-  margin: 0 0 6px; 
+.pricing-card .price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d63031;
+  margin-bottom: 5px;
 }
 
-.price-detail { 
-  font-size: 14px; 
-  color: #999; 
-  margin: 0 0 10px; 
-  min-height: 20px; 
+.price-detail {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
+  min-height: 20px;
 }
 
 .save-amount {
-  background: #fff3cd; 
-  color: #856404; 
-  padding: 5px 10px; 
+  background: #fff3cd;
+  color: #856404;
+  padding: 5px 10px;
   border-radius: 15px;
-  font-size: 12px; 
-  font-weight: 700; 
-  margin: 10px auto; 
+  font-size: 12px;
+  font-weight: bold;
+  margin: 10px auto;
   display: inline-block;
 }
 
-.pricing-card ul { 
-  list-style: none; 
-  padding: 0; 
-  margin: 0 0 20px; 
-  font-size: 14px; 
-  flex-grow: 1; 
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  margin: 0 0 20px;
+  flex-grow: 1;
 }
 
-.pricing-card li { 
-  margin: 6px 0; 
+.pricing-card li {
+  margin: 6px 0;
 }
 
-/* リボン画像の配置（各カードに最適化） */
+.pricing-card button {
+  background: #d63031;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+.pricing-card button[disabled] {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pricing-card button:hover:not([disabled]) {
+  background: #ff7675;
+  transform: scale(1.05);
+}
+
+/* ===== リボンバッジ調整 ===== */
 .ribbon-badge {
   position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
-  pointer-events: none;
   z-index: 10;
+  pointer-events: none;
 }
 
-/* Sparkプラン（左上・FREE） */
-.pricing-card:first-child .ribbon-badge {
-  top: -8px;
-  left: -8px;
-  width: 75px;
-  height: 75px;
+/* ===== レスポンシブ対応 ===== */
+@media (max-width: 992px) {
+  .features {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-/* Brandプラン（右上・TOP PICK） */
-.pricing-card:nth-child(3) .ribbon-badge {
-  top: -10px;
-  right: -10px;
-  width: 85px;
-  height: 85px;
-}
-
-/* Atelierプラン（右上・BEST VALUE） */
-.pricing-card:nth-child(4) .ribbon-badge {
-  top: -8px;
-  right: -8px;
-  width: 90px;
-  height: 90px;
-}
-
-/* レスポンシブ対応 */
 @media (max-width: 768px) {
-  .pricing-card:first-child .ribbon-badge {
-    width: 65px;
-    height: 65px;
+  .logo {
+    width: 300px;
   }
-  
-  .pricing-card:nth-child(3) .ribbon-badge {
-    width: 70px;
-    height: 70px;
+
+  .auth-links {
+    top: 10px;
+    right: 10px;
   }
-  
-  .pricing-card:nth-child(4) .ribbon-badge {
-    width: 75px;
-    height: 75px;
+
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cta-primary {
+    font-size: 16px;
+    padding: 15px 40px;
+  }
+
+  .ribbon-badge {
+    width: 50px;
+    height: 50px;
   }
 }
 
 @media (max-width: 480px) {
-  .pricing-card:first-child .ribbon-badge {
-    width: 55px;
-    height: 55px;
-  }
-  
-  .pricing-card:nth-child(3) .ribbon-badge,
-  .pricing-card:nth-child(4) .ribbon-badge {
-    width: 60px;
-    height: 60px;
+  .features {
+    grid-template-columns: 1fr;
   }
 
-/* リボン画像の配置 */
+  .pricing-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .auth-links a {
+    font-size: 13px;
+  }
+
+  .signup-btn {
+    padding: 6px 15px;
+  }
+
+  .login-btn {
+    padding: 6px 15px;
+  }
+}
+
 .ribbon-badge {
   position: absolute;
-  top: -10px;      /* -5px → -10px に変更 */
-  right: -10px;    /* -5px → -10px に変更 */
-  width: 80px;     /* 70px → 80px に変更 */
-  height: 80px;    /* 70px → 80px に変更 */
+  top: 0;
+  left: 0;
+  width: 100%;             /* カード幅にフィット */
+  height: auto;
+  z-index: 1000;
   object-fit: contain;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   pointer-events: none;
-  z-index: 10;
 }
 
-/* Sparkプラン（左上） */
-.pricing-card:first-child .ribbon-badge {
-  right: auto;
-  left: -10px;     /* -5px → -10px に変更 */
+@media (max-width: 768px) {
+  .ribbon-badge {
+    width: 48px;
+  }
 }
 
-.pricing-card:first-child .ribbon-badge {
-  right: auto;
-  left: -5px;
-}
-
-/* ========== Footer ========== */
-footer {
-  background: white;
-  padding: 80px 20px 60px;
-  border-top: 1px solid #e0e0e0;
-  margin-top: 80px;
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
 }
 
 .footer-content {
@@ -378,102 +388,32 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  color: #666;
-  font-size: 14px;
+  gap: 12px;
+  padding: 30px 20px;
+  font-size: 13px;
+  color: #444;
+  text-align: center;
 }
 
 .footer-logo {
-  max-width: 360px;
-  width: 90%;
+  max-width: 280px;
+  width: 100%;
   height: auto;
-  margin-bottom: 20px;
 }
 
 .footer-icon {
-  width: 40px;
-  height: 40px;
-  transition: all 0.2s ease;
-  margin: 20px 0;
+  width: 28px;
+  height: 28px;
+  margin-top: 8px;
+  transition: opacity 0.3s ease;
 }
 
 .footer-icon:hover {
   opacity: 0.7;
-  transform: scale(1.1);
 }
 
 .footer-handle {
-  color: #999;
   font-size: 13px;
-  margin-top: 10px;
-}
-
-/* ========== Responsive ========== */
-@media (max-width: 992px) { 
-  .features { 
-    grid-template-columns: repeat(3, 1fr); 
-  } 
-}
-
-@media (max-width: 768px) {
-  .logo { 
-    width: 300px; 
-  }
-  
-  .auth-links { 
-    top: 10px; 
-    right: 10px; 
-  }
-  
-  .features { 
-    grid-template-columns: repeat(2, 1fr); 
-  }
-  
-  .cta-primary { 
-    font-size: 16px; 
-    padding: 15px 40px; 
-  }
-  
-  .ribbon-badge { 
-    width: 60px; 
-    height: 60px; 
-  }
-  
-  footer {
-    padding: 60px 20px 40px;
-  }
-  
-  .footer-logo {
-    max-width: 280px;
-  }
-}
-
-@media (max-width: 480px) {
-  .features { 
-    grid-template-columns: 1fr; 
-  }
-  
-  .pricing-cards { 
-    flex-direction: column; 
-    align-items: center; 
-  }
-  
-  .auth-links a { 
-    font-size: 13px; 
-    padding: 6px 15px; 
-  }
-  
-  .ribbon-badge { 
-    width: 55px; 
-    height: 55px; 
-  }
-  
-  footer {
-    padding: 50px 20px 30px;
-  }
-  
-  .footer-icon {
-    width: 35px;
-    height: 35px;
-  }
+  margin-top: 5px;
+  color: #666;
 }
