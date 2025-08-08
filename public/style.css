@@ -303,16 +303,22 @@ input:checked + .slider:before {
   transform: scale(1.05); 
 }
 
-/* リボン */
+/* リボン画像の配置 */
 .ribbon-badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 70px;
-  height: 70px;
+  top: -10px;      /* -5px → -10px に変更 */
+  right: -10px;    /* -5px → -10px に変更 */
+  width: 80px;     /* 70px → 80px に変更 */
+  height: 80px;    /* 70px → 80px に変更 */
   object-fit: contain;
   pointer-events: none;
   z-index: 10;
+}
+
+/* Sparkプラン（左上） */
+.pricing-card:first-child .ribbon-badge {
+  right: auto;
+  left: -10px;     /* -5px → -10px に変更 */
 }
 
 .pricing-card:first-child .ribbon-badge {
