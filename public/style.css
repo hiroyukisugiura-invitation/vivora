@@ -358,6 +358,19 @@ input:checked + .slider:before {
   }
 }
 
+.ribbon-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;             /* カード幅にフィット */
+  height: auto;
+  z-index: 1000;
+  object-fit: contain;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .ribbon-badge {
     width: 48px;
