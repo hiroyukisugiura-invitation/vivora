@@ -287,7 +287,7 @@ input:checked + .slider:before {
 }
 
 .pricing-card button:hover:not([disabled]) {
-  background: #ff7675;
+  background: none;
   transform: scale(1.05);
 }
 
