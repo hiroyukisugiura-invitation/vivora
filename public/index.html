@@ -1,50 +1,45 @@
-Hiroyakiさん、承知いたしました。
-そして、詳細なスクリーンショットと、現状の全てのコードのご共有、本当にありがとうございます！
-
-「リボンがボタンと同じ大きさになりません」
-「フッターのInstagramの画像をコピーライトと横並びで高さを中央で合わせて」
-
-はい、完璧に理解しました。
-これらは、CSSの**「親子関係」と「Flexboxによる中央揃え」**という、Webデザインの核心に関わる部分ですね。必ず、美しく解決できます。
-
-問題の分析と、確実な修正プラン
-
-リボンの問題:
-
-原因: 現在のHTMLとCSSでは、<h3>タグの中に<img>を配置してしまっているため、リボンの大きさがプラン名の文字の大きさに引きずられてしまい、正しく表示できていません。
-
-解決策: HTMLの構造を修正し、<img>を<h3>の外に出し、CSSでposition: absoluteを使ってカードの右上隅に独立して配置します。
-
-フッターの問題:
-
-原因: 現在のHTMLでは、コピーライトとInstagramのアイコンが別々の要素として配置されているため、横に並べることができません。
-
-解決策: この2つの要素を、<footer>という一つの親要素で囲み、その親に対してdisplay: flexとalign-items: centerを適用することで、完璧な**「横並び・上下中央揃え」**を実現します。
-
-【最終完成版】 HTML & CSS
-
-以下のHTMLとCSSの完全なコードで、ご自身のファイルをそれぞれ完全に上書きしてください。
-
-1. 【最終完成版】 メインページ HTML (index.htmlなど)
-code
-Html
-download
-content_copy
-expand_less
-
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora - Style your tomorrow.</title>
+  <title>Vivora</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" />
 </head>
 <body>
 
-  <!-- (ヘッダー、ナビゲーション、コンテンツグリッド、CTAボタンは変更なし) -->
+  <!-- ヘッダー -->
+  <header>
+    <div class="auth-links">
+      <a href="#" class="login-btn">Log In</a>
+      <a href="#" class="signup-btn">Sign Up</a>
 
+    </div>
+    <img src="logo/vivora_logo-main.png" alt="Vivora Logo" class="logo">
+    <p class="tagline">Style your tomorrow.</p>
+  </header>
+
+  <!-- コンテンツ一覧 -->
+  <section class="features">
+    <a class="feature-card" href="fashion-illustrations.html">
+      <img src="contents/fashion-illustrations.png" alt="Fashion Illustration" />
+    </a>
+    <div class="feature-card"><img src="contents/fabric-matching.png" alt="Fabric Matching" /></div>
+    <div class="feature-card"><img src="contents/clothing-design.png" alt="Clothing Design" /></div>
+    <div class="feature-card"><img src="contents/pattern-creation.png" alt="Pattern Creation" /></div>
+    <div class="feature-card"><img src="contents/grading.png" alt="Grading" /></div>
+    <div class="feature-card"><img src="contents/print-layout-cut.png" alt="Print Layout & Cut" /></div>
+    <div class="feature-card"><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids" /></div>
+  </section>
+
+  <!-- CTA -->
+  <div class="main-cta">
+    <button class="cta-primary">今すぐ無料で始める</button>
+    <p class="cta-text">7日間無料体験・クレジットカード登録必須</p>
+  </div>
+
+  <!-- プランセクション -->
   <section class="pricing-section">
     <h2 class="pricing-title">Choose Your Plan</h2>
     <div class="toggle-container">
@@ -61,10 +56,10 @@ expand_less
       <div class="pricing-card">
         <img src="ribbon/ribbon_free.png" alt="Free" class="ribbon-badge" />
         <h3>Spark</h3>
-        <p class="price">¥0</p>
+        <p class="price" data-monthly="¥0" data-yearly="¥0">¥0</p>
         <p class="price-detail">/月</p>
         <ul>
-          <li>「ひらめき」を形にする<br>最初の火花</li>
+          <li>「ひらめき」を形にする最初の火花</li>
           <li>Basic demo only</li>
           <li>Limited templates</li>
         </ul>
@@ -74,11 +69,11 @@ expand_less
       <!-- Creator -->
       <div class="pricing-card">
         <h3>Creator</h3>
-        <p class="price" data-monthly="3600" data-yearly="36000">¥3,600</p>
+        <p class="price" data-monthly="¥3,600" data-yearly="¥36,000">¥3,600</p>
         <p class="price-detail" data-monthly="/月" data-yearly="/年（¥3,000/月）">/月</p>
-        <p class="save-amount" style="display:none;">¥7,200お得！</p>
+        <p class="save-amount" style="display:none">¥7,200お得！</p>
         <ul>
-          <li>「クリエイター」としての<br>第一歩</li>
+          <li>「クリエイター」としての第一歩</li>
           <li>All design tools</li>
           <li>Save & export</li>
         </ul>
@@ -89,11 +84,11 @@ expand_less
       <div class="pricing-card popular">
         <img src="ribbon/ribbon_toppick.png" alt="Top Pick" class="ribbon-badge" />
         <h3>Brand</h3>
-        <p class="price" data-monthly="7200" data-yearly="72000">¥7,200</p>
+        <p class="price" data-monthly="¥7,200" data-yearly="¥72,000">¥7,200</p>
         <p class="price-detail" data-monthly="/月" data-yearly="/年（¥6,000/月）">/月</p>
-        <p class="save-amount" style="display:none;">¥14,400お得！</p>
+        <p class="save-amount" style="display:none">¥14,400お得！</p>
         <ul>
-          <li>自分の「ブランド」を<br>立ち上げる</li>
+          <li>自分の「ブランド」を立ち上げる</li>
           <li>Full pattern / grading</li>
           <li>Print layout & cut</li>
         </ul>
@@ -104,11 +99,11 @@ expand_less
       <div class="pricing-card">
         <img src="ribbon/ribbon_bestvalue.png" alt="Best Value" class="ribbon-badge" />
         <h3>Atelier</h3>
-        <p class="price" data-monthly="12000" data-yearly="120000">¥12,000</p>
+        <p class="price" data-monthly="¥12,000" data-yearly="¥120,000">¥12,000</p>
         <p class="price-detail" data-monthly="/月" data-yearly="/年（¥10,000/月）">/月</p>
-        <p class="save-amount" style="display:none;">¥24,000お得！</p>
+        <p class="save-amount" style="display:none">¥24,000お得！</p>
         <ul>
-          <li>プロの「アトリエ」として<br>ビジネスを拡大</li>
+          <li>プロの「アトリエ」としてビジネスを拡大</li>
           <li>Team collaboration</li>
           <li>Advanced pro tools</li>
         </ul>
@@ -117,131 +112,41 @@ expand_less
     </div>
   </section>
 
-  <!-- ★★★ ここからが修正箇所です ★★★ -->
-  <footer>
-    <div class="footer-content">
-      <img src="logo/vivora_copy.png" alt="© 2005-2025 INVITATION co." class="footer-logo" />
-      <a href="https://www.instagram.com/vivora.app" target="_blank" class="instagram-link">
-        <img src="logo/vivora_insta.png" alt="Instagram" class="footer-icon" />
-      </a>
-    </div>
-  </footer>
-
+  <!-- プラン切替JS -->
   <script>
     const toggle = document.getElementById('billing-toggle');
+    const prices = document.querySelectorAll('.price[data-monthly]');
+    const priceDetails = document.querySelectorAll('.price-detail');
+    const saveAmounts = document.querySelectorAll('.save-amount');
+
     toggle.addEventListener('change', () => {
       const isYearly = toggle.checked;
-      document.querySelectorAll('.price[data-monthly]').forEach(priceEl => {
-        const amount = isYearly ? priceEl.dataset.yearly : priceEl.dataset.monthly;
-        priceEl.textContent = `¥${Number(amount).toLocaleString()}`;
+
+      prices.forEach(price => {
+        price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
       });
-      document.querySelectorAll('.price-detail[data-monthly]').forEach(detailEl => {
-        detailEl.textContent = isYearly ? detailEl.dataset.yearly : detailEl.dataset.monthly;
+
+      priceDetails.forEach(detail => {
+        if (detail.dataset.yearly && detail.dataset.monthly) {
+          detail.textContent = isYearly ? detail.dataset.yearly : detail.dataset.monthly;
+        }
       });
-      document.querySelectorAll('.save-amount').forEach(amountEl => {
-        amountEl.style.display = isYearly ? 'inline-block' : 'none';
+
+      saveAmounts.forEach(amount => {
+        amount.style.display = isYearly ? 'inline-block' : 'none';
       });
     });
   </script>
 
+  <!-- フッター -->
+  <footer>
+    <div class="footer-content">
+      <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
+      <a href="https://www.instagram.com/vivora.app" target="_blank">
+        <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
+      </a>
+    </div>
+  </footer>
+
 </body>
 </html>
-2. 【最終完成版】 メインページ CSS (style.css)
-code
-Css
-download
-content_copy
-expand_less
-IGNORE_WHEN_COPYING_START
-IGNORE_WHEN_COPYING_END
-/* (基本設定、ヘッダー、ナビゲーション、コンテンツ、CTAボタンは変更なし) */
-/* ... */
-
-/* ========== Pricing Section ========== */
-.pricing-section { padding: 60px 20px 30px; background: #fff5f0; flex: 1 0 auto; }
-.pricing-title { font-size: 28px; font-family: "Playfair Display", serif; margin: 0 0 20px; }
-.toggle-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 40px; user-select: none; }
-.switch { position: relative; width: 50px; height: 26px; display: inline-block; }
-.switch input { opacity: 0; width: 0; height: 0; }
-.slider { position: absolute; inset: 0; background: #ccc; border-radius: 26px; transition: .25s; }
-.slider:before { content: ""; position: absolute; left: 3px; bottom: 3px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: .25s; }
-input:checked + .slider { background: #ff7675; }
-input:checked + .slider:before { transform: translateX(24px); }
-.save-badge { background: #ff7675; color: #fff; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; margin-left: 5px; animation: pulse 2s infinite; }
-@keyframes pulse { 0% { transform: scale(1) } 50% { transform: scale(1.05) } 100% { transform: scale(1) } }
-
-.pricing-cards { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; padding: 0 20px; }
-.pricing-card {
-  position: relative;
-  background: #fff;
-  padding: 20px;
-  width: 240px; 
-  min-height: 360px; /* 少し高さを確保 */
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
-  display: flex; 
-  flex-direction: column; 
-  justify-content: flex-start;
-  overflow: visible; /* リボンをはみ出して表示 */
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-.pricing-card:hover { transform: translateY(-5px); }
-.pricing-card.popular { box-shadow: 0 8px 24px rgba(255, 118, 117, .18); border: 2px solid #ff7675;}
-.pricing-card h3 { font-size: 20px; margin: 10px 0; }
-.pricing-card .price { font-size: 24px; font-weight: 700; color: #d63031; margin: 0 0 6px; }
-.price-detail { font-size: 14px; color: #999; margin: 0 0 10px; min-height: 20px; }
-.save-amount { background: #fff3cd; color: #856404; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: 700; margin: 10px auto; display: inline-block; }
-.pricing-card ul { list-style: none; padding: 0; margin: 10px 0 20px; font-size: 14px; flex-grow: 1; text-align: left;}
-.pricing-card li { margin: 6px 0; }
-.pricing-card button { background: #333; color:#fff; border: none; padding: 12px 24px; border-radius: 20px; cursor: pointer; font-weight: 500; font-size: 14px; transition: all 0.2s ease; margin-top: auto;}
-.pricing-card button:hover { opacity: 0.8; }
-.pricing-card button[disabled] { background: #ccc; cursor: not-allowed; }
-
-/* ★★★ ここからがリボンの修正箇所です ★★★ */
-.ribbon-badge {
-  position: absolute;
-  top: -10px;
-  width: 80px;
-  height: auto;
-  pointer-events: none;
-  z-index: 10;
-}
-/* Spark (左上) */
-.pricing-card:first-child .ribbon-badge {
-  left: -10px;
-  right: auto;
-}
-/* Brand & Atelier (右上) */
-.pricing-card:nth-child(3) .ribbon-badge,
-.pricing-card:nth-child(4) .ribbon-badge {
-  right: -10px;
-  left: auto;
-}
-
-/* ★★★ ここからがフッターの修正箇所です ★★★ */
-footer {
-  padding: 60px 20px 40px;
-  border-top: 1px solid #e0e0e0;
-}
-.footer-content {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* これで上下中央揃えになります */
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.footer-logo {
-  max-width: 320px;
-}
-.footer-icon {
-  width: 40px;
-  height: 40px;
-  transition: opacity 0.2s ease;
-}
-.footer-icon:hover {
-  opacity: 0.7;
-}
-
-/* (レスポンシブ部分は変更なし) */
-/* ... */```
