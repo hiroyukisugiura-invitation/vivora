@@ -1,9 +1,11 @@
-/* ===== 全体レイアウト ===== */
+/* ========== Base (全体) ========== */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 body {
   margin: 0;
   padding: 0;
   background: #f8f1ee;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
   color: #333;
   text-align: center;
   display: flex;
@@ -11,351 +13,215 @@ body {
   min-height: 100vh;
 }
 
-/* ===== ヘッダー内リンク ===== */
+/* ========== Header ========== */
+header { position: relative; padding: 50px 20px 0; }
 .auth-links {
   position: absolute;
   top: 20px;
   right: 30px;
   display: flex;
-  gap: 20px;
+  gap: 12px;
 }
-
 .login-btn,
 .signup-btn {
   background: #6c5ce7;
-  color: white;
+  color: #fff;
   padding: 8px 20px;
   border-radius: 20px;
   font-weight: 500;
   text-decoration: none;
   font-size: 14px;
-  transition: all 0.3s;
+  transition: all .25s ease;
 }
-
 .login-btn:hover,
 .signup-btn:hover {
   background: #5f4fd8;
   transform: translateY(-2px);
 }
 
-/* ===== ヘッダーロゴとサブタイトル ===== */
 .logo {
   width: 450px;
   height: auto;
-  margin-top: 80px;
+  margin: 80px auto 8px;
+  display: block;
 }
-
 .tagline {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-style: italic;
   color: #8b7355;
   font-size: 16px;
-  margin-top: 10px;
+  margin: 0 0 24px;
 }
 
-/* ===== コンテンツカード ===== */
+/* ========== Features (カード一覧) ========== */
 .features {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 25px;
-  padding: 40px;
+  padding: 40px 20px;
   max-width: 1100px;
   margin: 0 auto;
 }
+.feature-card { cursor: pointer; transition: transform .25s ease; }
+.feature-card:hover { transform: scale(1.03); }
+.feature-card img { width: 100%; border-radius: 8px; display: block; }
 
-.feature-card {
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
-
-.feature-card:hover {
-  transform: scale(1.03);
-}
-
-.feature-card img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-/* ===== CTAセクション ===== */
+/* ========== Main CTA ========== */
 .main-cta {
   text-align: center;
   padding: 50px 20px;
-  background: white;
+  background: #fff;
 }
-
 .cta-primary {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  color: #fff;
   border: none;
   padding: 18px 50px;
   border-radius: 30px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  transition: all .25s ease;
+  box-shadow: 0 4px 15px rgba(102,126,234,.3);
 }
-
 .cta-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(102,126,234,.4);
 }
+.cta-text { margin-top: 12px; color: #999; font-size: 13px; }
 
-.cta-text {
-  margin-top: 15px;
-  color: #999;
-  font-size: 13px;
-}
-
-/* ===== プラン表示セクション ===== */
+/* ========== Pricing Section ========== */
 .pricing-section {
-  padding: 60px 20px 10px;
+  padding: 60px 20px 30px;
   background: #fff5f0;
-  text-align: center;
   flex: 1 0 auto;
 }
-
 .pricing-title {
   font-size: 28px;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 20px;
+  font-family: "Playfair Display", serif;
+  margin: 0 0 20px;
 }
 
-/* ===== トグルスイッチ ===== */
+/* Toggle */
 .toggle-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
   margin-bottom: 40px;
+  user-select: none;
 }
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
+.switch { position: relative; width: 50px; height: 26px; display: inline-block; }
+.switch input { opacity: 0; width: 0; height: 0; }
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  border-radius: 26px;
-  transition: 0.4s;
+  position: absolute; inset: 0;
+  background-color: #ccc; border-radius: 26px; transition: .25s;
 }
-
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
+  content: ""; position: absolute; left: 3px; bottom: 3px;
+  width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: .25s;
 }
+input:checked + .slider { background-color: #ff7675; }
+input:checked + .slider:before { transform: translateX(24px); }
 
-input:checked + .slider {
-  background-color: #ff7675;
-}
-
-input:checked + .slider:before {
-  transform: translateX(24px);
-}
-
-/* ===== 年額割引バッジ ===== */
+/* Yearly お得バッジ */
 .save-badge {
-  background: #ff7675;
-  color: white;
-  padding: 3px 10px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: bold;
-  margin-left: 5px;
+  background: #ff7675; color: #fff;
+  padding: 3px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700; margin-left: 5px;
   animation: pulse 2s infinite;
 }
-
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+  0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); }
 }
 
-/* ===== プランカード ===== */
+/* Cards */
 .pricing-cards {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
+  display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
 }
-
 .pricing-card {
+  position: relative;
   background: #fff;
   padding: 20px;
+  width: 240px; min-height: 320px;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 240px;
-  min-height: 320px;
   text-align: center;
-  transition: transform 0.3s;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  position: relative;
-  overflow: visible; /* リボンはみ出しOK */
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  display: flex; flex-direction: column; justify-content: flex-start;
+  overflow: hidden;
+  transition: transform .2s ease, box-shadow .2s ease;
 }
+.pricing-card:hover { transform: translateY(-5px); }
 
-.pricing-card:hover {
-  transform: translateY(-5px);
-}
-
-/* ===== Brandカード 赤枠削除 ===== */
+/* Brand(Top Pick) — 外枠なしで少し強調 */
 .pricing-card.popular {
   border: none;
-  box-shadow: 0 8px 24px rgba(255, 118, 117, 0.18);
+  box-shadow: 0 8px 24px rgba(255,118,117,.18);
 }
 
-.pricing-card h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  min-height: 30px;
-}
-
+.pricing-card h3 { font-size: 20px; margin: 0 0 10px; min-height: 30px; }
 .pricing-card .price {
-  font-size: 24px;
-  font-weight: bold;
-  color: #d63031;
-  margin-bottom: 5px;
+  font-size: 24px; font-weight: 700; color: #d63031; margin: 0 0 6px;
 }
-
-.price-detail {
-  font-size: 14px;
-  color: #999;
-  margin-bottom: 10px;
-  min-height: 20px;
-}
-
+.price-detail { font-size: 14px; color: #999; margin: 0 0 10px; min-height: 20px; }
 .save-amount {
-  background: #fff3cd;
-  color: #856404;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: bold;
-  margin: 10px auto;
-  display: inline-block;
+  background: #fff3cd; color: #856404;
+  padding: 5px 10px; border-radius: 15px;
+  font-size: 12px; font-weight: 700; margin: 10px auto; display: inline-block;
 }
+.pricing-card ul { list-style: none; padding: 0; margin: 0 0 20px; font-size: 14px; flex-grow: 1; }
+.pricing-card li { margin: 6px 0; }
 
-.pricing-card ul {
-  list-style: none;
-  padding: 0;
-  font-size: 14px;
-  margin: 0 0 20px;
-  flex-grow: 1;
-}
-
-.pricing-card li {
-  margin: 6px 0;
-}
-
-/* ===== プランのボタン ===== */
+/* Buttons on cards — 枠なしの赤塗り */
 .pricing-card button {
   background: #d63031;
   color: #fff;
-  border: none; /* 枠なし */
+  border: none;
   padding: 10px 20px;
   border-radius: 24px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 14px;
   margin-top: auto;
-  transition: all 0.3s ease;
+  transition: all .2s ease;
 }
+.pricing-card button[disabled] { background: #ccc; cursor: not-allowed; }
+.pricing-card button:hover:not([disabled]) { background: #ff7675; transform: scale(1.05); }
 
-.pricing-card button[disabled] {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-.pricing-card button:hover:not([disabled]) {
-  background: #ff7675;
-  transform: scale(1.05);
-}
-
-/* ===== リボン完全修正版 ===== */
+/* Corner ribbon images (右上に小さく) */
 .ribbon-badge {
   position: absolute;
-  top: 0;          /* カードの上端に合わせる */
-  right: 0;        /* カードの右端に合わせる */
-  width: 65px;     /* 適切なサイズに調整 */
-  height: 65px;
+  top: 0; right: 0;
+  width: 60px; height: 60px;
   object-fit: contain;
-  z-index: 10;
   pointer-events: none;
-  transform: translate(20%, -20%);  /* 右上にずらす */
+  z-index: 10;
 }
 
-/* Sparkプラン（左上配置） */
-.pricing-card:first-child .ribbon-badge {
-  right: auto;
-  left: 0;
-  transform: translate(-20%, -20%);  /* 左上にずらす */
+/* ========== Footer（1つだけ表示） ========== */
+footer { background: #fff5f0; }
+.footer-content {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; padding: 28px 20px; color: #444; font-size: 13px;
 }
+.footer-logo { max-width: 280px; width: 100%; height: auto; }
+.footer-icon { width: 28px; height: 28px; transition: opacity .2s ease; }
+.footer-icon:hover { opacity: .7; }
+.footer-handle { color: #666; font-size: 13px; }
 
-/* モバイル用調整 */
+/* ========== Responsive ========== */
+@media (max-width: 992px) {
+  .features { grid-template-columns: repeat(3, 1fr); }
+}
 @media (max-width: 768px) {
-  .ribbon-badge {
-    width: 55px;
-    height: 55px;
-    transform: translate(15%, -15%);
-  }
-  
-  .pricing-card:first-child .ribbon-badge {
-    transform: translate(-15%, -15%);
-  }
+  .logo { width: 300px; }
+  .auth-links { top: 10px; right: 10px; }
+  .features { grid-template-columns: repeat(2, 1fr); }
+  .cta-primary { font-size: 16px; padding: 15px 40px; }
+  .ribbon-badge { width: 50px; height: 50px; }
 }
-
 @media (max-width: 480px) {
-  .ribbon-badge {
-    width: 50px;
-    height: 50px;
-    transform: translate(10%, -10%);
-  }
-  
-  .pricing-card:first-child .ribbon-badge {
-    transform: translate(-10%, -10%);
-  }
-}
-
-/* ===== フッター修正（切れている部分） ===== */
-.footer-logo {
-  max-width: 280px;  /* 切れていたpxを追加 */
-  width: 80%;
-  height: auto;
-}
-
-.footer-icon {
-  height: 40px;
-  width: auto;
-  margin: 15px 0;
-}
-
-footer {
-  background: white;
-  padding: 40px 20px;
-  margin-top: 60px;
-  border-top: 1px solid #e0e0e0;
+  .features { grid-template-columns: 1fr; }
+  .pricing-cards { flex-direction: column; align-items: center; }
+  .auth-links a { font-size: 13px; padding: 6px 15px; }
 }
