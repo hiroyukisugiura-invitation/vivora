@@ -295,33 +295,52 @@ input:checked + .slider:before {
   transform: scale(1.05);
 }
 
-/* ===== リボン（カードの外側ピッタリに固定） ===== */
-/* カードの padding:20px を打ち消して、さらに少し外に出す */
-.ribbon-badge{
+/* ===== リボン修正（シンプルに右上配置） ===== */
+.ribbon-badge {
   position: absolute;
-  top: calc(-20px - 6px);   /* ← -20px はカードの padding と一致、-6px は“はみ出し”分 */
-  right: calc(-20px - 6px);
-  width: 72px;
-  height: 72px;
+  top: -10px;      /* 上に少しはみ出す */
+  right: -10px;    /* 右に少しはみ出す */
+  width: 80px;     /* 少し大きめに */
+  height: 80px;
   object-fit: contain;
-  z-index: 12;
+  z-index: 10;
   pointer-events: none;
 }
 
-/* 端末ごとの微調整（同じ考え方：paddingぶん + 余白） */
-@media (max-width: 768px){
-  .ribbon-badge{
-    top: calc(-20px - 4px);
-    right: calc(-20px - 4px);
-    width: 60px; height: 60px;
+/* モバイル用調整 */
+@media (max-width: 768px) {
+  .ribbon-badge {
+    top: -8px;
+    right: -8px;
+    width: 70px;
+    height: 70px;
   }
 }
-@media (max-width: 480px){
-  .ribbon-badge{
-    top: calc(-20px - 3px);
-    right: calc(-20px - 3px);
-    width: 54px; height: 54px;
+
+@media (max-width: 480px) {
+  .ribbon-badge {
+    top: -5px;
+    right: -5px;
+    width: 60px;
+    height: 60px;
   }
+}
+
+/* カードのoverflow設定を確認 */
+.pricing-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 240px;
+  min-height: 320px;
+  text-align: center;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  overflow: visible;  /* ← これが重要！hiddenだとリボンが切れる */
 }
 
 /* ===== フッター ===== */
