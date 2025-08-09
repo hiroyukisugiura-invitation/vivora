@@ -30,9 +30,10 @@
   .app{
     display:grid;
     grid-template-columns: 1fr 320px;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-areas:
       "header  sidebar"
+      "toolbar sidebar"
       "canvas  sidebar";
     height:100vh;
   }
@@ -59,15 +60,34 @@
   }
   .gender button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-  /* ツールバー（簡易） */
+  /* ツールバー */
   .toolbar{
-    display:flex;gap:10px;align-items:center;padding:8px 16px;border-top:1px solid var(--line);
+    grid-area:toolbar;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    padding:10px 16px;
+    border-top:1px solid var(--line);
+    background:#fff8;
+    backdrop-filter:saturate(1.2) blur(2px);
   }
   .tool-btn{
-    background:transparent;border:none;cursor:pointer;opacity:.8
+    background:transparent;border:none;cursor:pointer;opacity:.85
   }
   .tool-btn:hover{opacity:1}
   .tool-btn img{width:22px;height:22px;display:block}
+
+  /* コンテンツバー（Home〜） */
+  .contentbar{
+    display:flex;align-items:center;gap:10px;margin-left:auto;
+  }
+  .content-btn{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer; transition:.15s;
+  }
+  .content-btn img{width:26px;height:26px;display:block}
+  .content-btn:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
 
   /* キャンバス */
   .canvas-area{
@@ -130,18 +150,6 @@
   .overlay-item.selected-layer{outline:2px dashed #6c5ce7; outline-offset:2px}
   .overlay-item .tint{position:absolute;inset:0;pointer-events:none;border-radius:4px}
 
-<div class="contentbar">
-  <button class="content-btn" data-link="/"><img src="../../create_parts/contents_button/o_home.png" alt="Home"></button>
-  <button class="content-btn" data-link="/public/work/illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></button>
-  <button class="content-btn" data-link="/public/work/fabric/index.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm"></button>
-  <button class="content-btn" data-link="/public/work/clothing/index.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd"></button>
-  <button class="content-btn" data-link="/public/work/pattern/index.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc"></button>
-  <button class="content-btn" data-link="/public/work/grading/index.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Gd"></button>
-  <button class="content-btn" data-link="/public/work/print/index.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></button>
-  <button class="content-btn" data-link="/public/work/digital-kids/index.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></button>
-</div>
-
-  
   /* サイドバー */
   aside{
     grid-area:sidebar;
@@ -170,6 +178,24 @@
   .nextstep button{
     background:#222;color:#fff;border:none;border-radius:8px;padding:10px 16px;cursor:pointer;font-family:'Playfair Display',serif
   }
+
+  /* Zoom パネル */
+  #zoomPanel .zoom-row{display:flex;align-items:center;gap:10px}
+  #zoomRange{width:100%}
+  .zoom-btn{
+    width:34px;height:34px;border:1px solid var(--line);
+    background:#fff;border-radius:8px;cursor:pointer;
+  }
+  .zoom-btn:hover{background:#fafafa}
+  .zoom-meta{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:8px;font-size:13px;opacity:.8;
+  }
+  .zoom-reset{
+    border:1px solid var(--line);background:#fff;
+    padding:4px 10px;border-radius:8px;cursor:pointer;
+  }
+  .zoom-reset:hover{background:#fafafa}
 </style>
 </head>
 <body>
@@ -185,18 +211,30 @@
     </div>
   </header>
 
+  <!-- Toolbar + Content buttons -->
+  <div class="toolbar">
+    <button class="tool-btn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
+    <button class="tool-btn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
+    <button class="tool-btn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
+    <button class="tool-btn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
+    <button class="tool-btn" id="btn-upload" title="Upload Part"><img src="../../create_parts/create_button/upload.png" alt=""></button>
+    <button class="tool-btn" id="btn-save" title="Save Snapshot"><img src="../../create_parts/create_button/save.png" alt=""></button>
+    <button class="tool-btn" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
+
+    <div class="contentbar">
+      <button class="content-btn" data-link="/"><img src="../../create_parts/contents_button/o_home.png" alt="Home"></button>
+      <button class="content-btn" data-link="/public/work/illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></button>
+      <button class="content-btn" data-link="/public/work/fabric/index.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm"></button>
+      <button class="content-btn" data-link="/public/work/clothing/index.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd"></button>
+      <button class="content-btn" data-link="/public/work/pattern/index.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc"></button>
+      <button class="content-btn" data-link="/public/work/grading/index.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Gd"></button>
+      <button class="content-btn" data-link="/public/work/print/index.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></button>
+      <button class="content-btn" data-link="/public/work/digital-kids/index.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></button>
+    </div>
+  </div>
+
   <!-- Canvas -->
   <section class="canvas-area">
-    <div class="toolbar">
-      <button class="tool-btn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
-      <button class="tool-btn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
-      <button class="tool-btn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
-      <button class="tool-btn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
-      <button class="tool-btn" id="btn-upload" title="Upload Part"><img src="../../create_parts/create_button/upload.png" alt=""></button>
-      <button class="tool-btn" id="btn-save" title="Save Snapshot"><img src="../../create_parts/create_button/save.png" alt=""></button>
-      <button class="tool-btn" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
-    </div>
-
     <div id="board" class="board grid">
       <!-- ← グリッドONで開始（不要なら class="board" に） -->
       <div id="stage">
@@ -238,6 +276,32 @@
         <div class="tool-tile" data-tool="add" data-part-src="../../contents/sample/add-on2.png"><img src="../../create_parts/design_button/add.png" alt=""></div>
         <div class="tool-tile" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt=""></div>
       </div>
+    </div>
+
+    <!-- Zoom -->
+    <div class="panel" id="zoomPanel">
+      <h3>Zoom</h3>
+      <div class="zoom-row">
+        <button class="zoom-btn" id="zoomOutBtn" aria-label="Zoom out">−</button>
+        <input type="range" id="zoomRange" min="25" max="600" value="100" step="1" />
+        <button class="zoom-btn" id="zoomInBtn" aria-label="Zoom in">＋</button>
+      </div>
+      <div class="zoom-meta">
+        <span id="zoomVal">100%</span>
+        <button class="zoom-reset" id="zoomResetBtn" title="Reset zoom">Reset</button>
+      </div>
+    </div>
+
+    <!-- Opacity -->
+    <div class="panel" id="opacityPanel">
+      <h3>Opacity</h3>
+      <div style="display:flex;align-items:center;gap:10px">
+        <input type="range" id="opacityRange" min="0" max="100" value="100" />
+        <span id="opacityVal" style="font-size:13px;opacity:.75">100%</span>
+      </div>
+      <small style="opacity:.6;display:block;margin-top:6px">
+        ※ レイヤー選択中はそのレイヤーに、未選択時はマネキンに適用
+      </small>
     </div>
 
     <div class="panel">
@@ -355,16 +419,29 @@ const Layer = (() => {
     if(!stage.contains(e.target)) select(null);
   });
 
-  return {initSelectable,addPart,applyColor,select};
+  // Opacity API（外から使う）
+  const setOpacity = (value01)=>{
+    if(selected){
+      selected.style.opacity = value01;
+    }else{
+      const m = document.getElementById('mannequin');
+      if(m) m.style.opacity = value01;
+    }
+  };
+
+  const getSelected = ()=>selected;
+
+  return {initSelectable,addPart,applyColor,select,setOpacity,getSelected};
 })();
 
 /* ---------------------------
    Pan & Zoom（ステージ）
+   外部操作用に ZoomAPI を公開
 --------------------------- */
 (() => {
   const wrapper = document.getElementById('board');
   const stage   = document.getElementById('stage');
-  let scale=1, tx=0, ty=0; const MIN=.2, MAX=6, SPEED=1.0015;
+  let scale=1, tx=0, ty=0; const MIN=.25, MAX=6, SPEED=1.0015;
 
   const apply = ()=> stage.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
 
@@ -376,7 +453,6 @@ const Layer = (() => {
 
   wrapper.addEventListener('pointerdown', e=>{
     if(e.button===2) return;
-    // ステージまたはステージの子要素上でのみ開始
     if(!stage.contains(e.target) && e.target!==stage) return;
     stage.setPointerCapture(e.pointerId);
     start(e.clientX,e.clientY);
@@ -401,6 +477,7 @@ const Layer = (() => {
     ty = e.clientY-rect.top  - ratio*cy;
     scale = next;
     apply();
+    ZoomUI.update(scale);
   }, {passive:false});
 
   // Touch Pinch
@@ -430,6 +507,7 @@ const Layer = (() => {
       tx = tx0 + (1-ratio)*mx;
       ty = ty0 + (1-ratio)*my;
       scale=next; apply();
+      ZoomUI.update(scale);
     }
   },{passive:false});
   wrapper.addEventListener('touchend', end,{passive:true});
@@ -444,13 +522,58 @@ const Layer = (() => {
     const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
     if(!iw||!ih) return;
     const m=80, kx=(rect.width-m)/iw, ky=(rect.height-m)/ih;
-    scale=Math.min(Math.max(Math.min(kx,ky),.2),3);
+    scale=Math.min(Math.max(Math.min(kx,ky),.25),3);
     tx=(rect.width-iw*scale)/2;
     ty=(rect.height-ih*scale)/2;
     apply();
+    ZoomUI.update(scale);
   };
   window.addEventListener('load',fit);
   window.addEventListener('resize',fit);
+
+  // 外部制御API
+  window.ZoomAPI = {
+    getScale: ()=>scale,
+    zoomTo: (newScale, focal=null)=>{
+      newScale = clamp(newScale, MIN, MAX);
+      const rect=wrapper.getBoundingClientRect();
+      const cx = (focal?.x ?? rect.width/2) - tx;
+      const cy = (focal?.y ?? rect.height/2) - ty;
+      const ratio = newScale/scale;
+      tx = (focal?.x ?? rect.width/2) - ratio*cx;
+      ty = (focal?.y ?? rect.height/2) - ratio*cy;
+      scale = newScale; apply(); ZoomUI.update(scale);
+    },
+    step: (delta)=>{ window.ZoomAPI.zoomTo(scale+delta); },
+    reset: ()=>{ fit(); }
+  };
+})();
+
+/* ---------------------------
+   Zoom UI（スライダー／ボタン）
+--------------------------- */
+const ZoomUI = (()=> {
+  const range = ()=>document.getElementById('zoomRange');
+  const val   = ()=>document.getElementById('zoomVal');
+  const s2v = s => Math.round(s*100);
+  const v2s = v => v/100;
+
+  function update(scale){
+    if(!range()) return;
+    range().value = String(s2v(scale));
+    val().textContent = s2v(scale) + '%';
+  }
+
+  window.addEventListener('DOMContentLoaded', ()=>{
+    const r=range(); if(!r) return;
+    document.getElementById('zoomInBtn').addEventListener('click', ()=> ZoomAPI.step(+0.1));
+    document.getElementById('zoomOutBtn').addEventListener('click',()=> ZoomAPI.step(-0.1));
+    document.getElementById('zoomResetBtn').addEventListener('click',()=> ZoomAPI.reset());
+    r.addEventListener('input', ()=> ZoomAPI.zoomTo(v2s(parseInt(r.value,10))));
+    update(1);
+  });
+
+  return {update};
 })();
 
 /* ---------------------------
@@ -460,15 +583,30 @@ window.addEventListener('DOMContentLoaded', () => {
   State.push();
   const $ = s => document.querySelector(s);
 
+  // Content buttons
+  document.querySelectorAll('.content-btn').forEach(b=>{
+    b.addEventListener('click', ()=> {
+      const link = b.dataset.link;
+      if(link) location.href = link;
+    });
+  });
+
   // Undo/Redo/Reset/Download/Upload/Save/Grid
   $('#btn-undo') .addEventListener('click', ()=>State.undo());
   $('#btn-redo') .addEventListener('click', ()=>State.redo());
 
   $('#btn-reset').addEventListener('click', ()=>{
+    const active = document.querySelector('.gbtn.active')?.dataset.gender || 'woman';
+    const map={
+      woman:'../../mannequin/mannequin_woman.png',
+      man  :'../../mannequin/mannequin_man.png',
+      kids :'../../mannequin/mannequin_kids.png'
+    };
     const st=document.getElementById('stage');
-    st.innerHTML = `<img id="mannequin" class="mannequin-base" src="${document.querySelector('.gbtn.active')?.dataset.gender==='man' ? '../../mannequin/mannequin_man.png' : (document.querySelector('.gbtn.active')?.dataset.gender==='kids' ? '../../mannequin/mannequin_kids.png' : '../../mannequin/mannequin_woman.png')}" alt="Mannequin">`;
+    st.innerHTML = `<img id="mannequin" class="mannequin-base" src="${map[active]}" alt="Mannequin">`;
     Layer.initSelectable();
     State.push();
+    ZoomAPI.reset();
   });
 
   $('#btn-download').addEventListener('click', ()=>{
@@ -506,6 +644,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const img=document.getElementById('mannequin');
       img.src = map[b.dataset.gender] || map.woman;
       State.push();
+      ZoomAPI.reset();
     });
   });
 
@@ -518,6 +657,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const img=document.getElementById('mannequin');
       if(src) img.src=src;
       State.push();
+      ZoomAPI.reset();
     });
   });
 
@@ -532,6 +672,15 @@ window.addEventListener('DOMContentLoaded', () => {
   // Color
   document.querySelectorAll('#colorGrid .color-tile').forEach(c=>{
     c.addEventListener('click', ()=> Layer.applyColor(c.dataset.color));
+  });
+
+  // Opacity
+  const opRange = document.getElementById('opacityRange');
+  const opVal   = document.getElementById('opacityVal');
+  opRange.addEventListener('input', ()=>{
+    const v = Number(opRange.value);
+    opVal.textContent = v + '%';
+    Layer.setOpacity(v/100);
   });
 
   Layer.initSelectable();
