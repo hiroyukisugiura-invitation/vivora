@@ -1,418 +1,397 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vivora Fashion Illustration 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ===== デスクトップ固定（非レスポンシブ） ===== */
+:root{
+  --bg: #f4eee9;
+  --panel: #faf6f3;
+  --ink: #3a3a3a;
+  --line: #e4d8d3;
+  --shadow: 0 8px 24px rgba(0,0,0,.06);
+  --accent: #111;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family: "Helvetica Neue", Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow:hidden; /* 画面固定 */
+  min-width:1440px;
+  min-height:900px;
+}
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+/* ===== 全体レイアウト ===== */
+.app{
+  position:relative;
+  width:100%;
+  height:100%;
+}
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="./style.css" />
+/* 上部アクションバー（Illustratorのコントロールバー風） */
+.topbar{
+  position:absolute; inset:0 0 auto 0; height:56px;
+  display:flex; align-items:center; gap:14px;
+  padding:0 18px;
+  background:#fff; border-bottom:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.title{font-family: 'Playfair Display', serif; font-size:20px; margin-right:18px}
+.gender{display:flex; gap:8px; margin-right:auto}
+.gender button{
+  height:30px; padding:0 12px; border-radius:16px; border:1px solid var(--line);
+  background:#fff; cursor:pointer; font-size:13px;
+}
+.gender button.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+.iconbtn{
+  width:28px;height:28px;border:0;background:transparent;opacity:.8;cursor:pointer
+}
+.iconbtn:hover{opacity:1}
+
+/* 左ツールバー（縦） */
+.ltool{
+  position:absolute; left:12px; top:72px; bottom:12px; width:60px;
+  background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
+  display:flex; flex-direction:column; align-items:center; gap:10px; padding:10px;
+}
+.ltool .iconbtn{width:30px;height:30px}
+
+/* 右パネル群 */
+.rpanel{
+  position:absolute; right:12px; top:72px; bottom:12px; width:320px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.panel{
+  background:var(--panel); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
+  padding:12px;
+}
+.panel h2{font-family:'Playfair Display', serif; font-size:18px; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between}
+.pose-row{display:flex; gap:8px; overflow:hidden}
+.pose-row img{width:56px; height:90px; object-fit:contain; border:2px solid transparent; border-radius:8px; cursor:pointer; background:#fff}
+.pose-row img.selected{border-color:#222}
+
+/* ステーショナリーボード */
+.grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+.tool{
+  width:58px; height:58px; border-radius:8px; background:#fff; border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center; cursor:pointer; transition:.15s;
+}
+.tool:hover{transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.08)}
+.tool img{width:32px;height:32px}
+
+/* カラーパネル */
+.colors{display:grid; grid-template-columns:repeat(6,1fr); gap:10px}
+.sw{
+  width:44px;height:44px;border-radius:8px;border:1px solid var(--line); cursor:pointer
+}
+.sw.selected{outline:2px solid #222; outline-offset:2px}
+.eyedrop{display:flex; align-items:center; justify-content:center; background:#fff}
+.eyedrop img{width:22px}
+
+/* 中央：ペーストボード＋アートボード */
+.stage{
+  position:absolute; left:90px; right:350px; top:72px; bottom:12px;
+  background:#ebe6e2; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
+  overflow:hidden;
+}
+/* スクロール＆ズーム対象 */
+.canvas{
+  width:100%; height:100%; position:relative; cursor:grab;
+  /* 背景グリッドは .grid-on で出す */
+}
+.canvas:active{cursor:grabbing}
+.artboard{
+  position:absolute; left:50%; top:50%;
+  width:900px; height:1300px;
+  transform:translate(-50%,-50%) scale(1);
+  background:#fff; border:1px solid #d9d2cd; box-shadow:0 30px 60px rgba(0,0,0,.08);
+}
+/* グリッド */
+.canvas.grid-on{
+  background-image:
+    linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px);
+  background-size:20px 20px;
+}
+
+/* マネキンとオーバーレイ */
+.mannequin{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); max-height:95%; max-width:95%}
+.layer{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:45%; pointer-events:auto}
+.layer img{width:100%; height:100%; object-fit:contain}
+.layer.selected{outline:2px dashed #333; outline-offset:2px}
+.layer .tint{position:absolute; inset:0; border-radius:2px; pointer-events:none}
+
+/* 画面下の注意（小画面での強制） */
+@media (max-width:1400px), (max-height:900px){
+  body::after{
+    content:"この画面はデスクトップ(1440×900以上)専用です";
+    position:fixed; inset:auto 0 0 0; height:40px; display:flex; align-items:center; justify-content:center;
+    background:#111; color:#fff; font-size:13px; z-index:9999;
+  }
+}
+</style>
 </head>
 <body>
-  <div class="app-container">
+<div class="app">
 
-    <!-- メインワークスペース -->
-    <main class="main-workspace">
-      <!-- ヘッダー -->
-      <header class="main-header">
-        <h1 class="title">Vivora Fashion Illustration 2025</h1>
-        <div class="gender-selector">
-          <button class="gender-button active" data-gender="woman">Woman</button>
-          <button class="gender-button" data-gender="man">Man</button>
-          <button class="gender-button" data-gender="kids">Kids</button>
-        </div>
-      </header>
+  <!-- 上部アクションバー -->
+  <div class="topbar">
+    <div class="title">Vivora Fashion Illustration 2025</div>
+    <div class="gender">
+      <button class="gbtn active" data-gender="woman">Woman</button>
+      <button class="gbtn" data-gender="man">Man</button>
+      <button class="gbtn" data-gender="kids">Kids</button>
+    </div>
 
-      <!-- ツールバー -->
-      <div class="toolbar-area">
-        <!-- アクションツール -->
-        <div class="action-toolbar">
-          <button class="icon-button" id="btn-undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
-          <button class="icon-button" id="btn-redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
-          <button class="icon-button" id="btn-reset"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
-          <button class="icon-button" id="btn-download"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
-          <button class="icon-button" id="btn-upload"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
-          <button class="icon-button" id="btn-save"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
-          <button class="icon-button" id="grid-toggle"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
-        </div>
-
-        <!-- コンテンツツール -->
-        <div class="content-toolbar">
-  <!-- Home -->
-  <button class="icon-button" id="home-btn" aria-label="Home">
-    <img src="../../create_parts/contents_button/0_home.png" alt="Home">
-  </button>
-
-  <button class="icon-button" aria-label="Fashion Illustration"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
-  <button class="icon-button" aria-label="Fabric Matching"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
-  <button class="icon-button" aria-label="Clothing Design"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
-  <button class="icon-button" aria-label="Pattern Creation"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
-  <button class="icon-button" aria-label="Grading"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
-  <button class="icon-button" aria-label="Print Layout"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
-  <button class="icon-button" aria-label="Digital Kids Dressing"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
-</div>
-
-      </div>
-
-      <!-- キャンバス -->
-      <div id="canvas-wrapper" class="canvas-wrapper">
-        <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
-      </div>
-    </main>
-
-    <!-- サイドバー -->
-    <aside class="sidebar-controls">
-      <!-- Next Step -->
-      <div class="next-step-panel">
-        <button class="next-step-button">Next Step ▶▶</button>
-      </div>
-
-      <!-- ポーズ選択 -->
-      <div id="pose-selector" class="panel pose-selector">
-        <button class="arrow left-arrow">‹</button>
-        <div class="pose-thumbnails">
-          <img class="pose-thumb selected" src="../../mannequin/pose1.png" data-pose-src="../../mannequin/mannequin_woman.png">
-          <img class="pose-thumb" src="../../mannequin/pose2.png" data-pose-src="../../mannequin/mannequin_woman_pose2.png">
-          <img class="pose-thumb" src="../../mannequin/pose3.png" data-pose-src="../../mannequin/mannequin_woman_pose3.png">
-          <img class="pose-thumb" src="../../mannequin/pose4.png" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
-        </div>
-        <button class="arrow right-arrow">›</button>
-      </div>
-
-      <!-- ステーショナリーツール -->
-      <div id="stationery-panel" class="panel stationery-panel">
-        <h2 class="panel-title">Stationery</h2>
-        <div id="stationery-grid" class="stationery-grid">
-          <div class="tool-button" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
-          <div class="tool-button" data-tool="direct_select"><img src="../../create_parts/design_button/direct_select.png" alt="Direct Select"></div>
-          <div class="tool-button" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt="Text"></div>
-          <div class="tool-button" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt="Fill"></div>
-          <div class="tool-button" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen"></div>
-          <div class="tool-button" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush"></div>
-          <div class="tool-button" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt="Eraser"></div>
-          <div class="tool-button" data-tool="rotate"><img src="../../create_parts/design_button/rotate.png" alt="Rotate"></div>
-          <div class="tool-button" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt="Percent"></div>
-          <div class="tool-button" data-tool="photo"><img src="../../create_parts/design_button/photo.png" alt="Camera"></div>
-          <div class="tool-button" data-tool="add"><img src="../../create_parts/design_button/add.png" alt="Add"></div>
-          <div class="tool-button" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt="Fill & Stroke"></div>
-        </div>
-      </div>
-
-      <!-- カラーパネル -->
-      <div id="color-panel" class="panel color-panel">
-        <h2 class="panel-title">Color <button class="custom-button">Custom...</button></h2>
-        <div id="color-grid" class="color-grid">
-          <div class="color-box selected" style="background-color: #ffffff;" data-color="#ffffff"></div>
-          <div class="color-box" style="background-color: #cccccc;" data-color="#cccccc"></div>
-          <div class="color-box" style="background-color: #ffff00;" data-color="#ffff00"></div>
-          <div class="color-box" style="background-color: #ff9900;" data-color="#ff9900"></div>
-          <div class="color-box" style="background-color: #f4a2a2;" data-color="#f4a2a2"></div>
-          <div class="color-box" style="background-color: #ff0000;" data-color="#ff0000"></div>
-          <div class="color-box" style="background-color: #009900;" data-color="#009900"></div>
-          <div class="color-box" style="background-color: #006600;" data-color="#006600"></div>
-          <div class="color-box" style="background-color: #3399ff;" data-color="#3399ff"></div>
-          <div class="color-box" style="background-color: #0000ff;" data-color="#0000ff"></div>
-          <div class="color-box" style="background-color: #990099;" data-color="#990099"></div>
-          <div class="color-box" style="background-color: #000000;" data-color="#000000"></div>
-          <button class="color-box add-color-button">+</button>
-          <button class="color-box add-color-button">+</button>
-          <button class="color-box add-color-button">+</button>
-          <button class="color-box eyedropper-button"><img src="../../color/pc_color/eyedropper.png" alt="Eyedropper"></button>
-        </div>
-      </div>
-    </aside>
+    <!-- 編集系 -->
+    <button class="iconbtn" id="btn-undo"  title="Undo"><img src="../../create_parts/create_button/retreat.png"  alt=""></button>
+    <button class="iconbtn" id="btn-redo"  title="Redo"><img src="../../create_parts/create_button/forward.png"  alt=""></button>
+    <button class="iconbtn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png"    alt=""></button>
+    <button class="iconbtn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
+    <button class="iconbtn" id="btn-upload"   title="Upload (add part)"><img src="../../create_parts/create_button/upload.png"   alt=""></button>
+    <button class="iconbtn" id="btn-save"     title="Save local"><img src="../../create_parts/create_button/save.png"     alt=""></button>
+    <button class="iconbtn" id="grid-toggle"  title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
   </div>
 
-  <!-- JS統合枠 -->
-  <script>
-/* =========================
-   Minimal State Manager (Undo/Redo)
-   ========================= */
-const State = (() => {
-  const undoStack = [];
-  const redoStack = [];
-  const MAX = 50;
+  <!-- 左ツールバー（コンテンツボタン・Home含む） -->
+  <aside class="ltool" aria-label="contents">
+    <button class="iconbtn" title="Home" onclick="location.href='../../index.html'">
+      <img src="../../create_parts/contents_button/o_home.png" alt="">
+    </button>
+    <button class="iconbtn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt=""></button>
+    <button class="iconbtn"><img src="../../create_parts/contents_button/2_fabric-matching.png"      alt=""></button>
+    <button class="iconbtn"><img src="../../create_parts/contents_button/3_clothing-design.png"       alt=""></button>
+    <button class="iconbtn"><img src="../../create_parts/contents_button/4_pattern-creation.png"      alt=""></button>
+    <button class="iconbtn"><img src="../../create_parts/contents_button/5_grading.png"               alt=""></button>
+    <button class="iconbtn"><img src="../../create_parts/contents_button/6_print-layout-cut.png"      alt=""></button>
+    <button class="iconbtn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt=""></button>
+  </aside>
 
-  const snapshot = () => ({
-    canvasHTML: document.getElementById('canvas-wrapper').innerHTML,
-    gender: document.querySelector('.gender-button.active')?.dataset.gender || 'woman',
-    mannequinSrc: document.getElementById('mannequin')?.getAttribute('src') || '',
-    grid: document.getElementById('canvas-wrapper').classList.contains('grid-active')
-  });
+  <!-- 右パネル -->
+  <aside class="rpanel">
+    <section class="panel">
+      <h2>Next Step <button class="gbtn" style="height:28px;padding:0 10px">▶▶</button></h2>
+      <div class="pose-row" id="poses">
+        <img class="selected" src="../../mannequin/pose1.png" data-pose="../../mannequin/mannequin_woman.png" alt="">
+        <img src="../../mannequin/pose2.png" data-pose="../../mannequin/mannequin_woman_pose2.png" alt="">
+        <img src="../../mannequin/pose3.png" data-pose="../../mannequin/mannequin_woman_pose3.png" alt="">
+        <img src="../../mannequin/pose4.png" data-pose="../../mannequin/mannequin_woman_pose4.png" alt="">
+      </div>
+    </section>
 
-  const restore = (snap) => {
-    const wrap = document.getElementById('canvas-wrapper');
-    wrap.innerHTML = snap.canvasHTML;
-    // 再バインド（オーバーレイにイベントを戻す）
-    Layer.initSelectable();
-    // grid
-    wrap.classList.toggle('grid-active', snap.grid);
-    // gender active 表示は見た目だけ合わせる
-    document.querySelectorAll('.gender-button').forEach(b=>{
-      b.classList.toggle('active', b.dataset.gender===snap.gender);
-    });
-  };
+    <section class="panel">
+      <h2>Stationery</h2>
+      <div class="grid4" id="stationery">
+        <div class="tool" data-tool="select"><img src="../../create_parts/design_button/select.png" alt=""></div>
+        <div class="tool" data-tool="direct"><img src="../../create_parts/design_button/direct_select.png" alt=""></div>
+        <div class="tool" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt=""></div>
+        <div class="tool" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt=""></div>
+        <div class="tool" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt=""></div>
+        <div class="tool" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt=""></div>
+        <div class="tool" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt=""></div>
+        <div class="tool" data-tool="rotate"><img src="../../create_parts/design_button/rotate.png" alt=""></div>
+        <div class="tool" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt=""></div>
+        <div class="tool" data-tool="photo"><img src="../../create_parts/design_button/photo.png" alt=""></div>
+        <div class="tool" data-tool="add"><img src="../../create_parts/design_button/add.png" alt=""></div>
+        <div class="tool" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt=""></div>
+      </div>
+    </section>
 
-  const push = () => {
-    undoStack.push(snapshot());
-    if (undoStack.length > MAX) undoStack.shift();
-    // 状態更新時には redo はクリア
-    redoStack.length = 0;
-  };
+    <section class="panel">
+      <h2>Color <button class="gbtn" style="height:26px;padding:0 10px;background:#fff;border:1px solid var(--line);color:var(--ink)">Custom…</button></h2>
+      <div class="colors" id="colors">
+        <button class="sw selected" style="background:#ffffff" data-color="#ffffff"></button>
+        <button class="sw" style="background:#cccccc" data-color="#cccccc"></button>
+        <button class="sw" style="background:#ffff00" data-color="#ffff00"></button>
+        <button class="sw" style="background:#ff9900" data-color="#ff9900"></button>
+        <button class="sw" style="background:#f4a2a2" data-color="#f4a2a2"></button>
+        <button class="sw" style="background:#ff0000" data-color="#ff0000"></button>
+        <button class="sw" style="background:#009900" data-color="#009900"></button>
+        <button class="sw" style="background:#006600" data-color="#006600"></button>
+        <button class="sw" style="background:#3399ff" data-color="#3399ff"></button>
+        <button class="sw" style="background:#0000ff" data-color="#0000ff"></button>
+        <button class="sw" style="background:#990099" data-color="#990099"></button>
+        <button class="sw" style="background:#000000" data-color="#000000"></button>
+        <button class="sw eyedrop"><img src="../../color/pc_color/eyedropper.png" alt=""></button>
+      </div>
+    </section>
+  </aside>
 
-  const undo = () => {
-    if (undoStack.length === 0) return;
-    const current = snapshot();
-    const prev = undoStack.pop();
-    redoStack.push(current);
-    restore(prev);
-  };
+  <!-- 中央ステージ -->
+  <section class="stage">
+    <div class="canvas" id="canvas">
+      <div class="artboard" id="artboard">
+        <img id="mannequin" class="mannequin" src="../../mannequin/mannequin_woman.png" alt="">
+        <!-- 追加レイヤは .layer 要素としてこの中に積む -->
+      </div>
+    </div>
+  </section>
 
-  const redo = () => {
-    if (redoStack.length === 0) return;
-    const current = snapshot();
-    const next = redoStack.pop();
-    undoStack.push(current);
-    restore(next);
-  };
-
-  return { push, undo, redo, snapshot };
-})();
-
-/* =========================
-   Layer / Selection / Apply
-   ========================= */
-const Layer = (() => {
-  let selectedEl = null;
-  let activeColor = '#000000';
-
-  const canvas = document.getElementById('canvas-wrapper');
-
-  // 選択の見た目
-  const select = (el) => {
-    if (selectedEl) selectedEl.classList.remove('selected-layer');
-    selectedEl = el;
-    if (selectedEl) selectedEl.classList.add('selected-layer');
-  };
-
-  // クリックで選択できるようにする（オーバーレイ要素のみ）
-  const initSelectable = () => {
-    canvas.querySelectorAll('.overlay-item').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.stopPropagation();
-        select(el);
-      });
-    });
-  };
-
-  // 何も無いところをクリックで選択解除
-  canvas.addEventListener('click', () => select(null));
-
-  // カラー適用：SVGなら fill/ stroke、img/div なら filter or background
-  const applyColor = (hex) => {
-    activeColor = hex;
-    if (!selectedEl) return;
-
-    // SVG塗り（例：<svg>内の.paintable要素）
-    if (selectedEl.tagName.toLowerCase() === 'svg') {
-      selectedEl.querySelectorAll('.paintable').forEach(p => p.setAttribute('fill', hex));
-      return;
-    }
-    // IMGやDIVに色のトーンを掛けたい場合：オーバーレイ用の tint を重ねる
-    if (!selectedEl.querySelector(':scope > .tint')) {
-      const tint = document.createElement('div');
-      tint.className = 'tint';
-      selectedEl.appendChild(tint);
-    }
-    selectedEl.querySelector(':scope > .tint').style.backgroundColor = hex + '80'; // 50%程度
-  };
-
-  // パーツ追加：data-part-src を持つツールボタンから画像をオーバーレイとして追加
-  const addPart = (src) => {
-    const holder = document.createElement('div');
-    holder.className = 'overlay-item';
-    holder.style.position = 'absolute';
-    holder.style.left = '50%';
-    holder.style.top = '50%';
-    holder.style.transform = 'translate(-50%, -50%)';
-    holder.style.width = '45%';
-    holder.style.aspectRatio = '3/4'; // おおよそ
-    holder.style.pointerEvents = 'auto';
-
-    const img = document.createElement('img');
-    img.src = src;
-    img.alt = 'part';
-    img.style.width = '100%';
-    img.style.height = '100%';
-    img.style.objectFit = 'contain';
-    holder.appendChild(img);
-
-    // ドラッグ移動（最小限）
-    let dragging = false, sx=0, sy=0, bx=0, by=0;
-    holder.addEventListener('pointerdown', (e)=>{
-      dragging = true;
-      sx = e.clientX; sy = e.clientY;
-      const rect = holder.getBoundingClientRect();
-      const cRect = canvas.getBoundingClientRect();
-      bx = rect.left - cRect.left; by = rect.top - cRect.top;
-      holder.setPointerCapture(e.pointerId);
-      select(holder);
-    });
-    holder.addEventListener('pointermove', (e)=>{
-      if(!dragging) return;
-      const cRect = canvas.getBoundingClientRect();
-      const nx = bx + (e.clientX - sx);
-      const ny = by + (e.clientY - sy);
-      holder.style.left = (nx + holder.offsetWidth/2)/cRect.width*100 + '%';
-      holder.style.top  = (ny + holder.offsetHeight/2)/cRect.height*100 + '%';
-      holder.style.transform = 'translate(-50%, -50%)';
-    });
-    holder.addEventListener('pointerup', ()=>{ dragging=false; State.push(); });
-
-    canvas.appendChild(holder);
-    select(holder);
-  };
-
-  return { initSelectable, select, applyColor, addPart, setActiveColor: (c)=>activeColor=c };
-})();
-
-/* =========================
-   UI Wiring
-   ========================= */
-window.addEventListener('DOMContentLoaded', () => {
-  // 初期状態を積む
-  State.push();
-
-  // Undo/Redo/Reset/Download/Upload/Save/Grid
-  const q = (sel) => document.querySelector(sel);
-
-  q('button[aria-label="Undo"]')?.addEventListener('click', () => State.undo());
-  q('button[aria-label="Redo"]')?.addEventListener('click', () => State.redo());
-
-  q('button[aria-label="Reset"]')?.addEventListener('click', () => {
-    const mannequin = document.getElementById('mannequin');
-    const wrap = document.getElementById('canvas-wrapper');
-    wrap.innerHTML = '';
-    const img = document.createElement('img');
-    img.id = 'mannequin';
-    img.className = 'mannequin-base';
-    img.src = mannequin?.dataset?.defaultSrc || mannequin?.src || '../../mannequin/mannequin_woman.png';
-    img.alt = 'Mannequin';
-    wrap.appendChild(img);
-    Layer.initSelectable();
-    State.push();
-  });
-
-  q('button[aria-label="Download"]')?.addEventListener('click', () => {
-    // 簡易：canvas-wrapper のHTMLを保存（実装軽量）
-    const blob = new Blob([document.getElementById('canvas-wrapper').innerHTML], {type: 'text/html'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'vivora-illustration.htmlfrag';
-    a.click();
-    URL.revokeObjectURL(a.href);
-  });
-
-  q('button[aria-label="Upload"]')?.addEventListener('click', () => {
-    const inp = document.createElement('input');
-    inp.type = 'file';
-    inp.accept = 'image/*,.svg';
-    inp.onchange = (e) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const url = URL.createObjectURL(file);
-      // 画像/SVG をパーツとして追加
-      Layer.addPart(url);
-      State.push();
-    };
-    inp.click();
-  });
-
-  q('button[aria-label="Save"]')?.addEventListener('click', () => {
-    // 簡易スナップショット保存
-    localStorage.setItem('vivora-illustration-snap', JSON.stringify(State.snapshot()));
-    alert('Saved locally.');
-  });
-
-  q('#grid-toggle')?.addEventListener('click', () => {
-    const wrap = document.getElementById('canvas-wrapper');
-    wrap.classList.toggle('grid-active');
-    State.push();
-  });
-
-  // Gender 切替
-  document.querySelectorAll('.gender-button').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.gender-button').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      // とりあえず女性/男性/キッズでトルソー切替（パス例）
-      const map = {
-        woman: '../../mannequin/mannequin_woman.png',
-        man: '../../mannequin/mannequin_man.png',
-        kids: '../../mannequin/mannequin_kids.png'
-      };
-      const img = document.getElementById('mannequin');
-      if (img && map[btn.dataset.gender]) {
-        img.src = map[btn.dataset.gender];
-        img.setAttribute('data-default-src', map[btn.dataset.gender]);
-        State.push();
-      }
-    });
-  });
-
-  // Pose サムネ
-  document.querySelectorAll('.pose-thumb').forEach(ph=>{
-    ph.addEventListener('click', ()=>{
-      document.querySelectorAll('.pose-thumb').forEach(p=>p.classList.remove('selected'));
-      ph.classList.add('selected');
-      const src = ph.dataset.poseSrc;
-      const img = document.getElementById('mannequin');
-      if (img && src) {
-        img.src = src;
-        img.setAttribute('data-default-src', src);
-        State.push();
-      }
-    });
-  });
-
-  // Stationery のうち、data-part-src があればパーツ追加として動作
-  document.querySelectorAll('.tool-button').forEach(tb=>{
-    tb.addEventListener('click', ()=>{
-      const src = tb.dataset.partSrc;
-      if (src) { Layer.addPart(src); State.push(); }
-    });
-  });
-
-  // Color パネル
-  document.querySelectorAll('.color-box').forEach(cb=>{
-    cb.addEventListener('click', ()=>{
-      const color = cb.dataset.color;
-      if (!color) return;
-      document.querySelectorAll('.color-box').forEach(x=>x.classList.remove('selected'));
-      cb.classList.add('selected');
-      Layer.applyColor(color);
-      State.push();
-    });
-  });
-
-  // 初期：既存のオーバーレイに選択機能を付与
-  Layer.initSelectable();
-});
-</script>
+</div>
 
 <script>
-  // 既存のscript.jsの後ろ or 統合スクリプトの末尾に追加
-  document.getElementById('home-btn')?.addEventListener('click', () => {
-    // illustration.html からルートの index.html へ
-    window.location.href = '../../index.html';
+/* ===============================
+   Illustrator風操作：パン＆ズーム
+   =============================== */
+const canvas  = document.getElementById('canvas');
+const board   = document.getElementById('artboard');
+
+let scale = 1;
+let tx = 0, ty = 0;
+let dragging = false, sx = 0, sy = 0;
+
+function applyTransform(){
+  board.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${scale})`;
+}
+canvas.addEventListener('pointerdown', e=>{
+  dragging = true; sx = e.clientX; sy = e.clientY; canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener('pointermove', e=>{
+  if(!dragging) return;
+  tx += (e.clientX - sx); ty += (e.clientY - sy);
+  sx = e.clientX; sy = e.clientY;
+  applyTransform();
+});
+canvas.addEventListener('pointerup', ()=> dragging=false);
+canvas.addEventListener('wheel', e=>{
+  e.preventDefault();
+  const delta = -Math.sign(e.deltaY) * 0.1;
+  const next = Math.min(3, Math.max(0.3, scale + delta));
+  if(next===scale) return;
+  scale = next;
+  applyTransform();
+},{passive:false});
+
+/* ===== Grid toggle (背景に付与) ===== */
+document.getElementById('grid-toggle').addEventListener('click', ()=>{
+  canvas.classList.toggle('grid-on');
+});
+
+/* ===== Gender切替（マネキン差替え） ===== */
+document.querySelectorAll('.gbtn').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.gbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const map = {
+      woman: '../../mannequin/mannequin_woman.png',
+      man:   '../../mannequin/mannequin_man.png',
+      kids:  '../../mannequin/mannequin_kids.png'
+    };
+    const img = document.getElementById('mannequin');
+    img.src = map[b.dataset.gender] || img.src;
   });
+});
+
+/* ===== Pose切替 ===== */
+document.querySelectorAll('#poses img').forEach(p=>{
+  p.addEventListener('click', ()=>{
+    document.querySelectorAll('#poses img').forEach(x=>x.classList.remove('selected'));
+    p.classList.add('selected');
+    const src = p.dataset.pose;
+    if(src){ document.getElementById('mannequin').src = src; }
+  });
+});
+
+/* ===== State（簡易Undo/Redo） ===== */
+const State = (()=>{
+  const u=[], r=[]; const MAX=40;
+  const snap=()=>({html: board.innerHTML});
+  const restore=(s)=>{ board.innerHTML = s.html; bindLayers(); };
+  const push=()=>{ u.push(snap()); if(u.length>MAX) u.shift(); r.length=0; };
+  const undo=()=>{ if(!u.length) return; const cur=snap(); const pre=u.pop(); r.push(cur); restore(pre); };
+  const redo=()=>{ if(!r.length) return; const cur=snap(); const nx=r.pop(); u.push(cur); restore(nx); };
+  return {push,undo,redo};
+})();
+document.getElementById('btn-undo').onclick=()=>State.undo();
+document.getElementById('btn-redo').onclick=()=>State.redo();
+
+/* ===== Reset / Save / Download / Upload ===== */
+document.getElementById('btn-reset').onclick=()=>{
+  const m = document.getElementById('mannequin').cloneNode(true);
+  board.innerHTML='';
+  board.appendChild(m);
+  bindLayers();
+  State.push();
+};
+document.getElementById('btn-save').onclick=()=>{
+  localStorage.setItem('vivora-illustration-snap', board.innerHTML);
+  alert('Saved locally.');
+};
+document.getElementById('btn-download').onclick=()=>{
+  const blob = new Blob([board.innerHTML], {type:'text/html'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='vivora-illustration.htmlfrag'; a.click();
+  URL.revokeObjectURL(a.href);
+};
+document.getElementById('btn-upload').onclick=()=>{
+  const inp = document.createElement('input'); inp.type='file'; inp.accept='image/*,.svg';
+  inp.onchange = e=>{
+    const f = e.target.files?.[0]; if(!f) return;
+    const url = URL.createObjectURL(f);
+    addLayer(url); State.push();
+  };
+  inp.click();
+};
+
+/* ===== Layer（追加・選択・ドラッグ） ===== */
+function addLayer(src){
+  const h = document.createElement('div');
+  h.className='layer'; h.style.width='45%';
+  const img = document.createElement('img'); img.src=src; img.alt='';
+  h.appendChild(img);
+  board.appendChild(h);
+  enableDrag(h);
+  select(h);
+}
+let current=null;
+function select(el){
+  if(current) current.classList.remove('selected');
+  current = el; if(current) current.classList.add('selected');
+}
+function enableDrag(el){
+  let d=false, sx=0, sy=0, ox=0, oy=0;
+  el.addEventListener('pointerdown',e=>{
+    d=true; sx=e.clientX; sy=e.clientY;
+    const r=el.getBoundingClientRect(), b=board.getBoundingClientRect();
+    ox = r.left - b.left - board.offsetWidth/2; oy = r.top - b.top - board.offsetHeight/2;
+    el.setPointerCapture(e.pointerId); select(el);
+  });
+  el.addEventListener('pointermove',e=>{
+    if(!d) return;
+    const dx=e.clientX-sx, dy=e.clientY-sy;
+    el.style.left = `calc(50% + ${ox+dx}px)`; el.style.top = `calc(50% + ${oy+dy}px)`;
+  });
+  el.addEventListener('pointerup',()=>{ d=false; State.push(); });
+}
+/* 既存layerのバインド（Undo/Redo復帰時） */
+function bindLayers(){
+  board.querySelectorAll('.layer').forEach(enableDrag);
+}
+
+/* ===== Color：選択レイヤに適用 ===== */
+document.querySelectorAll('.sw[data-color]').forEach(sw=>{
+  sw.addEventListener('click', ()=>{
+    document.querySelectorAll('.sw').forEach(x=>x.classList.remove('selected'));
+    sw.classList.add('selected');
+    if(!current) return;
+    if(!current.querySelector('.tint')){
+      const t=document.createElement('div'); t.className='tint'; current.appendChild(t);
+    }
+    current.querySelector('.tint').style.background = sw.dataset.color + '80';
+    State.push();
+  });
+});
+
+/* 初期化 */
+bindLayers();
+State.push();
+applyTransform();
 </script>
-  
-  </script>
 </body>
 </html>
