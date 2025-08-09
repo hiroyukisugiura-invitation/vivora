@@ -124,59 +124,278 @@
 
   <!-- JS統合枠 -->
   <script>
-    <!-- 上のHTMLは前回のまま -->
+/* =========================
+   Minimal State Manager (Undo/Redo)
+   ========================= */
+const State = (() => {
+  const undoStack = [];
+  const redoStack = [];
+  const MAX = 50;
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const mannequin = document.getElementById("mannequin");
-  const gridToggle = document.getElementById("grid-toggle");
-  const canvasWrapper = document.getElementById("canvas-wrapper");
-
-  /* --- Panzoom 初期化 --- */
-  const panzoom = Panzoom(mannequin, { maxScale: 3, minScale: 0.5 });
-  canvasWrapper.addEventListener("wheel", panzoom.zoomWithWheel);
-
-  /* --- Grid表示切替 --- */
-  gridToggle.addEventListener("click", () => {
-    canvasWrapper.classList.toggle("grid-active");
+  const snapshot = () => ({
+    canvasHTML: document.getElementById('canvas-wrapper').innerHTML,
+    gender: document.querySelector('.gender-button.active')?.dataset.gender || 'woman',
+    mannequinSrc: document.getElementById('mannequin')?.getAttribute('src') || '',
+    grid: document.getElementById('canvas-wrapper').classList.contains('grid-active')
   });
 
-  /* --- ポーズ切替 --- */
-  document.querySelectorAll(".pose-thumb").forEach(thumb => {
-    thumb.addEventListener("click", () => {
-      document.querySelectorAll(".pose-thumb").forEach(t => t.classList.remove("selected"));
-      thumb.classList.add("selected");
-      mannequin.src = thumb.dataset.poseSrc;
+  const restore = (snap) => {
+    const wrap = document.getElementById('canvas-wrapper');
+    wrap.innerHTML = snap.canvasHTML;
+    // 再バインド（オーバーレイにイベントを戻す）
+    Layer.initSelectable();
+    // grid
+    wrap.classList.toggle('grid-active', snap.grid);
+    // gender active 表示は見た目だけ合わせる
+    document.querySelectorAll('.gender-button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.gender===snap.gender);
+    });
+  };
+
+  const push = () => {
+    undoStack.push(snapshot());
+    if (undoStack.length > MAX) undoStack.shift();
+    // 状態更新時には redo はクリア
+    redoStack.length = 0;
+  };
+
+  const undo = () => {
+    if (undoStack.length === 0) return;
+    const current = snapshot();
+    const prev = undoStack.pop();
+    redoStack.push(current);
+    restore(prev);
+  };
+
+  const redo = () => {
+    if (redoStack.length === 0) return;
+    const current = snapshot();
+    const next = redoStack.pop();
+    undoStack.push(current);
+    restore(next);
+  };
+
+  return { push, undo, redo, snapshot };
+})();
+
+/* =========================
+   Layer / Selection / Apply
+   ========================= */
+const Layer = (() => {
+  let selectedEl = null;
+  let activeColor = '#000000';
+
+  const canvas = document.getElementById('canvas-wrapper');
+
+  // 選択の見た目
+  const select = (el) => {
+    if (selectedEl) selectedEl.classList.remove('selected-layer');
+    selectedEl = el;
+    if (selectedEl) selectedEl.classList.add('selected-layer');
+  };
+
+  // クリックで選択できるようにする（オーバーレイ要素のみ）
+  const initSelectable = () => {
+    canvas.querySelectorAll('.overlay-item').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        select(el);
+      });
+    });
+  };
+
+  // 何も無いところをクリックで選択解除
+  canvas.addEventListener('click', () => select(null));
+
+  // カラー適用：SVGなら fill/ stroke、img/div なら filter or background
+  const applyColor = (hex) => {
+    activeColor = hex;
+    if (!selectedEl) return;
+
+    // SVG塗り（例：<svg>内の.paintable要素）
+    if (selectedEl.tagName.toLowerCase() === 'svg') {
+      selectedEl.querySelectorAll('.paintable').forEach(p => p.setAttribute('fill', hex));
+      return;
+    }
+    // IMGやDIVに色のトーンを掛けたい場合：オーバーレイ用の tint を重ねる
+    if (!selectedEl.querySelector(':scope > .tint')) {
+      const tint = document.createElement('div');
+      tint.className = 'tint';
+      selectedEl.appendChild(tint);
+    }
+    selectedEl.querySelector(':scope > .tint').style.backgroundColor = hex + '80'; // 50%程度
+  };
+
+  // パーツ追加：data-part-src を持つツールボタンから画像をオーバーレイとして追加
+  const addPart = (src) => {
+    const holder = document.createElement('div');
+    holder.className = 'overlay-item';
+    holder.style.position = 'absolute';
+    holder.style.left = '50%';
+    holder.style.top = '50%';
+    holder.style.transform = 'translate(-50%, -50%)';
+    holder.style.width = '45%';
+    holder.style.aspectRatio = '3/4'; // おおよそ
+    holder.style.pointerEvents = 'auto';
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'part';
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'contain';
+    holder.appendChild(img);
+
+    // ドラッグ移動（最小限）
+    let dragging = false, sx=0, sy=0, bx=0, by=0;
+    holder.addEventListener('pointerdown', (e)=>{
+      dragging = true;
+      sx = e.clientX; sy = e.clientY;
+      const rect = holder.getBoundingClientRect();
+      const cRect = canvas.getBoundingClientRect();
+      bx = rect.left - cRect.left; by = rect.top - cRect.top;
+      holder.setPointerCapture(e.pointerId);
+      select(holder);
+    });
+    holder.addEventListener('pointermove', (e)=>{
+      if(!dragging) return;
+      const cRect = canvas.getBoundingClientRect();
+      const nx = bx + (e.clientX - sx);
+      const ny = by + (e.clientY - sy);
+      holder.style.left = (nx + holder.offsetWidth/2)/cRect.width*100 + '%';
+      holder.style.top  = (ny + holder.offsetHeight/2)/cRect.height*100 + '%';
+      holder.style.transform = 'translate(-50%, -50%)';
+    });
+    holder.addEventListener('pointerup', ()=>{ dragging=false; State.push(); });
+
+    canvas.appendChild(holder);
+    select(holder);
+  };
+
+  return { initSelectable, select, applyColor, addPart, setActiveColor: (c)=>activeColor=c };
+})();
+
+/* =========================
+   UI Wiring
+   ========================= */
+window.addEventListener('DOMContentLoaded', () => {
+  // 初期状態を積む
+  State.push();
+
+  // Undo/Redo/Reset/Download/Upload/Save/Grid
+  const q = (sel) => document.querySelector(sel);
+
+  q('button[aria-label="Undo"]')?.addEventListener('click', () => State.undo());
+  q('button[aria-label="Redo"]')?.addEventListener('click', () => State.redo());
+
+  q('button[aria-label="Reset"]')?.addEventListener('click', () => {
+    const mannequin = document.getElementById('mannequin');
+    const wrap = document.getElementById('canvas-wrapper');
+    wrap.innerHTML = '';
+    const img = document.createElement('img');
+    img.id = 'mannequin';
+    img.className = 'mannequin-base';
+    img.src = mannequin?.dataset?.defaultSrc || mannequin?.src || '../../mannequin/mannequin_woman.png';
+    img.alt = 'Mannequin';
+    wrap.appendChild(img);
+    Layer.initSelectable();
+    State.push();
+  });
+
+  q('button[aria-label="Download"]')?.addEventListener('click', () => {
+    // 簡易：canvas-wrapper のHTMLを保存（実装軽量）
+    const blob = new Blob([document.getElementById('canvas-wrapper').innerHTML], {type: 'text/html'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'vivora-illustration.htmlfrag';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  q('button[aria-label="Upload"]')?.addEventListener('click', () => {
+    const inp = document.createElement('input');
+    inp.type = 'file';
+    inp.accept = 'image/*,.svg';
+    inp.onchange = (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      // 画像/SVG をパーツとして追加
+      Layer.addPart(url);
+      State.push();
+    };
+    inp.click();
+  });
+
+  q('button[aria-label="Save"]')?.addEventListener('click', () => {
+    // 簡易スナップショット保存
+    localStorage.setItem('vivora-illustration-snap', JSON.stringify(State.snapshot()));
+    alert('Saved locally.');
+  });
+
+  q('#grid-toggle')?.addEventListener('click', () => {
+    const wrap = document.getElementById('canvas-wrapper');
+    wrap.classList.toggle('grid-active');
+    State.push();
+  });
+
+  // Gender 切替
+  document.querySelectorAll('.gender-button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.gender-button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      // とりあえず女性/男性/キッズでトルソー切替（パス例）
+      const map = {
+        woman: '../../mannequin/mannequin_woman.png',
+        man: '../../mannequin/mannequin_man.png',
+        kids: '../../mannequin/mannequin_kids.png'
+      };
+      const img = document.getElementById('mannequin');
+      if (img && map[btn.dataset.gender]) {
+        img.src = map[btn.dataset.gender];
+        img.setAttribute('data-default-src', map[btn.dataset.gender]);
+        State.push();
+      }
     });
   });
 
-  /* --- Stationeryツール選択 --- */
-  document.querySelectorAll(".tool-button").forEach(tool => {
-    tool.addEventListener("click", () => {
-      document.querySelectorAll(".tool-button").forEach(t => t.classList.remove("selected"));
-      tool.classList.add("selected");
+  // Pose サムネ
+  document.querySelectorAll('.pose-thumb').forEach(ph=>{
+    ph.addEventListener('click', ()=>{
+      document.querySelectorAll('.pose-thumb').forEach(p=>p.classList.remove('selected'));
+      ph.classList.add('selected');
+      const src = ph.dataset.poseSrc;
+      const img = document.getElementById('mannequin');
+      if (img && src) {
+        img.src = src;
+        img.setAttribute('data-default-src', src);
+        State.push();
+      }
     });
   });
 
-  /* --- カラー選択 --- */
-  document.querySelectorAll(".color-box").forEach(color => {
-    color.addEventListener("click", () => {
-      document.querySelectorAll(".color-box").forEach(c => c.classList.remove("selected"));
-      color.classList.add("selected");
-      const selectedColor = color.dataset.color;
-      console.log("選択カラー:", selectedColor);
+  // Stationery のうち、data-part-src があればパーツ追加として動作
+  document.querySelectorAll('.tool-button').forEach(tb=>{
+    tb.addEventListener('click', ()=>{
+      const src = tb.dataset.partSrc;
+      if (src) { Layer.addPart(src); State.push(); }
     });
   });
 
-  /* --- 各アクションボタン（仮処理） --- */
-  document.getElementById("btn-undo").addEventListener("click", () => alert("Undo"));
-  document.getElementById("btn-redo").addEventListener("click", () => alert("Redo"));
-  document.getElementById("btn-reset").addEventListener("click", () => {
-    panzoom.reset();
+  // Color パネル
+  document.querySelectorAll('.color-box').forEach(cb=>{
+    cb.addEventListener('click', ()=>{
+      const color = cb.dataset.color;
+      if (!color) return;
+      document.querySelectorAll('.color-box').forEach(x=>x.classList.remove('selected'));
+      cb.classList.add('selected');
+      Layer.applyColor(color);
+      State.push();
+    });
   });
-  document.getElementById("btn-download").addEventListener("click", () => alert("Download"));
-  document.getElementById("btn-upload").addEventListener("click", () => alert("Upload"));
-  document.getElementById("btn-save").addEventListener("click", () => alert("Save"));
+
+  // 初期：既存のオーバーレイに選択機能を付与
+  Layer.initSelectable();
 });
 </script>
 
