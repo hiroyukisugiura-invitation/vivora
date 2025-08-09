@@ -388,33 +388,57 @@ input:checked + .slider:before {
 /* ===== フッター ===== */
 footer {
   background: #fff5f0;
-  padding: 40px 20px; /* 高さを確保 */
+  padding: 20px 40px;
 }
 
 .footer-content {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between; /* 左右に配置 */
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  color: #444;
-  text-align: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-/* コピーライト文字 */
-.footer-handle {
-  font-size: 16px;  /* 大きめの文字サイズ */
-  color: #444;
-  font-weight: 500;
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Instagramアイコン */
+.footer-logo {
+  max-width: 40px; /* ロゴの高さを控えめに */
+  height: auto;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: #444;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.footer-insta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #444;
+  font-size: 14px;
+}
+
 .footer-icon {
-  width: 40px;   /* 大きめ */
-  height: 40px;
+  width: 22px; /* アイコンの大きさ */
+  height: 22px;
   transition: opacity 0.3s ease;
 }
 
 .footer-icon:hover {
   opacity: 0.7;
+}
+
+.footer-insta span {
+  font-size: 14px;
 }
