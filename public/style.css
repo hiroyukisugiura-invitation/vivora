@@ -223,7 +223,9 @@ input:checked + .slider:before {
 }
 
 .pricing-card.popular {
-  border: 2px solid #ff7675;
+  border: none; /* 赤い枠を消す */
+  box-shadow: 0 8px 24px rgba(255, 118, 117, 0.18); /* 強調したい場合は影だけ残す */
+}rder: 2px solid #ff7675;
 }
 
 .pricing-card h3 {
