@@ -4,19 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-  
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-  
-  <!-- 正しいパスに修正 -->
+
+  <!-- CSS -->
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <div class="app-container">
 
+    <!-- メインワークスペース -->
     <main class="main-workspace">
-      
+      <!-- ヘッダー -->
       <header class="main-header">
         <h1 class="title">Vivora Fashion Illustration 2025</h1>
         <div class="gender-selector">
@@ -26,50 +28,57 @@
         </div>
       </header>
 
+      <!-- ツールバー -->
       <div class="toolbar-area">
+        <!-- アクションツール -->
         <div class="action-toolbar">
-          <button class="icon-button" aria-label="Undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
-          <button class="icon-button" aria-label="Redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
-          <button class="icon-button" aria-label="Reset"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
-          <button class="icon-button" aria-label="Download"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
-          <button class="icon-button" aria-label="Upload"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
-          <button class="icon-button" aria-label="Save"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
-          <button class="icon-button" id="grid-toggle" aria-label="Toggle Grid"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
+          <button class="icon-button" id="btn-undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
+          <button class="icon-button" id="btn-redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
+          <button class="icon-button" id="btn-reset"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
+          <button class="icon-button" id="btn-download"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
+          <button class="icon-button" id="btn-upload"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
+          <button class="icon-button" id="btn-save"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
+          <button class="icon-button" id="grid-toggle"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
         </div>
-        
+
+        <!-- コンテンツツール -->
         <div class="content-toolbar">
-          <button class="icon-button" aria-label="Fashion Illustration"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
-          <button class="icon-button" aria-label="Fabric Matching"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
-          <button class="icon-button" aria-label="Clothing Design"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
-          <button class="icon-button" aria-label="Pattern Creation"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
-          <button class="icon-button" aria-label="Grading"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
-          <button class="icon-button" aria-label="Print Layout"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
-          <button class="icon-button" aria-label="Digital Kids Dressing"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
+          <button class="icon-button"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
+          <button class="icon-button"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
+          <button class="icon-button"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
+          <button class="icon-button"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
+          <button class="icon-button"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
+          <button class="icon-button"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
+          <button class="icon-button"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
         </div>
       </div>
 
+      <!-- キャンバス -->
       <div id="canvas-wrapper" class="canvas-wrapper">
         <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
       </div>
     </main>
 
+    <!-- サイドバー -->
     <aside class="sidebar-controls">
-
+      <!-- Next Step -->
       <div class="next-step-panel">
         <button class="next-step-button">Next Step ▶▶</button>
       </div>
 
+      <!-- ポーズ選択 -->
       <div id="pose-selector" class="panel pose-selector">
         <button class="arrow left-arrow">‹</button>
         <div class="pose-thumbnails">
-          <img class="pose-thumb selected" src="../../mannequin/pose1.png" alt="Pose 1" data-pose-src="../../mannequin/mannequin_woman.png">
-          <img class="pose-thumb" src="../../mannequin/pose2.png" alt="Pose 2" data-pose-src="../../mannequin/mannequin_woman_pose2.png">
-          <img class="pose-thumb" src="../../mannequin/pose3.png" alt="Pose 3" data-pose-src="../../mannequin/mannequin_woman_pose3.png">
-          <img class="pose-thumb" src="../../mannequin/pose4.png" alt="Pose 4" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
+          <img class="pose-thumb selected" src="../../mannequin/pose1.png" data-pose-src="../../mannequin/mannequin_woman.png">
+          <img class="pose-thumb" src="../../mannequin/pose2.png" data-pose-src="../../mannequin/mannequin_woman_pose2.png">
+          <img class="pose-thumb" src="../../mannequin/pose3.png" data-pose-src="../../mannequin/mannequin_woman_pose3.png">
+          <img class="pose-thumb" src="../../mannequin/pose4.png" data-pose-src="../../mannequin/mannequin_woman_pose4.png">
         </div>
         <button class="arrow right-arrow">›</button>
       </div>
-      
+
+      <!-- ステーショナリーツール -->
       <div id="stationery-panel" class="panel stationery-panel">
         <h2 class="panel-title">Stationery</h2>
         <div id="stationery-grid" class="stationery-grid">
@@ -86,36 +95,91 @@
           <div class="tool-button" data-tool="add"><img src="../../create_parts/design_button/add.png" alt="Add"></div>
           <div class="tool-button" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt="Fill & Stroke"></div>
         </div>
-        <div class="panel-footer">...</div>
       </div>
-      
+
+      <!-- カラーパネル -->
       <div id="color-panel" class="panel color-panel">
-          <h2 class="panel-title">Color <button class="custom-button">Custom...</button></h2>
-          <div id="color-grid" class="color-grid">
-              <div class="color-box selected" style="background-color: #ffffff;" data-color="#ffffff"></div>
-              <div class="color-box" style="background-color: #cccccc;" data-color="#cccccc"></div>
-              <div class="color-box" style="background-color: #ffff00;" data-color="#ffff00"></div>
-              <div class="color-box" style="background-color: #ff9900;" data-color="#ff9900"></div>
-              <div class="color-box" style="background-color: #f4a2a2;" data-color="#f4a2a2"></div>
-              <div class="color-box" style="background-color: #ff0000;" data-color="#ff0000"></div>
-              <div class="color-box" style="background-color: #009900;" data-color="#009900"></div>
-              <div class="color-box" style="background-color: #006600;" data-color="#006600"></div>
-              <div class="color-box" style="background-color: #3399ff;" data-color="#3399ff"></div>
-              <div class="color-box" style="background-color: #0000ff;" data-color="#0000ff"></div>
-              <div class="color-box" style="background-color: #990099;" data-color="#990099"></div>
-              <div class="color-box" style="background-color: #000000;" data-color="#000000"></div>
-              <button class="color-box add-color-button">+</button>
-              <button class="color-box add-color-button">+</button>
-              <button class="color-box add-color-button">+</button>
-              <button class="color-box eyedropper-button"><img src="../../color/pc_color/eyedropper.png" alt="Eyedropper"></button>
-          </div>
+        <h2 class="panel-title">Color <button class="custom-button">Custom...</button></h2>
+        <div id="color-grid" class="color-grid">
+          <div class="color-box selected" style="background-color: #ffffff;" data-color="#ffffff"></div>
+          <div class="color-box" style="background-color: #cccccc;" data-color="#cccccc"></div>
+          <div class="color-box" style="background-color: #ffff00;" data-color="#ffff00"></div>
+          <div class="color-box" style="background-color: #ff9900;" data-color="#ff9900"></div>
+          <div class="color-box" style="background-color: #f4a2a2;" data-color="#f4a2a2"></div>
+          <div class="color-box" style="background-color: #ff0000;" data-color="#ff0000"></div>
+          <div class="color-box" style="background-color: #009900;" data-color="#009900"></div>
+          <div class="color-box" style="background-color: #006600;" data-color="#006600"></div>
+          <div class="color-box" style="background-color: #3399ff;" data-color="#3399ff"></div>
+          <div class="color-box" style="background-color: #0000ff;" data-color="#0000ff"></div>
+          <div class="color-box" style="background-color: #990099;" data-color="#990099"></div>
+          <div class="color-box" style="background-color: #000000;" data-color="#000000"></div>
+          <button class="color-box add-color-button">+</button>
+          <button class="color-box add-color-button">+</button>
+          <button class="color-box add-color-button">+</button>
+          <button class="color-box eyedropper-button"><img src="../../color/pc_color/eyedropper.png" alt="Eyedropper"></button>
+        </div>
       </div>
     </aside>
-
   </div>
 
-  <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
-  <!-- 正しいパスに修正 -->
-  <script src="./script.js"></script>
+  <!-- JS統合枠 -->
+  <script>
+    <!-- 上のHTMLは前回のまま -->
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const mannequin = document.getElementById("mannequin");
+  const gridToggle = document.getElementById("grid-toggle");
+  const canvasWrapper = document.getElementById("canvas-wrapper");
+
+  /* --- Panzoom 初期化 --- */
+  const panzoom = Panzoom(mannequin, { maxScale: 3, minScale: 0.5 });
+  canvasWrapper.addEventListener("wheel", panzoom.zoomWithWheel);
+
+  /* --- Grid表示切替 --- */
+  gridToggle.addEventListener("click", () => {
+    canvasWrapper.classList.toggle("grid-active");
+  });
+
+  /* --- ポーズ切替 --- */
+  document.querySelectorAll(".pose-thumb").forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      document.querySelectorAll(".pose-thumb").forEach(t => t.classList.remove("selected"));
+      thumb.classList.add("selected");
+      mannequin.src = thumb.dataset.poseSrc;
+    });
+  });
+
+  /* --- Stationeryツール選択 --- */
+  document.querySelectorAll(".tool-button").forEach(tool => {
+    tool.addEventListener("click", () => {
+      document.querySelectorAll(".tool-button").forEach(t => t.classList.remove("selected"));
+      tool.classList.add("selected");
+    });
+  });
+
+  /* --- カラー選択 --- */
+  document.querySelectorAll(".color-box").forEach(color => {
+    color.addEventListener("click", () => {
+      document.querySelectorAll(".color-box").forEach(c => c.classList.remove("selected"));
+      color.classList.add("selected");
+      const selectedColor = color.dataset.color;
+      console.log("選択カラー:", selectedColor);
+    });
+  });
+
+  /* --- 各アクションボタン（仮処理） --- */
+  document.getElementById("btn-undo").addEventListener("click", () => alert("Undo"));
+  document.getElementById("btn-redo").addEventListener("click", () => alert("Redo"));
+  document.getElementById("btn-reset").addEventListener("click", () => {
+    panzoom.reset();
+  });
+  document.getElementById("btn-download").addEventListener("click", () => alert("Download"));
+  document.getElementById("btn-upload").addEventListener("click", () => alert("Upload"));
+  document.getElementById("btn-save").addEventListener("click", () => alert("Save"));
+});
+</script>
+
+  </script>
 </body>
 </html>
