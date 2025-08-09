@@ -43,14 +43,20 @@
 
         <!-- コンテンツツール -->
         <div class="content-toolbar">
-          <button class="icon-button"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
-          <button class="icon-button"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
-          <button class="icon-button"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
-          <button class="icon-button"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
-          <button class="icon-button"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
-          <button class="icon-button"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
-          <button class="icon-button"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
-        </div>
+  <!-- Home -->
+  <button class="icon-button" id="home-btn" aria-label="Home">
+    <img src="../../create_parts/contents_button/0_home.png" alt="Home">
+  </button>
+
+  <button class="icon-button" aria-label="Fashion Illustration"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration"></button>
+  <button class="icon-button" aria-label="Fabric Matching"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"></button>
+  <button class="icon-button" aria-label="Clothing Design"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"></button>
+  <button class="icon-button" aria-label="Pattern Creation"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"></button>
+  <button class="icon-button" aria-label="Grading"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
+  <button class="icon-button" aria-label="Print Layout"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"></button>
+  <button class="icon-button" aria-label="Digital Kids Dressing"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing"></button>
+</div>
+
       </div>
 
       <!-- キャンバス -->
@@ -399,6 +405,14 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<script>
+  // 既存のscript.jsの後ろ or 統合スクリプトの末尾に追加
+  document.getElementById('home-btn')?.addEventListener('click', () => {
+    // illustration.html からルートの index.html へ
+    window.location.href = '../../index.html';
+  });
+</script>
+  
   </script>
 </body>
 </html>
