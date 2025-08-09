@@ -1,397 +1,469 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Vivora Fashion Illustration 2025</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-<style>
-/* ===== デスクトップ固定（非レスポンシブ） ===== */
-:root{
-  --bg: #f4eee9;
-  --panel: #faf6f3;
-  --ink: #3a3a3a;
-  --line: #e4d8d3;
-  --shadow: 0 8px 24px rgba(0,0,0,.06);
-  --accent: #111;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  background:var(--bg);
-  color:var(--ink);
-  font-family: "Helvetica Neue", Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  overflow:hidden; /* 画面固定 */
-  min-width:1440px;
-  min-height:900px;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vivora Fashion Illustration 2025</title>
 
-/* ===== 全体レイアウト ===== */
-.app{
-  position:relative;
-  width:100%;
-  height:100%;
-}
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
 
-/* 上部アクションバー（Illustratorのコントロールバー風） */
-.topbar{
-  position:absolute; inset:0 0 auto 0; height:56px;
-  display:flex; align-items:center; gap:14px;
-  padding:0 18px;
-  background:#fff; border-bottom:1px solid var(--line);
-  box-shadow:var(--shadow);
-}
-.title{font-family: 'Playfair Display', serif; font-size:20px; margin-right:18px}
-.gender{display:flex; gap:8px; margin-right:auto}
-.gender button{
-  height:30px; padding:0 12px; border-radius:16px; border:1px solid var(--line);
-  background:#fff; cursor:pointer; font-size:13px;
-}
-.gender button.active{background:var(--accent); color:#fff; border-color:var(--accent)}
-.iconbtn{
-  width:28px;height:28px;border:0;background:transparent;opacity:.8;cursor:pointer
-}
-.iconbtn:hover{opacity:1}
-
-/* 左ツールバー（縦） */
-.ltool{
-  position:absolute; left:12px; top:72px; bottom:12px; width:60px;
-  background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
-  display:flex; flex-direction:column; align-items:center; gap:10px; padding:10px;
-}
-.ltool .iconbtn{width:30px;height:30px}
-
-/* 右パネル群 */
-.rpanel{
-  position:absolute; right:12px; top:72px; bottom:12px; width:320px;
-  display:flex; flex-direction:column; gap:12px;
-}
-.panel{
-  background:var(--panel); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
-  padding:12px;
-}
-.panel h2{font-family:'Playfair Display', serif; font-size:18px; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between}
-.pose-row{display:flex; gap:8px; overflow:hidden}
-.pose-row img{width:56px; height:90px; object-fit:contain; border:2px solid transparent; border-radius:8px; cursor:pointer; background:#fff}
-.pose-row img.selected{border-color:#222}
-
-/* ステーショナリーボード */
-.grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
-.tool{
-  width:58px; height:58px; border-radius:8px; background:#fff; border:1px solid var(--line);
-  display:flex; align-items:center; justify-content:center; cursor:pointer; transition:.15s;
-}
-.tool:hover{transform:translateY(-1px); box-shadow:0 10px 20px rgba(0,0,0,.08)}
-.tool img{width:32px;height:32px}
-
-/* カラーパネル */
-.colors{display:grid; grid-template-columns:repeat(6,1fr); gap:10px}
-.sw{
-  width:44px;height:44px;border-radius:8px;border:1px solid var(--line); cursor:pointer
-}
-.sw.selected{outline:2px solid #222; outline-offset:2px}
-.eyedrop{display:flex; align-items:center; justify-content:center; background:#fff}
-.eyedrop img{width:22px}
-
-/* 中央：ペーストボード＋アートボード */
-.stage{
-  position:absolute; left:90px; right:350px; top:72px; bottom:12px;
-  background:#ebe6e2; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
-  overflow:hidden;
-}
-/* スクロール＆ズーム対象 */
-.canvas{
-  width:100%; height:100%; position:relative; cursor:grab;
-  /* 背景グリッドは .grid-on で出す */
-}
-.canvas:active{cursor:grabbing}
-.artboard{
-  position:absolute; left:50%; top:50%;
-  width:900px; height:1300px;
-  transform:translate(-50%,-50%) scale(1);
-  background:#fff; border:1px solid #d9d2cd; box-shadow:0 30px 60px rgba(0,0,0,.08);
-}
-/* グリッド */
-.canvas.grid-on{
-  background-image:
-    linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px);
-  background-size:20px 20px;
-}
-
-/* マネキンとオーバーレイ */
-.mannequin{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); max-height:95%; max-width:95%}
-.layer{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:45%; pointer-events:auto}
-.layer img{width:100%; height:100%; object-fit:contain}
-.layer.selected{outline:2px dashed #333; outline-offset:2px}
-.layer .tint{position:absolute; inset:0; border-radius:2px; pointer-events:none}
-
-/* 画面下の注意（小画面での強制） */
-@media (max-width:1400px), (max-height:900px){
-  body::after{
-    content:"この画面はデスクトップ(1440×900以上)専用です";
-    position:fixed; inset:auto 0 0 0; height:40px; display:flex; align-items:center; justify-content:center;
-    background:#111; color:#fff; font-size:13px; z-index:9999;
-  }
-}
-</style>
+  <!-- Page CSS (既存) -->
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    /* 追加: ドロー用キャンバスと簡易レイヤUIの最低限スタイル */
+    .draw-layer{position:absolute; inset:0; pointer-events:none;}
+    .selected-layer{outline:2px solid #444; outline-offset:-2px;}
+    .panel .row{display:flex; align-items:center; gap:8px; margin-bottom:8px;}
+    .mini{font-size:12px; color:#777;}
+    .tool{
+      width:32px;height:32px;border-radius:6px;background:#fff;cursor:pointer;
+      border:1px solid var(--border-color);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .tool.active{outline:2px solid #222; outline-offset:2px}
+    .sl{width:100%}
+    .layer-list{list-style:none; max-height:180px; overflow:auto; margin:6px 0 0;
+      border:1px solid var(--border-color); border-radius:8px; background:#fff}
+    .layer-list li{padding:8px 10px; border-bottom:1px solid #f0e9e5; cursor:pointer}
+    .layer-list li.active{background:#ece7e3}
+    .layers-row{display:flex; gap:6px; margin-top:8px}
+    .ly-btn{
+      height:28px; padding:0 10px; border:1px solid var(--border-color);
+      background:#fff; border-radius:6px; cursor:pointer
+    }
+  </style>
 </head>
 <body>
-<div class="app">
+  <div class="app-container">
+    <!-- ============ Main ============ -->
+    <main class="main-workspace">
+      <header class="main-header">
+        <h1 class="title">Vivora Fashion Illustration 2025</h1>
+        <div class="gender-selector">
+          <button class="gender-button active" data-gender="woman">Woman</button>
+          <button class="gender-button" data-gender="man">Man</button>
+          <button class="gender-button" data-gender="kids">Kids</button>
+        </div>
+      </header>
 
-  <!-- 上部アクションバー -->
-  <div class="topbar">
-    <div class="title">Vivora Fashion Illustration 2025</div>
-    <div class="gender">
-      <button class="gbtn active" data-gender="woman">Woman</button>
-      <button class="gbtn" data-gender="man">Man</button>
-      <button class="gbtn" data-gender="kids">Kids</button>
-    </div>
+      <!-- Toolbars -->
+      <div class="toolbar-area">
+        <!-- Actions -->
+        <div class="action-toolbar">
+          <button class="icon-button" id="btn-undo" aria-label="Undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
+          <button class="icon-button" id="btn-redo" aria-label="Redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
+          <button class="icon-button" id="btn-reset" aria-label="Reset"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
+          <button class="icon-button" id="btn-download" aria-label="Download"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
+          <button class="icon-button" id="btn-upload" aria-label="Upload"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
+          <button class="icon-button" id="btn-save" aria-label="Save"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
+          <button class="icon-button" id="grid-toggle" aria-label="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
+        </div>
 
-    <!-- 編集系 -->
-    <button class="iconbtn" id="btn-undo"  title="Undo"><img src="../../create_parts/create_button/retreat.png"  alt=""></button>
-    <button class="iconbtn" id="btn-redo"  title="Redo"><img src="../../create_parts/create_button/forward.png"  alt=""></button>
-    <button class="iconbtn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png"    alt=""></button>
-    <button class="iconbtn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
-    <button class="iconbtn" id="btn-upload"   title="Upload (add part)"><img src="../../create_parts/create_button/upload.png"   alt=""></button>
-    <button class="iconbtn" id="btn-save"     title="Save local"><img src="../../create_parts/create_button/save.png"     alt=""></button>
-    <button class="iconbtn" id="grid-toggle"  title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
+        <!-- Contents (先頭に Home 追加) -->
+        <div class="content-toolbar">
+          <button class="icon-button" title="Home">
+            <img src="../../create_parts/contents_button/0_home.png" alt="Home" />
+          </button>
+          <button class="icon-button" title="Fashion Illustration">
+            <img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustration">
+          </button>
+          <button class="icon-button" title="Fabric Matching">
+            <img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching">
+          </button>
+          <button class="icon-button" title="Clothing Design">
+            <img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design">
+          </button>
+          <button class="icon-button" title="Pattern Creation">
+            <img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation">
+          </button>
+          <button class="icon-button" title="Grading">
+            <img src="../../create_parts/contents_button/5_grading.png" alt="Grading">
+          </button>
+          <button class="icon-button" title="Print Layout & Cut">
+            <img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout">
+          </button>
+          <button class="icon-button" title="Digital Kids Dressing">
+            <img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Digital Kids Dressing">
+          </button>
+        </div>
+      </div>
+
+      <!-- Canvas -->
+      <div id="canvas-wrapper" class="canvas-wrapper">
+        <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+        <!-- ドロー用キャンバス（JSがサイズ調整） -->
+        <canvas id="draw-layer" class="draw-layer"></canvas>
+      </div>
+    </main>
+
+    <!-- ============ Sidebar ============ -->
+    <aside class="sidebar-controls">
+      <div class="next-step-panel">
+        <button class="next-step-button">Next Step ▶▶</button>
+      </div>
+
+      <!-- Pose -->
+      <div id="pose-selector" class="panel pose-selector">
+        <button class="arrow left-arrow" aria-label="Prev Pose">‹</button>
+        <div class="pose-thumbnails">
+          <img class="pose-thumb selected" src="../../mannequin/pose1.png"
+               data-pose-src="../../mannequin/mannequin_woman.png" alt="Pose 1">
+          <img class="pose-thumb" src="../../mannequin/pose2.png"
+               data-pose-src="../../mannequin/mannequin_woman_pose2.png" alt="Pose 2">
+          <img class="pose-thumb" src="../../mannequin/pose3.png"
+               data-pose-src="../../mannequin/mannequin_woman_pose3.png" alt="Pose 3">
+          <img class="pose-thumb" src="../../mannequin/pose4.png"
+               data-pose-src="../../mannequin/mannequin_woman_pose4.png" alt="Pose 4">
+        </div>
+        <button class="arrow right-arrow" aria-label="Next Pose">›</button>
+      </div>
+
+      <!-- Stationery -->
+      <div id="stationery-panel" class="panel stationery-panel">
+        <h2 class="panel-title">Stationery</h2>
+        <div id="stationery-grid" class="stationery-grid">
+          <div class="tool-button" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
+          <div class="tool-button" data-tool="direct_select"><img src="../../create_parts/design_button/direct_select.png" alt="Direct Select"></div>
+          <div class="tool-button" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt="Text"></div>
+          <div class="tool-button" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt="Fill"></div>
+          <div class="tool-button" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen"></div>
+          <div class="tool-button" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush"></div>
+          <div class="tool-button" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt="Eraser"></div>
+          <div class="tool-button" data-tool="rotate"><img src="../../create_parts/design_button/rotate.png" alt="Rotate"></div>
+          <div class="tool-button" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt="Percent"></div>
+          <div class="tool-button" data-tool="photo"><img src="../../create_parts/design_button/photo.png" alt="Photo"></div>
+          <div class="tool-button" data-tool="add"><img src="../../create_parts/design_button/add.png" alt="Add"></div>
+          <div class="tool-button" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt="Shapes"></div>
+        </div>
+      </div>
+
+      <!-- Draw & Layers（最小構成） -->
+      <div class="panel">
+        <h2 class="panel-title">Draw & Layers</h2>
+        <div class="row">
+          <button class="tool t-pencil" title="Brush" aria-label="Brush">✎</button>
+          <button class="tool t-eraser" title="Eraser" aria-label="Eraser">⌫</button>
+          <input id="brush-size" class="sl" type="range" min="1" max="40" value="6" />
+        </div>
+        <div class="row mini">
+          <label><input id="symmetry" type="checkbox" /> Symmetry</label>
+        </div>
+        <div class="row mini">
+          <label>Mannequin Opacity</label>
+          <input id="mannequin-opacity" class="sl" type="range" min="0" max="100" value="100">
+        </div>
+        <ul id="layer-list" class="layer-list"></ul>
+        <div class="layers-row">
+          <button id="ly-up" class="ly-btn">Front</button>
+          <button id="ly-down" class="ly-btn">Back</button>
+          <button id="ly-del" class="ly-btn">Delete</button>
+        </div>
+      </div>
+
+      <!-- Color -->
+      <div id="color-panel" class="panel color-panel">
+        <h2 class="panel-title">Color <button class="custom-button">Custom...</button></h2>
+        <div id="color-grid" class="color-grid">
+          <div class="color-box selected" style="background-color: #ffffff;" data-color="#ffffff"></div>
+          <div class="color-box" style="background-color: #cccccc;" data-color="#cccccc"></div>
+          <div class="color-box" style="background-color: #ffff00;" data-color="#ffff00"></div>
+          <div class="color-box" style="background-color: #ff9900;" data-color="#ff9900"></div>
+          <div class="color-box" style="background-color: #f4a2a2;" data-color="#f4a2a2"></div>
+          <div class="color-box" style="background-color: #ff0000;" data-color="#ff0000"></div>
+          <div class="color-box" style="background-color: #009900;" data-color="#009900"></div>
+          <div class="color-box" style="background-color: #006600;" data-color="#006600"></div>
+          <div class="color-box" style="background-color: #3399ff;" data-color="#3399ff"></div>
+          <div class="color-box" style="background-color: #0000ff;" data-color="#0000ff"></div>
+          <div class="color-box" style="background-color: #990099;" data-color="#990099"></div>
+          <div class="color-box" style="background-color: #000000;" data-color="#000000"></div>
+          <button class="color-box add-color-button">+</button>
+          <button class="color-box add-color-button">+</button>
+          <button class="color-box add-color-button">+</button>
+          <button class="color-box eyedropper-button" title="Eyedropper">
+            <img src="../../color/pc_color/eyedropper.png" alt="Eyedropper">
+          </button>
+        </div>
+      </div>
+    </aside>
   </div>
 
-  <!-- 左ツールバー（コンテンツボタン・Home含む） -->
-  <aside class="ltool" aria-label="contents">
-    <button class="iconbtn" title="Home" onclick="location.href='../../index.html'">
-      <img src="../../create_parts/contents_button/o_home.png" alt="">
-    </button>
-    <button class="iconbtn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt=""></button>
-    <button class="iconbtn"><img src="../../create_parts/contents_button/2_fabric-matching.png"      alt=""></button>
-    <button class="iconbtn"><img src="../../create_parts/contents_button/3_clothing-design.png"       alt=""></button>
-    <button class="iconbtn"><img src="../../create_parts/contents_button/4_pattern-creation.png"      alt=""></button>
-    <button class="iconbtn"><img src="../../create_parts/contents_button/5_grading.png"               alt=""></button>
-    <button class="iconbtn"><img src="../../create_parts/contents_button/6_print-layout-cut.png"      alt=""></button>
-    <button class="iconbtn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt=""></button>
-  </aside>
-
-  <!-- 右パネル -->
-  <aside class="rpanel">
-    <section class="panel">
-      <h2>Next Step <button class="gbtn" style="height:28px;padding:0 10px">▶▶</button></h2>
-      <div class="pose-row" id="poses">
-        <img class="selected" src="../../mannequin/pose1.png" data-pose="../../mannequin/mannequin_woman.png" alt="">
-        <img src="../../mannequin/pose2.png" data-pose="../../mannequin/mannequin_woman_pose2.png" alt="">
-        <img src="../../mannequin/pose3.png" data-pose="../../mannequin/mannequin_woman_pose3.png" alt="">
-        <img src="../../mannequin/pose4.png" data-pose="../../mannequin/mannequin_woman_pose4.png" alt="">
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Stationery</h2>
-      <div class="grid4" id="stationery">
-        <div class="tool" data-tool="select"><img src="../../create_parts/design_button/select.png" alt=""></div>
-        <div class="tool" data-tool="direct"><img src="../../create_parts/design_button/direct_select.png" alt=""></div>
-        <div class="tool" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt=""></div>
-        <div class="tool" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt=""></div>
-        <div class="tool" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt=""></div>
-        <div class="tool" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt=""></div>
-        <div class="tool" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt=""></div>
-        <div class="tool" data-tool="rotate"><img src="../../create_parts/design_button/rotate.png" alt=""></div>
-        <div class="tool" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt=""></div>
-        <div class="tool" data-tool="photo"><img src="../../create_parts/design_button/photo.png" alt=""></div>
-        <div class="tool" data-tool="add"><img src="../../create_parts/design_button/add.png" alt=""></div>
-        <div class="tool" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt=""></div>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Color <button class="gbtn" style="height:26px;padding:0 10px;background:#fff;border:1px solid var(--line);color:var(--ink)">Custom…</button></h2>
-      <div class="colors" id="colors">
-        <button class="sw selected" style="background:#ffffff" data-color="#ffffff"></button>
-        <button class="sw" style="background:#cccccc" data-color="#cccccc"></button>
-        <button class="sw" style="background:#ffff00" data-color="#ffff00"></button>
-        <button class="sw" style="background:#ff9900" data-color="#ff9900"></button>
-        <button class="sw" style="background:#f4a2a2" data-color="#f4a2a2"></button>
-        <button class="sw" style="background:#ff0000" data-color="#ff0000"></button>
-        <button class="sw" style="background:#009900" data-color="#009900"></button>
-        <button class="sw" style="background:#006600" data-color="#006600"></button>
-        <button class="sw" style="background:#3399ff" data-color="#3399ff"></button>
-        <button class="sw" style="background:#0000ff" data-color="#0000ff"></button>
-        <button class="sw" style="background:#990099" data-color="#990099"></button>
-        <button class="sw" style="background:#000000" data-color="#000000"></button>
-        <button class="sw eyedrop"><img src="../../color/pc_color/eyedropper.png" alt=""></button>
-      </div>
-    </section>
-  </aside>
-
-  <!-- 中央ステージ -->
-  <section class="stage">
-    <div class="canvas" id="canvas">
-      <div class="artboard" id="artboard">
-        <img id="mannequin" class="mannequin" src="../../mannequin/mannequin_woman.png" alt="">
-        <!-- 追加レイヤは .layer 要素としてこの中に積む -->
-      </div>
-    </div>
-  </section>
-
-</div>
-
-<script>
-/* ===============================
-   Illustrator風操作：パン＆ズーム
-   =============================== */
-const canvas  = document.getElementById('canvas');
-const board   = document.getElementById('artboard');
-
-let scale = 1;
-let tx = 0, ty = 0;
-let dragging = false, sx = 0, sy = 0;
-
-function applyTransform(){
-  board.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${scale})`;
-}
-canvas.addEventListener('pointerdown', e=>{
-  dragging = true; sx = e.clientX; sy = e.clientY; canvas.setPointerCapture(e.pointerId);
-});
-canvas.addEventListener('pointermove', e=>{
-  if(!dragging) return;
-  tx += (e.clientX - sx); ty += (e.clientY - sy);
-  sx = e.clientX; sy = e.clientY;
-  applyTransform();
-});
-canvas.addEventListener('pointerup', ()=> dragging=false);
-canvas.addEventListener('wheel', e=>{
-  e.preventDefault();
-  const delta = -Math.sign(e.deltaY) * 0.1;
-  const next = Math.min(3, Math.max(0.3, scale + delta));
-  if(next===scale) return;
-  scale = next;
-  applyTransform();
-},{passive:false});
-
-/* ===== Grid toggle (背景に付与) ===== */
-document.getElementById('grid-toggle').addEventListener('click', ()=>{
-  canvas.classList.toggle('grid-on');
-});
-
-/* ===== Gender切替（マネキン差替え） ===== */
-document.querySelectorAll('.gbtn').forEach(b=>{
-  b.addEventListener('click', ()=>{
-    document.querySelectorAll('.gbtn').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    const map = {
-      woman: '../../mannequin/mannequin_woman.png',
-      man:   '../../mannequin/mannequin_man.png',
-      kids:  '../../mannequin/mannequin_kids.png'
-    };
-    const img = document.getElementById('mannequin');
-    img.src = map[b.dataset.gender] || img.src;
+  <!-- ===== Script (Undo/Redo・Draw・Layers 統合) ===== -->
+  <script>
+/* ---------- State (Undo/Redo) ---------- */
+const State = (() => {
+  const undoStack = [], redoStack = [];
+  const MAX = 50;
+  const snapshot = () => ({
+    canvasHTML: document.getElementById('canvas-wrapper').innerHTML,
+    gender: document.querySelector('.gender-button.active')?.dataset.gender || 'woman',
+    grid: document.getElementById('canvas-wrapper').classList.contains('grid-active')
   });
-});
-
-/* ===== Pose切替 ===== */
-document.querySelectorAll('#poses img').forEach(p=>{
-  p.addEventListener('click', ()=>{
-    document.querySelectorAll('#poses img').forEach(x=>x.classList.remove('selected'));
-    p.classList.add('selected');
-    const src = p.dataset.pose;
-    if(src){ document.getElementById('mannequin').src = src; }
-  });
-});
-
-/* ===== State（簡易Undo/Redo） ===== */
-const State = (()=>{
-  const u=[], r=[]; const MAX=40;
-  const snap=()=>({html: board.innerHTML});
-  const restore=(s)=>{ board.innerHTML = s.html; bindLayers(); };
-  const push=()=>{ u.push(snap()); if(u.length>MAX) u.shift(); r.length=0; };
-  const undo=()=>{ if(!u.length) return; const cur=snap(); const pre=u.pop(); r.push(cur); restore(pre); };
-  const redo=()=>{ if(!r.length) return; const cur=snap(); const nx=r.pop(); u.push(cur); restore(nx); };
-  return {push,undo,redo};
-})();
-document.getElementById('btn-undo').onclick=()=>State.undo();
-document.getElementById('btn-redo').onclick=()=>State.redo();
-
-/* ===== Reset / Save / Download / Upload ===== */
-document.getElementById('btn-reset').onclick=()=>{
-  const m = document.getElementById('mannequin').cloneNode(true);
-  board.innerHTML='';
-  board.appendChild(m);
-  bindLayers();
-  State.push();
-};
-document.getElementById('btn-save').onclick=()=>{
-  localStorage.setItem('vivora-illustration-snap', board.innerHTML);
-  alert('Saved locally.');
-};
-document.getElementById('btn-download').onclick=()=>{
-  const blob = new Blob([board.innerHTML], {type:'text/html'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='vivora-illustration.htmlfrag'; a.click();
-  URL.revokeObjectURL(a.href);
-};
-document.getElementById('btn-upload').onclick=()=>{
-  const inp = document.createElement('input'); inp.type='file'; inp.accept='image/*,.svg';
-  inp.onchange = e=>{
-    const f = e.target.files?.[0]; if(!f) return;
-    const url = URL.createObjectURL(f);
-    addLayer(url); State.push();
+  const restore = (snap) => {
+    const wrap = document.getElementById('canvas-wrapper');
+    wrap.innerHTML = snap.canvasHTML;
+    // 再取得（描画レイヤ等）
+    rebindCanvasRefs();
+    wrap.classList.toggle('grid-active', snap.grid);
+    document.querySelectorAll('.gender-button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.gender===snap.gender);
+    });
+    // 再初期化
+    fitDrawCanvas();
+    Layer.initSelectable();
+    refreshLayerList();
   };
-  inp.click();
-};
+  const push = () => { undoStack.push(snapshot()); if (undoStack.length>MAX) undoStack.shift(); redoStack.length=0; };
+  const undo = () => { if(!undoStack.length) return; const cur=snapshot(), prev=undoStack.pop(); redoStack.push(cur); restore(prev); };
+  const redo = () => { if(!redoStack.length) return; const cur=snapshot(), next=redoStack.pop(); undoStack.push(cur); restore(next); };
+  return { push, undo, redo };
+})();
 
-/* ===== Layer（追加・選択・ドラッグ） ===== */
-function addLayer(src){
-  const h = document.createElement('div');
-  h.className='layer'; h.style.width='45%';
-  const img = document.createElement('img'); img.src=src; img.alt='';
-  h.appendChild(img);
-  board.appendChild(h);
-  enableDrag(h);
-  select(h);
-}
-let current=null;
-function select(el){
-  if(current) current.classList.remove('selected');
-  current = el; if(current) current.classList.add('selected');
-}
-function enableDrag(el){
-  let d=false, sx=0, sy=0, ox=0, oy=0;
-  el.addEventListener('pointerdown',e=>{
-    d=true; sx=e.clientX; sy=e.clientY;
-    const r=el.getBoundingClientRect(), b=board.getBoundingClientRect();
-    ox = r.left - b.left - board.offsetWidth/2; oy = r.top - b.top - board.offsetHeight/2;
-    el.setPointerCapture(e.pointerId); select(el);
-  });
-  el.addEventListener('pointermove',e=>{
-    if(!d) return;
-    const dx=e.clientX-sx, dy=e.clientY-sy;
-    el.style.left = `calc(50% + ${ox+dx}px)`; el.style.top = `calc(50% + ${oy+dy}px)`;
-  });
-  el.addEventListener('pointerup',()=>{ d=false; State.push(); });
-}
-/* 既存layerのバインド（Undo/Redo復帰時） */
-function bindLayers(){
-  board.querySelectorAll('.layer').forEach(enableDrag);
+/* ---------- Canvas & Draw ---------- */
+const ART = document.getElementById('canvas-wrapper');
+let mannequinEl = document.getElementById('mannequin');
+let drawCanvas = document.getElementById('draw-layer');
+let dctx = drawCanvas.getContext('2d');
+
+function rebindCanvasRefs(){
+  mannequinEl = document.getElementById('mannequin');
+  drawCanvas  = document.getElementById('draw-layer');
+  dctx = drawCanvas.getContext('2d');
 }
 
-/* ===== Color：選択レイヤに適用 ===== */
-document.querySelectorAll('.sw[data-color]').forEach(sw=>{
-  sw.addEventListener('click', ()=>{
-    document.querySelectorAll('.sw').forEach(x=>x.classList.remove('selected'));
-    sw.classList.add('selected');
-    if(!current) return;
-    if(!current.querySelector('.tint')){
-      const t=document.createElement('div'); t.className='tint'; current.appendChild(t);
+function fitDrawCanvas(){
+  const r = ART.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  drawCanvas.style.width  = r.width  + 'px';
+  drawCanvas.style.height = r.height + 'px';
+  drawCanvas.width  = Math.max(1, Math.round(r.width*dpr));
+  drawCanvas.height = Math.max(1, Math.round(r.height*dpr));
+  dctx.setTransform(dpr,0,0,dpr,0,0);
+  dctx.lineCap='round'; dctx.lineJoin='round';
+}
+fitDrawCanvas();
+window.addEventListener('resize', fitDrawCanvas);
+
+// Screen → Canvas座標
+function screenToCanvas(x,y){ const r=ART.getBoundingClientRect(); return [x-r.left, y-r.top]; }
+
+let drawMode=null;         // 'brush' | 'erase' | null
+let brushSize=6; let symmetryOn=false;
+
+function setDrawMode(m){
+  drawMode = m;
+  document.querySelectorAll('.t-pencil,.t-eraser').forEach(b=>b.classList.remove('active'));
+  if(m==='brush') document.querySelector('.t-pencil')?.classList.add('active');
+  if(m==='erase') document.querySelector('.t-eraser')?.classList.add('active');
+  drawCanvas.style.pointerEvents = drawMode ? 'auto' : 'none';
+}
+function getActiveColor(){
+  const sel = document.querySelector('.color-box.selected');
+  return sel?.dataset.color || '#111';
+}
+
+let drawing=false,lx=0,ly=0;
+drawCanvas.addEventListener('pointerdown',e=>{
+  if(!drawMode) return;
+  drawing=true; drawCanvas.setPointerCapture(e.pointerId);
+  [lx,ly]=screenToCanvas(e.clientX,e.clientY);
+  dctx.beginPath(); dctx.moveTo(lx,ly);
+});
+drawCanvas.addEventListener('pointermove',e=>{
+  if(!drawing||!drawMode) return;
+  const [x,y]=screenToCanvas(e.clientX,e.clientY);
+  dctx.lineWidth=brushSize;
+  if(drawMode==='brush'){ dctx.globalCompositeOperation='source-over'; dctx.strokeStyle=getActiveColor(); }
+  else{ dctx.globalCompositeOperation='destination-out'; dctx.strokeStyle='rgba(0,0,0,1)'; }
+  dctx.lineTo(x,y); dctx.stroke();
+
+  if(symmetryOn){
+    const w = drawCanvas.getBoundingClientRect().width;
+    const sx = w - lx, tx = w - x;
+    dctx.beginPath(); dctx.moveTo(sx,ly); dctx.lineTo(tx,y); dctx.stroke();
+  }
+  lx=x; ly=y;
+});
+drawCanvas.addEventListener('pointerup',()=>{ if(!drawing) return; drawing=false; State.push(); });
+
+/* ---------- Layer: overlays ---------- */
+const Layer = (() => {
+  let selectedEl=null;
+  const select = (el)=>{ if(selectedEl) selectedEl.classList.remove('selected-layer'); selectedEl=el; if(el) el.classList.add('selected-layer'); };
+  const initSelectable = ()=>{
+    ART.querySelectorAll('.overlay-item').forEach(el=>{
+      el.addEventListener('click',e=>{ e.stopPropagation(); select(el); refreshLayerList(); });
+    });
+  };
+  ART.addEventListener('click',()=>{ select(null); refreshLayerList(); });
+
+  // 色適用（画像はtintを重ねる）
+  const applyColor = (hex)=>{
+    if(!selectedEl) return;
+    if(selectedEl.tagName.toLowerCase()==='svg'){
+      selectedEl.querySelectorAll('.paintable').forEach(p=>p.setAttribute('fill',hex));
+      return;
     }
-    current.querySelector('.tint').style.background = sw.dataset.color + '80';
+    if(!selectedEl.querySelector(':scope>.tint')){
+      const t=document.createElement('div'); t.className='tint';
+      Object.assign(t.style,{position:'absolute',inset:'0',background:hex+'80',pointerEvents:'none'});
+      selectedEl.style.position='absolute'; selectedEl.appendChild(t);
+    }else{
+      selectedEl.querySelector(':scope>.tint').style.background=hex+'80';
+    }
+  };
+
+  // 画像追加
+  const addPart = (src)=>{
+    const holder=document.createElement('div');
+    holder.className='overlay-item';
+    Object.assign(holder.style,{position:'absolute',left:'50%',top:'50%',transform:'translate(-50%,-50%)',width:'45%',aspectRatio:'3/4',pointerEvents:'auto'});
+    const img=document.createElement('img');
+    Object.assign(img.style,{width:'100%',height:'100%',objectFit:'contain'}); img.src=src; img.alt='part';
+    holder.appendChild(img);
+
+    // drag
+    let dragging=false,sx=0,sy=0,bx=0,by=0;
+    holder.addEventListener('pointerdown',e=>{
+      dragging=true; holder.setPointerCapture(e.pointerId);
+      sx=e.clientX; sy=e.clientY;
+      const rect=holder.getBoundingClientRect(), cRect=ART.getBoundingClientRect();
+      bx=rect.left-cRect.left; by=rect.top-cRect.top; select(holder); refreshLayerList();
+    });
+    holder.addEventListener('pointermove',e=>{
+      if(!dragging) return;
+      const cRect=ART.getBoundingClientRect();
+      const nx=bx+(e.clientX-sx), ny=by+(e.clientY-sy);
+      holder.style.left=(nx+holder.offsetWidth/2)/cRect.width*100+'%';
+      holder.style.top =(ny+holder.offsetHeight/2)/cRect.height*100+'%';
+      holder.style.transform='translate(-50%,-50%)';
+    });
+    holder.addEventListener('pointerup',()=>{ dragging=false; State.push(); });
+
+    ART.appendChild(holder); select(holder); refreshLayerList();
+  };
+
+  return { initSelectable, applyColor, addPart };
+})();
+
+/* ---------- Layers UI ---------- */
+function refreshLayerList(){
+  const list=document.getElementById('layer-list'); if(!list) return;
+  list.innerHTML='';
+  const items=[];
+  items.push({el:mannequinEl,name:'Mannequin'});
+  items.push({el:drawCanvas, name:'Draw'});
+  ART.querySelectorAll('.overlay-item').forEach((el,i)=>items.push({el,name:`Image ${i+1}`}));
+  items.forEach(it=>{
+    const li=document.createElement('li'); li.textContent=it.name;
+    if(it.el.classList?.contains('selected-layer')) li.classList.add('active');
+    li.addEventListener('click',()=>{ ART.querySelectorAll('.overlay-item').forEach(n=>n.classList.remove('selected-layer')); it.el.classList?.add('selected-layer'); refreshLayerList(); });
+    list.appendChild(li);
+  });
+}
+const mo=new MutationObserver(refreshLayerList); mo.observe(ART,{childList:true});
+refreshLayerList();
+
+document.getElementById('ly-up')?.addEventListener('click',()=>{
+  const sel=ART.querySelector('.overlay-item.selected-layer'); if(!sel) return;
+  if(sel.nextElementSibling) ART.insertBefore(sel.nextElementSibling, sel);
+  refreshLayerList(); State.push();
+});
+document.getElementById('ly-down')?.addEventListener('click',()=>{
+  const sel=ART.querySelector('.overlay-item.selected-layer'); if(!sel) return;
+  if(sel.previousElementSibling) ART.insertBefore(sel, sel.previousElementSibling);
+  refreshLayerList(); State.push();
+});
+document.getElementById('ly-del')?.addEventListener('click',()=>{
+  const sel=ART.querySelector('.overlay-item.selected-layer'); if(!sel) return; sel.remove();
+  refreshLayerList(); State.push();
+});
+
+/* ---------- Wiring (Top UI) ---------- */
+State.push();
+
+document.getElementById('btn-undo')?.addEventListener('click', State.undo);
+document.getElementById('btn-redo')?.addEventListener('click', State.redo);
+
+document.getElementById('btn-reset')?.addEventListener('click', ()=>{
+  ART.innerHTML='';
+  const img=document.createElement('img');
+  img.id='mannequin'; img.className='mannequin-base';
+  img.src='../../mannequin/mannequin_woman.png'; img.alt='Mannequin';
+  const cvs=document.createElement('canvas'); cvs.id='draw-layer'; cvs.className='draw-layer';
+  ART.appendChild(img); ART.appendChild(cvs);
+  rebindCanvasRefs(); fitDrawCanvas(); Layer.initSelectable(); refreshLayerList(); State.push();
+});
+
+document.getElementById('btn-download')?.addEventListener('click',()=>{
+  const blob=new Blob([ART.innerHTML],{type:'text/html'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='vivora-illustration.htmlfrag'; a.click(); URL.revokeObjectURL(a.href);
+});
+document.getElementById('btn-upload')?.addEventListener('click',()=>{
+  const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*,.svg';
+  inp.onchange=e=>{ const f=e.target.files?.[0]; if(!f) return; const url=URL.createObjectURL(f); Layer.addPart(url); State.push(); };
+  inp.click();
+});
+document.getElementById('btn-save')?.addEventListener('click',()=>{
+  localStorage.setItem('vivora-illustration-snap', JSON.stringify(ART.innerHTML));
+  alert('Saved locally.');
+});
+document.getElementById('grid-toggle')?.addEventListener('click',()=>{
+  ART.classList.toggle('grid-active'); State.push();
+});
+
+/* Gender */
+document.querySelectorAll('.gender-button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.gender-button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const map={
+      woman:'../../mannequin/mannequin_woman.png',
+      man:'../../mannequin/mannequin_man.png',
+      kids:'../../mannequin/mannequin_kids.png'
+    };
+    mannequinEl.src=map[btn.dataset.gender]||mannequinEl.src; State.push();
+  });
+});
+
+/* Pose */
+document.querySelectorAll('.pose-thumb').forEach(ph=>{
+  ph.addEventListener('click',()=>{
+    document.querySelectorAll('.pose-thumb').forEach(p=>p.classList.remove('selected'));
+    ph.classList.add('selected');
+    mannequinEl.src = ph.dataset.poseSrc || mannequinEl.src; State.push();
+  });
+});
+
+/* Stationery→画像追加（data-part-src があれば） */
+document.querySelectorAll('.tool-button').forEach(tb=>{
+  tb.addEventListener('click',()=>{
+    const src=tb.dataset.partSrc;
+    if(src){ Layer.addPart(src); State.push(); }
+  });
+});
+
+/* Color */
+document.querySelectorAll('.color-box[data-color]').forEach(cb=>{
+  cb.addEventListener('click',()=>{
+    document.querySelectorAll('.color-box').forEach(x=>x.classList.remove('selected'));
+    cb.classList.add('selected');
+    // Layerへの塗り（選択要素がある場合）
+    Layer.applyColor(cb.dataset.color);
     State.push();
   });
 });
 
-/* 初期化 */
-bindLayers();
-State.push();
-applyTransform();
-</script>
+/* Draw UI */
+document.querySelector('.t-pencil')?.addEventListener('click',()=> setDrawMode(drawMode==='brush'?null:'brush'));
+document.querySelector('.t-eraser')?.addEventListener('click',()=> setDrawMode(drawMode==='erase'?null:'erase'));
+document.getElementById('brush-size')?.addEventListener('input',e=> brushSize=+e.target.value);
+document.getElementById('symmetry')?.addEventListener('change',e=> symmetryOn = e.target.checked);
+document.getElementById('mannequin-opacity')?.addEventListener('input',e=> mannequinEl.style.opacity=(+e.target.value/100)+'');
+/* 初回 */
+Layer.initSelectable();
+  </script>
 </body>
 </html>
