@@ -385,16 +385,16 @@ input:checked + .slider:before {
   }
 }
 
-/* ===== フッター ===== */
+/* ===== フッター（横並び・バランス調整） ===== */
 footer {
   background: #fff5f0;
-  padding: 20px 40px;
+  padding: 28px 40px;
 }
 
 .footer-content {
   display: flex;
-  justify-content: space-between; /* 左右に配置 */
   align-items: center;
+  justify-content: space-between; /* 左右に配置 */
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -402,17 +402,19 @@ footer {
 .footer-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer-logo {
-  max-width: 40px; /* ロゴの高さを控えめに */
+  width: 56px; /* 見本のような大きめサイズ */
   height: auto;
 }
 
 .footer-text {
-  font-size: 14px;
+  font-size: 20px; /* コピーライト文字を大きめに */
   color: #444;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .footer-right {
@@ -423,22 +425,21 @@ footer {
 .footer-insta {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   text-decoration: none;
   color: #444;
-  font-size: 14px;
 }
 
 .footer-icon {
-  width: 22px; /* アイコンの大きさ */
-  height: 22px;
-  transition: opacity 0.3s ease;
+  width: 28px; /* アイコンを少し大きめに */
+  height: 28px;
+  transition: opacity 0.2s ease;
+}
+
+.footer-insta span {
+  font-size: 16px; /* ユーザー名も少し大きく */
 }
 
 .footer-icon:hover {
   opacity: 0.7;
-}
-
-.footer-insta span {
-  font-size: 14px;
 }
