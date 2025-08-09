@@ -388,37 +388,28 @@ input:checked + .slider:before {
 /* ===== フッター ===== */
 footer {
   background: #fff5f0;
-  padding: 20px 40px;
+  padding: 20px 0;
 }
 
 .footer-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 16px; /* ロゴ間のスペース */
 }
 
-.footer-text {
-  font-size: 14px;
-  color: #444;
-}
-
-.footer-insta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  color: #444;
-  font-size: 14px;
+.footer-logo {
+  height: 40px; /* 大きさはバランスに応じて調整 */
+  width: auto;
 }
 
 .footer-icon {
-  width: 20px;
-  height: 20px;
+  height: 28px;
+  width: auto;
   transition: opacity 0.3s ease;
 }
 
 .footer-icon:hover {
   opacity: 0.7;
 }
+
