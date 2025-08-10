@@ -97,36 +97,30 @@ body {
 /* ==============================
    ツールバー
    ============================== */
-.toolbar-area {
-  margin-bottom: var(--spacing-md);
-  display: flex;
-  gap: var(--spacing-lg);
+.tool-btn {
+  background: #fff;                       /* 白背景に統一 */
+  border: 1px solid var(--line);          /* コンテンツボタンと同じ枠線色 */
+  border-radius: 10px;                    /* コンテンツボタンと同じ角丸 */
+  width: 42px;                            /* コンテンツボタンと同じサイズ */
+  height: 42px;
+  display: flex;                          /* 中央寄せ用 */
   align-items: center;
-}
-
-.action-toolbar,
-.content-toolbar {
-  display: flex;
-  gap: 12px;
-}
-
-.icon-button {
-  background-color: transparent;
-  border: none;
-  padding: 4px;
+  justify-content: center;
   cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+  opacity: 0.85;                          /* 既存と同じ透明度 */
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
-.icon-button:hover {
+.tool-btn:hover {
   opacity: 1;
+  transform: translateY(-2px);            /* 浮き上がる演出 */
+  box-shadow: var(--shadow);
 }
 
-.icon-button img {
+.tool-btn img {
+  width: 26px;                            /* コンテンツボタンと同じアイコンサイズ */
+  height: 26px;
   display: block;
-  width: 28px;
-  height: 28px;
 }
 
 /* ==============================
