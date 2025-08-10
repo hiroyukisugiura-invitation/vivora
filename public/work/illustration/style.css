@@ -187,8 +187,8 @@ aside{
 
 /* ===== ヘッダーの間隔を拡げる（追加） ===== */
 header{
-  padding: 22px 24px;           /* 上下の余白を増量（16px → 22px） */
-  column-gap: 28px;             /* タイトルとボタンの間隔を広く */
+  padding: 26px 24px;           /* 上下の余白を増量（16px → 22px） */
+  column-gap: 36px;             /* タイトルとボタンの間隔を広く */
 }
 
 .gender{
