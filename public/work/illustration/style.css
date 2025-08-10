@@ -276,3 +276,35 @@ body {
   pointer-events: none;
   border-radius: 4px;
 }
+
+/* Poseパネル */
+.pose-row {
+  display: flex;
+  gap: 8px;
+  overflow: auto;
+}
+.pose-row img,
+.pose-add-btn {
+  width: 52px;
+  height: 80px;
+  object-fit: contain;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 2px;
+  background: #fff;
+  cursor: pointer;
+  display: flex; /* ＋を中央寄せ */
+  align-items: center;
+  justify-content: center;
+  font-size: 28px; /* ＋の大きさ */
+  font-weight: bold;
+  color: #666;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.pose-row img.selected,
+.pose-row img:hover,
+.pose-add-btn:hover {
+  border-color: var(--text-primary);
+  background-color: #f5f5f5;
+}
