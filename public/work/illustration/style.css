@@ -278,8 +278,9 @@ body {
 }
 
 /* ツールバーアイコン統一サイズ */
+.icon-btn,
 .icon-button {
-  width: 40px;  /* ボタン全体サイズ */
+  width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
@@ -287,13 +288,14 @@ body {
   background-color: #fff;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 0; /* アイコン表示に不要な余白は削除 */
+  padding: 0;
   cursor: pointer;
   box-shadow: var(--shadow-light);
 }
 
+.icon-btn img,
 .icon-button img {
-  width: 20px;  /* アイコンサイズ */
+  width: 20px;
   height: 20px;
   object-fit: contain;
 }
