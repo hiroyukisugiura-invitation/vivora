@@ -98,31 +98,30 @@ body {
    ツールバー
    ============================== */
 .tool-btn {
-  background: #fff;                       /* 白背景に統一 */
-  border: 1px solid var(--line);          /* コンテンツボタンと同じ枠線色 */
-  border-radius: 10px;                    /* コンテンツボタンと同じ角丸 */
-  width: 42px;                            /* コンテンツボタンと同じサイズ */
+  background: #fff;                               /* 白背景に統一 */
+  border: 1px solid var(--border-color);          /* 枠線を既存のborder-color変数に変更 */
+  border-radius: 10px;                            /* コンテンツボタンと同じ角丸 */
+  width: 42px;                                    /* コンテンツボタンと同じサイズ */
   height: 42px;
-  display: flex;                          /* 中央寄せ用 */
+  display: flex;                                  /* 中央寄せ用 */
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  opacity: 0.85;                          /* 既存と同じ透明度 */
+  opacity: 0.85;                                  /* 既存と同じ透明度 */
   transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .tool-btn:hover {
   opacity: 1;
-  transform: translateY(-2px);            /* 浮き上がる演出 */
-  box-shadow: var(--shadow);
+  transform: translateY(-2px);                    /* 浮き上がる演出 */
+  box-shadow: var(--shadow-light);                /* シャドウも既存変数を利用 */
 }
 
 .tool-btn img {
-  width: 26px;                            /* コンテンツボタンと同じアイコンサイズ */
+  width: 26px;                                    /* コンテンツボタンと同じアイコンサイズ */
   height: 26px;
   display: block;
 }
-
 /* ==============================
    キャンバスエリア
    ============================== */
