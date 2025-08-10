@@ -4,709 +4,142 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Vivora Fashion Illustration 2025</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --bg:#f3ece7;
-    --panel:#f7f2ee;
-    --line:#e1d9d4;
-    --text:#333;
-    --accent:#222;
-    --shadow:0 6px 18px rgba(0,0,0,.06);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  }
-
-  /* レイアウト */
-  .app{
-    display:grid;
-    grid-template-columns: 1fr 320px;
-    grid-template-rows: auto auto 1fr;
-    grid-template-areas:
-      "header  sidebar"
-      "toolbar sidebar"
-      "canvas  sidebar";
-    height:100vh;
-  }
-
-  /* ヘッダー（タイトルのみ） */
-  header{
-    grid-area:header;
-    display:flex;
-    align-items:center;
-    padding:12px 16px;
-  }
-  h1{
-    font:500 20px/1 'Playfair Display',serif;
-    color:#222;
-  }
-
-  /* 1本ツールバー：左=性別 / 中央=アクション / 右=コンテンツ */
-  .toolbar{
-    grid-area:toolbar;
-    display:flex;
-    align-items:center;
-    gap:16px;
-    padding:12px 16px;
-    border-top:1px solid var(--line);
-    background:#f2ede8cc;
-    backdrop-filter:saturate(1.1) blur(2px);
-  }
-  .toolbar-left{ display:flex; align-items:center; gap:10px; }
-  .toolbar-center{ display:flex; align-items:center; gap:10px; margin:0 auto; }
-  .toolbar-right{ display:flex; align-items:center; gap:10px; margin-left:auto; }
-
-  /* 性別ボタン（カード風） */
-  .gender{display:flex; gap:10px;}
-  .gbtn{
-    border:1px solid var(--line);
-    background:#fff;
-    padding:8px 18px;
-    border-radius:14px;
-    cursor:pointer;
-    font-size:14px;
-  }
-  .gbtn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-
-  /* アクションアイコン／コンテンツアイコン（角丸タイル） */
-  .tool-btn, .content-btn{
-    background:#ece7e3;
-    border:1px solid #e6ded8;
-    border-radius:10px;
-    width:44px; height:44px;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer;
-    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
-  }
-  .tool-btn img, .content-btn img{ width:26px; height:26px; display:block; }
-  .tool-btn:hover, .content-btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow); background:#f7f2ee; }
-
-  /* キャンバス */
-  .canvas-area{
-    grid-area:canvas;
-    display:flex;
-    flex-direction:column;
-    overflow:hidden;
-    border-top:1px solid var(--line);
-  }
-  .board{
-    position:relative;
-    flex:1;
-    margin:16px;
-    background:#fff;
-    border:1px solid var(--line);
-    border-radius:10px;
-    box-shadow:var(--shadow);
-    overflow:hidden;
-  }
-  .board.grid::before{
-    content:"";
-    position:absolute;inset:0;
-    background-image:
-      linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);
-    background-size: 24px 24px;
-    pointer-events:none;
-  }
-
-  /* ステージ（ここを pan/zoom） */
-  #stage{
-    position:absolute;left:0;top:0;
-    transform-origin:0 0;
-    touch-action:none;
-    cursor:grab;
-  }
-  #stage.grabbing{cursor:grabbing}
-
-  .mannequin-base{
-    display:block;
-    max-width:none;
-    width:600px;
-    height:auto;
-    user-select:none;
-    -webkit-user-drag:none;
-  }
-
-  /* 追加パーツ用 */
-  .overlay-item{
-    position:absolute;
-    left:50%;top:50%;
-    transform:translate(-50%,-50%);
-    width:45%;
-    aspect-ratio:3/4;
-    pointer-events:auto;
-  }
-  .overlay-item img{width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
-  .overlay-item.selected-layer{outline:2px dashed #6c5ce7; outline-offset:2px}
-  .overlay-item .tint{position:absolute;inset:0;pointer-events:none;border-radius:4px}
-
-  /* サイドバー */
-  aside{
-    grid-area:sidebar;
-    padding:16px;
-    border-left:1px solid var(--line);
-    background:var(--panel);
-    overflow:auto;
-  }
-  .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;box-shadow:var(--shadow)}
-  .panel h3{font:500 16px/1 'Playfair Display',serif;margin-bottom:8px}
-  .pose-row{display:flex;gap:8px;overflow:auto}
-  .pose-row img{width:52px;height:80px;object-fit:contain;border:2px solid transparent;border-radius:8px;padding:2px;background:#fff;cursor:pointer}
-  .pose-row img.selected{border-color:#222}
-
-  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-  .tool-tile,.color-tile{
-    width:56px;height:56px;border:1px solid var(--line);border-radius:10px;background:#fff;
-    display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s
-  }
-  .tool-tile:hover,.color-tile:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
-  .tool-tile img{width:30px;height:30px}
-  .color-tile{border:none}
-
-  .nextstep{display:flex;justify-content:flex-end;margin-bottom:12px}
-  .nextstep button{
-    background:#222;color:#fff;border:none;border-radius:8px;padding:10px 16px;cursor:pointer;font-family:'Playfair Display',serif
-  }
-
-  /* Zoom パネル */
-  #zoomPanel .zoom-row{display:flex;align-items:center;gap:10px}
-  #zoomRange{width:100%}
-  .zoom-btn{
-    width:34px;height:34px;border:1px solid var(--line);
-    background:#fff;border-radius:8px;cursor:pointer;
-  }
-  .zoom-btn:hover{background:#fafafa}
-  .zoom-meta{
-    display:flex;align-items:center;justify-content:space-between;
-    margin-top:8px;font-size:13px;opacity:.8;
-  }
-  .zoom-reset{
-    border:1px solid var(--line);background:#fff;
-    padding:4px 10px;border-radius:8px;cursor:pointer;
-  }
-  .zoom-reset:hover{background:#fafafa}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div class="app">
 
-  <!-- タイトルのみ -->
+  <!-- Header -->
   <header>
     <h1>Vivora Fashion Illustration 2025</h1>
+    <div class="gender">
+      <button class="gbtn active">Woman</button>
+      <button class="gbtn">Man</button>
+      <button class="gbtn">Kids</button>
+    </div>
   </header>
 
-  <!-- 1本ツールバー -->
+  <!-- Toolbar -->
   <div class="toolbar">
-    <!-- 左：性別 -->
-    <div class="toolbar-left">
-      <div class="gender">
-        <button class="gbtn active" data-gender="woman">Woman</button>
-        <button class="gbtn" data-gender="man">Man</button>
-        <button class="gbtn" data-gender="kids">Kids</button>
-      </div>
-    </div>
+    <button class="tool-btn"><img src="icons/undo.png" alt=""></button>
+    <button class="tool-btn"><img src="icons/redo.png" alt=""></button>
+    <button class="tool-btn"><img src="icons/reset.png" alt=""></button>
+    <button class="tool-btn"><img src="icons/download.png" alt=""></button>
+    <button class="tool-btn"><img src="icons/upload.png" alt=""></button>
+    <button class="tool-btn"><img src="icons/save.png" alt=""></button>
+    <button class="tool-btn"><img src="icons/grid.png" alt=""></button>
 
-    <!-- 中央：アクション -->
-    <div class="toolbar-center">
-      <button class="tool-btn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
-      <button class="tool-btn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
-      <button class="tool-btn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
-      <button class="tool-btn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
-      <button class="tool-btn" id="btn-upload" title="Upload Part"><img src="../../create_parts/create_button/upload.png" alt=""></button>
-      <button class="tool-btn" id="btn-save" title="Save Snapshot"><img src="../../create_parts/create_button/save.png" alt=""></button>
-      <button class="tool-btn" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
-    </div>
-
-    <!-- 右：コンテンツ -->
-    <div class="toolbar-right">
-      <button class="content-btn" data-link="/"><img src="../../create_parts/contents_button/0_home.png" alt="Home"></button>
-      <button class="content-btn" data-link="/public/work/illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></button>
-      <button class="content-btn" data-link="/public/work/fabric/index.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm"></button>
-      <button class="content-btn" data-link="/public/work/clothing/index.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd"></button>
-      <button class="content-btn" data-link="/public/work/pattern/index.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc"></button>
-      <button class="content-btn" data-link="/public/work/grading/index.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Gd"></button>
-      <button class="content-btn" data-link="/public/work/print/index.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></button>
-      <button class="content-btn" data-link="/public/work/digital-kids/index.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></button>
+    <div class="contentbar">
+      <button class="content-btn"><img src="icons/home.png" alt=""></button>
+      <button class="content-btn"><img src="icons/fi.png" alt=""></button>
+      <button class="content-btn"><img src="icons/fm.png" alt=""></button>
+      <button class="content-btn"><img src="icons/cd.png" alt=""></button>
+      <button class="content-btn"><img src="icons/pc.png" alt=""></button>
+      <button class="content-btn"><img src="icons/gd.png" alt=""></button>
+      <button class="content-btn"><img src="icons/plc.png" alt=""></button>
+      <button class="content-btn"><img src="icons/dk.png" alt=""></button>
     </div>
   </div>
 
-  <!-- キャンバス（初期は方眼紙OFF） -->
+  <!-- Canvas -->
   <section class="canvas-area">
     <div id="board" class="board">
       <div id="stage">
-        <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+        <img src="mannequin.png" class="mannequin-base" alt="Mannequin">
       </div>
     </div>
   </section>
 
-  <!-- サイドバー -->
+  <!-- Sidebar -->
   <aside>
-    <div class="nextstep"><button>Next Step ▶▶</button></div>
 
+    <div class="nextstep">
+      <button>Next Step ▶▶</button>
+    </div>
+
+    <!-- Pose -->
     <div class="panel">
       <h3>Pose</h3>
-      <div class="pose-row" id="poseRow">
-        <img class="selected" src="../../mannequin/pose1.png" data-pose-src="../../mannequin/mannequin_woman.png" alt="">
-        <img src="../../mannequin/pose2.png" data-pose-src="../../mannequin/mannequin_woman_pose2.png" alt="">
-        <img src="../../mannequin/pose3.png" data-pose-src="../../mannequin/mannequin_woman_pose3.png" alt="">
-        <img src="../../mannequin/pose4.png" data-pose-src="../../mannequin/mannequin_woman_pose4.png" alt="">
+      <div class="pose-row">
+        <div class="pose-placeholder">+</div>
+        <div class="pose-placeholder">+</div>
+        <div class="pose-placeholder">+</div>
+        <div class="pose-placeholder">+</div>
       </div>
     </div>
 
+    <!-- Stationery -->
     <div class="panel">
       <h3>Stationery</h3>
       <div class="grid-4">
-        <div class="tool-tile" data-tool="select"><img src="../../create_parts/design_button/select.png" alt=""></div>
-        <div class="tool-tile" data-tool="direct_select"><img src="../../create_parts/design_button/direct_select.png" alt=""></div>
-        <div class="tool-tile" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt=""></div>
-        <div class="tool-tile" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt=""></div>
-
-        <div class="tool-tile" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt=""></div>
-        <div class="tool-tile" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt=""></div>
-        <div class="tool-tile" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt=""></div>
-        <div class="tool-tile" data-tool="rotate"><img src="../../create_parts/design_button/rotate.png" alt=""></div>
-
-        <div class="tool-tile" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt=""></div>
-        <div class="tool-tile" data-tool="photo" data-part-src="../../contents/sample/add-on.png"><img src="../../create_parts/design_button/photo.png" alt=""></div>
-        <div class="tool-tile" data-tool="add" data-part-src="../../contents/sample/add-on2.png"><img src="../../create_parts/design_button/add.png" alt=""></div>
-        <div class="tool-tile" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt=""></div>
+        <div class="tool-tile"><img src="icons/select.png"></div>
+        <div class="tool-tile"><img src="icons/direct_select.png"></div>
+        <div class="tool-tile"><img src="icons/text.png"></div>
+        <div class="tool-tile"><img src="icons/fill.png"></div>
+        <div class="tool-tile"><img src="icons/pen.png"></div>
+        <div class="tool-tile"><img src="icons/brush.png"></div>
+        <div class="tool-tile"><img src="icons/eraser.png"></div>
+        <div class="tool-tile"><img src="icons/rotate.png"></div>
+        <div class="tool-tile"><img src="icons/percent.png"></div>
+        <div class="tool-tile"><img src="icons/photo.png"></div>
+        <div class="tool-tile"><img src="icons/add.png"></div>
+        <div class="tool-tile"><img src="icons/shapes.png"></div>
       </div>
     </div>
 
     <!-- Zoom -->
-    <div class="panel" id="zoomPanel">
+    <div class="panel">
       <h3>Zoom</h3>
       <div class="zoom-row">
-        <button class="zoom-btn" id="zoomOutBtn" aria-label="Zoom out">−</button>
-        <input type="range" id="zoomRange" min="25" max="600" value="100" step="1" />
-        <button class="zoom-btn" id="zoomInBtn" aria-label="Zoom in">＋</button>
+        <button class="zoom-btn">−</button>
+        <input type="range" min="10" max="200" value="100">
+        <button class="zoom-btn">＋</button>
       </div>
       <div class="zoom-meta">
-        <span id="zoomVal">100%</span>
-        <button class="zoom-reset" id="zoomResetBtn" title="Reset zoom">Reset</button>
+        <span>100%</span>
+        <button class="zoom-reset">Reset</button>
       </div>
     </div>
 
     <!-- Opacity -->
-    <div class="panel" id="posePanel">
-  <h3>Pose</h3>
-  <div class="pose-grid">
-    <button class="pose-add" data-link="/public/work/pose/">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 5v14M5 12h14" stroke="#4b473f" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span class="sr-only">Add / Go to Pose</span>
-    </button>
-    <button class="pose-add" data-link="/public/work/pose/">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 5v14M5 12h14" stroke="#4b473f" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span class="sr-only">Add / Go to Pose</span>
-    </button>
-    <button class="pose-add" data-link="/public/work/pose/">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 5v14M5 12h14" stroke="#4b473f" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span class="sr-only">Add / Go to Pose</span>
-    </button>
-    <button class="pose-add" data-link="/public/work/pose/">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 5v14M5 12h14" stroke="#4b473f" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span class="sr-only">Add / Go to Pose</span>
-    </button>
-  </div>
-</div>
-
     <div class="panel">
-      <h3>Color <small style="font:12px/1 sans-serif;opacity:.6">Custom...</small></h3>
-      <div class="grid-4" id="colorGrid">
-        <button class="color-tile" style="background:#ffffff" data-color="#ffffff"></button>
-        <button class="color-tile" style="background:#cccccc" data-color="#cccccc"></button>
-        <button class="color-tile" style="background:#ffff00" data-color="#ffff00"></button>
-        <button class="color-tile" style="background:#ff9900" data-color="#ff9900"></button>
-
-        <button class="color-tile" style="background:#f4a2a2" data-color="#f4a2a2"></button>
-        <button class="color-tile" style="background:#ff0000" data-color="#ff0000"></button>
-        <button class="color-tile" style="background:#009900" data-color="#009900"></button>
-        <button class="color-tile" style="background:#006600" data-color="#006600"></button>
-
-        <button class="color-tile" style="background:#3399ff" data-color="#3399ff"></button>
-        <button class="color-tile" style="background:#0000ff" data-color="#0000ff"></button>
-        <button class="color-tile" style="background:#990099" data-color="#990099"></button>
-        <button class="color-tile" style="background:#000000" data-color="#000000"></button>
+      <h3>Opacity</h3>
+      <div class="zoom-row">
+        <button class="zoom-btn">−</button>
+        <input type="range" min="0" max="100" value="100">
+        <button class="zoom-btn">＋</button>
+      </div>
+      <div class="zoom-meta">
+        <span>100%</span>
+        <button class="zoom-reset">Reset</button>
       </div>
     </div>
+
+    <!-- Color -->
+    <div class="panel">
+      <h3>Color <small>Custom...</small></h3>
+      <div class="grid-4">
+        <div class="color-tile" style="background:#fff"></div>
+        <div class="color-tile" style="background:#ccc"></div>
+        <div class="color-tile" style="background:#ff0"></div>
+        <div class="color-tile" style="background:#f90"></div>
+        <div class="color-tile" style="background:#f4a2a2"></div>
+        <div class="color-tile" style="background:#f00"></div>
+        <div class="color-tile" style="background:#090"></div>
+        <div class="color-tile" style="background:#060"></div>
+        <div class="color-tile" style="background:#39f"></div>
+        <div class="color-tile" style="background:#00f"></div>
+        <div class="color-tile" style="background:#909"></div>
+        <div class="color-tile" style="background:#000"></div>
+      </div>
+    </div>
+
   </aside>
 </div>
 
-<script>
-/* ---------------------------
-   Undo / Redo (簡易スナップショット)
---------------------------- */
-const State = (() => {
-  const undo=[], redo=[]; const MAX=50;
-  const snap = () => ({
-    stageHTML: document.getElementById('stage').innerHTML,
-    gender: document.querySelector('.gbtn.active')?.dataset.gender || 'woman',
-    grid: document.getElementById('board').classList.contains('grid')
-  });
-  const restore = s => {
-    const st = document.getElementById('stage');
-    st.innerHTML = s.stageHTML;
-    document.getElementById('board').classList.toggle('grid', s.grid);
-    document.querySelectorAll('.gbtn').forEach(b=>b.classList.toggle('active', b.dataset.gender===s.gender));
-    Layer.initSelectable();
-  };
-  const push = () => { undo.push(snap()); if(undo.length>MAX) undo.shift(); redo.length=0; };
-  const doUndo = () => { if(!undo.length) return; const cur=snap(); const prev=undo.pop(); redo.push(cur); restore(prev); };
-  const doRedo = () => { if(!redo.length) return; const cur=snap(); const next=redo.pop(); undo.push(cur); restore(next); };
-  return {push,undo:doUndo,redo:doRedo,snap};
-})();
-
-/* ---------------------------
-   レイヤ（選択/色/パーツ追加・不透明度）
---------------------------- */
-const Layer = (() => {
-  let selected=null;
-  const stage = document.getElementById('stage');
-
-  const select = el => {
-    if(selected) selected.classList.remove('selected-layer');
-    selected = el;
-    if(selected) selected.classList.add('selected-layer');
-  };
-
-  const initSelectable = () => {
-    stage.querySelectorAll('.overlay-item').forEach(el=>{
-      el.addEventListener('pointerdown', e=>{
-        e.stopPropagation();
-        select(el);
-      });
-      makeDraggable(el);
-    });
-  };
-
-  const makeDraggable = (holder) => {
-    let drag=false, sx=0, sy=0, ox=0, oy=0;
-    holder.addEventListener('pointerdown', e=>{
-      drag=true; holder.setPointerCapture(e.pointerId);
-      sx=e.clientX; sy=e.clientY;
-      const r=holder.getBoundingClientRect(), sr=stage.getBoundingClientRect();
-      ox=r.left-sr.left; oy=r.top-sr.top;
-      select(holder);
-    });
-    holder.addEventListener('pointermove', e=>{
-      if(!drag) return;
-      const sr=stage.getBoundingClientRect();
-      const nx=ox+(e.clientX-sx), ny=oy+(e.clientY-sy);
-      holder.style.left = (nx + holder.offsetWidth/2 - sr.left)/sr.width*100 + '%';
-      holder.style.top  = (ny + holder.offsetHeight/2 - sr.top )/sr.height*100 + '%';
-      holder.style.transform='translate(-50%,-50%)';
-    });
-    holder.addEventListener('pointerup', ()=>{ drag=false; State.push(); });
-  };
-
-  const addPart = (src) => {
-    const holder=document.createElement('div');
-    holder.className='overlay-item';
-    const img=document.createElement('img');
-    img.src=src; img.alt='part';
-    holder.appendChild(img);
-    stage.appendChild(holder);
-    makeDraggable(holder);
-    select(holder);
-    State.push();
-  };
-
-  const applyColor = (hex) => {
-    if(!selected) return;
-    if(!selected.querySelector(':scope > .tint')){
-      const t=document.createElement('div'); t.className='tint'; selected.appendChild(t);
-    }
-    selected.querySelector(':scope > .tint').style.backgroundColor = hex + '80';
-    State.push();
-  };
-
-  // 何もない場所クリックで選択解除
-  document.getElementById('board').addEventListener('pointerdown', e=>{
-    if(!stage.contains(e.target)) select(null);
-  });
-
-  // 不透明度
-  const setOpacity = (value01)=>{
-    if(selected){
-      selected.style.opacity = value01;
-    }else{
-      const m = document.getElementById('mannequin');
-      if(m) m.style.opacity = value01;
-    }
-  };
-
-  const getSelected = ()=>selected;
-
-  return {initSelectable,addPart,applyColor,select,setOpacity,getSelected};
-})();
-
-/* ---------------------------
-   Pan & Zoom（ステージ） + ZoomAPI
---------------------------- */
-(() => {
-  const wrapper = document.getElementById('board');
-  const stage   = document.getElementById('stage');
-  let scale=1, tx=0, ty=0; const MIN=.25, MAX=6, SPEED=1.0015;
-
-  const apply = ()=> stage.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
-
-  // Drag Pan
-  let dragging=false, sx=0, sy=0, stx=0, sty=0;
-  const start=(x,y)=>{dragging=true; sx=x; sy=y; stx=tx; sty=ty; stage.classList.add('grabbing');}
-  const move =(x,y)=>{ if(!dragging) return; tx=stx+(x-sx); ty=sty+(y-sy); apply(); }
-  const end  =()=>{dragging=false; stage.classList.remove('grabbing');}
-
-  wrapper.addEventListener('pointerdown', e=>{
-    if(e.button===2) return;
-    if(!stage.contains(e.target) && e.target!==stage) return;
-    stage.setPointerCapture(e.pointerId);
-    start(e.clientX,e.clientY);
-  });
-  wrapper.addEventListener('pointermove', e=>move(e.clientX,e.clientY));
-  wrapper.addEventListener('pointerup', end);
-  wrapper.addEventListener('pointercancel', end);
-
-  // Wheel Zoom（ピンチ含む）
-  wrapper.addEventListener('wheel', e=>{
-    const zoomIntent = e.ctrlKey || Math.abs(e.deltaY) > Math.abs(e.deltaX);
-    if(!zoomIntent) return;
-    e.preventDefault();
-
-    const rect=wrapper.getBoundingClientRect();
-    const cx=e.clientX-rect.left-tx, cy=e.clientY-rect.top-ty;
-    const k=Math.pow(SPEED,-e.deltaY);
-    const next = clamp(scale*k, MIN, MAX);
-    const ratio=next/scale;
-
-    tx = e.clientX-rect.left - ratio*cx;
-    ty = e.clientY-rect.top  - ratio*cy;
-    scale = next;
-    apply();
-    ZoomUI.update(scale);
-  }, {passive:false});
-
-  // Touch Pinch
-  let t1=null,t2=null, dist0=0, scale0=1, mid0={x:0,y:0}, tx0=0,ty0=0;
-  const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
-  const mid =(a,b)=>({x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2});
-
-  wrapper.addEventListener('touchstart', e=>{
-    if(e.touches.length===1){ const t=e.touches[0]; start(t.clientX,t.clientY); }
-    else if(e.touches.length===2){
-      t1=e.touches[0]; t2=e.touches[1];
-      dist0=dist(t1,t2); scale0=scale; mid0=mid(t1,t2); tx0=tx; ty0=ty;
-    }
-  },{passive:false});
-
-  wrapper.addEventListener('touchmove', e=>{
-    if(e.touches.length===1 && dragging){
-      const t=e.touches[0]; move(t.clientX,t.clientY);
-    }else if(e.touches.length===2){
-      e.preventDefault();
-      const a=e.touches[0], b=e.touches[1];
-      const rect=wrapper.getBoundingClientRect();
-      const next = clamp((dist(a,b)/dist0)*scale0, MIN, MAX);
-      const ratio=next/scale;
-      const mx = mid0.x-rect.left - tx0;
-      const my = mid0.y-rect.top  - ty0;
-      tx = tx0 + (1-ratio)*mx;
-      ty = ty0 + (1-ratio)*my;
-      scale=next; apply();
-      ZoomUI.update(scale);
-    }
-  },{passive:false});
-  wrapper.addEventListener('touchend', end,{passive:true});
-  wrapper.addEventListener('touchcancel', end,{passive:true});
-
-  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
-
-  // 初期フィット
-  const fit=()=>{
-    const rect=wrapper.getBoundingClientRect();
-    const img=document.getElementById('mannequin');
-    const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
-    if(!iw||!ih) return;
-    const m=80, kx=(rect.width-m)/iw, ky=(rect.height-m)/ih;
-    scale=Math.min(Math.max(Math.min(kx,ky),.25),3);
-    tx=(rect.width-iw*scale)/2;
-    ty=(rect.height-ih*scale)/2;
-    apply();
-    ZoomUI.update(scale);
-  };
-  window.addEventListener('load',fit);
-  window.addEventListener('resize',fit);
-
-  // 外部制御API
-  window.ZoomAPI = {
-    getScale: ()=>scale,
-    zoomTo: (newScale, focal=null)=>{
-      newScale = clamp(newScale, MIN, MAX);
-      const rect=wrapper.getBoundingClientRect();
-      const cx = (focal?.x ?? rect.width/2) - tx;
-      const cy = (focal?.y ?? rect.height/2) - ty;
-      const ratio = newScale/scale;
-      tx = (focal?.x ?? rect.width/2) - ratio*cx;
-      ty = (focal?.y ?? rect.height/2) - ratio*cy;
-      scale = newScale; apply(); ZoomUI.update(scale);
-    },
-    step: (delta)=>{ window.ZoomAPI.zoomTo(scale+delta); },
-    reset: ()=>{ fit(); }
-  };
-})();
-
-/* ---------------------------
-   Zoom UI（スライダー／ボタン）
---------------------------- */
-const ZoomUI = (()=> {
-  const range = ()=>document.getElementById('zoomRange');
-  const val   = ()=>document.getElementById('zoomVal');
-  const s2v = s => Math.round(s*100);
-  const v2s = v => v/100;
-
-  function update(scale){
-    if(!range()) return;
-    range().value = String(s2v(scale));
-    val().textContent = s2v(scale) + '%';
-  }
-
-  window.addEventListener('DOMContentLoaded', ()=>{
-    const r=range(); if(!r) return;
-    document.getElementById('zoomInBtn').addEventListener('click', ()=> ZoomAPI.step(+0.1));
-    document.getElementById('zoomOutBtn').addEventListener('click',()=> ZoomAPI.step(-0.1));
-    document.getElementById('zoomResetBtn').addEventListener('click',()=> ZoomAPI.reset());
-    r.addEventListener('input', ()=> ZoomAPI.zoomTo(v2s(parseInt(r.value,10))));
-    update(1);
-  });
-
-  return {update};
-})();
-
-/* ---------------------------
-   UI配線
---------------------------- */
-window.addEventListener('DOMContentLoaded', () => {
-  State.push();
-  const $ = s => document.querySelector(s);
-
-  // コンテンツボタン遷移
-  document.querySelectorAll('.content-btn').forEach(b=>{
-    b.addEventListener('click', ()=> {
-      const link = b.dataset.link;
-      if(link) location.href = link;
-    });
-  });
-
-  // Undo/Redo/Reset/Download/Upload/Save/Grid
-  $('#btn-undo') .addEventListener('click', ()=>State.undo());
-  $('#btn-redo') .addEventListener('click', ()=>State.redo());
-
-  $('#btn-reset').addEventListener('click', ()=>{
-    const active = document.querySelector('.gbtn.active')?.dataset.gender || 'woman';
-    const map={
-      woman:'../../mannequin/mannequin_woman.png',
-      man  :'../../mannequin/mannequin_man.png',
-      kids :'../../mannequin/mannequin_kids.png'
-    };
-    const st=document.getElementById('stage');
-    st.innerHTML = `<img id="mannequin" class="mannequin-base" src="${map[active]}" alt="Mannequin">`;
-    Layer.initSelectable();
-    State.push();
-    ZoomAPI.reset();
-  });
-
-  $('#btn-download').addEventListener('click', ()=>{
-    const blob = new Blob([document.getElementById('stage').innerHTML],{type:'text/html'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-    a.download='vivora-illustration.htmlfrag'; a.click(); URL.revokeObjectURL(a.href);
-  });
-
-  $('#btn-upload').addEventListener('click', ()=>{
-    const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*,.svg';
-    inp.onchange=(e)=>{ const f=e.target.files?.[0]; if(!f) return; Layer.addPart(URL.createObjectURL(f)); };
-    inp.click();
-  });
-
-  $('#btn-save').addEventListener('click', ()=>{
-    localStorage.setItem('vivora-snap', JSON.stringify(State.snap()));
-    alert('Saved locally.');
-  });
-
-  $('#grid-toggle').addEventListener('click', ()=>{
-    document.getElementById('board').classList.toggle('grid');
-    State.push();
-  });
-
-  // Gender
-  document.querySelectorAll('.gbtn').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      document.querySelectorAll('.gbtn').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');
-      const map={
-        woman:'../../mannequin/mannequin_woman.png',
-        man  :'../../mannequin/mannequin_man.png',
-        kids :'../../mannequin/mannequin_kids.png'
-      };
-      const img=document.getElementById('mannequin');
-      img.src = map[b.dataset.gender] || map.woman;
-      State.push();
-      ZoomAPI.reset();
-    });
-  });
-
-  // Pose
-  document.querySelectorAll('#poseRow img').forEach(ph=>{
-    ph.addEventListener('click', ()=>{
-      document.querySelectorAll('#poseRow img').forEach(p=>p.classList.remove('selected'));
-      ph.classList.add('selected');
-      const src=ph.dataset.poseSrc;
-      const img=document.getElementById('mannequin');
-      if(src) img.src=src;
-      State.push();
-      ZoomAPI.reset();
-    });
-  });
-
-  // Stationery：data-part-src があれば追加
-  document.querySelectorAll('.tool-tile').forEach(t=>{
-    t.addEventListener('click', ()=>{
-      const src=t.dataset.partSrc;
-      if(src) Layer.addPart(src);
-    });
-  });
-
-  // Color
-  document.querySelectorAll('#colorGrid .color-tile').forEach(c=>{
-    c.addEventListener('click', ()=> Layer.applyColor(c.dataset.color));
-  });
-
-  // Opacity
-  const opRange = document.getElementById('opacityRange');
-  const opVal   = document.getElementById('opacityVal');
-  opRange.addEventListener('input', ()=>{
-    const v = Number(opRange.value);
-    opVal.textContent = v + '%';
-    Layer.setOpacity(v/100);
-  });
-
-  Layer.initSelectable();
-});
-</script>
 </body>
 </html>
