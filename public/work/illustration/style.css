@@ -184,3 +184,18 @@ aside{
   padding:4px 10px;border-radius:8px;cursor:pointer;
 }
 .zoom-reset:hover{background:#fafafa}
+
+/* ===== ヘッダーの間隔を拡げる（追加） ===== */
+header{
+  padding: 22px 24px;           /* 上下の余白を増量（16px → 22px） */
+  column-gap: 28px;             /* タイトルとボタンの間隔を広く */
+}
+
+.gender{
+  gap: 14px;                    /* ボタン同士の間隔を少し広く */
+}
+
+.gender button{
+  padding: 8px 18px;            /* 見た目を整えるためボタン内余白も少し増やす */
+  font-size: 14px;
+}
