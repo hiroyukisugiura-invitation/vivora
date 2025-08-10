@@ -49,8 +49,10 @@
     .icon-btn{
       width:34px; height:34px; display:grid; place-items:center; border:1px solid var(--line);
       border-radius:8px; background:#fff; cursor:pointer; box-shadow:var(--shadow);
-      transition:transform .05s ease; user-select:none;
+      transition:transform .05s ease; user-select:none; padding:0; overflow:hidden;
     }
+    .icon-btn img{ width:20px; height:20px; display:block }
+    .icon-btn:active{ transform:translateY(1px) }
     .icon-btn:active{ transform:translateY(1px) }
 
     .next-wrap{ display:flex; justify-content:flex-end; }
@@ -105,8 +107,9 @@
     .grid{ display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; }
     .tool{
       height:38px; background:#fff; border:1px solid var(--line); border-radius:10px; display:grid; place-items:center; box-shadow:var(--shadow);
-      cursor:pointer; font-size:13px; font-weight:700; color:var(--muted);
+      cursor:pointer; font-size:13px; font-weight:700; color:var(--muted); padding:0; overflow:hidden;
     }
+    .tool img{ width:18px; height:18px; display:block }
     .tool.active{ border-color:#6b5f55; box-shadow:0 0 0 2px rgba(0,0,0,.04) inset }
 
     /* スライダー */
@@ -150,18 +153,18 @@
     </div>
 
     <nav class="toolbar" aria-label="canvas tools">
-      <button class="icon-btn" title="Undo">↶</button>
-      <button class="icon-btn" title="Redo">↷</button>
-      <button class="icon-btn" title="Reset View">⊙</button>
-      <button class="icon-btn" title="Save">💾</button>
-      <button class="icon-btn" title="Upload">⤴︎</button>
-      <button class="icon-btn" title="Grid">#</button>
-      <button class="icon-btn" title="Pen">✎</button>
-      <button class="icon-btn" title="Eraser">␡</button>
-      <button class="icon-btn" title="Select">▢</button>
-      <button class="icon-btn" title="Move">✥</button>
-      <button class="icon-btn" title="Camera">📷</button>
-      <button class="icon-btn" title="Help">?</button>
+      <button class="icon-btn" title="Undo" data-icon="undo"></button>
+      <button class="icon-btn" title="Redo" data-icon="redo"></button>
+      <button class="icon-btn" title="Reset View" data-icon="reset"></button>
+      <button class="icon-btn" title="Save" data-icon="save"></button>
+      <button class="icon-btn" title="Upload" data-icon="upload"></button>
+      <button class="icon-btn" title="Grid" data-icon="grid"></button>
+      <button class="icon-btn" title="Pen" data-icon="pen"></button>
+      <button class="icon-btn" title="Eraser" data-icon="eraser"></button>
+      <button class="icon-btn" title="Select" data-icon="select"></button>
+      <button class="icon-btn" title="Move" data-icon="move"></button>
+      <button class="icon-btn" title="Camera" data-icon="camera"></button>
+      <button class="icon-btn" title="Help" data-icon="help"></button>
     </nav>
 
     <div class="next-wrap">
@@ -201,44 +204,23 @@
       <div class="card">
         <h3>Stationery</h3>
         <div class="grid" style="margin-bottom:10px">
-          <div class="tool" title="Triangle">△</div>
-          <div class="tool" title="Arrow">➤</div>
-          <div class="tool" title="Text">T</div>
-          <div class="tool" title="Stamp">⬒</div>
-          <div class="tool" title="Clock">◴</div>
-          <div class="tool" title="Pen" data-tool="pen">✎</div>
-          <div class="tool" title="Brush">🖌</div>
-          <div class="tool" title="Eraser" data-tool="eraser">␡</div>
-          <div class="tool" title="Rhombus">⬘</div>
-          <div class="tool" title="Rotate">⟲</div>
-          <div class="tool" title="%">%</div>
-          <div class="tool" title="Align">≣</div>
-          <div class="tool" title="Camera" data-tool="camera">📷</div>
-          <div class="tool" title="Crop">✂︎</div>
-          <div class="tool" title="Resize">↔︎</div>
+          <button class="tool" data-tool="triangle" title="Triangle"></button>
+          <button class="tool" data-tool="arrow" title="Arrow"></button>
+          <button class="tool" data-tool="text" title="Text"></button>
+          <button class="tool" data-tool="stamp" title="Stamp"></button>
+          <button class="tool" data-tool="clock" title="Clock"></button>
+          <button class="tool" data-tool="pen" title="Pen"></button>
+          <button class="tool" data-tool="brush" title="Brush"></button>
+          <button class="tool" data-tool="eraser" title="Eraser"></button>
+          <button class="tool" data-tool="rhombus" title="Rhombus"></button>
+          <button class="tool" data-tool="rotate" title="Rotate"></button>
+          <button class="tool" data-tool="percent" title="%"></button>
+          <button class="tool" data-tool="align" title="Align"></button>
+          <button class="tool" data-tool="camera" title="Camera"></button>
+          <button class="tool" data-tool="crop" title="Crop"></button>
+          <button class="tool" data-tool="resize" title="Resize"></button>
         </div>
-        <div class=\"note\">※ UIはダミーです。必要に応じて機能を割り当て可能。</div>
-      </div>
-
-      <!-- Zoom -->
-      <div class="card">
-        <h3>Zoom</h3>
-        <div class="slider-row">
-          <div class="chip" id="zoomLabel">10%</div>
-          <input type="range" min="10" max="160" step="1" value="72" id="zoomRange" />
-          <button class="mini" id="zoomReset">Reset</button>
-        </div>
-      </div>
-
-      <!-- Opacity -->
-      <div class="card">
-        <h3>Opacity</h3>
-        <div class="slider-row">
-          <div class="chip" id="opaLabel">100%</div>
-          <input type="range" min="5" max="100" step="1" value="100" id="opaRange" />
-          <button class="mini" id="opaReset">Reset</button>
-        </div>
-        <div class="note">■ レイヤー選択時は該当レイヤーにのみ反映（今はベースに適用）</div>
+        <div class="note">※ UIはダミーです。必要に応じて機能を割り当て可能。</div>■ レイヤー選択時は該当レイヤーにのみ反映（今はベースに適用）</div>
       </div>
 
       <!-- Color -->
@@ -409,7 +391,53 @@
       kids: './mannequin/mannequin_kids.png'
     };
 
-    document.querySelectorAll('.tab').forEach(btn=>{
+    // -------- PNGアイコン適用 --------
+    const ICON_BASE = './icons'; // ※必要ならパス変更可（例: ./work/illustration/icons）
+    const ICONS = {
+      undo: ICON_BASE + '/undo.png',
+      redo: ICON_BASE + '/redo.png',
+      reset: ICON_BASE + '/reset.png',
+      save: ICON_BASE + '/save.png',
+      upload: ICON_BASE + '/upload.png',
+      grid: ICON_BASE + '/grid.png',
+      pen: ICON_BASE + '/pen.png',
+      eraser: ICON_BASE + '/eraser.png',
+      select: ICON_BASE + '/select.png',
+      move: ICON_BASE + '/move.png',
+      camera: ICON_BASE + '/camera.png',
+      help: ICON_BASE + '/help.png'
+    };
+    const STATIONERY_ICONS = {
+      triangle: ICON_BASE + '/triangle.png',
+      arrow: ICON_BASE + '/arrow.png',
+      text: ICON_BASE + '/text.png',
+      stamp: ICON_BASE + '/stamp.png',
+      clock: ICON_BASE + '/clock.png',
+      pen: ICON_BASE + '/pen.png',
+      brush: ICON_BASE + '/brush.png',
+      eraser: ICON_BASE + '/eraser.png',
+      rhombus: ICON_BASE + '/rhombus.png',
+      rotate: ICON_BASE + '/rotate.png',
+      percent: ICON_BASE + '/percent.png',
+      align: ICON_BASE + '/align.png',
+      camera: ICON_BASE + '/camera.png',
+      crop: ICON_BASE + '/crop.png',
+      resize: ICON_BASE + '/resize.png'
+    };
+
+    // ツールバーに画像を差し込む
+    document.querySelectorAll('.icon-btn').forEach(b=>{
+      const key = b.dataset.icon; const src = ICONS[key];
+      if(src){ const img = new Image(); img.src = src; img.alt = key; b.appendChild(img); }
+      else { b.textContent = '·'; }
+    });
+    // ステーショナリーに画像を差し込む
+    document.querySelectorAll('.tool').forEach(b=>{
+      const key = b.dataset.tool; const src = STATIONERY_ICONS[key];
+      if(src){ const img = new Image(); img.src = src; img.alt = key; b.appendChild(img); }
+    });
+
+    document.querySelectorAll('.tab').forEach(btn=>{.forEach(btn=>{
       btn.addEventListener('click', ()=>{
         document.querySelectorAll('.tab').forEach(t=>t.classList.remove('is-active'));
         btn.classList.add('is-active');
