@@ -1,450 +1,690 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <style>
-    :root{
-      --bg:#e9e2d9;            /* 2枚目のややベージュ */
-      --panel:#f3ede6;         /* サイド/カード */
-      --ink:#2a2a2a;
-      --muted:#666;
-      --line:#ddd4ca;
-      --brand:#111;
-      --btn:#f5f2ee;
-      --btn-h:#ebe6df;
-      --accent:#111;           /* ボタン枠/強調 */
-      --radius:16px;
-      --shadow:0 2px 10px rgba(0,0,0,.06);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; color:var(--ink); background:var(--bg);
-      font:16px/1.4 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
-      letter-spacing:.02em;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vivora Fashion Illustration 2025</title>
 
-    /* ====== 上部バー ====== */
-    header{
-      display:grid;
-      grid-template-columns: 320px 1fr 220px; /* 左: タブ / 中央: ツール / 右: Next */
-      align-items:center;
-      gap:12px;
-      padding:14px 18px;
-    }
-    .product-title{font-size:18px;font-weight:600;opacity:.85}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
 
-    .tabs{
-      display:flex; gap:10px; align-items:center;
-    }
-    .tab{
-      background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 14px; cursor:pointer;
-      box-shadow:var(--shadow); min-width:82px; text-align:center; font-weight:600;
-    }
-    .tab.is-active{ background:var(--brand); color:#fff; border-color:var(--brand)}
+<style>
+  :root{
+    --bg:#f3ece7;
+    --panel:#f7f2ee;
+    --line:#e1d9d4;
+    --text:#333;
+    --accent:#222;
+    --shadow:0 6px 18px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  }
 
-    .toolbar{ display:flex; gap:10px; justify-content:center; }
-    .icon-btn{
-      width:34px; height:34px; display:grid; place-items:center; border:1px solid var(--line);
-      border-radius:8px; background:#fff; cursor:pointer; box-shadow:var(--shadow);
-      transition:transform .05s ease; user-select:none; padding:0; overflow:hidden;
-    }
-    .icon-btn img{ width:20px; height:20px; display:block }
-    .icon-btn:active{ transform:translateY(1px) }
-    .icon-btn:active{ transform:translateY(1px) }
+  /* レイアウト */
+  .app{
+    display:grid;
+    grid-template-columns: 1fr 320px;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "header  sidebar"
+      "toolbar sidebar"
+      "canvas  sidebar";
+    height:100vh;
+  }
+  header{
+    grid-area:header;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:12px 16px;
+  }
+  h1{
+    font:500 18px/1 'Playfair Display',serif;
+    color:#222;
+    margin-right:auto;
+  }
+  .gender{display:flex;gap:6px}
+  .gender button{
+    border:1px solid var(--line);
+    background:#fff;
+    padding:6px 12px;
+    border-radius:16px;
+    cursor:pointer;
+    font-size:13px;
+  }
+  .gender button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-    .next-wrap{ display:flex; justify-content:flex-end; }
-    .next{
-      background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 16px; font-weight:700;
-      box-shadow:var(--shadow); cursor:pointer; min-width:130px; text-align:center;
-    }
+  /* ツールバー */
+  .toolbar{
+    grid-area:toolbar;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    padding:10px 16px;
+    border-top:1px solid var(--line);
+    background:#fff8;
+    backdrop-filter:saturate(1.2) blur(2px);
+  }
+  .tool-btn{
+    background:transparent;border:none;cursor:pointer;opacity:.85
+  }
+  .tool-btn:hover{opacity:1}
+  .tool-btn img{width:22px;height:22px;display:block}
 
-    /* ====== レイアウト ====== */
-    .page{
-      display:grid; grid-template-columns: 1fr 320px; gap:18px; padding:0 18px 22px;
-    }
+  /* コンテンツバー（Home～） */
+  .contentbar{
+    display:flex;align-items:center;gap:10px;margin-left:auto;
+  }
+  .content-btn{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer; transition:.15s;
+  }
+  .content-btn img{width:26px;height:26px;display:block}
+  .content-btn:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
 
-    .stage{
-      background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:18px; min-height:72vh; display:flex; align-items:center; justify-content:center;
-    }
+  /* キャンバス */
+  .canvas-area{
+    grid-area:canvas;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    border-top:1px solid var(--line);
+  }
+  .board{
+    position:relative;
+    flex:1;
+    margin:16px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
 
-    /* キャンバス領域 */
-    .canvas{
-      width:100%; height:100%; display:flex; align-items:center; justify-content:center;
-    }
-    .canvas-inner{ width:min(900px, 90%); aspect-ratio: 3/4; background:#fff; border:1px solid var(--line);
-      border-radius:12px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
-    }
-    #mannequin{
-      max-width:72%; height:auto; opacity:1; transform-origin:center bottom; image-rendering:auto; filter:drop-shadow(0 0 0 rgba(0,0,0,0));
-      transition:opacity .15s ease, transform .15s ease; position:relative; z-index:1;
-    }
+  /* グリッド（方眼紙） */
+  .board.grid::before{
+    content:"";
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events:none;
+  }
 
-    /* ====== サイドバー ====== */
-    aside{
-      display:flex; flex-direction:column; gap:16px;
-    }
+  /* ステージ（ここを pan/zoom） */
+  #stage{
+    position:absolute;left:0;top:0;
+    transform-origin:0 0;
+    touch-action:none;
+    cursor:grab;
+  }
+  #stage.grabbing{cursor:grabbing}
 
-    .card{
-      background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:14px; 
-    }
-    .card h3{ margin:0 0 10px; font-size:14px; font-weight:700; opacity:.8 }
+  .mannequin-base{
+    display:block;
+    max-width:none;      /* 画像の実サイズ基準で拡縮するため */
+    width:600px;         /* 初期の見やすい幅（任意） */
+    height:auto;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
 
-    /* Pose スロット（2枚目の上部の+プレースホルダー） */
-    .pose-row{ display:grid; grid-template-columns: 28px 1fr 28px; align-items:center; gap:8px; }
-    .pose-track{ display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; }
-    .pose-slot{
-      height:60px; background:#fff; border:1px dashed #cfc5b9; border-radius:12px; display:grid; place-items:center; color:#b8afa4;
-      font-weight:700; box-shadow:var(--shadow); cursor:default;
-    }
-    .pose-arrow{ width:28px; height:60px; display:grid; place-items:center; color:#9a9085; }
+  /* 追加パーツ用 */
+  .overlay-item{
+    position:absolute;
+    left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    width:45%;
+    aspect-ratio:3/4;
+    pointer-events:auto;
+  }
+  .overlay-item img{width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+  .overlay-item.selected-layer{outline:2px dashed #6c5ce7; outline-offset:2px}
+  .overlay-item .tint{position:absolute;inset:0;pointer-events:none;border-radius:4px}
 
-    /* Stationery グリッド */
-    .grid{ display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; }
-    .tool{
-      height:38px; background:#fff; border:1px solid var(--line); border-radius:10px; display:grid; place-items:center; box-shadow:var(--shadow);
-      cursor:pointer; font-size:13px; font-weight:700; color:var(--muted); padding:0; overflow:hidden;
-    }
-    .tool img{ width:18px; height:18px; display:block }
-    .tool.active{ border-color:#6b5f55; box-shadow:0 0 0 2px rgba(0,0,0,.04) inset }
+  /* サイドバー */
+  aside{
+    grid-area:sidebar;
+    padding:16px;
+    border-left:1px solid var(--line);
+    background:var(--panel);
+    overflow:auto;
+  }
+  .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .panel h3{font:500 16px/1 'Playfair Display',serif;margin-bottom:8px}
+  .pose-row{display:flex;gap:8px;overflow:auto}
+  .pose-row img{width:52px;height:80px;object-fit:contain;border:2px solid transparent;border-radius:8px;padding:2px;background:#fff;cursor:pointer}
+  .pose-row img.selected{border-color:#222}
 
-    /* スライダー */
-    .slider-row{ display:grid; grid-template-columns: 34px 1fr 38px; align-items:center; gap:12px; }
-    .slider-row input[type="range"]{ width:100% }
-    .chip{ border:1px solid var(--line); background:#fff; padding:6px 8px; border-radius:8px; text-align:center; min-width:48px; }
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .tool-tile,.color-tile{
+    width:56px;height:56px;border:1px solid var(--line);border-radius:10px;background:#fff;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s
+  }
+  .tool-tile:hover,.color-tile:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
+  .tool-tile img{width:30px;height:30px}
+  .color-tile{border:none}
+  .color-tile.add{font-size:22px;color:#bbb;border:1px dashed var(--line);background:#fafafa}
 
-    /* カラーパレット */
-    .colors{ display:grid; grid-template-columns: repeat(8, 1fr); gap:10px; }
-    .swatch{ width:34px; height:34px; border-radius:8px; border:1px solid rgba(0,0,0,.08); box-shadow:var(--shadow); cursor:pointer; }
-    .color-tools{ display:flex; gap:8px; margin-top:10px; }
-    .mini{ width:32px; height:32px; border:1px solid var(--line); background:#fff; border-radius:8px; display:grid; place-items:center; box-shadow:var(--shadow); cursor:pointer; }
+  .nextstep{display:flex;justify-content:flex-end;margin-bottom:12px}
+  .nextstep button{
+    background:#222;color:#fff;border:none;border-radius:8px;padding:10px 16px;cursor:pointer;font-family:'Playfair Display',serif
+  }
 
-    /* 描画レイヤー */
-    #drawLayer{ position:absolute; inset:0; z-index:2; touch-action:none; }
-    .canvas-inner{ position:relative }
-
-    /* ヘルプ注記 */
-    .note{ font-size:12px; color:#7a7268; margin-top:8px }
-
-    /* 小さめ画面配慮（iPad横向き想定の最小調整） */
-    @media (max-width: 1100px){
-      header{ grid-template-columns: 1fr 1fr 160px }
-      .page{ grid-template-columns: 1fr 300px }
-      .colors{ grid-template-columns: repeat(6, 1fr) }
-      .canvas-inner{ width:95% }
-    }
-      .page{ grid-template-columns: 1fr 300px }
-      .colors{ grid-template-columns: repeat(6, 1fr) }
-      .canvas-inner{ width:95% }
-    }
-  </style>
+  /* Zoom パネル */
+  #zoomPanel .zoom-row{display:flex;align-items:center;gap:10px}
+  #zoomRange{width:100%}
+  .zoom-btn{
+    width:34px;height:34px;border:1px solid var(--line);
+    background:#fff;border-radius:8px;cursor:pointer;
+  }
+  .zoom-btn:hover{background:#fafafa}
+  .zoom-meta{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:8px;font-size:13px;opacity:.8;
+  }
+  .zoom-reset{
+    border:1px solid var(--line);background:#fff;
+    padding:4px 10px;border-radius:8px;cursor:pointer;
+  }
+  .zoom-reset:hover{background:#fafafa}
+</style>
 </head>
 <body>
+<div class="app">
+
+  <!-- Header -->
   <header>
-    <div class="tabs">
-      <div class="product-title">Vivora Fashion Illustration 2025</div>
-      <button class="tab is-active" data-target="woman">Woman</button>
-      <button class="tab" data-target="man">Man</button>
-      <button class="tab" data-target="kids">Kids</button>
-    </div>
-
-    <nav class="toolbar" aria-label="canvas tools">
-      <button class="icon-btn" title="Undo" data-icon="undo"></button>
-      <button class="icon-btn" title="Redo" data-icon="redo"></button>
-      <button class="icon-btn" title="Reset View" data-icon="reset"></button>
-      <button class="icon-btn" title="Save" data-icon="save"></button>
-      <button class="icon-btn" title="Upload" data-icon="upload"></button>
-      <button class="icon-btn" title="Grid" data-icon="grid"></button>
-      <button class="icon-btn" title="Pen" data-icon="pen"></button>
-      <button class="icon-btn" title="Eraser" data-icon="eraser"></button>
-      <button class="icon-btn" title="Select" data-icon="select"></button>
-      <button class="icon-btn" title="Move" data-icon="move"></button>
-      <button class="icon-btn" title="Camera" data-icon="camera"></button>
-      <button class="icon-btn" title="Help" data-icon="help"></button>
-    </nav>
-
-    <div class="next-wrap">
-      <button class="next" id="nextStep">Next Step ▸▸</button>
+    <h1>Vivora Fashion Illustration 2025</h1>
+    <div class="gender">
+      <button class="gbtn active" data-gender="woman">Woman</button>
+      <button class="gbtn" data-gender="man">Man</button>
+      <button class="gbtn" data-gender="kids">Kids</button>
     </div>
   </header>
 
-  <main class="page">
-    <!-- ====== 左：ステージ ====== -->
-    <section class="stage">
-      <div class="canvas">
-        <div class="canvas-inner">
-          <!-- 既存のリポジトリ資産に合わせて id=\"mannequin\" は維持 -->
-          <img id="mannequin" class="mannequin-base" src=\"./mannequin/mannequin_woman.png\" alt="Woman mannequin" />
-          <canvas id="drawLayer"></canvas>
-        </div>
+  <!-- Toolbar + Content buttons -->
+  <div class="toolbar">
+    <button class="tool-btn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
+    <button class="tool-btn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
+    <button class="tool-btn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
+    <button class="tool-btn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
+    <button class="tool-btn" id="btn-upload" title="Upload Part"><img src="../../create_parts/create_button/upload.png" alt=""></button>
+    <button class="tool-btn" id="btn-save" title="Save Snapshot"><img src="../../create_parts/create_button/save.png" alt=""></button>
+    <button class="tool-btn" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
+
+    <div class="contentbar">
+      <button class="content-btn" data-link="/"><img src="../../create_parts/contents_button/0_home.png" alt="Home"></button>
+      <button class="content-btn" data-link="/public/work/illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></button>
+      <button class="content-btn" data-link="/public/work/fabric/index.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm"></button>
+      <button class="content-btn" data-link="/public/work/clothing/index.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd"></button>
+      <button class="content-btn" data-link="/public/work/pattern/index.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc"></button>
+      <button class="content-btn" data-link="/public/work/grading/index.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Gd"></button>
+      <button class="content-btn" data-link="/public/work/print/index.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></button>
+      <button class="content-btn" data-link="/public/work/digital-kids/index.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></button>
+    </div>
+  </div>
+
+  <!-- Canvas -->
+  <section class="canvas-area">
+    <div id="board" class="board">
+      <!-- ← グリッドONで開始（不要なら class="board" に） -->
+      <div id="stage">
+        <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+        <!-- overlay-item はここに追加される -->
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ====== 右：サイドバー ====== -->
-    <aside>
-      <!-- Pose プレースホルダー行 -->
-      <div class="card">
-        <div class="pose-row">
-          <div class="pose-arrow">‹</div>
-          <div class="pose-track">
-            <div class="pose-slot">＋</div>
-            <div class="pose-slot">＋</div>
-            <div class="pose-slot">＋</div>
-            <div class="pose-slot">＋</div>
-          </div>
-          <div class="pose-arrow">›</div>
-        </div>
+  <!-- Sidebar -->
+  <aside>
+    <div class="nextstep"><button>Next Step ▶▶</button></div>
+
+    <div class="panel">
+      <h3>Pose</h3>
+      <div class="pose-row" id="poseRow">
+        <img class="selected" src="../../mannequin/pose1.png" data-pose-src="../../mannequin/mannequin_woman.png" alt="">
+        <img src="../../mannequin/pose2.png" data-pose-src="../../mannequin/mannequin_woman_pose2.png" alt="">
+        <img src="../../mannequin/pose3.png" data-pose-src="../../mannequin/mannequin_woman_pose3.png" alt="">
+        <img src="../../mannequin/pose4.png" data-pose-src="../../mannequin/mannequin_woman_pose4.png" alt="">
       </div>
+    </div>
 
-      <!-- Stationery -->
-      <div class="card">
-        <h3>Stationery</h3>
-        <div class="grid" style="margin-bottom:10px">
-          <button class="tool" data-tool="triangle" title="Triangle"></button>
-          <button class="tool" data-tool="arrow" title="Arrow"></button>
-          <button class="tool" data-tool="text" title="Text"></button>
-          <button class="tool" data-tool="stamp" title="Stamp"></button>
-          <button class="tool" data-tool="clock" title="Clock"></button>
-          <button class="tool" data-tool="pen" title="Pen"></button>
-          <button class="tool" data-tool="brush" title="Brush"></button>
-          <button class="tool" data-tool="eraser" title="Eraser"></button>
-          <button class="tool" data-tool="rhombus" title="Rhombus"></button>
-          <button class="tool" data-tool="rotate" title="Rotate"></button>
-          <button class="tool" data-tool="percent" title="%"></button>
-          <button class="tool" data-tool="align" title="Align"></button>
-          <button class="tool" data-tool="camera" title="Camera"></button>
-          <button class="tool" data-tool="crop" title="Crop"></button>
-          <button class="tool" data-tool="resize" title="Resize"></button>
-        </div>
-        <div class="note">※ UIはダミーです。必要に応じて機能を割り当て可能。</div>■ レイヤー選択時は該当レイヤーにのみ反映（今はベースに適用）</div>
+    <div class="panel">
+      <h3>Stationery</h3>
+      <div class="grid-4">
+        <div class="tool-tile" data-tool="select"><img src="../../create_parts/design_button/select.png" alt=""></div>
+        <div class="tool-tile" data-tool="direct_select"><img src="../../create_parts/design_button/direct_select.png" alt=""></div>
+        <div class="tool-tile" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt=""></div>
+        <div class="tool-tile" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt=""></div>
+
+        <div class="tool-tile" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt=""></div>
+        <div class="tool-tile" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt=""></div>
+        <div class="tool-tile" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt=""></div>
+        <div class="tool-tile" data-tool="rotate"><img src="../../create_parts/design_button/rotate.png" alt=""></div>
+
+        <div class="tool-tile" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt=""></div>
+        <div class="tool-tile" data-tool="photo" data-part-src="../../contents/sample/add-on.png"><img src="../../create_parts/design_button/photo.png" alt=""></div>
+        <div class="tool-tile" data-tool="add" data-part-src="../../contents/sample/add-on2.png"><img src="../../create_parts/design_button/add.png" alt=""></div>
+        <div class="tool-tile" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt=""></div>
       </div>
+    </div>
 
-      <!-- Color -->
-      <div class="card">
-        <h3>Color</h3>
-        <div class="colors" id="palette"></div>
-        <div class="color-tools">
-          <button class="mini" id="addColor">＋</button>
-          <button class="mini" id="pipette" title="Eyedropper">🖉</button>
-        </div>
+    <!-- Zoom -->
+    <div class="panel" id="zoomPanel">
+      <h3>Zoom</h3>
+      <div class="zoom-row">
+        <button class="zoom-btn" id="zoomOutBtn" aria-label="Zoom out">−</button>
+        <input type="range" id="zoomRange" min="25" max="600" value="100" step="1" />
+        <button class="zoom-btn" id="zoomInBtn" aria-label="Zoom in">＋</button>
       </div>
-    </aside>
-  </main>
+      <div class="zoom-meta">
+        <span id="zoomVal">100%</span>
+        <button class="zoom-reset" id="zoomResetBtn" title="Reset zoom">Reset</button>
+      </div>
+    </div>
 
-  <script>
-    // ====== 最低限の動作（ズーム・不透明度・カラー・描画・書き出し・タブ切替） ======
-    const mannequin = document.getElementById('mannequin');
-    const draw = document.getElementById('drawLayer');
-    const ctx = draw.getContext('2d');
-    const inner = document.querySelector('.canvas-inner');
+    <!-- Opacity -->
+    <div class="panel" id="opacityPanel">
+      <h3>Opacity</h3>
+      <div style="display:flex;align-items:center;gap:10px">
+        <input type="range" id="opacityRange" min="0" max="100" value="100" />
+        <span id="opacityVal" style="font-size:13px;opacity:.75">100%</span>
+      </div>
+      <small style="opacity:.6;display:block;margin-top:6px">
+        ※ レイヤー選択中はそのレイヤーに、未選択時はマネキンに適用
+      </small>
+    </div>
 
-    // -------- Canvas サイズ調整 --------
-    function fitCanvas(){
-      const r = inner.getBoundingClientRect();
-      const dpr = Math.max(1, window.devicePixelRatio || 1);
-      draw.width = Math.floor(r.width * dpr);
-      draw.height = Math.floor(r.height * dpr);
-      draw.style.width = r.width + 'px';
-      draw.style.height = r.height + 'px';
-      ctx.setTransform(dpr,0,0,dpr,0,0); // 座標系をCSSピクセルに
-    }
-    fitCanvas();
-    window.addEventListener('resize', fitCanvas);
+    <div class="panel">
+      <h3>Color <small style="font:12px/1 sans-serif;opacity:.6">Custom...</small></h3>
+      <div class="grid-4" id="colorGrid">
+        <button class="color-tile" style="background:#ffffff" data-color="#ffffff"></button>
+        <button class="color-tile" style="background:#cccccc" data-color="#cccccc"></button>
+        <button class="color-tile" style="background:#ffff00" data-color="#ffff00"></button>
+        <button class="color-tile" style="background:#ff9900" data-color="#ff9900"></button>
 
-    // -------- Zoom --------
-    const zr = document.getElementById('zoomRange');
-    const zl = document.getElementById('zoomLabel');
-    const zreset = document.getElementById('zoomReset');
-    function applyZoom(v){ zl.textContent = v + '%'; mannequin.style.transform = `scale(${v/100})`; }
-    applyZoom(zr.value);
-    zr.addEventListener('input', e=> applyZoom(e.target.value));
-    zreset.addEventListener('click', ()=>{ zr.value = 72; applyZoom(72); });
+        <button class="color-tile" style="background:#f4a2a2" data-color="#f4a2a2"></button>
+        <button class="color-tile" style="background:#ff0000" data-color="#ff0000"></button>
+        <button class="color-tile" style="background:#009900" data-color="#009900"></button>
+        <button class="color-tile" style="background:#006600" data-color="#006600"></button>
 
-    // -------- Opacity --------
-    const orng = document.getElementById('opaRange');
-    const olbl = document.getElementById('opaLabel');
-    const oreset = document.getElementById('opaReset');
-    function applyOpacity(v){ olbl.textContent = v + '%'; mannequin.style.opacity = v/100; }
-    applyOpacity(orng.value);
-    orng.addEventListener('input', e=> applyOpacity(e.target.value));
-    oreset.addEventListener('click', ()=>{ orng.value = 100; applyOpacity(100); });
+        <button class="color-tile" style="background:#3399ff" data-color="#3399ff"></button>
+        <button class="color-tile" style="background:#0000ff" data-color="#0000ff"></button>
+        <button class="color-tile" style="background:#990099" data-color="#990099"></button>
+        <button class="color-tile" style="background:#000000" data-color="#000000"></button>
+      </div>
+    </div>
+  </aside>
+</div>
 
-    // -------- Palette（デフォルト16色 + 追加） --------
-    const preset = [
-      '#ffffff','#e3e6e8','#c9cfd3','#9aa4a8','#f7d46a','#ffd24d','#ffb300','#f3a6ac',
-      '#e74c3c','#e67e22','#2ecc71','#27ae60','#3498db','#1f6feb','#8e44ad','#2c3e50'
-    ];
-    const pal = document.getElementById('palette');
-    let currentColor = '#1f6feb';
-    function renderPalette(){
-      pal.innerHTML = '';
-      preset.forEach((c)=>{
-        const b = document.createElement('button');
-        b.className = 'swatch'; b.style.background = c; b.title = c;
-        b.addEventListener('click', ()=>{
-          currentColor = c;
-          document.documentElement.style.setProperty('--accent', c);
-        });
-        pal.appendChild(b);
-      })
-    }
-    renderPalette();
+<script>
+/* ---------------------------
+   Undo / Redo (簡易スナップショット)
+--------------------------- */
+const State = (() => {
+  const undo=[], redo=[]; const MAX=50;
+  const snap = () => ({
+    stageHTML: document.getElementById('stage').innerHTML,
+    gender: document.querySelector('.gbtn.active')?.dataset.gender || 'woman',
+    grid: document.getElementById('board').classList.contains('grid')
+  });
+  const restore = s => {
+    const st = document.getElementById('stage');
+    st.innerHTML = s.stageHTML;
+    document.getElementById('board').classList.toggle('grid', s.grid);
+    document.querySelectorAll('.gbtn').forEach(b=>b.classList.toggle('active', b.dataset.gender===s.gender));
+    Layer.initSelectable();
+  };
+  const push = () => { undo.push(snap()); if(undo.length>MAX) undo.shift(); redo.length=0; };
+  const doUndo = () => { if(!undo.length) return; const cur=snap(); const prev=undo.pop(); redo.push(cur); restore(prev); };
+  const doRedo = () => { if(!redo.length) return; const cur=snap(); const next=redo.pop(); undo.push(cur); restore(next); };
+  return {push,undo:doUndo,redo:doRedo,snap};
+})();
 
-    document.getElementById('addColor').addEventListener('click', ()=>{
-      const c = prompt('色コードを入力 (例: #ff6600)');
-      if(!c) return; const ok = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(c.trim());
-      if(ok){ preset.push(c.trim()); renderPalette(); }
-      else alert('無効なカラーコードです');
+/* ---------------------------
+   レイヤ（選択/色/パーツ追加）
+--------------------------- */
+const Layer = (() => {
+  let selected=null;
+  const stage = document.getElementById('stage');
+
+  const select = el => {
+    if(selected) selected.classList.remove('selected-layer');
+    selected = el;
+    if(selected) selected.classList.add('selected-layer');
+  };
+
+  const initSelectable = () => {
+    stage.querySelectorAll('.overlay-item').forEach(el=>{
+      el.addEventListener('pointerdown', e=>{
+        e.stopPropagation();
+        select(el);
+      });
+      makeDraggable(el);
     });
+  };
 
-    // -------- 描画（ペン/消しゴム） --------
-    let drawing = false;
-    let tool = 'pen';
-    let last = {x:0,y:0};
-    const penBtn = document.querySelector('.tool[title="Pen"]');
-    const eraserBtn = document.querySelector('.tool[title="Eraser"]');
-    const cameraBtn = document.querySelector('.tool[title="Camera"]');
-
-    function setTool(name){
-      tool = name;
-      [penBtn,eraserBtn].forEach(b=> b.classList.remove('active'));
-      if(name==='pen') penBtn.classList.add('active');
-      if(name==='eraser') eraserBtn.classList.add('active');
-      draw.style.cursor = name==='eraser' ? 'cell' : 'crosshair';
-    }
-    setTool('pen');
-
-    function posFromEvent(e){
-      const rect = draw.getBoundingClientRect();
-      if(e.touches){ e = e.touches[0]; }
-      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-    }
-
-    function lineTo(p){
-      ctx.lineJoin = 'round';
-      ctx.lineCap = 'round';
-      ctx.lineWidth = tool==='eraser' ? 18 : 3.5;
-      if(tool==='eraser') ctx.globalCompositeOperation = 'destination-out';
-      else { ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = currentColor; }
-      ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke();
-      last = p;
-    }
-
-    function start(e){ drawing = true; last = posFromEvent(e); }
-    function move(e){ if(!drawing) return; lineTo(posFromEvent(e)); }
-    function end(){ drawing = false; }
-
-    draw.addEventListener('mousedown', start);
-    draw.addEventListener('mousemove', move);
-    window.addEventListener('mouseup', end);
-    draw.addEventListener('touchstart', start, {passive:false});
-    draw.addEventListener('touchmove', (e)=>{ e.preventDefault(); move(e); }, {passive:false});
-    window.addEventListener('touchend', end);
-
-    penBtn.addEventListener('click', ()=> setTool('pen'));
-    eraserBtn.addEventListener('click', ()=> setTool('eraser'));
-
-    // -------- 書き出し（PNG） --------
-    cameraBtn.addEventListener('click', async ()=>{
-      // 出力キャンバスを用意し、マネキン + 描画を合成
-      const r = inner.getBoundingClientRect();
-      const out = document.createElement('canvas');
-      const dpr = Math.max(1, window.devicePixelRatio || 1);
-      out.width = Math.floor(r.width * dpr);
-      out.height = Math.floor(r.height * dpr);
-      const octx = out.getContext('2d');
-      octx.setTransform(dpr,0,0,dpr,0,0);
-
-      // 背景（白）
-      octx.fillStyle = '#fff';
-      octx.fillRect(0,0,r.width,r.height);
-
-      // マネキン（72%幅で中央配置）
-      await mannequin.decode?.();
-      const iw = mannequin.naturalWidth || 1000;
-      const ih = mannequin.naturalHeight || 1500;
-      const drawW = r.width * 0.72;
-      const drawH = drawW * (ih/iw);
-      const dx = (r.width - drawW)/2;
-      const dy = (r.height - drawH)/2;
-      octx.globalAlpha = parseFloat(getComputedStyle(mannequin).opacity) || 1;
-      octx.drawImage(mannequin, dx, dy, drawW, drawH);
-      octx.globalAlpha = 1;
-
-      // 手描きレイヤーを合成
-      octx.drawImage(draw, 0, 0, r.width, r.height);
-
-      const url = out.toDataURL('image/png');
-      const a = document.createElement('a');
-      a.href = url; a.download = 'vivora_export.png';
-      document.body.appendChild(a); a.click(); a.remove();
+  const makeDraggable = (holder) => {
+    let drag=false, sx=0, sy=0, ox=0, oy=0;
+    holder.addEventListener('pointerdown', e=>{
+      drag=true; holder.setPointerCapture(e.pointerId);
+      sx=e.clientX; sy=e.clientY;
+      const r=holder.getBoundingClientRect(), sr=stage.getBoundingClientRect();
+      ox=r.left-sr.left; oy=r.top-sr.top;
+      select(holder);
     });
+    holder.addEventListener('pointermove', e=>{
+      if(!drag) return;
+      const sr=stage.getBoundingClientRect();
+      const nx=ox+(e.clientX-sx), ny=oy+(e.clientY-sy);
+      holder.style.left = (nx + holder.offsetWidth/2 - sr.left)/sr.width*100 + '%';
+      holder.style.top  = (ny + holder.offsetHeight/2 - sr.top )/sr.height*100 + '%';
+      holder.style.transform='translate(-50%,-50%)';
+    });
+    holder.addEventListener('pointerup', ()=>{ drag=false; State.push(); });
+  };
 
-    // -------- タブ切り替え（マネキン画像変更） --------
-    const mannequinSrc = {
-      woman: './mannequin/mannequin_woman.png',
-      man: './mannequin/mannequin_man.png',
-      kids: './mannequin/mannequin_kids.png'
+  const addPart = (src) => {
+    const holder=document.createElement('div');
+    holder.className='overlay-item';
+    const img=document.createElement('img');
+    img.src=src; img.alt='part';
+    holder.appendChild(img);
+    stage.appendChild(holder);
+    makeDraggable(holder);
+    select(holder);
+    State.push();
+  };
+
+  const applyColor = (hex) => {
+    if(!selected) return;
+    if(!selected.querySelector(':scope > .tint')){
+      const t=document.createElement('div'); t.className='tint'; selected.appendChild(t);
+    }
+    selected.querySelector(':scope > .tint').style.backgroundColor = hex + '80';
+    State.push();
+  };
+
+  // 何もない場所クリックで選択解除
+  document.getElementById('board').addEventListener('pointerdown', e=>{
+    if(!stage.contains(e.target)) select(null);
+  });
+
+  // Opacity API（外から使う）
+  const setOpacity = (value01)=>{
+    if(selected){
+      selected.style.opacity = value01;
+    }else{
+      const m = document.getElementById('mannequin');
+      if(m) m.style.opacity = value01;
+    }
+  };
+
+  const getSelected = ()=>selected;
+
+  return {initSelectable,addPart,applyColor,select,setOpacity,getSelected};
+})();
+
+/* ---------------------------
+   Pan & Zoom（ステージ）
+   外部操作用に ZoomAPI を公開
+--------------------------- */
+(() => {
+  const wrapper = document.getElementById('board');
+  const stage   = document.getElementById('stage');
+  let scale=1, tx=0, ty=0; const MIN=.25, MAX=6, SPEED=1.0015;
+
+  const apply = ()=> stage.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
+
+  // Drag Pan
+  let dragging=false, sx=0, sy=0, stx=0, sty=0;
+  const start=(x,y)=>{dragging=true; sx=x; sy=y; stx=tx; sty=ty; stage.classList.add('grabbing');}
+  const move =(x,y)=>{ if(!dragging) return; tx=stx+(x-sx); ty=sty+(y-sy); apply(); }
+  const end  =()=>{dragging=false; stage.classList.remove('grabbing');}
+
+  wrapper.addEventListener('pointerdown', e=>{
+    if(e.button===2) return;
+    if(!stage.contains(e.target) && e.target!==stage) return;
+    stage.setPointerCapture(e.pointerId);
+    start(e.clientX,e.clientY);
+  });
+  wrapper.addEventListener('pointermove', e=>move(e.clientX,e.clientY));
+  wrapper.addEventListener('pointerup', end);
+  wrapper.addEventListener('pointercancel', end);
+
+  // Wheel Zoom（トラックパッドピンチ含む）
+  wrapper.addEventListener('wheel', e=>{
+    const zoomIntent = e.ctrlKey || Math.abs(e.deltaY) > Math.abs(e.deltaX);
+    if(!zoomIntent) return;
+    e.preventDefault();
+
+    const rect=wrapper.getBoundingClientRect();
+    const cx=e.clientX-rect.left-tx, cy=e.clientY-rect.top-ty;
+    const k=Math.pow(SPEED,-e.deltaY);
+    const next = clamp(scale*k, MIN, MAX);
+    const ratio=next/scale;
+
+    tx = e.clientX-rect.left - ratio*cx;
+    ty = e.clientY-rect.top  - ratio*cy;
+    scale = next;
+    apply();
+    ZoomUI.update(scale);
+  }, {passive:false});
+
+  // Touch Pinch
+  let t1=null,t2=null, dist0=0, scale0=1, mid0={x:0,y:0}, tx0=0,ty0=0;
+  const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+  const mid =(a,b)=>({x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2});
+
+  wrapper.addEventListener('touchstart', e=>{
+    if(e.touches.length===1){ const t=e.touches[0]; start(t.clientX,t.clientY); }
+    else if(e.touches.length===2){
+      t1=e.touches[0]; t2=e.touches[1];
+      dist0=dist(t1,t2); scale0=scale; mid0=mid(t1,t2); tx0=tx; ty0=ty;
+    }
+  },{passive:false});
+
+  wrapper.addEventListener('touchmove', e=>{
+    if(e.touches.length===1 && dragging){
+      const t=e.touches[0]; move(t.clientX,t.clientY);
+    }else if(e.touches.length===2){
+      e.preventDefault();
+      const a=e.touches[0], b=e.touches[1];
+      const rect=wrapper.getBoundingClientRect();
+      const next = clamp((dist(a,b)/dist0)*scale0, MIN, MAX);
+      const ratio=next/scale;
+      const mx = mid0.x-rect.left - tx0;
+      const my = mid0.y-rect.top  - ty0;
+      tx = tx0 + (1-ratio)*mx;
+      ty = ty0 + (1-ratio)*my;
+      scale=next; apply();
+      ZoomUI.update(scale);
+    }
+  },{passive:false});
+  wrapper.addEventListener('touchend', end,{passive:true});
+  wrapper.addEventListener('touchcancel', end,{passive:true});
+
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+  // 初期フィット
+  const fit=()=>{
+    const rect=wrapper.getBoundingClientRect();
+    const img=document.getElementById('mannequin');
+    const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
+    if(!iw||!ih) return;
+    const m=80, kx=(rect.width-m)/iw, ky=(rect.height-m)/ih;
+    scale=Math.min(Math.max(Math.min(kx,ky),.25),3);
+    tx=(rect.width-iw*scale)/2;
+    ty=(rect.height-ih*scale)/2;
+    apply();
+    ZoomUI.update(scale);
+  };
+  window.addEventListener('load',fit);
+  window.addEventListener('resize',fit);
+
+  // 外部制御API
+  window.ZoomAPI = {
+    getScale: ()=>scale,
+    zoomTo: (newScale, focal=null)=>{
+      newScale = clamp(newScale, MIN, MAX);
+      const rect=wrapper.getBoundingClientRect();
+      const cx = (focal?.x ?? rect.width/2) - tx;
+      const cy = (focal?.y ?? rect.height/2) - ty;
+      const ratio = newScale/scale;
+      tx = (focal?.x ?? rect.width/2) - ratio*cx;
+      ty = (focal?.y ?? rect.height/2) - ratio*cy;
+      scale = newScale; apply(); ZoomUI.update(scale);
+    },
+    step: (delta)=>{ window.ZoomAPI.zoomTo(scale+delta); },
+    reset: ()=>{ fit(); }
+  };
+})();
+
+/* ---------------------------
+   Zoom UI（スライダー／ボタン）
+--------------------------- */
+const ZoomUI = (()=> {
+  const range = ()=>document.getElementById('zoomRange');
+  const val   = ()=>document.getElementById('zoomVal');
+  const s2v = s => Math.round(s*100);
+  const v2s = v => v/100;
+
+  function update(scale){
+    if(!range()) return;
+    range().value = String(s2v(scale));
+    val().textContent = s2v(scale) + '%';
+  }
+
+  window.addEventListener('DOMContentLoaded', ()=>{
+    const r=range(); if(!r) return;
+    document.getElementById('zoomInBtn').addEventListener('click', ()=> ZoomAPI.step(+0.1));
+    document.getElementById('zoomOutBtn').addEventListener('click',()=> ZoomAPI.step(-0.1));
+    document.getElementById('zoomResetBtn').addEventListener('click',()=> ZoomAPI.reset());
+    r.addEventListener('input', ()=> ZoomAPI.zoomTo(v2s(parseInt(r.value,10))));
+    update(1);
+  });
+
+  return {update};
+})();
+
+/* ---------------------------
+   UI配線
+--------------------------- */
+window.addEventListener('DOMContentLoaded', () => {
+  State.push();
+  const $ = s => document.querySelector(s);
+
+  // Content buttons
+  document.querySelectorAll('.content-btn').forEach(b=>{
+    b.addEventListener('click', ()=> {
+      const link = b.dataset.link;
+      if(link) location.href = link;
+    });
+  });
+
+  // Undo/Redo/Reset/Download/Upload/Save/Grid
+  $('#btn-undo') .addEventListener('click', ()=>State.undo());
+  $('#btn-redo') .addEventListener('click', ()=>State.redo());
+
+  $('#btn-reset').addEventListener('click', ()=>{
+    const active = document.querySelector('.gbtn.active')?.dataset.gender || 'woman';
+    const map={
+      woman:'../../mannequin/mannequin_woman.png',
+      man  :'../../mannequin/mannequin_man.png',
+      kids :'../../mannequin/mannequin_kids.png'
     };
+    const st=document.getElementById('stage');
+    st.innerHTML = `<img id="mannequin" class="mannequin-base" src="${map[active]}" alt="Mannequin">`;
+    Layer.initSelectable();
+    State.push();
+    ZoomAPI.reset();
+  });
 
-    // -------- PNGアイコン適用 --------
-    const ICON_BASE = './icons'; // ※必要ならパス変更可（例: ./work/illustration/icons）
-    const ICONS = {
-      undo: ICON_BASE + '/undo.png',
-      redo: ICON_BASE + '/redo.png',
-      reset: ICON_BASE + '/reset.png',
-      save: ICON_BASE + '/save.png',
-      upload: ICON_BASE + '/upload.png',
-      grid: ICON_BASE + '/grid.png',
-      pen: ICON_BASE + '/pen.png',
-      eraser: ICON_BASE + '/eraser.png',
-      select: ICON_BASE + '/select.png',
-      move: ICON_BASE + '/move.png',
-      camera: ICON_BASE + '/camera.png',
-      help: ICON_BASE + '/help.png'
-    };
-    const STATIONERY_ICONS = {
-      triangle: ICON_BASE + '/triangle.png',
-      arrow: ICON_BASE + '/arrow.png',
-      text: ICON_BASE + '/text.png',
-      stamp: ICON_BASE + '/stamp.png',
-      clock: ICON_BASE + '/clock.png',
-      pen: ICON_BASE + '/pen.png',
-      brush: ICON_BASE + '/brush.png',
-      eraser: ICON_BASE + '/eraser.png',
-      rhombus: ICON_BASE + '/rhombus.png',
-      rotate: ICON_BASE + '/rotate.png',
-      percent: ICON_BASE + '/percent.png',
-      align: ICON_BASE + '/align.png',
-      camera: ICON_BASE + '/camera.png',
-      crop: ICON_BASE + '/crop.png',
-      resize: ICON_BASE + '/resize.png'
-    };
+  $('#btn-download').addEventListener('click', ()=>{
+    const blob = new Blob([document.getElementById('stage').innerHTML],{type:'text/html'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='vivora-illustration.htmlfrag'; a.click(); URL.revokeObjectURL(a.href);
+  });
 
-    // ツールバーに画像を差し込む
-    document.querySelectorAll('.icon-btn').forEach(b=>{
-      const key = b.dataset.icon; const src = ICONS[key];
-      if(src){ const img = new Image(); img.src = src; img.alt = key; b.appendChild(img); }
-      else { b.textContent = '·'; }
-    });
-    // ステーショナリーに画像を差し込む
-    document.querySelectorAll('.tool').forEach(b=>{
-      const key = b.dataset.tool; const src = STATIONERY_ICONS[key];
-      if(src){ const img = new Image(); img.src = src; img.alt = key; b.appendChild(img); }
-    });
+  $('#btn-upload').addEventListener('click', ()=>{
+    const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*,.svg';
+    inp.onchange=(e)=>{ const f=e.target.files?.[0]; if(!f) return; Layer.addPart(URL.createObjectURL(f)); };
+    inp.click();
+  });
 
-    document.querySelectorAll('.tab').forEach(btn=>{.forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        const key = btn.dataset.target;
-        if(mannequinSrc[key]) mannequin.src = mannequinSrc[key];
-      })
+  $('#btn-save').addEventListener('click', ()=>{
+    localStorage.setItem('vivora-snap', JSON.stringify(State.snap()));
+    alert('Saved locally.');
+  });
+
+  $('#grid-toggle').addEventListener('click', ()=>{
+    document.getElementById('board').classList.toggle('grid');
+    State.push();
+  });
+
+  // Gender
+  document.querySelectorAll('.gbtn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      document.querySelectorAll('.gbtn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      const map={
+        woman:'../../mannequin/mannequin_woman.png',
+        man  :'../../mannequin/mannequin_man.png',
+        kids :'../../mannequin/mannequin_kids.png'
+      };
+      const img=document.getElementById('mannequin');
+      img.src = map[b.dataset.gender] || map.woman;
+      State.push();
+      ZoomAPI.reset();
     });
-  </script>
+  });
+
+  // Pose
+  document.querySelectorAll('#poseRow img').forEach(ph=>{
+    ph.addEventListener('click', ()=>{
+      document.querySelectorAll('#poseRow img').forEach(p=>p.classList.remove('selected'));
+      ph.classList.add('selected');
+      const src=ph.dataset.poseSrc;
+      const img=document.getElementById('mannequin');
+      if(src) img.src=src;
+      State.push();
+      ZoomAPI.reset();
+    });
+  });
+
+  // Stationery：data-part-src があれば追加
+  document.querySelectorAll('.tool-tile').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      const src=t.dataset.partSrc;
+      if(src) Layer.addPart(src);
+    });
+  });
+
+  // Color
+  document.querySelectorAll('#colorGrid .color-tile').forEach(c=>{
+    c.addEventListener('click', ()=> Layer.applyColor(c.dataset.color));
+  });
+
+  // Opacity
+  const opRange = document.getElementById('opacityRange');
+  const opVal   = document.getElementById('opacityVal');
+  opRange.addEventListener('input', ()=>{
+    const v = Number(opRange.value);
+    opVal.textContent = v + '%';
+    Layer.setOpacity(v/100);
+  });
+
+  Layer.initSelectable();
+});
+</script>
 </body>
 </html>
