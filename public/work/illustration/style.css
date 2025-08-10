@@ -56,6 +56,36 @@ header h1 {
   cursor: pointer;
   font-size: 14px;
 }
+
+/* ========= Header spacing override (追記) ========= */
+/* タイトルを1行専有させ、下に十分な余白を取る */
+header{
+  display: flex;
+  flex-wrap: wrap;         /* タイトルとボタンを段落ち可能に */
+  align-items: flex-start; /* 上揃え */
+  padding: 20px 16px;      /* header 全体の上下余白を少し増やす */
+}
+
+header h1{
+  flex: 0 0 100%;          /* タイトルを1行まるごと使う → ボタンは次の段へ */
+  margin: 0 0 24px 0;      /* ←← ここが縦の間隔（好みで数値調整OK） */
+  font: 500 18px/1 'Playfair Display', serif; /* 既存と同じ書体設定 */
+  color: #222;
+}
+
+/* ボタン行（必要なら微調整） */
+.gender{
+  display: flex;
+  gap: 8px;                /* ボタン間の横間隔 */
+  margin-top: 0;           /* タイトル下に余白があるので0でOK */
+}
+
+.gender .gbtn{
+  /* 既存の見た目を維持。必要なら高さ感を少し出す */
+  padding: 8px 14px;
+  border-radius: 16px;
+}
+
 .gender button.active{
   background: var(--accent);
   color: #fff;
