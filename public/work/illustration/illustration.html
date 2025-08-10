@@ -133,8 +133,7 @@
       .page{ grid-template-columns: 1fr 300px }
       .colors{ grid-template-columns: repeat(6, 1fr) }
       .canvas-inner{ width:95% }
-    } (max-width: 1100px){
-      header{ grid-template-columns: 1fr 1fr 160px }
+    }
       .page{ grid-template-columns: 1fr 300px }
       .colors{ grid-template-columns: repeat(6, 1fr) }
       .canvas-inner{ width:95% }
@@ -176,7 +175,7 @@
       <div class="canvas">
         <div class="canvas-inner">
           <!-- 既存のリポジトリ資産に合わせて id=\"mannequin\" は維持 -->
-          <img id="mannequin" class="mannequin-base" src="./assets/mannequin/woman_front.png" alt="Woman mannequin" />
+          <img id="mannequin" class="mannequin-base" src=\"./mannequin/mannequin_woman.png\" alt="Woman mannequin" />
           <canvas id="drawLayer"></canvas>
         </div>
       </div>
@@ -218,7 +217,7 @@
           <div class="tool" title="Crop">✂︎</div>
           <div class="tool" title="Resize">↔︎</div>
         </div>
-        <div class="note">※ UIはダミーです。必要に応じて機能を割り当て可能。</div>※ UIはダミーです。必要に応じて機能を割り当て可能。</div>
+        <div class=\"note\">※ UIはダミーです。必要に応じて機能を割り当て可能。</div>
       </div>
 
       <!-- Zoom -->
@@ -405,9 +404,9 @@
 
     // -------- タブ切り替え（マネキン画像変更） --------
     const mannequinSrc = {
-      woman: './assets/mannequin/woman_front.png',
-      man: './assets/mannequin/man_front.png',
-      kids: './assets/mannequin/kids_front.png'
+      woman: './mannequin/mannequin_woman.png',
+      man: './mannequin/mannequin_man.png',
+      kids: './mannequin/mannequin_kids.png'
     };
 
     document.querySelectorAll('.tab').forEach(btn=>{
