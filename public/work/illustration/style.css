@@ -29,23 +29,23 @@ body{
 header {
   grid-area: header;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap; /* タイトルとボタンを複数行に並べられるように */
+  align-items: flex-start; /* 上揃えにして間隔を作りやすく */
   gap: 16px;
-  padding: 12px 16px;
-  flex-wrap: wrap; /* 複数行対応 */
+  padding: 16px 16px; /* 上下のパディングを増やして全体的に余裕を持たせる */
 }
 
 header h1 {
   font: 500 18px/1 'Playfair Display', serif;
   color: #222;
   margin-right: auto;
-  margin-bottom: 10px; /* タイトル下に余白を追加 */
+  margin-bottom: 8px; /* タイトル下に余白を追加してボタンとの間隔を広げる */
 }
 
 .gender {
   display: flex;
   gap: 6px;
-  margin-top: 6px; /* タイトルとボタンの間の余白 */
+  margin-top: 4px; /* タイトルとボタンの間の縦余白 */
 }
 
 .gender button{
