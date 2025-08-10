@@ -297,3 +297,30 @@ body {
   height: 20px;
   object-fit: contain;
 }
+
+/* ===== Topbar 3カラム配置（左=性別 / 中央=Action / 右=Content） ===== */
+.topbar{
+  display:grid;
+  grid-template-columns: auto 1fr auto;
+  align-items:center;
+  gap: 24px;
+  margin-bottom: var(--spacing-md);
+}
+.topbar-center{ justify-self: center; }
+
+/* ボタンを均一サイズに */
+.icon-button{
+  width: 40px; height: 40px;
+  display:flex; align-items:center; justify-content:center;
+  background:#fff;
+  border:1px solid var(--border-color);
+  border-radius:8px;
+  padding:0; cursor:pointer; box-shadow: var(--shadow-light);
+  opacity:.85; transition:opacity .15s ease, transform .05s ease;
+}
+.icon-button:hover{ opacity:1 }
+.icon-button:active{ transform: translateY(1px); }
+.icon-button img{ width:20px; height:20px; object-fit:contain; display:block; }
+
+/* 左の性別タブはキャンバス左上感を出すため少し大きめ余白 */
+.topbar-left .gender-selector{ gap: 10px; }
