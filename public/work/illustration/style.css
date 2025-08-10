@@ -229,17 +229,10 @@ aside{
 }
 .zoom-reset:hover{background:#fafafa}
 
-/* ===== ヘッダーの間隔を拡げる（追加） ===== */
+/* ===== ヘッダーの間隔を拡げる（追加版） ===== */
 header{
-  padding: 26px 24px;           /* 上下の余白を増量（16px → 22px） */
-  column-gap: 36px;             /* タイトルとボタンの間隔を広く */
-}
-
-.gender{
-  gap: 14px;                    /* ボタン同士の間隔を少し広く */
-}
-
-.gender button{
-  padding: 8px 18px;            /* 見た目を整えるためボタン内余白も少し増やす */
-  font-size: 14px;
+  flex-wrap: wrap;              /* タイトルとボタンを段落ち可能に */
+  align-items: flex-start;      /* 上揃え */
+  padding: 26px 24px;           /* 上下の余白を増量 */
+  column-gap: 36px;             /* タイトルとボタンの間隔 */
 }
