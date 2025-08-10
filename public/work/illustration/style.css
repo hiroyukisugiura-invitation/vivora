@@ -276,3 +276,24 @@ body {
   pointer-events: none;
   border-radius: 4px;
 }
+
+/* ツールバーアイコン統一サイズ */
+.icon-button {
+  width: 40px;  /* ボタン全体サイズ */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0; /* アイコン表示に不要な余白は削除 */
+  cursor: pointer;
+  box-shadow: var(--shadow-light);
+}
+
+.icon-button img {
+  width: 20px;  /* アイコンサイズ */
+  height: 20px;
+  object-fit: contain;
+}
