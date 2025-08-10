@@ -25,24 +25,27 @@ body{
     "canvas  sidebar";
   height:100vh;
 }
-header{
+
+header {
   grid-area: header;
   display: flex;
-  flex-direction: column;      /* ← 横並びから“縦積み”へ */
-  align-items: flex-start;     /* 左寄せ */
-  padding: 20px 24px;          /* 余白を増やす */
-  gap: 18px;                   /* タイトルとボタンの間隔 */
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  flex-wrap: wrap; /* 複数行対応 */
 }
 
-h1{
-  font: 500 22px/1 'Playfair Display', serif;
+header h1 {
+  font: 500 18px/1 'Playfair Display', serif;
   color: #222;
-  margin: 0;                   /* 上下の意図しない余白をリセット */
+  margin-right: auto;
+  margin-bottom: 10px; /* タイトル下に余白を追加 */
 }
 
-.gender{
+.gender {
   display: flex;
-  gap: 12px;                   /* ボタン同士の間隔 */
+  gap: 6px;
+  margin-top: 6px; /* タイトルとボタンの間の余白 */
 }
 
 .gender button{
