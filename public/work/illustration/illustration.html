@@ -11,175 +11,170 @@
 </head>
 <body>
 
-<!-- メインコンテナ -->
-<div class="main-container">
-  <!-- ヘッダー -->
-  <header class="header">
-    <h1 class="title">Vivora Fashion Illustration 2025</h1>
-    
-    <div class="gender-selector">
-      <button class="gender-btn active">Woman</button>
-      <button class="gender-btn">Man</button>
-      <button class="gender-btn">Kids</button>
-    </div>
-    
-    <div class="toolbar">
-      <button class="tool-icon"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
-      <button class="tool-icon"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
-      <button class="tool-icon"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
-      <button class="tool-icon"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
-      <button class="tool-icon"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
-      <button class="tool-icon"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
-      <button class="tool-icon" id="grid-btn"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
-    </div>
-    
-    <div class="content-bar">
-      <button class="content-icon"><img src="../../create_parts/contents_button/0_home.png" alt="Home"></button>
-      <button class="content-icon"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt=""></button>
-      <button class="content-icon"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt=""></button>
-      <button class="content-icon"><img src="../../create_parts/contents_button/3_clothing-design.png" alt=""></button>
-      <button class="content-icon"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt=""></button>
-      <button class="content-icon"><img src="../../create_parts/contents_button/5_grading.png" alt=""></button>
-      <button class="content-icon"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt=""></button>
-      <button class="content-icon"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt=""></button>
-    </div>
-    
-    <button class="next-step-btn">Next Step ▶▶</button>
-  </header>
-
-  <!-- メインコンテンツ -->
-  <div class="content-wrapper">
-    <!-- キャンバスエリア -->
-    <div class="canvas-container">
-      <canvas id="main-canvas" class="canvas">
-        <img src="../../mannequin/mannequin_woman.png" alt="Mannequin" class="mannequin">
-      </canvas>
-    </div>
-
-    <!-- サイドバー -->
-    <aside class="sidebar">
-      <!-- 保存スロット -->
-      <div class="panel slots-panel">
-        <button class="slot-arrow">◀</button>
-        <div class="slots">
-          <button class="slot">+</button>
-          <button class="slot">+</button>
-          <button class="slot">+</button>
-          <button class="slot">+</button>
-          <button class="slot">+</button>
-        </div>
-        <button class="slot-arrow">▶</button>
-      </div>
-
-      <!-- Stationery -->
-      <div class="panel">
-        <h3 class="panel-title">Stationery</h3>
-        <div class="tool-grid">
-          <button class="tool selected"><img src="../../create_parts/design_button/select.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/direct_select.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/sentence.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/fill.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/pen.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/brush.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/eraser.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/rotate.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/percent.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/photo.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/add.png" alt=""></button>
-          <button class="tool"><img src="../../create_parts/design_button/shapes.png" alt=""></button>
-        </div>
-      </div>
-
-      <!-- Zoom -->
-      <div class="panel">
-        <h3 class="panel-title">Zoom</h3>
-        <div class="control-wrapper">
-          <button class="control-btn minus">−</button>
-          <input type="range" class="slider" id="zoom-slider" min="10" max="200" value="100">
-          <button class="control-btn plus">+</button>
-          <button class="reset-btn">Reset</button>
-        </div>
-        <div class="value-text">1.0 %</div>
-      </div>
-
-      <!-- Opacity -->
-      <div class="panel">
-        <h3 class="panel-title">Opacity</h3>
-        <div class="control-wrapper">
-          <button class="control-btn minus">−</button>
-          <input type="range" class="slider" id="opacity-slider" min="0" max="100" value="100">
-          <button class="control-btn plus">+</button>
-          <button class="reset-btn">Reset</button>
-        </div>
-        <div class="value-text">1.0 %</div>
-      </div>
-
-      <!-- Color -->
-      <div class="panel">
-        <h3 class="panel-title">Color</h3>
-        <div class="color-grid">
-          <div class="color-swatch" style="background:#999"></div>
-          <div class="color-swatch" style="background:#ffeb3b"></div>
-          <div class="color-swatch" style="background:#ff9800"></div>
-          <div class="color-swatch" style="background:#ffc0cb"></div>
-          <div class="color-swatch add">+</div>
-          
-          <div class="color-swatch" style="background:#f44336"></div>
-          <div class="color-swatch" style="background:#8bc34a"></div>
-          <div class="color-swatch" style="background:#4caf50"></div>
-          <div class="color-swatch" style="background:#03a9f4"></div>
-          <div class="color-swatch" style="background:#2196f3"></div>
-          
-          <div class="color-swatch" style="background:#9c27b0"></div>
-          <div class="color-swatch" style="background:#795548"></div>
-          <div class="color-swatch" style="background:#607d8b"></div>
-          <div class="color-swatch" style="background:#000"></div>
-          <div class="color-swatch eyedropper"><img src="../../create_parts/design_button/eyedropper.png" alt=""></div>
-          
-          <div class="color-swatch add">+</div>
-          <div class="color-swatch add">+</div>
-          <div class="color-swatch add">+</div>
-          <div class="color-swatch add">+</div>
-        </div>
-      </div>
-    </aside>
+<!-- ヘッダー -->
+<header class="header">
+  <h1 class="title">Vivora Fashion Illustration 2025</h1>
+  
+  <div class="gender-group">
+    <button class="gender-btn active">Woman</button>
+    <button class="gender-btn">Man</button>
+    <button class="gender-btn">Kids</button>
   </div>
+  
+  <div class="toolbar-icons">
+    <button class="icon-btn"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
+    <button class="icon-btn"><img src="../../create_parts/create_button/forward.png" alt=""></button>
+    <button class="icon-btn"><img src="../../create_parts/create_button/reset.png" alt=""></button>
+    <button class="icon-btn"><img src="../../create_parts/create_button/download.png" alt=""></button>
+    <button class="icon-btn"><img src="../../create_parts/create_button/upload.png" alt=""></button>
+    <button class="icon-btn"><img src="../../create_parts/create_button/save.png" alt=""></button>
+    <button class="icon-btn"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
+  </div>
+  
+  <div class="content-icons">
+    <button class="content-btn"><img src="../../create_parts/contents_button/0_home.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/3_clothing-design.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/5_grading.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt=""></button>
+  </div>
+  
+  <button class="next-btn">Next Step ▶▶</button>
+</header>
+
+<!-- メインコンテンツ -->
+<div class="main-content">
+  <!-- キャンバス -->
+  <div class="canvas-area">
+    <div class="canvas-board">
+      <img src="../../mannequin/mannequin_woman.png" alt="Mannequin" class="mannequin-img">
+    </div>
+  </div>
+  
+  <!-- サイドバー -->
+  <aside class="sidebar">
+    <!-- 既存デザインスロット -->
+    <div class="slots-container">
+      <button class="arrow-btn">◀</button>
+      <div class="slots-wrapper">
+        <button class="slot-btn">+</button>
+        <button class="slot-btn">+</button>
+        <button class="slot-btn">+</button>
+        <button class="slot-btn">+</button>
+        <button class="slot-btn">+</button>
+      </div>
+      <button class="arrow-btn">▶</button>
+    </div>
+    
+    <!-- Stationery -->
+    <div class="panel">
+      <h3>Stationery</h3>
+      <div class="stationery-grid">
+        <button class="st-btn selected"><img src="../../create_parts/design_button/select.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/direct_select.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/sentence.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/fill.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/pen.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/brush.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/eraser.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/rotate.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/percent.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/photo.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/add.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/shapes.png" alt=""></button>
+      </div>
+    </div>
+    
+    <!-- Zoom -->
+    <div class="panel">
+      <h3>Zoom</h3>
+      <div class="slider-control">
+        <button class="minus-btn">−</button>
+        <input type="range" class="range-slider" id="zoom" min="10" max="200" value="10">
+        <button class="plus-btn">+</button>
+        <button class="reset-btn">Reset</button>
+      </div>
+      <div class="value-label">0.1 %</div>
+    </div>
+    
+    <!-- Opacity -->
+    <div class="panel">
+      <h3>Opacity</h3>
+      <div class="slider-control">
+        <button class="minus-btn">−</button>
+        <input type="range" class="range-slider" id="opacity" min="0" max="100" value="100">
+        <button class="plus-btn">+</button>
+        <button class="reset-btn">Reset</button>
+      </div>
+      <div class="value-label">100%</div>
+    </div>
+    
+    <!-- Color -->
+    <div class="panel">
+      <h3>Color</h3>
+      <div class="color-palette">
+        <button class="color-btn" style="background:#808080"></button>
+        <button class="color-btn" style="background:#ffeb3b"></button>
+        <button class="color-btn" style="background:#ff9800"></button>
+        <button class="color-btn" style="background:#ffc0cb"></button>
+        <button class="color-add">+</button>
+        
+        <button class="color-btn" style="background:#f44336"></button>
+        <button class="color-btn" style="background:#8bc34a"></button>
+        <button class="color-btn" style="background:#4caf50"></button>
+        <button class="color-btn" style="background:#03a9f4"></button>
+        <button class="color-btn" style="background:#2196f3"></button>
+        
+        <button class="color-btn" style="background:#9c27b0"></button>
+        <button class="color-btn" style="background:#795548"></button>
+        <button class="color-btn" style="background:#607d8b"></button>
+        <button class="color-btn" style="background:#000000"></button>
+        <button class="color-tool"><img src="../../create_parts/design_button/eyedropper.png" alt=""></button>
+        
+        <button class="color-add">+</button>
+        <button class="color-add">+</button>
+        <button class="color-add">+</button>
+        <button class="color-add">+</button>
+      </div>
+    </div>
+  </aside>
 </div>
 
 <script>
-// UI interactions
 document.addEventListener('DOMContentLoaded', () => {
-  // Gender selector
+  // Gender切り替え
   document.querySelectorAll('.gender-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     });
   });
-
-  // Tool selection
-  document.querySelectorAll('.tool').forEach(tool => {
-    tool.addEventListener('click', () => {
-      document.querySelectorAll('.tool').forEach(t => t.classList.remove('selected'));
-      tool.classList.add('selected');
+  
+  // Stationery選択
+  document.querySelectorAll('.st-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.st-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
     });
   });
-
-  // Zoom control
-  const zoomSlider = document.getElementById('zoom-slider');
-  const zoomValue = document.querySelector('.panel:nth-child(3) .value-text');
+  
+  // Zoom更新
+  const zoomSlider = document.getElementById('zoom');
+  const zoomLabel = document.querySelector('.panel:nth-child(3) .value-label');
   zoomSlider.addEventListener('input', (e) => {
-    zoomValue.textContent = (e.target.value / 100).toFixed(1) + ' %';
+    zoomLabel.textContent = (e.target.value / 100).toFixed(1) + ' %';
   });
-
-  // Opacity control
-  const opacitySlider = document.getElementById('opacity-slider');
-  const opacityValue = document.querySelector('.panel:nth-child(4) .value-text');
+  
+  // Opacity更新
+  const opacitySlider = document.getElementById('opacity');
+  const opacityLabel = document.querySelector('.panel:nth-child(4) .value-label');
   opacitySlider.addEventListener('input', (e) => {
-    opacityValue.textContent = (e.target.value / 100).toFixed(1) + ' %';
+    opacityLabel.textContent = e.target.value + '%';
   });
 });
 </script>
-
 </body>
 </html>
