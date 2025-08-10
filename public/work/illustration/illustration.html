@@ -29,10 +29,11 @@
   /* レイアウト */
   .app{
     display:grid;
-    grid-template-columns: 1fr 340px;
-    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 320px;
+    grid-template-rows: auto auto 1fr;
     grid-template-areas:
       "header  sidebar"
+      "toolbar sidebar"
       "canvas  sidebar";
     height:100vh;
   }
@@ -59,6 +60,35 @@
   }
   .gender button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
+  /* ツールバー */
+  .toolbar{
+    grid-area:toolbar;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    padding:10px 16px;
+    border-top:1px solid var(--line);
+    background:#fff8;
+    backdrop-filter:saturate(1.2) blur(2px);
+  }
+  .tool-btn{
+    background:transparent;border:none;cursor:pointer;opacity:.85
+  }
+  .tool-btn:hover{opacity:1}
+  .tool-btn img{width:22px;height:22px;display:block}
+
+  /* コンテンツバー（Home〜） */
+  .contentbar{
+    display:flex;align-items:center;gap:10px;margin-left:auto;
+  }
+  .content-btn{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer; transition:.15s;
+  }
+  .content-btn img{width:26px;height:26px;display:block}
+  .content-btn:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+
   /* キャンバス */
   .canvas-area{
     grid-area:canvas;
@@ -67,17 +97,6 @@
     overflow:hidden;
     border-top:1px solid var(--line);
   }
-
-  /* ツールバー */
-  .toolbar{
-    display:flex;gap:16px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);
-  }
-  .tool-btn{
-    background:transparent;border:none;cursor:pointer;opacity:.8
-  }
-  .tool-btn:hover{opacity:1}
-  .tool-btn img{width:24px;height:24px;display:block}
-
   .board{
     position:relative;
     flex:1;
@@ -88,6 +107,8 @@
     box-shadow:var(--shadow);
     overflow:hidden;
   }
+
+  /* グリッド（方眼紙） */
   .board.grid::before{
     content:"";
     position:absolute;inset:0;
@@ -98,7 +119,7 @@
     pointer-events:none;
   }
 
-  /* ステージ（pan/zoom） */
+  /* ステージ（ここを pan/zoom） */
   #stage{
     position:absolute;left:0;top:0;
     transform-origin:0 0;
@@ -106,20 +127,28 @@
     cursor:grab;
   }
   #stage.grabbing{cursor:grabbing}
+
   .mannequin-base{
-    display:block;max-width:none;width:600px;height:auto;
-    user-select:none;-webkit-user-drag:none;
+    display:block;
+    max-width:none;      /* 画像の実サイズ基準で拡縮するため */
+    width:600px;         /* 初期の見やすい幅（任意） */
+    height:auto;
+    user-select:none;
+    -webkit-user-drag:none;
   }
 
-  /* 追加パーツ */
+  /* 追加パーツ用 */
   .overlay-item{
-    position:absolute;left:50%;top:50%;
+    position:absolute;
+    left:50%;top:50%;
     transform:translate(-50%,-50%);
-    width:45%;aspect-ratio:3/4;pointer-events:auto;
+    width:45%;
+    aspect-ratio:3/4;
+    pointer-events:auto;
   }
   .overlay-item img{width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
   .overlay-item.selected-layer{outline:2px dashed #6c5ce7; outline-offset:2px}
-  .overlay-item .tint{position:absolute;inset:0;pointer-events:none;border-radius:4px;mix-blend-mode:multiply}
+  .overlay-item .tint{position:absolute;inset:0;pointer-events:none;border-radius:4px}
 
   /* サイドバー */
   aside{
@@ -130,39 +159,43 @@
     overflow:auto;
   }
   .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;box-shadow:var(--shadow)}
-  .panel h3{font:500 16px/1 'Playfair Display',serif;margin-bottom:10px}
-  .slim-panel{padding:8px}
-
-  /* 既存データスロット */
-  .row-between{display:flex;align-items:center;gap:8px}
-  .slot-strip{display:flex;gap:8px}
-  .slot-card{
-    width:60px;height:60px;border:1px solid var(--line);
-    background:#fff;border-radius:12px;font:700 18px/1 system-ui;
-  }
-  .arrow-small{background:#fff;border:1px solid var(--line);width:26px;height:26px;border-radius:6px}
-
-  /* Pose */
+  .panel h3{font:500 16px/1 'Playfair Display',serif;margin-bottom:8px}
   .pose-row{display:flex;gap:8px;overflow:auto}
-  .pose-row img{width:56px;height:84px;object-fit:contain;border:2px solid transparent;border-radius:10px;padding:2px;background:#fff;cursor:pointer}
+  .pose-row img{width:52px;height:80px;object-fit:contain;border:2px solid transparent;border-radius:8px;padding:2px;background:#fff;cursor:pointer}
   .pose-row img.selected{border-color:#222}
 
-  /* Stationery, Color グリッド */
-  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   .tool-tile,.color-tile{
-    width:54px;height:54px;border:1px solid var(--line);border-radius:10px;background:#fff;
+    width:56px;height:56px;border:1px solid var(--line);border-radius:10px;background:#fff;
     display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s
   }
   .tool-tile:hover,.color-tile:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
-  .tool-tile img{width:28px;height:28px}
+  .tool-tile img{width:30px;height:30px}
   .color-tile{border:none}
   .color-tile.add{font-size:22px;color:#bbb;border:1px dashed var(--line);background:#fafafa}
 
-  /* Zoom / Opacity */
-  .control-row{display:flex;align-items:center;gap:8px}
-  .s-btn{width:28px;height:28px;border:1px solid var(--line);background:#fff;border-radius:6px}
-  .tiny{border:1px solid var(--line);background:#fff;padding:4px 8px;border-radius:6px;font-size:12px}
-  .hint{margin-top:6px;font-size:12px;opacity:.75}
+  .nextstep{display:flex;justify-content:flex-end;margin-bottom:12px}
+  .nextstep button{
+    background:#222;color:#fff;border:none;border-radius:8px;padding:10px 16px;cursor:pointer;font-family:'Playfair Display',serif
+  }
+
+  /* Zoom パネル */
+  #zoomPanel .zoom-row{display:flex;align-items:center;gap:10px}
+  #zoomRange{width:100%}
+  .zoom-btn{
+    width:34px;height:34px;border:1px solid var(--line);
+    background:#fff;border-radius:8px;cursor:pointer;
+  }
+  .zoom-btn:hover{background:#fafafa}
+  .zoom-meta{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:8px;font-size:13px;opacity:.8;
+  }
+  .zoom-reset{
+    border:1px solid var(--line);background:#fff;
+    padding:4px 10px;border-radius:8px;cursor:pointer;
+  }
+  .zoom-reset:hover{background:#fafafa}
 </style>
 </head>
 <body>
@@ -178,45 +211,43 @@
     </div>
   </header>
 
+  <!-- Toolbar + Content buttons -->
+  <div class="toolbar">
+    <button class="tool-btn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
+    <button class="tool-btn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
+    <button class="tool-btn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
+    <button class="tool-btn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
+    <button class="tool-btn" id="btn-upload" title="Upload Part"><img src="../../create_parts/create_button/upload.png" alt=""></button>
+    <button class="tool-btn" id="btn-save" title="Save Snapshot"><img src="../../create_parts/create_button/save.png" alt=""></button>
+    <button class="tool-btn" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
+
+    <div class="contentbar">
+      <button class="content-btn" data-link="/"><img src="../../create_parts/contents_button/o_home.png" alt="Home"></button>
+      <button class="content-btn" data-link="/public/work/illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></button>
+      <button class="content-btn" data-link="/public/work/fabric/index.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm"></button>
+      <button class="content-btn" data-link="/public/work/clothing/index.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd"></button>
+      <button class="content-btn" data-link="/public/work/pattern/index.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc"></button>
+      <button class="content-btn" data-link="/public/work/grading/index.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Gd"></button>
+      <button class="content-btn" data-link="/public/work/print/index.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></button>
+      <button class="content-btn" data-link="/public/work/digital-kids/index.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></button>
+    </div>
+  </div>
+
   <!-- Canvas -->
   <section class="canvas-area">
-    <div class="toolbar">
-      <button class="tool-btn" id="btn-home" title="Home"><img src="../../create_parts/contents_button/o_home.png" alt=""></button>
-
-      <button class="tool-btn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
-      <button class="tool-btn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
-      <button class="tool-btn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
-      <button class="tool-btn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
-      <button class="tool-btn" id="btn-upload" title="Upload Part"><img src="../../create_parts/create_button/upload.png" alt=""></button>
-      <button class="tool-btn" id="btn-save" title="Save Snapshot"><img src="../../create_parts/create_button/save.png" alt=""></button>
-      <button class="tool-btn" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
-    </div>
-
     <div id="board" class="board grid">
+      <!-- ← グリッドONで開始（不要なら class="board" に） -->
       <div id="stage">
         <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
-        <!-- overlay-item はここに追加 -->
+        <!-- overlay-item はここに追加される -->
       </div>
     </div>
   </section>
 
   <!-- Sidebar -->
   <aside>
-    <!-- 既存データスロット -->
-    <div class="panel slim-panel">
-      <div class="row-between">
-        <button class="arrow-small" id="slotPrev">‹</button>
-        <div class="slot-strip">
-          <button class="slot-card">+</button>
-          <button class="slot-card">+</button>
-          <button class="slot-card">+</button>
-          <button class="slot-card">+</button>
-        </div>
-        <button class="arrow-small" id="slotNext">›</button>
-      </div>
-    </div>
+    <div class="nextstep"><button>Next Step ▶▶</button></div>
 
-    <!-- Pose -->
     <div class="panel">
       <h3>Pose</h3>
       <div class="pose-row" id="poseRow">
@@ -227,7 +258,6 @@
       </div>
     </div>
 
-    <!-- Stationery -->
     <div class="panel">
       <h3>Stationery</h3>
       <div class="grid-4">
@@ -249,32 +279,33 @@
     </div>
 
     <!-- Zoom -->
-    <div class="panel">
+    <div class="panel" id="zoomPanel">
       <h3>Zoom</h3>
-      <div class="control-row">
-        <button class="s-btn" id="zoomMinus">−</button>
-        <input type="range" id="zoomRange" min="10" max="600" value="100" />
-        <button class="s-btn" id="zoomPlus">＋</button>
-        <button class="tiny" id="zoomReset">Reset</button>
+      <div class="zoom-row">
+        <button class="zoom-btn" id="zoomOutBtn" aria-label="Zoom out">−</button>
+        <input type="range" id="zoomRange" min="25" max="600" value="100" step="1" />
+        <button class="zoom-btn" id="zoomInBtn" aria-label="Zoom in">＋</button>
       </div>
-      <div class="hint"><span id="zoomPct">100%</span></div>
+      <div class="zoom-meta">
+        <span id="zoomVal">100%</span>
+        <button class="zoom-reset" id="zoomResetBtn" title="Reset zoom">Reset</button>
+      </div>
     </div>
 
     <!-- Opacity -->
-    <div class="panel">
+    <div class="panel" id="opacityPanel">
       <h3>Opacity</h3>
-      <div class="control-row">
-        <button class="s-btn" id="opaMinus">−</button>
+      <div style="display:flex;align-items:center;gap:10px">
         <input type="range" id="opacityRange" min="0" max="100" value="100" />
-        <button class="s-btn" id="opaPlus">＋</button>
-        <button class="tiny" id="opaReset">Reset</button>
+        <span id="opacityVal" style="font-size:13px;opacity:.75">100%</span>
       </div>
-      <div class="hint"><span id="opaPct">100%</span></div>
+      <small style="opacity:.6;display:block;margin-top:6px">
+        ※ レイヤー選択中はそのレイヤーに、未選択時はマネキンに適用
+      </small>
     </div>
 
-    <!-- Color -->
     <div class="panel">
-      <h3>Color</h3>
+      <h3>Color <small style="font:12px/1 sans-serif;opacity:.6">Custom...</small></h3>
       <div class="grid-4" id="colorGrid">
         <button class="color-tile" style="background:#ffffff" data-color="#ffffff"></button>
         <button class="color-tile" style="background:#cccccc" data-color="#cccccc"></button>
@@ -296,9 +327,9 @@
 </div>
 
 <script>
-/* =========================================
-   Undo / Redo（簡易スナップショット）
-========================================= */
+/* ---------------------------
+   Undo / Redo (簡易スナップショット)
+--------------------------- */
 const State = (() => {
   const undo=[], redo=[]; const MAX=50;
   const snap = () => ({
@@ -319,9 +350,9 @@ const State = (() => {
   return {push,undo:doUndo,redo:doRedo,snap};
 })();
 
-/* =========================================
-   レイヤ（選択/色/パーツ追加/ドラッグ）
-========================================= */
+/* ---------------------------
+   レイヤ（選択/色/パーツ追加）
+--------------------------- */
 const Layer = (() => {
   let selected=null;
   const stage = document.getElementById('stage');
@@ -330,14 +361,14 @@ const Layer = (() => {
     if(selected) selected.classList.remove('selected-layer');
     selected = el;
     if(selected) selected.classList.add('selected-layer');
-    // Opacity 表示を選択要素に合わせる
-    const v = Math.round((parseFloat(selected?.style.opacity||'1')*100));
-    if(!isNaN(v)){ const r=document.getElementById('opacityRange'); const t=document.getElementById('opaPct'); r.value=v; t.textContent=v+'%'; }
   };
 
   const initSelectable = () => {
     stage.querySelectorAll('.overlay-item').forEach(el=>{
-      el.addEventListener('pointerdown', e=>{ e.stopPropagation(); select(el); });
+      el.addEventListener('pointerdown', e=>{
+        e.stopPropagation();
+        select(el);
+      });
       makeDraggable(el);
     });
   };
@@ -365,7 +396,6 @@ const Layer = (() => {
   const addPart = (src) => {
     const holder=document.createElement('div');
     holder.className='overlay-item';
-    holder.style.opacity='1';
     const img=document.createElement('img');
     img.src=src; img.alt='part';
     holder.appendChild(img);
@@ -389,18 +419,30 @@ const Layer = (() => {
     if(!stage.contains(e.target)) select(null);
   });
 
-  return {initSelectable,addPart,applyColor,select,getSelected:()=>selected};
+  // Opacity API（外から使う）
+  const setOpacity = (value01)=>{
+    if(selected){
+      selected.style.opacity = value01;
+    }else{
+      const m = document.getElementById('mannequin');
+      if(m) m.style.opacity = value01;
+    }
+  };
+
+  const getSelected = ()=>selected;
+
+  return {initSelectable,addPart,applyColor,select,setOpacity,getSelected};
 })();
 
-/* =========================================
-   Pan & Zoom（ステージ） + 公開API
-========================================= */
-const ZoomAPI = (() => {
+/* ---------------------------
+   Pan & Zoom（ステージ）
+   外部操作用に ZoomAPI を公開
+--------------------------- */
+(() => {
   const wrapper = document.getElementById('board');
   const stage   = document.getElementById('stage');
-  let scale=1, tx=0, ty=0; const MIN=.1, MAX=6, SPEED=1.0015;
+  let scale=1, tx=0, ty=0; const MIN=.25, MAX=6, SPEED=1.0015;
 
-  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   const apply = ()=> stage.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
 
   // Drag Pan
@@ -435,7 +477,7 @@ const ZoomAPI = (() => {
     ty = e.clientY-rect.top  - ratio*cy;
     scale = next;
     apply();
-    UISync.zoom(scale);
+    ZoomUI.update(scale);
   }, {passive:false});
 
   // Touch Pinch
@@ -465,11 +507,13 @@ const ZoomAPI = (() => {
       tx = tx0 + (1-ratio)*mx;
       ty = ty0 + (1-ratio)*my;
       scale=next; apply();
-      UISync.zoom(scale);
+      ZoomUI.update(scale);
     }
   },{passive:false});
   wrapper.addEventListener('touchend', end,{passive:true});
   wrapper.addEventListener('touchcancel', end,{passive:true});
+
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 
   // 初期フィット
   const fit=()=>{
@@ -478,54 +522,88 @@ const ZoomAPI = (() => {
     const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
     if(!iw||!ih) return;
     const m=80, kx=(rect.width-m)/iw, ky=(rect.height-m)/ih;
-    scale=Math.min(Math.max(Math.min(kx,ky),.2),3);
+    scale=Math.min(Math.max(Math.min(kx,ky),.25),3);
     tx=(rect.width-iw*scale)/2;
     ty=(rect.height-ih*scale)/2;
     apply();
-    UISync.zoom(scale);
+    ZoomUI.update(scale);
   };
   window.addEventListener('load',fit);
   window.addEventListener('resize',fit);
 
-  return {
-    reset: ()=>{ scale=1; tx=0; ty=0; apply(); UISync.zoom(scale); },
-    zoomTo: (s)=>{ s=clamp(s,MIN,MAX); scale=s; apply(); UISync.zoom(scale); },
-    getScale: ()=> scale
+  // 外部制御API
+  window.ZoomAPI = {
+    getScale: ()=>scale,
+    zoomTo: (newScale, focal=null)=>{
+      newScale = clamp(newScale, MIN, MAX);
+      const rect=wrapper.getBoundingClientRect();
+      const cx = (focal?.x ?? rect.width/2) - tx;
+      const cy = (focal?.y ?? rect.height/2) - ty;
+      const ratio = newScale/scale;
+      tx = (focal?.x ?? rect.width/2) - ratio*cx;
+      ty = (focal?.y ?? rect.height/2) - ratio*cy;
+      scale = newScale; apply(); ZoomUI.update(scale);
+    },
+    step: (delta)=>{ window.ZoomAPI.zoomTo(scale+delta); },
+    reset: ()=>{ fit(); }
   };
 })();
 
-/* =========================================
-   UI配線（Zoom/Opacity/色/ボタン等）
-========================================= */
-const UISync = {
-  zoom(s){
-    const zr=document.getElementById('zoomRange');
-    const zp=document.getElementById('zoomPct');
-    zr.value=Math.round(s*100);
-    zp.textContent = Math.round(s*100)+'%';
-  }
-};
+/* ---------------------------
+   Zoom UI（スライダー／ボタン）
+--------------------------- */
+const ZoomUI = (()=> {
+  const range = ()=>document.getElementById('zoomRange');
+  const val   = ()=>document.getElementById('zoomVal');
+  const s2v = s => Math.round(s*100);
+  const v2s = v => v/100;
 
+  function update(scale){
+    if(!range()) return;
+    range().value = String(s2v(scale));
+    val().textContent = s2v(scale) + '%';
+  }
+
+  window.addEventListener('DOMContentLoaded', ()=>{
+    const r=range(); if(!r) return;
+    document.getElementById('zoomInBtn').addEventListener('click', ()=> ZoomAPI.step(+0.1));
+    document.getElementById('zoomOutBtn').addEventListener('click',()=> ZoomAPI.step(-0.1));
+    document.getElementById('zoomResetBtn').addEventListener('click',()=> ZoomAPI.reset());
+    r.addEventListener('input', ()=> ZoomAPI.zoomTo(v2s(parseInt(r.value,10))));
+    update(1);
+  });
+
+  return {update};
+})();
+
+/* ---------------------------
+   UI配線
+--------------------------- */
 window.addEventListener('DOMContentLoaded', () => {
   State.push();
   const $ = s => document.querySelector(s);
 
-  // Home
-  $('#btn-home')?.addEventListener('click', ()=> location.href = '/');
+  // Content buttons
+  document.querySelectorAll('.content-btn').forEach(b=>{
+    b.addEventListener('click', ()=> {
+      const link = b.dataset.link;
+      if(link) location.href = link;
+    });
+  });
 
   // Undo/Redo/Reset/Download/Upload/Save/Grid
   $('#btn-undo') .addEventListener('click', ()=>State.undo());
   $('#btn-redo') .addEventListener('click', ()=>State.redo());
 
   $('#btn-reset').addEventListener('click', ()=>{
-    const st=document.getElementById('stage');
+    const active = document.querySelector('.gbtn.active')?.dataset.gender || 'woman';
     const map={
       woman:'../../mannequin/mannequin_woman.png',
       man  :'../../mannequin/mannequin_man.png',
       kids :'../../mannequin/mannequin_kids.png'
     };
-    const g=document.querySelector('.gbtn.active')?.dataset.gender || 'woman';
-    st.innerHTML = `<img id="mannequin" class="mannequin-base" src="${map[g]}" alt="Mannequin">`;
+    const st=document.getElementById('stage');
+    st.innerHTML = `<img id="mannequin" class="mannequin-base" src="${map[active]}" alt="Mannequin">`;
     Layer.initSelectable();
     State.push();
     ZoomAPI.reset();
@@ -566,6 +644,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const img=document.getElementById('mannequin');
       img.src = map[b.dataset.gender] || map.woman;
       State.push();
+      ZoomAPI.reset();
     });
   });
 
@@ -578,6 +657,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const img=document.getElementById('mannequin');
       if(src) img.src=src;
       State.push();
+      ZoomAPI.reset();
     });
   });
 
@@ -594,27 +674,14 @@ window.addEventListener('DOMContentLoaded', () => {
     c.addEventListener('click', ()=> Layer.applyColor(c.dataset.color));
   });
 
-  // Zoom 物理コントロール
-  const zr = $('#zoomRange'), zpMinus = $('#zoomMinus'), zpPlus = $('#zoomPlus');
-  const zrReset = $('#zoomReset');
-  zr.addEventListener('input', e=> ZoomAPI.zoomTo((+e.target.value)/100));
-  zpMinus.addEventListener('click', ()=> ZoomAPI.zoomTo(ZoomAPI.getScale()-0.1));
-  zpPlus .addEventListener('click', ()=> ZoomAPI.zoomTo(ZoomAPI.getScale()+0.1));
-  zrReset.addEventListener('click', ()=> ZoomAPI.reset());
-
-  // Opacity（選択パーツに適用）
-  const or = $('#opacityRange'), opMinus = $('#opaMinus'), opPlus = $('#opaPlus'), opReset = $('#opaReset'), opText=$('#opaPct');
-  const setOpacity = (pct)=>{
-    const el = Layer.getSelected(); if(!el) return;
-    const v = Math.max(0,Math.min(100,pct));
-    el.style.opacity = (v/100).toString();
-    or.value = v; opText.textContent = v+'%';
-    State.push();
-  };
-  or.addEventListener('input', e=> setOpacity(+e.target.value));
-  opMinus.addEventListener('click', ()=> setOpacity((+or.value)-10));
-  opPlus .addEventListener('click', ()=> setOpacity((+or.value)+10));
-  opReset.addEventListener('click', ()=> setOpacity(100));
+  // Opacity
+  const opRange = document.getElementById('opacityRange');
+  const opVal   = document.getElementById('opacityVal');
+  opRange.addEventListener('input', ()=>{
+    const v = Number(opRange.value);
+    opVal.textContent = v + '%';
+    Layer.setOpacity(v/100);
+  });
 
   Layer.initSelectable();
 });
