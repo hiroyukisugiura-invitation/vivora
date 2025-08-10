@@ -697,5 +697,37 @@ window.addEventListener('DOMContentLoaded', () => {
   Layer.initSelectable();
 });
 </script>
+
+<script>
+  // ここだけ変えればパス切り替え可能
+  const ICON_BASE = './work/illustration/icons';  // 例: public/work/illustration/icons
+
+  // 使うPNGをマッピング（ファイル名は実ファイルに合わせて）
+  const ICONS = {
+    undo: 'undo.png',
+    redo: 'redo.png',
+    grid: 'grid.png',
+    home: 'home.png',
+    fit: 'fit.png',
+    pattern: 'pattern.png',
+    cad: 'cad.png',
+    pen: 'pen.png',
+    gridlines: 'gridlines.png',
+    pick: 'pick.png',
+    dummy: 'dummy.png'
+  };
+
+  // data-icon に応じて PNG を差し込む（HTMLはそのままでOK）
+  document.querySelectorAll('.icon-button[data-icon]').forEach(btn=>{
+    const key = btn.dataset.icon;
+    const file = ICONS[key];
+    if(!file) return;
+    const img = new Image();
+    img.src = `${ICON_BASE}/${file}`;
+    img.alt = key;
+    btn.replaceChildren(img);  // 既存子要素を一旦クリアして差し替え
+  });
+</script>
+  
 </body>
 </html>
