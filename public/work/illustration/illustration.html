@@ -14,23 +14,22 @@
 <!-- ヘッダー -->
 <header class="header">
   <h1 class="title">Vivora Fashion Illustration 2025</h1>
-  
+
+  <!-- 左：Gender -->
   <div class="gender-group">
-    <button class="gender-btn active">Woman</button>
-    <button class="gender-btn">Man</button>
-    <button class="gender-btn">Kids</button>
+    <button class="gender-btn active" data-target="woman">Woman</button>
+    <button class="gender-btn" data-target="man">Man</button>
+    <button class="gender-btn" data-target="kids">Kids</button>
   </div>
-  
-  <div class="toolbar-icons">
-    <button class="icon-btn"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
-    <button class="icon-btn"><img src="../../create_parts/create_button/forward.png" alt=""></button>
-    <button class="icon-btn"><img src="../../create_parts/create_button/reset.png" alt=""></button>
-    <button class="icon-btn"><img src="../../create_parts/create_button/download.png" alt=""></button>
-    <button class="icon-btn"><img src="../../create_parts/create_button/upload.png" alt=""></button>
-    <button class="icon-btn"><img src="../../create_parts/create_button/save.png" alt=""></button>
-    <button class="icon-btn"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
+
+  <!-- 中央：Action（後退・前進・方眼紙） -->
+  <div class="toolbar-actions">
+    <button class="icon-btn" id="btn-undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
+    <button class="icon-btn" id="btn-redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
+    <button class="icon-btn" id="btn-grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
   </div>
-  
+
+  <!-- 右：コンテンツボタン群（PNG読み込み済みのままでOK） -->
   <div class="content-icons">
     <button class="content-btn"><img src="../../create_parts/contents_button/0_home.png" alt=""></button>
     <button class="content-btn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt=""></button>
@@ -41,7 +40,7 @@
     <button class="content-btn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt=""></button>
     <button class="content-btn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt=""></button>
   </div>
-  
+
   <button class="next-btn">Next Step ▶▶</button>
 </header>
 
