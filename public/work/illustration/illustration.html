@@ -78,7 +78,7 @@
     }
     #mannequin{
       max-width:72%; height:auto; opacity:1; transform-origin:center bottom; image-rendering:auto; filter:drop-shadow(0 0 0 rgba(0,0,0,0));
-      transition:opacity .15s ease, transform .15s ease;
+      transition:opacity .15s ease, transform .15s ease; position:relative; z-index:1;
     }
 
     /* ====== サイドバー ====== */
@@ -107,6 +107,7 @@
       height:38px; background:#fff; border:1px solid var(--line); border-radius:10px; display:grid; place-items:center; box-shadow:var(--shadow);
       cursor:pointer; font-size:13px; font-weight:700; color:var(--muted);
     }
+    .tool.active{ border-color:#6b5f55; box-shadow:0 0 0 2px rgba(0,0,0,.04) inset }
 
     /* スライダー */
     .slider-row{ display:grid; grid-template-columns: 34px 1fr 38px; align-items:center; gap:12px; }
@@ -119,11 +120,20 @@
     .color-tools{ display:flex; gap:8px; margin-top:10px; }
     .mini{ width:32px; height:32px; border:1px solid var(--line); background:#fff; border-radius:8px; display:grid; place-items:center; box-shadow:var(--shadow); cursor:pointer; }
 
+    /* 描画レイヤー */
+    #drawLayer{ position:absolute; inset:0; z-index:2; touch-action:none; }
+    .canvas-inner{ position:relative }
+
     /* ヘルプ注記 */
     .note{ font-size:12px; color:#7a7268; margin-top:8px }
 
     /* 小さめ画面配慮（iPad横向き想定の最小調整） */
     @media (max-width: 1100px){
+      header{ grid-template-columns: 1fr 1fr 160px }
+      .page{ grid-template-columns: 1fr 300px }
+      .colors{ grid-template-columns: repeat(6, 1fr) }
+      .canvas-inner{ width:95% }
+    } (max-width: 1100px){
       header{ grid-template-columns: 1fr 1fr 160px }
       .page{ grid-template-columns: 1fr 300px }
       .colors{ grid-template-columns: repeat(6, 1fr) }
@@ -165,8 +175,9 @@
     <section class="stage">
       <div class="canvas">
         <div class="canvas-inner">
-          <!-- 既存のリポジトリ資産に合わせて id="mannequin" は維持 -->
+          <!-- 既存のリポジトリ資産に合わせて id=\"mannequin\" は維持 -->
           <img id="mannequin" class="mannequin-base" src="./assets/mannequin/woman_front.png" alt="Woman mannequin" />
+          <canvas id="drawLayer"></canvas>
         </div>
       </div>
     </section>
@@ -196,18 +207,18 @@
           <div class="tool" title="Text">T</div>
           <div class="tool" title="Stamp">⬒</div>
           <div class="tool" title="Clock">◴</div>
-          <div class="tool" title="Pen">✎</div>
+          <div class="tool" title="Pen" data-tool="pen">✎</div>
           <div class="tool" title="Brush">🖌</div>
-          <div class="tool" title="Eraser">␡</div>
+          <div class="tool" title="Eraser" data-tool="eraser">␡</div>
           <div class="tool" title="Rhombus">⬘</div>
           <div class="tool" title="Rotate">⟲</div>
           <div class="tool" title="%">%</div>
           <div class="tool" title="Align">≣</div>
-          <div class="tool" title="Camera">📷</div>
+          <div class="tool" title="Camera" data-tool="camera">📷</div>
           <div class="tool" title="Crop">✂︎</div>
           <div class="tool" title="Resize">↔︎</div>
         </div>
-        <div class="note">※ UIはダミーです。必要に応じて機能を割り当て可能。</div>
+        <div class="note">※ UIはダミーです。必要に応じて機能を割り当て可能。</div>※ UIはダミーです。必要に応じて機能を割り当て可能。</div>
       </div>
 
       <!-- Zoom -->
@@ -244,10 +255,26 @@
   </main>
 
   <script>
-    // ====== 最低限の動作（ズーム・不透明度・カラーUI） ======
+    // ====== 最低限の動作（ズーム・不透明度・カラー・描画・書き出し・タブ切替） ======
     const mannequin = document.getElementById('mannequin');
+    const draw = document.getElementById('drawLayer');
+    const ctx = draw.getContext('2d');
+    const inner = document.querySelector('.canvas-inner');
 
-    // Zoom
+    // -------- Canvas サイズ調整 --------
+    function fitCanvas(){
+      const r = inner.getBoundingClientRect();
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      draw.width = Math.floor(r.width * dpr);
+      draw.height = Math.floor(r.height * dpr);
+      draw.style.width = r.width + 'px';
+      draw.style.height = r.height + 'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0); // 座標系をCSSピクセルに
+    }
+    fitCanvas();
+    window.addEventListener('resize', fitCanvas);
+
+    // -------- Zoom --------
     const zr = document.getElementById('zoomRange');
     const zl = document.getElementById('zoomLabel');
     const zreset = document.getElementById('zoomReset');
@@ -256,7 +283,7 @@
     zr.addEventListener('input', e=> applyZoom(e.target.value));
     zreset.addEventListener('click', ()=>{ zr.value = 72; applyZoom(72); });
 
-    // Opacity
+    // -------- Opacity --------
     const orng = document.getElementById('opaRange');
     const olbl = document.getElementById('opaLabel');
     const oreset = document.getElementById('opaReset');
@@ -265,18 +292,20 @@
     orng.addEventListener('input', e=> applyOpacity(e.target.value));
     oreset.addEventListener('click', ()=>{ orng.value = 100; applyOpacity(100); });
 
-    // Palette（デフォルト16色 + 追加）
+    // -------- Palette（デフォルト16色 + 追加） --------
     const preset = [
       '#ffffff','#e3e6e8','#c9cfd3','#9aa4a8','#f7d46a','#ffd24d','#ffb300','#f3a6ac',
       '#e74c3c','#e67e22','#2ecc71','#27ae60','#3498db','#1f6feb','#8e44ad','#2c3e50'
     ];
     const pal = document.getElementById('palette');
+    let currentColor = '#1f6feb';
     function renderPalette(){
       pal.innerHTML = '';
-      preset.forEach((c,i)=>{
+      preset.forEach((c)=>{
         const b = document.createElement('button');
         b.className = 'swatch'; b.style.background = c; b.title = c;
         b.addEventListener('click', ()=>{
+          currentColor = c;
           document.documentElement.style.setProperty('--accent', c);
         });
         pal.appendChild(b);
@@ -291,17 +320,102 @@
       else alert('無効なカラーコードです');
     });
 
-    // Next Step（プレースホルダー）
-    document.getElementById('nextStep').addEventListener('click', ()=>{
-      alert('Next Step: 書き出し/ポーズ選択/着色などのフローに遷移（実装予定）');
+    // -------- 描画（ペン/消しゴム） --------
+    let drawing = false;
+    let tool = 'pen';
+    let last = {x:0,y:0};
+    const penBtn = document.querySelector('.tool[title="Pen"]');
+    const eraserBtn = document.querySelector('.tool[title="Eraser"]');
+    const cameraBtn = document.querySelector('.tool[title="Camera"]');
+
+    function setTool(name){
+      tool = name;
+      [penBtn,eraserBtn].forEach(b=> b.classList.remove('active'));
+      if(name==='pen') penBtn.classList.add('active');
+      if(name==='eraser') eraserBtn.classList.add('active');
+      draw.style.cursor = name==='eraser' ? 'cell' : 'crosshair';
+    }
+    setTool('pen');
+
+    function posFromEvent(e){
+      const rect = draw.getBoundingClientRect();
+      if(e.touches){ e = e.touches[0]; }
+      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function lineTo(p){
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.lineWidth = tool==='eraser' ? 18 : 3.5;
+      if(tool==='eraser') ctx.globalCompositeOperation = 'destination-out';
+      else { ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = currentColor; }
+      ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke();
+      last = p;
+    }
+
+    function start(e){ drawing = true; last = posFromEvent(e); }
+    function move(e){ if(!drawing) return; lineTo(posFromEvent(e)); }
+    function end(){ drawing = false; }
+
+    draw.addEventListener('mousedown', start);
+    draw.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end);
+    draw.addEventListener('touchstart', start, {passive:false});
+    draw.addEventListener('touchmove', (e)=>{ e.preventDefault(); move(e); }, {passive:false});
+    window.addEventListener('touchend', end);
+
+    penBtn.addEventListener('click', ()=> setTool('pen'));
+    eraserBtn.addEventListener('click', ()=> setTool('eraser'));
+
+    // -------- 書き出し（PNG） --------
+    cameraBtn.addEventListener('click', async ()=>{
+      // 出力キャンバスを用意し、マネキン + 描画を合成
+      const r = inner.getBoundingClientRect();
+      const out = document.createElement('canvas');
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      out.width = Math.floor(r.width * dpr);
+      out.height = Math.floor(r.height * dpr);
+      const octx = out.getContext('2d');
+      octx.setTransform(dpr,0,0,dpr,0,0);
+
+      // 背景（白）
+      octx.fillStyle = '#fff';
+      octx.fillRect(0,0,r.width,r.height);
+
+      // マネキン（72%幅で中央配置）
+      await mannequin.decode?.();
+      const iw = mannequin.naturalWidth || 1000;
+      const ih = mannequin.naturalHeight || 1500;
+      const drawW = r.width * 0.72;
+      const drawH = drawW * (ih/iw);
+      const dx = (r.width - drawW)/2;
+      const dy = (r.height - drawH)/2;
+      octx.globalAlpha = parseFloat(getComputedStyle(mannequin).opacity) || 1;
+      octx.drawImage(mannequin, dx, dy, drawW, drawH);
+      octx.globalAlpha = 1;
+
+      // 手描きレイヤーを合成
+      octx.drawImage(draw, 0, 0, r.width, r.height);
+
+      const url = out.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = url; a.download = 'vivora_export.png';
+      document.body.appendChild(a); a.click(); a.remove();
     });
 
-    // タブ見た目だけ
+    // -------- タブ切り替え（マネキン画像変更） --------
+    const mannequinSrc = {
+      woman: './assets/mannequin/woman_front.png',
+      man: './assets/mannequin/man_front.png',
+      kids: './assets/mannequin/kids_front.png'
+    };
+
     document.querySelectorAll('.tab').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         document.querySelectorAll('.tab').forEach(t=>t.classList.remove('is-active'));
         btn.classList.add('is-active');
-        // 実データ切り替えは後続実装
+        const key = btn.dataset.target;
+        if(mannequinSrc[key]) mannequin.src = mannequinSrc[key];
       })
     });
   </script>
