@@ -303,3 +303,44 @@ aside{
 /* コンテンツアイコンを少し小さくしたい場合 */
 .contentbar--compact .content-btn{ width:38px; height:38px; }
 .contentbar--compact .content-btn img{ width:24px; height:24px; }
+
+/* Pose: + タイルレイアウト */
+.pose-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.pose-add{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  aspect-ratio: 2 / 3;               /* 縦長カード */
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  box-shadow: var(--shadow);
+  cursor:pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+
+.pose-add:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.08);
+}
+
+.pose-add svg{ width:42px; height:42px; }
+
+.pose-add:focus-visible{
+  outline:3px solid #9db0ff;
+  outline-offset:3px;
+}
+
+/* 視覚的には非表示、スクリーンリーダー向けテキスト */
+.sr-only{
+  position:absolute; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
