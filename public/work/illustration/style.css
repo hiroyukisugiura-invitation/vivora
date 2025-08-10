@@ -1,328 +1,376 @@
-/* ===== CSSカスタムプロパティ（変数）定義 ===== */
-:root {
-  /* Colors */
-  --bg-main: #f8f1ee;
-  --bg-panel: #faf6f3;
-  --text-primary: #3d3d3d;
-  --font-accent: 'Playfair Display', serif;
-  --border-color: #e0d5d0;
-  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
-
-  /* Spacing */
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-}
-
-/* ===== 基本リセットとボディスタイル ===== */
+/* リセット */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: var(--bg-main);
-  color: var(--text-primary);
-  font-family: 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f5f5f5;
+  overflow: hidden;
 }
 
-/* ===== アプリケーション全体レイアウト ===== */
-.app-container {
-  display: flex;
+/* 変数 */
+:root {
+  --border-color: #e0e0e0;
+  --bg-primary: #f8f3f0;
+  --text-primary: #333;
+  --shadow-light: 0 2px 4px rgba(0,0,0,0.08);
+  --accent: #333;
+}
+
+/* メインコンテナ */
+.main-container {
+  width: 100vw;
   height: 100vh;
-}
-
-.main-workspace {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-lg);
-  overflow: hidden; /* Canvas以外はスクロールしない */
+  background: var(--bg-primary);
 }
 
-.sidebar-controls {
-  width: 320px;
-  background-color: var(--bg-main); /* or var(--bg-panel) if you prefer */
-  padding: var(--spacing-lg);
+/* ヘッダー */
+.header {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  overflow-y: auto; /* サイドバーが長くなった場合にスクロール */
-  border-left: 1px solid var(--border-color);
-}
-
-/* ===== 左側：メインエリアのスタイル ===== */
-.main-header {
-  margin-bottom: var(--spacing-md);
+  align-items: center;
+  gap: 20px;
+  padding: 15px 20px;
+  background: white;
+  border-bottom: 1px solid var(--border-color);
+  height: 70px;
 }
 
 .title {
-  font-family: var(--font-accent);
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: var(--spacing-md);
-  text-align: left;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-primary);
+  white-space: nowrap;
 }
 
+/* Gender Selector */
 .gender-selector {
   display: flex;
-  gap: 8px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-.gender-button {
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  padding: 8px 18px;
+.gender-btn {
+  padding: 8px 20px;
+  border: none;
+  background: white;
   font-size: 14px;
   cursor: pointer;
-  border-radius: 20px;
-  transition: all 0.2s ease-in-out;
-  box-shadow: var(--shadow-light);
+  transition: all 0.2s;
 }
 
-.gender-button.active,
-.gender-button:hover {
-  background-color: var(--text-primary);
-  color: #fff;
-  border-color: var(--text-primary);
+.gender-btn:not(:last-child) {
+  border-right: 1px solid var(--border-color);
 }
 
-.toolbar-area {
-  margin-bottom: var(--spacing-md);
+.gender-btn.active {
+  background: var(--accent);
+  color: white;
+}
+
+/* ツールバー */
+.toolbar {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: 15px;
+  margin-left: 20px;
+}
+
+.tool-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
   align-items: center;
-}
-
-.action-toolbar, .content-toolbar {
-  display: flex;
-  gap: 12px;
-}
-
-.icon-button {
-  background-color: transparent;
+  justify-content: center;
+  background: transparent;
   border: none;
-  padding: 4px;
   cursor: pointer;
   opacity: 0.7;
   transition: opacity 0.2s;
 }
 
-.icon-button:hover {
+.tool-icon:hover {
   opacity: 1;
 }
 
-.icon-button img {
-  display: block;
-  width: 28px;
-  height: 28px;
+.tool-icon img {
+  width: 20px;
+  height: 20px;
 }
 
-/* ===== キャンバスエリア ===== */
-.canvas-wrapper {
-  flex-grow: 1; /* 残りの高さを全て使う */
-  position: relative;
+/* コンテンツバー */
+.content-bar {
   display: flex;
-  justify-content: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.content-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
   align-items: center;
-  background-color: #fff;
+  justify-content: center;
+  background: white;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  overflow: hidden; /* Pan&Zoomではみ出した部分を隠す */
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.content-icon:hover {
+  transform: translateY(-2px);
   box-shadow: var(--shadow-light);
 }
 
-/* 方眼紙のスタイル（JSでこのクラスを付け外しする） */
-.canvas-wrapper.grid-active {
-  background-image:
-    linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
+.content-icon img {
+  width: 22px;
+  height: 22px;
 }
 
-.mannequin-base {
-  max-width: 100%;
-  max-height: 90%;
-  object-fit: contain;
-  transition: transform 0.3s ease; /* Pan&Zoomアニメーション用 */
-}
-
-/* ===== 右側：サイドバーのスタイル ===== */
-.next-step-panel {
-  text-align: right;
-  margin-bottom: var(--spacing-md);
-}
-.next-step-button {
-  background-color: var(--text-primary);
+/* Next Step Button */
+.next-step-btn {
+  padding: 10px 24px;
+  background: var(--accent);
   color: white;
-  font-family: var(--font-accent);
-  font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 8px;
   border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
-}
-.next-step-button:hover {
-  background-color: #000;
+  white-space: nowrap;
+  margin-left: 20px;
 }
 
-.panel {
-  background-color: var(--bg-panel);
-  border: 1px solid var(--border-color);
+/* コンテンツラッパー */
+.content-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* キャンバス */
+.canvas-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.canvas {
+  background: white;
   border-radius: 12px;
-  padding: var(--spacing-md);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 700px;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mannequin {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+/* サイドバー */
+.sidebar {
+  width: 280px;
+  background: var(--bg-primary);
+  padding: 20px 15px;
+  overflow-y: auto;
+  border-left: 1px solid var(--border-color);
+}
+
+/* パネル */
+.panel {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
   box-shadow: var(--shadow-light);
 }
 
 .panel-title {
-  font-family: var(--font-accent);
-  font-size: 18px;
-  margin-bottom: var(--spacing-md);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+/* スロット */
+.slots-panel {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-}
-.custom-button {
-    background: none;
-    border: none;
-    color: var(--text-primary);
-    text-decoration: underline;
-    font-size: 12px;
-    cursor: pointer;
-}
-.panel-footer {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 8px;
+  gap: 8px;
+  padding: 10px;
 }
 
+.slots {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
 
-/* ポーズ選択パネル */
-.pose-selector {
+.slot {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 8px;
+  font-size: 20px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.slot-arrow {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  color: #999;
+  cursor: pointer;
+}
+
+/* Stationery Grid */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.tool {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tool:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-light);
+}
+
+.tool.selected {
+  background: var(--accent);
+}
+
+.tool.selected img {
+  filter: brightness(0) invert(1);
+}
+
+.tool img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Controls */
+.control-wrapper {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.pose-thumbnails {
-    flex-grow: 1;
-    display: flex;
-    gap: 8px;
-    overflow-x: auto; /* はみ出した場合にスクロール */
-    scrollbar-width: none; /* Firefox */
-}
-.pose-thumbnails::-webkit-scrollbar { display: none; } /* Chrome, Safari */
-.pose-thumb {
-  width: 50px;
-  height: 80px;
-  object-fit: contain;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 4px;
-  transition: border-color 0.2s;
-}
-.pose-thumb.selected,
-.pose-thumb:hover {
-  border-color: var(--text-primary);
-}
-.arrow { background: none; border: none; font-size: 24px; cursor: pointer; color: #aaa;}
 
-
-/* 作業ボード＆カラーパネルのグリッド */
-.stationery-grid, .color-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  justify-items: center;
-}
-.tool-button, .color-box {
-    background-color: #fff;
-    border: 1px solid var(--border-color);
-    width: 54px;
-    height: 54px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-}
-.tool-button:hover, .color-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-}
-.tool-button img { width: 32px; height: 32px; }
-.tool-button.selected, .color-box.selected {
-  border: 2px solid var(--text-primary);
-}
-.add-color-button { font-size: 24px; color: #ccc; }
-.eyedropper-button img { width: 32px; }
-
-/* 選択中のオーバーレイの見た目 */
-.selected-layer {
-  outline: 2px dashed #6c5ce7;
-  outline-offset: 2px;
-}
-
-/* 画像パーツ用の色付けオーバーレイ */
-.overlay-item { position: absolute; }
-.overlay-item .tint {
-  position: absolute;
-  inset: 0;
-  mix-blend-mode: multiply;
-  pointer-events: none;
+.control-btn {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--border-color);
+  background: white;
   border-radius: 4px;
-}
-
-/* ツールバーアイコン統一サイズ */
-.icon-btn,
-.icon-button {
-  width: 40px;
-  height: 40px;
+  font-size: 16px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 0;
-  cursor: pointer;
-  box-shadow: var(--shadow-light);
 }
 
-.icon-btn img,
-.icon-button img {
+.slider {
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  background: #ddd;
+  border-radius: 2px;
+  outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #4169e1;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.reset-btn {
+  padding: 4px 12px;
+  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.value-text {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* Color Grid */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.color-swatch.add {
+  border: 1px dashed var(--border-color);
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #ccc;
+}
+
+.color-swatch.eyedropper {
+  background: white;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-swatch.eyedropper img {
   width: 20px;
   height: 20px;
-  object-fit: contain;
 }
-
-/* ===== Topbar 3カラム配置（左=性別 / 中央=Action / 右=Content） ===== */
-.topbar{
-  display:grid;
-  grid-template-columns: auto 1fr auto;
-  align-items:center;
-  gap: 24px;
-  margin-bottom: var(--spacing-md);
-}
-.topbar-center{ justify-self: center; }
-
-/* ボタンを均一サイズに */
-.icon-button{
-  width: 40px; height: 40px;
-  display:flex; align-items:center; justify-content:center;
-  background:#fff;
-  border:1px solid var(--border-color);
-  border-radius:8px;
-  padding:0; cursor:pointer; box-shadow: var(--shadow-light);
-  opacity:.85; transition:opacity .15s ease, transform .05s ease;
-}
-.icon-button:hover{ opacity:1 }
-.icon-button:active{ transform: translateY(1px); }
-.icon-button img{ width:20px; height:20px; object-fit:contain; display:block; }
-
-/* 左の性別タブはキャンバス左上感を出すため少し大きめ余白 */
-.topbar-left .gender-selector{ gap: 10px; }
