@@ -37,57 +37,58 @@
       "canvas  sidebar";
     height:100vh;
   }
+
+  /* ヘッダー（タイトルのみ） */
   header{
     grid-area:header;
     display:flex;
     align-items:center;
-    gap:16px;
     padding:12px 16px;
   }
   h1{
-    font:500 18px/1 'Playfair Display',serif;
+    font:500 20px/1 'Playfair Display',serif;
     color:#222;
-    margin-right:auto;
   }
-  .gender{display:flex;gap:6px}
-  .gender button{
-    border:1px solid var(--line);
-    background:#fff;
-    padding:6px 12px;
-    border-radius:16px;
-    cursor:pointer;
-    font-size:13px;
-  }
-  .gender button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-  /* ツールバー */
+  /* 1本ツールバー：左=性別 / 中央=アクション / 右=コンテンツ */
   .toolbar{
     grid-area:toolbar;
     display:flex;
-    gap:14px;
     align-items:center;
-    padding:10px 16px;
+    gap:16px;
+    padding:12px 16px;
     border-top:1px solid var(--line);
-    background:#fff8;
-    backdrop-filter:saturate(1.2) blur(2px);
+    background:#f2ede8cc;
+    backdrop-filter:saturate(1.1) blur(2px);
   }
-  .tool-btn{
-    background:transparent;border:none;cursor:pointer;opacity:.85
-  }
-  .tool-btn:hover{opacity:1}
-  .tool-btn img{width:22px;height:22px;display:block}
+  .toolbar-left{ display:flex; align-items:center; gap:10px; }
+  .toolbar-center{ display:flex; align-items:center; gap:10px; margin:0 auto; }
+  .toolbar-right{ display:flex; align-items:center; gap:10px; margin-left:auto; }
 
-  /* コンテンツバー（Home〜） */
-  .contentbar{
-    display:flex;align-items:center;gap:10px;margin-left:auto;
+  /* 性別ボタン（カード風） */
+  .gender{display:flex; gap:10px;}
+  .gbtn{
+    border:1px solid var(--line);
+    background:#fff;
+    padding:8px 18px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:14px;
   }
-  .content-btn{
-    background:#fff;border:1px solid var(--line);border-radius:10px;
-    width:42px;height:42px;display:flex;align-items:center;justify-content:center;
-    cursor:pointer; transition:.15s;
+  .gbtn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* アクションアイコン／コンテンツアイコン（角丸タイル） */
+  .tool-btn, .content-btn{
+    background:#ece7e3;
+    border:1px solid #e6ded8;
+    border-radius:10px;
+    width:44px; height:44px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
   }
-  .content-btn img{width:26px;height:26px;display:block}
-  .content-btn:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+  .tool-btn img, .content-btn img{ width:26px; height:26px; display:block; }
+  .tool-btn:hover, .content-btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow); background:#f7f2ee; }
 
   /* キャンバス */
   .canvas-area{
@@ -107,8 +108,6 @@
     box-shadow:var(--shadow);
     overflow:hidden;
   }
-
-  /* グリッド（方眼紙） */
   .board.grid::before{
     content:"";
     position:absolute;inset:0;
@@ -130,8 +129,8 @@
 
   .mannequin-base{
     display:block;
-    max-width:none;      /* 画像の実サイズ基準で拡縮するため */
-    width:600px;         /* 初期の見やすい幅（任意） */
+    max-width:none;
+    width:600px;
     height:auto;
     user-select:none;
     -webkit-user-drag:none;
@@ -172,7 +171,6 @@
   .tool-tile:hover,.color-tile:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
   .tool-tile img{width:30px;height:30px}
   .color-tile{border:none}
-  .color-tile.add{font-size:22px;color:#bbb;border:1px dashed var(--line);background:#fafafa}
 
   .nextstep{display:flex;justify-content:flex-end;margin-bottom:12px}
   .nextstep button{
@@ -201,50 +199,56 @@
 <body>
 <div class="app">
 
-  <!-- Header -->
+  <!-- タイトルのみ -->
   <header>
     <h1>Vivora Fashion Illustration 2025</h1>
-    <div class="gender">
-      <button class="gbtn active" data-gender="woman">Woman</button>
-      <button class="gbtn" data-gender="man">Man</button>
-      <button class="gbtn" data-gender="kids">Kids</button>
-    </div>
   </header>
 
-  <!-- Toolbar + Content buttons -->
+  <!-- 1本ツールバー -->
   <div class="toolbar">
-    <button class="tool-btn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
-    <button class="tool-btn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
-    <button class="tool-btn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
-    <button class="tool-btn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
-    <button class="tool-btn" id="btn-upload" title="Upload Part"><img src="../../create_parts/create_button/upload.png" alt=""></button>
-    <button class="tool-btn" id="btn-save" title="Save Snapshot"><img src="../../create_parts/create_button/save.png" alt=""></button>
-    <button class="tool-btn" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
+    <!-- 左：性別 -->
+    <div class="toolbar-left">
+      <div class="gender">
+        <button class="gbtn active" data-gender="woman">Woman</button>
+        <button class="gbtn" data-gender="man">Man</button>
+        <button class="gbtn" data-gender="kids">Kids</button>
+      </div>
+    </div>
 
-    <div class="contentbar">
-  <button class="content-btn" data-link="/"><img src="../../create_parts/contents_button/0_home.png" alt="Home"></button>
-  <button class="content-btn" data-link="/public/work/illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></button>
-  <button class="content-btn" data-link="/public/work/fabric/index.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm"></button>
-  <button class="content-btn" data-link="/public/work/clothing/index.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd"></button>
-  <button class="content-btn" data-link="/public/work/pattern/index.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc"></button>
-  <button class="content-btn" data-link="/public/work/grading/index.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Gd"></button>
-  <button class="content-btn" data-link="/public/work/print/index.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></button>
-  <button class="content-btn" data-link="/public/work/digital-kids/index.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></button>
-</div>
+    <!-- 中央：アクション -->
+    <div class="toolbar-center">
+      <button class="tool-btn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
+      <button class="tool-btn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
+      <button class="tool-btn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
+      <button class="tool-btn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
+      <button class="tool-btn" id="btn-upload" title="Upload Part"><img src="../../create_parts/create_button/upload.png" alt=""></button>
+      <button class="tool-btn" id="btn-save" title="Save Snapshot"><img src="../../create_parts/create_button/save.png" alt=""></button>
+      <button class="tool-btn" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
+    </div>
+
+    <!-- 右：コンテンツ -->
+    <div class="toolbar-right">
+      <button class="content-btn" data-link="/"><img src="../../create_parts/contents_button/o_home.png" alt="Home"></button>
+      <button class="content-btn" data-link="/public/work/illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></button>
+      <button class="content-btn" data-link="/public/work/fabric/index.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm"></button>
+      <button class="content-btn" data-link="/public/work/clothing/index.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd"></button>
+      <button class="content-btn" data-link="/public/work/pattern/index.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc"></button>
+      <button class="content-btn" data-link="/public/work/grading/index.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Gd"></button>
+      <button class="content-btn" data-link="/public/work/print/index.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></button>
+      <button class="content-btn" data-link="/public/work/digital-kids/index.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></button>
+    </div>
   </div>
 
-  <!-- Canvas -->
+  <!-- キャンバス（初期は方眼紙OFF） -->
   <section class="canvas-area">
     <div id="board" class="board">
-      <!-- ← グリッドONで開始（不要なら class="board" に） -->
       <div id="stage">
         <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
-        <!-- overlay-item はここに追加される -->
       </div>
     </div>
   </section>
 
-  <!-- Sidebar -->
+  <!-- サイドバー -->
   <aside>
     <div class="nextstep"><button>Next Step ▶▶</button></div>
 
@@ -351,7 +355,7 @@ const State = (() => {
 })();
 
 /* ---------------------------
-   レイヤ（選択/色/パーツ追加）
+   レイヤ（選択/色/パーツ追加・不透明度）
 --------------------------- */
 const Layer = (() => {
   let selected=null;
@@ -419,7 +423,7 @@ const Layer = (() => {
     if(!stage.contains(e.target)) select(null);
   });
 
-  // Opacity API（外から使う）
+  // 不透明度
   const setOpacity = (value01)=>{
     if(selected){
       selected.style.opacity = value01;
@@ -435,8 +439,7 @@ const Layer = (() => {
 })();
 
 /* ---------------------------
-   Pan & Zoom（ステージ）
-   外部操作用に ZoomAPI を公開
+   Pan & Zoom（ステージ） + ZoomAPI
 --------------------------- */
 (() => {
   const wrapper = document.getElementById('board');
@@ -461,7 +464,7 @@ const Layer = (() => {
   wrapper.addEventListener('pointerup', end);
   wrapper.addEventListener('pointercancel', end);
 
-  // Wheel Zoom（トラックパッドピンチ含む）
+  // Wheel Zoom（ピンチ含む）
   wrapper.addEventListener('wheel', e=>{
     const zoomIntent = e.ctrlKey || Math.abs(e.deltaY) > Math.abs(e.deltaX);
     if(!zoomIntent) return;
@@ -583,7 +586,7 @@ window.addEventListener('DOMContentLoaded', () => {
   State.push();
   const $ = s => document.querySelector(s);
 
-  // Content buttons
+  // コンテンツボタン遷移
   document.querySelectorAll('.content-btn').forEach(b=>{
     b.addEventListener('click', ()=> {
       const link = b.dataset.link;
