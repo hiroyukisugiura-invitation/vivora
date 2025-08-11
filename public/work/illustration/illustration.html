@@ -270,21 +270,31 @@ let fitMaxScale = 1; // ボードに収まる最大scale
 
 function computeFitMaxScale(){
   // 一時的に変形を外して素のサイズを取得
+  function computeFitMaxScale(){
+  // 一時的に変形を外して素のサイズを取得
   const prev = mannequin.style.transform;
   mannequin.style.transform = 'none';
+
   const mRect = mannequin.getBoundingClientRect();
   const bRect = board.getBoundingClientRect();
+
   mannequin.style.transform = prev;
 
-  // 幅と高さの両方で収まる最大スケール
-  const maxByW = (bRect.width  - SAFE_MARGIN) / mRect.width;
-  const maxByH = (bRect.height - SAFE_MARGIN) / mRect.height;
+  // 両側分のマージンを考慮
+  const availW = bRect.width  - SAFE_MARGIN * 2;
+  const availH = bRect.height - SAFE_MARGIN * 2;
+
+  // 幅と高さの両方で収まる倍率
+  const maxByW = availW / mRect.width;
+  const maxByH = availH / mRect.height;
   fitMaxScale = Math.min(maxByW, maxByH);
 
-  // 基準より小さい値にならないよう保証
-  if (fitMaxScale < BASE_ZOOM) fitMaxScale = BASE_ZOOM;
+  // 基準より小さい場合は基準値に固定
+  if (fitMaxScale < BASE_ZOOM) {
+    fitMaxScale = BASE_ZOOM;
+  }
 }
-
+  
 function applyZoom(percent){
   // 0〜100%を [BASE_ZOOM .. fitMaxScale] にマッピング
   const t = Math.min(1, Math.max(0, percent / 100));
