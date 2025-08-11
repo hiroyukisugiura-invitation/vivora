@@ -145,10 +145,13 @@ body {
   justify-content: center;
 }
 
-.mannequin-img {
-  max-width: 400px;                 /* ★マネキンの最大横幅（ここが基準サイズ） */
-  max-height: 80%;                  /* ボード高さに対する最大比率 */
-  object-fit: contain;              /* 比率維持で収める（はみ出さない） */
+.mannequin-img{
+  width:72%;          /* ← ボード幅の72%を基準にする */
+  height:auto;
+  max-height:86%;     /* 縦もはみ出さない安全値 */
+  object-fit:contain;
+  transition:transform .2s ease, opacity .15s ease;
+  transform-origin:center center;
 }
 
 /* =============== サイドバー（右） =============== */
