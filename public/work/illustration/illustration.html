@@ -243,8 +243,10 @@
     });
 
     // Zoom（0-100%）
+    // Zoom（0〜100%、0%時はscale(0.8)）
     const zr = document.getElementById('zoom');
     const zVal = document.getElementById('zVal');
+    const BASE_Z_
     function applyZoom(v){ zVal.textContent = v + ' %'; mannequin.style.transform = `scale(${v/100})`; }
     applyZoom(Number(zr.value));
     zr.addEventListener('input', e=> applyZoom(Number(e.target.value)));
