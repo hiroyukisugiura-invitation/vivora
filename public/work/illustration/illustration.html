@@ -340,6 +340,19 @@ window.addEventListener('resize', () => {
         btn.classList.add('selected');
       });
     });
+
+    // 画像が読み込まれたら再計算（性別切替の直後も確実に反映）
+mannequin.addEventListener('load', () => {
+  computeFitMaxScale();
+  applyZoom(Number(zr.value));
+});
+
+// キャンバス自体のサイズ変化にも追従したい場合（任意）
+new ResizeObserver(() => {
+  computeFitMaxScale();
+  applyZoom(Number(zr.value));
+}).observe(board);
+
   </script>
 </body>
 </html>
