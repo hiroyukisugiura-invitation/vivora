@@ -135,14 +135,15 @@ body {
 }
 
 .canvas-board {
-  width: 90%;                       /* ★ボードの横幅（画面に対する相対） */
-  height: 90%;                      /* ★ボードの縦高さ（画面に対する相対） */
-  background: white;                /* ボード背景 */
-  border-radius: 12px;              /* 角丸 */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* ボードの影 */
-  display: flex;                    /* 中身（マネキン）中央寄せ */
+  width: 90%;
+  height: 90%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;   /* ★はみ出しを強制的に隠す */
 }
 
 .mannequin-img{
