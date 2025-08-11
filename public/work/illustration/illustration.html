@@ -303,6 +303,74 @@ function initZoom(){
 }
 initZoom();
 
+/* ====== 追加：ホイール & ピンチズーム（キャンバス内のみ） ====== */
+/* マウス/トラックパッド：スクロールでズーム（キャンバス上のみ） */
+board.addEventListener('wheel', (e) => {
+  e.preventDefault(); // ページスクロールを無効化
+  const step = 5;                         // 1コマの増減%
+  const dir  = Math.sign(e.deltaY);       // 下=+1（縮小）, 上=-1（拡大）
+  let v = Number(zr.value) - dir * step;  // deltaYは逆向きなので符号反転
+  v = Math.max(0, Math.min(100, v));
+  zr.value = v;
+  applyZoom(v);
+}, { passive: false });
+
+/* タッチ：2本指ピンチでズーム（キャンバス内のみ） */
+let pinch = {
+  active: false,
+  startDist: 0,
+  startPercent: 0
+};
+
+function distance(p1, p2){
+  const dx = p1.clientX - p2.clientX;
+  const dy = p1.clientY - p2.clientY;
+  return Math.hypot(dx, dy);
+}
+
+let pointers = new Map();
+
+board.addEventListener('pointerdown', (e) => {
+  board.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId, e);
+  if (pointers.size === 2) {
+    const [a,b] = [...pointers.values()];
+    pinch.active = true;
+    pinch.startDist = distance(a,b);
+    pinch.startPercent = Number(zr.value);
+  }
+});
+
+board.addEventListener('pointermove', (e) => {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.set(e.pointerId, e);
+
+  if (pinch.active && pointers.size === 2) {
+    const [a,b] = [...pointers.values()];
+    const dist = distance(a,b);
+    if (pinch.startDist > 0) {
+      // 距離の変化率 → パーセントへ（感度は好みで調整）
+      const ratio = dist / pinch.startDist;
+      const sensitivity = 120;              // 感度（大きいほどよく拡大/縮小）
+      let v = pinch.startPercent + (ratio - 1) * sensitivity;
+      v = Math.max(0, Math.min(100, v));
+      zr.value = v;
+      applyZoom(v);
+    }
+  }
+});
+
+function endPointer(e){
+  pointers.delete(e.pointerId);
+  if (pointers.size < 2) {
+    pinch.active = false;
+    pinch.startDist = 0;
+  }
+}
+board.addEventListener('pointerup', endPointer);
+board.addEventListener('pointercancel', endPointer);
+board.addEventListener('pointerleave', endPointer);
+  
 /* スライダー・ボタン */
 zr.addEventListener('input', e=> applyZoom(Number(e.target.value)));
 document.getElementById('zMinus').addEventListener('click', ()=>{
