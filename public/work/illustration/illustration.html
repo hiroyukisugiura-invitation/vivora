@@ -243,38 +243,17 @@
       board.classList.toggle('grid-active');
     });
 
-    // Zoom（0〜100%、0%時の基準倍率=80%）＋キャンバスからはみ出さないクランプ
+    // Zoom（0〜200%、0%時の基準倍率=80%、はみ出し許可）
 const zr = document.getElementById('zoom');
 const zVal = document.getElementById('zVal');
-const BASE_ZOOM = 0.8;     // 0%表示時の倍率（80%）
-const SAFE_MARGIN = 16;    // ボード内の余白（px）
+const BASE_ZOOM = 0.8; // 0%表示時の倍率（80%）
 
-function clampZoomToFit(rawV){
-  // いったん変形を外して素のサイズを取得
-  const prev = mannequin.style.transform;
-  mannequin.style.transform = 'none';
-  const mRect = mannequin.getBoundingClientRect();
-  const bRect = board.getBoundingClientRect();
-  mannequin.style.transform = prev;
+// 最大倍率をユーザー設定（キャンバス内収まりは保証しない）
+zr.max = 200; // ← ここで最大値指定
 
-  // 幅と高さの両方で収まる最大scaleを計算
-  const maxByW = (bRect.width  - SAFE_MARGIN) / mRect.width;
-  const maxByH = (bRect.height - SAFE_MARGIN) / mRect.height;
-  const maxScale = Math.min(maxByW, maxByH);
-
-  // スライダー上の最大値（%）に変換し、0以上に
-  const maxV = Math.max(0, Math.floor((maxScale - BASE_ZOOM) * 100));
-
-  // スライダーのmaxを更新し、入力値を上限内に丸める
-  zr.max = String(maxV);
-  return Math.min(rawV, maxV);
-}
-
-function applyZoom(v){
-  const vv = clampZoomToFit(v);           // 必ず収まる値に調整
-  if (vv !== v) zr.value = vv;            // UIも同期
-  zVal.textContent = vv + ' %';
-  mannequin.style.transform = `scale(${BASE_ZOOM + (vv/100)})`;
+function applyZoom(v) {
+  zVal.textContent = v + ' %';
+  mannequin.style.transform = `scale(${BASE_ZOOM + (v / 100)})`;
   mannequin.style.transformOrigin = 'center center';
 }
 
@@ -282,22 +261,21 @@ function applyZoom(v){
 zr.value = 0;
 applyZoom(0);
 
-// スライダー & ボタン
-zr.addEventListener('input', e => applyZoom(Number(e.target.value)));
+// スライダー操作
+zr.addEventListener('input', (e) => applyZoom(Number(e.target.value)));
+
+// ボタン操作
 document.getElementById('zMinus').addEventListener('click', () => {
   const v = Math.max(0, Number(zr.value) - 10);
   zr.value = v; applyZoom(v);
 });
 document.getElementById('zPlus').addEventListener('click', () => {
-  const v = Number(zr.value) + 10;
+  const v = Math.min(200, Number(zr.value) + 10); // ← 上限200
   zr.value = v; applyZoom(v);
 });
 document.getElementById('zReset').addEventListener('click', () => {
   zr.value = 0; applyZoom(0);
 });
-
-// 画面サイズが変わったら上限を再計算
-window.addEventListener('resize', () => applyZoom(Number(zr.value)));
 
     // Opacity（% → 透明度）
     const orng = document.getElementById('opacity');
