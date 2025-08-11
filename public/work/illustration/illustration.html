@@ -8,113 +8,129 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* ===== 基本 ===== */
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{
-      --bg:#ebe4db;            /* 2枚目のベージュ系 */
-      --panel:#fff;             /* パネル白 */
-      --ink:#2b2b2b;
-      --muted:#6b6b6b;
-      --line:#e0d7d0;
-      --shadow:0 4px 12px rgba(0,0,0,.06);
+    /* =============== ベース（全体に効く） =============== */
+    *{ margin:0; padding:0; box-sizing:border-box; }
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+      background:#f8f3f0;
+      color:#2b2b2b;
     }
-    body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,'Hiragino Kaku Gothic ProN','Yu Gothic',Meiryo,sans-serif;background:var(--bg);color:var(--ink)}
 
-    /* ===== ヘッダー（左=Gender / 中央=Action / 右=Contents / 最右=Next） ===== */
-    .header{display:grid;grid-template-columns:auto auto 1fr auto auto;align-items:center;gap:20px;padding:16px 20px}
-    .title{font-family:'Playfair Display',serif;font-weight:500;font-size:20px;opacity:.9}
-    .gender-group{display:flex;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#fff}
-    .gender-btn{padding:8px 18px;border:none;background:#fff;cursor:pointer;font-size:14px}
-    .gender-btn:not(:last-child){border-right:1px solid var(--line)}
-    .gender-btn.active{background:#1e1e1e;color:#fff}
+    /* =============== ヘッダー =============== */
+    .header{ display:flex; align-items:center; gap:20px; padding:15px 20px; background:#fff; border-bottom:1px solid #e0e0e0; }
+    .title{ font-family:'Playfair Display',serif; font-size:20px; font-weight:400; }
 
-    .toolbar-actions{justify-self:center;display:flex;gap:12px}
-    .icon-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:#eee;border:1px solid var(--line);border-radius:6px;cursor:pointer}
-    .icon-btn img{width:18px;height:18px;display:block}
+    /* Gender */
+    .gender-group{ display:flex; border:1px solid #e0e0e0; border-radius:20px; overflow:hidden; }
+    .gender-btn{ padding:8px 18px; background:#fff; border:0; font-size:14px; cursor:pointer; }
+    .gender-btn:not(:last-child){ border-right:1px solid #e0e0e0; }
+    .gender-btn.active{ background:#333; color:#fff; }
 
-    .content-icons{display:flex;gap:8px;justify-self:end}
-    .content-btn{width:40px;height:40px;background:#fff;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-    .content-btn img{width:24px;height:24px;display:block}
+    /* 中央ツール（戻る/進む/方眼紙） */
+    .toolbar-icons{ display:flex; gap:12px; margin-left:20px; }
+    .icon-btn{ width:32px; height:32px; background:transparent; border:0; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:.75; }
+    .icon-btn:hover{ opacity:1; }
+    .icon-btn img{ width:20px; height:20px; display:block; }
 
-    .next-btn{padding:10px 16px;background:#222;color:#fff;border:none;border-radius:20px;cursor:pointer;white-space:nowrap;font-weight:600}
+    /* 右のコンテンツアイコン */
+    .content-icons{ display:flex; gap:8px; margin-left:auto; }
+    .content-btn{ width:40px; height:40px; background:#fff; border:1px solid #e0e0e0; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    .content-btn:hover{ box-shadow:0 2px 4px rgba(0,0,0,.1); }
+    .content-btn img{ width:24px; height:24px; display:block; }
 
-    /* ===== レイアウト ===== */
-    .main-content{display:grid;grid-template-columns:1fr 320px;gap:20px;height:calc(100vh - 72px);padding:0 16px 16px}
+    .next-btn{ padding:10px 20px; background:#333; color:#fff; border:0; border-radius:20px; font-size:14px; cursor:pointer; white-space:nowrap; }
+
+    /* =============== メイン（左＝キャンバス／右＝サイドバー） =============== */
+    .main-content{ display:flex; height:calc(100vh - 70px); }
 
     /* キャンバス */
-    .canvas-area{display:flex;align-items:center;justify-content:center}
-    .canvas-board{width:100%;height:100%;max-width:940px;max-height:88vh;background:#fff;border-radius:12px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center}
-    .canvas-board.grid-active{background-image:linear-gradient(rgba(0,0,0,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.08) 1px,transparent 1px);background-size:20px 20px}
-    .mannequin-img{max-width:420px;max-height:80%;object-fit:contain;transition:transform .2s ease,opacity .15s ease;transform-origin:center center}
+    .canvas-area{ flex:1; display:flex; align-items:center; justify-content:center; padding:20px; }
+    .canvas-board{
+      width:90%; height:90%; background:#fff; border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+      display:flex; align-items:center; justify-content:center; position:relative;
+    }
+    .canvas-board.grid-active{
+      background-image:
+        linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px);
+      background-size:20px 20px;
+    }
+    .mannequin-img{
+      width:72%;         /* 基準サイズ：ボード幅の72% */
+      height:auto;
+      max-height:86%;    /* 縦方向の安全枠 */
+      object-fit:contain;
+      transition:transform .2s ease, opacity .15s ease;
+      transform-origin:center center;
+    }
 
-    /* 右サイドバー */
-    .sidebar{background:transparent;padding:0 8px;overflow:auto}
-    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:14px;margin-bottom:16px}
-    .card h3{font-size:14px;margin-bottom:12px}
+    /* サイドバー */
+    .sidebar{ width:280px; background:#f8f3f0; padding:20px 15px; overflow-y:auto; }
+    .panel{ background:#fff; border-radius:12px; padding:15px; margin-bottom:15px; }
+    .panel h3{ font-size:14px; font-weight:600; margin-bottom:12px; }
 
     /* スロット */
-    .slots{display:grid;grid-template-columns:24px 1fr 24px;align-items:center;gap:8px}
-    .slots-track{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .slot{height:60px;background:#fff;border:1px dashed #cfc5b9;border-radius:10px;display:grid;place-items:center;color:#b8afa4;font-weight:700}
-    .arrow{border:none;background:none;color:#a09083;font-size:18px}
+    .slots-container{ display:flex; align-items:center; gap:8px; background:#fff; padding:10px; border-radius:12px; margin-bottom:15px; }
+    .arrow-btn{ width:24px; height:24px; background:none; border:0; font-size:14px; color:#999; cursor:pointer; }
+    .slots-wrapper{ display:flex; gap:8px; flex:1; }
+    .slot-btn{ width:38px; height:38px; background:#fff; border:1px solid #e0e0e0; border-radius:8px; font-size:18px; color:#ccc; cursor:pointer; }
 
     /* Stationery */
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .st-btn{width:48px;height:48px;background:#fff;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer}
-    .st-btn img{width:24px;height:24px}
-    .st-btn.selected{border-color:#222;box-shadow:0 0 0 2px rgba(0,0,0,.06) inset}
+    .stationery-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+    .st-btn{ width:48px; height:48px; background:#fff; border:1px solid #e0e0e0; border-radius:8px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .st-btn:hover{ box-shadow:0 2px 4px rgba(0,0,0,.1); }
+    .st-btn.selected{ background:#333; }
+    .st-btn.selected img{ filter:brightness(0) invert(1); }
+    .st-btn img{ width:24px; height:24px; }
 
-    /* スライダー */
-    .slider{display:flex;align-items:center;gap:10px}
-    .minus,.plus{width:24px;height:24px;background:#fff;border:1px solid var(--line);border-radius:4px;display:grid;place-items:center;cursor:pointer}
-    .range{flex:1;height:4px;-webkit-appearance:none;background:#ddd;border-radius:2px;outline:none}
-    .range::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:#4169e1;border-radius:50%}
-    .reset{padding:4px 10px;background:#fff;border:1px solid var(--line);border-radius:4px;cursor:pointer}
-    .val{font-size:12px;color:#666;margin-top:6px}
+    /* スライダー UI（Zoom/Opacity 共通） */
+    .slider-control{ display:flex; align-items:center; gap:10px; }
+    .minus-btn,.plus-btn{ width:24px; height:24px; background:#fff; border:1px solid #e0e0e0; border-radius:4px; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .range-slider{ flex:1; height:4px; -webkit-appearance:none; background:#ddd; border-radius:2px; outline:none; }
+    .range-slider::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; background:#4169e1; border-radius:50%; cursor:pointer; }
+    .reset-btn{ padding:4px 12px; background:#fff; border:1px solid #e0e0e0; border-radius:4px; font-size:12px; cursor:pointer; }
+    .value-label{ font-size:12px; color:#666; margin-top:8px; }
 
-    /* Color */
-    .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-    .c{width:40px;height:40px;border:none;border-radius:6px;cursor:pointer}
-    .c:hover{transform:scale(1.06)}
-    .cadd{width:40px;height:40px;background:#fafafa;border:1px dashed #e0e0e0;border-radius:6px;font-size:18px;color:#bbb;cursor:pointer}
-    .ctool{width:40px;height:40px;background:#fff;border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center}
-    .ctool img{width:20px;height:20px}
-
-    @media (max-width:1100px){
-      .main-content{grid-template-columns:1fr}
-      .content-icons{display:none}
-    }
+    /* カラーパレット */
+    .color-palette{ display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+    .color-btn{ width:40px; height:40px; border:0; border-radius:6px; cursor:pointer; }
+    .color-btn:hover{ transform:scale(1.1); }
+    .color-add{ width:40px; height:40px; background:#fafafa; border:1px dashed #e0e0e0; border-radius:6px; font-size:18px; color:#ccc; cursor:pointer; }
+    .color-tool{ width:40px; height:40px; background:#fff; border:1px solid #e0e0e0; border-radius:6px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    .color-tool img{ width:20px; height:20px; }
   </style>
 </head>
 <body>
+
   <!-- ヘッダー -->
   <header class="header">
     <h1 class="title">Vivora Fashion Illustration 2025</h1>
 
-    <!-- 左：Gender -->
+    <!-- Gender -->
     <div class="gender-group">
       <button class="gender-btn active" data-target="woman">Woman</button>
       <button class="gender-btn" data-target="man">Man</button>
       <button class="gender-btn" data-target="kids">Kids</button>
     </div>
 
-    <!-- 中央：後退・前進・方眼紙 -->
-    <div class="toolbar-actions">
-      <button class="icon-btn" id="btn-undo"><img src="../../create_parts/create_button/retreat.png" alt="undo"></button>
-      <button class="icon-btn" id="btn-redo"><img src="../../create_parts/create_button/forward.png" alt="redo"></button>
-      <button class="icon-btn" id="btn-grid"><img src="../../create_parts/create_button/graph_paper.png" alt="grid"></button>
+    <!-- 戻る/進む/方眼紙 -->
+    <div class="toolbar-icons">
+      <button class="icon-btn" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
+      <button class="icon-btn" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
+      <button class="icon-btn" id="btn-grid" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
     </div>
 
-    <!-- 右：コンテンツアイコン群 -->
+    <!-- コンテンツアイコン -->
     <div class="content-icons">
-      <button class="content-btn"><img src="../../create_parts/contents_button/0_home.png" alt="home"></button>
-      <button class="content-btn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="fi"></button>
-      <button class="content-btn"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="fm"></button>
-      <button class="content-btn"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="cd"></button>
-      <button class="content-btn"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="pc"></button>
-      <button class="content-btn"><img src="../../create_parts/contents_button/5_grading.png" alt="gd"></button>
-      <button class="content-btn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="plc"></button>
-      <button class="content-btn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="ddk"></button>
+      <button class="content-btn"><img src="../../create_parts/contents_button/0_home.png" alt=""></button>
+      <button class="content-btn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt=""></button>
+      <button class="content-btn"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt=""></button>
+      <button class="content-btn"><img src="../../create_parts/contents_button/3_clothing-design.png" alt=""></button>
+      <button class="content-btn"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt=""></button>
+      <button class="content-btn"><img src="../../create_parts/contents_button/5_grading.png" alt=""></button>
+      <button class="content-btn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt=""></button>
+      <button class="content-btn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt=""></button>
     </div>
 
     <button class="next-btn">Next Step ▸▸</button>
@@ -125,203 +141,187 @@
     <!-- キャンバス -->
     <div class="canvas-area">
       <div class="canvas-board" id="board">
-        <img class="mannequin-img" id="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin" />
+        <img id="mannequin" class="mannequin-img" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
       </div>
     </div>
 
-    <!-- 右サイドバー -->
+    <!-- サイドバー -->
     <aside class="sidebar">
       <!-- スロット -->
-      <div class="card">
-        <div class="slots">
-          <button class="arrow">‹</button>
-          <div class="slots-track">
-            <div class="slot">＋</div>
-            <div class="slot">＋</div>
-            <div class="slot">＋</div>
-            <div class="slot">＋</div>
-          </div>
-          <button class="arrow">›</button>
+      <div class="slots-container">
+        <button class="arrow-btn">◀</button>
+        <div class="slots-wrapper">
+          <button class="slot-btn">+</button>
+          <button class="slot-btn">+</button>
+          <button class="slot-btn">+</button>
+          <button class="slot-btn">+</button>
+          <button class="slot-btn">+</button>
         </div>
+        <button class="arrow-btn">▶</button>
       </div>
 
       <!-- Stationery -->
-      <div class="card">
+      <div class="panel">
         <h3>Stationery</h3>
-        <div class="grid" id="stGrid">
-          <button class="st-btn selected"><img src="../../create_parts/design_button/select.png" alt="select"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/direct_select.png" alt="direct"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/sentence.png" alt="text"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/fill.png" alt="fill"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/pen.png" alt="pen"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/brush.png" alt="brush"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/eraser.png" alt="eraser"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/rotate.png" alt="rotate"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/percent.png" alt="percent"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/photo.png" alt="photo"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/add.png" alt="add"></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/shapes.png" alt="shapes"></button>
+        <div class="stationery-grid" id="stGrid">
+          <button class="st-btn selected"><img src="../../create_parts/design_button/select.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/direct_select.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/sentence.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/fill.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/pen.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/brush.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/eraser.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/rotate.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/percent.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/photo.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/add.png" alt=""></button>
+          <button class="st-btn"><img src="../../create_parts/design_button/shapes.png" alt=""></button>
         </div>
       </div>
 
       <!-- Zoom -->
-<div class="card">
-  <h3>Zoom</h3>
-  <div class="slider">
-    <button class="minus" id="zMinus">−</button>
-    <input type="range" class="range" id="zoom" min="0" max="100" value="0" />
-    <button class="plus" id="zPlus">＋</button>
-    <button class="reset" id="zReset">Reset</button>
-  </div>
-  <div class="val" id="zVal">0 %</div>
-</div>
+      <div class="panel">
+        <h3>Zoom</h3>
+        <div class="slider-control">
+          <button class="minus-btn" id="zMinus">−</button>
+          <input type="range" class="range-slider" id="zoom" min="0" max="100" value="0">
+          <button class="plus-btn" id="zPlus">＋</button>
+          <button class="reset-btn" id="zReset">Reset</button>
+        </div>
+        <div class="value-label" id="zVal">0 %</div>
+      </div>
 
       <!-- Opacity -->
-      <div class="card">
+      <div class="panel">
         <h3>Opacity</h3>
-        <div class="slider">
-          <button class="minus" id="oMinus">−</button>
-          <input type="range" class="range" id="zoom" min="0" max="100" value="0" />
-           <div class="val" id="zVal">0 %</div>
-          <button class="plus" id="oPlus">＋</button>
-          <button class="reset" id="oReset">Reset</button>
+        <div class="slider-control">
+          <button class="minus-btn" id="oMinus">−</button>
+          <input type="range" class="range-slider" id="opacity" min="0" max="100" value="100">
+          <button class="plus-btn" id="oPlus">＋</button>
+          <button class="reset-btn" id="oReset">Reset</button>
         </div>
-        <div class="val" id="oVal">100%</div>
+        <div class="value-label" id="oVal">100%</div>
       </div>
 
       <!-- Color -->
-      <div class="card">
+      <div class="panel">
         <h3>Color</h3>
-        <div class="palette">
-          <!-- 1段目 -->
-          <button class="c" style="background:#ffffff"></button>
-          <button class="c" style="background:#c0c0c0"></button>
-          <button class="c" style="background:#f4d03f"></button>
-          <button class="c" style="background:#f39c12"></button>
-          <button class="c" style="background:#f8c8d8"></button>
-          <!-- 2段目 -->
-          <button class="c" style="background:#e74c3c"></button>
-          <button class="c" style="background:#27ae60"></button>
-          <button class="c" style="background:#2ecc71"></button>
-          <button class="c" style="background:#5dade2"></button>
-          <button class="c" style="background:#2e86c1"></button>
-          <!-- 3段目 -->
-          <button class="c" style="background:#8e44ad"></button>
-          <button class="c" style="background:#7f5539"></button>
-          <button class="c" style="background:#7f8c8d"></button>
-          <button class="c" style="background:#000000"></button>
-          <button class="ctool"><img src="../../create_parts/design_button/eyedropper.png" alt="eyedropper"></button>
-          <!-- 4段目（+はそのまま） -->
-          <button class="cadd">＋</button>
-          <button class="cadd">＋</button>
-          <button class="cadd">＋</button>
-          <button class="cadd">＋</button>
+        <div class="color-palette">
+          <button class="color-btn" style="background:#ffffff"></button>
+          <button class="color-btn" style="background:#c0c0c0"></button>
+          <button class="color-btn" style="background:#f4d03f"></button>
+          <button class="color-btn" style="background:#f39c12"></button>
+          <button class="color-btn" style="background:#f8c8d8"></button>
+
+          <button class="color-btn" style="background:#e74c3c"></button>
+          <button class="color-btn" style="background:#27ae60"></button>
+          <button class="color-btn" style="background:#2ecc71"></button>
+          <button class="color-btn" style="background:#5dade2"></button>
+          <button class="color-btn" style="background:#2e86c1"></button>
+
+          <button class="color-btn" style="background:#8e44ad"></button>
+          <button class="color-btn" style="background:#7f5539"></button>
+          <button class="color-btn" style="background:#7f8c8d"></button>
+          <button class="color-btn" style="background:#000000"></button>
+          <button class="color-tool"><img src="../../create_parts/design_button/eyedropper.png" alt=""></button>
+
+          <button class="color-add">＋</button>
+          <button class="color-add">＋</button>
+          <button class="color-add">＋</button>
+          <button class="color-add">＋</button>
         </div>
       </div>
     </aside>
   </div>
 
   <script>
-    // Gender選択（画像切替）
+    // Gender 画像切替
     const mannequin = document.getElementById('mannequin');
     const board = document.getElementById('board');
     const srcMap = {
-      woman:'../../mannequin/mannequin_woman.png',
-      man:'../../mannequin/mannequin_man.png',
-      kids:'../../mannequin/mannequin_kids.png'
+      woman: '../../mannequin/mannequin_woman.png',
+      man:   '../../mannequin/mannequin_man.png',
+      kids:  '../../mannequin/mannequin_kids.png'
     };
     document.querySelectorAll('.gender-btn').forEach(btn=>{
-      btn.addEventListener('click',()=>{
+      btn.addEventListener('click', ()=>{
         document.querySelectorAll('.gender-btn').forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
         const k = btn.dataset.target; if(srcMap[k]) mannequin.src = srcMap[k];
+        // 性別切替時もフィット値を再計算
+        computeFitMaxScale(); applyZoom(Number(document.getElementById('zoom').value));
       });
     });
 
-    // Grid（方眼紙）
-    document.getElementById('btn-grid').addEventListener('click',()=>{
+    // 方眼紙
+    document.getElementById('btn-grid').addEventListener('click', ()=>{
       board.classList.toggle('grid-active');
     });
 
-    // Zoom（0〜100%）: 0% = 基準80%、100% = キャンバスに収まる最大サイズ
-const zr = document.getElementById('zoom');
-const zVal = document.getElementById('zVal');
+    /* =============== Zoom（0〜100%） ===============
+       0% = 基準80%、100% = キャンバスに収まる最大サイズ
+    ------------------------------------------------ */
+    const zr   = document.getElementById('zoom');
+    const zVal = document.getElementById('zVal');
+    const BASE_ZOOM  = 0.8;   // 0%表示時の倍率（80%）
+    const SAFE_MARGIN = 16;   // ボード内の余白(px)
+    let fitMaxScale = 1;      // ボードに収まる最大スケール（動的）
 
-const BASE_ZOOM = 0.8;   // 0%表示時の倍率（＝80%）
-const SAFE_MARGIN = 16;  // ボード内に残す余白(px)
+    function computeFitMaxScale(){
+      const prev = mannequin.style.transform;
+      mannequin.style.transform = 'none';
+      const mRect = mannequin.getBoundingClientRect();
+      const bRect = board.getBoundingClientRect();
+      mannequin.style.transform = prev;
 
-let fitMaxScale = 1;     // キャンバスに収まる最大scale（動的計算）
+      const maxByW = (bRect.width  - SAFE_MARGIN) / mRect.width;
+      const maxByH = (bRect.height - SAFE_MARGIN) / mRect.height;
+      fitMaxScale = Math.min(maxByW, maxByH);
+      if (fitMaxScale < BASE_ZOOM) fitMaxScale = BASE_ZOOM;
+    }
 
-function computeFitMaxScale() {
-  // いったん変形を外して素のサイズを取得
-  const prev = mannequin.style.transform;
-  mannequin.style.transform = 'none';
-  const mRect = mannequin.getBoundingClientRect();
-  const bRect = board.getBoundingClientRect();
-  mannequin.style.transform = prev;
+    function applyZoom(percent){
+      // 0〜100% を [BASE_ZOOM .. fitMaxScale] に線形マップ
+      const t = Math.min(1, Math.max(0, percent/100));
+      const scale = BASE_ZOOM + (fitMaxScale - BASE_ZOOM) * t;
+      zVal.textContent = Math.round(percent) + ' %';
+      mannequin.style.transform = `scale(${scale})`;
+    }
 
-  // 幅・高さの両方で収まる最大scaleを採用
-  const maxByW = (bRect.width  - SAFE_MARGIN) / mRect.width;
-  const maxByH = (bRect.height - SAFE_MARGIN) / mRect.height;
-  fitMaxScale = Math.min(maxByW, maxByH);
+    // 初期化
+    computeFitMaxScale();
+    zr.min = 0; zr.max = 100; zr.step = 1; zr.value = 0; // 0%=80%
+    applyZoom(0);
 
-  // 万一、基準(0.8)より小さくならないよう下限確保
-  if (fitMaxScale < BASE_ZOOM) fitMaxScale = BASE_ZOOM;
-}
+    // 操作
+    zr.addEventListener('input', e => applyZoom(Number(e.target.value)));
+    document.getElementById('zMinus').addEventListener('click', ()=>{
+      const v = Math.max(0, Number(zr.value)-10); zr.value = v; applyZoom(v);
+    });
+    document.getElementById('zPlus').addEventListener('click', ()=>{
+      const v = Math.min(100, Number(zr.value)+10); zr.value = v; applyZoom(v);
+    });
+    document.getElementById('zReset').addEventListener('click', ()=>{ zr.value = 0; applyZoom(0); });
 
-function applyZoom(percent) {
-  // percent: 0〜100 を [BASE_ZOOM .. fitMaxScale] に線形マップ
-  zVal.textContent = percent + ' %';
-  const t = percent / 100; // 0〜1
-  const scale = BASE_ZOOM + (fitMaxScale - BASE_ZOOM) * t;
-  mannequin.style.transform = `scale(${scale})`;
-  mannequin.style.transformOrigin = 'center center';
-}
+    // リサイズ時は最大値を再計算
+    window.addEventListener('resize', ()=>{
+      computeFitMaxScale();
+      applyZoom(Number(zr.value));
+    });
 
-// 初期化
-computeFitMaxScale();
-zr.min = 0;
-zr.max = 100;        // ★常に100固定
-zr.step = 1;
-zr.value = 0;        // 0% = 80%
-applyZoom(0);
-
-// スライダー
-zr.addEventListener('input', e => applyZoom(Number(e.target.value)));
-
-// ボタン
-document.getElementById('zMinus').addEventListener('click', () => {
-  const v = Math.max(0, Number(zr.value) - 10);
-  zr.value = v; applyZoom(v);
-});
-document.getElementById('zPlus').addEventListener('click', () => {
-  const v = Math.min(100, Number(zr.value) + 10);
-  zr.value = v; applyZoom(v);
-});
-document.getElementById('zReset').addEventListener('click', () => {
-  zr.value = 0; applyZoom(0);
-});
-
-// 画面サイズが変わったら最大値を再計算して現在%で再適用
-window.addEventListener('resize', () => {
-  computeFitMaxScale();
-  applyZoom(Number(zr.value));
-});
-
-
-    // Opacity（% → 透明度）
+    /* =============== Opacity（% → 透明度） =============== */
     const orng = document.getElementById('opacity');
     const oVal = document.getElementById('oVal');
     function applyOpacity(v){ oVal.textContent = v + '%'; mannequin.style.opacity = v/100; }
     applyOpacity(Number(orng.value));
     orng.addEventListener('input', e=> applyOpacity(Number(e.target.value)));
-    document.getElementById('oMinus').addEventListener('click',()=>{ const v=Math.max(0,Number(orng.value)-10); orng.value=v; applyOpacity(v); });
-    document.getElementById('oPlus').addEventListener('click',()=>{ const v=Math.min(100,Number(orng.value)+10); orng.value=v; applyOpacity(v); });
-    document.getElementById('oReset').addEventListener('click',()=>{ orng.value=100; applyOpacity(100); });
+    document.getElementById('oMinus').addEventListener('click', ()=>{ const v=Math.max(0,Number(orng.value)-10); orng.value=v; applyOpacity(v); });
+    document.getElementById('oPlus').addEventListener('click',  ()=>{ const v=Math.min(100,Number(orng.value)+10); orng.value=v; applyOpacity(v); });
+    document.getElementById('oReset').addEventListener('click', ()=>{ orng.value=100; applyOpacity(100); });
 
-    // Stationery 選択見た目
+    // Stationery 見た目の単純切替
     document.querySelectorAll('#stGrid .st-btn').forEach(btn=>{
-      btn.addEventListener('click',()=>{
+      btn.addEventListener('click', ()=>{
         document.querySelectorAll('#stGrid .st-btn').forEach(b=>b.classList.remove('selected'));
         btn.classList.add('selected');
       });
