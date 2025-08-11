@@ -243,39 +243,71 @@
       board.classList.toggle('grid-active');
     });
 
-    // Zoom（0〜200%、0%時の基準倍率=80%、はみ出し許可）
+    // Zoom（0〜100%）: 0% = 基準80%、100% = キャンバスに収まる最大サイズ
 const zr = document.getElementById('zoom');
 const zVal = document.getElementById('zVal');
-const BASE_ZOOM = 0.8; // 0%表示時の倍率（80%）
 
-// 最大倍率をユーザー設定（キャンバス内収まりは保証しない）
-zr.max = 200; // ← ここで最大値指定
+const BASE_ZOOM = 0.8;   // 0%表示時の倍率（＝80%）
+const SAFE_MARGIN = 16;  // ボード内に残す余白(px)
 
-function applyZoom(v) {
-  zVal.textContent = v + ' %';
-  mannequin.style.transform = `scale(${BASE_ZOOM + (v / 100)})`;
+let fitMaxScale = 1;     // キャンバスに収まる最大scale（動的計算）
+
+function computeFitMaxScale() {
+  // いったん変形を外して素のサイズを取得
+  const prev = mannequin.style.transform;
+  mannequin.style.transform = 'none';
+  const mRect = mannequin.getBoundingClientRect();
+  const bRect = board.getBoundingClientRect();
+  mannequin.style.transform = prev;
+
+  // 幅・高さの両方で収まる最大scaleを採用
+  const maxByW = (bRect.width  - SAFE_MARGIN) / mRect.width;
+  const maxByH = (bRect.height - SAFE_MARGIN) / mRect.height;
+  fitMaxScale = Math.min(maxByW, maxByH);
+
+  // 万一、基準(0.8)より小さくならないよう下限確保
+  if (fitMaxScale < BASE_ZOOM) fitMaxScale = BASE_ZOOM;
+}
+
+function applyZoom(percent) {
+  // percent: 0〜100 を [BASE_ZOOM .. fitMaxScale] に線形マップ
+  zVal.textContent = percent + ' %';
+  const t = percent / 100; // 0〜1
+  const scale = BASE_ZOOM + (fitMaxScale - BASE_ZOOM) * t;
+  mannequin.style.transform = `scale(${scale})`;
   mannequin.style.transformOrigin = 'center center';
 }
 
-// 初期表示：0%（= 80%サイズ）
-zr.value = 0;
+// 初期化
+computeFitMaxScale();
+zr.min = 0;
+zr.max = 100;        // ★常に100固定
+zr.step = 1;
+zr.value = 0;        // 0% = 80%
 applyZoom(0);
 
-// スライダー操作
-zr.addEventListener('input', (e) => applyZoom(Number(e.target.value)));
+// スライダー
+zr.addEventListener('input', e => applyZoom(Number(e.target.value)));
 
-// ボタン操作
+// ボタン
 document.getElementById('zMinus').addEventListener('click', () => {
   const v = Math.max(0, Number(zr.value) - 10);
   zr.value = v; applyZoom(v);
 });
 document.getElementById('zPlus').addEventListener('click', () => {
-  const v = Math.min(200, Number(zr.value) + 10); // ← 上限200
+  const v = Math.min(100, Number(zr.value) + 10);
   zr.value = v; applyZoom(v);
 });
 document.getElementById('zReset').addEventListener('click', () => {
   zr.value = 0; applyZoom(0);
 });
+
+// 画面サイズが変わったら最大値を再計算して現在%で再適用
+window.addEventListener('resize', () => {
+  computeFitMaxScale();
+  applyZoom(Number(zr.value));
+});
+
 
     // Opacity（% → 透明度）
     const orng = document.getElementById('opacity');
