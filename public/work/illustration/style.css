@@ -1,342 +1,414 @@
-/* =============== ベース（全体に効く） =============== */
-* {
-  margin: 0;                      /* デフォルト余白をリセット */
-  padding: 0;                     /* デフォルト内側余白をリセット */
-  box-sizing: border-box;         /* ★幅・高さ計算にpadding/境界線を含める（レイアウトが安定） */
-}
-
+/* ===== 全体レイアウト ===== */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif; /* システムフォントで軽快表示 */
-  background: #f8f3f0;             /* 全体の背景色（ベージュ） */
-}
-
-/* =============== ヘッダー =============== */
-.header {
-  display: flex;                   /* 横並びレイアウト */
-  align-items: center;             /* 縦方向中央寄せ */
-  padding: 15px 20px;              /* ヘッダー内の上下左右余白 */
-  background: white;               /* 背景白 */
-  border-bottom: 1px solid #e0e0e0;/* 下境界線（区切り） */
-  gap: 20px;                       /* 子要素同士の間隔 */
-}
-
-.title {
-  font-family: 'Playfair Display', serif; /* 装飾フォント（見出し用） */
-  font-size: 20px;                /* 見出しサイズ */
-  font-weight: 400;               /* やや細めで上品に */
-}
-
-/* =============== Gender ボタン（Woman/Man/Kids） =============== */
-.gender-group {
-  display: flex;                   /* ボタンを横並び */
-  border: 1px solid #e0e0e0;       /* 外枠 */
-  border-radius: 20px;             /* 角丸の pill 形状 */
-  overflow: hidden;                /* 角丸外に出ないように（区切り線も含め） */
-}
-
-.gender-btn {
-  padding: 8px 18px;               /* ★クリック領域の大きさ */
-  background: white;               /* 通常の背景 */
-  border: none;                    /* 個別の枠は消す（groupで囲う） */
-  font-size: 14px;                 /* 文字サイズ */
-  cursor: pointer;                 /* クリック可能カーソル */
-}
-
-.gender-btn:not(:last-child) {
-  border-right: 1px solid #e0e0e0; /* ★ボタン間の区切り線 */
-}
-
-.gender-btn.active {
-  background: #333;                /* 選択時の背景 */
-  color: white;                    /* 選択時の文字色 */
-}
-
-/* =============== ツールバーアイコン（戻る/進む/…） =============== */
-.toolbar-icons {
-  display: flex;                   /* 横並び */
-  gap: 12px;                       /* アイコン間の間隔 */
-  margin-left: 20px;               /* タイトルやGenderからの離れ */
-}
-
-.icon-btn {
-  width: 32px;                     /* ★ボタンサイズ（外側） */
-  height: 32px;
-  background: transparent;         /* ボタン背景は透明（ヘッダー色が見える） */
-  border: none;                    /* 枠線なし（必要なら付ける） */
-  cursor: pointer;                 /* クリック可能 */
-  display: flex;                   /* 中のimgを中央寄せ */
-  align-items: center;
-  justify-content: center;
-  opacity: 0.7;                    /* 通常時はやや薄く */
-}
-
-.icon-btn:hover {
-  opacity: 1;                      /* ホバーで強調 */
-}
-
-.icon-btn img {
-  width: 20px;                     /* ★中のPNGアイコンサイズ */
-  height: 20px;
-}
-
-/* =============== コンテンツアイコン（Home, FI, …） =============== */
-.content-icons {
-  display: flex;                   /* 横並び */
-  gap: 8px;                        /* アイコン間隔 */
-  margin-left: auto;               /* ★ヘッダー右端へ押しやる */
-}
-
-.content-btn {
-  width: 40px;                     /* ★タイルの外枠サイズ */
-  height: 40px;
-  background: white;               /* タイル背景色 */
-  border: 1px solid #e0e0e0;       /* 枠線でボタン感を出す */
-  border-radius: 8px;              /* 角丸 */
-  cursor: pointer;
-  display: flex;                   /* 中のimgを中央寄せ */
-  align-items: center;
-  justify-content: center;
-}
-
-.content-btn:hover {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* ホバー時の浮き上がり影 */
-}
-
-.content-btn img {
-  width: 24px;                     /* ★中のPNGアイコンサイズ */
-  height: 24px;
-}
-
-/* =============== Next Step ボタン =============== */
-.next-btn {
-  padding: 10px 20px;              /* クリック面積 */
-  background: #333;                /* 背景色 */
-  color: white;                    /* 文字色 */
-  border: none;                    /* 枠線なし（シンプル） */
-  border-radius: 20px;             /* pill 形状 */
-  font-size: 14px;                 /* 文字サイズ */
-  cursor: pointer;
-  white-space: nowrap;             /* ★改行させず一行維持 */
-}
-
-/* =============== メイン（左＝キャンバス／右＝サイドバー） =============== */
-.main-content {
-  display: flex;                    /* 左右2カラム */
-  height: calc(100vh - 70px);       /* ★ヘッダーを除いた高さを占有（70pxはヘッダー相当） */
-}
-
-/* =============== キャンバス =============== */
-.canvas-area {
-  flex: 1;                          /* ★残り幅をすべて占有（右サイド固定幅と両立） */
+  margin: 0;
+  padding: 0;
+  background: #f8f1ee;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #333;
+  text-align: center;
   display: flex;
-  align-items: center;              /* キャンバスを縦中央へ */
-  justify-content: center;          /* キャンバスを横中央へ */
-  padding: 20px;                    /* 枠との余白 */
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.canvas-board {
-  width: 90%;
-  height: 90%;
+/* ===== ヘッダー内リンク ===== */
+.auth-links {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.login-btn,
+.signup-btn {
+  background: #6c5ce7;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+  background: #5f4fd8;
+  transform: translateY(-2px);
+}
+
+/* ===== ヘッダーロゴとサブタイトル ===== */
+.logo {
+  width: 450px;
+  height: auto;
+  margin-top: 80px;
+}
+
+.tagline {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #8b7355;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* ===== コンテンツカード ===== */
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: scale(1.03);
+}
+
+.feature-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* ===== CTAセクション ===== */
+.main-cta {
+  text-align: center;
+  padding: 50px 20px;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;   /* ★はみ出しを強制的に隠す */
 }
 
-.mannequin-img{
-  width:72%;          /* ← ボード幅の72%を基準にする */
-  height:auto;
-  max-height:86%;     /* 縦もはみ出さない安全値 */
-  object-fit:contain;
-  transition:transform .2s ease, opacity .15s ease;
-  transform-origin:center center;
-}
-
-/* =============== サイドバー（右） =============== */
-.sidebar {
-  width: 280px;                     /* ★右サイドの固定幅 */
-  background: #f8f3f0;              /* 背景（本体と同系色） */
-  padding: 20px 15px;               /* 内側余白 */
-  overflow-y: auto;                 /* ★中身が長い時は縦スクロール */
-}
-
-/* =============== スロット（上の＋×5の部分など） =============== */
-.slots-container {
-  display: flex;                    /* 左矢印・スロット群・右矢印を横並び */
-  align-items: center;
-  gap: 8px;                         /* 要素間の距離 */
-  background: white;                /* コンテナ背景 */
-  padding: 10px;                    /* 内側余白 */
-  border-radius: 12px;              /* 角丸 */
-  margin-bottom: 15px;              /* 下のパネルとの間隔 */
-}
-
-.arrow-btn {
-  width: 24px;                      /* ボタン面積（クリックしやすさ） */
-  height: 24px;
-  background: none;                 /* 透明（アイコンのみ） */
+.cta-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   border: none;
-  font-size: 14px;                  /* 簡易アイコン文字のサイズ */
-  color: #999;                      /* 薄め */
-  cursor: pointer;
-}
-
-.slots-wrapper {
-  display: flex;                    /* スロットを横並び */
-  gap: 8px;                         /* スロット間隔 */
-  flex: 1;                          /* 真ん中部分を広げて両矢印とバランス */
-}
-
-.slot-btn {
-  width: 38px;                      /* スロット正方形サイズ */
-  height: 38px;
-  background: white;
-  border: 1px solid #e0e0e0;        /* 枠線 */
-  border-radius: 8px;               /* 角丸 */
-  font-size: 18px;                  /* ＋マークの大きさ */
-  color: #ccc;                      /* ＋マークの色 */
-  cursor: pointer;
-}
-
-/* =============== 共通パネル =============== */
-.panel {
-  background: white;                /* パネル背景 */
-  border-radius: 12px;              /* 角丸 */
-  padding: 15px;                    /* 内側余白 */
-  margin-bottom: 15px;              /* パネル間の余白 */
-}
-
-.panel h3 {
-  font-size: 14px;                  /* 見出しサイズ */
-  font-weight: 600;                 /* 少し強調 */
-  margin-bottom: 12px;              /* 見出しと中身の間隔 */
-}
-
-/* =============== Stationery（作業ツール） =============== */
-.stationery-grid {
-  display: grid;                    /* グリッド配置 */
-  grid-template-columns: repeat(4, 1fr); /* ★4列均等割り */
-  gap: 10px;                        /* マス間隔 */
-}
-
-.st-btn {
-  width: 48px;                      /* ★ボタン見た目サイズ */
-  height: 48px;
-  background: white;
-  border: 1px solid #e0e0e0;        /* 薄めの枠線 */
-  border-radius: 8px;               /* 角丸 */
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;          /* 中のアイコンを中央に */
-}
-
-.st-btn:hover {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* ホバーで浮かす */
-}
-
-.st-btn.selected {
-  background: #333;                 /* 選択時の背景 */
-}
-
-.st-btn.selected img {
-  filter: brightness(0) invert(1);  /* ★選択時に白アイコン化（黒→白） */
-}
-
-.st-btn img {
-  width: 24px;                      /* アイコンサイズ */
-  height: 24px;
-}
-
-/* =============== スライダー（Zoom/Opacity 共通UI） =============== */
-.slider-control {
-  display: flex;                    /* − [====] ＋ Reset を横並び */
-  align-items: center;
-  gap: 10px;                        /* パーツの間隔 */
-}
-
-.minus-btn, .plus-btn {
-  width: 24px; height: 24px;        /* ★ボタンサイズ（クリックしやすさ） */
-  background: white;
-  border: 1px solid #e0e0e0;        /* 薄い枠 */
-  border-radius: 4px;
-  font-size: 16px;                  /* 文字（−/＋）サイズ */
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-}
-
-.range-slider {
-  flex: 1;                          /* ★バーをできるだけ広く */
-  height: 4px;                      /* バーの太さ */
-  -webkit-appearance: none;         /* ブラウザ既定の見た目を無効化 */
-  background: #ddd;                 /* バーの色 */
-  border-radius: 2px;               /* 角丸 */
-  outline: none;                    /* フォーカス時の枠線はJSで制御する想定 */
-}
-
-.range-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;         /* デフォルト丸つまみ無効化 */
-  width: 16px; height: 16px;        /* ★つまみサイズ */
-  background: #4169e1;              /* つまみ色（ロイヤルブルー） */
-  border-radius: 50%;               /* 丸型 */
-  cursor: pointer;
-}
-
-.reset-btn {
-  padding: 4px 12px;                /* クリック面積 */
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.value-label {
-  font-size: 12px;                  /* ラベル文字サイズ（「80 %」など） */
-  color: #666;                      /* やや薄めで補助情報感 */
-  margin-top: 8px;                  /* スライダーとの間隔 */
-}
-
-/* =============== カラーパレット =============== */
-.color-palette {
-  display: grid;                    /* グリッド配置 */
-  grid-template-columns: repeat(5, 1fr); /* ★5列均等割り */
-  gap: 8px;                         /* マス間隔 */
-}
-
-.color-btn {
-  width: 40px; height: 40px;        /* ★色チップの大きさ */
-  border: none;
-  border-radius: 6px;               /* 角丸 */
-  cursor: pointer;
-}
-
-.color-btn:hover {
-  transform: scale(1.1);            /* ホバーで少し拡大（選択しやすく） */
-}
-
-.color-add {
-  width: 40px; height: 40px;        /* ＋セルの大きさ（色チップと同じ） */
-  background: #fafafa;              /* 薄グレー背景 */
-  border: 1px dashed #e0e0e0;       /* 破線枠で「追加」感を演出 */
-  border-radius: 6px;
+  padding: 18px 50px;
+  border-radius: 30px;
   font-size: 18px;
-  color: #ccc;
+  font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
-.color-tool {
-  width: 40px; height: 40px;        /* スポイト等のツールセル */
-  background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+.cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-.color-tool img {
-  width: 20px; height: 20px;        /* ツールアイコンの大きさ */
+.cta-text {
+  margin-top: 15px;
+  color: #999;
+  font-size: 13px;
+}
+
+/* ===== プラン表示セクション ===== */
+.pricing-section {
+  padding: 60px 20px 10px;
+  background: #fff5f0;
+  text-align: center;
+  flex: 1 0 auto;
+}
+
+.pricing-title {
+  font-size: 28px;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
+}
+
+/* ===== トグルスイッチ ===== */
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #ff7675;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* ===== 年額割引バッジ ===== */
+.save-badge {
+  background: #ff7675;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 5px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ===== プランカード ===== */
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.pricing-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 240px;
+  min-height: 320px;
+  text-align: center;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+}
+
+.pricing-card.popular {
+  border: none; /* 赤い枠を消す */
+  box-shadow: 0 8px 24px rgba(255, 118, 117, 0.18); /* 強調したい場合は影だけ残す */
+}rder: 2px solid #ff7675;
+}
+
+.pricing-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  min-height: 30px;
+}
+
+.pricing-card .price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d63031;
+  margin-bottom: 5px;
+}
+
+.price-detail {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
+  min-height: 20px;
+}
+
+.save-amount {
+  background: #fff3cd;
+  color: #856404;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 10px auto;
+  display: inline-block;
+}
+
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  margin: 0 0 20px;
+  flex-grow: 1;
+}
+
+.pricing-card li {
+  margin: 6px 0;
+}
+
+.pricing-card button {
+  background: #d63031;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+.pricing-card button[disabled] {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pricing-card button:hover:not([disabled]) {
+  background: #ff7675;
+  transform: scale(1.05);
+}
+
+/* ===== リボンバッジ調整 ===== */
+.ribbon-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* ===== レスポンシブ対応 ===== */
+@media (max-width: 992px) {
+  .features {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 300px;
+  }
+
+  .auth-links {
+    top: 10px;
+    right: 10px;
+  }
+
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cta-primary {
+    font-size: 16px;
+    padding: 15px 40px;
+  }
+
+  .ribbon-badge {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .auth-links a {
+    font-size: 13px;
+  }
+
+  .signup-btn {
+    padding: 6px 15px;
+  }
+
+  .login-btn {
+    padding: 6px 15px;
+  }
+}
+
+.ribbon-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;             /* カード幅にフィット */
+  height: auto;
+  z-index: 1000;
+  object-fit: contain;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .ribbon-badge {
+    width: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== フッター ===== */
+footer {
+  background: #fff5f0;
+  padding: 20px 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px; /* ロゴ間のスペース */
+}
+
+.footer-logo {
+  height: 40px; /* 大きさはバランスに応じて調整 */
+  width: auto;
+}
+
+.footer-icon {
+  height: 35px;
+  width: auto;
+  transition: opacity 0.3s ease;
+}
+
+.footer-icon:hover {
+  opacity: 0.7;
 }
