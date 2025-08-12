@@ -26,47 +26,100 @@
     font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
   }
 
-  /* 全体レイアウト：左=キャンバス、右=サイドバー */
+  /* レイアウト */
   .app{
     display:grid;
     grid-template-columns: 1fr 320px;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-areas:
-      "canvas  sidebar"
+      "header  sidebar"
+      "toolbar sidebar"
       "canvas  sidebar";
     height:100vh;
   }
+  header{
+    grid-area:header;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:12px 16px;
+  }
+  h1{
+    font:500 18px/1 'Playfair Display',serif;
+    color:#222;
+    margin-right:auto;
+  }
+  .gender{display:flex;gap:6px}
+  .gender button{
+    border:1px solid var(--line);
+    background:#fff;
+    padding:6px 12px;
+    border-radius:16px;
+    cursor:pointer;
+    font-size:13px;
+  }
+  .gender button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-  /* ===== キャンバス ===== */
+  /* ツールバー */
+  .toolbar{
+    grid-area:toolbar;
+    display:flex;
+    gap:14px;
+    align-items:center;
+    padding:10px 16px;
+    border-top:1px solid var(--line);
+    background:#fff8;
+    backdrop-filter:saturate(1.2) blur(2px);
+  }
+  .tool-btn{
+    background:transparent;border:none;cursor:pointer;opacity:.85
+  }
+  .tool-btn:hover{opacity:1}
+  .tool-btn img{width:22px;height:22px;display:block}
+
+  /* コンテンツバー（Home～） */
+  .contentbar{
+    display:flex;align-items:center;gap:10px;margin-left:auto;
+  }
+  .content-btn{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer; transition:.15s;
+  }
+  .content-btn img{width:26px;height:26px;display:block}
+  .content-btn:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+
+  /* キャンバス */
   .canvas-area{
     grid-area:canvas;
     display:flex;
     flex-direction:column;
     overflow:hidden;
-    padding:16px;
+    border-top:1px solid var(--line);
   }
   .board{
     position:relative;
     flex:1;
+    margin:16px;
     background:#fff;
     border:1px solid var(--line);
-    border-radius:12px;
+    border-radius:10px;
     box-shadow:var(--shadow);
-    overflow:hidden;              /* ← ここでハミ出し禁止 */
+    overflow:hidden;
   }
 
-  /* 方眼紙 */
+  /* グリッド（方眼紙） */
   .board.grid::before{
     content:"";
     position:absolute;inset:0;
     background-image:
       linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);
-    background-size:24px 24px;
+    background-size: 24px 24px;
     pointer-events:none;
   }
 
-  /* ステージ（Pan/Zoomの対象） */
+  /* ステージ（ここを pan/zoom） */
   #stage{
     position:absolute;left:0;top:0;
     transform-origin:0 0;
@@ -77,44 +130,27 @@
 
   .mannequin-base{
     display:block;
-    max-width:none;     /* 実寸ベースで拡大縮小 */
-    width:600px;        /* 初期見やすさ用の仮幅 */
+    max-width:none;      /* 画像の実サイズ基準で拡縮するため */
+    width:600px;         /* 初期の見やすい幅（任意） */
     height:auto;
     user-select:none;
     -webkit-user-drag:none;
   }
 
-  /* ===== キャンバス上 HUD（左/上/右） ===== */
-  .hud-left,.hud-top,.hud-right{
-    position:absolute; z-index:10; display:flex; gap:8px; align-items:center;
+  /* 追加パーツ用 */
+  .overlay-item{
+    position:absolute;
+    left:50%;top:50%;
+    transform:translate(-50%,-50%);
+    width:45%;
+    aspect-ratio:3/4;
+    pointer-events:auto;
   }
-  .hud-left{ top:10px; left:10px; }
-  .hud-top { top:10px; left:50%; transform:translateX(-50%); gap:12px; }
-  .hud-right{ top:10px; right:10px; gap:10px; }
+  .overlay-item img{width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
+  .overlay-item.selected-layer{outline:2px dashed #6c5ce7; outline-offset:2px}
+  .overlay-item .tint{position:absolute;inset:0;pointer-events:none;border-radius:4px}
 
-  .chip, .icon-sq, .content-btn{
-    background:#fff;border:1px solid var(--line);border-radius:10px;
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 4px 10px rgba(0,0,0,.05);
-  }
-
-  /* Gender（左） */
-  .gender{ display:flex; gap:6px; }
-  .gender .chip{
-    padding:6px 12px; font-size:13px; cursor:pointer;
-  }
-  .gender .active{ background:var(--accent); color:#fff; border-color:var(--accent); }
-
-  /* 中央ツール群（安定版のアイコン） */
-  .icon-sq{ width:32px;height:32px; cursor:pointer; }
-  .icon-sq img{ width:18px;height:18px; display:block; }
-
-  /* コンテンツ（右） */
-  .content-btn{ width:38px;height:38px; cursor:pointer; }
-  .content-btn img{ width:24px;height:24px; display:block; }
-  .content-btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow); }
-
-  /* ===== サイドバー ===== */
+  /* サイドバー */
   aside{
     grid-area:sidebar;
     padding:16px;
@@ -122,125 +158,154 @@
     background:var(--panel);
     overflow:auto;
   }
-  .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
-  .panel h3{font:500 16px/1 'Playfair Display',serif;margin-bottom:10px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .panel h3{font:500 16px/1 'Playfair Display',serif;margin-bottom:8px}
+  .pose-row{display:flex;gap:8px;overflow:auto}
+  .pose-row img{width:52px;height:80px;object-fit:contain;border:2px solid transparent;border-radius:8px;padding:2px;background:#fff;cursor:pointer}
+  .pose-row img.selected{border-color:#222}
 
   .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   .tool-tile,.color-tile{
     width:56px;height:56px;border:1px solid var(--line);border-radius:10px;background:#fff;
     display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s
   }
-  .tool-tile img{width:30px;height:30px}
   .tool-tile:hover,.color-tile:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
-
-  /* Zoom / Opacity（Reset は折り返さない） */
-  .row{display:flex;align-items:center;gap:10px}
-  .row > *{flex:0 0 auto}
-  .row .stretch{flex:1 1 auto; min-width:0}
-  input[type="range"]{width:100%}
-  .meta{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-size:13px;opacity:.8}
-  .btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 10px;cursor:pointer}
-  .btn:hover{background:#fafafa}
-
-  /* カラー */
+  .tool-tile img{width:30px;height:30px}
   .color-tile{border:none}
   .color-tile.add{font-size:22px;color:#bbb;border:1px dashed var(--line);background:#fafafa}
+
+  .nextstep{display:flex;justify-content:flex-end;margin-bottom:12px}
+  .nextstep button{
+    background:#222;color:#fff;border:none;border-radius:8px;padding:10px 16px;cursor:pointer;font-family:'Playfair Display',serif
+  }
+
+  /* Zoom パネル */
+  #zoomPanel .zoom-row{display:flex;align-items:center;gap:10px}
+  #zoomRange{width:100%}
+  .zoom-btn{
+    width:34px;height:34px;border:1px solid var(--line);
+    background:#fff;border-radius:8px;cursor:pointer;
+  }
+  .zoom-btn:hover{background:#fafafa}
+  .zoom-meta{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:8px;font-size:13px;opacity:.8;
+  }
+  .zoom-reset{
+    border:1px solid var(--line);background:#fff;
+    padding:4px 10px;border-radius:8px;cursor:pointer;
+  }
+  .zoom-reset:hover{background:#fafafa}
 </style>
 </head>
 <body>
 <div class="app">
 
-  <!-- ===== キャンバス ===== -->
+  <!-- Header -->
+  <header>
+    <h1>Vivora Fashion Illustration 2025</h1>
+    <div class="gender">
+      <button class="gbtn active" data-gender="woman">Woman</button>
+      <button class="gbtn" data-gender="man">Man</button>
+      <button class="gbtn" data-gender="kids">Kids</button>
+    </div>
+  </header>
+
+  <!-- Toolbar + Content buttons -->
+  <div class="toolbar">
+    <button class="tool-btn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
+    <button class="tool-btn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
+    <button class="tool-btn" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
+    <button class="tool-btn" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
+    <button class="tool-btn" id="btn-upload" title="Upload Part"><img src="../../create_parts/create_button/upload.png" alt=""></button>
+    <button class="tool-btn" id="btn-save" title="Save Snapshot"><img src="../../create_parts/create_button/save.png" alt=""></button>
+    <button class="tool-btn" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
+
+    <div class="contentbar">
+      <button class="content-btn" data-link="/"><img src="../../create_parts/contents_button/0_home.png" alt="Home"></button>
+      <button class="content-btn" data-link="/public/work/illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></button>
+      <button class="content-btn" data-link="/public/work/fabric/index.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm"></button>
+      <button class="content-btn" data-link="/public/work/clothing/index.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd"></button>
+      <button class="content-btn" data-link="/public/work/pattern/index.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc"></button>
+      <button class="content-btn" data-link="/public/work/grading/index.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Gd"></button>
+      <button class="content-btn" data-link="/public/work/print/index.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></button>
+      <button class="content-btn" data-link="/public/work/digital-kids/index.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></button>
+    </div>
+  </div>
+
+  <!-- Canvas -->
   <section class="canvas-area">
     <div id="board" class="board">
-      <!-- HUD 左：Gender -->
-      <div class="hud-left">
-        <div class="gender">
-          <button class="chip gbtn active" data-gender="woman">Woman</button>
-          <button class="chip gbtn" data-gender="man">Man</button>
-          <button class="chip gbtn" data-gender="kids">Kids</button>
-        </div>
-      </div>
-
-      <!-- HUD 上部中央：安定版ツール群（方眼紙含む） -->
-      <div class="hud-top">
-        <button class="icon-sq" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
-        <button class="icon-sq" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
-        <button class="icon-sq" id="btn-reset" title="Reset"><img src="../../create_parts/create_button/reset.png" alt=""></button>
-        <button class="icon-sq" id="btn-download" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
-        <button class="icon-sq" id="btn-upload" title="Upload"><img src="../../create_parts/create_button/upload.png" alt=""></button>
-        <button class="icon-sq" id="btn-save" title="Save"><img src="../../create_parts/create_button/save.png" alt=""></button>
-        <button class="icon-sq" id="grid-toggle" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
-      </div>
-
-      <!-- HUD 右：コンテンツアイコン -->
-      <div class="hud-right">
-        <button class="content-btn" data-link="/"><img src="../../create_parts/contents_button/0_home.png" alt=""></button>
-        <button class="content-btn" data-link="/public/work/illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt=""></button>
-        <button class="content-btn" data-link="/public/work/fabric/index.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt=""></button>
-        <button class="content-btn" data-link="/public/work/clothing/index.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt=""></button>
-        <button class="content-btn" data-link="/public/work/pattern/index.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt=""></button>
-        <button class="content-btn" data-link="/public/work/grading/index.html"><img src="../../create_parts/contents_button/5_grading.png" alt=""></button>
-        <button class="content-btn" data-link="/public/work/print/index.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt=""></button>
-        <button class="content-btn" data-link="/public/work/digital-kids/index.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt=""></button>
-      </div>
-
-      <!-- ステージ（Pan/Zoom対象） -->
+      <!-- ← グリッドONで開始（不要なら class="board" に） -->
       <div id="stage">
         <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+        <!-- overlay-item はここに追加される -->
       </div>
     </div>
   </section>
 
-  <!-- ===== サイドバー ===== -->
+  <!-- Sidebar -->
   <aside>
+    <div class="nextstep"><button>Next Step ▶▶</button></div>
+
+    <div class="panel">
+      <h3>Pose</h3>
+      <div class="pose-row" id="poseRow">
+        <img class="selected" src="../../mannequin/pose1.png" data-pose-src="../../mannequin/mannequin_woman.png" alt="">
+        <img src="../../mannequin/pose2.png" data-pose-src="../../mannequin/mannequin_woman_pose2.png" alt="">
+        <img src="../../mannequin/pose3.png" data-pose-src="../../mannequin/mannequin_woman_pose3.png" alt="">
+        <img src="../../mannequin/pose4.png" data-pose-src="../../mannequin/mannequin_woman_pose4.png" alt="">
+      </div>
+    </div>
 
     <div class="panel">
       <h3>Stationery</h3>
-      <div class="grid-4" id="stGrid">
-        <div class="tool-tile"><img src="../../create_parts/design_button/select.png" alt=""></div>
-        <div class="tool-tile"><img src="../../create_parts/design_button/direct_select.png" alt=""></div>
-        <div class="tool-tile"><img src="../../create_parts/design_button/sentence.png" alt=""></div>
-        <div class="tool-tile"><img src="../../create_parts/design_button/fill.png" alt=""></div>
+      <div class="grid-4">
+        <div class="tool-tile" data-tool="select"><img src="../../create_parts/design_button/select.png" alt=""></div>
+        <div class="tool-tile" data-tool="direct_select"><img src="../../create_parts/design_button/direct_select.png" alt=""></div>
+        <div class="tool-tile" data-tool="text"><img src="../../create_parts/design_button/sentence.png" alt=""></div>
+        <div class="tool-tile" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt=""></div>
 
-        <div class="tool-tile"><img src="../../create_parts/design_button/pen.png" alt=""></div>
-        <div class="tool-tile"><img src="../../create_parts/design_button/brush.png" alt=""></div>
-        <div class="tool-tile"><img src="../../create_parts/design_button/eraser.png" alt=""></div>
-        <div class="tool-tile"><img src="../../create_parts/design_button/rotate.png" alt=""></div>
+        <div class="tool-tile" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt=""></div>
+        <div class="tool-tile" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt=""></div>
+        <div class="tool-tile" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt=""></div>
+        <div class="tool-tile" data-tool="rotate"><img src="../../create_parts/design_button/rotate.png" alt=""></div>
 
-        <div class="tool-tile"><img src="../../create_parts/design_button/percent.png" alt=""></div>
-        <div class="tool-tile"><img src="../../create_parts/design_button/photo.png" alt=""></div>
-        <div class="tool-tile"><img src="../../create_parts/design_button/add.png" alt=""></div>
-        <div class="tool-tile"><img src="../../create_parts/design_button/shapes.png" alt=""></div>
+        <div class="tool-tile" data-tool="percent"><img src="../../create_parts/design_button/percent.png" alt=""></div>
+        <div class="tool-tile" data-tool="photo" data-part-src="../../contents/sample/add-on.png"><img src="../../create_parts/design_button/photo.png" alt=""></div>
+        <div class="tool-tile" data-tool="add" data-part-src="../../contents/sample/add-on2.png"><img src="../../create_parts/design_button/add.png" alt=""></div>
+        <div class="tool-tile" data-tool="shapes"><img src="../../create_parts/design_button/shapes.png" alt=""></div>
       </div>
     </div>
 
     <!-- Zoom -->
-    <div class="panel">
+    <div class="panel" id="zoomPanel">
       <h3>Zoom</h3>
-      <div class="row">
-        <button class="btn" id="zoomOutBtn">−</button>
-        <div class="stretch"><input type="range" id="zoomRange" min="25" max="600" value="100" step="1"></div>
-        <button class="btn" id="zoomInBtn">＋</button>
+      <div class="zoom-row">
+        <button class="zoom-btn" id="zoomOutBtn" aria-label="Zoom out">−</button>
+        <input type="range" id="zoomRange" min="25" max="600" value="100" step="1" />
+        <button class="zoom-btn" id="zoomInBtn" aria-label="Zoom in">＋</button>
       </div>
-      <div class="meta">
+      <div class="zoom-meta">
         <span id="zoomVal">100%</span>
-        <button class="btn" id="zoomResetBtn">Reset</button>
+        <button class="zoom-reset" id="zoomResetBtn" title="Reset zoom">Reset</button>
       </div>
     </div>
 
     <!-- Opacity -->
-    <div class="panel">
+    <div class="panel" id="opacityPanel">
       <h3>Opacity</h3>
-      <div class="row">
-        <div class="stretch"><input type="range" id="opacityRange" min="0" max="100" value="100"></div>
-        <span id="opacityVal" style="opacity:.8">100%</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <input type="range" id="opacityRange" min="0" max="100" value="100" />
+        <span id="opacityVal" style="font-size:13px;opacity:.75">100%</span>
       </div>
+      <small style="opacity:.6;display:block;margin-top:6px">
+        ※ レイヤー選択中はそのレイヤーに、未選択時はマネキンに適用
+      </small>
     </div>
 
-    <!-- Color -->
     <div class="panel">
-      <h3>Color</h3>
+      <h3>Color <small style="font:12px/1 sans-serif;opacity:.6">Custom...</small></h3>
       <div class="grid-4" id="colorGrid">
         <button class="color-tile" style="background:#ffffff" data-color="#ffffff"></button>
         <button class="color-tile" style="background:#cccccc" data-color="#cccccc"></button>
@@ -256,38 +321,129 @@
         <button class="color-tile" style="background:#0000ff" data-color="#0000ff"></button>
         <button class="color-tile" style="background:#990099" data-color="#990099"></button>
         <button class="color-tile" style="background:#000000" data-color="#000000"></button>
-
-        <!-- スポイト（表示復活） -->
-        <button class="color-tile" title="Eyedropper">
-          <img src="../../create_parts/design_button/eyedropper.png" alt="eyedropper" style="width:30px;height:30px">
-        </button>
       </div>
     </div>
-
   </aside>
 </div>
 
 <script>
-/* ========== Pan & Zoom（キャンバス内に限定） ========== */
+/* ---------------------------
+   Undo / Redo (簡易スナップショット)
+--------------------------- */
+const State = (() => {
+  const undo=[], redo=[]; const MAX=50;
+  const snap = () => ({
+    stageHTML: document.getElementById('stage').innerHTML,
+    gender: document.querySelector('.gbtn.active')?.dataset.gender || 'woman',
+    grid: document.getElementById('board').classList.contains('grid')
+  });
+  const restore = s => {
+    const st = document.getElementById('stage');
+    st.innerHTML = s.stageHTML;
+    document.getElementById('board').classList.toggle('grid', s.grid);
+    document.querySelectorAll('.gbtn').forEach(b=>b.classList.toggle('active', b.dataset.gender===s.gender));
+    Layer.initSelectable();
+  };
+  const push = () => { undo.push(snap()); if(undo.length>MAX) undo.shift(); redo.length=0; };
+  const doUndo = () => { if(!undo.length) return; const cur=snap(); const prev=undo.pop(); redo.push(cur); restore(prev); };
+  const doRedo = () => { if(!redo.length) return; const cur=snap(); const next=redo.pop(); undo.push(cur); restore(next); };
+  return {push,undo:doUndo,redo:doRedo,snap};
+})();
+
+/* ---------------------------
+   レイヤ（選択/色/パーツ追加）
+--------------------------- */
+const Layer = (() => {
+  let selected=null;
+  const stage = document.getElementById('stage');
+
+  const select = el => {
+    if(selected) selected.classList.remove('selected-layer');
+    selected = el;
+    if(selected) selected.classList.add('selected-layer');
+  };
+
+  const initSelectable = () => {
+    stage.querySelectorAll('.overlay-item').forEach(el=>{
+      el.addEventListener('pointerdown', e=>{
+        e.stopPropagation();
+        select(el);
+      });
+      makeDraggable(el);
+    });
+  };
+
+  const makeDraggable = (holder) => {
+    let drag=false, sx=0, sy=0, ox=0, oy=0;
+    holder.addEventListener('pointerdown', e=>{
+      drag=true; holder.setPointerCapture(e.pointerId);
+      sx=e.clientX; sy=e.clientY;
+      const r=holder.getBoundingClientRect(), sr=stage.getBoundingClientRect();
+      ox=r.left-sr.left; oy=r.top-sr.top;
+      select(holder);
+    });
+    holder.addEventListener('pointermove', e=>{
+      if(!drag) return;
+      const sr=stage.getBoundingClientRect();
+      const nx=ox+(e.clientX-sx), ny=oy+(e.clientY-sy);
+      holder.style.left = (nx + holder.offsetWidth/2 - sr.left)/sr.width*100 + '%';
+      holder.style.top  = (ny + holder.offsetHeight/2 - sr.top )/sr.height*100 + '%';
+      holder.style.transform='translate(-50%,-50%)';
+    });
+    holder.addEventListener('pointerup', ()=>{ drag=false; State.push(); });
+  };
+
+  const addPart = (src) => {
+    const holder=document.createElement('div');
+    holder.className='overlay-item';
+    const img=document.createElement('img');
+    img.src=src; img.alt='part';
+    holder.appendChild(img);
+    stage.appendChild(holder);
+    makeDraggable(holder);
+    select(holder);
+    State.push();
+  };
+
+  const applyColor = (hex) => {
+    if(!selected) return;
+    if(!selected.querySelector(':scope > .tint')){
+      const t=document.createElement('div'); t.className='tint'; selected.appendChild(t);
+    }
+    selected.querySelector(':scope > .tint').style.backgroundColor = hex + '80';
+    State.push();
+  };
+
+  // 何もない場所クリックで選択解除
+  document.getElementById('board').addEventListener('pointerdown', e=>{
+    if(!stage.contains(e.target)) select(null);
+  });
+
+  // Opacity API（外から使う）
+  const setOpacity = (value01)=>{
+    if(selected){
+      selected.style.opacity = value01;
+    }else{
+      const m = document.getElementById('mannequin');
+      if(m) m.style.opacity = value01;
+    }
+  };
+
+  const getSelected = ()=>selected;
+
+  return {initSelectable,addPart,applyColor,select,setOpacity,getSelected};
+})();
+
+/* ---------------------------
+   Pan & Zoom（ステージ）
+   外部操作用に ZoomAPI を公開
+--------------------------- */
 (() => {
   const wrapper = document.getElementById('board');
   const stage   = document.getElementById('stage');
-  const img     = document.getElementById('mannequin');
-
   let scale=1, tx=0, ty=0; const MIN=.25, MAX=6, SPEED=1.0015;
-  const apply = ()=> stage.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
 
-  // 初期フィット（はみ出さない最大）
-  function fit(){
-    const rect=wrapper.getBoundingClientRect();
-    const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
-    if(!iw||!ih) return;
-    const m=80, kx=(rect.width-m)/iw, ky=(rect.height-m)/ih;
-    scale=Math.min(Math.max(Math.min(kx,ky),MIN),3);
-    tx=(rect.width-iw*scale)/2;
-    ty=(rect.height-ih*scale)/2;
-    apply(); ZoomUI.update(scale);
-  }
+  const apply = ()=> stage.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
 
   // Drag Pan
   let dragging=false, sx=0, sy=0, stx=0, sty=0;
@@ -297,6 +453,7 @@
 
   wrapper.addEventListener('pointerdown', e=>{
     if(e.button===2) return;
+    if(!stage.contains(e.target) && e.target!==stage) return;
     stage.setPointerCapture(e.pointerId);
     start(e.clientX,e.clientY);
   });
@@ -304,7 +461,7 @@
   wrapper.addEventListener('pointerup', end);
   wrapper.addEventListener('pointercancel', end);
 
-  // Wheel Zoom / Pinch Zoom
+  // Wheel Zoom（トラックパッドピンチ含む）
   wrapper.addEventListener('wheel', e=>{
     const zoomIntent = e.ctrlKey || Math.abs(e.deltaY) > Math.abs(e.deltaX);
     if(!zoomIntent) return;
@@ -319,10 +476,11 @@
     tx = e.clientX-rect.left - ratio*cx;
     ty = e.clientY-rect.top  - ratio*cy;
     scale = next;
-    apply(); ZoomUI.update(scale);
+    apply();
+    ZoomUI.update(scale);
   }, {passive:false});
 
-  // 2本指ピンチ（モバイル）
+  // Touch Pinch
   let t1=null,t2=null, dist0=0, scale0=1, mid0={x:0,y:0}, tx0=0,ty0=0;
   const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
   const mid =(a,b)=>({x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2});
@@ -348,7 +506,8 @@
       const my = mid0.y-rect.top  - ty0;
       tx = tx0 + (1-ratio)*mx;
       ty = ty0 + (1-ratio)*my;
-      scale=next; apply(); ZoomUI.update(scale);
+      scale=next; apply();
+      ZoomUI.update(scale);
     }
   },{passive:false});
   wrapper.addEventListener('touchend', end,{passive:true});
@@ -356,9 +515,23 @@
 
   function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 
+  // 初期フィット
+  const fit=()=>{
+    const rect=wrapper.getBoundingClientRect();
+    const img=document.getElementById('mannequin');
+    const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
+    if(!iw||!ih) return;
+    const m=80, kx=(rect.width-m)/iw, ky=(rect.height-m)/ih;
+    scale=Math.min(Math.max(Math.min(kx,ky),.25),3);
+    tx=(rect.width-iw*scale)/2;
+    ty=(rect.height-ih*scale)/2;
+    apply();
+    ZoomUI.update(scale);
+  };
   window.addEventListener('load',fit);
   window.addEventListener('resize',fit);
 
+  // 外部制御API
   window.ZoomAPI = {
     getScale: ()=>scale,
     zoomTo: (newScale, focal=null)=>{
@@ -371,17 +544,19 @@
       ty = (focal?.y ?? rect.height/2) - ratio*cy;
       scale = newScale; apply(); ZoomUI.update(scale);
     },
-    step: (delta)=> ZoomAPI.zoomTo(scale+delta),
-    reset: ()=> fit()
+    step: (delta)=>{ window.ZoomAPI.zoomTo(scale+delta); },
+    reset: ()=>{ fit(); }
   };
 })();
 
-/* ========== ズームUI（はみ出し防止済み） ========== */
+/* ---------------------------
+   Zoom UI（スライダー／ボタン）
+--------------------------- */
 const ZoomUI = (()=> {
   const range = ()=>document.getElementById('zoomRange');
   const val   = ()=>document.getElementById('zoomVal');
-  const s2v = s => Math.round(s*100);   // 実倍率→パーセント
-  const v2s = v => v/100;               // パーセント→実倍率
+  const s2v = s => Math.round(s*100);
+  const v2s = v => v/100;
 
   function update(scale){
     if(!range()) return;
@@ -401,9 +576,60 @@ const ZoomUI = (()=> {
   return {update};
 })();
 
-/* ========== UI配線（性別・ツール・色・方眼紙など） ========== */
+/* ---------------------------
+   UI配線
+--------------------------- */
 window.addEventListener('DOMContentLoaded', () => {
+  State.push();
   const $ = s => document.querySelector(s);
+
+  // Content buttons
+  document.querySelectorAll('.content-btn').forEach(b=>{
+    b.addEventListener('click', ()=> {
+      const link = b.dataset.link;
+      if(link) location.href = link;
+    });
+  });
+
+  // Undo/Redo/Reset/Download/Upload/Save/Grid
+  $('#btn-undo') .addEventListener('click', ()=>State.undo());
+  $('#btn-redo') .addEventListener('click', ()=>State.redo());
+
+  $('#btn-reset').addEventListener('click', ()=>{
+    const active = document.querySelector('.gbtn.active')?.dataset.gender || 'woman';
+    const map={
+      woman:'../../mannequin/mannequin_woman.png',
+      man  :'../../mannequin/mannequin_man.png',
+      kids :'../../mannequin/mannequin_kids.png'
+    };
+    const st=document.getElementById('stage');
+    st.innerHTML = `<img id="mannequin" class="mannequin-base" src="${map[active]}" alt="Mannequin">`;
+    Layer.initSelectable();
+    State.push();
+    ZoomAPI.reset();
+  });
+
+  $('#btn-download').addEventListener('click', ()=>{
+    const blob = new Blob([document.getElementById('stage').innerHTML],{type:'text/html'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='vivora-illustration.htmlfrag'; a.click(); URL.revokeObjectURL(a.href);
+  });
+
+  $('#btn-upload').addEventListener('click', ()=>{
+    const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*,.svg';
+    inp.onchange=(e)=>{ const f=e.target.files?.[0]; if(!f) return; Layer.addPart(URL.createObjectURL(f)); };
+    inp.click();
+  });
+
+  $('#btn-save').addEventListener('click', ()=>{
+    localStorage.setItem('vivora-snap', JSON.stringify(State.snap()));
+    alert('Saved locally.');
+  });
+
+  $('#grid-toggle').addEventListener('click', ()=>{
+    document.getElementById('board').classList.toggle('grid');
+    State.push();
+  });
 
   // Gender
   document.querySelectorAll('.gbtn').forEach(b=>{
@@ -415,43 +641,49 @@ window.addEventListener('DOMContentLoaded', () => {
         man  :'../../mannequin/mannequin_man.png',
         kids :'../../mannequin/mannequin_kids.png'
       };
-      $('#mannequin').src = map[b.dataset.gender] || map.woman;
+      const img=document.getElementById('mannequin');
+      img.src = map[b.dataset.gender] || map.woman;
+      State.push();
       ZoomAPI.reset();
     });
   });
 
-  // Content buttons（右上）
-  document.querySelectorAll('.content-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const link = btn.dataset.link;
-      if(link) location.href = link;
+  // Pose
+  document.querySelectorAll('#poseRow img').forEach(ph=>{
+    ph.addEventListener('click', ()=>{
+      document.querySelectorAll('#poseRow img').forEach(p=>p.classList.remove('selected'));
+      ph.classList.add('selected');
+      const src=ph.dataset.poseSrc;
+      const img=document.getElementById('mannequin');
+      if(src) img.src=src;
+      State.push();
+      ZoomAPI.reset();
     });
   });
 
-  // Undo / Redo / Reset / Download / Upload / Save / Grid
-  $('#btn-undo')?.addEventListener('click', ()=>history.back());     // 実装は用途に応じて
-  $('#btn-redo')?.addEventListener('click', ()=>history.forward());  // （プレースホルダ）
-  $('#btn-reset')?.addEventListener('click', ()=> ZoomAPI.reset());
-  $('#btn-download')?.addEventListener('click', ()=>{/* TODO */});
-  $('#btn-upload')?.addEventListener('click', ()=>{/* TODO */});
-  $('#btn-save')?.addEventListener('click', ()=>{/* TODO */});
-  $('#grid-toggle')?.addEventListener('click', ()=> document.getElementById('board').classList.toggle('grid'));
+  // Stationery：data-part-src があれば追加
+  document.querySelectorAll('.tool-tile').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      const src=t.dataset.partSrc;
+      if(src) Layer.addPart(src);
+    });
+  });
+
+  // Color
+  document.querySelectorAll('#colorGrid .color-tile').forEach(c=>{
+    c.addEventListener('click', ()=> Layer.applyColor(c.dataset.color));
+  });
 
   // Opacity
   const opRange = document.getElementById('opacityRange');
   const opVal   = document.getElementById('opacityVal');
   opRange.addEventListener('input', ()=>{
-    const v=Number(opRange.value);
+    const v = Number(opRange.value);
     opVal.textContent = v + '%';
-    document.getElementById('mannequin').style.opacity = v/100;
+    Layer.setOpacity(v/100);
   });
 
-  // Color（スポイトは表示のみ。動作は実装時に）
-  document.querySelectorAll('#colorGrid .color-tile[data-color]').forEach(c=>{
-    c.addEventListener('click', ()=> {
-      // 将来：選択レイヤーにtint適用等
-    });
-  });
+  Layer.initSelectable();
 });
 </script>
 </body>
