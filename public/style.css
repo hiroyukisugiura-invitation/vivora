@@ -385,40 +385,42 @@ input:checked + .slider:before {
   }
 }
 
-/* ===== フッター ===== */
-footer {
-  background: #fff5f0;
+/* ===== フッター修正（画像差し込み＋横並び） ===== */
+.footer-content {
+  display: flex;
+  justify-content: space-between; /* 左右に分ける */
+  align-items: center;
   padding: 20px 40px;
 }
 
-.footer-content {
+.footer-left {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-logo {
+  width: 50px; /* ロゴ画像のサイズ調整 */
+  height: auto;
 }
 
 .footer-text {
-  font-size: 14px;
+  font-size: 16px;
   color: #444;
 }
 
-.footer-insta {
+.footer-right {
   display: flex;
   align-items: center;
   gap: 6px;
-  text-decoration: none;
-  color: #444;
-  font-size: 14px;
 }
 
 .footer-icon {
-  width: 20px;
-  height: 20px;
-  transition: opacity 0.3s ease;
+  width: 22px; /* インスタアイコンのサイズ */
+  height: 22px;
 }
 
-.footer-icon:hover {
-  opacity: 0.7;
+.footer-insta span {
+  font-size: 14px;
+  color: #444;
 }
