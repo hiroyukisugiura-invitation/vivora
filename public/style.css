@@ -1,3 +1,7 @@
+状態の良かった時点のメインページ
+
+CSS
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 /* ===== 全体レイアウト ===== */
 body {
   margin: 0;
@@ -385,127 +389,30 @@ input:checked + .slider:before {
   }
 }
 
-/* ===== フッター修正（画像差し込み＋横並び） ===== */
-.footer-content {
-  display: flex;
-  justify-content: space-between; /* 左右に分ける */
-  align-items: center;
-  padding: 20px 40px;
+/* ===== フッター ===== */
+footer {
+  background: #fff5f0;
+  padding: 20px 0;
 }
 
-.footer-left {
+.footer-content {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 16px; /* ロゴ間のスペース */
 }
 
 .footer-logo {
-  width: 50px; /* ロゴ画像のサイズ調整 */
-  height: auto;
-}
-
-.footer-text {
-  font-size: 16px;
-  color: #444;
-}
-
-.footer-right {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  height: 40px; /* 大きさはバランスに応じて調整 */
+  width: auto;
 }
 
 .footer-icon {
-  width: 22px; /* インスタアイコンのサイズ */
-  height: 22px;
+  height: 35px;
+  width: auto;
+  transition: opacity 0.3s ease;
 }
 
-.footer-insta span {
-  font-size: 14px;
-  color: #444;
-}
-/* ===== HEADER (Stable) ===== */
-.vi-header{
-  display:grid;
-  grid-template-columns:auto auto 1fr auto auto; /* title / gender / center actions / contents / next */
-  align-items:center;
-  gap:20px;
-  padding:14px 18px;
-  background:#f4eee6; /* ベージュ基調 */
-  border-bottom:1px solid #e0d7d0;
-}
-
-.vi-title{
-  font-family:'Playfair Display', serif;
-  font-size:20px;
-  font-weight:500;
-  color:#222;
-  white-space:nowrap;
-  margin-right:6px;
-}
-
-/* Gender group (Left) */
-.vi-genders{
-  display:flex;
-  background:#fff;
-  border:1px solid #e0e0e0;
-  border-radius:999px;
-  overflow:hidden;
-}
-.vi-gender{
-  padding:8px 16px;
-  background:#fff;
-  border:0;
-  font-size:14px;
-  cursor:pointer;
-  color:#333;
-}
-.vi-gender + .vi-gender{ border-left:1px solid #e9e9e9; }
-.vi-gender.is-active{ background:#222; color:#fff; }
-
-/* Actions (Center) */
-.vi-actions{
-  justify-self:center;
-  display:flex;
-  gap:10px;
-}
-.vi-ibtn{
-  width:34px;height:34px;
-  display:flex;align-items:center;justify-content:center;
-  background:#fff;
-  border:1px solid #e0d7d0;
-  border-radius:8px;
-  box-shadow:0 1px 1px rgba(0,0,0,.03);
-  cursor:pointer;
-}
-.vi-ibtn img{ width:18px;height:18px;display:block; }
-
-/* Contents (Right) */
-.vi-contents{
-  justify-self:end;
-  display:flex; gap:8px;
-}
-.vi-cbtn{
-  width:40px;height:40px;
-  display:flex;align-items:center;justify-content:center;
-  background:#fff;border:1px solid #e0d7d0;border-radius:10px;
-  cursor:pointer;
-  box-shadow:0 1px 1px rgba(0,0,0,.03);
-}
-.vi-cbtn img{ width:22px;height:22px;display:block; }
-
-/* Next button (Far Right) */
-.vi-next{
-  padding:10px 16px;
-  background:#222;color:#fff;border:0;border-radius:999px;
-  font-size:14px;white-space:nowrap;cursor:pointer;
-}
-
-/* 小さめ画面ではコンテンツ群を自動で隠す（崩れ防止） */
-@media (max-width: 1200px){
-  .vi-contents{ display:none; }
-}
-@media (max-width: 860px){
-  .vi-title{ display:none; }         /* さらに狭い時はタイトルも省略 */
-  .vi-header{ grid-template-columns:auto 1fr auto; } /* gender / actions / next */
+.footer-icon:hover {
+  opacity: 0.7;
 }
