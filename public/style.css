@@ -1,362 +1,424 @@
-/* ===== CSSカスタムプロパティ（変数）定義 ===== */
-:root {
-  /* Colors */
-  --bg-main: #f8f1ee;
-  --bg-panel: #faf6f3;
-  --text-primary: #3d3d3d;
-  --font-accent: 'Playfair Display', serif;
-  --border-color: #e0d5d0;
-  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
-
-  /* Spacing */
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-}
-
-/* ===== 基本リセットとボディスタイル ===== */
-* {
-  box-sizing: border-box;
+/* ===== 全体レイアウト ===== */
+body {
   margin: 0;
   padding: 0;
-}
-
-body {
-  background-color: var(--bg-main);
-  color: var(--text-primary);
+  background: #f8f1ee;
   font-family: 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ===== アプリケーション全体レイアウト ===== */
-.app-container {
-  display: flex;
-  height: 100vh;
-}
-
-.main-workspace {
-  flex: 1;
+  color: #333;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-lg);
-  overflow: hidden; /* Canvas以外はスクロールしない */
+  min-height: 100vh;
 }
 
-.sidebar-controls {
-  width: 320px;
-  background-color: var(--bg-main); /* or var(--bg-panel) if you prefer */
-  padding: var(--spacing-lg);
+/* ===== ヘッダー内リンク ===== */
+.auth-links {
+  position: absolute;
+  top: 20px;
+  right: 30px;
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  overflow-y: auto; /* サイドバーが長くなった場合にスクロール */
-  border-left: 1px solid var(--border-color);
+  gap: 20px;
 }
 
-/* ===== 左側：メインエリアのスタイル ===== */
-.main-header {
-  margin-bottom: var(--spacing-md);
-}
-
-.title {
-  font-family: var(--font-accent);
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: var(--spacing-md);
-  text-align: left;
-}
-
-.gender-selector {
-  display: flex;
-  gap: 8px;
-}
-
-.gender-button {
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  padding: 8px 18px;
-  font-size: 14px;
-  cursor: pointer;
+.login-btn,
+.signup-btn {
+  background: #6c5ce7;
+  color: white;
+  padding: 8px 20px;
   border-radius: 20px;
-  transition: all 0.2s ease-in-out;
-  box-shadow: var(--shadow-light);
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
 }
 
-.gender-button.active,
-.gender-button:hover {
-  background-color: var(--text-primary);
-  color: #fff;
-  border-color: var(--text-primary);
+.login-btn:hover,
+.signup-btn:hover {
+  background: #5f4fd8;
+  transform: translateY(-2px);
 }
 
-.toolbar-area {
-  margin-bottom: var(--spacing-md);
-  display: flex;
-  gap: var(--spacing-lg);
-  align-items: center;
+/* ===== ヘッダーロゴとサブタイトル ===== */
+.logo {
+  width: 450px;
+  height: auto;
+  margin-top: 80px;
 }
 
-.action-toolbar, .content-toolbar {
-  display: flex;
-  gap: 12px;
+.tagline {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: #8b7355;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
-.icon-button {
-  background-color: transparent;
-  border: none;
-  padding: 4px;
+/* ===== コンテンツカード ===== */
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  transition: transform 0.3s ease;
   cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
 }
 
-.icon-button:hover {
-  opacity: 1;
+.feature-card:hover {
+  transform: scale(1.03);
 }
 
-.icon-button img {
-  display: block;
-  width: 28px;
-  height: 28px;
+.feature-card img {
+  width: 100%;
+  border-radius: 8px;
 }
 
-/* ===== キャンバスエリア ===== */
-.canvas-wrapper {
-  flex-grow: 1; /* 残りの高さを全て使う */
-  position: relative;
+/* ===== CTAセクション ===== */
+.main-cta {
+  text-align: center;
+  padding: 50px 20px;
+  background: white;
+}
+
+.cta-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 18px 50px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.cta-text {
+  margin-top: 15px;
+  color: #999;
+  font-size: 13px;
+}
+
+/* ===== プラン表示セクション ===== */
+.pricing-section {
+  padding: 60px 20px 10px;
+  background: #fff5f0;
+  text-align: center;
+  flex: 1 0 auto;
+}
+
+.pricing-title {
+  font-size: 28px;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
+}
+
+/* ===== トグルスイッチ ===== */
+.toggle-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden; /* Pan&Zoomではみ出した部分を隠す */
-  box-shadow: var(--shadow-light);
+  gap: 10px;
+  margin-bottom: 40px;
 }
 
-/* 方眼紙のスタイル（JSでこのクラスを付け外しする） */
-.canvas-wrapper.grid-active {
-  background-image:
-    linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-.mannequin-base {
-  max-width: 100%;
-  max-height: 90%;
-  object-fit: contain;
-  transition: transform 0.3s ease; /* Pan&Zoomアニメーション用 */
-}
-
-/* ===== 右側：サイドバーのスタイル ===== */
-.next-step-panel {
-  text-align: right;
-  margin-bottom: var(--spacing-md);
-}
-.next-step-button {
-  background-color: var(--text-primary);
-  color: white;
-  font-family: var(--font-accent);
-  font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.next-step-button:hover {
-  background-color: #000;
-}
-
-.panel {
-  background-color: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: var(--spacing-md);
-  box-shadow: var(--shadow-light);
-}
-
-.panel-title {
-  font-family: var(--font-accent);
-  font-size: 18px;
-  margin-bottom: var(--spacing-md);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.custom-button {
-    background: none;
-    border: none;
-    color: var(--text-primary);
-    text-decoration: underline;
-    font-size: 12px;
-    cursor: pointer;
-}
-.panel-footer {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 8px;
-}
-
-
-/* ポーズ選択パネル */
-.pose-selector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.pose-thumbnails {
-    flex-grow: 1;
-    display: flex;
-    gap: 8px;
-    overflow-x: auto; /* はみ出した場合にスクロール */
-    scrollbar-width: none; /* Firefox */
-}
-.pose-thumbnails::-webkit-scrollbar { display: none; } /* Chrome, Safari */
-.pose-thumb {
+.switch {
+  position: relative;
+  display: inline-block;
   width: 50px;
-  height: 80px;
-  object-fit: contain;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 4px;
-  transition: border-color 0.2s;
-}
-.pose-thumb.selected,
-.pose-thumb:hover {
-  border-color: var(--text-primary);
-}
-.arrow { background: none; border: none; font-size: 24px; cursor: pointer; color: #aaa;}
-
-
-/* 作業ボード＆カラーパネルのグリッド */
-.stationery-grid, .color-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  justify-items: center;
-}
-.tool-button, .color-box {
-    background-color: #fff;
-    border: 1px solid var(--border-color);
-    width: 54px;
-    height: 54px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-}
-.tool-button:hover, .color-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-}
-.tool-button img { width: 32px; height: 32px; }
-.tool-button.selected, .color-box.selected {
-  border: 2px solid var(--text-primary);
-}
-.add-color-button { font-size: 24px; color: #ccc; }
-.eyedropper-button img { width: 32px; }
-
-/* 選択中のオーバーレイの見た目 */
-.selected-layer {
-  outline: 2px dashed #6c5ce7;
-  outline-offset: 2px;
+  height: 26px;
 }
 
-/* 画像パーツ用の色付けオーバーレイ */
-.overlay-item { position: absolute; }
-.overlay-item .tint {
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
   position: absolute;
-  inset: 0;
-  mix-blend-mode: multiply;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 26px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #ff7675;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* ===== 年額割引バッジ ===== */
+.save-badge {
+  background: #ff7675;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 5px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ===== プランカード ===== */
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.pricing-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 240px;
+  min-height: 320px;
+  text-align: center;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+}
+
+.pricing-card.popular {
+  border: none; /* 赤い枠を消す */
+  box-shadow: 0 8px 24px rgba(255, 118, 117, 0.18); /* 強調したい場合は影だけ残す */
+}rder: 2px solid #ff7675;
+}
+
+.pricing-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  min-height: 30px;
+}
+
+.pricing-card .price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #d63031;
+  margin-bottom: 5px;
+}
+
+.price-detail {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
+  min-height: 20px;
+}
+
+.save-amount {
+  background: #fff3cd;
+  color: #856404;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 10px auto;
+  display: inline-block;
+}
+
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  margin: 0 0 20px;
+  flex-grow: 1;
+}
+
+.pricing-card li {
+  margin: 6px 0;
+}
+
+.pricing-card button {
+  background: #d63031;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+.pricing-card button[disabled] {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pricing-card button:hover:not([disabled]) {
+  background: #ff7675;
+  transform: scale(1.05);
+}
+
+/* ===== リボンバッジ調整 ===== */
+.ribbon-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  z-index: 10;
   pointer-events: none;
-  border-radius: 4px;
-}
-/* ===== Header layout (safe override) ===== */
-.app-header{
-  display:grid;
-  grid-template-columns:auto auto 1fr auto auto;
-  align-items:center;
-  gap:20px;
-  padding:16px 20px;
-  background:#fff;
-  border-bottom:1px solid #e0e0e0;
-}
-.app-title{
-  font-family:'Playfair Display', serif;
-  font-size:20px;
-  font-weight:500;
-  color:#2b2b2b;
 }
 
-/* Gender group (左) */
-.app-genders{
-  display:flex;
-  border:1px solid #e0e0e0;
-  border-radius:20px;
-  overflow:hidden;
-}
-.app-genders .gender-btn{
-  padding:8px 18px;
-  background:#fff;
-  border:none;
-  font-size:14px;
-  cursor:pointer;
-}
-.app-genders .gender-btn:not(:last-child){
-  border-right:1px solid #e0e0e0;
-}
-.app-genders .gender-btn.active{
-  background:#333; color:#fff;
-}
-
-/* 中央のアクション群 */
-.app-actions{
-  justify-self:center;
-  display:flex;
-  gap:12px;
-}
-.icon-btn{
-  width:32px; height:32px;
-  display:flex; align-items:center; justify-content:center;
-  background:#f2f2f2;
-  border:1px solid #e0e0e0;
-  border-radius:6px;
-  cursor:pointer;
-  box-shadow:0 1px 0 rgba(0,0,0,.03);
-}
-.icon-btn img{ width:18px; height:18px; display:block; }
-
-/* 右のコンテンツ群 */
-.app-contents{
-  display:flex; gap:8px; justify-self:end;
-}
-.content-btn{
-  width:40px; height:40px;
-  background:#fff; border:1px solid #e0e0e0; border-radius:8px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-}
-.content-btn img{ width:24px; height:24px; display:block; }
-
-/* Next Step */
-.next-btn{
-  padding:10px 16px; background:#222; color:#fff;
-  border:none; border-radius:20px; cursor:pointer; white-space:nowrap;
-}
-
-/* ヘッダーを2段にしたい幅での折返し（必要なら） */
-@media (max-width:1100px){
-  .app-header{
-    grid-template-columns:1fr auto;
-    grid-auto-rows:auto;
-    row-gap:10px;
+/* ===== レスポンシブ対応 ===== */
+@media (max-width: 992px) {
+  .features {
+    grid-template-columns: repeat(3, 1fr);
   }
-  .app-title{ grid-column:1 / -1; }
-  .app-contents{ order:3; justify-self:start; }
-  .next-btn{ justify-self:end; }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 300px;
+  }
+
+  .auth-links {
+    top: 10px;
+    right: 10px;
+  }
+
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cta-primary {
+    font-size: 16px;
+    padding: 15px 40px;
+  }
+
+  .ribbon-badge {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .auth-links a {
+    font-size: 13px;
+  }
+
+  .signup-btn {
+    padding: 6px 15px;
+  }
+
+  .login-btn {
+    padding: 6px 15px;
+  }
+}
+
+.ribbon-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;             /* カード幅にフィット */
+  height: auto;
+  z-index: 1000;
+  object-fit: contain;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .ribbon-badge {
+    width: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== フッター ===== */
+footer {
+  background: #fff5f0;
+  padding: 20px 40px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: #444;
+}
+
+.footer-insta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #444;
+  font-size: 14px;
+}
+
+.footer-icon {
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.footer-icon:hover {
+  opacity: 0.7;
 }
