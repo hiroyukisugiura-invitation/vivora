@@ -1,149 +1,414 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vivora Fashion Illustration 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* =============== ベース =============== */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#f8f3f0;color:#2b2b2b}
+
+/* =============== ヘッダー =============== */
+.header{display:flex;align-items:center;gap:20px;padding:15px 20px;background:#fff;border-bottom:1px solid #e0e0e0}
+.title{font-family:'Playfair Display',serif;font-size:20px;font-weight:400}
+
+/* Gender */
+.gender-group{display:flex;border:1px solid #e0e0e0;border-radius:20px;overflow:hidden}
+.gender-btn{padding:8px 18px;background:#fff;border:0;font-size:14px;cursor:pointer}
+.gender-btn:not(:last-child){border-right:1px solid #e0e0e0}
+.gender-btn.active{background:#333;color:#fff}
+
+/* 中央ツール（戻る/進む/方眼紙） */
+.toolbar-icons{display:flex;gap:12px;margin-left:20px}
+.icon-btn{width:32px;height:32px;background:transparent;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.75}
+.icon-btn:hover{opacity:1}
+.icon-btn img{width:20px;height:20px;display:block}
+
+/* 右：コンテンツアイコン群 */
+.content-icons{display:flex;gap:8px;margin-left:auto}
+.content-btn{width:40px;height:40px;background:#fff;border:1px solid #e0e0e0;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.content-btn:hover{box-shadow:0 2px 4px rgba(0,0,0,.1)}
+.content-btn img{width:24px;height:24px}
+.next-btn{padding:10px 20px;background:#333;color:#fff;border:0;border-radius:20px;font-size:14px;cursor:pointer;white-space:nowrap}
+
+/* =============== メイン =============== */
+.main-content{display:flex;height:calc(100vh - 70px)}
+
+/* キャンバス（左） */
+.canvas-area{flex:1;display:flex;align-items:center;justify-content:center;padding:20px}
+.canvas-board{
+  width:90%;height:90%;
+  background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;   /* ← はみ出しの最終保険 */
+}
+.canvas-board.grid-active{
+  background-image:
+    linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px);
+  background-size:20px 20px;
+}
+
+/* マネキンの素の大きさ：
+   - 幅はボードの72%を基準
+   - 高さはボード高の86%を上限
+   JSでscale()しても、絶対にボード外へ出ないよう上限を算出して制御します */
+.mannequin-img{
+  width:72%;
+  height:auto; max-height:86%;
+  object-fit:contain;
+  transform-origin:center center;
+  transition:transform .2s ease, opacity .15s ease;
+}
+
+/* サイドバー（右） */
+.sidebar{width:280px;background:#f8f3f0;padding:20px 15px;overflow-y:auto}
+.panel{background:#fff;border-radius:12px;padding:15px;margin-bottom:15px}
+.panel h3{font-size:14px;font-weight:600;margin-bottom:12px}
+
+/* スロット */
+.slots-container{display:flex;align-items:center;gap:8px;background:#fff;padding:10px;border-radius:12px;margin-bottom:15px}
+.arrow-btn{width:24px;height:24px;background:none;border:0;font-size:14px;color:#999;cursor:pointer}
+.slots-wrapper{display:flex;gap:8px;flex:1}
+.slot-btn{width:38px;height:38px;background:#fff;border:1px solid #e0e0e0;border-radius:8px;font-size:18px;color:#ccc;cursor:pointer}
+
+/* Stationery */
+.stationery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.st-btn{width:48px;height:48px;background:#fff;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.st-btn:hover{box-shadow:0 2px 4px rgba(0,0,0,.1)}
+.st-btn.selected{background:#333}
+.st-btn.selected img{filter:brightness(0) invert(1)}
+.st-btn img{width:24px;height:24px}
+
+/* スライダーUI */
+.slider-control{display:flex;align-items:center;gap:10px}
+.minus-btn,.plus-btn{width:24px;height:24px;background:#fff;border:1px solid #e0e0e0;border-radius:4px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.range-slider{flex:1;height:4px;-webkit-appearance:none;background:#ddd;border-radius:2px;outline:none}
+.range-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:#4169e1;border-radius:50%;cursor:pointer}
+.reset-btn{padding:4px 12px;background:#fff;border:1px solid #e0e0e0;border-radius:4px;font-size:12px;cursor:pointer}
+.value-label{font-size:12px;color:#666;margin-top:8px}
+
+/* カラー */
+.color-palette{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.color-btn{width:40px;height:40px;border:0;border-radius:6px;cursor:pointer}
+.color-btn:hover{transform:scale(1.1)}
+.color-add{width:40px;height:40px;background:#fafafa;border:1px dashed #e0e0e0;border-radius:6px;font-size:18px;color:#ccc;cursor:pointer}
+.color-tool{width:40px;height:40px;background:#fff;border:1px solid #e0e0e0;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.color-tool img{width:20px;height:20px}
+</style>
 </head>
 <body>
 
-  <!-- ヘッダー -->
-  <header>
-    <div class="auth-links">
-      <a href="#" class="login-btn">Log In</a>
-      <a href="#" class="signup-btn">Sign Up</a>
+<header class="header">
+  <h1 class="title">Vivora Fashion Illustration 2025</h1>
 
-    </div>
-    <img src="logo/vivora_logo-main.png" alt="Vivora Logo" class="logo">
-  </header>
-
-  <!-- コンテンツ一覧 -->
-  <section class="features">
-    <a class="feature-card" href="fashion-illustrations.html">
-      <img src="contents/fashion-illustrations.png" alt="Fashion Illustration" />
-    </a>
-    <div class="feature-card"><img src="contents/fabric-matching.png" alt="Fabric Matching" /></div>
-    <div class="feature-card"><img src="contents/clothing-design.png" alt="Clothing Design" /></div>
-    <div class="feature-card"><img src="contents/pattern-creation.png" alt="Pattern Creation" /></div>
-    <div class="feature-card"><img src="contents/grading.png" alt="Grading" /></div>
-    <div class="feature-card"><img src="contents/print-layout-cut.png" alt="Print Layout & Cut" /></div>
-    <div class="feature-card"><img src="contents/digital-dressing-kids-mode.png" alt="Digital Dressing Kids" /></div>
-  </section>
-
-  <!-- CTA -->
-  <div class="main-cta">
-    <button class="cta-primary">今すぐ無料で始める</button>
-    <p class="cta-text">7日間無料体験・クレジットカード登録必須</p>
+  <!-- Gender -->
+  <div class="gender-group">
+    <button class="gender-btn active" data-target="woman">Woman</button>
+    <button class="gender-btn" data-target="man">Man</button>
+    <button class="gender-btn" data-target="kids">Kids</button>
   </div>
 
-  <!-- プランセクション -->
-  <section class="pricing-section">
-    <h2 class="pricing-title">Choose Your Plan</h2>
-    <div class="toggle-container">
-      <span>Monthly</span>
-      <label class="switch">
-        <input type="checkbox" id="billing-toggle">
-        <span class="slider"></span>
-      </label>
-      <span>Yearly <span class="save-badge">2ヶ月分お得！</span></span>
-    </div>
-
-    <div class="pricing-cards">
-      <!-- Try -->
-      <div class="pricing-card">
-        <img src="ribbon/ribbon_free.png" alt="Free" class="ribbon-badge" />
-        <h3>Try</h3>
-        <p class="price" data-monthly="¥0" data-yearly="¥0">¥0</p>
-        <p class="price-detail">/月</p>
-        <ul>
-          <li>「ひらめき」を形にする</br>最初の火花</li>
-          <li>Basic demo only</li>
-          <li>Limited templates</li>
-        </ul>
-        <button disabled>Start Free</button>
-      </div>
-
-      <!-- Start -->
-      <div class="pricing-card">
-        <h3>Start</h3>
-        <p class="price" data-monthly="¥3,600" data-yearly="¥36,000">¥3,600</p>
-        <p class="price-detail" data-monthly="/月" data-yearly="/年（¥3,000/月）">/月</p>
-        <p class="save-amount" style="display:none">¥7,200お得！</p>
-        <ul>
-          <li>「クリエイター」としての</br>第一歩</li>
-          <li>All design tools</li>
-          <li>Save & export</li>
-        </ul>
-        <button>Select</button>
-      </div>
-
-      <!-- Creator -->
-      <div class="pricing-card popular">
-        <img src="ribbon/ribbon_toppick.png" alt="Top Pick" class="ribbon-badge" />
-        <h3>Creator</h3>
-        <p class="price" data-monthly="¥7,200" data-yearly="¥72,000">¥7,200</p>
-        <p class="price-detail" data-monthly="/月" data-yearly="/年（¥6,000/月）">/月</p>
-        <p class="save-amount" style="display:none">¥14,400お得！</p>
-        <ul>
-          <li>自分の「ブランド」を</br>立ち上げる</li>
-          <li>Full pattern / grading</li>
-          <li>Print layout & cut</li>
-        </ul>
-        <button>Select</button>
-      </div>
-
-      <!-- Master -->
-      <div class="pricing-card">
-        <img src="ribbon/ribbon_bestvalue.png" alt="Best Value" class="ribbon-badge" />
-        <h3>Master</h3>
-        <p class="price" data-monthly="¥12,000" data-yearly="¥120,000">¥12,000</p>
-        <p class="price-detail" data-monthly="/月" data-yearly="/年（¥10,000/月）">/月</p>
-        <p class="save-amount" style="display:none">¥24,000お得！</p>
-        <ul>
-          <li>プロの「アトリエ」として</br>ビジネスを拡大</li>
-          <li>Team collaboration</li>
-          <li>Advanced pro tools</li>
-        </ul>
-        <button>Select</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- プラン切替JS -->
-  <script>
-    const toggle = document.getElementById('billing-toggle');
-    const prices = document.querySelectorAll('.price[data-monthly]');
-    const priceDetails = document.querySelectorAll('.price-detail');
-    const saveAmounts = document.querySelectorAll('.save-amount');
-
-    toggle.addEventListener('change', () => {
-      const isYearly = toggle.checked;
-
-      prices.forEach(price => {
-        price.textContent = isYearly ? price.dataset.yearly : price.dataset.monthly;
-      });
-
-      priceDetails.forEach(detail => {
-        if (detail.dataset.yearly && detail.dataset.monthly) {
-          detail.textContent = isYearly ? detail.dataset.yearly : detail.dataset.monthly;
-        }
-      });
-
-      saveAmounts.forEach(amount => {
-        amount.style.display = isYearly ? 'inline-block' : 'none';
-      });
-    });
-  </script>
-
-  <!-- フッター -->
-<footer>
-  <div class="footer-content">
-    <img src="logo/vivora_copy.png" alt="Vivora Footer Logo" class="footer-logo" />
-    <img src="logo/vivora_insta.png" alt="Instagram Logo" class="footer-icon" />
+  <!-- 戻る/進む/方眼紙 -->
+  <div class="toolbar-icons">
+    <button class="icon-btn" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
+    <button class="icon-btn" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
+    <button class="icon-btn" id="btn-grid" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
   </div>
-</footer>
 
+  <!-- コンテンツ -->
+  <div class="content-icons">
+    <button class="content-btn"><img src="../../create_parts/contents_button/0_home.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/3_clothing-design.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/5_grading.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt=""></button>
+    <button class="content-btn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt=""></button>
+  </div>
+
+  <button class="next-btn">Next Step ▸▸</button>
+</header>
+
+<div class="main-content">
+  <!-- キャンバス -->
+  <div class="canvas-area">
+    <div class="canvas-board" id="board">
+      <img id="mannequin" class="mannequin-img" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+    </div>
+  </div>
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+    <div class="slots-container">
+      <button class="arrow-btn">◀</button>
+      <div class="slots-wrapper">
+        <button class="slot-btn">+</button><button class="slot-btn">+</button>
+        <button class="slot-btn">+</button><button class="slot-btn">+</button>
+        <button class="slot-btn">+</button>
+      </div>
+      <button class="arrow-btn">▶</button>
+    </div>
+
+    <div class="panel">
+      <h3>Stationery</h3>
+      <div class="stationery-grid" id="stGrid">
+        <button class="st-btn selected"><img src="../../create_parts/design_button/select.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/direct_select.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/sentence.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/fill.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/pen.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/brush.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/eraser.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/rotate.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/percent.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/photo.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/add.png" alt=""></button>
+        <button class="st-btn"><img src="../../create_parts/design_button/shapes.png" alt=""></button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Zoom</h3>
+      <div class="slider-control">
+        <button class="minus-btn" id="zMinus">−</button>
+        <input type="range" class="range-slider" id="zoom" min="0" max="100" value="0">
+        <button class="plus-btn" id="zPlus">＋</button>
+        <button class="reset-btn" id="zReset">Reset</button>
+      </div>
+      <div class="value-label" id="zVal">0 %</div>
+    </div>
+
+    <div class="panel">
+      <h3>Opacity</h3>
+      <div class="slider-control">
+        <button class="minus-btn" id="oMinus">−</button>
+        <input type="range" class="range-slider" id="opacity" min="0" max="100" value="100">
+        <button class="plus-btn" id="oPlus">＋</button>
+        <button class="reset-btn" id="oReset">Reset</button>
+      </div>
+      <div class="value-label" id="oVal">100%</div>
+    </div>
+
+    <div class="panel">
+      <h3>Color</h3>
+      <div class="color-palette">
+        <button class="color-btn" style="background:#ffffff"></button>
+        <button class="color-btn" style="background:#c0c0c0"></button>
+        <button class="color-btn" style="background:#f4d03f"></button>
+        <button class="color-btn" style="background:#f39c12"></button>
+        <button class="color-btn" style="background:#f8c8d8"></button>
+
+        <button class="color-btn" style="background:#e74c3c"></button>
+        <button class="color-btn" style="background:#27ae60"></button>
+        <button class="color-btn" style="background:#2ecc71"></button>
+        <button class="color-btn" style="background:#5dade2"></button>
+        <button class="color-btn" style="background:#2e86c1"></button>
+
+        <button class="color-btn" style="background:#8e44ad"></button>
+        <button class="color-btn" style="background:#7f5539"></button>
+        <button class="color-btn" style="background:#7f8c8d"></button>
+        <button class="color-btn" style="background:#000000"></button>
+        <button class="color-tool"><img src="../../create_parts/design_button/eyedropper.png" alt=""></button>
+
+        <button class="color-add">＋</button><button class="color-add">＋</button>
+        <button class="color-add">＋</button><button class="color-add">＋</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+/* ================= ユーティリティ ================= */
+const mannequin = document.getElementById('mannequin');
+const board = document.getElementById('board');
+
+/* ===== Gender切替 ===== */
+const srcMap = {
+  woman:'../../mannequin/mannequin_woman.png',
+  man:'../../mannequin/mannequin_man.png',
+  kids:'../../mannequin/mannequin_kids.png'
+};
+document.querySelectorAll('.gender-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.gender-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const k = btn.dataset.target;
+    if (srcMap[k]) mannequin.src = srcMap[k];
+  });
+});
+
+/* ===== 方眼紙トグル ===== */
+document.getElementById('btn-grid').addEventListener('click',()=>{
+  board.classList.toggle('grid-active');
+});
+
+/* ================= Zoom（0〜100%） =================
+   0%  = 80%表示（BASE_ZOOM）
+   100%= ボードに収まる“最大倍率” (fitMaxScale)
+   → 常にキャンバスからはみ出さない
+--------------------------------------------------- */
+const zr   = document.getElementById('zoom');
+const zVal = document.getElementById('zVal');
+
+const BASE_ZOOM  = 0.8;  // 0%の倍率（80%）
+const SAFE_MARGIN = 16;  // 四辺の余白px（左右上下で合計32px）
+
+let fitMaxScale = 1;     // その時点の最大倍率（毎回再計算）
+
+function computeFitMaxScale(){
+  // 一時的に変形を外して「素の表示サイズ」を取得
+  const prev = mannequin.style.transform;
+  mannequin.style.transform = 'none';
+
+  const mRect = mannequin.getBoundingClientRect();
+  const bRect = board.getBoundingClientRect();
+
+  mannequin.style.transform = prev;
+
+  // 実際に使える領域（四辺のマージンを引く）
+  const availW = bRect.width  - SAFE_MARGIN * 2;
+  const availH = bRect.height - SAFE_MARGIN * 2;
+
+  // 幅・高さの両方で収まる倍率
+  const maxByW = availW / mRect.width;
+  const maxByH = availH / mRect.height;
+
+  fitMaxScale = Math.min(maxByW, maxByH);
+
+  // 基準より小さくならないように（極端に狭い時の保険）
+  if (fitMaxScale < BASE_ZOOM) fitMaxScale = BASE_ZOOM;
+}
+
+function applyZoom(percent){
+  // 0〜100 を [BASE_ZOOM .. fitMaxScale] に線形補間
+  const t = Math.min(1, Math.max(0, percent/100));
+  const scale = BASE_ZOOM + (fitMaxScale - BASE_ZOOM) * t;
+  mannequin.style.transform = `scale(${scale})`;
+  mannequin.style.transformOrigin = 'center center';
+  zVal.textContent = Math.round(percent) + ' %';
+}
+
+/* 初期化 */
+function initZoom(){
+  computeFitMaxScale();
+  zr.min = 0; zr.max = 100; zr.value = 0;   // 0%スタート（=80%表示）
+  applyZoom(0);
+}
+initZoom();
+
+/* ====== 追加：ホイール & ピンチズーム（キャンバス内のみ） ====== */
+/* マウス/トラックパッド：スクロールでズーム（キャンバス上のみ） */
+board.addEventListener('wheel', (e) => {
+  e.preventDefault(); // ページスクロールを無効化
+  const step = 5;                         // 1コマの増減%
+  const dir  = Math.sign(e.deltaY);       // 下=+1（縮小）, 上=-1（拡大）
+  let v = Number(zr.value) - dir * step;  // deltaYは逆向きなので符号反転
+  v = Math.max(0, Math.min(100, v));
+  zr.value = v;
+  applyZoom(v);
+}, { passive: false });
+
+/* タッチ：2本指ピンチでズーム（キャンバス内のみ） */
+let pinch = {
+  active: false,
+  startDist: 0,
+  startPercent: 0
+};
+
+function distance(p1, p2){
+  const dx = p1.clientX - p2.clientX;
+  const dy = p1.clientY - p2.clientY;
+  return Math.hypot(dx, dy);
+}
+
+let pointers = new Map();
+
+board.addEventListener('pointerdown', (e) => {
+  board.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId, e);
+  if (pointers.size === 2) {
+    const [a,b] = [...pointers.values()];
+    pinch.active = true;
+    pinch.startDist = distance(a,b);
+    pinch.startPercent = Number(zr.value);
+  }
+});
+
+board.addEventListener('pointermove', (e) => {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.set(e.pointerId, e);
+
+  if (pinch.active && pointers.size === 2) {
+    const [a,b] = [...pointers.values()];
+    const dist = distance(a,b);
+    if (pinch.startDist > 0) {
+      // 距離の変化率 → パーセントへ（感度は好みで調整）
+      const ratio = dist / pinch.startDist;
+      const sensitivity = 120;              // 感度（大きいほどよく拡大/縮小）
+      let v = pinch.startPercent + (ratio - 1) * sensitivity;
+      v = Math.max(0, Math.min(100, v));
+      zr.value = v;
+      applyZoom(v);
+    }
+  }
+});
+
+function endPointer(e){
+  pointers.delete(e.pointerId);
+  if (pointers.size < 2) {
+    pinch.active = false;
+    pinch.startDist = 0;
+  }
+}
+board.addEventListener('pointerup', endPointer);
+board.addEventListener('pointercancel', endPointer);
+board.addEventListener('pointerleave', endPointer);
+  
+/* スライダー・ボタン */
+zr.addEventListener('input', e=> applyZoom(Number(e.target.value)));
+document.getElementById('zMinus').addEventListener('click', ()=>{
+  const v = Math.max(0, Number(zr.value) - 10);
+  zr.value = v; applyZoom(v);
+});
+document.getElementById('zPlus').addEventListener('click', ()=>{
+  const v = Math.min(100, Number(zr.value) + 10);
+  zr.value = v; applyZoom(v);
+});
+document.getElementById('zReset').addEventListener('click', ()=>{
+  zr.value = 0; applyZoom(0);
+});
+
+/* リサイズ＆画像読み込み後にも上限を更新 */
+window.addEventListener('resize', ()=>{ computeFitMaxScale(); applyZoom(Number(zr.value)); });
+mannequin.addEventListener('load',  ()=>{ computeFitMaxScale(); applyZoom(Number(zr.value)); });
+
+// キャンバス自身のサイズ変化にも追従（レイアウト変更時の保険）
+new ResizeObserver(()=>{ computeFitMaxScale(); applyZoom(Number(zr.value)); }).observe(board);
+
+/* ================= Opacity（%） ================= */
+const orng = document.getElementById('opacity');
+const oVal = document.getElementById('oVal');
+function applyOpacity(v){ oVal.textContent = v + '%'; mannequin.style.opacity = v/100; }
+applyOpacity(Number(orng.value));
+orng.addEventListener('input', e=> applyOpacity(Number(e.target.value)));
+document.getElementById('oMinus').addEventListener('click', ()=>{ const v=Math.max(0,Number(orng.value)-10); orng.value=v; applyOpacity(v); });
+document.getElementById('oPlus').addEventListener('click',  ()=>{ const v=Math.min(100,Number(orng.value)+10); orng.value=v; applyOpacity(v); });
+document.getElementById('oReset').addEventListener('click', ()=>{ orng.value=100; applyOpacity(100); });
+
+/* ===== Stationery 表示上の選択トグル ===== */
+document.querySelectorAll('#stGrid .st-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#stGrid .st-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+</script>
 </body>
 </html>
