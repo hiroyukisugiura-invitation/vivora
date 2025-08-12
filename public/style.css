@@ -276,3 +276,87 @@ body {
   pointer-events: none;
   border-radius: 4px;
 }
+/* ===== Header layout (safe override) ===== */
+.app-header{
+  display:grid;
+  grid-template-columns:auto auto 1fr auto auto;
+  align-items:center;
+  gap:20px;
+  padding:16px 20px;
+  background:#fff;
+  border-bottom:1px solid #e0e0e0;
+}
+.app-title{
+  font-family:'Playfair Display', serif;
+  font-size:20px;
+  font-weight:500;
+  color:#2b2b2b;
+}
+
+/* Gender group (左) */
+.app-genders{
+  display:flex;
+  border:1px solid #e0e0e0;
+  border-radius:20px;
+  overflow:hidden;
+}
+.app-genders .gender-btn{
+  padding:8px 18px;
+  background:#fff;
+  border:none;
+  font-size:14px;
+  cursor:pointer;
+}
+.app-genders .gender-btn:not(:last-child){
+  border-right:1px solid #e0e0e0;
+}
+.app-genders .gender-btn.active{
+  background:#333; color:#fff;
+}
+
+/* 中央のアクション群 */
+.app-actions{
+  justify-self:center;
+  display:flex;
+  gap:12px;
+}
+.icon-btn{
+  width:32px; height:32px;
+  display:flex; align-items:center; justify-content:center;
+  background:#f2f2f2;
+  border:1px solid #e0e0e0;
+  border-radius:6px;
+  cursor:pointer;
+  box-shadow:0 1px 0 rgba(0,0,0,.03);
+}
+.icon-btn img{ width:18px; height:18px; display:block; }
+
+/* 右のコンテンツ群 */
+.app-contents{
+  display:flex; gap:8px; justify-self:end;
+}
+.content-btn{
+  width:40px; height:40px;
+  background:#fff; border:1px solid #e0e0e0; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+.content-btn img{ width:24px; height:24px; display:block; }
+
+/* Next Step */
+.next-btn{
+  padding:10px 16px; background:#222; color:#fff;
+  border:none; border-radius:20px; cursor:pointer; white-space:nowrap;
+}
+
+/* ヘッダーを2段にしたい幅での折返し（必要なら） */
+@media (max-width:1100px){
+  .app-header{
+    grid-template-columns:1fr auto;
+    grid-auto-rows:auto;
+    row-gap:10px;
+  }
+  .app-title{ grid-column:1 / -1; }
+  .app-contents{ order:3; justify-self:start; }
+  .next-btn{ justify-self:end; }
+}
