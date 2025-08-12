@@ -1,3 +1,7 @@
+状態の良かった時点のメインページ
+
+HTML
+＝＝＝＝＝＝＝＝＝
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,43 +14,14 @@
 <body>
 
   <!-- ヘッダー -->
-  <!-- ===== HEADER (Stable) ===== -->
-<header class="vi-header">
-  <h1 class="vi-title">Vivora Fashion Illustration 2025</h1>
+  <header>
+    <div class="auth-links">
+      <a href="#" class="login-btn">Log In</a>
+      <a href="#" class="signup-btn">Sign Up</a>
 
-  <!-- Left: Gender -->
-  <div class="vi-genders" role="group" aria-label="Gender switch">
-    <button class="vi-gender is-active" data-target="woman">Woman</button>
-    <button class="vi-gender" data-target="man">Man</button>
-    <button class="vi-gender" data-target="kids">Kids</button>
-  </div>
-
-  <!-- Center: Actions (undo/redo/refresh/download/upload/save/grid) -->
-  <div class="vi-actions">
-    <button class="vi-ibtn" id="btn-undo" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt=""></button>
-    <button class="vi-ibtn" id="btn-redo" title="Redo"><img src="../../create_parts/create_button/forward.png" alt=""></button>
-    <button class="vi-ibtn" id="btn-refresh" title="Refresh"><img src="../../create_parts/create_button/reset.png" alt=""></button>
-    <button class="vi-ibtn" id="btn-dl" title="Download"><img src="../../create_parts/create_button/download.png" alt=""></button>
-    <button class="vi-ibtn" id="btn-up" title="Upload"><img src="../../create_parts/create_button/upload.png" alt=""></button>
-    <button class="vi-ibtn" id="btn-save" title="Save"><img src="../../create_parts/create_button/save.png" alt=""></button>
-    <button class="vi-ibtn" id="btn-grid" title="Grid"><img src="../../create_parts/create_button/graph_paper.png" alt=""></button>
-  </div>
-
-  <!-- Right: Contents icons -->
-  <div class="vi-contents">
-    <button class="vi-cbtn"><img src="../../create_parts/contents_button/0_home.png" alt="Home"></button>
-    <button class="vi-cbtn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="FI"></button>
-    <button class="vi-cbtn"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="FM"></button>
-    <button class="vi-cbtn"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="CD"></button>
-    <button class="vi-cbtn"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="PC"></button>
-    <button class="vi-cbtn"><img src="../../create_parts/contents_button/5_grading.png" alt="GD"></button>
-    <button class="vi-cbtn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="PLC"></button>
-    <button class="vi-cbtn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="DDK"></button>
-  </div>
-
-  <!-- Far Right: Next -->
-  <button class="vi-next">Next Step ▸▸</button>
-</header>
+    </div>
+    <img src="logo/vivora_logo-main.png" alt="Vivora Logo" class="logo">
+  </header>
 
   <!-- コンテンツ一覧 -->
   <section class="features">
@@ -167,14 +142,12 @@
   </script>
 
   <!-- フッター -->
-  <footer>
-    <div class="footer-content">
-      <img src="logo/vivora_copy.png" alt="Vivora Footer" class="footer-logo" />
-      <a href="https://www.instagram.com/vivora.app" target="_blank">
-        <img src="logo/vivora_insta.png" alt="Vivora Instagram" class="footer-icon" />
-      </a>
-    </div>
-  </footer>
+<footer>
+  <div class="footer-content">
+    <img src="logo/vivora_copy.png" alt="Vivora Footer Logo" class="footer-logo" />
+    <img src="logo/vivora_insta.png" alt="Instagram Logo" class="footer-icon" />
+  </div>
+</footer>
 
 </body>
 </html>
