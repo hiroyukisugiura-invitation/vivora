@@ -288,3 +288,42 @@ body {
   pointer-events: none;
   border-radius: 4px;
 }
+/* ===== Overrides: Gender pill group (HTMLの .gender-group / .gender-btn に対応) ===== */
+.gender-group{
+  display:flex;
+  gap:0;                 /* ボタンを詰める */
+  border:none;           /* ← 余計な帯（枠）を消す */
+  background:transparent;/* ← 背景の帯も消す */
+  overflow:visible;      /* 角丸はボタン個別で作るので外側は切らない */
+}
+
+.gender-btn{
+  background:#fff;
+  border:1px solid var(--border-color);
+  padding:8px 18px;
+  font-size:14px;
+  line-height:1;
+  cursor:pointer;
+  box-shadow: var(--shadow-light);
+}
+
+.gender-btn + .gender-btn{
+  margin-left:-1px;      /* 枠線を重ねて二重線を防ぐ */
+}
+
+.gender-btn:first-child{
+  border-top-left-radius:20px;
+  border-bottom-left-radius:20px;
+}
+
+.gender-btn:last-child{
+  border-top-right-radius:20px;
+  border-bottom-right-radius:20px;
+}
+
+.gender-btn.active,
+.gender-btn:hover{
+  background:var(--text-primary);
+  color:#fff;
+  border-color:var(--text-primary);
+}
