@@ -412,3 +412,52 @@ footer {
 .footer-icon:hover {
   opacity: 0.7;
 }
+/* === Header layout: Title | Gender | History | spacer | Content === */
+.header{
+  display: grid;
+  grid-template-columns: auto auto auto 1fr auto; /* Title / Gender / History / gap / Content */
+  align-items: center;
+  gap: 24px;
+  padding: 12px 20px 8px;
+  background: transparent;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* 明示的に配置（DOM順を変えずに並び替え） */
+.header > .title{ grid-column: 1; }
+.header > .gender-group{ grid-column: 2; }
+.header > .toolbar-icons{ grid-column: 3; justify-self: center; }
+.header > .content-icons{ grid-column: 5; justify-self: end; }
+
+/* 既存の “押し出し” を無効化（flex時代の名残対策） */
+.header > .toolbar-icons,
+.header > .content-icons{
+  margin-left: 0 !important;
+}
+
+/* Gender pill（見た目はそのまま／外枠帯は出さない） */
+.header .gender-group{
+  display: inline-flex;
+  gap: 0;
+  background: transparent;
+  border: none;
+  overflow: visible;
+}
+.header .gender-btn{
+  background: #fff;
+  border: 1px solid var(--border-color);
+  padding: 8px 18px;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-light);
+}
+.header .gender-btn + .gender-btn{ margin-left: -1px; }
+.header .gender-btn:first-child{ border-top-left-radius: 20px; border-bottom-left-radius: 20px; }
+.header .gender-btn:last-child{ border-top-right-radius: 20px; border-bottom-right-radius: 20px; }
+.header .gender-btn.active,
+.header .gender-btn:hover{
+  background: var(--text-primary);
+  color:#fff;
+  border-color: var(--text-primary);
+}
