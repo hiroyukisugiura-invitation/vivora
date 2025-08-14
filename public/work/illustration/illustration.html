@@ -78,14 +78,31 @@
     .tool-btn:hover{ opacity:1 }
     .tool-btn img{ width:22px; height:22px; display:block }
 
-    .contentbar{ justify-self:end; display:flex; align-items:center; gap:10px; }
-    .content-btn{
-      background:#fff; border:1px solid var(--line); border-radius:10px;
-      width:42px; height:42px; display:flex; align-items:center; justify-content:center;
-      cursor:pointer; transition:.15s;
-    }
-    .content-btn img{ width:26px; height:26px; display:block }
-    .content-btn:hover{ transform:translateY(-2px); box-shadow:var(--shadow) }
+    .contentbar{
+  justify-self:end;
+  display:flex;
+  align-items:center;
+  gap:12px;            /* 画像の間隔だけ */
+}
+
+.content-btn{
+  all: unset !important;          /* UAデフォルトも含めて完全リセット */
+  display: inline-block !important;
+  cursor: pointer;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+.content-btn::-moz-focus-inner{ border:0; padding:0; } /* Firefox対策 */
+
+.content-btn img{
+  display:block;                  /* 自然サイズでそのまま表示 */
+  /* height:28px;  ←高さを揃えたい時だけ付ける */
+}
+
+.content-btn:hover{ opacity:.85; }  /* うっすらフェードだけ */
 
     /* ===== キャンバス ===== */
     .canvas-area{
