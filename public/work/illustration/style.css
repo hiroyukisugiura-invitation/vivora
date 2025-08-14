@@ -1,422 +1,283 @@
-/* ===== CSSカスタムプロパティ（変数）定義 ===== */
-:root {
-  /* Colors */
-  --bg-main: #f8f1ee;
-  --bg-panel: #faf6f3;
-  --text-primary: #3d3d3d;
-  --font-accent: 'Playfair Display', serif;
-  --border-color: #e0d5d0;
-  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+/* =============================================================
+   Vivora Illustration — Clean CSS v1 (2025-08-14)
+   - HTML（差し替え済み）に対応する外部スタイル
+   - 重複/入れ子/未使用セレクタを排除
+============================================================= */
 
-  /* Spacing */
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
+:root{
+  --bg:#f3ece7;
+  --panel:#f7f2ee;
+  --line:#e1d9d4;
+  --text:#333;
+  --accent:#222;
+  --shadow:0 6px 18px rgba(0,0,0,.06);
 }
 
-/* ===== 基本リセットとボディスタイル ===== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-body {
-  background-color: var(--bg-main);
-  color: var(--text-primary);
-  font-family: 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ===== レイアウト基盤 ===== */
+.app{
+  display:grid;
+  grid-template-columns: 1fr 320px;
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    "header  sidebar"
+    "toolbar sidebar"
+    "canvas  sidebar";
+  height:100vh;
 }
 
-/* ===== アプリケーション全体レイアウト ===== */
-.app-container {
-  display: flex;
-  height: 100vh;
+/* ===== Header ===== */
+header{
+  grid-area:header;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:12px 16px;
+}
+h1{
+  font:500 18px/1 'Playfair Display',serif;
+  color:#222;
+  margin-right:auto;
 }
 
-.main-workspace {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-lg);
-  overflow: hidden; /* Canvas以外はスクロールしない */
-}
-
-.sidebar-controls {
-  width: 320px;
-  background-color: var(--bg-main); /* or var(--bg-panel) if you prefer */
-  padding: var(--spacing-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  overflow-y: auto; /* サイドバーが長くなった場合にスクロール */
-  border-left: 1px solid var(--border-color);
-}
-
-/* ===== 左側：メインエリアのスタイル ===== */
-.main-header {
-  margin-bottom: var(--spacing-md);
-}
-
-.title {
-  font-family: var(--font-accent);
-  font-size: 24px;
-  font-weight: 500;
-  margin-bottom: var(--spacing-md);
-  text-align: left;
-}
-
-.gender-selector {
-  display: flex;
-  gap: 0; /* ボタン同士はくっつける */
-}
-
-.gender-button {
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  padding: 8px 18px;
-  font-size: 14px;
-  cursor: pointer;
-  line-height: 1;
-}
-
-.gender-button + .gender-button {
-  margin-left: -1px; /* 枠線を重ねて二重線を防ぐ */
-}
-
-.gender-button:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
-
-.gender-button:last-child {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-.gender-button.active,
-.gender-button:hover {
-  background-color: var(--text-primary);
-  color: #fff;
-  border-color: var(--text-primary);
-}
-
-.toolbar-area {
-  /* --- Toolbar を3カラム化：左 / 中央 / 右 --- */
-.toolbar{
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;  /* 左右は伸縮、中央は実寸で常に真ん中 */
-  align-items: center;
-  column-gap: 16px;
-  padding: 10px 16px;
-  background: transparent; /* 背景帯なし */
-  border-top: none;
-}
-
-/* 左側ブロック（Gender） */
-.toolbar-left{
-  justify-self: start;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* 中央ブロック（HistoryTools）— 常にバーの中央 */
-.history-tools{
-  justify-self: center;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* 右側ブロック（Content） */
-/* ツールバー */
+/* ===== Toolbar（3カラム：左=Gender / 中央=History / 右=Content） ===== */
 .toolbar{
   grid-area:toolbar;
   display:grid;
-  grid-template-columns: auto 1fr auto; /* Gender | History | Content */
+  grid-template-columns: auto 1fr auto;
   align-items:center;
-  padding:10px 16px;
   column-gap:14px;
+  padding:10px 16px;
   border-top:none;
   background:transparent;
   backdrop-filter:none;
 }
 
-/* 余計な余白を消す */
-.toolbar .gender{ margin-right: 0 !important; }
-}
-
-.action-toolbar, .content-toolbar {
-  display: flex;
-  gap: 12px;
-}
-
-.icon-button {
-  background-color: transparent;
-  border: none;
-  padding: 4px;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-
-.icon-button:hover {
-  opacity: 1;
-}
-
-.icon-button img {
-  display: block;
-  width: 28px;
-  height: 28px;
-}
-
-/* ===== キャンバスエリア ===== */
-/* 中央固定のための配置指定 */
-.history-tools{ display:flex; gap:14px; justify-self:center; }
-.contentbar{ margin-left:0; justify-self:end; } /* 既存の margin-left:auto を上書き */
-
-.canvas-wrapper {
-  flex-grow: 1; /* 残りの高さを全て使う */
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden; /* Pan&Zoomではみ出した部分を隠す */
-  box-shadow: var(--shadow-light);
-}
-
-/* 方眼紙のスタイル（JSでこのクラスを付け外しする） */
-.canvas-wrapper.grid-active {
-  background-image:
-    linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-.mannequin-base {
-  max-width: 100%;
-  max-height: 90%;
-  object-fit: contain;
-  transition: transform 0.3s ease; /* Pan&Zoomアニメーション用 */
-}
-
-/* ===== 右側：サイドバーのスタイル ===== */
-.next-step-panel {
-  text-align: right;
-  margin-bottom: var(--spacing-md);
-}
-.next-step-button {
-  background-color: var(--text-primary);
-  color: white;
-  font-family: var(--font-accent);
-  font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-.next-step-button:hover {
-  background-color: #000;
-}
-
-.panel {
-  background-color: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: var(--spacing-md);
-  box-shadow: var(--shadow-light);
-}
-
-.panel-title {
-  font-family: var(--font-accent);
-  font-size: 18px;
-  margin-bottom: var(--spacing-md);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.custom-button {
-    background: none;
-    border: none;
-    color: var(--text-primary);
-    text-decoration: underline;
-    font-size: 12px;
-    cursor: pointer;
-}
-.panel-footer {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 8px;
-}
-
-
-/* ポーズ選択パネル */
-.pose-selector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.pose-thumbnails {
-    flex-grow: 1;
-    display: flex;
-    gap: 8px;
-    overflow-x: auto; /* はみ出した場合にスクロール */
-    scrollbar-width: none; /* Firefox */
-}
-.pose-thumbnails::-webkit-scrollbar { display: none; } /* Chrome, Safari */
-.pose-thumb {
-  width: 50px;
-  height: 80px;
-  object-fit: contain;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 4px;
-  transition: border-color 0.2s;
-}
-.pose-thumb.selected,
-.pose-thumb:hover {
-  border-color: var(--text-primary);
-}
-.arrow { background: none; border: none; font-size: 24px; cursor: pointer; color: #aaa;}
-
-
-/* 作業ボード＆カラーパネルのグリッド */
-.stationery-grid, .color-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  justify-items: center;
-}
-.tool-button, .color-box {
-    background-color: #fff;
-    border: 1px solid var(--border-color);
-    width: 54px;
-    height: 54px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-}
-.tool-button:hover, .color-box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-}
-.tool-button img { width: 32px; height: 32px; }
-.tool-button.selected, .color-box.selected {
-  border: 2px solid var(--text-primary);
-}
-.add-color-button { font-size: 24px; color: #ccc; }
-.eyedropper-button img { width: 32px; }
-
-/* 選択中のオーバーレイの見た目 */
-.selected-layer {
-  outline: 2px dashed #6c5ce7;
-  outline-offset: 2px;
-}
-
-/* 画像パーツ用の色付けオーバーレイ */
-.overlay-item { position: absolute; }
-.overlay-item .tint {
-  position: absolute;
-  inset: 0;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  border-radius: 4px;
-}
-/* ===== Overrides: Gender pill group (HTMLの .gender-group / .gender-btn に対応) ===== */
-.gender-group{
-  display:flex;
-  gap:0;                 /* ボタンを詰める */
-  border:none;           /* ← 余計な帯（枠）を消す */
-  background:transparent;/* ← 背景の帯も消す */
-  overflow:visible;      /* 角丸はボタン個別で作るので外側は切らない */
-}
-
-.gender-btn{
+/* Gender pill */
+.gender{ display:flex; gap:6px; }
+.gender button{
+  border:1px solid var(--line);
   background:#fff;
-  border:1px solid var(--border-color);
-  padding:8px 18px;
-  font-size:14px;
-  line-height:1;
+  padding:6px 12px;
+  border-radius:16px;
   cursor:pointer;
-  box-shadow: var(--shadow-light);
+  font-size:13px;
 }
-
-.gender-btn + .gender-btn{
-  margin-left:-1px;      /* 枠線を重ねて二重線を防ぐ */
-}
-
-.gender-btn:first-child{
-  border-top-left-radius:20px;
-  border-bottom-left-radius:20px;
-}
-
-.gender-btn:last-child{
-  border-top-right-radius:20px;
-  border-bottom-right-radius:20px;
-}
-
-.gender-btn.active,
-.gender-btn:hover{
-  background:var(--text-primary);
+.gender button.active{
+  background:var(--accent);
   color:#fff;
-  border-color:var(--text-primary);
-}
-/* === Header layout: Title | Gender | History | spacer | Content === */
-.header{
-  display: grid;
-  grid-template-columns: auto auto auto 1fr auto; /* Title / Gender / History / gap / Content */
-  align-items: center;
-  gap: 24px;
-  padding: 12px 20px 8px;
-  background: transparent;
-  border-bottom: 1px solid var(--border-color);
+  border-color:var(--accent);
 }
 
-/* 明示的に配置（DOM順を変えずに並び替え） */
-.header > .title{ grid-column: 1; }
-.header > .gender-group{ grid-column: 2; }
-.header > .toolbar-icons{ grid-column: 3; justify-self: center; }
-.header > .content-icons{ grid-column: 5; justify-self: end; }
+/* History（中央固定） */
+.history-tools{
+  justify-self:center;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.tool-btn{ background:transparent; border:none; cursor:pointer; opacity:.85; }
+.tool-btn:hover{ opacity:1; }
+.tool-btn img{ width:22px; height:22px; display:block; }
 
-/* 既存の “押し出し” を無効化（flex時代の名残対策） */
-.header > .toolbar-icons,
-.header > .content-icons{
-  margin-left: 0 !important;
+/* Content（右寄せ） */
+.contentbar{
+  justify-self:end;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.content-btn{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  width:42px; height:42px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  transition:.15s;
+}
+.content-btn img{ width:26px; height:26px; display:block; }
+.content-btn:hover{ transform:translateY(-2px); box-shadow:var(--shadow); }
+
+/* ===== Canvas ===== */
+.canvas-area{
+  grid-area:canvas;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.board{
+  position:relative;
+  flex:1;
+  margin:16px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  user-select:none;
+}
+/* Grid paper */
+.board.grid::before{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);
+  background-size:24px 24px;
 }
 
-/* Gender pill（見た目はそのまま／外枠帯は出さない） */
-.header .gender-group{
-  display: inline-flex;
-  gap: 0;
-  background: transparent;
-  border: none;
-  overflow: visible;
+/* Stage（Pan/Zoom対象） */
+#stage{
+  position:absolute;
+  left:0; top:0;
+  transform-origin:0 0;
+  touch-action:none;
+  cursor:grab;
 }
-.header .gender-btn{
-  background: #fff;
-  border: 1px solid var(--border-color);
-  padding: 8px 18px;
-  font-size: 14px;
-  line-height: 1;
-  cursor: pointer;
-  box-shadow: var(--shadow-light);
+#stage.grabbing{ cursor:grabbing; }
+
+.mannequin-base{
+  display:block;
+  max-width:none;   /* 実サイズ基準で拡縮 */
+  width:600px;      /* 初期見やすさのための幅 */
+  height:auto;
+  user-select:none;
+  -webkit-user-drag:none;
 }
-.header .gender-btn + .gender-btn{ margin-left: -1px; }
-.header .gender-btn:first-child{ border-top-left-radius: 20px; border-bottom-left-radius: 20px; }
-.header .gender-btn:last-child{ border-top-right-radius: 20px; border-bottom-right-radius: 20px; }
-.header .gender-btn.active,
-.header .gender-btn:hover{
-  background: var(--text-primary);
-  color:#fff;
-  border-color: var(--text-primary);
+
+/* Overlay（追加パーツ） */
+.overlay-item{
+  position:absolute;
+  left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width:45%;
+  aspect-ratio:3/4;
+  pointer-events:auto;
 }
-.toolbar .gender{ margin-right: 12px; }
+.overlay-item img{
+  width:100%; height:100%;
+  object-fit:contain;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.overlay-item.selected-layer{
+  outline:2px dashed #6c5ce7;
+  outline-offset:2px;
+}
+.overlay-item .tint{
+  position:absolute; inset:0;
+  pointer-events:none;
+  border-radius:4px;
+  mix-blend-mode:multiply;
+}
+
+/* ===== Sidebar ===== */
+aside{
+  grid-area:sidebar;
+  padding:16px;
+  border-left:1px solid var(--line);
+  background:var(--panel);
+  overflow:auto;
+}
+.panel{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:12px;
+  box-shadow:var(--shadow);
+}
+.panel h3{
+  font:500 16px/1 'Playfair Display',serif;
+  margin-bottom:8px;
+}
+
+.nextstep{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:12px;
+}
+.nextstep button{
+  background:#222; color:#fff;
+  border:none; border-radius:8px;
+  padding:10px 16px;
+  cursor:pointer;
+  font-family:'Playfair Display',serif;
+}
+
+/* Pose */
+.pose-row{ display:flex; gap:8px; overflow:auto; }
+.pose-row img{
+  width:52px; height:80px; object-fit:contain;
+  border:2px solid transparent;
+  border-radius:8px;
+  padding:2px;
+  background:#fff;
+  cursor:pointer;
+}
+.pose-row img.selected{ border-color:#222; }
+
+/* Tiles */
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.tool-tile,.color-tile{
+  width:56px; height:56px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  transition:.15s;
+}
+.tool-tile:hover,.color-tile:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+.tool-tile img{ width:30px; height:30px; }
+.color-tile{ border:none; }
+.color-tile.add{
+  font-size:22px; color:#bbb;
+  border:1px dashed var(--line);
+  background:#fafafa;
+}
+
+/* Zoom panel */
+#zoomPanel .zoom-row{ display:flex; align-items:center; gap:10px; }
+#zoomRange{ width:100%; }
+.zoom-btn{
+  width:34px; height:34px;
+  border:1px solid var(--line);
+  background:#fff; border-radius:8px;
+  cursor:pointer;
+}
+.zoom-btn:hover{ background:#fafafa; }
+.zoom-meta{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:8px;
+  font-size:13px; opacity:.8;
+}
+.zoom-reset{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:4px 10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.zoom-reset:hover{ background:#fafafa; }
+
+/* Opacity panel */
+#opacityPanel small{ opacity:.6; display:block; margin-top:6px; }
