@@ -94,21 +94,24 @@ h1{
   justify-self:end;
   display:flex;
   align-items:center;
-  gap:15px;
+  gap:12px;            /* 画像の間隔だけ残す */
 }
 
+/* ← ここを差し替え：白い箱を廃止し PNG をそのまま表示 */
 .content-btn{
-  all: unset !important;      /* 容器リセット */
-  display: inline-block !important;
-  cursor: pointer;
+  background:transparent;
+  border:none;
+  border-radius:0;
+  padding:0;
+  width:auto;
+  height:auto;
+  cursor:pointer;
 }
 
-:root { --content-icon-h: 28px; }   /* 好きな数値に変更OK（24〜32あたりが使いやすい） */
-
+/* 画像は自然サイズ。揃えたい場合は height を指定（例: 28px） */
 .content-btn img{
   display:block;
-  height: var(--content-icon-h);
-  width: auto;
+  /* height:28px; */   /* ←揃えたい時だけ有効化 */
 }
 
 /* ホバー効果は薄いフェードだけに */
