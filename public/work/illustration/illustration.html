@@ -35,6 +35,23 @@
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
 
+  :root {
+  --content-icon-h: 28px; /* コンテンツボタン高さ */
+  --tool-icon-h: 28px;    /* ツールボタン高さ */
+}
+
+.content-btn img {
+  display: block;
+  height: var(--content-icon-h);
+  width: auto;
+}
+
+.tool-btn img {
+  display: block;
+  height: var(--tool-icon-h);
+  width: auto;
+}
+
     /* ===== アプリ全体レイアウト ===== */
     .app{
       display:grid;
