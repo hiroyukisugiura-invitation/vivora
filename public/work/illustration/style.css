@@ -94,47 +94,31 @@ h1{
   justify-self:end;
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;            /* 画像の間隔だけ残す */
 }
-.content-btn{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:10px;
-  width:42px; height:42px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-  transition:.15s;
-}
-.content-btn img{ width:26px; height:26px; display:block; }
-.content-btn:hover{ transform:translateY(-2px); box-shadow:var(--shadow); }
 
-/* ===== Canvas ===== */
-.canvas-area{
-  grid-area:canvas;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
+/* ← ここを差し替え：白い箱を廃止し PNG をそのまま表示 */
+.content-btn{
+  background:transparent;
+  border:none;
+  border-radius:0;
+  padding:0;
+  width:auto;
+  height:auto;
+  cursor:pointer;
 }
-.board{
-  position:relative;
-  flex:1;
-  margin:16px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:10px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  user-select:none;
+
+/* 画像は自然サイズ。揃えたい場合は height を指定（例: 28px） */
+.content-btn img{
+  display:block;
+  /* height:28px; */   /* ←揃えたい時だけ有効化 */
 }
-/* Grid paper */
-.board.grid::before{
-  content:"";
-  position:absolute; inset:0;
-  pointer-events:none;
-  background-image:
-    linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);
-  background-size:24px 24px;
+
+/* ホバー効果は薄いフェードだけに */
+.content-btn:hover{
+  transform:none;
+  box-shadow:none;
+  opacity:.85;
 }
 
 /* Stage（Pan/Zoom対象） */
