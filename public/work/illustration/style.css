@@ -376,3 +376,4 @@ body {
   color:#fff;
   border-color: var(--text-primary);
 }
+.toolbar .gender{ margin-right: 12px; }
