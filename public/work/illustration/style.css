@@ -130,11 +130,17 @@ body {
 }
 
 /* 右側ブロック（Content） */
-.toolbar-right{
-  justify-self: end;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* ツールバー */
+.toolbar{
+  grid-area:toolbar;
+  display:grid;
+  grid-template-columns: auto 1fr auto; /* Gender | History | Content */
+  align-items:center;
+  padding:10px 16px;
+  column-gap:14px;
+  border-top:none;
+  background:transparent;
+  backdrop-filter:none;
 }
 
 /* 余計な余白を消す */
@@ -166,6 +172,10 @@ body {
 }
 
 /* ===== キャンバスエリア ===== */
+/* 中央固定のための配置指定 */
+.history-tools{ display:flex; gap:14px; justify-self:center; }
+.contentbar{ margin-left:0; justify-self:end; } /* 既存の margin-left:auto を上書き */
+
 .canvas-wrapper {
   flex-grow: 1; /* 残りの高さを全て使う */
   position: relative;
