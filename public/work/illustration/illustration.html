@@ -12,45 +12,117 @@
 
   <style>
     /* =============================================================
-       Vivora Illustration — Clean Single-File v1 (2025-08-14)
-       - 重複CSS/SCSS風ネストを排除
-       - ツールバーをグリッド3カラム化（左:Gender / 中央:History / 右:Content）
-       - Pan&Zoomのpointer capture先を安全化
-       ============================================================= */
+   Vivora Illustration — Clean CSS (style only) 2025-08-15
+   - history tool と contents tool のサイズ統一
+   - アイコン高さも共通化
+============================================================= */
 
-    :root{
-      --bg:#f3ece7;
-      --panel:#f7f2ee;
-      --line:#e1d9d4;
-      --text:#333;
-      --accent:#222;
-      --shadow:0 6px 18px rgba(0,0,0,.06);
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      background:var(--bg);
-      color:var(--text);
-      font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    }
+:root{
+  --bg:#f3ece7;
+  --panel:#f7f2ee;
+  --line:#e1d9d4;
+  --text:#333;
+  --accent:#222;
+  --shadow:0 6px 18px rgba(0,0,0,.06);
 
-  :root {
-  --content-icon-h: 28px; /* コンテンツボタン高さ */
-  --tool-icon-h: 28px;    /* ツールボタン高さ */
+  /* ボタンとアイコン共通サイズ */
+  --btn-box: 42px;     /* 白い箱の一辺 */
+  --icon-h : 26px;     /* アイコンの高さ */
 }
 
-.content-btn img {
-  display: block;
-  height: var(--content-icon-h);
-  width: auto;
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-.tool-btn img {
-  display: block;
-  height: var(--tool-icon-h);
-  width: auto;
+/* ===== レイアウト基盤 ===== */
+.app{
+  display:grid;
+  grid-template-columns: 1fr 320px;
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    "header  sidebar"
+    "toolbar sidebar"
+    "canvas  sidebar";
+  height:100vh;
 }
+
+/* ===== Header ===== */
+header{
+  grid-area:header;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:12px 16px;
+}
+h1{
+  font:500 18px/1 'Playfair Display',serif;
+  color:#222;
+  margin-right:auto;
+}
+
+/* ===== Toolbar ===== */
+.toolbar{
+  grid-area:toolbar;
+  display:grid;
+  grid-template-columns: auto 1fr auto;
+  align-items:center;
+  column-gap:14px;
+  padding:10px 16px;
+  border-top:none;
+  background:transparent;
+  backdrop-filter:none;
+}
+
+/* Gender switch */
+.gender{ display:flex; gap:6px; }
+.gender button{
+  border:1px solid var(--line);
+  background:#fff;
+  padding:6px 12px;
+  border-radius:16px;
+  cursor:pointer;
+  font-size:13px;
+}
+.gender button.active{
+  background:var(--accent);
+  color:#fff;
+  border-color:var(--accent);
+}
+
+/* ===== history tool & contents tool 共通 ===== */
+.history-tools .tool-btn,
+.contentbar .content-btn{
+  width:var(--btn-box);
+  height:var(--btn-box);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  cursor:pointer;
+  transition:.15s;
+}
+.history-tools .tool-btn:hover,
+.contentbar .content-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+/* アイコンサイズ共通化 */
+.history-tools .tool-btn img,
+.contentbar .content-btn img{
+  display:block;
+  height:var(--icon-h);
+  width:auto;
+}
+/* ===== その他既存スタイル（必要に応じて残す） ===== */
 
     /* ===== アプリ全体レイアウト ===== */
     .app{
