@@ -36,7 +36,7 @@
       /* Sizes */
       --icon:28px;            /* default icon */
       --icon-lg:32px;         /* for big areas */
-      --swatch:28px;          /* color swatch */
+      --swatch:40px;          /* color swatch */
 
       /* Radii */
       --r-xs:6px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
@@ -141,12 +141,13 @@
     /* ANCHOR:OPACITY */
 
     /* Color tool */
-    .swatches{display:grid;grid-template-columns:repeat(6, var(--swatch));gap:10px}
-    .swatch{width:var(--swatch);height:var(--swatch);border-radius:10px;border:1px solid rgba(0,0,0,.06);box-shadow:var(--shadow-sm)}
-    .swatch.is-selected{outline:2px solid #333}
-    .swatch-row-actions{display:grid;grid-template-columns:repeat(6, var(--swatch));gap:10px;margin-top:10px}
-
-    /* ANCHOR:COLOR */
+    .palette{display:grid;grid-template-columns:repeat(5, var(--swatch));gap:12px}
+    .swatch{width:var(--swatch);height:var(--swatch);border-radius:10px;border:1px solid rgba(0,0,0,.06);box-shadow:var(--shadow-sm);background:var(--c);cursor:pointer}
+    .swatch.is-selected{outline:2px solid #333;outline-offset:2px}
+    .palette-actions{display:grid;grid-template-columns:repeat(4, var(--swatch));gap:12px;margin-top:12px}
+    .swatch.add{display:grid;place-items:center;background:#fff;border:1px dashed var(--line);color:#bbb;font-size:22px}
+    .swatch.picker{display:grid;place-items:center;background:#fff;border:1px solid var(--line);font-size:18px}
+    .palette-more{text-align:center;opacity:.55;font-size:22px;line-height:1;margin-top:8px}
 
     /* Helper (optional visual guide) */
     /* body.debug{background:url('./refs/fashion-illustrations_pc.png') no-repeat top center/contain} */
@@ -291,37 +292,33 @@
           <div class="hd">Color</div>
           <div class="bd">
             <!-- ANCHOR:COLOR -->
-            <div class="swatches" id="swatches">
-              <div class="swatch" style="background:#ffffff"></div>
-              <div class="swatch" style="background:#c9c9c9"></div>
-              <div class="swatch" style="background:#aaaaaa"></div>
-              <div class="swatch" style="background:#e6c98f"></div>
-              <div class="swatch" style="background:#f0d14f"></div>
-              <div class="swatch" style="background:#f5a623"></div>
+            <div class="palette" id="palette">
+              <button class="swatch" style="--c:#ffffff" data-color="#ffffff" aria-label="#ffffff"></button>
+              <button class="swatch" style="--c:#bdbdbd" data-color="#bdbdbd" aria-label="#bdbdbd"></button>
+              <button class="swatch" style="--c:#ffef5a" data-color="#ffef5a" aria-label="#ffef5a"></button>
+              <button class="swatch" style="--c:#f4a52e" data-color="#f4a52e" aria-label="#f4a52e"></button>
+              <button class="swatch" style="--c:#f6b5c1" data-color="#f6b5c1" aria-label="#f6b5c1"></button>
 
-              <div class="swatch" style="background:#f44336"></div>
-              <div class="swatch" style="background:#ff9800"></div>
-              <div class="swatch" style="background:#ffc107"></div>
-              <div class="swatch" style="background:#4caf50"></div>
-              <div class="swatch" style="background:#2196f3"></div>
-              <div class="swatch" style="background:#3f51b5"></div>
+              <button class="swatch" style="--c:#e53935" data-color="#e53935" aria-label="#e53935"></button>
+              <button class="swatch" style="--c:#66bb6a" data-color="#66bb6a" aria-label="#66bb6a"></button>
+              <button class="swatch" style="--c:#2e7d32" data-color="#2e7d32" aria-label="#2e7d32"></button>
+              <button class="swatch" style="--c:#81c7ee" data-color="#81c7ee" aria-label="#81c7ee"></button>
+              <button class="swatch" style="--c:#1e40af" data-color="#1e40af" aria-label="#1e40af"></button>
 
-              <div class="swatch" style="background:#9c27b0"></div>
-              <div class="swatch" style="background:#e91e63"></div>
-              <div class="swatch" style="background:#795548"></div>
-              <div class="swatch" style="background:#607d8b"></div>
-              <div class="swatch" style="background:#222"></div>
-              <div class="swatch" style="background:#000"></div>
+              <button class="swatch" style="--c:#7b1fa2" data-color="#7b1fa2" aria-label="#7b1fa2"></button>
+              <button class="swatch" style="--c:#8d4b4b" data-color="#8d4b4b" aria-label="#8d4b4b"></button>
+              <button class="swatch" style="--c:#616161" data-color="#616161" aria-label="#616161"></button>
+              <button class="swatch" style="--c:#000000" data-color="#000000" aria-label="#000000"></button>
             </div>
 
-            <div class="swatch-row-actions">
-              <button class="slot">+</button>
-              <button class="slot">+</button>
-              <button class="slot">+</button>
-              <button class="slot">+</button>
-              <button class="slot">+</button>
-              <button class="slot">+</button>
+            <div class="palette-actions">
+              <button class="swatch add" data-role="add" aria-label="Add color">+</button>
+              <button class="swatch add" data-role="add" aria-label="Add color">+</button>
+              <button class="swatch add" data-role="add" aria-label="Add color">+</button>
+              <button class="swatch picker" data-role="pick" aria-label="Eyedropper">🧪</button>
             </div>
+            <div class="palette-more">…</div>
+            <input type="color" id="colorPicker" style="position:absolute;left:-9999px;" aria-hidden="true">
           </div>
         </section>
       </aside>
@@ -329,5 +326,42 @@
   </div>
 
   
+  <script>
+    // Color palette interactions (select/add/pick). Safe even without Layer.applyColor.
+    (function(){
+      const palette = document.getElementById('palette');
+      const picker = document.getElementById('colorPicker');
+      function apply(hex){
+        if(window.Layer && typeof Layer.applyColor==='function'){
+          try{ Layer.applyColor(hex); }catch(e){}
+        }
+      }
+      function select(el){
+        if(!palette) return; 
+        palette.querySelectorAll('.swatch').forEach(x=>x.classList.remove('is-selected'));
+        if(el) el.classList.add('is-selected');
+      }
+      if(palette){
+        palette.addEventListener('click',e=>{
+          const sw=e.target.closest('.swatch');
+          if(!sw || !sw.dataset.color) return;
+          select(sw); apply(sw.dataset.color);
+        });
+      }
+      document.querySelectorAll('.palette-actions .add').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          picker.value='#ff0000'; picker.click();
+          picker.oninput=()=>{
+            const hex=picker.value;
+            const b=document.createElement('button');
+            b.className='swatch'; b.style.setProperty('--c',hex); b.dataset.color=hex; b.setAttribute('aria-label',hex);
+            palette.appendChild(b); select(b); apply(hex);
+          };
+        });
+      });
+      const pip=document.querySelector('.palette-actions .picker');
+      if(pip){ pip.addEventListener('click',()=>{ picker.click(); picker.oninput=()=>{ apply(picker.value); }; }); }
+    })();
+  </script>
 </body>
 </html>
