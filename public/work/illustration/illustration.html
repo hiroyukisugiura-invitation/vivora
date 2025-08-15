@@ -104,9 +104,14 @@
     .main{display:grid;grid-template-columns:1fr var(--sidebar-w);gap:var(--space-6);margin-top:var(--space-4)}
 
     /* Canvas area */
-    .canvas-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:var(--space-6);min-height:560px;display:flex;align-items:center}
+    .canvas-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:var(--space-6);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden}
     .mannequin-wrap{margin:0 auto;max-width:520px}
     .mannequin-base{width:100%;height:auto;object-fit:contain;}
+
+    /* grid overlay for canvas */
+    .canvas-card::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);background-size:24px 24px;opacity:.45;pointer-events:none;display:none}
+    .canvas-card.grid::before{display:block}
+    .mannequin-wrap{position:relative;z-index:1}
 
     /* ANCHOR:CANVAS */
 
@@ -204,7 +209,7 @@
       <section class="canvas-card">
         <!-- ANCHOR:CANVAS -->
         <div class="mannequin-wrap">
-          <img id="mannequin" class="mannequin-base" src="./assets/img/mannequin.png" alt="Mannequin base">
+          <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin base">
         </div>
       </section>
 
@@ -327,41 +332,71 @@
 
   
   <script>
-    // Color palette interactions (select/add/pick). Safe even without Layer.applyColor.
-    (function(){
-      const palette = document.getElementById('palette');
-      const picker = document.getElementById('colorPicker');
-      function apply(hex){
-        if(window.Layer && typeof Layer.applyColor==='function'){
-          try{ Layer.applyColor(hex); }catch(e){}
-        }
-      }
-      function select(el){
-        if(!palette) return; 
-        palette.querySelectorAll('.swatch').forEach(x=>x.classList.remove('is-selected'));
-        if(el) el.classList.add('is-selected');
-      }
-      if(palette){
-        palette.addEventListener('click',e=>{
-          const sw=e.target.closest('.swatch');
-          if(!sw || !sw.dataset.color) return;
-          select(sw); apply(sw.dataset.color);
-        });
-      }
-      document.querySelectorAll('.palette-actions .add').forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          picker.value='#ff0000'; picker.click();
-          picker.oninput=()=>{
-            const hex=picker.value;
-            const b=document.createElement('button');
-            b.className='swatch'; b.style.setProperty('--c',hex); b.dataset.color=hex; b.setAttribute('aria-label',hex);
-            palette.appendChild(b); select(b); apply(hex);
-          };
-        });
+  // ================================================
+  // History tools + Default Mannequin (Woman) + Grid
+  // ================================================
+  (function(){
+    const $ = s => document.querySelector(s);
+    const DEFAULT_WOMAN = '../../mannequin/mannequin_woman.png';
+    const canvasCard = document.querySelector('.canvas-card');
+
+    function snapshot(){
+      return {
+        src: $('#mannequin')?.getAttribute('src') || DEFAULT_WOMAN,
+        grid: canvasCard.classList.contains('grid')
+      };
+    }
+    const undo=[], redo=[]; const MAX=50;
+    function push(){ undo.push(snapshot()); if(undo.length>MAX) undo.shift(); redo.length=0; }
+    function restore(s){ if(!s) return; const img=$('#mannequin'); if(img) img.setAttribute('src', s.src); canvasCard.classList.toggle('grid', !!s.grid); }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // Start with woman mannequin
+      const img=$('#mannequin'); if(img) img.src = DEFAULT_WOMAN;
+      push();
+
+      // Wire history tool buttons
+      $('#btn-undo')?.addEventListener('click', ()=>{ if(!undo.length) return; const cur=snapshot(); const prev=undo.pop(); redo.push(cur); restore(prev); });
+      $('#btn-redo')?.addEventListener('click', ()=>{ if(!redo.length) return; const cur=snapshot(); const nxt=redo.pop(); undo.push(cur); restore(nxt); });
+      $('#btn-reset')?.addEventListener('click', ()=>{ restore({src:DEFAULT_WOMAN, grid:false}); push(); });
+      $('#grid-toggle')?.addEventListener('click', ()=>{ canvasCard.classList.toggle('grid'); push(); });
+
+      $('#btn-upload')?.addEventListener('click', ()=>{
+        const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
+        inp.onchange=(e)=>{ const f=e.target.files?.[0]; if(!f) return; const url=URL.createObjectURL(f); $('#mannequin').src=url; push(); };
+        inp.click();
       });
-      const pip=document.querySelector('.palette-actions .picker');
-      if(pip){ pip.addEventListener('click',()=>{ picker.click(); picker.oninput=()=>{ apply(picker.value); }; }); }
-    })();
-  </script>
+
+      $('#btn-download')?.addEventListener('click', async ()=>{
+        const src=$('#mannequin').src;
+        try{
+          const im=new Image(); im.crossOrigin='anonymous'; im.src=src; await im.decode();
+          const c=document.createElement('canvas');
+          c.width=im.naturalWidth||im.width||600; c.height=im.naturalHeight||im.height||800;
+          const ctx=c.getContext('2d'); ctx.drawImage(im,0,0,c.width,c.height);
+          const a=document.createElement('a'); a.href=c.toDataURL('image/png'); a.download='vivora-mannequin.png'; a.click();
+        }catch(err){ alert('画像のダウンロードに失敗しました'); }
+      });
+
+      $('#btn-save')?.addEventListener('click', ()=>{
+        localStorage.setItem('vivora-illustration-v1', JSON.stringify(snapshot()));
+        alert('Saved.');
+      });
+    });
+  })();
+
+  // ================================================
+  // Color palette interactions (select/add/pick)
+  // ================================================
+  (function(){
+    const palette = document.getElementById('palette');
+    const picker = document.getElementById('colorPicker');
+    function apply(hex){ if(window.Layer && typeof Layer.applyColor==='function'){ try{ Layer.applyColor(hex); }catch(e){} } }
+    function select(el){ if(!palette) return; palette.querySelectorAll('.swatch').forEach(x=>x.classList.remove('is-selected')); if(el) el.classList.add('is-selected'); }
+    if(palette){ palette.addEventListener('click',e=>{ const sw=e.target.closest('.swatch'); if(!sw || !sw.dataset.color) return; select(sw); apply(sw.dataset.color); }); }
+    document.querySelectorAll('.palette-actions .add').forEach(btn=>{ btn.addEventListener('click',()=>{ picker.value='#ff0000'; picker.click(); picker.oninput=()=>{ const hex=picker.value; const b=document.createElement('button'); b.className='swatch'; b.style.setProperty('--c',hex); b.dataset.color=hex; b.setAttribute('aria-label',hex); palette.appendChild(b); select(b); apply(hex); }; }); });
+    document.querySelector('.palette-actions .picker')?.addEventListener('click',()=>{ picker.click(); picker.oninput=()=>{ apply(picker.value); }; });
+  })();
+</script>
 </body>
 </html>
