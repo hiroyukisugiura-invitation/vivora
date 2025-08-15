@@ -94,7 +94,8 @@
     /* tool rows */
     .tools{display:flex;gap:var(--space-3);align-items:center}
     .tool-btn{width:36px;height:36px;display:grid;place-items:center;background:var(--white);border:1px solid var(--line);border-radius:var(--r-xs);box-shadow:var(--shadow-sm);}
-    .tool-btn span{font-size:18px}
+    .tool-btn img{width:20px;height:20px;object-fit:contain}
+    .tool-btn span{font-size:18px;display:none}
 
     /* ANCHOR:HISTORY_TOOL */
     /* ANCHOR:CONTENTS_TOOL */
@@ -172,26 +173,26 @@
 
         <div class="tools" aria-label="History tool">
           <!-- ANCHOR:HISTORY_TOOL -->
-          <button class="tool-btn" title="Undo"><span>↶</span></button>
-          <button class="tool-btn" title="Redo"><span>↷</span></button>
-          <button class="tool-btn" title="Copy"><span>⎘</span></button>
-          <button class="tool-btn" title="Paste"><span>⎗</span></button>
-          <button class="tool-btn" title="Download"><span>⬇</span></button>
-          <button class="tool-btn" title="Upload"><span>⬆</span></button>
-          <button class="tool-btn" title="Export"><span>⤳</span></button>
-          <button class="tool-btn" title="Grid"><span>▦</span></button>
+          <button class="tool-btn" title="Undo"><img src="../../contents/icons/undo.svg" alt="Undo"></button>
+          <button class="tool-btn" title="Redo"><img src="../../contents/icons/redo.svg" alt="Redo"></button>
+          <button class="tool-btn" title="Copy"><img src="../../contents/icons/copy.svg" alt="Copy"></button>
+          <button class="tool-btn" title="Paste"><img src="../../contents/icons/paste.svg" alt="Paste"></button>
+          <button class="tool-btn" title="Download"><img src="../../contents/icons/download.svg" alt="Download"></button>
+          <button class="tool-btn" title="Upload"><img src="../../contents/icons/upload.svg" alt="Upload"></button>
+          <button class="tool-btn" title="Export"><img src="../../contents/icons/export.svg" alt="Export"></button>
+          <button class="tool-btn" title="Grid"><img src="../../contents/icons/grid.svg" alt="Grid"></button>
 
           <!-- spacer -->
           <div style="width:10px"></div>
 
           <!-- ANCHOR:CONTENTS_TOOL -->
-          <button class="tool-btn" title="Home"><span>⌂</span></button>
-          <button class="tool-btn" title="Mannequin"><span>👤</span></button>
-          <button class="tool-btn" title="CAD"><span>▭</span></button>
-          <button class="tool-btn" title="Pen"><span>✒</span></button>
-          <button class="tool-btn" title="Brush"><span>🖌</span></button>
-          <button class="tool-btn" title="Text"><span>T</span></button>
-          <button class="tool-btn" title="Emoji"><span>☺</span></button>
+          <button class="tool-btn" title="Home"><img src="../../contents/icons/home.svg" alt="Home"></button>
+          <button class="tool-btn" title="Mannequin"><img src="../../contents/icons/mannequin.svg" alt="Mannequin"></button>
+          <button class="tool-btn" title="CAD"><img src="../../contents/icons/cad.svg" alt="CAD"></button>
+          <button class="tool-btn" title="Pen"><img src="../../contents/icons/pen.svg" alt="Pen"></button>
+          <button class="tool-btn" title="Brush"><img src="../../contents/icons/brush.svg" alt="Brush"></button>
+          <button class="tool-btn" title="Text"><img src="../../contents/icons/text.svg" alt="Text"></button>
+          <button class="tool-btn" title="Emoji"><img src="../../contents/icons/emoji.svg" alt="Emoji"></button>
         </div>
 
         <div><!-- right spacer (intentionally empty to match mock) --></div>
