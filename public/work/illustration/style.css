@@ -1,54 +1,333 @@
-:root {
-  --bg-main: #f0ebe8;
-  --bg-panel: #faf6f3;
-  --text-primary: #3d3d3d;
-  --font-accent: 'Playfair Display', serif;
-  --border-color: #e0d5d0;
-  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background-color: var(--bg-main); color: var(--text-primary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; overflow: hidden; }
-.app-container { display: flex; height: 100vh; }
-.main-workspace { flex: 1; display: flex; flex-direction: column; padding: var(--spacing-md) var(--spacing-lg); }
-.sidebar { width: 340px; padding: var(--spacing-lg); display: flex; flex-direction: column; gap: var(--spacing-md); overflow-y: auto; background-color: var(--bg-main); }
-.page-title { padding-bottom: var(--spacing-md); }
-.page-title h1 { font-family: var(--font-accent); font-size: 26px; font-weight: 500; }
-.toolbar { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--spacing-md); }
-.gender-switch { display: flex; background-color: #fff; border-radius: 8px; box-shadow: var(--shadow-light); overflow: hidden; }
-.gender-btn { background-color: transparent; border: none; padding: 10px 24px; font-size: 14px; cursor: pointer; color: var(--text-primary); transition: all 0.2s; }
-.gender-btn.active { background-color: var(--text-primary); color: #fff; }
-.history-tool, .contents-tool { display: flex; gap: var(--spacing-md); }
-.icon-btn { background: none; border: none; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; padding: 0; }
-.icon-btn:hover { opacity: 1; }
-.icon-btn img { display: block; height: 24px; }
-.canvas { flex-grow: 1; position: relative; display: flex; justify-content: center; align-items: center; background-color: var(--bg-panel); border-radius: 12px; overflow: hidden; }
-.mannequin-base { max-width: 90%; max-height: 90%; object-fit: contain; }
-.next-button { text-align: right; margin-bottom: var(--spacing-md); }
-.next-button button { background-color: var(--text-primary); color: white; font-family: var(--font-accent); font-size: 18px; letter-spacing: 1px; padding: 12px 28px; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.2s; box-shadow: var(--shadow-light); }
-.next-button button:hover { background-color: #000; }
-.panel { background-color: var(--bg-panel); border-radius: 12px; padding: var(--spacing-md); }
-.panel h3 { font-family: var(--font-accent); font-size: 20px; margin-bottom: var(--spacing-md); }
-.create-data { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-sm); }
-.data-slot { width: 100%; aspect-ratio: 3 / 4; border: 1px solid var(--border-color); border-radius: 8px; background-color: #fff; }
-.add-button { border: 1px dashed var(--border-color); background-color: transparent; font-size: 24px; color: #ccc;}
-.tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.tool-tile { background-color: #fff; width: 100%; aspect-ratio: 1/1; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
-.tool-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
-.tool-tile img { height: 32px; }
-.panel-footer { text-align: center; letter-spacing: 2px; color: #ccc; margin-top: var(--spacing-sm); }
-.slider-control { display: flex; align-items: center; gap: var(--spacing-sm); }
-.slider-control input[type="range"] { flex-grow: 1; }
-.zoom-btn, .opacity-btn { border: 1px solid var(--border-color); background-color: #fff; border-radius: 4px; padding: 4px 8px; }
-.slider-meta { display: flex; justify-content: space-between; font-size: 12px; color: #999; margin-top: var(--spacing-sm); }
-.reset-btn { border: none; background: none; text-decoration: underline; color: #999; cursor: pointer; }
-.panel-note { font-size: 12px; color: #999; margin-top: var(--spacing-md); line-height: 1.5; }
-.custom-btn { background: none; border: 1px solid var(--border-color); color: var(--text-primary); font-size: 12px; cursor: pointer; padding: 4px 10px; border-radius: 6px; }
-.color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--spacing-sm); }
-.color-tile { width: 100%; aspect-ratio: 1/1; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
-.color-tile.eyedropper-button { border: 1px dashed var(--border-color); display:flex; justify-content:center; align-items:center;}
-.color-tile.eyedropper-button img { height: 20px; }```
+/* ==============================================================
+   Vivora UI — Clean CSS (Google AI Studio 提案の整理版)
+   - レイアウト / ツールバー / サイドバーを変数駆動で統一
+   - PNGアイコンの“透明余白”を相殺してボタン間隔を詰める
+   - コメントで各ブロックの意図を明確化
+   - ※ このCSSは Google案のクラス名に合わせてあります
+     （.app-container / .main-workspace / .sidebar / .toolbar など）
+================================================================= */
 
----
+/* ========== Design Tokens（テーマ変数） =========================
+   ※ 色や余白の基準値。ここだけ触れば全体のトーンを揃えられます。
+----------------------------------------------------------------- */
+:root{
+  /* Colors */
+  --bg-main:        #f0ebe8; /* ページ背景 */
+  --bg-panel:       #faf6f3; /* パネル/キャンバス背景 */
+  --text-primary:   #3d3d3d; /* 主要テキスト */
+  --border-color:   #e0d5d0; /* 線/枠 */
+  --shadow-light:   0 4px 12px rgba(0,0,0,.05);
+
+  /* Typography */
+  --font-accent: 'Playfair Display', serif;
+
+  /* Spacing scale */
+  --space-2xs: 4px;
+  --space-xs : 6px;
+  --space-sm : 8px;
+  --space-md : 16px;
+  --space-lg : 24px;
+
+  /* ===== Toolbar tuning knobs（ここが“詰め”用のノブ） =====
+     - アイコンサイズと、PNGの透明余白を相殺するマージン、
+       そしてボタン間の素の隙間をまとめて管理します。 */
+  --icon-size: 26px;  /* 24〜30px 推奨。参考画像に合わせる */
+  --icon-pad : -12px; /* 透明余白を相殺（-10〜-16pxが目安） */
+  --btn-gap  : 0px;   /* アイコン間の素の隙間（0〜2px推奨） */
+}
+
+/* ========== Reset / Base ===================================== */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; }
+body{
+  background:var(--bg-main);
+  color:var(--text-primary);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  overflow:hidden; /* Google案を踏襲：全体スクロールを抑制 */
+}
+
+/* ========== App Layout =======================================
+   左：main-workspace（ヘッダ/ツールバー/キャンバス）
+   右：sidebar（操作パネル）
+----------------------------------------------------------------- */
+.app-container{
+  display:flex;
+  height:100vh;
+}
+.main-workspace{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding:var(--space-md) var(--space-lg);
+  gap:var(--space-sm);
+}
+.sidebar{
+  width:340px;
+  padding:var(--space-lg);
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-md);
+  overflow:auto;                 /* ← サイドバー側のみ縦スクロール */
+  background:var(--bg-main);
+  border-left:1px solid var(--border-color);
+}
+
+/* ========== Header =========================================== */
+.page-title{ padding-bottom:var(--space-md); }
+.page-title h1{
+  font-family:var(--font-accent);
+  font-size:26px;
+  font-weight:500;
+  letter-spacing:.2px;
+}
+
+/* ========== Toolbar（左=Gender / 中央=History / 右=Contents） =====
+   Google案の .toolbar / .gender-switch / .history-tool / .contents-tool を採用
+----------------------------------------------------------------- */
+.toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding-bottom:var(--space-md);
+  gap:var(--space-md);
+}
+
+/* --- gender switch（トグル風ピル） --- */
+.gender-switch{
+  display:flex;
+  background:#fff;
+  border:1px solid var(--border-color);
+  border-radius:999px;
+  box-shadow:var(--shadow-light);
+  overflow:hidden;
+}
+.gender-btn{
+  background:transparent;
+  border:none;
+  padding:10px 24px;
+  font-size:14px;
+  cursor:pointer;
+  color:var(--text-primary);
+  transition:.2s;
+}
+.gender-btn:hover{ background:rgba(0,0,0,.04); }
+.gender-btn.active{
+  background:var(--text-primary);
+  color:#fff;
+}
+
+/* --- history / contents（アイコン行） --------------------------
+   ここが“詰め”の本体。gapは --btn-gap で制御し、
+   PNGの透明余白は img に左右マイナスマージンを与えて相殺します。
+----------------------------------------------------------------- */
+.history-tool,
+.contents-tool{
+  display:flex;
+  align-items:center;
+  gap:var(--btn-gap);
+}
+
+/* 基本ボタン（背景の“白い箱/枠/影”を出さない） */
+.icon-btn{
+  all:unset; /* ← UA既定と過去CSSの干渉を断つ */
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  opacity:.9;
+  transition:opacity .15s ease;
+}
+.icon-btn:hover{ opacity:1; }
+
+/* PNGアイコン：高さだけ統一。透明余白は左右マイナスで詰める */
+.icon-btn img{
+  display:block;
+  height:var(--icon-size);
+  width:auto;
+  margin-left: var(--icon-pad);
+  margin-right:var(--icon-pad);
+}
+
+/* キーボード操作でも分かるようフォーカスリング */
+.icon-btn:focus-visible,
+.gender-btn:focus-visible,
+.next-button button:focus-visible,
+.zoom-btn:focus-visible,
+.opacity-btn:focus-visible,
+.reset-btn:focus-visible{
+  outline:2px solid #6c5ce7;
+  outline-offset:2px;
+  border-radius:8px;
+}
+
+/* ========== Canvas =========================================== */
+.canvas{
+  flex-grow:1;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:var(--bg-panel);
+  border-radius:12px;
+  box-shadow:var(--shadow-light);
+  overflow:hidden;
+  border:1px solid var(--border-color);
+}
+.mannequin-base{
+  max-width:90%;
+  max-height:90%;
+  object-fit:contain;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+/* ========== Sidebar panels =================================== */
+.next-button{ text-align:right; margin-bottom:var(--space-md); }
+.next-button button{
+  background:var(--text-primary);
+  color:#fff;
+  font-family:var(--font-accent);
+  font-size:18px;
+  letter-spacing:1px;
+  padding:12px 28px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  transition:background-color .2s ease;
+  box-shadow:var(--shadow-light);
+}
+.next-button button:hover{ background:#000; }
+
+.panel{
+  background:var(--bg-panel);
+  border:1px solid var(--border-color);
+  border-radius:12px;
+  padding:var(--space-md);
+  box-shadow:var(--shadow-light);
+}
+.panel + .panel{ margin-top:var(--space-md); }
+.panel h3{
+  font-family:var(--font-accent);
+  font-size:20px;
+  margin-bottom:var(--space-md);
+}
+
+/* スロット/ツールのグリッド */
+.create-data{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:var(--space-sm);
+}
+.data-slot{
+  width:100%;
+  aspect-ratio:3/4;
+  border:1px dashed var(--border-color);
+  border-radius:8px;
+  background:#fff;
+}
+
+.tool-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.tool-tile{
+  background:#fff;
+  width:100%;
+  aspect-ratio:1/1;
+  border:1px solid var(--border-color);
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.tool-tile:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+.tool-tile img{ height:32px; }
+
+.panel-footer{
+  text-align:center;
+  letter-spacing:2px;
+  color:#bbb;
+  margin-top:var(--space-sm);
+}
+
+/* スライダー群（Zoom / Opacity など） */
+.slider-control{
+  display:flex;
+  align-items:center;
+  gap:var(--space-sm);
+}
+.slider-control input[type="range"]{ flex:1; }
+.zoom-btn, .opacity-btn{
+  border:1px solid var(--border-color);
+  background:#fff;
+  border-radius:6px;
+  padding:4px 10px;
+  cursor:pointer;
+}
+.slider-meta{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:#999;
+  margin-top:var(--space-sm);
+}
+.reset-btn{
+  border:none;
+  background:none;
+  text-decoration:underline;
+  color:#999;
+  cursor:pointer;
+}
+
+/* 補足テキスト */
+.panel-note{
+  font-size:12px;
+  color:#999;
+  margin-top:var(--space-md);
+  line-height:1.6;
+}
+
+/* カラータイル */
+.custom-btn{
+  background:none;
+  border:1px solid var(--border-color);
+  color:var(--text-primary);
+  font-size:12px;
+  cursor:pointer;
+  padding:4px 10px;
+  border-radius:6px;
+}
+.color-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:var(--space-sm);
+}
+.color-tile{
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:50%;
+  cursor:pointer;
+  border:2px solid transparent;
+}
+.color-tile.add-button,
+.color-tile.eyedropper-button{
+  border:1px dashed var(--border-color);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#bbb;
+}
+.color-tile.eyedropper-button img{ height:20px; }
+
+/* ========== Optional: “さらに詰める/広げる”クイック調整 =================
+   参考画像により近づける場合は、下の3値を状況に応じて微調整：
+   :root の --icon-size（高さ）、--icon-pad（透明余白相殺）、--btn-gap（素の隙間）
+   例）もっと詰める → --icon-pad:-14px / --btn-gap:0px
+       ほんの少し余裕 → --icon-pad:-10px / --btn-gap:2px
+================================================================= */
