@@ -1,261 +1,52 @@
-/* =============================================================
-   Vivora Illustration — Clean CSS v1 (2025-08-14)
-   - HTML（差し替え済み）に対応する外部スタイル
-   - 重複/入れ子/未使用セレクタを排除
-============================================================= */
-
-:root{
-  --bg:#f3ece7;
-  --panel:#f7f2ee;
-  --line:#e1d9d4;
-  --text:#333;
-  --accent:#222;
-  --shadow:0 6px 18px rgba(0,0,0,.06);
+:root {
+  --bg-main: #f0ebe8;
+  --bg-panel: #faf6f3;
+  --text-primary: #3d3d3d;
+  --font-accent: 'Playfair Display', serif;
+  --border-color: #e0d5d0;
+  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
 }
-
-*{ box-sizing:border-box; margin:0; padding:0; }
-html,body{ height:100%; }
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
-
-/* ===== レイアウト基盤 ===== */
-.app{
-  display:grid;
-  grid-template-columns: 1fr 320px;
-  grid-template-rows: auto auto 1fr;
-  grid-template-areas:
-    "header  sidebar"
-    "toolbar sidebar"
-    "canvas  sidebar";
-  height:100vh;
-}
-
-/* ===== Header ===== */
-header{
-  grid-area:header;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:12px 16px;
-}
-h1{
-  font:500 18px/1 'Playfair Display',serif;
-  color:#222;
-  margin-right:auto;
-}
-
-/* ===== Toolbar（3カラム：左=Gender / 中央=History / 右=Content） ===== */
-.toolbar{
-  grid-area:toolbar;
-  display:grid;
-  grid-template-columns: auto 1fr auto;
-  align-items:center;
-  column-gap:14px;
-  padding:10px 16px;
-  border-top:none;
-  background:transparent;
-  backdrop-filter:none;
-}
-
-/* Gender pill */
-.gender{ display:flex; gap:6px; }
-.gender button{
-  border:1px solid var(--line);
-  background:#fff;
-  padding:6px 12px;
-  border-radius:16px;
-  cursor:pointer;
-  font-size:13px;
-}
-.gender button.active{
-  background:var(--accent);
-  color:#fff;
-  border-color:var(--accent);
-}
-
-/* ===== History（中央）/ Contents（右） 共通 ===== */
-:root{
-  --icon-h:26px;     /* アイコン高さ（必要ならここで調整） */
-  --icon-pad:-8px;   /* PNGの透明余白を詰める用（-10px までOK） */
-  --btn-gap:2px;     /* ボタン間の基本間隔（1〜3px 推奨） */
-}
-.history-tools,
-.contentbar{
-  display:flex;
-  align-items:center;
-  gap:var(--btn-gap);
-}
-
-/* 配置位置（Grid 用） */
-.history-tools{ justify-self:center; }
-.contentbar   { justify-self:end;    }
-
-/* 余白のあるPNGを詰めて表示（白い箱なし） */
-.history-tools .tool-btn,
-.contentbar .content-btn{
-  background:transparent;
-  border:none;
-  padding:0;
-  width:auto; height:auto;
-  cursor:pointer;
-}
-.history-tools .tool-btn > img,
-.contentbar  .content-btn > img{
-  display:block;
-  height:var(--icon-h);
-  width:auto;
-  margin-left: var(--icon-pad);
-  margin-right:var(--icon-pad);
-}
-.history-tools .tool-btn:hover,
-.contentbar  .content-btn:hover{ opacity:.85; }
-
-/* Stage（Pan/Zoom対象） */
-#stage{
-  position:absolute;
-  left:0; top:0;
-  transform-origin:0 0;
-  touch-action:none;
-  cursor:grab;
-}
-#stage.grabbing{ cursor:grabbing; }
-
-.mannequin-base{
-  display:block;
-  max-width:none;   /* 実サイズ基準で拡縮 */
-  width:600px;      /* 初期見やすさのための幅 */
-  height:auto;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-
-/* Overlay（追加パーツ） */
-.overlay-item{
-  position:absolute;
-  left:50%; top:50%;
-  transform:translate(-50%,-50%);
-  width:45%;
-  aspect-ratio:3/4;
-  pointer-events:auto;
-}
-.overlay-item img{
-  width:100%; height:100%;
-  object-fit:contain;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-.overlay-item.selected-layer{
-  outline:2px dashed #6c5ce7;
-  outline-offset:2px;
-}
-.overlay-item .tint{
-  position:absolute; inset:0;
-  pointer-events:none;
-  border-radius:4px;
-  mix-blend-mode:multiply;
-}
-
-/* ===== Sidebar ===== */
-aside{
-  grid-area:sidebar;
-  padding:16px;
-  border-left:1px solid var(--line);
-  background:var(--panel);
-  overflow:auto;
-}
-.panel{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
-  margin-bottom:12px;
-  box-shadow:var(--shadow);
-}
-.panel h3{
-  font:500 16px/1 'Playfair Display',serif;
-  margin-bottom:8px;
-}
-
-.nextstep{
-  display:flex;
-  justify-content:flex-end;
-  margin-bottom:12px;
-}
-.nextstep button{
-  background:#222; color:#fff;
-  border:none; border-radius:8px;
-  padding:10px 16px;
-  cursor:pointer;
-  font-family:'Playfair Display',serif;
-}
-
-/* Pose */
-.pose-row{ display:flex; gap:8px; overflow:auto; }
-.pose-row img{
-  width:52px; height:80px; object-fit:contain;
-  border:2px solid transparent;
-  border-radius:8px;
-  padding:2px;
-  background:#fff;
-  cursor:pointer;
-}
-.pose-row img.selected{ border-color:#222; }
-
-/* Tiles */
-.grid-4{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-.tool-tile,.color-tile{
-  width:56px; height:56px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#fff;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-  transition:.15s;
-}
-.tool-tile:hover,.color-tile:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 18px rgba(0,0,0,.08);
-}
-.tool-tile img{ width:30px; height:30px; }
-.color-tile{ border:none; }
-.color-tile.add{
-  font-size:22px; color:#bbb;
-  border:1px dashed var(--line);
-  background:#fafafa;
-}
-
-/* Zoom panel */
-#zoomPanel .zoom-row{ display:flex; align-items:center; gap:10px; }
-#zoomRange{ width:100%; }
-.zoom-btn{
-  width:34px; height:34px;
-  border:1px solid var(--line);
-  background:#fff; border-radius:8px;
-  cursor:pointer;
-}
-.zoom-btn:hover{ background:#fafafa; }
-.zoom-meta{
-  display:flex; align-items:center; justify-content:space-between;
-  margin-top:8px;
-  font-size:13px; opacity:.8;
-}
-.zoom-reset{
-  border:1px solid var(--line);
-  background:#fff;
-  padding:4px 10px;
-  border-radius:8px;
-  cursor:pointer;
-}
-.zoom-reset:hover{ background:#fafafa; }
-
-/* Opacity panel */
-#opacityPanel small{ opacity:.6; display:block; margin-top:6px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: var(--bg-main); color: var(--text-primary); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; overflow: hidden; }
+.app-container { display: flex; height: 100vh; }
+.main-workspace { flex: 1; display: flex; flex-direction: column; padding: var(--spacing-md) var(--spacing-lg); }
+.sidebar { width: 340px; padding: var(--spacing-lg); display: flex; flex-direction: column; gap: var(--spacing-md); overflow-y: auto; background-color: var(--bg-main); }
+.page-title { padding-bottom: var(--spacing-md); }
+.page-title h1 { font-family: var(--font-accent); font-size: 26px; font-weight: 500; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--spacing-md); }
+.gender-switch { display: flex; background-color: #fff; border-radius: 8px; box-shadow: var(--shadow-light); overflow: hidden; }
+.gender-btn { background-color: transparent; border: none; padding: 10px 24px; font-size: 14px; cursor: pointer; color: var(--text-primary); transition: all 0.2s; }
+.gender-btn.active { background-color: var(--text-primary); color: #fff; }
+.history-tool, .contents-tool { display: flex; gap: var(--spacing-md); }
+.icon-btn { background: none; border: none; cursor: pointer; opacity: 0.7; transition: opacity 0.2s; padding: 0; }
+.icon-btn:hover { opacity: 1; }
+.icon-btn img { display: block; height: 24px; }
+.canvas { flex-grow: 1; position: relative; display: flex; justify-content: center; align-items: center; background-color: var(--bg-panel); border-radius: 12px; overflow: hidden; }
+.mannequin-base { max-width: 90%; max-height: 90%; object-fit: contain; }
+.next-button { text-align: right; margin-bottom: var(--spacing-md); }
+.next-button button { background-color: var(--text-primary); color: white; font-family: var(--font-accent); font-size: 18px; letter-spacing: 1px; padding: 12px 28px; border-radius: 8px; border: none; cursor: pointer; transition: background-color 0.2s; box-shadow: var(--shadow-light); }
+.next-button button:hover { background-color: #000; }
+.panel { background-color: var(--bg-panel); border-radius: 12px; padding: var(--spacing-md); }
+.panel h3 { font-family: var(--font-accent); font-size: 20px; margin-bottom: var(--spacing-md); }
+.create-data { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-sm); }
+.data-slot { width: 100%; aspect-ratio: 3 / 4; border: 1px dashed var(--border-color); border-radius: 8px; background-color: #fff; }
+.tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.tool-tile { background-color: #fff; width: 100%; aspect-ratio: 1/1; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+.tool-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
+.tool-tile img { height: 32px; }
+.panel-footer { text-align: center; letter-spacing: 2px; color: #ccc; margin-top: var(--spacing-sm); }
+.slider-control { display: flex; align-items: center; gap: var(--spacing-sm); }
+.slider-control input[type="range"] { flex-grow: 1; }
+.zoom-btn, .opacity-btn { border: 1px solid var(--border-color); background-color: #fff; border-radius: 4px; padding: 4px 8px; }
+.slider-meta { display: flex; justify-content: space-between; font-size: 12px; color: #999; margin-top: var(--spacing-sm); }
+.reset-btn { border: none; background: none; text-decoration: underline; color: #999; cursor: pointer; }
+.panel-note { font-size: 12px; color: #999; margin-top: var(--spacing-md); line-height: 1.5; }
+.custom-btn { background: none; border: 1px solid var(--border-color); color: var(--text-primary); font-size: 12px; cursor: pointer; padding: 4px 10px; border-radius: 6px; }
+.color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--spacing-sm); }
+.color-tile { width: 100%; aspect-ratio: 1/1; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+.color-tile.add-button { border: 1px dashed var(--border-color); color: #ccc; font-size: 20px; }
+.color-tile.eyedropper-button { border: 1px dashed var(--border-color); display:flex; justify-content:center; align-items:center;}
+.color-tile.eyedropper-button img { height: 20px; }
