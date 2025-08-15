@@ -78,24 +78,42 @@ h1{
   border-color:var(--accent);
 }
 
-/* History（中央固定） */
-.history-tools{
-  justify-self:center;
-  display:flex;
-  align-items:center;
-  gap:3px;
+/* ===== History（中央）/ Contents（右） 共通 ===== */
+:root{
+  --icon-h:26px;     /* アイコン高さ（必要ならここで調整） */
+  --icon-pad:-8px;   /* PNGの透明余白を詰める用（-10px までOK） */
+  --btn-gap:2px;     /* ボタン間の基本間隔（1〜3px 推奨） */
 }
-.tool-btn{ background:transparent; border:none; cursor:pointer; opacity:.85; }
-.tool-btn:hover{ opacity:1; }
-.tool-btn img{ width:22px; height:22px; display:block; }
-
-/* Content（右寄せ） */
+.history-tools,
 .contentbar{
-  justify-self:end;
   display:flex;
   align-items:center;
-  gap:3px;            /* 画像の間隔だけ残す */
+  gap:var(--btn-gap);
 }
+
+/* 配置位置（Grid 用） */
+.history-tools{ justify-self:center; }
+.contentbar   { justify-self:end;    }
+
+/* 余白のあるPNGを詰めて表示（白い箱なし） */
+.history-tools .tool-btn,
+.contentbar .content-btn{
+  background:transparent;
+  border:none;
+  padding:0;
+  width:auto; height:auto;
+  cursor:pointer;
+}
+.history-tools .tool-btn > img,
+.contentbar  .content-btn > img{
+  display:block;
+  height:var(--icon-h);
+  width:auto;
+  margin-left: var(--icon-pad);
+  margin-right:var(--icon-pad);
+}
+.history-tools .tool-btn:hover,
+.contentbar  .content-btn:hover{ opacity:.85; }
 
 /* ← ここを差し替え：白い箱を廃止し PNG をそのまま表示 */
 .content-btn{
