@@ -11,46 +11,60 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
 
   <style>
-/* Vivora Illustration — Toolbar unify (style only) 2025-08-15
-   - history tool / contents tool を同サイズに統一
-   - 背面の白い箱・枠・影を撤去（アイコンのみ）
-   - ボタン間隔を詰める
-*/
+/* =============================================================
+   Vivora Illustration — Toolbar tighten (STYLE ONLY) 2025‑08‑15
+   - history tool / contents tool を同サイズ・同間隔に統一
+   - ボタン背面の白い箱/枠/影を撤去（PNGアイコンのみ表示）
+   - 参考画像どおりにアイコン間隔を極小化
+============================================================= */
 
+/* ===== Theme tokens ===== */
 :root{
-  --bg:#f3ece7; --panel:#f7f2ee; --line:#e1d9d4; --text:#333; --accent:#222;
+  --bg:#f3ece7;
+  --panel:#f7f2ee;
+  --line:#e1d9d4;
+  --text:#333;
+  --accent:#222;
   --shadow:0 6px 18px rgba(0,0,0,.06);
 
-  /* 見た目をまとめて調整するノブ */
-  --btn-box: 48px;   /* ボタン外形（少し大きめ） */
-  --icon-h : 30px;   /* アイコンの高さ（ボタンに合わせ拡大） */
-  --tool-gap: 6px;   /* ボタン間隔（参考画像に合わせて詰め） */
+  /* toolbar 見た目ノブ（必要ならここだけ調整） */
+  --icon-h:26px;     /* アイコンの高さ（24〜30px程度） */
+  --icon-pad:-12px;  /* PNGの透明余白を相殺（-10〜-14px目安） */
+  --btn-gap:0px;     /* アイコン同士の素の間隔（0〜2px） */
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
+/* ===== Reset / base ===== */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; }
 body{
-  background:var(--bg); color:var(--text);
+  background:var(--bg);
+  color:var(--text);
   font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-/* ===== レイアウト基盤 ===== */
+/* ===== Layout ===== */
 .app{
   display:grid;
   grid-template-columns:1fr 320px;
   grid-template-rows:auto auto 1fr;
   grid-template-areas:
-    "header sidebar"
+    "header  sidebar"
     "toolbar sidebar"
     "canvas  sidebar";
   height:100vh;
 }
 
-header{grid-area:header;display:flex;align-items:center;gap:16px;padding:12px 16px}
-h1{font:500 18px/1 'Playfair Display',serif;color:#222;margin-right:auto}
+/* Header */
+header{
+  grid-area:header;
+  display:flex; align-items:center; gap:16px;
+  padding:12px 16px;
+}
+h1{ font:500 18px/1 'Playfair Display',serif; color:#222; margin-right:auto; }
 
-/* ===== Toolbar（左=gender / 中央=history / 右=content） ===== */
+/* Toolbar（左=Gender / 中央=History / 右=Content） */
 .toolbar{
   grid-area:toolbar;
   display:grid;
@@ -61,100 +75,90 @@ h1{font:500 18px/1 'Playfair Display',serif;color:#222;margin-right:auto}
   background:transparent;
 }
 
-/* gender switch（既存） */
-.gender{display:flex;gap:6px}
+/* Gender */
+.gender{ display:flex; gap:6px; }
 .gender button{
-  border:1px solid var(--line);background:#fff;padding:6px 12px;
-  border-radius:16px;cursor:pointer;font-size:13px
+  border:1px solid var(--line); background:#fff;
+  padding:6px 12px; border-radius:16px; cursor:pointer; font-size:13px;
 }
-.gender button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.gender button.active{ background:var(--accent); color:#fff; border-color:var(--accent); }
 
-/* 並びの間隔（統一・詰め） */
-.history-tools{justify-self:center;display:flex;align-items:center;gap:var(--tool-gap)}
-.contentbar    {justify-self:end;   display:flex;align-items:center;gap:var(--tool-gap)}
+/* ===== History / Contents 共通（ここが詰めの本体） ===== */
+.history-tools, .contentbar{
+  display:flex; align-items:center; gap:var(--btn-gap);
+}
+.history-tools{ justify-self:center; }
+.contentbar   { justify-self:end; }
 
-/* ボタン容器：UAデフォルトをリセットして白枠等を廃止 */
+/* 背面の“箱”を完全撤去し、PNGだけ見せる */
 .history-tools .tool-btn,
-.contentbar .content-btn{
-  all:unset;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:var(--btn-box);
-  height:var(--btn-box);
+.contentbar   .content-btn{
+  all:unset;                   /* UA既定のbuttonスタイルを完全リセット */
+  display:inline-flex; align-items:center; justify-content:center;
   cursor:pointer;
 }
 
-/* アイコンサイズを共通化 */
+/* アイコンのサイズ統一＋透明余白をマイナスマージンで相殺して詰める */
 .history-tools .tool-btn > img,
-.contentbar .content-btn > img{
+.contentbar   .content-btn > img{
   display:block;
-  height:var(--icon-h);
-  width:auto;
+  height:var(--icon-h); width:auto;
+  margin-left:var(--icon-pad);
+  margin-right:var(--icon-pad);
 }
 
-/* 軽いホバーのみ（レイアウト変化なし） */
+/* 軽いホバーだけ */
 .history-tools .tool-btn:hover,
-.contentbar .content-btn:hover{opacity:.85}
+.contentbar   .content-btn:hover{ opacity:.85; }
 
-/* ===== Canvas ===== */
-.canvas-area{grid-area:canvas;display:flex;flex-direction:column;overflow:hidden}
+/* ===== Canvas / Sidebar（最低限：既存見た目を維持） ===== */
+.canvas-area{ grid-area:canvas; display:flex; flex-direction:column; overflow:hidden; }
 .board{
-  position:relative;flex:1;margin:16px;background:#fff;
-  border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);
-  overflow:hidden;user-select:none
+  position:relative; flex:1; margin:16px; background:#fff;
+  border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
+  overflow:hidden; user-select:none;
 }
 .board.grid::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
+  content:""; position:absolute; inset:0; pointer-events:none;
   background-image:
-    linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);
-  background-size:24px 24px
+    linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px);
+  background-size:24px 24px;
 }
-#stage{position:absolute;left:0;top:0;transform-origin:0 0;touch-action:none;cursor:grab}
-#stage.grabbing{cursor:grabbing}
-.mannequin-base{display:block;max-width:none;width:600px;height:auto;user-select:none;-webkit-user-drag:none}
 
-/* 追加パーツ */
-.overlay-item{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:45%;aspect-ratio:3/4;pointer-events:auto}
-.overlay-item img{width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}
-.overlay-item.selected-layer{outline:2px dashed #6c5ce7;outline-offset:2px}
-.overlay-item .tint{position:absolute;inset:0;pointer-events:none;border-radius:4px;mix-blend-mode:multiply}
+/* Pan/Zoom 対象 */
+#stage{ position:absolute; left:0; top:0; transform-origin:0 0; touch-action:none; cursor:grab; }
+#stage.grabbing{ cursor:grabbing; }
+.mannequin-base{ display:block; max-width:none; width:600px; height:auto; user-select:none; -webkit-user-drag:none; }
 
-/* ===== Sidebar ===== */
-aside{grid-area:sidebar;padding:16px;border-left:1px solid var(--line);background:var(--panel);overflow:auto}
-.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;box-shadow:var(--shadow)}
-.panel h3{font:500 16px/1 'Playfair Display',serif;margin-bottom:8px}
-.nextstep{display:flex;justify-content:flex-end;margin-bottom:12px}
-.nextstep button{background:#222;color:#fff;border:none;border-radius:8px;padding:10px 16px;cursor:pointer;font-family:'Playfair Display',serif}
+/* Sidebar（最低限） */
+aside{ grid-area:sidebar; padding:16px; border-left:1px solid var(--line); background:var(--panel); overflow:auto; }
+.panel{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px; margin-bottom:12px; box-shadow:var(--shadow) }
+.panel h3{ font:500 16px/1 'Playfair Display',serif; margin-bottom:8px }
+.nextstep{ display:flex; justify-content:flex-end; margin-bottom:12px }
+.nextstep button{ background:#222; color:#fff; border:none; border-radius:8px; padding:10px 16px; cursor:pointer; font-family:'Playfair Display',serif }
 
-.pose-row{display:flex;gap:8px;overflow:auto}
-.pose-row img{width:52px;height:80px;object-fit:contain;border:2px solid transparent;border-radius:8px;padding:2px;background:#fff;cursor:pointer}
-.pose-row img.selected{border-color:#222}
+.pose-row{ display:flex; gap:8px; overflow:auto }
+.pose-row img{ width:52px; height:80px; object-fit:contain; border:2px solid transparent; border-radius:8px; padding:2px; background:#fff; cursor:pointer }
+.pose-row img.selected{ border-color:#222 }
 
-.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.tool-tile,.color-tile{
-  width:56px;height:56px;border:1px solid var(--line);border-radius:10px;background:#fff;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s
-}
-.tool-tile:hover,.color-tile:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
-.tool-tile img{width:30px;height:30px}
-.color-tile{border:none}
-.color-tile.add{font-size:22px;color:#bbb;border:1px dashed var(--line);background:#fafafa}
+.grid-4{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px }
+.tool-tile,.color-tile{ width:56px; height:56px; border:1px solid var(--line); border-radius:10px; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:.15s }
+.tool-tile:hover,.color-tile:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.08) }
+.tool-tile img{ width:30px; height:30px }
+.color-tile{ border:none }
+.color-tile.add{ font-size:22px; color:#bbb; border:1px dashed var(--line); background:#fafafa }
 
-/* Zoom panel */
-#zoomPanel .zoom-row{display:flex;align-items:center;gap:10px}
-#zoomRange{width:100%}
-.zoom-btn{width:34px;height:34px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer}
-.zoom-btn:hover{background:#fafafa}
-.zoom-meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px;font-size:13px;opacity:.8}
-.zoom-reset{border:1px solid var(--line);background:#fff;padding:4px 10px;border-radius:8px;cursor:pointer}
-.zoom-reset:hover{background:#fafafa}
-
-/* Opacity panel */
-#opacityPanel small{opacity:.6;display:block;margin-top:6px}
+#zoomPanel .zoom-row{ display:flex; align-items:center; gap:10px }
+#zoomRange{ width:100% }
+.zoom-btn{ width:34px; height:34px; border:1px solid var(--line); background:#fff; border-radius:8px; cursor:pointer }
+.zoom-btn:hover{ background:#fafafa }
+.zoom-meta{ display:flex; align-items:center; justify-content:space-between; margin-top:8px; font-size:13px; opacity:.8 }
+.zoom-reset{ border:1px solid var(--line); background:#fff; padding:4px 10px; border-radius:8px; cursor:pointer }
+.zoom-reset:hover{ background:#fafafa }
+#opacityPanel small{ opacity:.6; display:block; margin-top:6px }
 </style>
-
+  
 </head>
 <body>
   <div class="app">
