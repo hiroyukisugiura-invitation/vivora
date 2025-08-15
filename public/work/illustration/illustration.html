@@ -2,141 +2,147 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-  
-  <!-- CSSファイルだけを外部から読み込みます -->
+
+  <!-- 外部CSS（このファイル名で保存） -->
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <div class="app-container">
 
     <main class="main-workspace">
-      
+      <!-- タイトル -->
       <header class="page-title">
         <h1>Vivora Fashion Illustration 2025</h1>
       </header>
 
+      <!-- ツールバー（左=Gender / 中央=History / 右=Contents） -->
       <div class="toolbar">
-        <div class="gender-switch">
-          <button class="gender-btn active" data-gender="woman">Woman</button>
-          <button class="gender-btn" data-gender="man">Man</button>
-          <button class="gender-btn" data-gender="kids">Kids</button>
+        <div class="gender-switch" aria-label="Gender">
+          <button class="gender-btn active" data-gender="woman" type="button">Woman</button>
+          <button class="gender-btn" data-gender="man"   type="button">Man</button>
+          <button class="gender-btn" data-gender="kids"  type="button">Kids</button>
         </div>
-        <div class="history-tool">
-          <button class="icon-btn"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
-          <button class="icon-btn"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
-          <button class="icon-btn"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
-          <button class="icon-btn"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
-          <button class="icon-btn"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
-          <button class="icon-btn"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
-          <button class="icon-btn"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
+
+        <div class="history-tool" aria-label="History Tools">
+          <button class="icon-btn" title="Undo"     type="button"><img src="../../create_parts/create_button/retreat.png"     alt="Undo" /></button>
+          <button class="icon-btn" title="Redo"     type="button"><img src="../../create_parts/create_button/forward.png"     alt="Redo" /></button>
+          <button class="icon-btn" title="Reset"    type="button"><img src="../../create_parts/create_button/reset.png"       alt="Reset" /></button>
+          <button class="icon-btn" title="Download" type="button"><img src="../../create_parts/create_button/download.png"    alt="Download" /></button>
+          <button class="icon-btn" title="Upload"   type="button"><img src="../../create_parts/create_button/upload.png"      alt="Upload" /></button>
+          <button class="icon-btn" title="Save"     type="button"><img src="../../create_parts/create_button/save.png"        alt="Save" /></button>
+          <button class="icon-btn" title="Grid"     type="button"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid" /></button>
         </div>
-        <div class="contents-tool">
-          <button class="icon-btn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations"></button>
-          <button class="icon-btn"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric"></button>
-          <button class="icon-btn"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing"></button>
-          <button class="icon-btn"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern"></button>
-          <button class="icon-btn"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
-          <button class="icon-btn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print"></button>
-          <button class="icon-btn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode"></button>
+
+        <div class="contents-tool" aria-label="Content Shortcuts">
+          <button class="icon-btn" title="Illustrations" type="button"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations" /></button>
+          <button class="icon-btn" title="Fabric"        type="button"><img src="../../create_parts/contents_button/2_fabric-matching.png"      alt="Fabric" /></button>
+          <button class="icon-btn" title="Clothing"      type="button"><img src="../../create_parts/contents_button/3_clothing-design.png"      alt="Clothing" /></button>
+          <button class="icon-btn" title="Pattern"       type="button"><img src="../../create_parts/contents_button/4_pattern-creation.png"     alt="Pattern" /></button>
+          <button class="icon-btn" title="Grading"       type="button"><img src="../../create_parts/contents_button/5_grading.png"              alt="Grading" /></button>
+          <button class="icon-btn" title="Print"         type="button"><img src="../../create_parts/contents_button/6_print-layout-cut.png"     alt="Print" /></button>
+          <button class="icon-btn" title="Kids Mode"     type="button"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode" /></button>
         </div>
       </div>
 
+      <!-- キャンバス -->
       <div id="canvas" class="canvas">
-        <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+        <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin" />
       </div>
     </main>
 
+    <!-- サイドバー -->
     <aside class="sidebar">
       <div class="next-button">
-        <button>Next Step ▶▶</button>
+        <button type="button">Next Step ▶▶</button>
       </div>
 
       <div class="panel create-data">
-        <button class="data-slot add-button">+</button>
-        <button class="data-slot add-button">+</button>
-        <button class="data-slot add-button">+</button>
-        <button class="data-slot add-button">+</button>
+        <button class="data-slot add-button" type="button">+</button>
+        <button class="data-slot add-button" type="button">+</button>
+        <button class="data-slot add-button" type="button">+</button>
+        <button class="data-slot add-button" type="button">+</button>
       </div>
 
       <div class="panel stationery-tool">
         <h3>Stationery</h3>
         <div class="tool-grid">
-            <div class="tool-tile"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/direct_select.png" alt="Direct Select"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/sentence.png" alt="Text"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/fill.png" alt="Fill"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/pen.png" alt="Pen"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/brush.png" alt="Brush"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/eraser.png" alt="Eraser"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/rotate.png" alt="Rotate"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/percent.png" alt="Percent"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/photo.png" alt="Photo"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/add.png" alt="Add"></div>
-            <div class="tool-tile"><img src="../../create_parts/design_button/shapes.png" alt="Shapes"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/select.png"         alt="Select"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/direct_select.png"  alt="Direct Select"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/sentence.png"       alt="Text"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/fill.png"           alt="Fill"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/pen.png"            alt="Pen"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/brush.png"          alt="Brush"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/eraser.png"         alt="Eraser"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/rotate.png"         alt="Rotate"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/percent.png"        alt="Percent"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/photo.png"          alt="Photo"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/add.png"            alt="Add"></div>
+          <div class="tool-tile"><img src="../../create_parts/design_button/shapes.png"         alt="Shapes"></div>
         </div>
         <div class="panel-footer">...</div>
       </div>
-      
+
       <div class="panel zoom-bar">
         <h3>Zoom</h3>
         <div class="slider-control">
-            <button class="zoom-btn">-</button>
-            <input type="range" min="10" max="200" value="100">
-            <button class="zoom-btn">+</button>
+          <button class="zoom-btn" type="button">−</button>
+          <input type="range" min="10" max="200" value="100" />
+          <button class="zoom-btn" type="button">＋</button>
         </div>
         <div class="slider-meta">
-            <span>10%</span>
-            <button class="reset-btn">Reset</button>
-            <span>200%</span>
+          <span>10%</span>
+          <button class="reset-btn" type="button">Reset</button>
+          <span>200%</span>
         </div>
       </div>
 
       <div class="panel opacity-bar">
         <h3>Opacity</h3>
         <div class="slider-control">
-            <button class="opacity-btn">-</button>
-            <input type="range" min="0" max="100" value="100">
-            <button class="opacity-btn">+</button>
+          <button class="opacity-btn" type="button">−</button>
+          <input type="range" min="0" max="100" value="100" />
+          <button class="opacity-btn" type="button">＋</button>
         </div>
-         <div class="slider-meta">
-            <span>0%</span>
-            <button class="reset-btn">Reset</button>
-            <span>100%</span>
+        <div class="slider-meta">
+          <span>0%</span>
+          <button class="reset-btn" type="button">Reset</button>
+          <span>100%</span>
         </div>
-        <p class="panel-note">※レイヤー選択中は<br>そのレイヤーに、<br>未選択時はマネキンに適用</p>
+        <p class="panel-note">※ レイヤー選択中はそのレイヤーに、未選択時はマネキンに適用</p>
       </div>
 
       <div class="panel color-tool">
-        <h3>Color <button class="custom-btn">Custom...</button></h3>
+        <h3>Color <button class="custom-btn" type="button">Custom...</button></h3>
         <div class="color-grid">
-            <div class="color-tile" style="background-color: #ffffff;"></div>
-            <div class="color-tile" style="background-color: #adadad;"></div>
-            <div class="color-tile" style="background-color: #f7d93d;"></div>
-            <div class="color-tile" style="background-color: #f4a2a2;"></div>
-            <div class="color-tile" style="background-color: #eb4334;"></div>
-            <div class="color-tile" style="background-color: #61b846;"></div>
-            <div class="color-tile" style="background-color: #3b5998;"></div>
-            <div class="color-tile" style="background-color: #8b008b;"></div>
-            <div class="color-tile" style="background-color: #555555;"></div>
-            <div class="color-tile" style="background-color: #000000;"></div>
-            <button class="color-tile add-button">+</button>
-            <button class="color-tile eyedropper-button"><img src="../../color/pc_color/eyedropper.png" alt="Eyedropper"></button>
+          <div class="color-tile" style="background:#ffffff"></div>
+          <div class="color-tile" style="background:#adadad"></div>
+          <div class="color-tile" style="background:#f7d93d"></div>
+          <div class="color-tile" style="background:#f4a2a2"></div>
+          <div class="color-tile" style="background:#eb4334"></div>
+          <div class="color-tile" style="background:#61b846"></div>
+          <div class="color-tile" style="background:#3b5998"></div>
+          <div class="color-tile" style="background:#8b008b"></div>
+          <div class="color-tile" style="background:#555555"></div>
+          <div class="color-tile" style="background:#000000"></div>
+          <button class="color-tile add-button" type="button">+</button>
+          <button class="color-tile eyedropper-button" type="button">
+            <img src="../../color/pc_color/eyedropper.png" alt="Eyedropper">
+          </button>
         </div>
       </div>
     </aside>
-    
   </div>
-  
-  <!-- JavaScriptをここに埋め込みます -->
+
   <script>
-    console.log('Vivora Fashion Illustration script loaded.');
-    // 今はまだ機能はありませんが、今後のために準備しています。
+    // 今はダミー。機能追加時にここへ。
+    console.log('Vivora UI loaded');
   </script>
 </body>
 </html>
