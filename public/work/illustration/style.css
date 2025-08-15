@@ -1,22 +1,18 @@
 /* ==============================================================
-   Vivora UI — Clean CSS (Google AI Studio 提案の整理版)
-   - レイアウト / ツールバー / サイドバーを変数駆動で統一
-   - PNGアイコンの“透明余白”を相殺してボタン間隔を詰める
-   - コメントで各ブロックの意図を明確化
-   - ※ このCSSは Google案のクラス名に合わせてあります
-     （.app-container / .main-workspace / .sidebar / .toolbar など）
+   Vivora UI — Clean CSS（完全版）
+   - 変数駆動で色/余白/影を統一
+   - ツールバーのアイコンを“極限まで詰める”ための3変数を用意
+   - クラス名は index.html に完全対応
 ================================================================= */
 
-/* ========== Design Tokens（テーマ変数） =========================
-   ※ 色や余白の基準値。ここだけ触れば全体のトーンを揃えられます。
------------------------------------------------------------------ */
+/* === Theme tokens ================================================= */
 :root{
   /* Colors */
-  --bg-main:        #f0ebe8; /* ページ背景 */
-  --bg-panel:       #faf6f3; /* パネル/キャンバス背景 */
-  --text-primary:   #3d3d3d; /* 主要テキスト */
-  --border-color:   #e0d5d0; /* 線/枠 */
-  --shadow-light:   0 4px 12px rgba(0,0,0,.05);
+  --bg-main:      #f0ebe8;   /* ページ背景 */
+  --bg-panel:     #faf6f3;   /* パネル/キャンバス背景 */
+  --text-primary: #3d3d3d;   /* 主要テキスト */
+  --border-color: #e0d5d0;   /* 枠線 */
+  --shadow-light: 0 4px 12px rgba(0,0,0,.05);
 
   /* Typography */
   --font-accent: 'Playfair Display', serif;
@@ -28,38 +24,33 @@
   --space-md : 16px;
   --space-lg : 24px;
 
-  /* ===== Toolbar tuning knobs（ここが“詰め”用のノブ） =====
-     - アイコンサイズと、PNGの透明余白を相殺するマージン、
-       そしてボタン間の素の隙間をまとめて管理します。 */
-  --icon-size: 26px;  /* 24〜30px 推奨。参考画像に合わせる */
-  --icon-pad : -12px; /* 透明余白を相殺（-10〜-16pxが目安） */
-  --btn-gap  : 0px;   /* アイコン間の素の隙間（0〜2px推奨） */
+  /* === Toolbar “詰め”ノブ（ここを触ると見た目が即反映） === */
+  --icon-size: 26px;  /* アイコン高さ：24〜30px */
+  --icon-pad : -14px; /* PNGの透明余白相殺：-10〜-16px */
+  --btn-gap  : 0px;   /* アイコン間の素の隙間：0〜2px */
 }
 
-/* ========== Reset / Base ===================================== */
+/* === Reset / Base ================================================= */
 *{ box-sizing:border-box; margin:0; padding:0; }
 html,body{ height:100%; }
 body{
   background:var(--bg-main);
   color:var(--text-primary);
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-  overflow:hidden; /* Google案を踏襲：全体スクロールを抑制 */
+  overflow:hidden; /* 本体は固定。スクロールはサイドバー側のみ */
 }
 
-/* ========== App Layout =======================================
-   左：main-workspace（ヘッダ/ツールバー/キャンバス）
-   右：sidebar（操作パネル）
------------------------------------------------------------------ */
+/* === App layout（左：作業 / 右：サイドバー） =================== */
 .app-container{
   display:flex;
   height:100vh;
 }
 .main-workspace{
   flex:1;
-  display:flex;
-  flex-direction:column;
+  display:grid;
+  grid-template-rows: auto auto 1fr; /* タイトル / ツールバー / キャンバス */
+  row-gap: var(--space-sm);
   padding:var(--space-md) var(--space-lg);
-  gap:var(--space-sm);
 }
 .sidebar{
   width:340px;
@@ -67,12 +58,12 @@ body{
   display:flex;
   flex-direction:column;
   gap:var(--space-md);
-  overflow:auto;                 /* ← サイドバー側のみ縦スクロール */
+  overflow:auto; /* ← 売りはここだけが縦スクロール */
   background:var(--bg-main);
   border-left:1px solid var(--border-color);
 }
 
-/* ========== Header =========================================== */
+/* === Header ====================================================== */
 .page-title{ padding-bottom:var(--space-md); }
 .page-title h1{
   font-family:var(--font-accent);
@@ -81,18 +72,16 @@ body{
   letter-spacing:.2px;
 }
 
-/* ========== Toolbar（左=Gender / 中央=History / 右=Contents） =====
-   Google案の .toolbar / .gender-switch / .history-tool / .contents-tool を採用
------------------------------------------------------------------ */
+/* === Toolbar（Gridで3カラム：左/中央/右を安定配置） ============= */
 .toolbar{
-  display:flex;
-  justify-content:space-between;
+  display:grid;
+  grid-template-columns: auto 1fr auto; /* 左=gender / 中央=history / 右=contents */
   align-items:center;
-  padding-bottom:var(--space-md);
-  gap:var(--space-md);
+  column-gap: var(--space-md);
+  padding-bottom: var(--space-md);
 }
 
-/* --- gender switch（トグル風ピル） --- */
+/* Gender switch（ピル型） */
 .gender-switch{
   display:flex;
   background:#fff;
@@ -108,38 +97,32 @@ body{
   font-size:14px;
   cursor:pointer;
   color:var(--text-primary);
-  transition:.2s;
+  transition:background .15s ease, color .15s ease;
 }
-.gender-btn:hover{ background:rgba(0,0,0,.04); }
-.gender-btn.active{
-  background:var(--text-primary);
-  color:#fff;
-}
+.gender-btn:hover{ background:rgba(0,0,0,.05); }
+.gender-btn.active{ background:var(--text-primary); color:#fff; }
 
-/* --- history / contents（アイコン行） --------------------------
-   ここが“詰め”の本体。gapは --btn-gap で制御し、
-   PNGの透明余白は img に左右マイナスマージンを与えて相殺します。
------------------------------------------------------------------ */
+/* History/Contents（“詰め”の本体） */
+.history-tool{ justify-self:center; }
+.contents-tool{ justify-self:end; }
 .history-tool,
 .contents-tool{
   display:flex;
   align-items:center;
-  gap:var(--btn-gap);
+  gap:var(--btn-gap); /* ← 基本の隙間はここで制御 */
 }
-
-/* 基本ボタン（背景の“白い箱/枠/影”を出さない） */
+/* ボタン化（枠/影/余白を完全撤去） */
 .icon-btn{
-  all:unset; /* ← UA既定と過去CSSの干渉を断つ */
+  all:unset;                   /* UA既定のbuttonスタイルを抹消 */
   display:inline-flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
   opacity:.9;
-  transition:opacity .15s ease;
+  transition:opacity .12s ease;
 }
 .icon-btn:hover{ opacity:1; }
-
-/* PNGアイコン：高さだけ統一。透明余白は左右マイナスで詰める */
+/* アイコン：高さ統一＋左右マイナスマージンで“透明余白”を潰す */
 .icon-btn img{
   display:block;
   height:var(--icon-size);
@@ -147,8 +130,7 @@ body{
   margin-left: var(--icon-pad);
   margin-right:var(--icon-pad);
 }
-
-/* キーボード操作でも分かるようフォーカスリング */
+/* アクセシビリティ：フォーカスリング */
 .icon-btn:focus-visible,
 .gender-btn:focus-visible,
 .next-button button:focus-visible,
@@ -160,18 +142,17 @@ body{
   border-radius:8px;
 }
 
-/* ========== Canvas =========================================== */
+/* === Canvas ====================================================== */
 .canvas{
-  flex-grow:1;
   position:relative;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   background:var(--bg-panel);
+  border:1px solid var(--border-color);
   border-radius:12px;
   box-shadow:var(--shadow-light);
   overflow:hidden;
-  border:1px solid var(--border-color);
 }
 .mannequin-base{
   max-width:90%;
@@ -181,7 +162,7 @@ body{
   -webkit-user-drag:none;
 }
 
-/* ========== Sidebar panels =================================== */
+/* === Sidebar panels ============================================= */
 .next-button{ text-align:right; margin-bottom:var(--space-md); }
 .next-button button{
   background:var(--text-primary);
@@ -190,11 +171,11 @@ body{
   font-size:18px;
   letter-spacing:1px;
   padding:12px 28px;
-  border-radius:8px;
   border:none;
+  border-radius:8px;
   cursor:pointer;
-  transition:background-color .2s ease;
   box-shadow:var(--shadow-light);
+  transition:background .15s ease;
 }
 .next-button button:hover{ background:#000; }
 
@@ -241,7 +222,7 @@ body{
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  transition:transform .15s ease, box-shadow .15s ease;
+  transition:transform .12s ease, box-shadow .12s ease;
 }
 .tool-tile:hover{
   transform:translateY(-2px);
@@ -256,7 +237,7 @@ body{
   margin-top:var(--space-sm);
 }
 
-/* スライダー群（Zoom / Opacity など） */
+/* スライダー（Zoom / Opacity） */
 .slider-control{
   display:flex;
   align-items:center;
@@ -293,7 +274,7 @@ body{
   line-height:1.6;
 }
 
-/* カラータイル */
+/* カラー */
 .custom-btn{
   background:none;
   border:1px solid var(--border-color);
@@ -325,9 +306,9 @@ body{
 }
 .color-tile.eyedropper-button img{ height:20px; }
 
-/* ========== Optional: “さらに詰める/広げる”クイック調整 =================
-   参考画像により近づける場合は、下の3値を状況に応じて微調整：
-   :root の --icon-size（高さ）、--icon-pad（透明余白相殺）、--btn-gap（素の隙間）
-   例）もっと詰める → --icon-pad:-14px / --btn-gap:0px
-       ほんの少し余裕 → --icon-pad:-10px / --btn-gap:2px
-================================================================= */
+/* === クイック調整メモ =============================================
+   ・さらに詰めたい → :root の
+       --icon-pad: -16px;  --btn-gap: 0px;  --icon-size: 26px;
+   ・少し余裕を持たせたい →
+       --icon-pad: -10px;  --btn-gap: 2px;  --icon-size: 24px;
+================================================================== */
