@@ -93,9 +93,9 @@
 
     /* tool rows */
     .tools{display:flex;gap:var(--space-3);align-items:center}
-    .tool-btn{width:36px;height:36px;display:grid;place-items:center;background:var(--white);border:1px solid var(--line);border-radius:var(--r-xs);box-shadow:var(--shadow-sm);}
-    .tool-btn img{width:20px;height:20px;object-fit:contain}
-    .tool-btn span{font-size:18px;display:none}
+    .tool-btn{background:transparent!important;border:none!important;box-shadow:none!important;width:auto;height:auto;padding:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+    .tool-btn img{height:26px;width:auto;object-fit:contain;display:block;filter:none}
+    .tool-btn span{display:none}
 
     /* ANCHOR:HISTORY_TOOL */
     /* ANCHOR:CONTENTS_TOOL */
@@ -328,48 +328,6 @@
     </section>
   </div>
 
-  <script>
-    // =============================================================
-    // Small helpers to make sliders display values (no actual zoom/opacity)
-    // =============================================================
-    const $ = (s,root=document)=>root.querySelector(s);
-    const zoomRange = $('#zoomRange');
-    const zoomNum = $('#zoomNum');
-    const opRange = $('#opRange');
-    const opNum = $('#opNum');
-
-    function clamp(v, min, max){ return Math.min(max, Math.max(min, v)); }
-
-    function bindIncDec(range, numEl, step=10, min=Number(range.min), max=Number(range.max)){
-      const parent = range.closest('.panel');
-      parent.addEventListener('click', (e)=>{
-        const t = e.target;
-        if(!(t instanceof HTMLElement)) return;
-        if(t.dataset.ctrl === 'zoom-reset' || t.dataset.ctrl === 'op-reset'){
-          if(range === zoomRange) { range.value = 100; numEl.textContent = '100%'; }
-          if(range === opRange) { range.value = 100; numEl.textContent = '100%'; }
-        }
-        if(t.dataset.ctrl === 'zoom-inc' || t.dataset.ctrl === 'op-inc'){
-          range.value = clamp(Number(range.value) + step, min, max);
-          numEl.textContent = range.value + '%';
-        }
-        if(t.dataset.ctrl === 'zoom-dec' || t.dataset.ctrl === 'op-dec'){
-          range.value = clamp(Number(range.value) - step, min, max);
-          numEl.textContent = range.value + '%';
-        }
-      });
-      range.addEventListener('input', ()=>{ numEl.textContent = range.value + '%'; });
-    }
-
-    bindIncDec(zoomRange, zoomNum, 10, 1, 400);
-    bindIncDec(opRange, opNum, 5, 0, 100);
-
-    // Color swatch selection (visual only)
-    const swatches = document.querySelectorAll('.swatch');
-    swatches.forEach(s => s.addEventListener('click', ()=>{
-      swatches.forEach(x=>x.classList.remove('is-selected'));
-      s.classList.add('is-selected');
-    }));
-  </script>
+  
 </body>
 </html>
