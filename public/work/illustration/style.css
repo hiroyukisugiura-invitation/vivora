@@ -83,7 +83,7 @@ h1{
   justify-self:center;
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:6px;
 }
 .tool-btn{ background:transparent; border:none; cursor:pointer; opacity:.85; }
 .tool-btn:hover{ opacity:1; }
@@ -94,7 +94,7 @@ h1{
   justify-self:end;
   display:flex;
   align-items:center;
-  gap:12px;            /* 画像の間隔だけ残す */
+  gap:6px;            /* 画像の間隔だけ残す */
 }
 
 /* ← ここを差し替え：白い箱を廃止し PNG をそのまま表示 */
