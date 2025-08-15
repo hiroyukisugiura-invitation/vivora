@@ -32,7 +32,8 @@ body { background-color: var(--bg-main); color: var(--text-primary); font-family
 .panel { background-color: var(--bg-panel); border-radius: 12px; padding: var(--spacing-md); }
 .panel h3 { font-family: var(--font-accent); font-size: 20px; margin-bottom: var(--spacing-md); }
 .create-data { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-sm); }
-.data-slot { width: 100%; aspect-ratio: 3 / 4; border: 1px dashed var(--border-color); border-radius: 8px; background-color: #fff; }
+.data-slot { width: 100%; aspect-ratio: 3 / 4; border: 1px solid var(--border-color); border-radius: 8px; background-color: #fff; }
+.add-button { border: 1px dashed var(--border-color); background-color: transparent; font-size: 24px; color: #ccc;}
 .tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .tool-tile { background-color: #fff; width: 100%; aspect-ratio: 1/1; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
 .tool-tile:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
@@ -47,6 +48,7 @@ body { background-color: var(--bg-main); color: var(--text-primary); font-family
 .custom-btn { background: none; border: 1px solid var(--border-color); color: var(--text-primary); font-size: 12px; cursor: pointer; padding: 4px 10px; border-radius: 6px; }
 .color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--spacing-sm); }
 .color-tile { width: 100%; aspect-ratio: 1/1; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
-.color-tile.add-button { border: 1px dashed var(--border-color); color: #ccc; font-size: 20px; }
 .color-tile.eyedropper-button { border: 1px dashed var(--border-color); display:flex; justify-content:center; align-items:center;}
-.color-tile.eyedropper-button img { height: 20px; }
+.color-tile.eyedropper-button img { height: 20px; }```
+
+---
