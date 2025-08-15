@@ -115,30 +115,6 @@ h1{
 .history-tools .tool-btn:hover,
 .contentbar  .content-btn:hover{ opacity:.85; }
 
-/* ← ここを差し替え：白い箱を廃止し PNG をそのまま表示 */
-.content-btn{
-  background:transparent;
-  border:none;
-  border-radius:0;
-  padding:0;
-  width:auto;
-  height:auto;
-  cursor:pointer;
-}
-
-/* 画像は自然サイズ。揃えたい場合は height を指定（例: 28px） */
-.content-btn img{
-  display:block;
-  /* height:28px; */   /* ←揃えたい時だけ有効化 */
-}
-
-/* ホバー効果は薄いフェードだけに */
-.content-btn:hover{
-  transform:none;
-  box-shadow:none;
-  opacity:.85;
-}
-
 /* Stage（Pan/Zoom対象） */
 #stage{
   position:absolute;
