@@ -7,13 +7,21 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- =============================== -->
+  <!-- ヘッダー領域 -->
+  <!-- =============================== -->
   <header class="top-bar">
+    <!-- ページタイトル -->
     <div class="page-title">Vivora Fashion Illustration 2025</div>
+
+    <!-- 性別切り替えボタン：Woman / Man / Kids -->
     <div class="gender-switch">
       <button>Woman</button>
       <button>Man</button>
       <button>Kids</button>
     </div>
+
+    <!-- 履歴操作：Undo / Redo / Save / Upload / Download / Grid表示切替 -->
     <div class="history-tool">
       <button><img src="create_parts/create_button/retreat.png" alt="Undo"></button>
       <button><img src="create_parts/create_button/forward.png" alt="Redo"></button>
@@ -22,42 +30,55 @@
       <button><img src="create_parts/create_button/download.png" alt="Download"></button>
       <button><img src="create_parts/create_button/graph_paper.png" alt="Grid"></button>
     </div>
+
+    <!-- 2D / 3D モード切替 -->
     <div class="mode-switch">
       <button>2D</button>
       <button>3D</button>
     </div>
+
+    <!-- Next Stepボタン -->
     <div class="next-button">
       <button>Next Step ▶︎▶︎</button>
     </div>
   </header>
 
+  <!-- =============================== -->
+  <!-- メインワークスペース -->
+  <!-- =============================== -->
   <main class="workspace">
+    <!-- 左側：マネキンキャンバス領域 -->
     <section class="canvas">
       <img src="mannequin/woman_front.png" alt="Mannequin" />
     </section>
 
+    <!-- 右側：ツールパネル -->
     <aside class="tool-panel">
+
+      <!-- コンテンツカテゴリ切り替えアイコン群 -->
       <div class="contents-button">
         <img src="create_parts/contents_button/0_home.png" alt="Home" />
-        <img src="create_parts/contents_button/1_fashion-illustrations.png" alt="Illustration" />
-        <img src="create_parts/contents_button/2_fabric-matching.png" alt="Fabric" />
-        <img src="create_parts/contents_button/3_clothing-design.png" alt="Design" />
-        <img src="create_parts/contents_button/4_pattern-creation.png" alt="Pattern" />
+        <img src="create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustrations" />
+        <img src="create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching" />
+        <img src="create_parts/contents_button/3_clothing-design.png" alt="Clothing Design" />
+        <img src="create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation" />
         <img src="create_parts/contents_button/5_grading.png" alt="Grading" />
-        <img src="create_parts/contents_button/6_print-layout-cut.png" alt="Print Cut" />
+        <img src="create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout / Cut" />
       </div>
 
+      <!-- 文房具ツール（Stationery Tool） -->
       <div class="tool-section stationery-tool">
         <label>Stationery</label>
         <div class="tool-icons">
-          <img src="create_parts/design_button/pen.png" alt="Pen">
-          <img src="create_parts/design_button/brush.png" alt="Brush">
-          <img src="create_parts/design_button/markerpen.png" alt="Marker">
-          <img src="create_parts/design_button/sentence.png" alt="Text">
-          <img src="create_parts/design_button/select.png" alt="Fill">
+          <img src="create_parts/design_button/pen.png" alt="Pen Tool">
+          <img src="create_parts/design_button/brush.png" alt="Brush Tool">
+          <img src="create_parts/design_button/markerpen.png" alt="Marker Tool">
+          <img src="create_parts/design_button/sentence.png" alt="Text Tool">
+          <img src="create_parts/design_button/select.png" alt="Fill Tool">
         </div>
       </div>
 
+      <!-- ズーム調整バー（10〜200%） -->
       <div class="tool-section zoom-tool">
         <label>Zoom</label>
         <div class="slider-control">
@@ -69,6 +90,7 @@
         </div>
       </div>
 
+      <!-- 不透明度調整バー（10〜100%） -->
       <div class="tool-section opacity-tool">
         <label>Opacity</label>
         <div class="slider-control">
@@ -80,34 +102,36 @@
         </div>
       </div>
 
+      <!-- カラーパレットとカスタム色ボタン -->
       <div class="tool-section color-tool">
         <label>Color</label>
         <div class="color-palette">
-          <!-- 20色＋カスタム -->
           <div class="swatches">
             <div class="color-swatch" style="background:#fff"></div>
             <div class="color-swatch" style="background:#ccc"></div>
             <div class="color-swatch" style="background:#f00"></div>
-            <!-- ...省略：全色分追加可能 -->
+            <!-- 他の色もここに追加可能 -->
           </div>
           <div class="custom-tools">
             <button>＋</button><button>＋</button><button>＋</button>
             <button>...</button>
-            <button><img src="create_parts/design_button/upload.png" alt="Eyedropper"></button>
+            <button><img src="create_parts/design_button/upload.png" alt="Eyedropper Tool"></button>
           </div>
         </div>
       </div>
 
+      <!-- レイヤー操作パネル -->
       <div class="tool-section layer-panel">
         <label>Layer</label>
         <div class="layer-item">
-          <img src="create_parts/layer_button/layerlock.png" alt="Lock">
-          <img src="create_parts/layer_button/layerdisplay.png" alt="Visible">
+          <img src="create_parts/layer_button/layerlock.png" alt="Lock Layer">
+          <img src="create_parts/layer_button/layerdisplay.png" alt="Toggle Visibility">
           <img src="create_parts/layer_button/layerpanelplus.png" alt="Add Layer">
-          <img src="create_parts/layer_button/layerreproduction.png" alt="Duplicate">
-          <img src="create_parts/layer_button/layerdestruction.png" alt="Delete">
+          <img src="create_parts/layer_button/layerreproduction.png" alt="Duplicate Layer">
+          <img src="create_parts/layer_button/layerdestruction.png" alt="Delete Layer">
         </div>
       </div>
+
     </aside>
   </main>
 </body>
