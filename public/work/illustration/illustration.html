@@ -2,401 +2,113 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    /* =============================================================
-       Vivora Illustration — Foundation v1 (layout-only)
-       Date: 2025-08-15
-       - Anchors inserted for targeted edits later
-       - No external frameworks
-       - Focus: grid/layout + visuals to match mock
-       ============================================================= */
-
-    /* ---------- Tokens ---------- */
-    :root{
-      /* Colors */
-      --bg:#f3ece7;           /* page background */
-      --panel:#f7f2ee;        /* card/panel bg */
-      --line:#e1d9d4;         /* hairline/border */
-      --text:#333;            /* main text */
-      --accent:#222;          /* deep text */
-      --white:#ffffff;
-
-      /* Brand/utility */
-      --btn:#ffffff;
-      --btn-text:#222;
-
-      /* Sizes */
-      --icon:28px;            /* default icon */
-      --icon-lg:32px;         /* for big areas */
-      --swatch:40px;          /* color swatch */
-
-      /* Radii */
-      --r-xs:6px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:20px;
-
-      /* Shadows */
-      --shadow-sm:0 4px 10px rgba(0,0,0,.05);
-      --shadow-md:0 6px 18px rgba(0,0,0,.06);
-
-      /* Spacing scale */
-      --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
-      --space-5:20px; --space-6:24px; --space-7:28px; --space-8:32px;
-
-      /* Typography */
-      --font-accent:'Playfair Display', serif;
-      --font-ui:'Inter', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
-      --h1:24px; --h2:18px; --body:14px;
-
-      /* Layout */
-      --sidebar-w: 320px;       /* right sidebar width */
-      --content-max: 1280px;    /* outer max width */
-    }
-
-    /* ---------- Reset ---------- */
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font:400 var(--body)/1.6 var(--font-ui);-webkit-font-smoothing:antialiased}
-    button,input,select{font:inherit;color:inherit}
-    img{display:block;max-width:100%}
-
-    /* ---------- Containers ---------- */
-    .wrap{max-width:var(--content-max);margin:0 auto;padding:var(--space-6) var(--space-6) var(--space-8)}
-
-    /* ---------- Top area (title + toolbars) ---------- */
-    .top{display:grid;grid-template-rows:auto auto;row-gap:var(--space-3);align-items:center}
-    .top-row1{display:grid;grid-template-columns:1fr auto;gap:var(--space-3);align-items:center}
-    .page-title{font-family:var(--font-accent);font-size:var(--h1);color:var(--accent)}
-
-    /* ANCHOR:PAGE_TITLE */
-
-    .next-btn{justify-self:end;background:var(--btn);color:var(--btn-text);border:1px solid var(--line);padding:10px 16px;border-radius:var(--r-sm);box-shadow:var(--shadow-sm);display:inline-flex;gap:10px;align-items:center}
-    .next-btn .arrows{font-weight:600}
-
-    /* ANCHOR:NEXT_BUTTON */
-
-    .top-row2{display:grid;grid-template-columns:auto 1fr auto;gap:var(--space-3);align-items:center}
-
-    /* gender switch — square cards (mock match) */
-    .seg{display:flex;gap:12px;background:transparent;border:0;padding:0}
-    .seg button{min-width:100px;height:40px;padding:8px 16px;border:1px solid var(--line);background:#fff;border-radius:var(--r-md);box-shadow:var(--shadow-sm);cursor:pointer;font-weight:500;letter-spacing:.02em}
-    .seg button.is-active{background:#fff;border-color:#c8beb9;box-shadow:0 2px 0 rgba(0,0,0,.02), var(--shadow-sm)}
-    .seg button+button{border-left:none}
-    .seg button:hover{filter:brightness(0.98)}
-    .seg button:focus-visible{outline:2px solid rgba(0,0,0,.12);outline-offset:2px}
-
-    /* tool rows */
-    .tools{display:flex;gap:var(--space-3);align-items:center}
-    .tool-btn{background:transparent!important;border:none!important;box-shadow:none!important;width:auto;height:auto;padding:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
-    .tool-btn img{height:26px;width:auto;object-fit:contain;display:block;filter:none}
-    .tool-btn span{display:none}
-
-    /* ANCHOR:HISTORY_TOOL */
-    /* ANCHOR:CONTENTS_TOOL */
-
-    /* ---------- Main layout ---------- */
-    .main{display:grid;grid-template-columns:1fr var(--sidebar-w);gap:var(--space-6);margin-top:var(--space-4)}
-
-    /* Canvas area */
-    .canvas-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:var(--space-6);min-height:560px;display:flex;align-items:center;position:relative;overflow:hidden}
-    .mannequin-wrap{margin:0 auto;max-width:520px}
-    .mannequin-base{width:100%;height:auto;object-fit:contain;}
-
-    /* grid overlay for canvas */
-    .canvas-card::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px);background-size:24px 24px;opacity:.45;pointer-events:none;display:none}
-    .canvas-card.grid::before{display:block}
-    .mannequin-wrap{position:relative;z-index:1}
-
-    /* ANCHOR:CANVAS */
-
-    /* Sidebar */
-    .sidebar{display:flex;flex-direction:column;gap:var(--space-4)}
-    .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
-    .panel .hd{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line);font-weight:600}
-    .panel .bd{padding:14px}
-
-    /* Create data */
-    .create-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    .slot{aspect-ratio:1/1;background:var(--white);border:1px dashed var(--line);border-radius:var(--r-md);display:grid;place-items:center;font-size:22px}
-
-    /* ANCHOR:CREATE_DATA */
-
-    /* Stationery tool */
-    .stationery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .s-btn{width:100%;aspect-ratio:1/1;background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);display:grid;place-items:center;box-shadow:var(--shadow-sm)}
-
-    /* ANCHOR:STATIONERY */
-
-    /* Zoom / Opacity */
-    .ctrl-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
-    .num{min-width:40px;text-align:center}
-    .mini{width:32px;height:32px;border:1px solid var(--line);background:#fff;border-radius:10px;display:grid;place-items:center}
-    .slider{appearance:none;width:100%;height:6px;border-radius:999px;background:#e7e0db;outline:none}
-    .slider::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
-    .ctrl-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
-    .btn-sm{border:1px solid var(--line);background:#fff;border-radius:10px;padding:6px 10px}
-
-    /* ANCHOR:ZOOM */
-    /* ANCHOR:OPACITY */
-
-    /* Color tool */
-    .palette{display:grid;grid-template-columns:repeat(5, var(--swatch));gap:12px}
-    .swatch{width:var(--swatch);height:var(--swatch);border-radius:10px;border:1px solid rgba(0,0,0,.06);box-shadow:var(--shadow-sm);background:var(--c);cursor:pointer}
-    .swatch.is-selected{outline:2px solid #333;outline-offset:2px}
-    .palette-actions{display:grid;grid-template-columns:repeat(4, var(--swatch));gap:12px;margin-top:12px}
-    .swatch.add{display:grid;place-items:center;background:#fff;border:1px dashed var(--line);color:#bbb;font-size:22px}
-    .swatch.picker{display:grid;place-items:center;background:#fff;border:1px solid var(--line);font-size:18px}
-    .palette-more{text-align:center;opacity:.55;font-size:22px;line-height:1;margin-top:8px}
-
-    /* Helper (optional visual guide) */
-    /* body.debug{background:url('./refs/fashion-illustrations_pc.png') no-repeat top center/contain} */
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="wrap">
-    <section class="top">
-      <div class="top-row1">
-        <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-        <a class="next-btn" href="#" aria-label="Next Step">
-          <!-- ANCHOR:NEXT_BUTTON -->
-          <span>Next Step</span><span class="arrows">»»</span>
-        </a>
-      </div>
+  <header class="top-bar">
+    <div class="page-title">Vivora Fashion Illustration 2025</div>
+    <div class="gender-switch">
+      <button>Woman</button>
+      <button>Man</button>
+      <button>Kids</button>
+    </div>
+    <div class="history-tool">
+      <button><img src="create_parts/create_button/retreat.png" alt="Undo"></button>
+      <button><img src="create_parts/create_button/forward.png" alt="Redo"></button>
+      <button><img src="create_parts/create_button/save.png" alt="Save"></button>
+      <button><img src="create_parts/create_button/upload.png" alt="Upload"></button>
+      <button><img src="create_parts/create_button/download.png" alt="Download"></button>
+      <button><img src="create_parts/create_button/graph_paper.png" alt="Grid"></button>
+    </div>
+    <div class="mode-switch">
+      <button>2D</button>
+      <button>3D</button>
+    </div>
+    <div class="next-button">
+      <button>Next Step ▶︎▶︎</button>
+    </div>
+  </header>
 
-      <div class="top-row2">
-        <!-- ANCHOR:GENDER_SWITCH -->
-        <div class="seg" role="tablist" aria-label="Gender switch">
-          <button class="is-active" role="tab" aria-selected="true">Woman</button>
-          <button role="tab">Man</button>
-          <button role="tab">Kids</button>
-        </div>
-
-        <div class="tools" aria-label="History tool">
-          <!-- ANCHOR:HISTORY_TOOL -->
-          <button class="tool-btn" id="btn-undo"      title="Undo"      type="button"><img src="../../create_parts/create_button/retreat.png"       alt="Undo" draggable="false"></button>
-          <button class="tool-btn" id="btn-redo"      title="Redo"      type="button"><img src="../../create_parts/create_button/forward.png"       alt="Redo" draggable="false"></button>
-          <button class="tool-btn" id="btn-reset"     title="Reset"     type="button"><img src="../../create_parts/create_button/reset.png"        alt="Reset" draggable="false"></button>
-          <button class="tool-btn" id="btn-download"  title="Download"  type="button"><img src="../../create_parts/create_button/download.png"     alt="Download" draggable="false"></button>
-          <button class="tool-btn" id="btn-upload"    title="Upload"    type="button"><img src="../../create_parts/create_button/upload.png"       alt="Upload" draggable="false"></button>
-          <button class="tool-btn" id="btn-save"      title="Save"      type="button"><img src="../../create_parts/create_button/save.png"         alt="Save" draggable="false"></button>
-          <button class="tool-btn" id="grid-toggle"   title="Grid"      type="button"><img src="../../create_parts/create_button/graph_paper.png"  alt="Grid" draggable="false"></button>
-
-          <!-- spacer -->
-          <div style="width:10px"></div>
-
-          <!-- ANCHOR:CONTENTS_TOOL -->
-          <button class="tool-btn" title="Home"><img src="../../create_parts/contents_button/0_home.png" alt="Home" draggable="false"></button>
-          <button class="tool-btn" title="Illustrations"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations" draggable="false"></button>
-          <button class="tool-btn" title="Fabric"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric" draggable="false"></button>
-          <button class="tool-btn" title="Clothing"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing" draggable="false"></button>
-          <button class="tool-btn" title="Pattern"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern" draggable="false"></button>
-          <button class="tool-btn" title="Grading"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading" draggable="false"></button>
-          <button class="tool-btn" title="Print"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print" draggable="false"></button>
-          <button class="tool-btn" title="Kids"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids" draggable="false"></button>
-        </div>
-
-        <div><!-- right spacer (intentionally empty to match mock) --></div>
-      </div>
+  <main class="workspace">
+    <section class="canvas">
+      <img src="mannequin/woman_front.png" alt="Mannequin" />
     </section>
 
-    <section class="main">
-      <section class="canvas-card">
-        <!-- ANCHOR:CANVAS -->
-        <div class="mannequin-wrap">
-          <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin base">
+    <aside class="tool-panel">
+      <div class="contents-button">
+        <img src="create_parts/contents_button/0_home.png" alt="Home" />
+        <img src="create_parts/contents_button/1_fashion-illustrations.png" alt="Illustration" />
+        <img src="create_parts/contents_button/2_fabric-matching.png" alt="Fabric" />
+        <img src="create_parts/contents_button/3_clothing-design.png" alt="Design" />
+        <img src="create_parts/contents_button/4_pattern-creation.png" alt="Pattern" />
+        <img src="create_parts/contents_button/5_grading.png" alt="Grading" />
+        <img src="create_parts/contents_button/6_print-layout-cut.png" alt="Print Cut" />
+      </div>
+
+      <div class="tool-section stationery-tool">
+        <label>Stationery</label>
+        <div class="tool-icons">
+          <img src="create_parts/design_button/pen.png" alt="Pen">
+          <img src="create_parts/design_button/brush.png" alt="Brush">
+          <img src="create_parts/design_button/markerpen.png" alt="Marker">
+          <img src="create_parts/design_button/sentence.png" alt="Text">
+          <img src="create_parts/design_button/select.png" alt="Fill">
         </div>
-      </section>
+      </div>
 
-      <aside class="sidebar">
-        <!-- Create data panel -->
-        <section class="panel">
-          <div class="hd">
-            <span>Create data</span>
-            <div style="display:flex;gap:6px;align-items:center">
-              <button class="mini" aria-label="Prev">‹</button>
-              <button class="mini" aria-label="Next">›</button>
-            </div>
+      <div class="tool-section zoom-tool">
+        <label>Zoom</label>
+        <div class="slider-control">
+          <button>-</button>
+          <input type="range" min="10" max="200" value="100">
+          <button>+</button>
+          <span>100%</span>
+          <button class="reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="tool-section opacity-tool">
+        <label>Opacity</label>
+        <div class="slider-control">
+          <button>-</button>
+          <input type="range" min="10" max="100" value="100">
+          <button>+</button>
+          <span>100%</span>
+          <button class="reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="tool-section color-tool">
+        <label>Color</label>
+        <div class="color-palette">
+          <!-- 20色＋カスタム -->
+          <div class="swatches">
+            <div class="color-swatch" style="background:#fff"></div>
+            <div class="color-swatch" style="background:#ccc"></div>
+            <div class="color-swatch" style="background:#f00"></div>
+            <!-- ...省略：全色分追加可能 -->
           </div>
-          <div class="bd">
-            <!-- ANCHOR:CREATE_DATA -->
-            <div class="create-grid">
-              <div class="slot">+</div>
-              <div class="slot">+</div>
-              <div class="slot">+</div>
-              <div class="slot">+</div>
-            </div>
+          <div class="custom-tools">
+            <button>＋</button><button>＋</button><button>＋</button>
+            <button>...</button>
+            <button><img src="create_parts/design_button/upload.png" alt="Eyedropper"></button>
           </div>
-        </section>
+        </div>
+      </div>
 
-        <!-- Stationery panel -->
-        <section class="panel">
-          <div class="hd">Stationery</div>
-          <div class="bd">
-            <!-- ANCHOR:STATIONERY -->
-            <div class="stationery-grid">
-              <button class="s-btn" title="Select">▣</button>
-              <button class="s-btn" title="Move">↔</button>
-              <button class="s-btn" title="Text">T</button>
-              <button class="s-btn" title="Image">▥</button>
-
-              <button class="s-btn" title="Pen">✒</button>
-              <button class="s-btn" title="Brush">🖌</button>
-              <button class="s-btn" title="Eraser">⌫</button>
-              <button class="s-btn" title="Clock">◌</button>
-
-              <button class="s-btn" title="Percent">%</button>
-              <button class="s-btn" title="Fill">⬚</button>
-              <button class="s-btn" title="Rect">▭</button>
-              <button class="s-btn" title="Diag">╱</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Zoom panel -->
-        <section class="panel">
-          <div class="hd">Zoom</div>
-          <div class="bd">
-            <!-- ANCHOR:ZOOM -->
-            <div class="ctrl-row">
-              <button class="mini" data-ctrl="zoom-dec">–</button>
-              <input type="range" id="zoomRange" class="slider" min="1" max="400" value="100">
-              <button class="mini" data-ctrl="zoom-inc">+</button>
-            </div>
-            <div class="ctrl-actions">
-              <span class="num" id="zoomNum">100%</span>
-              <button class="btn-sm" data-ctrl="zoom-reset">Reset</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Opacity panel -->
-        <section class="panel">
-          <div class="hd">Opacity</div>
-          <div class="bd">
-            <!-- ANCHOR:OPACITY -->
-            <div class="ctrl-row">
-              <button class="mini" data-ctrl="op-dec">–</button>
-              <input type="range" id="opRange" class="slider" min="0" max="100" value="100">
-              <button class="mini" data-ctrl="op-inc">+</button>
-            </div>
-            <div class="ctrl-actions">
-              <span class="num" id="opNum">100%</span>
-              <button class="btn-sm" data-ctrl="op-reset">Reset</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Color panel -->
-        <section class="panel">
-          <div class="hd">Color</div>
-          <div class="bd">
-            <!-- ANCHOR:COLOR -->
-            <div class="palette" id="palette">
-              <button class="swatch" style="--c:#ffffff" data-color="#ffffff" aria-label="#ffffff"></button>
-              <button class="swatch" style="--c:#bdbdbd" data-color="#bdbdbd" aria-label="#bdbdbd"></button>
-              <button class="swatch" style="--c:#ffef5a" data-color="#ffef5a" aria-label="#ffef5a"></button>
-              <button class="swatch" style="--c:#f4a52e" data-color="#f4a52e" aria-label="#f4a52e"></button>
-              <button class="swatch" style="--c:#f6b5c1" data-color="#f6b5c1" aria-label="#f6b5c1"></button>
-
-              <button class="swatch" style="--c:#e53935" data-color="#e53935" aria-label="#e53935"></button>
-              <button class="swatch" style="--c:#66bb6a" data-color="#66bb6a" aria-label="#66bb6a"></button>
-              <button class="swatch" style="--c:#2e7d32" data-color="#2e7d32" aria-label="#2e7d32"></button>
-              <button class="swatch" style="--c:#81c7ee" data-color="#81c7ee" aria-label="#81c7ee"></button>
-              <button class="swatch" style="--c:#1e40af" data-color="#1e40af" aria-label="#1e40af"></button>
-
-              <button class="swatch" style="--c:#7b1fa2" data-color="#7b1fa2" aria-label="#7b1fa2"></button>
-              <button class="swatch" style="--c:#8d4b4b" data-color="#8d4b4b" aria-label="#8d4b4b"></button>
-              <button class="swatch" style="--c:#616161" data-color="#616161" aria-label="#616161"></button>
-              <button class="swatch" style="--c:#000000" data-color="#000000" aria-label="#000000"></button>
-            </div>
-
-            <div class="palette-actions">
-              <button class="swatch add" data-role="add" aria-label="Add color">+</button>
-              <button class="swatch add" data-role="add" aria-label="Add color">+</button>
-              <button class="swatch add" data-role="add" aria-label="Add color">+</button>
-              <button class="swatch picker" data-role="pick" aria-label="Eyedropper">🧪</button>
-            </div>
-            <div class="palette-more">…</div>
-            <input type="color" id="colorPicker" style="position:absolute;left:-9999px;" aria-hidden="true">
-          </div>
-        </section>
-      </aside>
-    </section>
-  </div>
-
-  
-  <script>
-  // ================================================
-  // History tools + Default Mannequin (Woman) + Grid
-  // ================================================
-  (function(){
-    const $ = s => document.querySelector(s);
-    const DEFAULT_WOMAN = '../../mannequin/mannequin_woman.png';
-    const canvasCard = document.querySelector('.canvas-card');
-
-    function snapshot(){
-      return {
-        src: $('#mannequin')?.getAttribute('src') || DEFAULT_WOMAN,
-        grid: canvasCard.classList.contains('grid')
-      };
-    }
-    const undo=[], redo=[]; const MAX=50;
-    function push(){ undo.push(snapshot()); if(undo.length>MAX) undo.shift(); redo.length=0; }
-    function restore(s){ if(!s) return; const img=$('#mannequin'); if(img) img.setAttribute('src', s.src); canvasCard.classList.toggle('grid', !!s.grid); }
-
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // Start with woman mannequin
-      const img=$('#mannequin'); if(img) img.src = DEFAULT_WOMAN;
-      push();
-
-      // Wire history tool buttons
-      $('#btn-undo')?.addEventListener('click', ()=>{ if(!undo.length) return; const cur=snapshot(); const prev=undo.pop(); redo.push(cur); restore(prev); });
-      $('#btn-redo')?.addEventListener('click', ()=>{ if(!redo.length) return; const cur=snapshot(); const nxt=redo.pop(); undo.push(cur); restore(nxt); });
-      $('#btn-reset')?.addEventListener('click', ()=>{ restore({src:DEFAULT_WOMAN, grid:false}); push(); });
-      $('#grid-toggle')?.addEventListener('click', ()=>{ canvasCard.classList.toggle('grid'); push(); });
-
-      $('#btn-upload')?.addEventListener('click', ()=>{
-        const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
-        inp.onchange=(e)=>{ const f=e.target.files?.[0]; if(!f) return; const url=URL.createObjectURL(f); $('#mannequin').src=url; push(); };
-        inp.click();
-      });
-
-      $('#btn-download')?.addEventListener('click', async ()=>{
-        const src=$('#mannequin').src;
-        try{
-          const im=new Image(); im.crossOrigin='anonymous'; im.src=src; await im.decode();
-          const c=document.createElement('canvas');
-          c.width=im.naturalWidth||im.width||600; c.height=im.naturalHeight||im.height||800;
-          const ctx=c.getContext('2d'); ctx.drawImage(im,0,0,c.width,c.height);
-          const a=document.createElement('a'); a.href=c.toDataURL('image/png'); a.download='vivora-mannequin.png'; a.click();
-        }catch(err){ alert('画像のダウンロードに失敗しました'); }
-      });
-
-      $('#btn-save')?.addEventListener('click', ()=>{
-        localStorage.setItem('vivora-illustration-v1', JSON.stringify(snapshot()));
-        alert('Saved.');
-      });
-    });
-  })();
-
-  // ================================================
-  // Color palette interactions (select/add/pick)
-  // ================================================
-  (function(){
-    const palette = document.getElementById('palette');
-    const picker = document.getElementById('colorPicker');
-    function apply(hex){ if(window.Layer && typeof Layer.applyColor==='function'){ try{ Layer.applyColor(hex); }catch(e){} } }
-    function select(el){ if(!palette) return; palette.querySelectorAll('.swatch').forEach(x=>x.classList.remove('is-selected')); if(el) el.classList.add('is-selected'); }
-    if(palette){ palette.addEventListener('click',e=>{ const sw=e.target.closest('.swatch'); if(!sw || !sw.dataset.color) return; select(sw); apply(sw.dataset.color); }); }
-    document.querySelectorAll('.palette-actions .add').forEach(btn=>{ btn.addEventListener('click',()=>{ picker.value='#ff0000'; picker.click(); picker.oninput=()=>{ const hex=picker.value; const b=document.createElement('button'); b.className='swatch'; b.style.setProperty('--c',hex); b.dataset.color=hex; b.setAttribute('aria-label',hex); palette.appendChild(b); select(b); apply(hex); }; }); });
-    document.querySelector('.palette-actions .picker')?.addEventListener('click',()=>{ picker.click(); picker.oninput=()=>{ apply(picker.value); }; });
-  })();
-</script>
+      <div class="tool-section layer-panel">
+        <label>Layer</label>
+        <div class="layer-item">
+          <img src="create_parts/layer_button/layerlock.png" alt="Lock">
+          <img src="create_parts/layer_button/layerdisplay.png" alt="Visible">
+          <img src="create_parts/layer_button/layerpanelplus.png" alt="Add Layer">
+          <img src="create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+          <img src="create_parts/layer_button/layerdestruction.png" alt="Delete">
+        </div>
+      </div>
+    </aside>
+  </main>
 </body>
 </html>
