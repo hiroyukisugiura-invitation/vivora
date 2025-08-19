@@ -1,267 +1,251 @@
-/* =============================================================
-   Vivora Illustration — Clean CSS v1 (2025-08-14)
-   - HTML（差し替え済み）に対応する外部スタイル
-   - 重複/入れ子/未使用セレクタを排除
-============================================================= */
+/* ==========================================
+  Vivora Fashion Illustration 2025 - CSS完全版（PC用）
+  フォント・影・配色・ボタン・hover・統一スタイル含む
+========================================== */
 
-:root{
-  --bg:#f3ece7;
-  --panel:#f7f2ee;
-  --line:#e1d9d4;
-  --text:#333;
-  --accent:#222;
-  --shadow:0 6px 18px rgba(0,0,0,.06);
+/* === 初期リセット === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-*{ box-sizing:border-box; margin:0; padding:0; }
-html,body{ height:100%; }
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+body {
+  background: #f3ece7;
+  font-family: 'Playfair Display', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  color: #222;
+  line-height: 1.6;
 }
 
-/* ===== レイアウト基盤 ===== */
-.app{
-  display:grid;
-  grid-template-columns: 1fr 320px;
-  grid-template-rows: auto auto 1fr;
-  grid-template-areas:
-    "header  sidebar"
-    "toolbar sidebar"
-    "canvas  sidebar";
-  height:100vh;
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
-/* ===== Header ===== */
-header{
-  grid-area:header;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  padding:12px 16px;
+button {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-h1{
-  font:500 18px/1 'Playfair Display',serif;
-  color:#222;
-  margin-right:auto;
+button:hover {
+  background: #f0ece7;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
-
-/* ===== Toolbar（3カラム：左=Gender / 中央=History / 右=Content） ===== */
-.toolbar{
-  grid-area:toolbar;
-  display:grid;
-  grid-template-columns: auto 1fr auto;
-  align-items:center;
-  column-gap:14px;
-  padding:10px 16px;
-  border-top:none;
-  background:transparent;
-  backdrop-filter:none;
+button.active {
+  background: #ddd6cc;
+  font-weight: bold;
+  border-color: #bbb;
 }
 
-/* Gender pill */
-.gender{ display:flex; gap:6px; }
-.gender button{
-  border:1px solid var(--line);
-  background:#fff;
-  padding:6px 12px;
-  border-radius:16px;
-  cursor:pointer;
-  font-size:13px;
-}
-.gender button.active{
-  background:var(--accent);
-  color:#fff;
-  border-color:var(--accent);
+
+/* === ヘッダー構成 === */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 12px 24px;
+  background: #f7f2ee;
+  border-bottom: 1px solid #ddd1c8;
+  gap: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
-/* History（中央固定） */
-.history-tools{
-  justify-self:center;
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-.tool-btn{ background:transparent; border:none; cursor:pointer; opacity:.85; }
-.tool-btn:hover{ opacity:1; }
-.tool-btn img{ width:22px; height:22px; display:block; }
-
-/* Content（右寄せ） */
-.contentbar{
-  justify-self:end;
-  display:flex;
-  align-items:center;
-  gap:12px;            /* 画像の間隔だけ残す */
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  flex: 1;
 }
 
-/* ← ここを差し替え：白い箱を廃止し PNG をそのまま表示 */
-.content-btn{
-  background:transparent;
-  border:none;
-  border-radius:0;
-  padding:0;
-  width:auto;
-  height:auto;
-  cursor:pointer;
+.gender-switch,
+.history-tool,
+.mode-switch,
+.next-button {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-/* 画像は自然サイズ。揃えたい場合は height を指定（例: 28px） */
-.content-btn img{
-  display:block;
-  /* height:28px; */   /* ←揃えたい時だけ有効化 */
+.mode-switch button,
+.gender-switch button {
+  min-width: 60px;
 }
 
-/* ホバー効果は薄いフェードだけに */
-.content-btn:hover{
-  transform:none;
-  box-shadow:none;
-  opacity:.85;
+.next-button button {
+  background: #222;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+}
+.next-button button:hover {
+  background: #444;
 }
 
-/* Stage（Pan/Zoom対象） */
-#stage{
-  position:absolute;
-  left:0; top:0;
-  transform-origin:0 0;
-  touch-action:none;
-  cursor:grab;
-}
-#stage.grabbing{ cursor:grabbing; }
 
-.mannequin-base{
-  display:block;
-  max-width:none;   /* 実サイズ基準で拡縮 */
-  width:600px;      /* 初期見やすさのための幅 */
-  height:auto;
-  user-select:none;
-  -webkit-user-drag:none;
+/* === メイン構成 === */
+.workspace {
+  display: flex;
+  height: calc(100vh - 70px);
 }
 
-/* Overlay（追加パーツ） */
-.overlay-item{
-  position:absolute;
-  left:50%; top:50%;
-  transform:translate(-50%,-50%);
-  width:45%;
-  aspect-ratio:3/4;
-  pointer-events:auto;
-}
-.overlay-item img{
-  width:100%; height:100%;
-  object-fit:contain;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-.overlay-item.selected-layer{
-  outline:2px dashed #6c5ce7;
-  outline-offset:2px;
-}
-.overlay-item .tint{
-  position:absolute; inset:0;
-  pointer-events:none;
-  border-radius:4px;
-  mix-blend-mode:multiply;
+.canvas {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-right: 1px solid #e1d9d4;
+  padding: 24px;
 }
 
-/* ===== Sidebar ===== */
-aside{
-  grid-area:sidebar;
-  padding:16px;
-  border-left:1px solid var(--line);
-  background:var(--panel);
-  overflow:auto;
-}
-.panel{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
-  margin-bottom:12px;
-  box-shadow:var(--shadow);
-}
-.panel h3{
-  font:500 16px/1 'Playfair Display',serif;
-  margin-bottom:8px;
+.tool-panel {
+  width: 320px;
+  background: #f7f2ee;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
 }
 
-.nextstep{
-  display:flex;
-  justify-content:flex-end;
-  margin-bottom:12px;
+/* === コンテンツアイコン列 === */
+.contents-button {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
 }
-.nextstep button{
-  background:#222; color:#fff;
-  border:none; border-radius:8px;
-  padding:10px 16px;
-  cursor:pointer;
-  font-family:'Playfair Display',serif;
+.contents-button img {
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  padding: 3px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-
-/* Pose */
-.pose-row{ display:flex; gap:8px; overflow:auto; }
-.pose-row img{
-  width:52px; height:80px; object-fit:contain;
-  border:2px solid transparent;
-  border-radius:8px;
-  padding:2px;
-  background:#fff;
-  cursor:pointer;
-}
-.pose-row img.selected{ border-color:#222; }
-
-/* Tiles */
-.grid-4{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-.tool-tile,.color-tile{
-  width:56px; height:56px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#fff;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-  transition:.15s;
-}
-.tool-tile:hover,.color-tile:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 18px rgba(0,0,0,.08);
-}
-.tool-tile img{ width:30px; height:30px; }
-.color-tile{ border:none; }
-.color-tile.add{
-  font-size:22px; color:#bbb;
-  border:1px dashed var(--line);
-  background:#fafafa;
+.contents-button img:hover {
+  background: #eae7e3;
 }
 
-/* Zoom panel */
-#zoomPanel .zoom-row{ display:flex; align-items:center; gap:10px; }
-#zoomRange{ width:100%; }
-.zoom-btn{
-  width:34px; height:34px;
-  border:1px solid var(--line);
-  background:#fff; border-radius:8px;
-  cursor:pointer;
-}
-.zoom-btn:hover{ background:#fafafa; }
-.zoom-meta{
-  display:flex; align-items:center; justify-content:space-between;
-  margin-top:8px;
-  font-size:13px; opacity:.8;
-}
-.zoom-reset{
-  border:1px solid var(--line);
-  background:#fff;
-  padding:4px 10px;
-  border-radius:8px;
-  cursor:pointer;
-}
-.zoom-reset:hover{ background:#fafafa; }
 
-/* Opacity panel */
-#opacityPanel small{ opacity:.6; display:block; margin-top:6px; }
+/* === 各ツールブロック共通 === */
+.tool-section {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.tool-section label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* 文房具ツール群 */
+.tool-icons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tool-icons img {
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: #fff;
+  cursor: pointer;
+}
+.tool-icons img:hover {
+  border-color: #aaa;
+  background: #f5f3f1;
+}
+
+/* スライダー系（Zoom / Opacity） */
+.slider-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.slider-control input[type="range"] {
+  flex: 1;
+}
+.slider-control span {
+  min-width: 40px;
+}
+.slider-control .reset {
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+/* カラーパレット */
+.color-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+}
+.color-swatch:hover {
+  box-shadow: 0 0 0 2px #aaa;
+}
+
+.custom-tools {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.custom-tools button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1;
+  text-align: center;
+}
+
+/* レイヤー操作アイコン */
+.layer-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.layer-item img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.layer-item img:hover {
+  opacity: 1;
+}
