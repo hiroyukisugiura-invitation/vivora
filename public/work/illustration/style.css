@@ -1,10 +1,13 @@
 /* ==========================================
-  Vivora Fashion Illustration 2025 - CSS完全版（イメージ100%一致修正）
-  対応修正：Layer Panel - 左白ボックス / 右アイコン縦列構造に変更
+  Vivora Fashion Illustration 2025 - CSS完全版（new_fashion-illustrations.png準拠）
 ========================================== */
 
 /* === Reset & Base === */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 body {
   background: #f3ece7;
   font-family: 'Playfair Display', 'Helvetica Neue', sans-serif;
@@ -89,6 +92,38 @@ button:hover {
   overflow-y: auto;
 }
 
+/* === Tool Section === */
+.tool-section {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.tool-section label {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 6px;
+  display: block;
+}
+.tool-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tool-icons img {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.tool-icons img:hover {
+  border-color: #aaa;
+  background: #f5f3f1;
+}
+
 /* === Contents Icons === */
 .contents-button img {
   width: 32px;
@@ -98,65 +133,12 @@ button:hover {
   background: #fff;
   border: 1px solid #ccc;
   cursor: pointer;
-  margin-right: 8px;
 }
 .contents-button img:hover {
   background: #eee;
 }
 
-/* === Layer Panel 修正構造 === */
-.layer-item {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.layer-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 12px;
-}
-.layer-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-left: 12px;
-}
-.layer-controls img {
-  width: 18px;
-  height: 18px;
-  opacity: 0.85;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-.layer-controls img:hover {
-  opacity: 1;
-}
-
-/* === Stationery === */
-.tool-icons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.tool-icons img {
-  width: 28px;
-  height: 28px;
-  background: #fff;
-  border-radius: 4px;
-  padding: 2px;
-  border: 1px solid transparent;
-  cursor: pointer;
-}
-.tool-icons img:hover {
-  border-color: #aaa;
-  background: #f5f3f1;
-}
-
-/* === Zoom / Opacity === */
+/* === Sliders === */
 .slider-control {
   display: flex;
   align-items: center;
@@ -169,7 +151,6 @@ button:hover {
 .slider-control span {
   min-width: 36px;
   text-align: right;
-  font-size: 13px;
 }
 .slider-control .reset {
   background: #eee;
@@ -220,3 +201,133 @@ button:hover {
   object-fit: contain;
 }
 
+/* === Layer Panel === */
+.layer-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.layer-item img {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.layer-item img:hover {
+  opacity: 1;
+}
+.layer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.layer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 10px;
+}
+.layer-commands {
+  display: flex;
+  gap: 8px;
+}
+.layer-commands img {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+.layer-commands img:hover {
+  opacity: 1;
+}
+.layer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.layer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 10px;
+}
+
+.layer-commands {
+  display: flex;
+  gap: 8px;
+}
+
+.layer-commands img {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.layer-commands img:hover {
+  opacity: 1;
+}
+.layer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.layer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+}
+.layer-commands {
+  display: flex;
+  gap: 8px;
+}
+.layer-commands img {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+.layer-commands img:hover {
+  opacity: 1;
+}
+.layer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.layer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 10px;
+}
+.layer-commands {
+  display: flex;
+  gap: 8px;
+}
+.layer-commands img {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+.layer-commands img:hover {
+  opacity: 1;
+}
