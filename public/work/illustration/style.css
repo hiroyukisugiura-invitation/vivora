@@ -277,3 +277,30 @@ button:hover {
 .layer-commands img:hover {
   opacity: 1;
 }
+.layer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.layer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+}
+.layer-commands {
+  display: flex;
+  gap: 8px;
+}
+.layer-commands img {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.85;
+}
+.layer-commands img:hover {
+  opacity: 1;
+}
