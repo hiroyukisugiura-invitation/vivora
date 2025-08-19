@@ -8,12 +8,7 @@
 </head>
 <body>
   <!-- ======================================
-       ヘッダー部分：上部メニューバー
-       - ページタイトル
-       - 性別切り替えボタン
-       - 履歴ツール（戻る/進む/保存など）
-       - 2D/3D切り替え
-       - Next Stepボタン
+       ヘッダー部分：理想UIに近い横一列レイアウト
   ====================================== -->
   <header class="top-bar">
     <!-- ページタイトル -->
@@ -29,22 +24,22 @@
     <!-- 履歴・操作ツール群 -->
     <div class="history-tool">
       <button class="history-btn" data-action="undo" title="元に戻す">
-        <img src="create_parts/create_button/retreat.png" alt="Undo">
+        <img src="./create_parts/create_button/retreat.png" alt="Undo">
       </button>
       <button class="history-btn" data-action="redo" title="やり直し">
-        <img src="create_parts/create_button/forward.png" alt="Redo">
+        <img src="./create_parts/create_button/forward.png" alt="Redo">
       </button>
       <button class="history-btn" data-action="save" title="保存">
-        <img src="create_parts/create_button/save.png" alt="Save">
+        <img src="./create_parts/create_button/save.png" alt="Save">
       </button>
       <button class="history-btn" data-action="upload" title="アップロード">
-        <img src="create_parts/create_button/upload.png" alt="Upload">
+        <img src="./create_parts/create_button/upload.png" alt="Upload">
       </button>
       <button class="history-btn" data-action="download" title="ダウンロード">
-        <img src="create_parts/create_button/download.png" alt="Download">
+        <img src="./create_parts/create_button/download.png" alt="Download">
       </button>
       <button class="history-btn" data-action="grid" title="グリッド表示">
-        <img src="create_parts/create_button/graph_paper.png" alt="Grid">
+        <img src="./create_parts/create_button/graph_paper.png" alt="Grid">
       </button>
     </div>
     
@@ -62,118 +57,69 @@
 
   <!-- ======================================
        メインワークスペース
-       - キャンバス領域（左側）
-       - ツールパネル（右側）
   ====================================== -->
   <main class="workspace">
     <!-- キャンバス領域：マネキン表示・描画エリア -->
     <section class="canvas">
       <div class="canvas-container">
-        <!-- マネキン画像（性別によって切り替わる） -->
-        <img id="mannequin-image" src="mannequin/mannequin_woman.png" alt="Woman Mannequin" />
-        
-        <!-- 描画レイヤー（SVGまたはCanvas要素） -->
-        <div class="drawing-layer">
-          <svg id="drawing-canvas" width="100%" height="100%">
-            <!-- 描画要素がここに追加される -->
-          </svg>
-        </div>
+        <!-- マネキン画像 -->
+        <img id="mannequin-image" src="./mannequin/mannequin_woman.png" alt="Woman Mannequin" />
       </div>
     </section>
 
-    <!-- ツールパネル：右側のツール群 -->
+    <!-- ツールパネル：理想UIに合わせた配置 -->
     <aside class="tool-panel">
       <!-- ======================================
-           コンテンツボタン群：機能選択アイコン
-           - ホーム、ファッションイラスト、生地マッチングなど
+           コンテンツボタン群：横一列配置（理想UI準拠）
       ====================================== -->
       <div class="contents-section">
-        <div class="contents-button">
-          <img src="create_parts/contents_button/0_home.png" 
-               alt="Home" 
-               data-content="home" 
-               title="ホーム" />
-          <img src="create_parts/contents_button/1_fashion-illustrations.png" 
-               alt="Fashion Illustrations" 
-               data-content="fashion" 
-               title="ファッションイラスト" />
-          <img src="create_parts/contents_button/2_fabric-matching.png" 
-               alt="Fabric Matching" 
-               data-content="fabric" 
-               title="生地マッチング" />
-          <img src="create_parts/contents_button/3_clothing-design.png" 
-               alt="Clothing Design" 
-               data-content="design" 
-               title="服装デザイン" />
-          <img src="create_parts/contents_button/4_pattern-creation.png" 
-               alt="Pattern Creation" 
-               data-content="pattern" 
-               title="パターン作成" />
-          <img src="create_parts/contents_button/5_grading.png" 
-               alt="Grading" 
-               data-content="grading" 
-               title="グレーディング" />
-          <img src="create_parts/contents_button/6_print-layout-cut.png" 
-               alt="Print Layout" 
-               data-content="print" 
-               title="印刷レイアウト" />
-          <img src="create_parts/contents_button/digital-dressing-kids-mode.png" 
-               alt="Kids Mode" 
-               data-content="kids" 
-               title="キッズモード" />
+        <div class="contents-button-row">
+          <img src="./create_parts/contents_button/0_home.png" 
+               alt="Home" data-content="home" title="ホーム" />
+          <img src="./create_parts/contents_button/1_fashion-illustrations.png" 
+               alt="Fashion Illustrations" data-content="fashion" title="ファッションイラスト" />
+          <img src="./create_parts/contents_button/2_fabric-matching.png" 
+               alt="Fabric Matching" data-content="fabric" title="生地マッチング" />
+          <img src="./create_parts/contents_button/3_clothing-design.png" 
+               alt="Clothing Design" data-content="design" title="服装デザイン" />
+          <img src="./create_parts/contents_button/4_pattern-creation.png" 
+               alt="Pattern Creation" data-content="pattern" title="パターン作成" />
+          <img src="./create_parts/contents_button/5_grading.png" 
+               alt="Grading" data-content="grading" title="グレーディング" />
+          <img src="./create_parts/contents_button/6_print-layout-cut.png" 
+               alt="Print Layout" data-content="print" title="印刷レイアウト" />
+          <img src="./create_parts/contents_button/digital-dressing-kids-mode.png" 
+               alt="Kids Mode" data-content="kids" title="キッズモード" />
         </div>
       </div>
 
       <!-- ======================================
-           ステーショナリーツール：描画ツール群
-           - 選択、ペン、図形、テキスト、ブラシ
+           ステーショナリーツール：横一列アイコン
       ====================================== -->
       <div class="tool-section stationery-tool">
         <label class="tool-label">Stationery</label>
-        <div class="tool-icons">
-          <img src="create_parts/design_button/select.png" 
-               alt="Select Tool" 
-               data-tool="select" 
-               title="選択ツール" 
-               class="tool-icon" />
-          <img src="create_parts/design_button/pen.png" 
-               alt="Pen Tool" 
-               data-tool="pen" 
-               title="ペンツール" 
-               class="tool-icon" />
-          <img src="create_parts/design_button/square.png" 
-               alt="Rectangle Tool" 
-               data-tool="rectangle" 
-               title="長方形ツール" 
-               class="tool-icon" />
-          <img src="create_parts/design_button/sentence.png" 
-               alt="Text Tool" 
-               data-tool="text" 
-               title="テキストツール" 
-               class="tool-icon" />
-          <img src="create_parts/design_button/brush.png" 
-               alt="Fill Tool" 
-               data-tool="fill" 
-               title="塗りつぶしツール" 
-               class="tool-icon" />
+        <div class="tool-icons-row">
+          <img src="./create_parts/design_button/select.png" 
+               alt="Select Tool" data-tool="select" title="選択ツール" class="tool-icon" />
+          <img src="./create_parts/design_button/pen.png" 
+               alt="Pen Tool" data-tool="pen" title="ペンツール" class="tool-icon" />
+          <img src="./create_parts/design_button/square.png" 
+               alt="Rectangle Tool" data-tool="rectangle" title="長方形ツール" class="tool-icon" />
+          <img src="./create_parts/design_button/sentence.png" 
+               alt="Text Tool" data-tool="text" title="テキストツール" class="tool-icon" />
+          <img src="./create_parts/design_button/brush.png" 
+               alt="Fill Tool" data-tool="fill" title="塗りつぶしツール" class="tool-icon" />
         </div>
       </div>
 
       <!-- ======================================
-           ズームコントロール：表示倍率調整
-           - スライダー、+/-ボタン、リセット
+           ズームコントロール
       ====================================== -->
       <div class="tool-section zoom-tool">
         <label class="tool-label">Zoom</label>
         <div class="slider-control">
           <button class="slider-btn" data-action="zoom-decrease">-</button>
-          <input type="range" 
-                 min="10" 
-                 max="200" 
-                 value="100" 
-                 id="zoomSlider" 
-                 class="range-slider" 
-                 data-type="zoom" />
+          <input type="range" min="10" max="200" value="100" id="zoomSlider" class="range-slider" />
           <button class="slider-btn" data-action="zoom-increase">+</button>
           <span id="zoomValue" class="value-display">100%</span>
           <button class="reset-btn" data-reset="zoom">Reset</button>
@@ -181,19 +127,13 @@
       </div>
 
       <!-- ======================================
-           透明度コントロール：オブジェクトの透明度調整
+           透明度コントロール
       ====================================== -->
       <div class="tool-section opacity-tool">
         <label class="tool-label">Opacity</label>
         <div class="slider-control">
           <button class="slider-btn" data-action="opacity-decrease">-</button>
-          <input type="range" 
-                 min="10" 
-                 max="100" 
-                 value="100" 
-                 id="opacitySlider" 
-                 class="range-slider" 
-                 data-type="opacity" />
+          <input type="range" min="10" max="100" value="100" id="opacitySlider" class="range-slider" />
           <button class="slider-btn" data-action="opacity-increase">+</button>
           <span id="opacityValue" class="value-display">100%</span>
           <button class="reset-btn" data-reset="opacity">Reset</button>
@@ -201,152 +141,75 @@
       </div>
 
       <!-- ======================================
-           カラーパレット：色選択ツール
-           - プリセットカラー
-           - カスタムカラー追加
-           - スポイトツール
+           カラーパレット：理想UIの16色レイアウト
       ====================================== -->
       <div class="tool-section color-tool">
         <label class="tool-label">Color</label>
-        <div class="color-palette">
-          <!-- 1行目：グレー、黄色、オレンジ、ピンク -->
-          <div class="color-row">
-            <div class="color-swatch" 
-                 style="background:#888888" 
-                 data-color="#888888" 
-                 title="グレー"></div>
-            <div class="color-swatch" 
-                 style="background:#ffff00" 
-                 data-color="#ffff00" 
-                 title="黄色"></div>
-            <div class="color-swatch" 
-                 style="background:#ff8800" 
-                 data-color="#ff8800" 
-                 title="オレンジ"></div>
-            <div class="color-swatch" 
-                 style="background:#ffaaaa" 
-                 data-color="#ffaaaa" 
-                 title="ライトピンク"></div>
-          </div>
+        <div class="color-palette-grid">
+          <!-- 1行目 -->
+          <div class="color-swatch" style="background:#888888" data-color="#888888"></div>
+          <div class="color-swatch" style="background:#ffff00" data-color="#ffff00"></div>
+          <div class="color-swatch" style="background:#ff8800" data-color="#ff8800"></div>
+          <div class="color-swatch" style="background:#ffaaaa" data-color="#ffaaaa"></div>
           
-          <!-- 2行目：赤、緑、ダークグリーン、青 -->
-          <div class="color-row">
-            <div class="color-swatch" 
-                 style="background:#ff0000" 
-                 data-color="#ff0000" 
-                 title="赤"></div>
-            <div class="color-swatch" 
-                 style="background:#00aa00" 
-                 data-color="#00aa00" 
-                 title="緑"></div>
-            <div class="color-swatch" 
-                 style="background:#008800" 
-                 data-color="#008800" 
-                 title="ダークグリーン"></div>
-            <div class="color-swatch" 
-                 style="background:#4488ff" 
-                 data-color="#4488ff" 
-                 title="ライトブルー"></div>
-          </div>
+          <!-- 2行目 -->
+          <div class="color-swatch" style="background:#ff0000" data-color="#ff0000"></div>
+          <div class="color-swatch" style="background:#00aa00" data-color="#00aa00"></div>
+          <div class="color-swatch" style="background:#008800" data-color="#008800"></div>
+          <div class="color-swatch" style="background:#4488ff" data-color="#4488ff"></div>
           
-          <!-- 3行目：ダークブルー、紫、茶色、ダークグレー -->
-          <div class="color-row">
-            <div class="color-swatch" 
-                 style="background:#0044aa" 
-                 data-color="#0044aa" 
-                 title="ダークブルー"></div>
-            <div class="color-swatch" 
-                 style="background:#8800ff" 
-                 data-color="#8800ff" 
-                 title="紫"></div>
-            <div class="color-swatch" 
-                 style="background:#aa4400" 
-                 data-color="#aa4400" 
-                 title="茶色"></div>
-            <div class="color-swatch" 
-                 style="background:#444444" 
-                 data-color="#444444" 
-                 title="ダークグレー"></div>
-          </div>
+          <!-- 3行目 -->
+          <div class="color-swatch" style="background:#0044aa" data-color="#0044aa"></div>
+          <div class="color-swatch" style="background:#8800ff" data-color="#8800ff"></div>
+          <div class="color-swatch" style="background:#aa4400" data-color="#aa4400"></div>
+          <div class="color-swatch" style="background:#444444" data-color="#444444"></div>
           
-          <!-- 4行目：黒、白、ライトグレー、透明 -->
-          <div class="color-row">
-            <div class="color-swatch" 
-                 style="background:#000000" 
-                 data-color="#000000" 
-                 title="黒"></div>
-            <div class="color-swatch" 
-                 style="background:#ffffff; border-color:#999" 
-                 data-color="#ffffff" 
-                 title="白"></div>
-            <div class="color-swatch" 
-                 style="background:#cccccc" 
-                 data-color="#cccccc" 
-                 title="ライトグレー"></div>
-            <div class="color-swatch transparent" 
-                 data-color="transparent" 
-                 title="透明"></div>
-          </div>
-          
-          <!-- カスタムカラーツール -->
-          <div class="custom-tools">
-            <button class="custom-color-btn" data-action="add-color" title="カスタムカラー追加">+</button>
-            <button class="custom-color-btn" data-action="add-color" title="カスタムカラー追加">+</button>
-            <button class="custom-color-btn" data-action="add-color" title="カスタムカラー追加">+</button>
-            <button class="custom-color-btn" data-action="add-color" title="カスタムカラー追加">+</button>
-            <button class="eyedropper-btn" data-action="eyedropper" title="スポイトツール">
-              <img src="color/pc color/spuit.png" alt="Eyedropper" class="eyedropper-icon">
-            </button>
-          </div>
+          <!-- 4行目 -->
+          <div class="color-swatch" style="background:#000000" data-color="#000000"></div>
+          <div class="color-swatch" style="background:#ffffff; border: 2px solid #999" data-color="#ffffff"></div>
+          <div class="color-swatch" style="background:#cccccc" data-color="#cccccc"></div>
+          <div class="color-swatch transparent-pattern" data-color="transparent"></div>
+        </div>
+        
+        <!-- カスタムツール：理想UI準拠 -->
+        <div class="custom-tools-row">
+          <button class="custom-add-btn">+</button>
+          <button class="custom-add-btn">+</button>
+          <button class="custom-add-btn">+</button>
+          <button class="custom-add-btn">+</button>
+          <button class="eyedropper-btn">
+            <img src="./color/pc color/spuit.png" alt="Eyedropper" />
+          </button>
         </div>
       </div>
 
       <!-- ======================================
-           レイヤーパネル：レイヤー管理
-           - レイヤー操作ボタン
-           - レイヤー一覧表示
+           レイヤーパネル
       ====================================== -->
       <div class="tool-section layer-panel">
         <label class="tool-label">Layer</label>
         
-        <!-- レイヤー操作ボタン群 -->
-        <div class="layer-controls">
-          <img src="create_parts/layer_button/layerlock.png" 
-               alt="Lock Layer" 
-               data-layer-action="lock" 
-               title="レイヤーロック" 
-               class="layer-btn" />
-          <img src="create_parts/layer_button/layerdisplay.png" 
-               alt="Toggle Visibility" 
-               data-layer-action="visibility" 
-               title="表示/非表示切り替え" 
-               class="layer-btn" />
-          <img src="create_parts/layer_button/layerpanelplus.png" 
-               alt="Add Layer" 
-               data-layer-action="add" 
-               title="レイヤー追加" 
-               class="layer-btn" />
-          <img src="create_parts/layer_button/layerreproduction.png" 
-               alt="Duplicate Layer" 
-               data-layer-action="duplicate" 
-               title="レイヤー複製" 
-               class="layer-btn" />
-          <img src="create_parts/layer_button/layerdestruction.png" 
-               alt="Delete Layer" 
-               data-layer-action="delete" 
-               title="レイヤー削除" 
-               class="layer-btn" />
+        <!-- レイヤー操作ボタン群：横一列 -->
+        <div class="layer-controls-row">
+          <img src="./create_parts/layer_button/layerlock.png" 
+               alt="Lock Layer" data-layer-action="lock" title="レイヤーロック" />
+          <img src="./create_parts/layer_button/layerdisplay.png" 
+               alt="Toggle Visibility" data-layer-action="visibility" title="表示/非表示" />
+          <img src="./create_parts/layer_button/layerpanelplus.png" 
+               alt="Add Layer" data-layer-action="add" title="レイヤー追加" />
+          <img src="./create_parts/layer_button/layerreproduction.png" 
+               alt="Duplicate Layer" data-layer-action="duplicate" title="レイヤー複製" />
+          <img src="./create_parts/layer_button/layerdestruction.png" 
+               alt="Delete Layer" data-layer-action="delete" title="レイヤー削除" />
         </div>
         
         <!-- レイヤー一覧 -->
-        <div class="layer-list" id="layerList">
-          <div class="layer-item active" data-layer-id="1">
+        <div class="layer-list">
+          <div class="layer-item active">
             <span class="layer-name">Layer 1</span>
-            <div class="layer-thumbnail"></div>
           </div>
-          <div class="layer-item" data-layer-id="0">
+          <div class="layer-item">
             <span class="layer-name">Background</span>
-            <div class="layer-thumbnail"></div>
           </div>
         </div>
       </div>
@@ -354,6 +217,47 @@
   </main>
 
   <!-- JavaScript読み込み -->
-  <script src="script.js"></script>
+  <script>
+    // 基本的なインタラクション
+    document.addEventListener('DOMContentLoaded', function() {
+      // ズームスライダー
+      const zoomSlider = document.getElementById('zoomSlider');
+      const zoomValue = document.getElementById('zoomValue');
+      zoomSlider.addEventListener('input', function() {
+        zoomValue.textContent = this.value + '%';
+      });
+      
+      // 透明度スライダー
+      const opacitySlider = document.getElementById('opacitySlider');
+      const opacityValue = document.getElementById('opacityValue');
+      opacitySlider.addEventListener('input', function() {
+        opacityValue.textContent = this.value + '%';
+      });
+      
+      // カラースウォッチ選択
+      document.querySelectorAll('.color-swatch').forEach(swatch => {
+        swatch.addEventListener('click', function() {
+          document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+          this.classList.add('selected');
+        });
+      });
+      
+      // ツールアイコン選択
+      document.querySelectorAll('.tool-icon').forEach(tool => {
+        tool.addEventListener('click', function() {
+          document.querySelectorAll('.tool-icon').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // 性別/モード切り替え
+      document.querySelectorAll('.gender-switch button, .mode-switch button').forEach(button => {
+        button.addEventListener('click', function() {
+          this.parentNode.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
