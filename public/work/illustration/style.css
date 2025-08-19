@@ -1,251 +1,767 @@
 /* ==========================================
-  Vivora Fashion Illustration 2025 - CSS完全版（PC用）
-  フォント・影・配色・ボタン・hover・統一スタイル含む
+   Vivora Fashion Illustration 2025 - CSS完全版
+   詳細コメント付きスタイルシート
 ========================================== */
 
-/* === 初期リセット === */
+/* ======================================
+   基本リセット・初期設定
+====================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* 全体のベーススタイル */
 body {
-  background: #f3ece7;
-  font-family: 'Playfair Display', 'Helvetica Neue', sans-serif;
-  font-size: 14px;
-  color: #222;
-  line-height: 1.6;
+  background: #f5f5f5; /* 背景色：薄いグレー */
+  font-family: 'Arial', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  font-size: 13px;
+  color: #333;
+  line-height: 1.4;
+  overflow: hidden; /* スクロールバー非表示 */
 }
 
+/* 画像の基本設定 */
 img {
   display: block;
   max-width: 100%;
   height: auto;
+  user-select: none; /* 画像選択無効化 */
 }
 
+/* ボタンの基本スタイル */
 button {
   background: #fff;
-  border: 1px solid #ccc;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 14px;
+  border: 1px solid #ddd;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
+  outline: none;
 }
+
+/* ボタンホバー効果 */
 button:hover {
-  background: #f0ece7;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-button.active {
-  background: #ddd6cc;
-  font-weight: bold;
+  background: #f0f0f0;
   border-color: #bbb;
+  transform: translateY(-1px); /* 軽微な浮き上がり効果 */
 }
 
+/* ボタンアクティブ状態 */
+button.active {
+  background: #e0e0e0;
+  border-color: #999;
+  font-weight: bold;
+}
 
-/* === ヘッダー構成 === */
+/* ======================================
+   ヘッダー部分（上部メニューバー）
+====================================== */
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  padding: 12px 24px;
-  background: #f7f2ee;
-  border-bottom: 1px solid #ddd1c8;
-  gap: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  padding: 8px 16px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  height: 50px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000;
+  position: relative;
 }
 
+/* ページタイトル */
 .page-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  flex: 1;
+  color: #333;
+  flex-shrink: 0; /* 縮小禁止 */
 }
 
-.gender-switch,
-.history-tool,
-.mode-switch,
-.next-button {
+/* 性別切り替えボタン群 */
+.gender-switch {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
-.mode-switch button,
 .gender-switch button {
-  min-width: 60px;
+  min-width: 50px;
+  padding: 6px 12px;
 }
 
-.next-button button {
-  background: #222;
+/* 履歴・操作ツール群 */
+.history-tool {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.history-btn {
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+}
+
+.history-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.history-btn:hover {
+  background: #e8e8e8;
+  border-color: #999;
+}
+
+/* 2D/3Dモード切り替え */
+.mode-switch {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.mode-switch button {
+  min-width: 40px;
+  font-weight: bold;
+  padding: 6px 10px;
+}
+
+/* Next Stepボタン */
+.next-button {
+  flex-shrink: 0;
+}
+
+.next-step-btn {
+  background: #007acc;
   color: #fff;
   font-weight: bold;
   border: none;
-  padding: 6px 16px;
-  border-radius: 6px;
-}
-.next-button button:hover {
-  background: #444;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 13px;
 }
 
+.next-step-btn:hover {
+  background: #005a9e;
+  transform: translateY(-1px);
+}
 
-/* === メイン構成 === */
+/* ======================================
+   メインワークスペース
+====================================== */
 .workspace {
   display: flex;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 50px); /* ヘッダー分を引いた高さ */
 }
 
+/* ======================================
+   キャンバス領域（左側）
+====================================== */
 .canvas {
-  flex: 1;
+  flex: 1; /* 残りの幅すべてを占有 */
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
-  border-right: 1px solid #e1d9d4;
-  padding: 24px;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
+/* キャンバスコンテナ */
+.canvas-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* マネキン画像 */
+#mannequin-image {
+  max-height: 80vh;
+  max-width: 80%;
+  z-index: 1;
+  transition: transform 0.3s ease; /* ズーム時のアニメーション */
+}
+
+/* 描画レイヤー */
+.drawing-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none; /* 通常時はマウスイベント無効 */
+}
+
+.drawing-layer.active {
+  pointer-events: auto; /* 描画モード時は有効 */
+}
+
+/* SVG描画キャンバス */
+#drawing-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* ======================================
+   ツールパネル（右側）
+====================================== */
 .tool-panel {
-  width: 320px;
-  background: #f7f2ee;
-  padding: 20px 16px;
+  width: 280px;
+  background: #f8f8f8;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   overflow-y: auto;
+  border-left: 1px solid #ddd;
+  box-shadow: -2px 0 4px rgba(0,0,0,0.05);
 }
 
-/* === コンテンツアイコン列 === */
+/* ======================================
+   コンテンツボタン群
+====================================== */
+.contents-section {
+  margin-bottom: 8px;
+}
+
 .contents-button {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
-}
-.contents-button img {
-  width: 36px;
-  height: 36px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 8px;
   background: #fff;
-  padding: 3px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
+}
+
+.contents-button img {
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  background: #fff;
 }
+
 .contents-button img:hover {
-  background: #eae7e3;
+  background: #f0f0f0;
+  border-color: #999;
+  transform: scale(1.05);
 }
 
+.contents-button img.active {
+  background: #e8f4ff;
+  border-color: #007acc;
+}
 
-/* === 各ツールブロック共通 === */
+/* ======================================
+   ツールセクション共通スタイル
+====================================== */
 .tool-section {
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-.tool-section label {
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 8px;
-  display: block;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* 文房具ツール群 */
-.tool-icons {
+/* ツールラベル */
+.tool-label {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 10px;
+  display: block;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 4px;
+}
+
+/* ======================================
+   ステーショナリーツール
+====================================== */
+.stationery-tool .tool-icons {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   flex-wrap: wrap;
 }
-.tool-icons img {
+
+.tool-icon {
   width: 32px;
   height: 32px;
-  padding: 2px;
-  border-radius: 6px;
-  border: 1px solid transparent;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
   background: #fff;
   cursor: pointer;
-}
-.tool-icons img:hover {
-  border-color: #aaa;
-  background: #f5f3f1;
+  transition: all 0.2s ease;
 }
 
-/* スライダー系（Zoom / Opacity） */
+.tool-icon:hover {
+  border-color: #999;
+  background: #f5f5f5;
+  transform: scale(1.1);
+}
+
+.tool-icon.active {
+  background: #e8f4ff;
+  border-color: #007acc;
+  box-shadow: 0 0 0 2px rgba(0,122,204,0.2);
+}
+
+/* ======================================
+   スライダーコントロール（ズーム・透明度）
+====================================== */
 .slider-control {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
 }
-.slider-control input[type="range"] {
-  flex: 1;
-}
-.slider-control span {
-  min-width: 40px;
-}
-.slider-control .reset {
-  background: #eee;
+
+/* スライダーボタン（+/-） */
+.slider-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  background: #f5f5f5;
   border: 1px solid #ccc;
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 4px;
+  font-weight: bold;
+}
+
+.slider-btn:hover {
+  background: #e8e8e8;
+  border-color: #999;
+}
+
+/* レンジスライダー */
+.range-slider {
+  flex: 1;
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   cursor: pointer;
 }
 
+/* スライダーサム（つまみ）- Webkit */
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #007acc;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
 
-/* カラーパレット */
+.range-slider::-webkit-slider-thumb:hover {
+  background: #005a9e;
+  transform: scale(1.1);
+}
+
+/* スライダーサム（つまみ）- Firefox */
+.range-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #007acc;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 値表示 */
+.value-display {
+  min-width: 40px;
+  font-size: 11px;
+  text-align: center;
+  font-weight: bold;
+  color: #666;
+}
+
+/* リセットボタン */
+.reset-btn {
+  background: #e8e8e8;
+  font-size: 10px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+}
+
+.reset-btn:hover {
+  background: #d8d8d8;
+  border-color: #999;
+}
+
+/* ======================================
+   カラーパレット
+====================================== */
 .color-palette {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-.swatches {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.color-swatch {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  border: 1px solid #bbb;
-  cursor: pointer;
-}
-.color-swatch:hover {
-  box-shadow: 0 0 0 2px #aaa;
+  gap: 8px;
 }
 
+/* カラー行 */
+.color-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+/* カラースウォッチ */
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-color: #999;
+}
+
+.color-swatch.selected {
+  border-color: #007acc;
+  box-shadow: 0 0 0 2px rgba(0,122,204,0.3);
+  transform: scale(1.05);
+}
+
+/* 透明色スウォッチ */
+.color-swatch.transparent {
+  background: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%),
+              linear-gradient(45deg, #ccc 25%, #fff 25%, #fff 75%, #ccc 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 4px 4px;
+}
+
+/* カスタムツール */
 .custom-tools {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
 }
-.custom-tools button {
+
+.custom-color-btn {
   width: 28px;
   height: 28px;
   padding: 0;
   font-size: 16px;
   line-height: 1;
   text-align: center;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  font-weight: bold;
 }
 
-/* レイヤー操作アイコン */
-.layer-item {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-start;
+.custom-color-btn:hover {
+  background: #e8e8e8;
+  border-color: #999;
 }
-.layer-item img {
+
+/* スポイトボタン */
+.eyedropper-btn {
   width: 28px;
   height: 28px;
-  cursor: pointer;
-  opacity: 0.85;
-  transition: opacity 0.2s;
+  padding: 4px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
 }
-.layer-item img:hover {
+
+.eyedropper-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.eyedropper-btn:hover {
+  background: #e8e8e8;
+  border-color: #999;
+}
+
+.eyedropper-btn.active {
+  background: #e8f4ff;
+  border-color: #007acc;
+}
+
+/* ======================================
+   レイヤーパネル
+====================================== */
+.layer-panel {
+  min-height: 140px;
+}
+
+/* レイヤー操作ボタン群 */
+.layer-controls {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.layer-btn {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  border-radius: 3px;
+  padding: 2px;
+}
+
+.layer-btn:hover {
   opacity: 1;
+  background: #f0f0f0;
+  transform: scale(1.1);
+}
+
+.layer-btn.active {
+  opacity: 1;
+  background: #e8f4ff;
+}
+
+/* レイヤー一覧 */
+.layer-list {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  min-height: 80px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* レイヤーアイテム */
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  margin-bottom: 4px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.layer-item:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.layer-item.active {
+  background: #e8f4ff;
+  border-color: #007acc;
+}
+
+.layer-item:last-child {
+  margin-bottom: 0;
+}
+
+/* レイヤー名 */
+.layer-name {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* レイヤーサムネイル */
+.layer-thumbnail {
+  width: 20px;
+  height: 20px;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ======================================
+   レスポンシブデザイン
+====================================== */
+
+/* タブレット用調整 */
+@media (max-width: 1200px) {
+  .tool-panel {
+    width: 250px;
+  }
+  
+  .contents-button {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .contents-button img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* モバイル用調整 */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 8px;
+    gap: 8px;
+  }
+  
+  .workspace {
+    flex-direction: column;
+    height: calc(100vh - 70px);
+  }
+  
+  .canvas {
+    flex: 1;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tool-panel {
+    width: 100%;
+    height: 200px;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 8px;
+  }
+  
+  .tool-section {
+    min-width: 200px;
+    flex-shrink: 0;
+  }
+  
+  .page-title {
+    font-size: 14px;
+  }
+  
+  .gender-switch, .mode-switch {
+    order: 1;
+  }
+  
+  .history-tool {
+    order: 2;
+  }
+  
+  .next-button {
+    order: 3;
+  }
+}
+
+/* 小画面用調整 */
+@media (max-width: 480px) {
+  .contents-button {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .tool-icons {
+    justify-content: center;
+  }
+  
+  .color-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .custom-tools {
+    justify-content: center;
+  }
+}
+
+/* ======================================
+   ユーティリティクラス
+====================================== */
+
+/* 非表示 */
+.hidden {
+  display: none !important;
+}
+
+/* フェードイン */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ローディング */
+.loading {
+  position: relative;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #007acc;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ツールチップ */
+[title] {
+  position: relative;
+}
+
+/* スクロールバーカスタマイズ */
+.tool-panel::-webkit-scrollbar,
+.layer-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tool-panel::-webkit-scrollbar-track,
+.layer-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.tool-panel::-webkit-scrollbar-thumb,
+.layer-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.tool-panel::-webkit-scrollbar-thumb:hover,
+.layer-list::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }
