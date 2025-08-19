@@ -1,11 +1,12 @@
 /* ==========================================
-   Vivora Fashion Illustration 2025 - 理想UI準拠CSS
-   元画像に近いレイアウト・デザインを再現
+  Vivora Fashion Illustration 2025 - CSS完全版（画像構成・Git構造に完全準拠）
+  対応日：2025-08-19
+  UI構成：illustration page（PC版）
+  画像参照：new_fashion-illustrations.png
+  ファイル構造：create_parts / mannequin / color などに準拠
 ========================================== */
 
-/* ======================================
-   基本リセット・初期設定
-====================================== */
+/* === 初期リセット & ベース === */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,523 +14,241 @@
 }
 
 body {
-  background: #f5f5f5;
-  font-family: 'Arial', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-  font-size: 12px;
-  color: #333;
-  line-height: 1.4;
-  overflow: hidden;
+  background: #f3ece7;
+  font-family: 'Playfair Display', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  color: #222;
+  line-height: 1.6;
 }
 
 img {
   display: block;
   max-width: 100%;
   height: auto;
-  user-select: none;
 }
 
 button {
   background: #fff;
   border: 1px solid #ccc;
-  padding: 4px 8px;
-  border-radius: 3px;
-  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  outline: none;
 }
-
 button:hover {
-  background: #f0f0f0;
-  border-color: #999;
+  background: #f0ece7;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
-
 button.active {
-  background: #d0d0d0;
-  border-color: #888;
+  background: #ddd6cc;
   font-weight: bold;
+  border-color: #bbb;
 }
 
-/* ======================================
-   ヘッダー部分：理想UIに近い配置
-====================================== */
+/* === ヘッダー構成 === */
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 12px;
-  background: #fff;
-  border-bottom: 1px solid #ccc;
-  height: 45px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  font-size: 11px;
+  flex-wrap: wrap;
+  padding: 12px 24px;
+  background: #f7f2ee;
+  border-bottom: 1px solid #ddd1c8;
+  gap: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
 .page-title {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
-  color: #333;
-  flex-shrink: 0;
+  flex: 1;
 }
 
-.gender-switch {
+.gender-switch,
+.history-tool,
+.mode-switch,
+.next-button {
   display: flex;
-  gap: 2px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
+.mode-switch button,
 .gender-switch button {
-  min-width: 45px;
-  padding: 4px 8px;
-  font-size: 11px;
+  min-width: 60px;
 }
 
-.history-tool {
-  display: flex;
-  gap: 2px;
-}
-
-.history-btn {
-  padding: 2px;
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f8f8f8;
-  border: 1px solid #ccc;
-}
-
-.history-btn img {
-  width: 16px;
-  height: 16px;
-}
-
-.mode-switch {
-  display: flex;
-  gap: 2px;
-}
-
-.mode-switch button {
-  min-width: 35px;
-  font-weight: bold;
-  padding: 4px 8px;
-  font-size: 11px;
-}
-
-.next-step-btn {
-  background: #4a90e2;
+.next-button button {
+  background: #222;
   color: #fff;
   font-weight: bold;
   border: none;
-  padding: 6px 12px;
-  border-radius: 3px;
-  font-size: 11px;
+  padding: 6px 16px;
+  border-radius: 6px;
+}
+.next-button button:hover {
+  background: #444;
 }
 
-.next-step-btn:hover {
-  background: #357abd;
-}
-
-/* ======================================
-   メインワークスペース
-====================================== */
+/* === メイン構成 === */
 .workspace {
   display: flex;
-  height: calc(100vh - 45px);
+  height: calc(100vh - 70px);
 }
 
-/* ======================================
-   キャンバス領域
-====================================== */
 .canvas {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
-  border-right: 1px solid #ccc;
-  padding: 20px;
-  position: relative;
+  border-right: 1px solid #e1d9d4;
+  padding: 24px;
 }
 
-.canvas-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-#mannequin-image {
-  max-height: 75vh;
-  max-width: 70%;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-}
-
-/* ======================================
-   ツールパネル：理想UIに近い幅・配置
-====================================== */
 .tool-panel {
-  width: 260px;
-  background: #f8f8f8;
-  padding: 8px;
+  width: 320px;
+  background: #f7f2ee;
+  padding: 20px 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 20px;
   overflow-y: auto;
-  border-left: 1px solid #ccc;
-  box-shadow: -1px 0 3px rgba(0,0,0,0.05);
 }
 
-/* ======================================
-   コンテンツボタン群：横一列配置
-====================================== */
-.contents-section {
-  margin-bottom: 4px;
-}
-
-.contents-button-row {
+/* === コンテンツアイコン群 === */
+.contents-button {
   display: flex;
-  gap: 3px;
-  padding: 6px;
-  background: #fff;
-  border-radius: 4px;
-  border: 1px solid #ddd;
   flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
 }
-
-.contents-button-row img {
-  width: 26px;
-  height: 26px;
-  padding: 2px;
-  border-radius: 3px;
-  border: 1px solid #ddd;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.contents-button img {
+  width: 36px;
+  height: 36px;
   background: #fff;
+  padding: 3px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.contents-button img:hover {
+  background: #eae7e3;
 }
 
-.contents-button-row img:hover {
-  background: #f0f0f0;
-  border-color: #999;
-  transform: scale(1.05);
-}
-
-/* ======================================
-   ツールセクション：理想UIに近いコンパクト設計
-====================================== */
+/* === Stationeryツール列 === */
 .tool-section {
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 8px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
-
-.tool-label {
+.tool-section label {
   font-weight: 600;
-  font-size: 12px;
-  margin-bottom: 6px;
+  font-size: 14px;
+  margin-bottom: 8px;
   display: block;
-  color: #333;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 3px;
 }
 
-/* ======================================
-   ステーショナリーツール：横一列配置
-====================================== */
-.tool-icons-row {
+.tool-icons {
   display: flex;
-  gap: 4px;
-  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
 }
-
-.tool-icon {
-  width: 28px;
-  height: 28px;
-  padding: 4px;
-  border-radius: 3px;
-  border: 1px solid #ddd;
+.tool-icons img {
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid transparent;
   background: #fff;
   cursor: pointer;
-  transition: all 0.2s ease;
+}
+.tool-icons img:hover {
+  border-color: #aaa;
+  background: #f5f3f1;
 }
 
-.tool-icon:hover {
-  border-color: #999;
-  background: #f5f5f5;
-}
-
-.tool-icon.active {
-  background: #e8f4ff;
-  border-color: #4a90e2;
-}
-
-/* ======================================
-   スライダーコントロール
-====================================== */
+/* === Zoom / Opacity === */
 .slider-control {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
-
-.slider-btn {
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  font-size: 12px;
-  line-height: 1;
-  background: #f5f5f5;
-  border: 1px solid #ccc;
-}
-
-.range-slider {
+.slider-control input[type="range"] {
   flex: 1;
-  height: 4px;
-  background: #ddd;
-  border-radius: 2px;
-  outline: none;
-  -webkit-appearance: none;
-  cursor: pointer;
 }
-
-.range-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
-  background: #4a90e2;
-  border-radius: 50%;
-  cursor: pointer;
+.slider-control span {
+  min-width: 40px;
 }
-
-.range-slider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  background: #4a90e2;
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-}
-
-.value-display {
-  min-width: 32px;
-  font-size: 10px;
-  text-align: center;
-  font-weight: bold;
-  color: #666;
-}
-
-.reset-btn {
-  background: #e8e8e8;
-  font-size: 9px;
-  padding: 2px 6px;
+.slider-control .reset {
+  background: #eee;
   border: 1px solid #ccc;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-/* ======================================
-   カラーパレット：理想UIの4×4グリッド
-====================================== */
-.color-palette-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-  margin-bottom: 8px;
+/* === カラー === */
+.color-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
 .color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+}
+.color-swatch:hover {
+  box-shadow: 0 0 0 2px #aaa;
+}
+
+.custom-tools {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.custom-tools button {
   width: 28px;
   height: 28px;
-  border-radius: 3px;
-  border: 2px solid #bbb;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-.color-swatch:hover {
-  transform: scale(1.1);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-.color-swatch.selected {
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 2px rgba(74,144,226,0.3);
-}
-
-/* 透明パターン */
-.transparent-pattern {
-  background: 
-    linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%),
-    linear-gradient(45deg, #ccc 25%, #fff 25%, #fff 75%, #ccc 75%);
-  background-size: 6px 6px;
-  background-position: 0 0, 3px 3px;
-}
-
-/* ======================================
-   カスタムツール：理想UI準拠の横一列
-====================================== */
-.custom-tools-row {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  padding-top: 6px;
-  border-top: 1px solid #eee;
-}
-
-.custom-add-btn {
-  width: 24px;
-  height: 24px;
   padding: 0;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
-  font-weight: bold;
+  text-align: center;
 }
-
-.eyedropper-btn {
-  width: 24px;
-  height: 24px;
-  padding: 2px;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
-}
-
-.eyedropper-btn img {
-  width: 18px;
-  height: 18px;
-}
-
-/* ======================================
-   レイヤーパネル
-====================================== */
-.layer-controls-row {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 8px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #eee;
-}
-
-.layer-controls-row img {
+.custom-tools img {
   width: 20px;
   height: 20px;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-  border-radius: 2px;
-  padding: 1px;
+  object-fit: contain;
 }
 
-.layer-controls-row img:hover {
-  opacity: 1;
-  background: #f0f0f0;
-}
-
-.layer-list {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  padding: 6px;
-  min-height: 60px;
-}
-
+/* === レイヤーパネル === */
 .layer-item {
   display: flex;
-  align-items: center;
-  padding: 4px 6px;
-  margin-bottom: 2px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 2px;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.layer-item img {
+  width: 28px;
+  height: 28px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  opacity: 0.85;
+  transition: opacity 0.2s;
 }
-
-.layer-item:hover {
-  background: #f5f5f5;
-}
-
-.layer-item.active {
-  background: #e8f4ff;
-  border-color: #4a90e2;
-}
-
-.layer-name {
-  font-size: 11px;
-  font-weight: 500;
-  color: #333;
-}
-
-/* ======================================
-   レスポンシブ調整
-====================================== */
-@media (max-width: 1200px) {
-  .tool-panel {
-    width: 220px;
-  }
-  
-  .contents-button-row img {
-    width: 22px;
-    height: 22px;
-  }
-}
-
-@media (max-width: 768px) {
-  .top-bar {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 6px;
-  }
-  
-  .workspace {
-    flex-direction: column;
-  }
-  
-  .tool-panel {
-    width: 100%;
-    height: 180px;
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 6px;
-  }
-  
-  .tool-section {
-    min-width: 160px;
-    flex-shrink: 0;
-  }
-}
-
-/* ======================================
-   スクロールバーカスタマイズ
-====================================== */
-.tool-panel::-webkit-scrollbar {
-  width: 4px;
-}
-
-.tool-panel::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-.tool-panel::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 2px;
-}
-
-/* ======================================
-   画像読み込みエラー時の対応
-====================================== */
-img[src*="create_parts"]:not([src]):after,
-img[alt]:not([src]):after {
-  content: attr(alt);
-  display: block;
-  background: #f0f0f0;
-  color: #999;
-  text-align: center;
-  padding: 4px;
-  font-size: 9px;
-  border: 1px solid #ddd;
+.layer-item img:hover {
+  opacity: 1;
 }
