@@ -1,6 +1,6 @@
 /* ==========================================
-  Vivora Fashion Illustration 2025 - CSS完全版（イメージ一致100%）
-  対応要素：Header / Canvas / Sidebar / Layer Panel / Stationery / Zoom / Opacity / Color
+  Vivora Fashion Illustration 2025 - CSS完全版（イメージ100%一致修正）
+  対応修正：Layer Panel - 左白ボックス / 右アイコン縦列構造に変更
 ========================================== */
 
 /* === Reset & Base === */
@@ -104,21 +104,35 @@ button:hover {
   background: #eee;
 }
 
-/* === Layer Panel === */
+/* === Layer Panel 修正構造 === */
 .layer-item {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-left: 10px;
 }
-.layer-item img {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+.layer-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+}
+.layer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 12px;
+}
+.layer-controls img {
+  width: 18px;
+  height: 18px;
   opacity: 0.85;
-  margin-bottom: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
-.layer-item img:hover {
+.layer-controls img:hover {
   opacity: 1;
 }
 
