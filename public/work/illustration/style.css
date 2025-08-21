@@ -1,6 +1,7 @@
 /* =============================================================
-  Vivora Fashion Illustration 2025 - CSS完全版
-  イメージUI完全一致（new_fashion-illustrations.png準拠）
+  Vivora Fashion Illustration 2025 - Advanced CSS 完全版
+  Layout, Color, Spacing, Hover Effects, and Fine UI Polish
+  Last Refined: 2025-08-22
 ============================================================= */
 
 /* === Reset & Base === */
@@ -9,66 +10,36 @@
   margin: 0;
   padding: 0;
 }
-body {
+html, body {
+  height: 100%;
   background: #f3ece7;
+  color: #222;
   font-family: 'Playfair Display', 'Helvetica Neue', sans-serif;
   font-size: 13.5px;
-  color: #222;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 img {
-  display: block;
   max-width: 100%;
+  display: block;
   height: auto;
 }
 button {
+  font: inherit;
   background: #fff;
   border: 1px solid #ccc;
-  padding: 4px 10px;
   border-radius: 6px;
-  font-size: 13px;
+  padding: 4px 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 button:hover {
   background: #f0ece7;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
-
-
-/* === Top Bar === */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 10px 24px;
-  background: #f7f2ee;
-  border-bottom: 1px solid #ddd1c8;
-  gap: 12px;
-}
-.page-title {
-  font-size: 16px;
-  font-weight: 600;
-  flex: 1;
-}
-.gender-switch,
-.history-tool,
-.mode-switch,
-.next-button {
-  display: flex;
-  gap: 8px;
-}
-.next-button button {
-  background: #222;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-}
-.next-button button:hover {
-  background: #444;
+button:focus-visible {
+  outline: 2px solid #aaa;
+  outline-offset: 2px;
 }
 
 /* === Layout === */
@@ -78,12 +49,17 @@ button:hover {
 }
 .canvas {
   flex: 1;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
   border-right: 1px solid #e1d9d4;
 }
+.mannequin-base {
+  max-height: 80vh;
+  object-fit: contain;
+}
+
 .tool-panel {
   width: 320px;
   background: #f7f2ee;
@@ -92,117 +68,159 @@ button:hover {
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
+  border-left: 1px solid #e1d9d4;
 }
 
-/* === Contents === */
-.contents-button {
+/* === Header === */
+.top-bar {
+  background: #f7f2ee;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
+  padding: 12px 24px;
+  border-bottom: 1px solid #ddd1c8;
+  gap: 16px;
+}
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  flex: 1;
+  color: #222;
+}
+.gender-switch, .history-tool, .mode-switch, .next-button {
+  display: flex;
   gap: 8px;
-  justify-content: flex-start;
+  align-items: center;
 }
-.contents-button img {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  padding: 3px;
-  border: 1px solid #ccc;
-  background: #fff;
-  transition: 0.2s;
-  cursor: pointer;
+.next-button button {
+  background: #222;
+  color: #fff;
+  font-weight: bold;
+  padding: 6px 14px;
+  border: none;
 }
-.contents-button img:hover {
-  background: #eae7e3;
+.next-button button:hover {
+  background: #444;
 }
 
-/* === Tool Panel === */
+/* === Tool Section Base === */
 .tool-section {
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 .tool-section label {
   font-weight: 600;
   font-size: 13px;
-  margin-bottom: 6px;
   display: block;
+  margin-bottom: 8px;
+  color: #222;
 }
+
+/* === Stationery Buttons === */
 .tool-icons {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
+  flex-wrap: wrap;
 }
 .tool-icons img {
   width: 30px;
   height: 30px;
-  border-radius: 6px;
+  padding: 3px;
   background: #fff;
   border: 1px solid transparent;
+  border-radius: 6px;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 .tool-icons img:hover {
   border-color: #aaa;
-  background: #f5f3f1;
+  background: #f0ece7;
 }
 
-/* === Sliders (Zoom / Opacity) === */
+/* === Slider Controls === */
 .slider-control {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 .slider-control input[type="range"] {
   flex: 1;
 }
 .slider-control span {
-  min-width: 36px;
+  min-width: 40px;
   text-align: right;
+  font-weight: bold;
+  color: #444;
 }
 .slider-control .reset {
   background: #eee;
   border: 1px solid #ccc;
-  padding: 2px 6px;
-  font-size: 11px;
-  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-/* === Color Panel === */
+/* === Contents Buttons === */
+.contents-button {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.contents-button img {
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.contents-button img:hover {
+  background: #eae7e3;
+}
+
+/* === Color Palette === */
 .color-palette {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 .swatches {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
 }
 .color-swatch {
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
+  width: 24px;
+  height: 24px;
   border: 1px solid #bbb;
+  border-radius: 6px;
   cursor: pointer;
 }
 .color-swatch:hover {
-  box-shadow: 0 0 0 1px #aaa;
+  box-shadow: 0 0 0 2px #aaa;
 }
 .custom-tools {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+  justify-content: start;
 }
 .custom-tools button {
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  font-size: 14px;
-  line-height: 1;
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+  border-radius: 6px;
   text-align: center;
+  border: 1px solid #ccc;
+  background: #fff;
 }
 .custom-tools img {
   width: 18px;
@@ -210,7 +228,7 @@ button:hover {
   object-fit: contain;
 }
 
-/* === Layer Panel (exact image match) === */
+/* === Layer Panel === */
 .layer-item {
   display: flex;
   flex-direction: column;
@@ -221,15 +239,15 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 12px;
+  padding: 10px;
   gap: 12px;
 }
 .layer-left {
   flex: 1;
   min-height: 60px;
-  border: 1px dashed #ccc;
+  border: 1px dashed #bbb;
   background: #fff;
   border-radius: 6px;
 }
@@ -237,6 +255,7 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  align-items: center;
 }
 .layer-right img {
   width: 18px;
