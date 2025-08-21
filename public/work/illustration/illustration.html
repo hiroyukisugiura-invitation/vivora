@@ -4,16 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- ======================== -->
+  <!-- ヘッダーエリア           -->
+  <!-- ======================== -->
   <header class="top-bar">
+    <!-- 左：タイトル -->
     <div class="page-title">Vivora Fashion Illustration 2025</div>
+
+    <!-- 中央：性別切り替え -->
     <div class="gender-switch">
       <button>Woman</button>
       <button>Man</button>
       <button>Kids</button>
     </div>
+
+    <!-- 履歴操作系ボタン群 -->
     <div class="history-tool">
       <button><img src="create_parts/create_button/retreat.png" alt="Undo"></button>
       <button><img src="create_parts/create_button/forward.png" alt="Redo"></button>
@@ -22,33 +31,46 @@
       <button><img src="create_parts/create_button/download.png" alt="Download"></button>
       <button><img src="create_parts/create_button/graph_paper.png" alt="Grid"></button>
     </div>
+
+    <!-- モード切り替え -->
     <div class="mode-switch">
       <button>2D</button>
       <button>3D</button>
     </div>
+
+    <!-- 右：次へ -->
     <div class="next-button">
       <button>Next Step ▶︎▶︎</button>
     </div>
   </header>
 
+  <!-- ======================== -->
+  <!-- メインエリア            -->
+  <!-- ======================== -->
   <main class="workspace">
+    <!-- 中央キャンバス -->
     <section class="canvas">
-      <img src="mannequin/mannequin_woman.png" alt="Mannequin base" />
+      <img src="mannequin/mannequin_woman.png" alt="Mannequin base" class="mannequin-base">
     </section>
 
+    <!-- 右サイドバー -->
     <aside class="tool-panel">
 
+      <!-- コンテンツアイコン列 -->
       <div class="tool-section contents-button">
-        <img src="create_parts/contents_button/0_home.png" alt="Home" />
-        <img src="create_parts/contents_button/1_fashion-illustrations.png" alt="Fashion Illustrations" />
-        <img src="create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching" />
-        <img src="create_parts/contents_button/3_clothing-design.png" alt="Clothing Design" />
-        <img src="create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation" />
-        <img src="create_parts/contents_button/5_grading.png" alt="Grading" />
-        <img src="create_parts/contents_button/6_print-layout-cut.png" alt="Print / Cut" />
+        <img src="create_parts/contents_button/0_home.png" alt="Home">
+        <img src="create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
+        <img src="create_parts/contents_button/2_fabric-matching.png" alt="Fabric">
+        <img src="create_parts/contents_button/3_clothing-design.png" alt="Clothing">
+        <img src="create_parts/contents_button/4_pattern-creation.png" alt="Pattern">
+        <img src="create_parts/contents_button/5_grading.png" alt="Grading">
+        <img src="create_parts/contents_button/6_print-layout-cut.png" alt="Print">
+        <img src="create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids">
       </div>
 
+      <!-- レイヤーパネル（3レイヤー） -->
       <div class="tool-section layer-item">
+        <!-- 各レイヤーボックス -->
         <div class="layer-box">
           <div class="layer-left"></div>
           <div class="layer-right">
@@ -81,7 +103,8 @@
         </div>
       </div>
 
-      <div class="tool-section stationery-tool">
+      <!-- ステーショナリーツール -->
+      <div class="tool-section">
         <label>Stationery</label>
         <div class="tool-icons">
           <img src="create_parts/design_button/pen.png" alt="Pen Tool">
@@ -92,7 +115,8 @@
         </div>
       </div>
 
-      <div class="tool-section zoom-tool">
+      <!-- ズームスライダー -->
+      <div class="tool-section">
         <label>Zoom</label>
         <div class="slider-control">
           <button>-</button>
@@ -103,48 +127,47 @@
         </div>
       </div>
 
-      <div class="tool-section opacity-tool">
+      <!-- オパシティスライダー -->
+      <div class="tool-section">
         <label>Opacity</label>
         <div class="slider-control">
           <button>-</button>
-          <input type="range" min="0" max="100" value="100">
+          <input type="range" min="10" max="100" value="100">
           <button>+</button>
           <span>100%</span>
           <button class="reset">Reset</button>
         </div>
       </div>
 
-      <div class="tool-section color-tool">
+      <!-- カラーパネル -->
+      <div class="tool-section">
         <label>Color</label>
         <div class="color-palette">
+          <!-- スウォッチ群 -->
           <div class="swatches">
             <div class="color-swatch" style="background:#ffffff"></div>
-            <div class="color-swatch" style="background:#c9c9c9"></div>
-            <div class="color-swatch" style="background:#aaaaaa"></div>
-            <div class="color-swatch" style="background:#e6c98f"></div>
-            <div class="color-swatch" style="background:#f0d14f"></div>
-            <div class="color-swatch" style="background:#f5a623"></div>
+            <div class="color-swatch" style="background:#cfcfcf"></div>
             <div class="color-swatch" style="background:#f44336"></div>
-            <div class="color-swatch" style="background:#ff9800"></div>
-            <div class="color-swatch" style="background:#ffc107"></div>
-            <div class="color-swatch" style="background:#4caf50"></div>
-            <div class="color-swatch" style="background:#2196f3"></div>
-            <div class="color-swatch" style="background:#3f51b5"></div>
             <div class="color-swatch" style="background:#9c27b0"></div>
-            <div class="color-swatch" style="background:#e91e63"></div>
-            <div class="color-swatch" style="background:#795548"></div>
+            <div class="color-swatch" style="background:#3f51b5"></div>
+            <div class="color-swatch" style="background:#2196f3"></div>
+            <div class="color-swatch" style="background:#4caf50"></div>
+            <div class="color-swatch" style="background:#ffeb3b"></div>
+            <div class="color-swatch" style="background:#ffc107"></div>
+            <div class="color-swatch" style="background:#ff9800"></div>
+            <div class="color-swatch" style="background:#000000"></div>
             <div class="color-swatch" style="background:#607d8b"></div>
-            <div class="color-swatch" style="background:#222"></div>
-            <div class="color-swatch" style="background:#000"></div>
           </div>
+          <!-- カスタム追加・スポイト -->
           <div class="custom-tools">
-            <button>＋</button><button>＋</button><button>＋</button>
-            <button>...</button>
+            <button>＋</button>
+            <button>＋</button>
+            <button>＋</button>
+            <button>…</button>
             <button><img src="color/spuit.png" alt="Eyedropper Tool"></button>
           </div>
         </div>
       </div>
-
     </aside>
   </main>
 </body>
