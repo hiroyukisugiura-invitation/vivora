@@ -66,62 +66,57 @@ button {
 }
 
 /* ========================================
-   Top Bar
+   Top Bar - 背景なし、要素を直接配置
    ======================================== */
 .top-bar {
-  background: var(--white);
-  border-radius: 6px;
-  padding: 8px 12px;
+  /* 白い背景を削除 */
+  background: transparent;
+  border-radius: 0;
+  padding: 4px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: var(--shadow-sm);
-  height: 40px;
+  box-shadow: none;
+  height: 36px;
 }
 
 .top-bar-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 
 .page-title {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text);
 }
 
-/* Gender Switch */
+/* Gender Switch - 独立したボタン */
 .gender-switch {
   display: flex;
+  gap: 4px; /* ボタン間に隙間 */
 }
 
 .gender-switch button {
-  padding: 5px 10px;
+  padding: 4px 10px;
   background: var(--white);
   border: 1px solid var(--border);
+  border-radius: 3px; /* 各ボタンが独立した角丸 */
   font-size: 10px;
   color: var(--text);
   transition: all 0.15s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-.gender-switch button:not(:last-child) {
-  border-right: none;
-}
-
-.gender-switch button:first-child {
-  border-radius: 3px 0 0 3px;
-}
-
-.gender-switch button:last-child {
-  border-radius: 0 3px 3px 0;
+.gender-switch button:hover {
+  background: var(--hover);
 }
 
 .gender-switch button.active {
-  background: var(--text);
+  background: #1a1a1a;
   color: var(--white);
-  border-color: var(--text);
-  z-index: 1;
+  border-color: #1a1a1a;
 }
 
 /* Top Bar Center */
@@ -129,6 +124,8 @@ button {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex: 1;
+  justify-content: center;
 }
 
 .history-tools {
@@ -146,6 +143,7 @@ button {
   border: 1px solid var(--border);
   border-radius: 3px;
   transition: all 0.15s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .icon-btn:hover {
@@ -166,48 +164,46 @@ button {
 .top-bar-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
-/* Mode Switch */
+/* Mode Switch - 独立したボタン */
 .mode-switch {
   display: flex;
+  gap: 4px; /* ボタン間に隙間 */
 }
 
 .mode-switch button {
-  padding: 5px 10px;
+  padding: 4px 10px;
   background: var(--white);
   border: 1px solid var(--border);
+  border-radius: 3px; /* 各ボタンが独立 */
   font-size: 10px;
   color: var(--text);
   transition: all 0.15s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-.mode-switch button:first-child {
-  border-radius: 3px 0 0 3px;
-}
-
-.mode-switch button:last-child {
-  border-radius: 0 3px 3px 0;
-  border-left: none;
+.mode-switch button:hover {
+  background: var(--hover);
 }
 
 .mode-switch button.active {
-  background: var(--text);
+  background: #1a1a1a;
   color: var(--white);
-  border-color: var(--text);
-  z-index: 1;
+  border-color: #1a1a1a;
 }
 
 /* Next Button */
 .next-btn {
-  padding: 6px 14px;
-  background: var(--text);
+  padding: 5px 12px;
+  background: #1a1a1a;
   color: var(--white);
   border-radius: 3px;
   font-size: 10px;
   font-weight: 500;
   transition: all 0.15s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .next-btn:hover {
@@ -265,7 +261,7 @@ button {
    Right Panel
    ======================================== */
 .right-panel {
-  width: 280px;
+  width: 260px;
   background: var(--bg-panel);
   border-radius: 6px;
   padding: 8px;
@@ -275,20 +271,20 @@ button {
   overflow-y: auto;
 }
 
-/* Contents Row */
+/* Contents Row - 最上部に配置 */
 .contents-row {
   background: var(--white);
   border-radius: 4px;
-  padding: 6px;
+  padding: 5px;
   display: flex;
-  gap: 3px;
+  gap: 2px;
   box-shadow: var(--shadow-sm);
 }
 
 .content-icon {
-  width: 28px;
-  height: 28px;
-  padding: 4px;
+  width: 26px;
+  height: 26px;
+  padding: 3px;
   background: transparent;
   border-radius: 3px;
   transition: all 0.15s;
@@ -308,27 +304,28 @@ button {
   opacity: 1;
 }
 
-/* Layer Panel */
+/* Layer Panel - Contents の下に配置 */
 .layer-panel {
   background: var(--white);
   border-radius: 4px;
-  padding: 6px;
+  padding: 5px;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .layer-item {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
 }
 
+/* 外側のボタン（+、統合、複製、削除） */
 .layer-btn-outside {
-  width: 20px;
-  height: 20px;
-  padding: 3px;
+  width: 18px;
+  height: 18px;
+  padding: 2px;
   background: transparent;
   border-radius: 2px;
   transition: all 0.15s;
@@ -348,22 +345,24 @@ button {
   opacity: 0.8;
 }
 
+/* レイヤーボックス（白枠） */
 .layer-box {
   flex: 1;
-  height: 26px;
-  background: #f8f8f8;
+  height: 24px;
+  background: #fafafa;
   border: 1px solid var(--border);
   border-radius: 3px;
   display: flex;
   align-items: center;
-  padding: 0 6px;
-  gap: 2px;
+  padding: 0 4px;
+  gap: 1px;
 }
 
+/* 内側のボタン（ロック、表示、非表示） */
 .layer-btn-inside {
-  width: 18px;
-  height: 18px;
-  padding: 3px;
+  width: 16px;
+  height: 16px;
+  padding: 2px;
   background: transparent;
   border-radius: 2px;
   transition: all 0.15s;
@@ -385,7 +384,7 @@ button {
 
 .layer-name {
   margin-left: auto;
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text-light);
 }
 
@@ -393,29 +392,30 @@ button {
 .tool-panel {
   background: var(--white);
   border-radius: 4px;
-  padding: 8px;
+  padding: 7px;
   box-shadow: var(--shadow-sm);
 }
 
+/* パネルラベル - フォント調整 */
 .panel-label {
-  font-size: 9px;
-  font-weight: 600;
-  color: var(--text-light);
-  margin-bottom: 6px;
-  letter-spacing: 0.3px;
+  font-size: 8px;
+  font-weight: 500;
+  color: #888;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
 /* Stationery Tools */
 .stationery-tools {
   display: flex;
-  gap: 4px;
+  gap: 3px;
 }
 
 .tool-btn {
-  width: 32px;
-  height: 32px;
-  padding: 5px;
+  width: 28px;
+  height: 28px;
+  padding: 4px;
   background: transparent;
   border: 1px solid transparent;
   border-radius: 3px;
@@ -454,16 +454,16 @@ button {
 .slider-control {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .slider-btn {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   background: var(--hover);
   border: 1px solid var(--border);
   border-radius: 2px;
-  font-size: 12px;
+  font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -486,16 +486,16 @@ input[type="range"] {
 
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background: var(--active);
   border-radius: 50%;
   cursor: pointer;
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background: var(--active);
   border-radius: 50%;
   cursor: pointer;
@@ -503,16 +503,16 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .slider-value {
-  min-width: 35px;
+  min-width: 32px;
   text-align: right;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
   color: var(--text);
 }
 
 .reset-btn {
-  padding: 3px 8px;
-  font-size: 9px;
+  padding: 2px 6px;
+  font-size: 8px;
   background: var(--hover);
   border: 1px solid var(--border);
   border-radius: 2px;
@@ -524,18 +524,18 @@ input[type="range"]::-moz-range-thumb {
   background: var(--white);
 }
 
-/* Color Panel */
+/* Color Panel - よりコンパクトに */
 .color-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-  max-width: 96px;
+  gap: 3px;
+  max-width: 84px; /* 小さく */
 }
 
 .color-swatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
   border: 1px solid rgba(0,0,0,0.1);
   cursor: pointer;
   transition: all 0.15s;
@@ -543,7 +543,7 @@ input[type="range"]::-moz-range-thumb {
 
 .color-swatch:hover {
   transform: scale(1.1);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .color-swatch.active {
@@ -552,15 +552,15 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .color-add {
-  width: 28px;
-  height: 28px;
-  background: #f0f0f0;
+  width: 24px;
+  height: 24px;
+  background: #f5f5f5;
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
   color: #999;
   cursor: pointer;
   transition: all 0.15s;
@@ -584,7 +584,7 @@ input[type="range"]::-moz-range-thumb {
    Scrollbar Styling
    ======================================== */
 .right-panel::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 .right-panel::-webkit-scrollbar-track {
@@ -592,12 +592,12 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .right-panel::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.15);
   border-radius: 3px;
 }
 
 .right-panel::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.25);
 }
 
 /* ========================================
@@ -605,12 +605,12 @@ input[type="range"]::-moz-range-thumb {
    ======================================== */
 @media (max-width: 1280px) {
   .right-panel {
-    width: 260px;
+    width: 240px;
   }
   
   .content-icon {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -621,7 +621,7 @@ input[type="range"]::-moz-range-thumb {
   }
   
   .right-panel {
-    width: 240px;
+    width: 220px;
   }
   
   .page-title {
