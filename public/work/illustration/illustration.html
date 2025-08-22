@@ -42,55 +42,118 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <!-- Canvas -->
+      <!-- Left Section: Canvas -->
       <div class="canvas-container" id="canvas">
         <img id="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
         <div class="grid-overlay"></div>
       </div>
 
-      <!-- Right Sidebar -->
-      <aside class="right-sidebar">
-        <!-- Contents Panel -->
+      <!-- Middle Section: Layer Panel (Between Canvas and Tools) -->
+      <div class="layer-panel">
+        <div class="layer-slot">
+          <div class="layer-controls">
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></button>
+          </div>
+          <div class="layer-content">Layer 1</div>
+        </div>
+
+        <div class="layer-slot">
+          <div class="layer-controls">
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></button>
+          </div>
+          <div class="layer-content">Layer 2</div>
+        </div>
+
+        <div class="layer-slot">
+          <div class="layer-controls">
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></button>
+          </div>
+          <div class="layer-content">Layer 3</div>
+        </div>
+
+        <div class="layer-slot">
+          <div class="layer-controls">
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></button>
+            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></button>
+          </div>
+          <div class="layer-content">Layer 4</div>
+        </div>
+      </div>
+
+      <!-- Right Section: Tools -->
+      <div class="tools-section">
+        <!-- Contents Panel (Above Stationery) -->
         <div class="contents-panel">
-          <div class="contents-grid">
-            <div class="content-btn"><img src="../../create_parts/contents_button/0_home.png" alt="Home"></div>
-            <div class="content-btn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations"></div>
-            <div class="content-btn"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric"></div>
-            <div class="content-btn"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing"></div>
-            <div class="content-btn"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern"></div>
-            <div class="content-btn"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></div>
-            <div class="content-btn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print"></div>
-            <div class="content-btn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids"></div>
+          <div class="contents-row">
+            <button class="content-btn"><img src="../../create_parts/contents_button/0_home.png" alt="Home"></button>
+            <button class="content-btn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations"></button>
+            <button class="content-btn"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric"></button>
+            <button class="content-btn"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing"></button>
+            <button class="content-btn"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern"></button>
+            <button class="content-btn"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
+            <button class="content-btn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print"></button>
+            <button class="content-btn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids"></button>
           </div>
         </div>
 
-        <!-- Stationery Tools -->
+        <!-- Stationery Tools (5 main tools with sub-items on long press) -->
         <div class="tool-panel">
           <div class="panel-header">Stationery</div>
-          <div class="stationery-grid">
-            <div class="tool-icon"><img src="../../create_parts/design_button/direct_select.png" alt="Direct"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/select.png" alt="Select"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/sentence.png" alt="Text"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/upload.png" alt="Upload"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/pen.png" alt="Pen"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/markerpen.png" alt="Marker"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/brush.png" alt="Brush"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/eraser.png" alt="Eraser"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/square.png" alt="Square"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/circle.png" alt="Circle"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/circlebrush.png" alt="Circle Brush"></div>
-            <div class="tool-icon"><img src="../../create_parts/design_button/ballpointpen.png" alt="Ballpoint"></div>
+          <div class="stationery-tools">
+            <div class="tool-item" data-tool="select">
+              <img src="../../create_parts/design_button/direct_select.png" alt="Select">
+              <div class="sub-tools">
+                <img src="../../create_parts/design_button/select.png" alt="Fill Select">
+              </div>
+            </div>
+            <div class="tool-item" data-tool="pen">
+              <img src="../../create_parts/design_button/pen.png" alt="Pen">
+              <div class="sub-tools">
+                <img src="../../create_parts/design_button/markerpen.png" alt="Marker">
+                <img src="../../create_parts/design_button/ballpointpen.png" alt="Ballpoint">
+              </div>
+            </div>
+            <div class="tool-item" data-tool="brush">
+              <img src="../../create_parts/design_button/brush.png" alt="Brush">
+              <div class="sub-tools">
+                <img src="../../create_parts/design_button/circlebrush.png" alt="Circle Brush">
+              </div>
+            </div>
+            <div class="tool-item" data-tool="shape">
+              <img src="../../create_parts/design_button/square.png" alt="Square">
+              <div class="sub-tools">
+                <img src="../../create_parts/design_button/circle.png" alt="Circle">
+              </div>
+            </div>
+            <div class="tool-item" data-tool="text">
+              <img src="../../create_parts/design_button/sentence.png" alt="Text">
+            </div>
           </div>
         </div>
 
-        <!-- Zoom Control -->
+        <!-- Zoom Control (Center = 0%, Left = -50%, Right = +50%) -->
         <div class="tool-panel">
           <div class="panel-header">Zoom</div>
           <div class="slider-control">
             <button class="slider-btn" id="zoom-dec">−</button>
-            <input type="range" id="zoomRange" min="50" max="200" value="100">
+            <input type="range" id="zoomRange" min="-50" max="50" value="0">
             <button class="slider-btn" id="zoom-inc">+</button>
-            <span class="slider-value" id="zoomValue">100%</span>
+            <span class="slider-value" id="zoomValue">0%</span>
             <button class="reset-btn" id="zoom-reset">Reset</button>
           </div>
         </div>
@@ -111,76 +174,34 @@
         <div class="tool-panel">
           <div class="panel-header">Color</div>
           <div class="color-grid">
+            <!-- Row 1 -->
             <div class="color-swatch" style="background: #ffffff"></div>
-            <div class="color-swatch" style="background: #d4d4d4"></div>
+            <div class="color-swatch" style="background: #cccccc"></div>
             <div class="color-swatch" style="background: #ffeb3b"></div>
             <div class="color-swatch" style="background: #ff9800"></div>
             <div class="color-swatch" style="background: #ff6b9d"></div>
+            <!-- Row 2 -->
             <div class="color-swatch" style="background: #f44336"></div>
             <div class="color-swatch" style="background: #4caf50"></div>
             <div class="color-swatch" style="background: #009688"></div>
             <div class="color-swatch" style="background: #03a9f4"></div>
             <div class="color-swatch" style="background: #2196f3"></div>
+            <!-- Row 3 -->
             <div class="color-swatch" style="background: #9c27b0"></div>
             <div class="color-swatch" style="background: #795548"></div>
             <div class="color-swatch" style="background: #607d8b"></div>
             <div class="color-swatch" style="background: #000000"></div>
+            <div class="color-swatch custom-color">+</div>
+            <!-- Row 4 - Custom Colors -->
+            <div class="color-swatch custom-color">+</div>
+            <div class="color-swatch custom-color">+</div>
+            <div class="color-swatch custom-color">+</div>
+            <div class="color-swatch custom-color">+</div>
+            <div class="color-swatch eyedropper">
+              <img src="../../color/spuit.png" alt="Eyedropper">
+            </div>
           </div>
-          <div class="color-tools">
-            <button class="color-tool">+</button>
-            <button class="color-tool">+</button>
-            <button class="color-tool">+</button>
-            <button class="color-tool">+</button>
-            <button class="color-tool"><img src="../../color/spuit.png" alt="Eyedropper" style="width: 16px; height: 16px;"></button>
-          </div>
         </div>
-      </aside>
-    </div>
-
-    <!-- Bottom Layer Panel -->
-    <div class="bottom-panel">
-      <div class="layer-slot">
-        <div class="layer-controls">
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></div>
-        </div>
-        <div class="layer-content">Layer 1</div>
-      </div>
-
-      <div class="layer-slot">
-        <div class="layer-controls">
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></div>
-        </div>
-        <div class="layer-content">Layer 2</div>
-      </div>
-
-      <div class="layer-slot">
-        <div class="layer-controls">
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></div>
-        </div>
-        <div class="layer-content">Layer 3</div>
-      </div>
-
-      <div class="layer-slot">
-        <div class="layer-controls">
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></div>
-          <div class="layer-icon"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></div>
-        </div>
-        <div class="layer-content">Layer 4</div>
       </div>
     </div>
   </div>
@@ -208,11 +229,9 @@
       // ========================================
       document.querySelectorAll('.gender-switch button').forEach(btn => {
         btn.addEventListener('click', function() {
-          // Update active state
           document.querySelectorAll('.gender-switch button').forEach(b => b.classList.remove('active'));
           this.classList.add('active');
           
-          // Update mannequin
           const gender = this.dataset.gender;
           if (MANNEQUIN_PATHS[gender]) {
             mannequin.src = MANNEQUIN_PATHS[gender];
@@ -225,18 +244,16 @@
       // ========================================
       document.querySelectorAll('.mode-switch button').forEach(btn => {
         btn.addEventListener('click', function() {
-          // Update active state
           document.querySelectorAll('.mode-switch button').forEach(b => b.classList.remove('active'));
           this.classList.add('active');
           
-          // Apply 3D effect (simplified)
           const mode = this.dataset.mode;
           if (mode === '3d') {
             mannequin.style.filter = 'drop-shadow(0 10px 25px rgba(0,0,0,0.2))';
             mannequin.style.transform = 'scale(1.05) perspective(1000px) rotateY(5deg)';
           } else {
             mannequin.style.filter = 'none';
-            mannequin.style.transform = 'none';
+            mannequin.style.transform = 'scale(1)';
           }
         });
       });
@@ -249,13 +266,14 @@
       });
 
       // ========================================
-      // Zoom Control
+      // Zoom Control (Center=0%, Left=-50%, Right=+50%)
       // ========================================
       const zoomRange = document.getElementById('zoomRange');
       const zoomValue = document.getElementById('zoomValue');
       
       function updateZoom(value) {
-        const scale = value / 100;
+        const zoomPercent = parseInt(value);
+        const scale = 1 + (zoomPercent / 100);
         mannequin.style.transform = `scale(${scale})`;
         zoomValue.textContent = `${value}%`;
         zoomRange.value = value;
@@ -264,17 +282,17 @@
       zoomRange.addEventListener('input', (e) => updateZoom(e.target.value));
       
       document.getElementById('zoom-dec').addEventListener('click', () => {
-        const newValue = Math.max(50, parseInt(zoomRange.value) - 10);
+        const newValue = Math.max(-50, parseInt(zoomRange.value) - 10);
         updateZoom(newValue);
       });
       
       document.getElementById('zoom-inc').addEventListener('click', () => {
-        const newValue = Math.min(200, parseInt(zoomRange.value) + 10);
+        const newValue = Math.min(50, parseInt(zoomRange.value) + 10);
         updateZoom(newValue);
       });
       
       document.getElementById('zoom-reset').addEventListener('click', () => {
-        updateZoom(100);
+        updateZoom(0);
       });
 
       // ========================================
@@ -307,6 +325,65 @@
       });
 
       // ========================================
+      // Stationery Tools (Long Press for Sub-tools)
+      // ========================================
+      document.querySelectorAll('.tool-item').forEach(tool => {
+        let pressTimer;
+        
+        // Long press to show sub-tools
+        tool.addEventListener('mousedown', function() {
+          pressTimer = setTimeout(() => {
+            const subTools = this.querySelector('.sub-tools');
+            if (subTools) {
+              subTools.style.display = 'flex';
+            }
+          }, 500); // 500ms for long press
+        });
+        
+        tool.addEventListener('mouseup', function() {
+          clearTimeout(pressTimer);
+        });
+        
+        tool.addEventListener('mouseleave', function() {
+          clearTimeout(pressTimer);
+          const subTools = this.querySelector('.sub-tools');
+          if (subTools) {
+            setTimeout(() => {
+              subTools.style.display = 'none';
+            }, 100);
+          }
+        });
+        
+        // Click to select tool
+        tool.addEventListener('click', function() {
+          document.querySelectorAll('.tool-item').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // ========================================
+      // Color Selection
+      // ========================================
+      document.querySelectorAll('.color-swatch:not(.custom-color):not(.eyedropper)').forEach(swatch => {
+        swatch.addEventListener('click', function() {
+          document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Custom color buttons
+      document.querySelectorAll('.custom-color').forEach(btn => {
+        btn.addEventListener('click', function() {
+          alert('カスタムカラー機能は開発中です');
+        });
+      });
+
+      // Eyedropper
+      document.querySelector('.eyedropper').addEventListener('click', function() {
+        alert('スポイト機能は開発中です');
+      });
+
+      // ========================================
       // Reset Button
       // ========================================
       document.getElementById('btn-reset').addEventListener('click', function() {
@@ -321,7 +398,7 @@
         mannequin.style.filter = 'none';
         
         // Reset zoom and opacity
-        updateZoom(100);
+        updateZoom(0);
         updateOpacity(100);
         
         // Hide grid
@@ -329,59 +406,9 @@
       });
 
       // ========================================
-      // Content & Tool Selection
-      // ========================================
-      
-      // Content buttons
-      document.querySelectorAll('.content-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          // Visual feedback
-          this.style.transform = 'scale(0.95)';
-          setTimeout(() => {
-            this.style.transform = '';
-          }, 150);
-        });
-      });
-
-      // Tool icons
-      document.querySelectorAll('.tool-icon').forEach(icon => {
-        icon.addEventListener('click', function() {
-          // Remove active from all
-          document.querySelectorAll('.tool-icon').forEach(i => i.classList.remove('active'));
-          // Add active to clicked
-          this.classList.add('active');
-        });
-      });
-
-      // Color swatches
-      document.querySelectorAll('.color-swatch').forEach(swatch => {
-        swatch.addEventListener('click', function() {
-          // Remove active border from all
-          document.querySelectorAll('.color-swatch').forEach(s => {
-            s.style.borderColor = 'transparent';
-          });
-          // Add active border to clicked
-          this.style.borderColor = '#4a90e2';
-        });
-      });
-
-      // ========================================
-      // Layer Controls
-      // ========================================
-      document.querySelectorAll('.layer-icon').forEach(icon => {
-        icon.addEventListener('click', function() {
-          // Visual feedback
-          this.style.transform = 'scale(0.9)';
-          setTimeout(() => {
-            this.style.transform = '';
-          }, 150);
-        });
-      });
-
-      // ========================================
       // Initialize
       // ========================================
-      updateZoom(100);
+      updateZoom(0);
       updateOpacity(100);
     })();
   </script>
