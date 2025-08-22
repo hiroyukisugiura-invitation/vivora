@@ -4,109 +4,85 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-
-  <!-- 見出し=Playfair・UI=Inter（参照UIの雰囲気） -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- =========================================================
-       WRAP：最大幅コントローラ（中央寄せ）
-       ========================================================= -->
   <div class="wrap">
-
-    <!-- =========================================================
-         TOP BAR（タイトル + 上部ボタン群）
-         レイアウト：左=タイトル / 中=Gender & History & 2D/3D / 右=Next
-         ========================================================= -->
+    <!-- ===== Top Bar ===== -->
     <header class="top-bar">
       <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-
       <div class="top-controls">
-        <!-- Gender Switch -->
-        <div class="gender-switch" role="tablist" aria-label="Gender">
+        <div class="gender-switch" role="tablist">
           <button class="btn-gender active" data-gender="woman" aria-selected="true">Woman</button>
           <button class="btn-gender" data-gender="man">Man</button>
           <button class="btn-gender" data-gender="kids">Kids</button>
         </div>
-
-        <!-- History Tool（Gitに存在するPNGのみ） -->
-        <div class="history-tool" aria-label="History tool">
+        <div class="history-tool" aria-label="History">
           <button class="tool-btn" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
           <button class="tool-btn" title="Redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
           <button class="tool-btn" title="Reset" id="btn-reset"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
-          <button class="tool-btn" title="Save"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
-          <button class="tool-btn" title="Upload"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
           <button class="tool-btn" title="Download"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
+          <button class="tool-btn" title="Upload"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
+          <button class="tool-btn" title="Save"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
           <button class="tool-btn" title="Grid" id="grid-toggle"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
         </div>
-
-        <!-- 2D / 3D -->
         <div class="mode-switch">
           <button class="btn-mode active" data-mode="2d">2D</button>
           <button class="btn-mode" data-mode="3d">3D</button>
         </div>
-
-        <!-- Next Step -->
-        <div class="next-button">
-          <button type="button">Next Step »»</button>
-        </div>
+        <div class="next-button"><button type="button">Next Step »»</button></div>
       </div>
     </header>
 
-    <!-- =========================================================
-         WORKSPACE（左=Canvas / 右=Sidebar）
-         ========================================================= -->
+    <!-- ===== Workspace ===== -->
     <main class="workspace">
-
-      <!-- Canvas（大きな白カード） -->
+      <!-- Canvas -->
       <section class="canvas" id="canvas">
         <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
         <div class="grid-overlay" aria-hidden="true"></div>
       </section>
 
-      <!-- Sidebar（2列：左=Layer Rail / 右=Panel Stack） -->
+      <!-- Sidebar（左=Layer rail / 右=Panels） -->
       <aside class="sidebar">
         <div class="sidebar-grid">
-
-          <!-- 左：Layer Rail（各スロット：左=アイコン縦5個 / 右=白ボックス） -->
+          <!-- Layer Rail -->
           <div class="layer-rail">
             <div class="rail-slot">
               <div class="slot-icons">
-                <img src="../../create_parts/layer_button/layerlock.png"          alt="Lock">
-                <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
-                <img src="../../create_parts/layer_button/layerdisplay.png"       alt="Visible">
-                <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-                <img src="../../create_parts/layer_button/layerdestruction.png"   alt="Delete">
+                <img src="../../create_parts/layer_button/layerlock.png"         alt="Lock">
+                <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+                <img src="../../create_parts/layer_button/layerdisplay.png"      alt="Visible">
+                <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+                <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
               </div>
               <div class="slot-box"></div>
             </div>
             <div class="rail-slot">
               <div class="slot-icons">
-                <img src="../../create_parts/layer_button/layerlock.png"          alt="Lock">
-                <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
-                <img src="../../create_parts/layer_button/layerdisplay.png"       alt="Visible">
-                <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-                <img src="../../create_parts/layer_button/layerdestruction.png"   alt="Delete">
+                <img src="../../create_parts/layer_button/layerlock.png"         alt="Lock">
+                <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+                <img src="../../create_parts/layer_button/layerdisplay.png"      alt="Visible">
+                <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+                <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
               </div>
               <div class="slot-box"></div>
             </div>
             <div class="rail-slot">
               <div class="slot-icons">
-                <img src="../../create_parts/layer_button/layerlock.png"          alt="Lock">
-                <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
-                <img src="../../create_parts/layer_button/layerdisplay.png"       alt="Visible">
-                <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-                <img src="../../create_parts/layer_button/layerdestruction.png"   alt="Delete">
+                <img src="../../create_parts/layer_button/layerlock.png"         alt="Lock">
+                <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+                <img src="../../create_parts/layer_button/layerdisplay.png"      alt="Visible">
+                <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+                <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
               </div>
               <div class="slot-box"></div>
             </div>
           </div>
 
-          <!-- 右：Panel Stack（Contents / Stationery / Zoom / Opacity / Color） -->
+          <!-- Panel Stack -->
           <div class="panel-stack">
-
-            <!-- Contents（上段アイコン8つ） -->
+            <!-- Contents 8 icons -->
             <section class="tool-section contents">
               <div class="contents-button">
                 <img src="../../create_parts/contents_button/0_home.png" alt="Home">
@@ -120,7 +96,7 @@
               </div>
             </section>
 
-            <!-- Stationery（存在する12PNGのみ） -->
+            <!-- Stationery（存在するPNGのみ） -->
             <section class="tool-section stationery">
               <label>Stationery</label>
               <div class="stationery-grid">
@@ -170,21 +146,19 @@
               <label>Color</label>
               <div class="color-palette">
                 <div class="swatches" id="swatches">
-                  <!-- 6×3＝18色（UI画像の配列に合わせたプレースホルダ） -->
+                  <!-- 6×3 = 18色（プレースホルダ） -->
                   <div class="color-swatch" style="background:#ffffff"></div>
                   <div class="color-swatch" style="background:#d9d9d9"></div>
                   <div class="color-swatch" style="background:#f4b400"></div>
                   <div class="color-swatch" style="background:#f28b82"></div>
                   <div class="color-swatch" style="background:#fbbc04"></div>
                   <div class="color-swatch" style="background:#fff475"></div>
-
                   <div class="color-swatch" style="background:#ccff90"></div>
                   <div class="color-swatch" style="background:#a7ffeb"></div>
                   <div class="color-swatch" style="background:#cbf0f8"></div>
                   <div class="color-swatch" style="background:#aecbfa"></div>
                   <div class="color-swatch" style="background:#d7aefb"></div>
                   <div class="color-swatch" style="background:#fdcfe8"></div>
-
                   <div class="color-swatch" style="background:#e6c9a8"></div>
                   <div class="color-swatch" style="background:#e8eaed"></div>
                   <div class="color-swatch" style="background:#ff5252"></div>
@@ -198,16 +172,14 @@
                 </div>
               </div>
             </section>
-          </div><!-- /panel-stack -->
 
+          </div><!-- /panel-stack -->
         </div><!-- /sidebar-grid -->
       </aside>
     </main>
   </div><!-- /wrap -->
 
-  <!-- =========================================================
-       JS（Gender / 2D-3D / Grid / Zoom / Opacity）
-       ========================================================= -->
+  <!-- ===== JS（切替・数値反映） ===== -->
   <script>
     (function(){
       const MANNEQUIN = {
@@ -219,7 +191,7 @@
       const canvas    = document.getElementById('canvas');
       const mannequin = document.getElementById('mannequin');
 
-      /* Gender */
+      // Gender
       document.querySelectorAll('.btn-gender').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           document.querySelectorAll('.btn-gender').forEach(b=>b.classList.remove('active'));
@@ -229,48 +201,39 @@
         });
       });
 
-      /* Mode（将来3Dへ差し替え前の簡易表現） */
+      // 2D/3D（簡易視覚差分）
       document.querySelectorAll('.btn-mode').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           document.querySelectorAll('.btn-mode').forEach(b=>b.classList.remove('active'));
           btn.classList.add('active');
-          const mode = btn.dataset.mode;
-          if(mode==='3d'){
-            mannequin.style.filter = 'drop-shadow(0 8px 20px rgba(0,0,0,.25))';
-            mannequin.style.transform = 'scale(1.02)';
-          }else{
-            mannequin.style.filter = 'none';
-            mannequin.style.transform = 'none';
-          }
+          const m = btn.dataset.mode;
+          if (m==='3d'){ mannequin.style.filter='drop-shadow(0 8px 20px rgba(0,0,0,.25))'; mannequin.style.transform='scale(1.02)'; }
+          else { mannequin.style.filter='none'; mannequin.style.transform='none'; }
         });
       });
 
-      /* Grid */
-      document.getElementById('grid-toggle')?.addEventListener('click', ()=>{
-        canvas.classList.toggle('show-grid');
-      });
+      // Grid
+      document.getElementById('grid-toggle')?.addEventListener('click', ()=>{ canvas.classList.toggle('show-grid'); });
 
-      /* Zoom */
-      const zoomRange = document.getElementById('zoomRange');
-      const zoomNum   = document.getElementById('zoomNum');
-      function applyZoom(v){ mannequin.style.transform = `scale(${(+v/100).toFixed(2)})`; zoomNum.textContent = `${v}%`; }
-      document.getElementById('zoom-dec').addEventListener('click', ()=>{ zoomRange.value = Math.max(50, (+zoomRange.value-10)); applyZoom(zoomRange.value); });
-      document.getElementById('zoom-inc').addEventListener('click', ()=>{ zoomRange.value = Math.min(200,(+zoomRange.value+10)); applyZoom(zoomRange.value); });
-      document.getElementById('zoom-reset').addEventListener('click', ()=>{ zoomRange.value = 100; applyZoom(100); });
-      zoomRange.addEventListener('input', e=>applyZoom(e.target.value));
-      applyZoom(100);
+      // Zoom
+      const zr = document.getElementById('zoomRange'), zn = document.getElementById('zoomNum');
+      function setZoom(v){ mannequin.style.transform=`scale(${(+v/100).toFixed(2)})`; zn.textContent=`${v}%`; }
+      document.getElementById('zoom-dec').addEventListener('click', ()=>{ zr.value=Math.max(50,(+zr.value-10)); setZoom(zr.value); });
+      document.getElementById('zoom-inc').addEventListener('click', ()=>{ zr.value=Math.min(200,(+zr.value+10)); setZoom(zr.value); });
+      document.getElementById('zoom-reset').addEventListener('click', ()=>{ zr.value=100; setZoom(100); });
+      zr.addEventListener('input', e=>setZoom(e.target.value));
+      setZoom(100);
 
-      /* Opacity */
-      const opRange = document.getElementById('opRange');
-      const opNum   = document.getElementById('opNum');
-      function applyOpacity(v){ mannequin.style.opacity = (+v/100).toFixed(2); opNum.textContent = `${v}%`; }
-      document.getElementById('op-dec').addEventListener('click', ()=>{ opRange.value = Math.max(10,(+opRange.value-10)); applyOpacity(opRange.value); });
-      document.getElementById('op-inc').addEventListener('click', ()=>{ opRange.value = Math.min(100,(+opRange.value+10)); applyOpacity(opRange.value); });
-      document.getElementById('op-reset').addEventListener('click', ()=>{ opRange.value = 100; applyOpacity(100); });
-      opRange.addEventListener('input', e=>applyOpacity(e.target.value));
-      applyOpacity(100);
+      // Opacity
+      const or = document.getElementById('opRange'), on = document.getElementById('opNum');
+      function setOpacity(v){ mannequin.style.opacity=(+v/100).toFixed(2); on.textContent=`${v}%`; }
+      document.getElementById('op-dec').addEventListener('click', ()=>{ or.value=Math.max(10,(+or.value-10)); setOpacity(or.value); });
+      document.getElementById('op-inc').addEventListener('click', ()=>{ or.value=Math.min(100,(+or.value+10)); setOpacity(or.value); });
+      document.getElementById('op-reset').addEventListener('click', ()=>{ or.value=100; setOpacity(100); });
+      or.addEventListener('input', e=>setOpacity(e.target.value));
+      setOpacity(100);
 
-      /* Reset（History Reset） */
+      // Reset（History Reset）
       document.getElementById('btn-reset').addEventListener('click', ()=>{
         document.querySelectorAll('.btn-gender').forEach(b=>b.classList.remove('active'));
         document.querySelector('.btn-gender[data-gender="woman"]').classList.add('active');
@@ -278,10 +241,10 @@
 
         document.querySelectorAll('.btn-mode').forEach(b=>b.classList.remove('active'));
         document.querySelector('.btn-mode[data-mode="2d"]').classList.add('active');
-        mannequin.style.filter = 'none'; mannequin.style.transform = 'none';
+        mannequin.style.filter='none'; mannequin.style.transform='none';
 
-        zoomRange.value = 100; applyZoom(100);
-        opRange.value   = 100; applyOpacity(100);
+        zr.value=100; setZoom(100);
+        or.value=100; setOpacity(100);
         canvas.classList.remove('show-grid');
       });
     })();
