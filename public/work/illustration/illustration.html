@@ -185,6 +185,205 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- JavaScript -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ========================================
+      // Constants & State
+      // ========================================
+      const MANNEQUIN_PATHS = {
+        woman: '../../mannequin/mannequin_woman.png',
+        man: '../../mannequin/mannequin_man.png',
+        kids: '../../mannequin/mannequin_kids.png'
+      };
+
+      // DOM Elements
+      const canvas = document.getElementById('canvas');
+      const mannequin = document.getElementById('mannequin');
+
+      // ========================================
+      // Gender Switching
+      // ========================================
+      document.querySelectorAll('.gender-switch button').forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Update active state
+          document.querySelectorAll('.gender-switch button').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Update mannequin
+          const gender = this.dataset.gender;
+          if (MANNEQUIN_PATHS[gender]) {
+            mannequin.src = MANNEQUIN_PATHS[gender];
+          }
+        });
+      });
+
+      // ========================================
+      // Mode Switching (2D/3D)
+      // ========================================
+      document.querySelectorAll('.mode-switch button').forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Update active state
+          document.querySelectorAll('.mode-switch button').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Apply 3D effect (simplified)
+          const mode = this.dataset.mode;
+          if (mode === '3d') {
+            mannequin.style.filter = 'drop-shadow(0 10px 25px rgba(0,0,0,0.2))';
+            mannequin.style.transform = 'scale(1.05) perspective(1000px) rotateY(5deg)';
+          } else {
+            mannequin.style.filter = 'none';
+            mannequin.style.transform = 'none';
+          }
+        });
+      });
+
+      // ========================================
+      // Grid Toggle
+      // ========================================
+      document.getElementById('grid-toggle').addEventListener('click', function() {
+        canvas.classList.toggle('show-grid');
+      });
+
+      // ========================================
+      // Zoom Control
+      // ========================================
+      const zoomRange = document.getElementById('zoomRange');
+      const zoomValue = document.getElementById('zoomValue');
+      
+      function updateZoom(value) {
+        const scale = value / 100;
+        mannequin.style.transform = `scale(${scale})`;
+        zoomValue.textContent = `${value}%`;
+        zoomRange.value = value;
+      }
+
+      zoomRange.addEventListener('input', (e) => updateZoom(e.target.value));
+      
+      document.getElementById('zoom-dec').addEventListener('click', () => {
+        const newValue = Math.max(50, parseInt(zoomRange.value) - 10);
+        updateZoom(newValue);
+      });
+      
+      document.getElementById('zoom-inc').addEventListener('click', () => {
+        const newValue = Math.min(200, parseInt(zoomRange.value) + 10);
+        updateZoom(newValue);
+      });
+      
+      document.getElementById('zoom-reset').addEventListener('click', () => {
+        updateZoom(100);
+      });
+
+      // ========================================
+      // Opacity Control
+      // ========================================
+      const opacityRange = document.getElementById('opacityRange');
+      const opacityValue = document.getElementById('opacityValue');
+      
+      function updateOpacity(value) {
+        const opacity = value / 100;
+        mannequin.style.opacity = opacity;
+        opacityValue.textContent = `${value}%`;
+        opacityRange.value = value;
+      }
+
+      opacityRange.addEventListener('input', (e) => updateOpacity(e.target.value));
+      
+      document.getElementById('opacity-dec').addEventListener('click', () => {
+        const newValue = Math.max(0, parseInt(opacityRange.value) - 10);
+        updateOpacity(newValue);
+      });
+      
+      document.getElementById('opacity-inc').addEventListener('click', () => {
+        const newValue = Math.min(100, parseInt(opacityRange.value) + 10);
+        updateOpacity(newValue);
+      });
+      
+      document.getElementById('opacity-reset').addEventListener('click', () => {
+        updateOpacity(100);
+      });
+
+      // ========================================
+      // Reset Button
+      // ========================================
+      document.getElementById('btn-reset').addEventListener('click', function() {
+        // Reset gender to woman
+        document.querySelectorAll('.gender-switch button').forEach(b => b.classList.remove('active'));
+        document.querySelector('.gender-switch button[data-gender="woman"]').classList.add('active');
+        mannequin.src = MANNEQUIN_PATHS.woman;
+        
+        // Reset mode to 2D
+        document.querySelectorAll('.mode-switch button').forEach(b => b.classList.remove('active'));
+        document.querySelector('.mode-switch button[data-mode="2d"]').classList.add('active');
+        mannequin.style.filter = 'none';
+        
+        // Reset zoom and opacity
+        updateZoom(100);
+        updateOpacity(100);
+        
+        // Hide grid
+        canvas.classList.remove('show-grid');
+      });
+
+      // ========================================
+      // Content & Tool Selection
+      // ========================================
+      
+      // Content buttons
+      document.querySelectorAll('.content-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Visual feedback
+          this.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+        });
+      });
+
+      // Tool icons
+      document.querySelectorAll('.tool-icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+          // Remove active from all
+          document.querySelectorAll('.tool-icon').forEach(i => i.classList.remove('active'));
+          // Add active to clicked
+          this.classList.add('active');
+        });
+      });
+
+      // Color swatches
+      document.querySelectorAll('.color-swatch').forEach(swatch => {
+        swatch.addEventListener('click', function() {
+          // Remove active border from all
+          document.querySelectorAll('.color-swatch').forEach(s => {
+            s.style.borderColor = 'transparent';
+          });
+          // Add active border to clicked
+          this.style.borderColor = '#4a90e2';
+        });
+      });
+
+      // ========================================
+      // Layer Controls
+      // ========================================
+      document.querySelectorAll('.layer-icon').forEach(icon => {
+        icon.addEventListener('click', function() {
+          // Visual feedback
+          this.style.transform = 'scale(0.9)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+        });
+      });
+
+      // ========================================
+      // Initialize
+      // ========================================
+      updateZoom(100);
+      updateOpacity(100);
+    })();
+  </script>
 </body>
 </html>
