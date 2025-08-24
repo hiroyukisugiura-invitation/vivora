@@ -138,3 +138,29 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .contents-row{justify-content:flex-start}
 }
+/* ===== Contents panel（希望の小カード） ===== */
+.panel-contents{
+  padding:10px 12px;                /* コンパクトに */
+  display:block;
+}
+
+.panel-contents .contents-tiles{
+  display:flex; align-items:center; justify-content:flex-end;
+  gap:8px; flex-wrap:wrap;
+}
+
+/* アイコンタイルは既存の .tile を再利用。見た目を少しだけ詰める */
+.panel-contents .tile{
+  width: var(--icon);
+  height: var(--icon);
+  padding:6px;
+  background: var(--tile);
+  border:1px solid var(--line);
+  border-radius:10px;
+  object-fit:contain;
+}
+
+/* 2段目に折り返した時も右端に寄るように */
+@media (max-width: 1280px){
+  .panel-contents .contents-tiles{ justify-content:flex-start; }
+}
