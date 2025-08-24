@@ -1,159 +1,110 @@
-/* ===== Tokens ===== */
+/* ====== Tokens ====== */
 :root{
-  /* colors */
-  --bg-beige:#efe7e0;      /* 上段/背景のベージュ */
-  --panel:#ffffff;         /* 白パネル */
-  --line:#e6e0db;          /* 枠線 */
+  --bg:#efe7e0;      /* ベージュ */
+  --panel:#fff;      /* 白パネル */
+  --tile:#ece7e1;    /* 薄グレーのタイル */
+  --line:#e6e0db;    /* 枠線 */
   --text:#333;
 
-  /* sizes */
-  --icon-top:28px;         /* 上部アイコンのサイズ */
-  --icon-stationery:30px;  /* ステーショナリー行アイコン */
-  --gap-xs:6px;
-  --gap-sm:10px;
-  --gap:12px;
-  --gap-lg:16px;
-  --radius:12px;
+  --r:12px;          /* 角丸 */
+  --r-sm:10px;
 
-  /* layout */
-  --right-col:380px;       /* 右パネル列の幅 */
-  --rail:60px;             /* 右の縦ツール帯の幅 */
-  --top-h:72px;            /* 上部バー高さの目安 */
-  --canvas-pad:24px;
+  --icon:24px;       /* history / contents タイル内アイコン */
+  --btn:30px;        /* Stationery 小ボタン */
+
+  --right:360px;     /* 右カラム幅 */
+  --rail:60px;       /* 縦レール幅 */
+
+  --gap:12px;
+  --gap-sm:8px;
+  --gap-lg:16px;
+
+  --canvas-pad:26px;
 }
 
-/* ===== Reset (最小限) ===== */
+/* ====== Base ====== */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff}
 img{display:block;max-width:100%;height:auto}
 button{font:inherit}
 
-/* ===== Top Bar ===== */
-.topbar{
-  display:flex; align-items:center; flex-wrap:wrap;
-  gap:var(--gap); padding:14px 16px; background:var(--bg-beige);
-  border-bottom:1px solid var(--line);
-}
-.page-title{font-size:18px; font-weight:600; margin-right:24px}
+/* ====== Top ====== */
+.vfx .top{background:var(--bg); border-bottom:1px solid var(--line); padding:14px 16px}
+.vfx .row{display:flex; align-items:center; gap:14px}
+.vfx .row-under{margin-top:10px}
 
-/* gender switch */
-.gender-switch{display:flex; gap:8px; margin-right:16px}
-.gender-switch button{
-  padding:6px 12px; border:1px solid var(--line); background:var(--panel);
-  border-radius:8px; color:var(--text); cursor:default;
-}
+.vfx .title{font-size:16px; font-weight:600}
+.vfx .flex-1{flex:1}
 
-/* history tool */
-.history-tool{display:flex; align-items:center; gap:8px}
-.history-tool img{width:var(--icon-top); height:var(--icon-top); object-fit:contain}
+.vfx .right-pack{display:flex; align-items:center; gap:14px}
+.vfx .chip{padding:6px 14px; border:1px solid var(--line); background:var(--tile); border-radius:10px}
+.vfx .next{padding:8px 16px; border:1px solid var(--line); background:var(--panel); border-radius:12px}
 
-/* spacer pushes 2D/3D + contents + next to the right */
-.spacer{flex:1}
+.vfx .gender{display:flex; gap:8px}
+.vfx .gender button{padding:6px 12px; border:1px solid var(--line); background:var(--panel); border-radius:8px}
 
-/* mode switch */
-.mode-switch{display:flex; align-items:center; gap:8px}
-.mode-switch button{
-  padding:6px 16px; border:1px solid var(--line); background:var(--panel);
-  border-radius:8px; cursor:default;
+.vfx .tiles{display:flex; gap:8px}
+.vfx .tile{width:var(--icon); height:var(--icon); padding:6px; background:var(--tile); border:1px solid var(--line); border-radius:var(--r-sm); object-fit:contain}
+
+/* ====== Main 2列 ====== */
+.vfx .main{
+  background:var(--bg); padding:18px 16px;
+  display:grid; grid-template-columns: 1fr var(--right); gap:22px;
+  min-height:calc(100vh - 78px); /* topの概算高さ */
 }
 
-/* contents button row */
-.contents-button{display:flex; align-items:center; gap:8px}
-.contents-button img{width:var(--icon-top); height:var(--icon-top); object-fit:contain}
+/* Canvas */
+.vfx .canvas{background:var(--panel); border:1px solid var(--line); border-radius:var(--r);
+  padding:var(--canvas-pad); display:flex; align-items:center; justify-content:center}
+.vfx .mannequin{max-width:420px}
 
-/* next */
-.next-wrap button{
-  padding:8px 14px; border:1px solid var(--line); background:var(--panel);
-  border-radius:10px; cursor:default;
-}
+/* Right column */
+.vfx .right{display:flex; flex-direction:column; gap:16px}
 
-/* ===== Main 2-column ===== */
-.main{
-  display:grid; grid-template-columns: 1fr var(--right-col);
-  gap:20px; padding:20px 16px; background:var(--bg-beige);
-  min-height:calc(100vh - var(--top-h));
-}
+.vfx .contents-row{display:flex; justify-content:flex-end}
+.vfx .contents-row .tiles{gap:8px}
 
-/* Canvas panel */
-.canvas{
-  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-  padding:var(--canvas-pad); display:flex; align-items:center; justify-content:center;
-}
-.mannequin{max-width:380px}
+/* rail + panels */
+.vfx .tools-grid{display:grid; grid-template-columns: var(--rail) 1fr; gap:16px}
 
-/* Right column (rail + panels) */
-.right{
-  display:grid; grid-template-columns: var(--rail) 1fr; gap:16px;
-}
+/* rail（5箱） */
+.vfx .rail{display:flex; flex-direction:column; gap:16px}
+.vfx .rail-box{height:96px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r)}
 
-/* Vertical tool rail (5 stacked boxes) */
-.tool-rail{display:flex; flex-direction:column; gap:16px}
-.rail-box{
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--radius); height:98px;
-}
+/* panels列 */
+.vfx .panels{display:flex; flex-direction:column; gap:16px}
+.vfx .panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:14px 16px; display:flex; flex-direction:column; gap:12px}
+.vfx .panel h3{font-size:14px; font-weight:700}
 
-/* Panels column */
-.panel-col{display:flex; flex-direction:column; gap:16px}
-.panel{
-  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-  padding:14px; display:flex; flex-direction:column; gap:12px;
-}
-.panel-head h3{font-size:14px; font-weight:700}
+/* Stationery 行（小ボタン） */
+.vfx .st-row{display:flex; gap:12px}
+.vfx .st-btn{width:var(--btn); height:var(--btn); padding:6px; border:1px solid var(--line); background:var(--panel); border-radius:10px; object-fit:contain}
 
-/* Stationery row */
-.stationery-row{display:flex; align-items:center; gap:12px}
-.stationery-row img{
-  width:var(--icon-stationery); height:var(--icon-stationery); object-fit:contain
-}
+/* Zoom / Opacity（外観のみ） */
+.vfx .z-row{display:flex; align-items:center; gap:12px}
+.vfx .chip-ghost{display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border:1px solid var(--line); background:var(--panel); border-radius:8px}
+.vfx .bar{position:relative; flex:1; height:6px; border:1px solid var(--line); border-radius:999px; background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
+.vfx .bar .knob{position:absolute; top:-5px; left:20%; width:14px; height:14px; background:#fff; border:1px solid var(--line); border-radius:50%}
+.vfx .btn-ghost{padding:6px 10px; border:1px solid var(--line); background:var(--panel); border-radius:8px}
+.vfx .note{font-size:12px; color:#777}
 
-/* Zoom/Opacity ghost rows (外観だけ) */
-.row-ghost{
-  display:flex; align-items:center; gap:12px;
-}
-.row-ghost > span{display:inline-block; width:16px; text-align:center}
-.ghost-bar{
-  flex:1; height:6px; border-radius:999px;
-  background:linear-gradient(90deg, #dcd6cf, #a8a19b);
-  border:1px solid var(--line);
-}
-.ghost-btn{
-  padding:6px 10px; border:1px solid var(--line); background:var(--panel);
-  border-radius:8px; cursor:default;
-}
-.pipette{
-  display:inline-block; width:14px; height:14px;
-  border:2px solid #444; border-radius:2px; transform:rotate(-45deg);
-}
+/* Color */
+.vfx .swatches{display:grid; grid-template-columns:repeat(5, 28px); gap:10px}
+.vfx .swatches div{width:28px; height:28px; border-radius:8px; border:1px solid var(--line)}
+.vfx .color-actions{display:flex; gap:8px}
 
-/* Color swatches (3行×6列程度) */
-.swatches{
-  display:grid; grid-template-columns: repeat(6, 28px);
-  gap:10px;
-}
-.swatches div{
-  width:28px; height:28px; border-radius:8px; border:1px solid var(--line);
-}
+/* Layers（添付レイアウト） */
+.vfx .layer{display:grid; grid-template-columns: 1fr 32px 32px; gap:12px; align-items:start}
+.vfx .layer-card{height:180px; background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:12px}
+vfx .layer-side,
+.vfx .layer-toolbar{display:flex; flex-direction:column; gap:12px; align-items:center}
+.vfx .layer-side img{width:22px; height:22px}
+.vfx .layer-toolbar img{width:24px; height:24px}
 
-/* Layers ghost */
-.layer-ghost{
-  height:140px; border:1px dashed var(--line); border-radius:10px; background:#faf9f7;
-}
-
-/* ===== Responsive (simple collapse) ===== */
-@media (max-width: 1200px){
-  :root{ --right-col:340px; --rail:56px }
-  .mannequin{max-width:340px}
-}
-@media (max-width: 1024px){
-  .main{grid-template-columns: 1fr}
-  .right{grid-template-columns: 1fr; gap:12px}
-  .tool-rail{flex-direction:row}
-  .rail-box{flex:1; height:70px}
-}
-@media (max-width: 680px){
-  .topbar{gap:8px}
-  .page-title{flex-basis:100%}
-  .spacer{display:none}
+/* Responsive */
+@media (max-width:1024px){
+  .vfx .main{grid-template-columns:1fr}
+  .vfx .tools-grid{grid-template-columns:1fr}
+  .vfx .contents-row{justify-content:flex-start}
 }
