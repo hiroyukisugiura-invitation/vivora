@@ -1,416 +1,180 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vivora Fashion Illustration 2025</title>
+
+<style>
+  :root{
+    --icon:28px;          /* 上部アイコン共通サイズ */
+    --gap:12px;           /* 要素間のすき間（配置確認用） */
+    --panel:#f3ece7;      /* 背景色（参考） */
+    --board:#efe7e0;      /* キャンバス外の板色（参考） */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#fff;color:#333}
+
+  /* 上部バー（スクショの上段一列） */
+  .topbar{
+    display:flex; align-items:center; gap:var(--gap);
+    padding:14px 16px; background:var(--board);
+  }
+  .page-title{font-size:18px; font-weight:600; margin-right:24px;}
+
+  .gender-switch{display:flex; gap:8px; margin-right:24px;}
+  .gender-switch button{padding:6px 12px; border:1px solid #ddd; background:#fff; border-radius:6px; cursor:default;}
+
+  .history-tool, .mode-switch, .contents-button, .next-wrap{display:flex; align-items:center; gap:8px;}
+
+  .history-tool img,
+  .contents-button img{width:var(--icon); height:var(--icon); object-fit:contain; display:block;}
+
+  .mode-switch button{padding:6px 16px; border:1px solid #ddd; background:#fff; border-radius:6px; cursor:default;}
+
+  .spacer{flex:1} /* 2D/3Dの左側スペースを確保するために追加 */
+
+  .next-wrap button{padding:8px 14px; border:1px solid #ddd; background:#fff; border-radius:8px; cursor:default;}
+
+  /* 中央2カラム（左：キャンバス／右：ツール帯） */
+  .main{
+    display:grid;
+    grid-template-columns: 1fr 360px; /* 左広いキャンバス + 右のツール列 */
+    gap:20px;
+    padding:20px 16px;
+    background:var(--panel);
+    min-height:calc(100vh - 70px);
+  }
+
+  /* 左キャンバス面 */
+  .canvas{
+    background:#fff; border-radius:10px; padding:24px;
+  }
+  .canvas .mannequin{display:block; max-width:360px; margin:0 auto;}
+
+  /* 右側の細いツール帯（スクショの薄い縦帯）＋パネル列 */
+  .right{
+    display:grid;
+    grid-template-columns: 56px 1fr; /* 左：縦ツール帯 / 右：各パネル */
+    gap:16px;
+  }
+
+  /* 縦ツール帯：stationery, zoom, opacity, color, layerの縦ブロック */
+  .tool-rail{
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .rail-box{
+    background:#fff; border:1px solid #eee; border-radius:10px; height:96px;
+  }
+
+  /* 右の各パネル外観（中身は未実装・配置のみ） */
+  .panel{
+    background:#fff; border:1px solid #eee; border-radius:12px; padding:14px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .panel h3{font-size:14px; font-weight:600;}
+
+  /* 参考：色チップの並びだけ置き物で用意（画像でも差し替え可） */
+  .swatches{display:grid; grid-template-columns: repeat(6, 28px); gap:8px;}
+  .swatches div{width:28px; height:28px; border-radius:6px; border:1px solid #ddd;}
+</style>
 </head>
 <body>
-  <div class="app-container">
-    <!-- Top Bar -->
-    <header class="top-bar">
-      <div class="top-left">
-        <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-        <div class="gender-switch">
-          <button class="active" data-gender="woman">Woman</button>
-          <button data-gender="man">Man</button>
-          <button data-gender="kids">Kids</button>
-        </div>
+
+  <!-- 上部バー：page title / gender / history / 2D3D / contents / next -->
+  <div class="topbar">
+    <div class="page-title">Vivora Fashion Illustration 2025</div>
+
+    <div class="gender-switch">
+      <button>Woman</button><button>Man</button><button>Kids</button>
+    </div>
+
+    <!-- history tool（ファイル名は必要に応じて置換） -->
+    <div class="history-tool">
+      <img src="public/create_parts/create_button/undo.png" alt="Undo">
+      <img src="public/create_parts/create_button/redo.png" alt="Redo">
+      <img src="public/create_parts/create_button/rotate-left.png" alt="Rotate L">
+      <img src="public/create_parts/create_button/rotate-right.png" alt="Rotate R">
+      <img src="public/create_parts/create_button/upload.png" alt="Upload">
+      <img src="public/create_parts/create_button/download.png" alt="Download">
+      <img src="public/create_parts/create_button/grid.png" alt="Grid">
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 2D / 3D -->
+    <div class="mode-switch">
+      <button>2D</button><button>3D</button>
+    </div>
+
+    <!-- contents button（あなたの指定ファイル名をそのまま利用） -->
+    <section class="tool-section contents">
+      <div class="contents-button">
+        <img src="public/create_parts/contents_button/0_home.png" alt="Home">
+        <img src="public/create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
+        <img src="public/create_parts/contents_button/2_fabric-matching.png" alt="Fabric">
+        <img src="public/create_parts/contents_button/3_clothing-design.png" alt="Clothing">
+        <img src="public/create_parts/contents_button/4_pattern-creation.png" alt="Pattern">
+        <img src="public/create_parts/contents_button/5_grading.png" alt="Grading">
+        <img src="public/create_parts/contents_button/6_print-layout-cut.png" alt="Print/Cut">
+        <img src="public/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
+      </div>
+    </section>
+
+    <!-- Next -->
+    <div class="next-wrap"><button>Next Step</button></div>
+  </div>
+
+  <!-- 中央：左キャンバス + 右ツール列 -->
+  <div class="main">
+    <!-- canvas -->
+    <div class="canvas">
+      <img class="mannequin" src="public/mannequin/mannequin_woman.png" alt="Mannequin">
+    </div>
+
+    <!-- 右：細いツール帯 + パネル列 -->
+    <div class="right">
+      <!-- 縦ツール帯（stationery / zoom / opacity / color / layer） -->
+      <div class="tool-rail">
+        <div class="rail-box" title="Stationery tool"></div>
+        <div class="rail-box" title="Zoom bar"></div>
+        <div class="rail-box" title="Opacity bar"></div>
+        <div class="rail-box" title="Color panel"></div>
+        <div class="rail-box" title="Layer panel"></div>
       </div>
 
-      <div class="top-center">
-        <div class="history-tools">
-          <button class="icon-btn" title="Undo"><img src="../../create_parts/create_button/retreat.png" alt="Undo"></button>
-          <button class="icon-btn" title="Redo"><img src="../../create_parts/create_button/forward.png" alt="Redo"></button>
-          <button class="icon-btn" title="Reset" id="btn-reset"><img src="../../create_parts/create_button/reset.png" alt="Reset"></button>
-          <button class="icon-btn" title="Save"><img src="../../create_parts/create_button/save.png" alt="Save"></button>
-          <button class="icon-btn" title="Upload"><img src="../../create_parts/create_button/upload.png" alt="Upload"></button>
-          <button class="icon-btn" title="Download"><img src="../../create_parts/create_button/download.png" alt="Download"></button>
-          <button class="icon-btn" title="Grid" id="grid-toggle"><img src="../../create_parts/create_button/graph_paper.png" alt="Grid"></button>
-        </div>
+      <!-- パネル列（中身は未実装。配置だけ） -->
+      <div class="panel-col" style="display:flex; flex-direction:column; gap:16px;">
+        <section class="panel">
+          <h3>Stationery</h3>
+          <!-- ここに後でステーショナリーのボタン画像を置く -->
+        </section>
 
-        <div class="mode-switch">
-          <button class="active" data-mode="2d">2D</button>
-          <button data-mode="3d">3D</button>
-        </div>
-      </div>
+        <section class="panel">
+          <h3>Zoom</h3>
+          <!-- スライダー等は未実装（配置のみ） -->
+        </section>
 
-      <button class="next-btn">Next Step »»</button>
-    </header>
+        <section class="panel">
+          <h3>Opacity</h3>
+        </section>
 
-    <!-- Main Content -->
-    <div class="main-content">
-      <!-- Left Section: Canvas -->
-      <div class="canvas-container" id="canvas">
-        <img id="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
-        <div class="grid-overlay"></div>
-      </div>
-
-      <!-- Middle Section: Layer Panel (Between Canvas and Tools) -->
-      <div class="layer-panel">
-        <div class="layer-slot">
-          <div class="layer-controls">
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></button>
+        <section class="panel">
+          <h3>Color</h3>
+          <div class="swatches">
+            <div style="background:#c9c5c0"></div><div style="background:#ffd54a"></div><div style="background:#ff9a2e"></div>
+            <div style="background:#f14a43"></div><div style="background:#4caf50"></div><div style="background:#64c7ff"></div>
+            <div style="background:#3a67f2"></div><div style="background:#1e1e1e"></div><div style="background:#e57373"></div>
+            <div style="background:#8e24aa"></div><div style="background:#ffeb3b"></div><div style="background:#9e9e9e"></div>
           </div>
-          <div class="layer-content">Layer 1</div>
-        </div>
+        </section>
 
-        <div class="layer-slot">
-          <div class="layer-controls">
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></button>
-          </div>
-          <div class="layer-content">Layer 2</div>
-        </div>
-
-        <div class="layer-slot">
-          <div class="layer-controls">
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></button>
-          </div>
-          <div class="layer-content">Layer 3</div>
-        </div>
-
-        <div class="layer-slot">
-          <div class="layer-controls">
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerlock.png" alt="Lock"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdisplay.png" alt="Visible"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate"></button>
-            <button class="layer-btn"><img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete"></button>
-          </div>
-          <div class="layer-content">Layer 4</div>
-        </div>
-      </div>
-
-      <!-- Right Section: Tools -->
-      <div class="tools-section">
-        <!-- Contents Panel (Above Stationery) -->
-        <div class="contents-panel">
-          <div class="contents-row">
-            <button class="content-btn"><img src="../../create_parts/contents_button/0_home.png" alt="Home"></button>
-            <button class="content-btn"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations"></button>
-            <button class="content-btn"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric"></button>
-            <button class="content-btn"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing"></button>
-            <button class="content-btn"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern"></button>
-            <button class="content-btn"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"></button>
-            <button class="content-btn"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print"></button>
-            <button class="content-btn"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids"></button>
-          </div>
-        </div>
-
-        <!-- Stationery Tools (5 main tools with sub-items on long press) -->
-        <div class="tool-panel">
-          <div class="panel-header">Stationery</div>
-          <div class="stationery-tools">
-            <div class="tool-item" data-tool="select">
-              <img src="../../create_parts/design_button/direct_select.png" alt="Select">
-              <div class="sub-tools">
-                <img src="../../create_parts/design_button/select.png" alt="Fill Select">
-              </div>
-            </div>
-            <div class="tool-item" data-tool="pen">
-              <img src="../../create_parts/design_button/pen.png" alt="Pen">
-              <div class="sub-tools">
-                <img src="../../create_parts/design_button/markerpen.png" alt="Marker">
-                <img src="../../create_parts/design_button/ballpointpen.png" alt="Ballpoint">
-              </div>
-            </div>
-            <div class="tool-item" data-tool="brush">
-              <img src="../../create_parts/design_button/brush.png" alt="Brush">
-              <div class="sub-tools">
-                <img src="../../create_parts/design_button/circlebrush.png" alt="Circle Brush">
-              </div>
-            </div>
-            <div class="tool-item" data-tool="shape">
-              <img src="../../create_parts/design_button/square.png" alt="Square">
-              <div class="sub-tools">
-                <img src="../../create_parts/design_button/circle.png" alt="Circle">
-              </div>
-            </div>
-            <div class="tool-item" data-tool="text">
-              <img src="../../create_parts/design_button/sentence.png" alt="Text">
-            </div>
-          </div>
-        </div>
-
-        <!-- Zoom Control (Center = 0%, Left = -50%, Right = +50%) -->
-        <div class="tool-panel">
-          <div class="panel-header">Zoom</div>
-          <div class="slider-control">
-            <button class="slider-btn" id="zoom-dec">−</button>
-            <input type="range" id="zoomRange" min="-50" max="50" value="0">
-            <button class="slider-btn" id="zoom-inc">+</button>
-            <span class="slider-value" id="zoomValue">0%</span>
-            <button class="reset-btn" id="zoom-reset">Reset</button>
-          </div>
-        </div>
-
-        <!-- Opacity Control -->
-        <div class="tool-panel">
-          <div class="panel-header">Opacity</div>
-          <div class="slider-control">
-            <button class="slider-btn" id="opacity-dec">−</button>
-            <input type="range" id="opacityRange" min="0" max="100" value="100">
-            <button class="slider-btn" id="opacity-inc">+</button>
-            <span class="slider-value" id="opacityValue">100%</span>
-            <button class="reset-btn" id="opacity-reset">Reset</button>
-          </div>
-        </div>
-
-        <!-- Color Palette -->
-        <div class="tool-panel">
-          <div class="panel-header">Color</div>
-          <div class="color-grid">
-            <!-- Row 1 -->
-            <div class="color-swatch" style="background: #ffffff"></div>
-            <div class="color-swatch" style="background: #cccccc"></div>
-            <div class="color-swatch" style="background: #ffeb3b"></div>
-            <div class="color-swatch" style="background: #ff9800"></div>
-            <div class="color-swatch" style="background: #ff6b9d"></div>
-            <!-- Row 2 -->
-            <div class="color-swatch" style="background: #f44336"></div>
-            <div class="color-swatch" style="background: #4caf50"></div>
-            <div class="color-swatch" style="background: #009688"></div>
-            <div class="color-swatch" style="background: #03a9f4"></div>
-            <div class="color-swatch" style="background: #2196f3"></div>
-            <!-- Row 3 -->
-            <div class="color-swatch" style="background: #9c27b0"></div>
-            <div class="color-swatch" style="background: #795548"></div>
-            <div class="color-swatch" style="background: #607d8b"></div>
-            <div class="color-swatch" style="background: #000000"></div>
-            <div class="color-swatch custom-color">+</div>
-            <!-- Row 4 - Custom Colors -->
-            <div class="color-swatch custom-color">+</div>
-            <div class="color-swatch custom-color">+</div>
-            <div class="color-swatch custom-color">+</div>
-            <div class="color-swatch custom-color">+</div>
-            <div class="color-swatch eyedropper">
-              <img src="../../color/spuit.png" alt="Eyedropper">
-            </div>
-          </div>
-        </div>
+        <section class="panel">
+          <h3>Layers</h3>
+        </section>
       </div>
     </div>
   </div>
 
-  <!-- JavaScript -->
-  <script>
-    (function() {
-      'use strict';
-
-      // ========================================
-      // Constants & State
-      // ========================================
-      const MANNEQUIN_PATHS = {
-        woman: '../../mannequin/mannequin_woman.png',
-        man: '../../mannequin/mannequin_man.png',
-        kids: '../../mannequin/mannequin_kids.png'
-      };
-
-      // DOM Elements
-      const canvas = document.getElementById('canvas');
-      const mannequin = document.getElementById('mannequin');
-
-      // ========================================
-      // Gender Switching
-      // ========================================
-      document.querySelectorAll('.gender-switch button').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.gender-switch button').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          
-          const gender = this.dataset.gender;
-          if (MANNEQUIN_PATHS[gender]) {
-            mannequin.src = MANNEQUIN_PATHS[gender];
-          }
-        });
-      });
-
-      // ========================================
-      // Mode Switching (2D/3D)
-      // ========================================
-      document.querySelectorAll('.mode-switch button').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.mode-switch button').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          
-          const mode = this.dataset.mode;
-          if (mode === '3d') {
-            mannequin.style.filter = 'drop-shadow(0 10px 25px rgba(0,0,0,0.2))';
-            mannequin.style.transform = 'scale(1.05) perspective(1000px) rotateY(5deg)';
-          } else {
-            mannequin.style.filter = 'none';
-            mannequin.style.transform = 'scale(1)';
-          }
-        });
-      });
-
-      // ========================================
-      // Grid Toggle
-      // ========================================
-      document.getElementById('grid-toggle').addEventListener('click', function() {
-        canvas.classList.toggle('show-grid');
-      });
-
-      // ========================================
-      // Zoom Control (Center=0%, Left=-50%, Right=+50%)
-      // ========================================
-      const zoomRange = document.getElementById('zoomRange');
-      const zoomValue = document.getElementById('zoomValue');
-      
-      function updateZoom(value) {
-        const zoomPercent = parseInt(value);
-        const scale = 1 + (zoomPercent / 100);
-        mannequin.style.transform = `scale(${scale})`;
-        zoomValue.textContent = `${value}%`;
-        zoomRange.value = value;
-      }
-
-      zoomRange.addEventListener('input', (e) => updateZoom(e.target.value));
-      
-      document.getElementById('zoom-dec').addEventListener('click', () => {
-        const newValue = Math.max(-50, parseInt(zoomRange.value) - 10);
-        updateZoom(newValue);
-      });
-      
-      document.getElementById('zoom-inc').addEventListener('click', () => {
-        const newValue = Math.min(50, parseInt(zoomRange.value) + 10);
-        updateZoom(newValue);
-      });
-      
-      document.getElementById('zoom-reset').addEventListener('click', () => {
-        updateZoom(0);
-      });
-
-      // ========================================
-      // Opacity Control
-      // ========================================
-      const opacityRange = document.getElementById('opacityRange');
-      const opacityValue = document.getElementById('opacityValue');
-      
-      function updateOpacity(value) {
-        const opacity = value / 100;
-        mannequin.style.opacity = opacity;
-        opacityValue.textContent = `${value}%`;
-        opacityRange.value = value;
-      }
-
-      opacityRange.addEventListener('input', (e) => updateOpacity(e.target.value));
-      
-      document.getElementById('opacity-dec').addEventListener('click', () => {
-        const newValue = Math.max(0, parseInt(opacityRange.value) - 10);
-        updateOpacity(newValue);
-      });
-      
-      document.getElementById('opacity-inc').addEventListener('click', () => {
-        const newValue = Math.min(100, parseInt(opacityRange.value) + 10);
-        updateOpacity(newValue);
-      });
-      
-      document.getElementById('opacity-reset').addEventListener('click', () => {
-        updateOpacity(100);
-      });
-
-      // ========================================
-      // Stationery Tools (Long Press for Sub-tools)
-      // ========================================
-      document.querySelectorAll('.tool-item').forEach(tool => {
-        let pressTimer;
-        
-        // Long press to show sub-tools
-        tool.addEventListener('mousedown', function() {
-          pressTimer = setTimeout(() => {
-            const subTools = this.querySelector('.sub-tools');
-            if (subTools) {
-              subTools.style.display = 'flex';
-            }
-          }, 500); // 500ms for long press
-        });
-        
-        tool.addEventListener('mouseup', function() {
-          clearTimeout(pressTimer);
-        });
-        
-        tool.addEventListener('mouseleave', function() {
-          clearTimeout(pressTimer);
-          const subTools = this.querySelector('.sub-tools');
-          if (subTools) {
-            setTimeout(() => {
-              subTools.style.display = 'none';
-            }, 100);
-          }
-        });
-        
-        // Click to select tool
-        tool.addEventListener('click', function() {
-          document.querySelectorAll('.tool-item').forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      // ========================================
-      // Color Selection
-      // ========================================
-      document.querySelectorAll('.color-swatch:not(.custom-color):not(.eyedropper)').forEach(swatch => {
-        swatch.addEventListener('click', function() {
-          document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
-
-      // Custom color buttons
-      document.querySelectorAll('.custom-color').forEach(btn => {
-        btn.addEventListener('click', function() {
-          alert('カスタムカラー機能は開発中です');
-        });
-      });
-
-      // Eyedropper
-      document.querySelector('.eyedropper').addEventListener('click', function() {
-        alert('スポイト機能は開発中です');
-      });
-
-      // ========================================
-      // Reset Button
-      // ========================================
-      document.getElementById('btn-reset').addEventListener('click', function() {
-        // Reset gender to woman
-        document.querySelectorAll('.gender-switch button').forEach(b => b.classList.remove('active'));
-        document.querySelector('.gender-switch button[data-gender="woman"]').classList.add('active');
-        mannequin.src = MANNEQUIN_PATHS.woman;
-        
-        // Reset mode to 2D
-        document.querySelectorAll('.mode-switch button').forEach(b => b.classList.remove('active'));
-        document.querySelector('.mode-switch button[data-mode="2d"]').classList.add('active');
-        mannequin.style.filter = 'none';
-        
-        // Reset zoom and opacity
-        updateZoom(0);
-        updateOpacity(100);
-        
-        // Hide grid
-        canvas.classList.remove('show-grid');
-      });
-
-      // ========================================
-      // Initialize
-      // ========================================
-      updateZoom(0);
-      updateOpacity(100);
-    })();
-  </script>
 </body>
 </html>
