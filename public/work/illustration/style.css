@@ -1,4 +1,4 @@
-/* Vivora Illustration UI — 完全版CSS */
+/* Vivora Illustration UI — clean build */
 
 /* ===== Tokens ===== */
 :root{
@@ -8,8 +8,8 @@
   --line:#e6e0db;
   --text:#333;
 
-  --icon:26px;
-  --st-icon:30px;
+  --icon:26px;      /* history/contents タイルの内寸 */
+  --st-icon:30px;   /* Stationery のボタン寸法 */
   --radius:12px;
   --radius-sm:10px;
 
@@ -37,23 +37,34 @@ button{font:inherit}
 .gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
 
 .tiles{display:flex;gap:8px}
-.tile{width:var(--icon);height:var(--icon);padding:6px;background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain}
+.tile{
+  width:var(--icon);height:var(--icon);padding:6px;
+  background:var(--tile);border:1px solid var(--line);
+  border-radius:var(--radius-sm);object-fit:contain;
+}
 
-/* ===== Main 2col ===== */
-.main{display:grid;grid-template-columns:1fr var(--right-col);gap:22px;padding:18px 16px;background:var(--bg);min-height:calc(100vh - 78px)}
+/* ===== Main（2列） ===== */
+.main{
+  display:grid;grid-template-columns:1fr var(--right-col);
+  gap:22px;padding:18px 16px;background:var(--bg);
+  min-height:calc(100vh - 78px);
+}
 
 /* Canvas */
-.canvas{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:var(--canvas-pad);display:flex;align-items:center;justify-content:center}
+.canvas{
+  position:relative;
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);padding:var(--canvas-pad);
+  display:flex;align-items:center;justify-content:center;
+}
 .mannequin{max-width:420px}
-
-/* 2D/3D：キャンバス右上 */
 .canvas-controls{position:absolute;top:12px;right:12px;display:flex;gap:8px}
 .canvas-controls .chip{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
 
 /* Right column */
 .right{display:flex;flex-direction:column;gap:16px}
 
-/* contents（白カード） */
+/* Contents（白カード） */
 .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
 .panel-contents{padding:10px 12px}
 .panel-contents .contents-tiles{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
@@ -66,7 +77,7 @@ button{font:inherit}
 .tool-rail{display:flex;flex-direction:column;gap:16px}
 .rail-box{background:#fff;border:1px solid var(--line);border-radius:var(--radius);height:96px}
 
-/* panels 列 */
+/* panels列 */
 .panel-col{display:flex;flex-direction:column;gap:16px}
 .panel h3{font-size:14px;font-weight:700;margin-bottom:8px}
 
@@ -74,7 +85,7 @@ button{font:inherit}
 .st-row{display:flex;gap:12px}
 .st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
 
-/* Zoom / Opacity（見た目だけ） */
+/* Zoom / Opacity（外観のみ） */
 .z-row{display:flex;align-items:center;gap:12px}
 .ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
 .bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
@@ -96,51 +107,9 @@ button{font:inherit}
 .layer-side img{width:22px;height:22px;object-fit:contain}
 .layer-tool img{width:24px;height:24px;object-fit:contain}
 
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width:1024px){
   .main{grid-template-columns:1fr}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
-/* ===== Hotfix: 強制上書き ===== */
-
-/* 基本グリッドを強制（他CSSの上書き対策） */
-.main{ display:grid !important; grid-template-columns: minmax(0,1fr) var(--right-col) !important; }
-.right{ display:flex !important; flex-direction:column !important; gap:16px !important; }
-
-/* history / contents タイルを固定サイズに（膨張対策） */
-.tiles .tile,
-.panel-contents .tile{
-  width: var(--icon) !important;
-  height: var(--icon) !important;
-  padding: 6px !important;
-  background: var(--tile) !important;
-  border: 1px solid var(--line) !important;
-  border-radius: 10px !important;
-  object-fit: contain !important;
-  box-shadow: none !important;
-}
-
-/* Top 行が2段で折れてもレイアウトが崩れないように */
-.topbar .row{ flex-wrap: nowrap !important; }
-
-/* キャンバスは常に1カラム目で広く */
-.canvas{ position:relative !important; background:var(--panel) !important; }
-
-/* 2D/3D は右上固定 */
-.canvas-controls{ position:absolute !important; top:12px !important; right:12px !important; display:flex !important; gap:8px !important; }
-.canvas-controls .chip{ padding:6px 14px !important; border:1px solid var(--line) !important; background:var(--tile) !important; border-radius:10px !important; }
-
-/* contents は右上の白カードのみを使う（旧スタイル抑止の保険） */
-.panel-contents{ padding:10px 12px !important; }
-.panel-contents .contents-tiles{ display:flex !important; justify-content:flex-end !important; gap:8px !important; flex-wrap:wrap !important; }
-
-/* layer panel を安定化（見出し無し＋2列アイコン） */
-.panel-layers{ padding:14px !important; }
-.layer-wrap{ display:grid !important; grid-template-columns: 1fr 28px 28px !important; gap:12px !important; align-items:start !important; }
-.layer-card{ height:180px !important; border:1px solid var(--line) !important; border-radius:18px !important; }
-.layer-side img{ width:22px !important; height:22px !important; }
-.layer-tool img{ width:24px !important; height:24px !important; }
-
-/* Color：スポイト表示を保証 */
-.color-actions .pipette-btn img{ width:18px !important; height:18px !important; display:block !important; }
