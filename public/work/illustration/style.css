@@ -110,12 +110,28 @@ button{font:inherit}
 .color-actions{display:flex;gap:8px}
 
 /* Layers（白カード＋縦アイコン2列） */
-.layer-wrap{display:grid;grid-template-columns:1fr 32px 32px;gap:12px;align-items:start}
-.layer-card{height:180px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px}
-.layer-side,.layer-tool{display:flex;flex-direction:column;gap:12px;align-items:center}
+/* Layer Panel */
+.layer-wrap{
+  display:grid;
+  grid-template-columns: 1fr 32px 32px; /* 左：カード / 中：縦アイコン / 右：縦アイコン */
+  gap:12px;
+  align-items:start;
+}
+.layer-card{
+  height:180px; /* 必要なら高さ調整 */
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+}
+.layer-side,
+.layer-tool{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+}
 .layer-side img{width:22px;height:22px;object-fit:contain}
 .layer-tool img{width:24px;height:24px;object-fit:contain}
-
 /* Responsive */
 @media (max-width:1024px){
   .main{grid-template-columns:1fr}
