@@ -197,7 +197,7 @@ button{font:inherit}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
 /* === Canvas右上 2D/3D 固定 === */
-.canvas{ position: relative; }             /* すでにあれば不要 */
+.canvas{ position: relative; } /* 既にあれば不要 */
 .canvas-controls{
   position: absolute;
   top: 12px;
