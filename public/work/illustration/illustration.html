@@ -1,22 +1,137 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <!-- 外部CSSのみ（インラインCSSは一切なし） -->
-  <link rel="stylesheet" href="../../css/vivora-illustration.css?v=final1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vivora Fashion Illustration 2025</title>
+
+<style>
+  :root{
+    /* colors */
+    --bg:#efe7e0;      /* 上段/背景のベージュ */
+    --panel:#ffffff;   /* 白パネル */
+    --line:#e6e0db;    /* 枠線 */
+    --tile:#ece7e1;    /* 薄グレータイル */
+    --text:#333;
+
+    /* sizes */
+    --icon:26px;       /* 上部タイル内アイコン */
+    --st-icon:30px;    /* Stationeryボタン */
+    --radius:12px;
+    --radius-sm:10px;
+
+    /* layout */
+    --right-col:360px; /* 右パネル列の幅 */
+    --rail:60px;       /* 右の縦レールの幅 */
+    --canvas-pad:26px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff}
+  img{display:block;max-width:100%;height:auto}
+  button{font:inherit}
+
+  /* ===== Top（2段構成） ===== */
+  .topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
+  .row{display:flex;align-items:center;gap:12px}
+  .row + .row{margin-top:10px}
+
+  .page-title{font-size:16px;font-weight:600}
+  .flex-1{flex:1}
+
+  .mode-switch{display:flex;gap:8px}
+  .mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
+  .next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
+
+  .gender-switch{display:flex;gap:8px}
+  .gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
+
+  .tiles{display:flex;gap:8px}
+  .tile{
+    width:var(--icon);height:var(--icon);padding:6px;
+    background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain;
+  }
+
+  /* ===== Main 2カラム ===== */
+  .main{
+    display:grid;grid-template-columns:1fr var(--right-col);
+    gap:22px;padding:18px 16px;background:var(--bg);
+    min-height:calc(100vh - 78px);
+  }
+
+  /* 左キャンバス */
+  .canvas{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:var(--canvas-pad);display:flex;align-items:center;justify-content:center;
+  }
+  .mannequin{max-width:420px}
+
+  /* 右カラム全体 */
+  .right{display:flex;flex-direction:column;gap:16px}
+
+  /* contents（最上段：layer / stationery より上） */
+  .contents-row{display:flex;justify-content:flex-end}
+
+  /* rail + panels の2列 */
+  .right-grid{display:grid;grid-template-columns:var(--rail) 1fr;gap:16px}
+
+  /* rail（5つの白箱） */
+  .tool-rail{display:flex;flex-direction:column;gap:16px}
+  .rail-box{background:#fff;border:1px solid var(--line);border-radius:var(--radius);height:96px}
+
+  /* panels 列 */
+  .panel-col{display:flex;flex-direction:column;gap:16px}
+  .panel{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;display:flex;flex-direction:column;gap:12px;
+  }
+  .panel h3{font-size:14px;font-weight:700}
+
+  /* Stationery 行（小ボタン） */
+  .st-row{display:flex;gap:12px}
+  .st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
+
+  /* Zoom / Opacity（見た目のみ） */
+  .z-row{display:flex;align-items:center;gap:12px}
+  .ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
+  .bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
+  .bar i{position:absolute;top:-5px;left:20%;width:14px;height:14px;background:#fff;border:1px solid var(--line);border-radius:50%}
+  .ghost-btn{padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:8px}
+  .note{font-size:12px;color:#777}
+
+  /* Color */
+  .swatches{display:grid;grid-template-columns:repeat(5,28px);gap:10px}
+  .swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
+  .color-actions{display:flex;gap:8px}
+
+  /* Layer（白カード＋縦アイコン2列） */
+  .layer-wrap{display:grid;grid-template-columns:1fr 32px 32px;gap:12px;align-items:start}
+  .layer-card{height:180px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px}
+  .layer-side,.layer-tool{display:flex;flex-direction:column;gap:12px;align-items:center}
+  .layer-side img{width:22px;height:22px;object-fit:contain}
+  .layer-tool img{width:24px;height:24px;object-fit:contain}
+
+  /* Responsive */
+  @media (max-width:1024px){
+    .main{grid-template-columns:1fr}
+    .right-grid{grid-template-columns:1fr}
+    .contents-row{justify-content:flex-start}
+  }
+</style>
 </head>
 <body>
 
-  <!-- ===== Top（2段：①Title/Next ②Gender/History） ===== -->
-  <header class="topbar">
+  <!-- ===== Top（2段） ===== -->
+  <div class="topbar">
+    <!-- 1段目：Title / 右肩に 2D/3D + Next -->
     <div class="row">
       <div class="page-title">Vivora Fashion Illustration 2025</div>
       <div class="flex-1"></div>
+      <div class="mode-switch"><button>2D</button><button>3D</button></div>
       <button class="next-btn">Next Step ››</button>
     </div>
 
+    <!-- 2段目：gender + history（Git画像 “必須” 表示） -->
     <div class="row">
       <nav class="gender-switch">
         <button>Woman</button><button>Man</button><button>Kids</button>
@@ -31,26 +146,22 @@
         <img class="tile" src="../../create_parts/create_button/save.png"         alt="Save">
       </div>
     </div>
-  </header>
+  </div>
 
   <!-- ===== Main：左キャンバス / 右ツール ===== -->
-  <main class="main">
-
-    <!-- Canvas（2D/3Dは右上固定） -->
+  <div class="main">
+    <!-- 左：キャンバス -->
     <section class="canvas">
-      <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin" />
-      <div class="canvas-controls">
-        <button class="chip">2D</button>
-        <button class="chip">3D</button>
-      </div>
+      <!-- ★ パス修正：public → ../../ に変更 -->
+      <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
     </section>
 
-    <!-- Right column -->
+    <!-- 右：最上段に contents、下に rail + panels -->
     <aside class="right">
 
-      <!-- contents：右上の白カード（1つだけ） -->
-      <section class="panel panel-contents">
-        <div class="contents-tiles">
+      <!-- contents button（layer / stationery の“上”） -->
+      <div class="contents-row">
+        <div class="tiles">
           <img class="tile" src="../../create_parts/contents_button/0_home.png"                     alt="Home">
           <img class="tile" src="../../create_parts/contents_button/1_fashion-illustrations.png"    alt="Illustrations">
           <img class="tile" src="../../create_parts/contents_button/2_fabric-matching.png"          alt="Fabric">
@@ -60,105 +171,22 @@
           <img class="tile" src="../../create_parts/contents_button/6_print-layout-cut.png"         alt="Print/Cut">
           <img class="tile" src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
         </div>
-      </section>
+      </div>
 
       <!-- rail + panels -->
       <div class="right-grid">
-
-        <!-- 左：rail（ここがLayer本体） -->
+        <!-- rail（5箱） -->
         <div class="tool-rail">
+          <div class="rail-box" title="Stationery tool"></div>
+          <div class="rail-box" title="Zoom bar"></div>
+          <div class="rail-box" title="Opacity bar"></div>
+          <div class="rail-box" title="Color panel"></div>
+          <div class="rail-box" title="Layer panel"></div>
+        </div>
 
-          <!-- Layer 1 -->
-          <div class="layer-item">
-            <div class="layer-card">
-              <div class="layer-side">
-                <img src="../../create_parts/layer_button/lock.png"    alt="Lock">
-                <img src="../../create_parts/layer_button/eye.png"     alt="Eye">
-                <img src="../../create_parts/layer_button/eye-off.png" alt="Eye Off">
-              </div>
-            </div>
-            <div class="layer-toolbar">
-              <img src="../../create_parts/layer_button/add.png"       alt="Add">
-              <img src="../../create_parts/layer_button/duplicate.png" alt="Duplicate">
-              <img src="../../create_parts/layer_button/download.png"  alt="Download">
-              <img src="../../create_parts/layer_button/trash.png"     alt="Trash">
-            </div>
-          </div>
-
-          <!-- Layer 2 -->
-          <div class="layer-item">
-            <div class="layer-card">
-              <div class="layer-side">
-                <img src="../../create_parts/layer_button/lock.png"    alt="Lock">
-                <img src="../../create_parts/layer_button/eye.png"     alt="Eye">
-                <img src="../../create_parts/layer_button/eye-off.png" alt="Eye Off">
-              </div>
-            </div>
-            <div class="layer-toolbar">
-              <img src="../../create_parts/layer_button/add.png"       alt="Add">
-              <img src="../../create_parts/layer_button/duplicate.png" alt="Duplicate">
-              <img src="../../create_parts/layer_button/download.png"  alt="Download">
-              <img src="../../create_parts/layer_button/trash.png"     alt="Trash">
-            </div>
-          </div>
-
-          <!-- Layer 3 -->
-          <div class="layer-item">
-            <div class="layer-card">
-              <div class="layer-side">
-                <img src="../../create_parts/layer_button/lock.png"    alt="Lock">
-                <img src="../../create_parts/layer_button/eye.png"     alt="Eye">
-                <img src="../../create_parts/layer_button/eye-off.png" alt="Eye Off">
-              </div>
-            </div>
-            <div class="layer-toolbar">
-              <img src="../../create_parts/layer_button/add.png"       alt="Add">
-              <img src="../../create_parts/layer_button/duplicate.png" alt="Duplicate">
-              <img src="../../create_parts/layer_button/download.png"  alt="Download">
-              <img src="../../create_parts/layer_button/trash.png"     alt="Trash">
-            </div>
-          </div>
-
-          <!-- Layer 4 -->
-          <div class="layer-item">
-            <div class="layer-card">
-              <div class="layer-side">
-                <img src="../../create_parts/layer_button/lock.png"    alt="Lock">
-                <img src="../../create_parts/layer_button/eye.png"     alt="Eye">
-                <img src="../../create_parts/layer_button/eye-off.png" alt="Eye Off">
-              </div>
-            </div>
-            <div class="layer-toolbar">
-              <img src="../../create_parts/layer_button/add.png"       alt="Add">
-              <img src="../../create_parts/layer_button/duplicate.png" alt="Duplicate">
-              <img src="../../create_parts/layer_button/download.png"  alt="Download">
-              <img src="../../create_parts/layer_button/trash.png"     alt="Trash">
-            </div>
-          </div>
-
-          <!-- Layer 5 -->
-          <div class="layer-item">
-            <div class="layer-card">
-              <div class="layer-side">
-                <img src="../../create_parts/layer_button/lock.png"    alt="Lock">
-                <img src="../../create_parts/layer_button/eye.png"     alt="Eye">
-                <img src="../../create_parts/layer_button/eye-off.png" alt="Eye Off">
-              </div>
-            </div>
-            <div class="layer-toolbar">
-              <img src="../../create_parts/layer_button/add.png"       alt="Add">
-              <img src="../../create_parts/layer_button/duplicate.png" alt="Duplicate">
-              <img src="../../create_parts/layer_button/download.png"  alt="Download">
-              <img src="../../create_parts/layer_button/trash.png"     alt="Trash">
-            </div>
-          </div>
-
-        </div><!-- /.tool-rail -->
-
-        <!-- 右：各パネル -->
+        <!-- panels列 -->
         <div class="panel-col">
-
-          <!-- Stationery（表示だけ） -->
+          <!-- Stationery（画像表示のみ） -->
           <section class="panel">
             <h3>Stationery</h3>
             <div class="st-row">
@@ -170,7 +198,7 @@
             </div>
           </section>
 
-          <!-- Zoom -->
+          <!-- Zoom（見た目だけ） -->
           <section class="panel">
             <h3>Zoom</h3>
             <div class="z-row">
@@ -182,7 +210,7 @@
             <div class="note">10%</div>
           </section>
 
-          <!-- Opacity -->
+          <!-- Opacity（見た目だけ） -->
           <section class="panel">
             <h3>Opacity</h3>
             <div class="z-row">
@@ -194,7 +222,7 @@
             <div class="note">10%</div>
           </section>
 
-          <!-- Color（スポイト付き） -->
+          <!-- Color（ダミーチップ） -->
           <section class="panel">
             <h3>Color</h3>
             <div class="swatches">
@@ -205,37 +233,37 @@
             <div class="color-actions">
               <button class="ghost-btn">+</button>
               <button class="ghost-btn">+</button>
-              <button class="ghost-btn pipette-btn" id="pipetteBtn" title="Pick color">
-                <img src="../../create_parts/color_button/pipette.png" alt="Eyedropper">
-              </button>
-              <input type="color" id="colorPicker" style="display:none">
+              <button class="ghost-btn">…</button>
             </div>
           </section>
 
+          <!-- Layers（添付レイアウト） -->
+          <section class="panel">
+            <h3>Layers</h3>
+            <div class="layer-wrap">
+              <!-- 左：白いレイヤーカード -->
+              <div class="layer-card"></div>
+
+              <!-- 中：lock / eye / eye-off -->
+              <div class="layer-side">
+                <img src="../../create_parts/layer_button/lock.png"    alt="Lock">
+                <img src="../../create_parts/layer_button/eye.png"     alt="Eye">
+                <img src="../../create_parts/layer_button/eye-off.png" alt="Eye Off">
+              </div>
+
+              <!-- 右：+ / duplicate / download / trash -->
+              <div class="layer-tool">
+                <img src="../../create_parts/layer_button/add.png"       alt="Add">
+                <img src="../../create_parts/layer_button/duplicate.png" alt="Duplicate">
+                <img src="../../create_parts/layer_button/download.png"  alt="Download">
+                <img src="../../create_parts/layer_button/trash.png"     alt="Trash">
+              </div>
+            </div>
+          </section>
         </div><!-- /.panel-col -->
       </div><!-- /.right-grid -->
-
     </aside>
-  </main>
-
-  <!-- ===== Color pipette（色を選ぶと先頭にチップ追加） ===== -->
-  <script>
-  (function(){
-    const picker = document.getElementById('colorPicker');
-    const pipetteBtn = document.getElementById('pipetteBtn');
-    const swatches = document.querySelector('.swatches');
-    if (pipetteBtn && picker && swatches){
-      pipetteBtn.addEventListener('click', () => picker.click());
-      picker.addEventListener('input', () => {
-        const c = picker.value; if (!c) return;
-        const chip = document.createElement('div');
-        chip.style.cssText = "width:28px;height:28px;border-radius:8px;border:1px solid var(--line);";
-        chip.style.background = c;
-        swatches.prepend(chip);
-      });
-    }
-  })();
-  </script>
+  </div><!-- /.main -->
 
 </body>
 </html>
