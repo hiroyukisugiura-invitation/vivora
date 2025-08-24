@@ -196,32 +196,3 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
-/* === Canvas右上 2D/3D 固定 === */
-.canvas{ position: relative; } /* 既にあれば不要 */
-.canvas-controls{
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: flex;
-  gap: 8px;
-}
-.canvas-controls .chip{
-  padding: 6px 14px;
-  border: 1px solid var(--line);
-  background: var(--tile);
-  border-radius: 10px;
-}
-/* === Canvas 上部ヘッダー（2D/3Dを外に） === */
-.canvas-head{
-  display:flex;
-  justify-content:flex-end;   /* 右寄せ */
-  align-items:center;
-  gap:8px;
-  margin:0 0 8px 0;           /* キャンバスとの間に少し余白 */
-}
-.canvas-head .chip{
-  padding:6px 14px;
-  border:1px solid var(--line);
-  background:var(--tile);
-  border-radius:10px;
-}
