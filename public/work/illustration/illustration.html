@@ -1,184 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Vivora Fashion Illustration 2025</title>
-
-<style>
-  /* ===============================
-     Tokens（全体の数値・色の入口）
-  ================================= */
-  :root{
-    /* colors */
-    --bg:#efe7e0;      /* ベージュ背景（上段/右面） */
-    --panel:#ffffff;   /* 白パネル */
-    --tile:#ece7e1;    /* history/contents の薄グレータイル */
-    --line:#e6e0db;    /* 細い境界線 */
-    --text:#333;
-
-    /* sizes */
-    --icon:26px;       /* history/contents タイル内アイコン */
-    --st-icon:30px;    /* Stationery の小ボタン */
-    --radius:12px;     /* パネル角丸 */
-    --radius-sm:10px;  /* タイル角丸 */
-
-    /* layout */
-    --right-col:360px; /* 右カラムの幅 */
-    --rail:60px;       /* 縦レールの幅 */
-    --canvas-pad:26px; /* キャンバス内余白 */
-  }
-
-  /* ========== Base reset ========== */
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    color:var(--text); background:#fff;
-  }
-  img{display:block;max-width:100%;height:auto}
-  button{font:inherit}
-
-  /* =================================
-     Top（2段：①Title/2D3D/Next ②Gender/History）
-  =================================== */
-  .topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
-  .row{display:flex;align-items:center;gap:12px}
-  .row + .row{margin-top:10px}
-
-  .page-title{font-size:16px;font-weight:600}
-  .flex-1{flex:1}
-
-  .mode-switch{display:flex;gap:8px}
-  .mode-switch button{
-    padding:6px 14px;border:1px solid var(--line);
-    background:var(--tile);border-radius:10px
-  }
-  .next-btn{
-    padding:8px 14px;border:1px solid var(--line);
-    background:var(--panel);border-radius:12px
-  }
-
-  .gender-switch{display:flex;gap:8px}
-  .gender-switch button{
-    padding:6px 12px;border:1px solid var(--line);
-    background:#fff;border-radius:8px
-  }
-
-  .tiles{display:flex;gap:8px}
-  .tile{
-    width:var(--icon);height:var(--icon);padding:6px;
-    background:var(--tile);border:1px solid var(--line);
-    border-radius:var(--radius-sm);object-fit:contain;
-  }
-
-  /* =================================
-     Main：左キャンバス / 右ツール
-  =================================== */
-  .main{
-    display:grid;grid-template-columns:1fr var(--right-col);
-    gap:22px;padding:18px 16px;background:var(--bg);
-    min-height:calc(100vh - 78px); /* Topの概算高さ分を除外 */
-  }
-
-  /* Canvas（左） */
-  .canvas{
-    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-    padding:var(--canvas-pad);display:flex;align-items:center;justify-content:center;
-  }
-  .mannequin{max-width:420px}
-
-  /* 右カラム大枠 */
-  .right{display:flex;flex-direction:column;gap:16px}
-
-  /* ------- contents：右上の小カード（1個だけ） ------- */
-  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
-  .panel-contents{padding:10px 12px}
-  .panel-contents .contents-tiles{
-    display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;
-  }
-  .panel-contents .tile{border-radius:10px}
-
-  /* ------- rail + panels（2列） ------- */
-  .right-grid{display:grid;grid-template-columns:var(--rail) 1fr;gap:16px}
-
-  /* 縦レール（5つの白箱） */
-  .tool-rail{display:flex;flex-direction:column;gap:16px}
-  .rail-box{
-    background:#fff;border:1px solid var(--line);
-    border-radius:var(--radius);height:96px
-  }
-
-  /* パネル列（Stationery / Zoom / Opacity / Color / Layers） */
-  .panel-col{display:flex;flex-direction:column;gap:16px}
-  .panel h3{font-size:14px;font-weight:700;margin-bottom:8px}
-
-  /* Stationery：小ボタンだけ（機能なし） */
-  .st-row{display:flex;gap:12px}
-  .st-btn{
-    width:var(--st-icon);height:var(--st-icon);padding:6px;
-    border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain;
-  }
-
-  /* Zoom / Opacity：見た目のみ */
-  .z-row{display:flex;align-items:center;gap:12px}
-  .ghost{
-    display:inline-flex;align-items:center;justify-content:center;
-    width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff;
-  }
-  .bar{
-    position:relative;flex:1;height:6px;border:1px solid var(--line);
-    border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b);
-  }
-  .bar i{
-    position:absolute;top:-5px;left:20%;width:14px;height:14px;
-    background:#fff;border:1px solid var(--line);border-radius:50%;
-  }
-  .ghost-btn{padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:8px}
-  .note{font-size:12px;color:#777}
-
-  /* Color：5列×3行相当のダミーチップ＋アクション */
-  .swatches{display:grid;grid-template-columns:repeat(5,28px);gap:10px}
-  .swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
-  .color-actions{display:flex;gap:8px;margin-top:8px}
-  .color-actions .pipette-btn img{width:18px;height:18px;object-fit:contain;display:block}
-
-  /* Layers：白カード＋縦アイコン2列 */
-  .layer-wrap{display:grid;grid-template-columns:1fr 32px 32px;gap:12px;align-items:start}
-  .layer-card{height:180px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px}
-  .layer-side,.layer-tool{display:flex;flex-direction:column;gap:12px;align-items:center}
-  .layer-side img{width:22px;height:22px;object-fit:contain}
-  .layer-tool img{width:24px;height:24px;object-fit:contain}
-
-  /* Responsive（簡易） */
-  @media (max-width:1024px){
-    .main{grid-template-columns:1fr}
-    .right-grid{grid-template-columns:1fr}
-    .panel-contents .contents-tiles{justify-content:flex-start}
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="../../css/vivora-illustration.css?v=3" />
 </head>
 <body>
 
-  <!-- ===============================
-       Top（2段）
-  ================================== -->
-  <div class="topbar">
-    <!-- 1段目：Title / 右肩に 2D/3D + Next -->
+  <!-- ===== Top（2段：①Title/Next ②Gender/History） ===== -->
+  <header class="topbar">
     <div class="row">
       <div class="page-title">Vivora Fashion Illustration 2025</div>
       <div class="flex-1"></div>
-      <div class="mode-switch"><button>2D</button><button>3D</button></div>
       <button class="next-btn">Next Step ››</button>
     </div>
 
-    <!-- 2段目：gender + history（Git画像 “必須” 表示） -->
     <div class="row">
       <nav class="gender-switch">
         <button>Woman</button><button>Man</button><button>Kids</button>
       </nav>
       <div class="tiles">
-        <!-- ※ ファイル名は HiROYUKI 指定版を使用 -->
         <img class="tile" src="../../create_parts/create_button/retreat.png"      alt="Undo">
         <img class="tile" src="../../create_parts/create_button/forward.png"      alt="Redo">
         <img class="tile" src="../../create_parts/create_button/reset.png"        alt="Reset">
@@ -188,21 +30,24 @@
         <img class="tile" src="../../create_parts/create_button/save.png"         alt="Save">
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- ===============================
-       Main：左キャンバス / 右ツール
-  ================================== -->
-  <div class="main">
-    <!-- 左：キャンバス -->
+  <!-- ===== Main：左キャンバス / 右ツール ===== -->
+  <main class="main">
+
+    <!-- Canvas（2D/3Dは右上固定） -->
     <section class="canvas">
       <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+      <div class="canvas-controls">
+        <button class="chip">2D</button>
+        <button class="chip">3D</button>
+      </div>
     </section>
 
-    <!-- 右：最上段に contents（白カード）＋ その下に rail+panels -->
+    <!-- Right column -->
     <aside class="right">
 
-      <!-- contents：希望の小カード（ここだけに統一） -->
+      <!-- contents：右上の白カード（1つだけ） -->
       <section class="panel panel-contents">
         <div class="contents-tiles">
           <img class="tile" src="../../create_parts/contents_button/0_home.png"                     alt="Home">
@@ -218,19 +63,19 @@
 
       <!-- rail + panels -->
       <div class="right-grid">
-        <!-- left：縦レール（5箱） -->
+        <!-- left rail（5箱） -->
         <div class="tool-rail">
-          <div class="rail-box" title="Stationery tool"></div>
-          <div class="rail-box" title="Zoom bar"></div>
-          <div class="rail-box" title="Opacity bar"></div>
-          <div class="rail-box" title="Color panel"></div>
-          <div class="rail-box" title="Layer panel"></div>
+          <div class="rail-box"></div>
+          <div class="rail-box"></div>
+          <div class="rail-box"></div>
+          <div class="rail-box"></div>
+          <div class="rail-box"></div>
         </div>
 
-        <!-- right：各パネル -->
+        <!-- right panels -->
         <div class="panel-col">
 
-          <!-- Stationery（画像表示のみ） -->
+          <!-- Stationery（表示だけ） -->
           <section class="panel">
             <h3>Stationery</h3>
             <div class="st-row">
@@ -242,7 +87,7 @@
             </div>
           </section>
 
-          <!-- Zoom（ダミー） -->
+          <!-- Zoom -->
           <section class="panel">
             <h3>Zoom</h3>
             <div class="z-row">
@@ -254,7 +99,7 @@
             <div class="note">10%</div>
           </section>
 
-          <!-- Opacity（ダミー） -->
+          <!-- Opacity -->
           <section class="panel">
             <h3>Opacity</h3>
             <div class="z-row">
@@ -266,7 +111,7 @@
             <div class="note">10%</div>
           </section>
 
-          <!-- Color（チップ＋スポイト） -->
+          <!-- Color（右端＝スポイト） -->
           <section class="panel">
             <h3>Color</h3>
             <div class="swatches">
@@ -277,18 +122,15 @@
             <div class="color-actions">
               <button class="ghost-btn">+</button>
               <button class="ghost-btn">+</button>
-              <!-- 右端：スポイト（Gitのアイコン） -->
               <button class="ghost-btn pipette-btn" id="pipetteBtn" title="Pick color">
                 <img src="../../create_parts/color_button/pipette.png" alt="Eyedropper">
               </button>
-              <!-- 隠しカラー入力 -->
               <input type="color" id="colorPicker" style="display:none">
             </div>
           </section>
 
-          <!-- Layers（白カード＋縦アイコン2列） -->
-          <section class="panel">
-            <h3>Layers</h3>
+          <!-- Layer panel（見出しなし） -->
+          <section class="panel panel-layers">
             <div class="layer-wrap">
               <div class="layer-card"></div>
               <div class="layer-side">
@@ -309,32 +151,26 @@
       </div><!-- /.right-grid -->
 
     </aside>
-  </div><!-- /.main -->
+  </main>
 
-  <!-- ===============================
-       JS（スポイト：色選択→チップ追加）
-  ================================== -->
+  <!-- ===== Color pipette（色追加） ===== -->
   <script>
-    (function(){
-      const picker = document.getElementById('colorPicker');
-      const pipetteBtn = document.getElementById('pipetteBtn');
-      const swatches = document.querySelector('.swatches');
-
-      if (pipetteBtn && picker && swatches){
-        pipetteBtn.addEventListener('click', () => picker.click());
-        picker.addEventListener('input', () => {
-          const c = picker.value;
-          if (!c) return;
-          const chip = document.createElement('div');
-          chip.style.background = c;
-          chip.style.width = '28px';
-          chip.style.height = '28px';
-          chip.style.borderRadius = '8px';
-          chip.style.border = '1px solid var(--line)';
-          swatches.prepend(chip); // 先頭に追加
-        });
-      }
-    })();
+  (function(){
+    const picker = document.getElementById('colorPicker');
+    const pipetteBtn = document.getElementById('pipetteBtn');
+    const swatches = document.querySelector('.swatches');
+    if (pipetteBtn && picker && swatches){
+      pipetteBtn.addEventListener('click', () => picker.click());
+      picker.addEventListener('input', () => {
+        const c = picker.value; if (!c) return;
+        const chip = document.createElement('div');
+        chip.style.background = c;
+        chip.style.width = '28px'; chip.style.height = '28px';
+        chip.style.borderRadius = '8px'; chip.style.border = '1px solid var(--line)';
+        swatches.prepend(chip);
+      });
+    }
+  })();
   </script>
 
 </body>
