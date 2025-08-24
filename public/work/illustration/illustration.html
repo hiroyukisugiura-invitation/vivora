@@ -1,178 +1,31 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <style>
-    :root {
-      --bg: #efe7e0;
-      --panel: #ffffff;
-      --tile: #ece7e1;
-      --line: #e6e0db;
-      --text: #333;
-      --icon: 26px;
-      --st-icon: 30px;
-      --radius: 12px;
-      --radius-sm: 10px;
-      --right-col: 360px;
-      --rail: 60px;
-      --canvas-pad: 26px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color: var(--text);
-      background: #fff;
-    }
-    img { display: block; max-width: 100%; height: auto; }
-    button { font: inherit; }
-
-    .topbar {
-      padding: 14px 16px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--line);
-    }
-    .row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .row + .row {
-      margin-top: 10px;
-    }
-    .page-title {
-      font-size: 16px;
-      font-weight: 600;
-    }
-    .flex-1 {
-      flex: 1;
-    }
-    .mode-switch {
-      display: flex;
-      gap: 8px;
-    }
-    .mode-switch button {
-      padding: 6px 14px;
-      border: 1px solid var(--line);
-      background: var(--tile);
-      border-radius: 10px;
-    }
-    .next-btn {
-      padding: 8px 14px;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      border-radius: 12px;
-    }
-    .gender-switch {
-      display: flex;
-      gap: 8px;
-    }
-    .gender-switch button {
-      padding: 6px 12px;
-      border: 1px solid var(--line);
-      background: #fff;
-      border-radius: 8px;
-    }
-    .tiles {
-      display: flex;
-      gap: 8px;
-    }
-    .tile {
-      width: var(--icon);
-      height: var(--icon);
-      padding: 6px;
-      background: var(--tile);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-sm);
-      object-fit: contain;
-    }
-
-    .main {
-      display: grid;
-      grid-template-columns: 1fr var(--right-col);
-      gap: 22px;
-      padding: 18px 16px;
-      background: var(--bg);
-      min-height: calc(100vh - 78px);
-    }
-    .canvas {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: var(--canvas-pad);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .mannequin { max-width: 420px; }
-
-    .right {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .contents-row {
-      display: flex;
-      justify-content: flex-end;
-    }
-    .right-grid {
-      display: grid;
-      grid-template-columns: var(--rail) 1fr;
-      gap: 16px;
-    }
-    .tool-rail {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .rail-box {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      height: 96px;
-    }
-    .panel-col {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .panel {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .panel h3 {
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .st-row {
-      display: flex;
-      gap: 12px;
-    }
-    .st-btn {
-      width: var(--st-icon);
-      height: var(--st-icon);
-      padding: 6px;
-      border: 1px solid var(--line);
-      background: #fff;
-      border-radius: 10px;
-      object-fit: contain;
-    }
-
-    @media (max-width: 1024px) {
-      .main { grid-template-columns: 1fr; }
-      .right-grid { grid-template-columns: 1fr; }
-      .contents-row { justify-content: flex-start; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vivora Fashion Illustration 2025</title>
+<link rel="stylesheet" href="../../css/vivora-illustration.css?v=4" />
+<style>
+  /* ✅ 2D/3D配置スタイル */
+  .history-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mode-switch {
+    display: flex;
+    gap: 8px;
+  }
+  .mode-switch button {
+    padding: 6px 14px;
+    border: 1px solid var(--line);
+    background: var(--tile);
+    border-radius: 10px;
+  }
+</style>
 </head>
 <body>
+  <!-- ===== Top（2段） ===== -->
   <div class="topbar">
     <!-- 1段目：Title / Next -->
     <div class="row">
@@ -181,19 +34,19 @@
       <button class="next-btn">Next Step ››</button>
     </div>
 
-    <!-- 2段目：gender + history + 2D/3D（右端） -->
-    <div class="row">
+    <!-- 2段目：gender + history + 2D/3D -->
+    <div class="row history-bar">
       <nav class="gender-switch">
         <button>Woman</button><button>Man</button><button>Kids</button>
       </nav>
       <div class="tiles">
-        <img class="tile" src="../../create_parts/create_button/retreat.png" alt="Undo">
-        <img class="tile" src="../../create_parts/create_button/forward.png" alt="Redo">
-        <img class="tile" src="../../create_parts/create_button/reset.png" alt="Reset">
-        <img class="tile" src="../../create_parts/create_button/download.png" alt="Download">
-        <img class="tile" src="../../create_parts/create_button/upload.png" alt="Upload">
-        <img class="tile" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
-        <img class="tile" src="../../create_parts/create_button/save.png" alt="Save">
+        <img class="tile" src="../../create_parts/create_button/retreat.png"      alt="Undo">
+        <img class="tile" src="../../create_parts/create_button/forward.png"      alt="Redo">
+        <img class="tile" src="../../create_parts/create_button/reset.png"        alt="Reset">
+        <img class="tile" src="../../create_parts/create_button/download.png"     alt="Download">
+        <img class="tile" src="../../create_parts/create_button/upload.png"       alt="Upload">
+        <img class="tile" src="../../create_parts/create_button/graph_paper.png"  alt="Grid">
+        <img class="tile" src="../../create_parts/create_button/save.png"         alt="Save">
       </div>
       <div class="mode-switch">
         <button>2D</button>
@@ -202,11 +55,14 @@
     </div>
   </div>
 
+  <!-- ===== Main：左キャンバス / 右ツール ===== -->
   <div class="main">
+    <!-- 左：キャンバス -->
     <section class="canvas">
       <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
     </section>
 
+    <!-- 右：contents + rail + panels -->
     <aside class="right">
       <div class="contents-row">
         <div class="tiles">
@@ -229,6 +85,7 @@
           <div class="rail-box"></div>
           <div class="rail-box"></div>
         </div>
+
         <div class="panel-col">
           <section class="panel">
             <h3>Stationery</h3>
@@ -238,6 +95,42 @@
               <img class="st-btn" src="../../create_parts/design_button/square.png" alt="Shape">
               <img class="st-btn" src="../../create_parts/design_button/text.png" alt="Text">
               <img class="st-btn" src="../../create_parts/design_button/eraser.png" alt="Eraser">
+            </div>
+          </section>
+
+          <section class="panel">
+            <h3>Zoom</h3>
+            <div class="z-row">
+              <span class="ghost">−</span>
+              <div class="bar"><i></i></div>
+              <span class="ghost">＋</span>
+              <button class="ghost-btn">Reset</button>
+            </div>
+            <div class="note">10%</div>
+          </section>
+
+          <section class="panel">
+            <h3>Opacity</h3>
+            <div class="z-row">
+              <span class="ghost">−</span>
+              <div class="bar"><i></i></div>
+              <span class="ghost">＋</span>
+              <button class="ghost-btn">Reset</button>
+            </div>
+            <div class="note">10%</div>
+          </section>
+
+          <section class="panel">
+            <h3>Color</h3>
+            <div class="swatches">
+              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
+              <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
+              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
+            </div>
+            <div class="color-actions">
+              <button class="ghost-btn">+</button>
+              <button class="ghost-btn">+</button>
+              <button class="ghost-btn">…</button>
             </div>
           </section>
         </div>
