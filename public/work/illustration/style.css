@@ -196,3 +196,18 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
+/* === Canvas右上 2D/3D 固定 === */
+.canvas{ position: relative; }             /* すでにあれば不要 */
+.canvas-controls{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+}
+.canvas-controls .chip{
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  background: var(--tile);
+  border-radius: 10px;
+}
