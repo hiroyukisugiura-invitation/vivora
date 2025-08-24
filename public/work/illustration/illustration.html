@@ -230,11 +230,17 @@
               <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
               <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
             </div>
-            <div class="color-actions">
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">…</button>
-            </div>
+<div class="color-actions">
+  <button class="ghost-btn">+</button>
+  <button class="ghost-btn">+</button>
+  <!-- 右端：スポイト（Gitのアイコンを表示） -->
+  <button class="ghost-btn pipette-btn" id="pipetteBtn" title="Pick color">
+    <img src="../../create_parts/color_button/pipette.png" alt="Eyedropper">
+  </button>
+  <!-- 隠しカラー入力（クリックで開く） -->
+  <input type="color" id="colorPicker" style="display:none">
+</div>
+
           </section>
 
           <!-- Layers（添付レイアウト） -->
@@ -264,6 +270,31 @@
       </div><!-- /.right-grid -->
     </aside>
   </div><!-- /.main -->
+
+  <script>
+  (function(){
+    const picker = document.getElementById('colorPicker');
+    const pipetteBtn = document.getElementById('pipetteBtn');
+    const swatches = document.querySelector('.swatches');
+
+    if (pipetteBtn && picker && swatches){
+      pipetteBtn.addEventListener('click', () => picker.click());
+
+      picker.addEventListener('input', () => {
+        const c = picker.value;
+        if (!c) return;
+        const chip = document.createElement('div');
+        chip.style.background = c;
+        chip.style.width = '28px';
+        chip.style.height = '28px';
+        chip.style.borderRadius = '8px';
+        chip.style.border = '1px solid var(--line)';
+        // 先頭に追加（必要なら append に変更）
+        swatches.prepend(chip);
+      });
+    }
+  })();
+</script>
 
 </body>
 </html>
