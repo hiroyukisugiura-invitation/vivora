@@ -35,34 +35,38 @@
   .topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
   .row{display:flex;align-items:center;gap:12px}
   .row + .row{margin-top:10px}
+
   .page-title{font-size:16px;font-weight:600}
   .flex-1{flex:1}
+
+  .mode-switch{display:flex;gap:8px}
+  .mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
   .next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
+
   .gender-switch{display:flex;gap:8px}
   .gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
+
   .tiles{display:flex;gap:8px}
-  .tile{width:var(--icon);height:var(--icon);padding:6px;background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain}
+  .tile{
+    width:var(--icon);height:var(--icon);padding:6px;
+    background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain;
+  }
 
   /* ===== Main 2カラム ===== */
-  .main{display:grid;grid-template-columns:1fr var(--right-col);gap:22px;padding:18px 16px;background:var(--bg);min-height:calc(100vh - 78px)}
+  .main{
+    display:grid;grid-template-columns:1fr var(--right-col);
+    gap:22px;padding:18px 16px;background:var(--bg);
+    min-height:calc(100vh - 78px);
+  }
 
   /* 左キャンバス */
   .canvas{
-    position:relative; /* ← 2D/3D 固定のため追加 */
     background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
     padding:var(--canvas-pad);display:flex;align-items:center;justify-content:center;
   }
   .mannequin{max-width:420px}
 
-  /* Canvas 右上 2D/3D */
-  .canvas-controls{
-    position:absolute;top:12px;right:12px;display:flex;gap:8px;z-index:2;
-  }
-  .canvas-controls .chip{
-    padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px;
-  }
-
-  /* 右カラム */
+  /* 右カラム全体 */
   .right{display:flex;flex-direction:column;gap:16px}
 
   /* contents（最上段：layer / stationery より上） */
@@ -77,7 +81,10 @@
 
   /* panels 列 */
   .panel-col{display:flex;flex-direction:column;gap:16px}
-  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:12px}
+  .panel{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;display:flex;flex-direction:column;gap:12px;
+  }
   .panel h3{font-size:14px;font-weight:700}
 
   /* Stationery 行（小ボタン） */
@@ -116,12 +123,15 @@
 
   <!-- ===== Top（2段） ===== -->
   <div class="topbar">
+    <!-- 1段目：Title / 右肩に 2D/3D + Next -->
     <div class="row">
       <div class="page-title">Vivora Fashion Illustration 2025</div>
       <div class="flex-1"></div>
+      <div class="mode-switch"><button>2D</button><button>3D</button></div>
       <button class="next-btn">Next Step ››</button>
     </div>
 
+    <!-- 2段目：gender + history（Git画像 “必須” 表示） -->
     <div class="row">
       <nav class="gender-switch">
         <button>Woman</button><button>Man</button><button>Kids</button>
@@ -140,13 +150,9 @@
 
   <!-- ===== Main：左キャンバス / 右ツール ===== -->
   <div class="main">
-    <!-- Canvasの“外・上”に置く2D/3D -->
-<div class="canvas-head">
-  <button class="chip">2D</button>
-  <button class="chip">3D</button>
-</div>
-
+    <!-- 左：キャンバス -->
     <section class="canvas">
+      <!-- ★ パス修正：public → ../../ に変更 -->
       <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
     </section>
 
@@ -156,13 +162,13 @@
       <!-- contents button（layer / stationery の“上”） -->
       <div class="contents-row">
         <div class="tiles">
-          <img class="tile" src="../../create_parts/contents_button/0_home.png" alt="Home">
-          <img class="tile" src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
-          <img class="tile" src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric">
-          <img class="tile" src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing">
-          <img class="tile" src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern">
-          <img class="tile" src="../../create_parts/contents_button/5_grading.png" alt="Grading">
-          <img class="tile" src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print/Cut">
+          <img class="tile" src="../../create_parts/contents_button/0_home.png"                     alt="Home">
+          <img class="tile" src="../../create_parts/contents_button/1_fashion-illustrations.png"    alt="Illustrations">
+          <img class="tile" src="../../create_parts/contents_button/2_fabric-matching.png"          alt="Fabric">
+          <img class="tile" src="../../create_parts/contents_button/3_clothing-design.png"          alt="Clothing">
+          <img class="tile" src="../../create_parts/contents_button/4_pattern-creation.png"         alt="Pattern">
+          <img class="tile" src="../../create_parts/contents_button/5_grading.png"                  alt="Grading">
+          <img class="tile" src="../../create_parts/contents_button/6_print-layout-cut.png"         alt="Print/Cut">
           <img class="tile" src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
         </div>
       </div>
@@ -228,6 +234,9 @@
               <button class="ghost-btn">+</button>
               <button class="ghost-btn">+</button>
               <button class="ghost-btn">…</button>
+            </div>
+          </section>
+          
             </div>
           </section>
         </div><!-- /.panel-col -->
