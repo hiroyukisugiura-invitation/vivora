@@ -211,3 +211,17 @@ button{font:inherit}
   background: var(--tile);
   border-radius: 10px;
 }
+/* === Canvas 上部ヘッダー（2D/3Dを外に） === */
+.canvas-head{
+  display:flex;
+  justify-content:flex-end;   /* 右寄せ */
+  align-items:center;
+  gap:8px;
+  margin:0 0 8px 0;           /* キャンバスとの間に少し余白 */
+}
+.canvas-head .chip{
+  padding:6px 14px;
+  border:1px solid var(--line);
+  background:var(--tile);
+  border-radius:10px;
+}
