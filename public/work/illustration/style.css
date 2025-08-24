@@ -102,3 +102,45 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
+/* ===== Hotfix: 強制上書き ===== */
+
+/* 基本グリッドを強制（他CSSの上書き対策） */
+.main{ display:grid !important; grid-template-columns: minmax(0,1fr) var(--right-col) !important; }
+.right{ display:flex !important; flex-direction:column !important; gap:16px !important; }
+
+/* history / contents タイルを固定サイズに（膨張対策） */
+.tiles .tile,
+.panel-contents .tile{
+  width: var(--icon) !important;
+  height: var(--icon) !important;
+  padding: 6px !important;
+  background: var(--tile) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 10px !important;
+  object-fit: contain !important;
+  box-shadow: none !important;
+}
+
+/* Top 行が2段で折れてもレイアウトが崩れないように */
+.topbar .row{ flex-wrap: nowrap !important; }
+
+/* キャンバスは常に1カラム目で広く */
+.canvas{ position:relative !important; background:var(--panel) !important; }
+
+/* 2D/3D は右上固定 */
+.canvas-controls{ position:absolute !important; top:12px !important; right:12px !important; display:flex !important; gap:8px !important; }
+.canvas-controls .chip{ padding:6px 14px !important; border:1px solid var(--line) !important; background:var(--tile) !important; border-radius:10px !important; }
+
+/* contents は右上の白カードのみを使う（旧スタイル抑止の保険） */
+.panel-contents{ padding:10px 12px !important; }
+.panel-contents .contents-tiles{ display:flex !important; justify-content:flex-end !important; gap:8px !important; flex-wrap:wrap !important; }
+
+/* layer panel を安定化（見出し無し＋2列アイコン） */
+.panel-layers{ padding:14px !important; }
+.layer-wrap{ display:grid !important; grid-template-columns: 1fr 28px 28px !important; gap:12px !important; align-items:start !important; }
+.layer-card{ height:180px !important; border:1px solid var(--line) !important; border-radius:18px !important; }
+.layer-side img{ width:22px !important; height:22px !important; }
+.layer-tool img{ width:24px !important; height:24px !important; }
+
+/* Color：スポイト表示を保証 */
+.color-actions .pipette-btn img{ width:18px !important; height:18px !important; display:block !important; }
