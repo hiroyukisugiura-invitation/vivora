@@ -6,135 +6,147 @@
 <title>Vivora Fashion Illustration 2025</title>
 
 <style>
-  :root{
-    --icon:28px;          /* 上部アイコン共通サイズ */
-    --gap:12px;           /* 要素間のすき間（配置確認用） */
-    --panel:#f3ece7;      /* 背景色（参考） */
-    --board:#efe7e0;      /* キャンバス外の板色（参考） */
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#fff;color:#333}
+/* ====== 名前空間（他CSSの影響を遮断） ====== */
+.vivora-illu{--bg-beige:#efe7e0; --panel:#fff; --tile-bg:#ece7e1; --line:#e6e0db; --text:#333;
+  --radius:12px; --tile-radius:10px;
+  --icon:24px;                 /* history/contentsタイル内アイコン */
+  --btn-icon:30px;             /* Stationery行の小ボタン */
+  --right-col:360px; --rail:60px; --top-h:76px; --canvas-pad:26px; --gap:12px; --main-gap:22px;
+}
+.vivora-illu, .vivora-illu *{box-sizing:border-box}
+.vivora-illu{color:var(--text); background:#fff; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.vivora-illu img{display:block; max-width:100%; height:auto}
 
-  /* 上部バー（スクショの上段一列） */
-  .topbar{
-    display:flex; align-items:center; gap:var(--gap);
-    padding:14px 16px; background:var(--board);
-  }
-  .page-title{font-size:18px; font-weight:600; margin-right:24px;}
+/* ====== Top Bar（1列横並び） ====== */
+.vivora-illu .topbar{display:flex; align-items:center; gap:14px; padding:14px 16px;
+  background:var(--bg-beige); border-bottom:1px solid var(--line)}
+.vivora-illu .page-title{font-size:16px; font-weight:600; margin-right:12px}
 
-  .gender-switch{display:flex; gap:8px; margin-right:24px;}
-  .gender-switch button{padding:6px 12px; border:1px solid #ddd; background:#fff; border-radius:6px; cursor:default;}
+.vivora-illu .gender-switch{display:flex; gap:8px}
+.vivora-illu .gender-switch button{padding:6px 12px; border:1px solid var(--line); background:var(--panel); border-radius:8px}
 
-  .history-tool, .mode-switch, .contents-button, .next-wrap{display:flex; align-items:center; gap:8px;}
+.vivora-illu .history-tool{display:flex; gap:8px}
 
-  .history-tool img,
-  .contents-button img{width:var(--icon); height:var(--icon); object-fit:contain; display:block;}
+/* 薄グレー角丸タイル（history/contents 共通） */
+.vivora-illu img.tile{width:var(--icon) !important; height:var(--icon) !important; object-fit:contain;
+  background:var(--tile-bg); border:1px solid var(--line); border-radius:var(--tile-radius);
+  padding:6px; display:inline-block}
 
-  .mode-switch button{padding:6px 16px; border:1px solid #ddd; background:#fff; border-radius:6px; cursor:default;}
+.vivora-illu .spacer{flex:1}
+.vivora-illu .right-pack{display:flex; align-items:center; gap:14px; margin-left:auto}
 
-  .spacer{flex:1} /* 2D/3Dの左側スペースを確保するために追加 */
+.vivora-illu .mode-switch{display:flex; gap:8px}
+.vivora-illu .mode-switch .chip{padding:6px 14px; border:1px solid var(--line); background:var(--tile-bg); border-radius:10px}
 
-  .next-wrap button{padding:8px 14px; border:1px solid #ddd; background:#fff; border-radius:8px; cursor:default;}
+.vivora-illu .contents-button{display:flex; gap:8px}
 
-  /* 中央2カラム（左：キャンバス／右：ツール帯） */
-  .main{
-    display:grid;
-    grid-template-columns: 1fr 360px; /* 左広いキャンバス + 右のツール列 */
-    gap:20px;
-    padding:20px 16px;
-    background:var(--panel);
-    min-height:calc(100vh - 70px);
-  }
+.vivora-illu .next-btn{padding:8px 16px; border:1px solid var(--line); background:var(--panel); border-radius:12px}
 
-  /* 左キャンバス面 */
-  .canvas{
-    background:#fff; border-radius:10px; padding:24px;
-  }
-  .canvas .mannequin{display:block; max-width:360px; margin:0 auto;}
+/* ====== Main（左キャンバス / 右ツール列） ====== */
+.vivora-illu .main{display:grid; grid-template-columns:1fr var(--right-col);
+  gap:var(--main-gap); padding:18px 16px; background:var(--bg-beige); min-height:calc(100vh - var(--top-h))}
 
-  /* 右側の細いツール帯（スクショの薄い縦帯）＋パネル列 */
-  .right{
-    display:grid;
-    grid-template-columns: 56px 1fr; /* 左：縦ツール帯 / 右：各パネル */
-    gap:16px;
-  }
+.vivora-illu .canvas{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:var(--canvas-pad); display:flex; align-items:center; justify-content:center}
+.vivora-illu .mannequin{max-width:420px}
 
-  /* 縦ツール帯：stationery, zoom, opacity, color, layerの縦ブロック */
-  .tool-rail{
-    display:flex; flex-direction:column; gap:16px;
-  }
-  .rail-box{
-    background:#fff; border:1px solid #eee; border-radius:10px; height:96px;
-  }
+/* 右：縦レール + パネル列 */
+.vivora-illu .right{display:grid; grid-template-columns: var(--rail) 1fr; gap:16px}
 
-  /* 右の各パネル外観（中身は未実装・配置のみ） */
-  .panel{
-    background:#fff; border:1px solid #eee; border-radius:12px; padding:14px;
-    display:flex; flex-direction:column; gap:10px;
-  }
-  .panel h3{font-size:14px; font-weight:600;}
+/* 縦レール（5箱） */
+.vivora-illu .tool-rail{display:flex; flex-direction:column; gap:16px}
+.vivora-illu .rail-box{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); height:94px}
 
-  /* 参考：色チップの並びだけ置き物で用意（画像でも差し替え可） */
-  .swatches{display:grid; grid-template-columns: repeat(6, 28px); gap:8px;}
-  .swatches div{width:28px; height:28px; border-radius:6px; border:1px solid #ddd;}
+/* パネル列 */
+.vivora-illu .panel-col{display:flex; flex-direction:column; gap:16px}
+.vivora-illu .panel{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:14px 16px; display:flex; flex-direction:column; gap:12px}
+.vivora-illu .panel-head h3{font-size:14px; font-weight:700}
+
+/* Stationery 行（小さな白ボタン） */
+.vivora-illu .stationery-row{display:flex; gap:12px}
+.vivora-illu img.btn{width:var(--btn-icon); height:var(--btn-icon); object-fit:contain;
+  background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:6px}
+
+/* Zoom / Opacity（外観だけ再現） */
+.vivora-illu .row-ghost{display:flex; align-items:center; gap:12px}
+.vivora-illu .ghost-chip{display:inline-flex; align-items:center; justify-content:center;
+  width:26px; height:26px; border:1px solid var(--line); background:var(--panel); border-radius:8px}
+.vivora-illu .ghost-bar{position:relative; flex:1; height:6px; border-radius:999px;
+  background:linear-gradient(90deg,#dcd6cf,#a8a19b); border:1px solid var(--line)}
+.vivora-illu .ghost-bar .knob{position:absolute; top:-5px; left:20%;
+  width:14px; height:14px; background:#fff; border:1px solid var(--line); border-radius:50%}
+.vivora-illu .ghost-btn{padding:6px 10px; border:1px solid var(--line); background:var(--panel); border-radius:8px}
+.vivora-illu .scale-note{font-size:12px; color:#777}
+
+.vivora-illu .pipette{display:inline-block; width:14px; height:14px; border:2px solid #444; border-radius:2px; transform:rotate(-45deg)}
+
+/* Color（5列×3行） */
+.vivora-illu .swatches{display:grid; grid-template-columns: repeat(5, 28px); gap:10px}
+.vivora-illu .swatches div{width:28px; height:28px; border-radius:8px; border:1px solid var(--line)}
+.vivora-illu .color-actions{display:flex; gap:8px}
+
+/* レスポンシブ（簡易） */
+@media (max-width:1024px){
+  .vivora-illu .main{grid-template-columns:1fr}
+  .vivora-illu .right{grid-template-columns:1fr; gap:12px}
+  .vivora-illu .tool-rail{flex-direction:row}
+  .vivora-illu .rail-box{flex:1; height:70px}
+}
 </style>
 </head>
 <body>
+<div class="vivora-illu">
 
-  <!-- 上部バー：page title / gender / history / 2D3D / contents / next -->
-  <div class="topbar">
+  <!-- ===== Top Bar（理想スクショ通りの1列） ===== -->
+  <header class="topbar">
     <div class="page-title">Vivora Fashion Illustration 2025</div>
 
-    <div class="gender-switch">
+    <nav class="gender-switch">
       <button>Woman</button><button>Man</button><button>Kids</button>
-    </div>
+    </nav>
 
-    <!-- history tool（ファイル名は必要に応じて置換） -->
     <div class="history-tool">
-      <img src="public/create_parts/create_button/undo.png" alt="Undo">
-      <img src="public/create_parts/create_button/redo.png" alt="Redo">
-      <img src="public/create_parts/create_button/rotate-left.png" alt="Rotate L">
-      <img src="public/create_parts/create_button/rotate-right.png" alt="Rotate R">
-      <img src="public/create_parts/create_button/upload.png" alt="Upload">
-      <img src="public/create_parts/create_button/download.png" alt="Download">
-      <img src="public/create_parts/create_button/grid.png" alt="Grid">
+      <img class="tile" src="../../create_parts/create_button/undo.png" alt="Undo">
+      <img class="tile" src="../../create_parts/create_button/redo.png" alt="Redo">
+      <img class="tile" src="../../create_parts/create_button/rotate-left.png" alt="Rotate Left">
+      <img class="tile" src="../../create_parts/create_button/rotate-right.png" alt="Rotate Right">
+      <img class="tile" src="../../create_parts/create_button/upload.png" alt="Upload">
+      <img class="tile" src="../../create_parts/create_button/download.png" alt="Download">
+      <img class="tile" src="../../create_parts/create_button/grid.png" alt="Grid">
     </div>
 
     <div class="spacer"></div>
 
-    <!-- 2D / 3D -->
-    <div class="mode-switch">
-      <button>2D</button><button>3D</button>
-    </div>
-
-    <!-- contents button（あなたの指定ファイル名をそのまま利用） -->
-    <section class="tool-section contents">
-      <div class="contents-button">
-        <img src="public/create_parts/contents_button/0_home.png" alt="Home">
-        <img src="public/create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
-        <img src="public/create_parts/contents_button/2_fabric-matching.png" alt="Fabric">
-        <img src="public/create_parts/contents_button/3_clothing-design.png" alt="Clothing">
-        <img src="public/create_parts/contents_button/4_pattern-creation.png" alt="Pattern">
-        <img src="public/create_parts/contents_button/5_grading.png" alt="Grading">
-        <img src="public/create_parts/contents_button/6_print-layout-cut.png" alt="Print/Cut">
-        <img src="public/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
+    <div class="right-pack">
+      <div class="mode-switch">
+        <button class="chip">2D</button><button class="chip">3D</button>
       </div>
+
+      <section class="tool-section contents">
+        <div class="contents-button">
+          <img class="tile" src="../../create_parts/contents_button/0_home.png" alt="Home">
+          <img class="tile" src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
+          <img class="tile" src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric">
+          <img class="tile" src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing">
+          <img class="tile" src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern">
+          <img class="tile" src="../../create_parts/contents_button/5_grading.png" alt="Grading">
+          <img class="tile" src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print/Cut">
+          <img class="tile" src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
+        </div>
+      </section>
+
+      <div class="next-wrap"><button class="next-btn">Next Step ››</button></div>
+    </div>
+  </header>
+
+  <!-- ===== Main（左：キャンバス／右：縦レール＋各パネル） ===== -->
+  <main class="main">
+    <section class="canvas">
+      <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
     </section>
 
-    <!-- Next -->
-    <div class="next-wrap"><button>Next Step</button></div>
-  </div>
-
-  <!-- 中央：左キャンバス + 右ツール列 -->
-  <div class="main">
-    <!-- canvas -->
-    <div class="canvas">
-      <img class="mannequin" src="public/mannequin/mannequin_woman.png" alt="Mannequin">
-    </div>
-
-    <!-- 右：細いツール帯 + パネル列 -->
-    <div class="right">
-      <!-- 縦ツール帯（stationery / zoom / opacity / color / layer） -->
+    <aside class="right">
       <div class="tool-rail">
         <div class="rail-box" title="Stationery tool"></div>
         <div class="rail-box" title="Zoom bar"></div>
@@ -143,38 +155,56 @@
         <div class="rail-box" title="Layer panel"></div>
       </div>
 
-      <!-- パネル列（中身は未実装。配置だけ） -->
-      <div class="panel-col" style="display:flex; flex-direction:column; gap:16px;">
+      <div class="panel-col">
         <section class="panel">
-          <h3>Stationery</h3>
-          <!-- ここに後でステーショナリーのボタン画像を置く -->
-        </section>
-
-        <section class="panel">
-          <h3>Zoom</h3>
-          <!-- スライダー等は未実装（配置のみ） -->
-        </section>
-
-        <section class="panel">
-          <h3>Opacity</h3>
-        </section>
-
-        <section class="panel">
-          <h3>Color</h3>
-          <div class="swatches">
-            <div style="background:#c9c5c0"></div><div style="background:#ffd54a"></div><div style="background:#ff9a2e"></div>
-            <div style="background:#f14a43"></div><div style="background:#4caf50"></div><div style="background:#64c7ff"></div>
-            <div style="background:#3a67f2"></div><div style="background:#1e1e1e"></div><div style="background:#e57373"></div>
-            <div style="background:#8e24aa"></div><div style="background:#ffeb3b"></div><div style="background:#9e9e9e"></div>
+          <div class="panel-head"><h3>Stationery</h3></div>
+          <div class="stationery-row">
+            <img class="btn" src="../../create_parts/design_button/pen.png"   alt="Pen">
+            <img class="btn" src="../../create_parts/design_button/brush.png" alt="Brush">
+            <img class="btn" src="../../create_parts/design_button/shape.png" alt="Shape">
+            <img class="btn" src="../../create_parts/design_button/text.png"  alt="Text">
+            <img class="btn" src="../../create_parts/design_button/fill.png"  alt="Fill">
           </div>
         </section>
 
         <section class="panel">
-          <h3>Layers</h3>
+          <div class="panel-head"><h3>Zoom</h3></div>
+          <div class="row-ghost">
+            <span class="ghost-chip">−</span>
+            <div class="ghost-bar"><i class="knob"></i></div>
+            <span class="ghost-chip">＋</span>
+            <button class="ghost-btn">Reset</button>
+          </div>
+          <div class="scale-note">10%</div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><h3>Opacity</h3></div>
+          <div class="row-ghost">
+            <span class="ghost-chip">−</span>
+            <div class="ghost-bar"><i class="knob"></i></div>
+            <span class="ghost-chip">＋</span>
+            <button class="ghost-btn">Reset</button>
+          </div>
+          <div class="scale-note">10%</div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><h3>Color</h3></div>
+          <div class="swatches">
+            <div style="background:#e6e0db"></div><div style="background:#c4c2c1"></div><div style="background:#f0e5a1"></div><div style="background:#ffc03a"></div><div style="background:#ff9566"></div>
+            <div style="background:#e75557"></div><div style="background:#4bb463"></div><div style="background:#79c8ff"></div><div style="background:#4d74d4"></div><div style="background:#2b2b2b"></div>
+            <div style="background:#ef90b7"></div><div style="background:#8f5ab5"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#000"></div>
+          </div>
+          <div class="color-actions">
+            <button class="ghost-btn">+</button><button class="ghost-btn">+</button>
+            <button class="ghost-btn">…</button><button class="ghost-btn"><span class="pipette"></span></button>
+          </div>
         </section>
       </div>
-    </div>
-  </div>
+    </aside>
+  </main>
 
+</div>
 </body>
 </html>
