@@ -196,3 +196,38 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
+/* === layer を rail 内の各ボックスで表示（添付の形） === */
+.layer-item{
+  position:relative;
+  height:96px;               /* 既存 rail-box と同じ高さ */
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:0;                 /* 見た目をタイトに */
+  display:grid;
+  grid-template-columns: 1fr 24px 24px;  /* 左：カード / 中：lock-eyes / 右：+複製DL削除 */
+  align-items:start;
+  gap:10px;
+  overflow:hidden;
+}
+.layer-item + .layer-item{ margin-top:16px; } /* 既存のgap相当（保険） */
+
+.layer-item .layer-card{
+  margin:10px 0 10px 10px;
+  height: calc(100% - 20px);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+}
+
+.layer-item .layer-side,
+.layer-item .layer-tool{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+
+.layer-item .layer-side img{ width:18px; height:18px; object-fit:contain; }
+.layer-item .layer-tool img{ width:18px; height:18px; object-fit:contain; }
