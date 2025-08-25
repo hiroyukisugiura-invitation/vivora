@@ -169,36 +169,38 @@
           <div class="rail-box" title="Opacity rail"></div>
           <div class="rail-box" title="Color rail"></div>
 
-          <!-- ✅ 最下段：Layer rail（四角の中3／外4） -->
-          <div class="rail-box layer" title="Layer rail">
-            <div class="layer-grid">
-              <div class="card">
-                <div class="side">
-                  <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-                  <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-                  <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-                </div>
-              </div>
-              <div class="tools">
-                <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
-                <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-                <img src="../../create_parts/layer_button/layerpanel.png"         alt="Upload">
-                <img src="../../create_parts/layer_button/layerdestruction.png"   alt="Delete">
-              </div>
-            </div>
-          </div>
-        </div>
+         <!-- 左レール：レイヤースタック（追加/複製/削除対応） -->
+<div class="tool-rail" id="layerRail">
+  <!-- レイヤー 1 -->
+  <div class="layer-item" data-layer>
+    <!-- 左：白い四角（カード） -->
+    <div class="card">
+      <!-- 右上：内側の縦3つ（lock / display / hidden） -->
+      <div class="side">
+        <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+        <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+        <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+      </div>
+    </div>
+    <!-- 右：外側の縦4つ（add / duplicate / upload / delete） -->
+    <div class="tools">
+      <img src="../../create_parts/layer_button/layerpanelplus.png"     data-act="add" title="Add"      alt="Add">
+      <img src="../../create_parts/layer_button/layerreproduction.png"  data-act="dup" title="Duplicate" alt="Duplicate">
+      <img src="../../create_parts/layer_button/layerpanel.png"         data-act="up"  title="Upload"    alt="Upload">
+      <img src="../../create_parts/layer_button/layerdestruction.png"   data-act="del" title="Delete"    alt="Delete">
+    </div>
+  </div>
 
         <!-- 右：各パネル -->
         <div class="panel-col">
           <section class="panel">
             <h3>Stationery</h3>
             <div class="st-row">
-              <img class="st-btn" src="../../create_parts/design_button/pen.png"   alt="Pen">
-              <img class="st-btn" src="../../create_parts/design_button/brush.png" alt="Brush">
-              <img class="st-btn" src="../../create_parts/design_button/square.png"alt="Shape">
-              <img class="st-btn" src="../../create_parts/design_button/text.png"  alt="Text">
-              <img class="st-btn" src="../../create_parts/design_button/eraser.png"alt="Eraser">
+              <img class="st-btn" src="../../create_parts/design_button/select.png">
+              <img class="st-btn" src="../../create_parts/design_button/brush.png">
+              <img class="st-btn" src="../../create_parts/design_button/square.png">
+              <img class="st-btn" src="../../create_parts/design_button/text.png">
+              <img class="st-btn" src="../../create_parts/design_button/eraser.png">
             </div>
           </section>
 
