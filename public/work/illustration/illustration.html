@@ -6,138 +6,211 @@
 <title>Vivora Fashion Illustration 2025</title>
 
 <style>
-  /* ============ TOKENS ============ */
   :root{
-    --bg:#efe7e0;
-    --panel:#ffffff;
-    --line:#e6e0db;
-    --tile:#ece7e1;
+    /* colors */
+    --bg:#efe7e0;      /* 上段/背景のベージュ */
+    --panel:#ffffff;   /* 白パネル */
+    --line:#e6e0db;    /* 枠線 */
+    --tile:#ece7e1;    /* 薄グレータイル */
     --text:#333;
 
-    --icon:26px;
-    --st-icon:30px;
+    /* sizes */
+    --icon:26px;       /* 上部タイル内アイコン */
+    --st-icon:30px;    /* Stationeryボタン */
     --radius:12px;
     --radius-sm:10px;
 
-    --right-col:360px;
-    --rail:60px;
+    /* layout */
+    --right-col:400px; /* 右パネル列の幅を少し広げる */
     --canvas-pad:26px;
-    --gap:16px;
   }
-
-  /* ============ BASE ============ */
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
-  body{
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    color:var(--text); background:#fff;
-  }
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff}
   img{display:block;max-width:100%;height:auto}
-  button{font:inherit}
+  button{font:inherit;cursor:pointer}
 
-  /* ============ TOPBAR（2段） ============ */
+  /* ===== Top（2段構成） ===== */
   .topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
   .row{display:flex;align-items:center;gap:12px}
   .row + .row{margin-top:10px}
+
   .page-title{font-size:16px;font-weight:600}
   .flex-1{flex:1}
-  .next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
-  .gender-switch{display:flex;gap:8px}
-  .gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
-  .tiles{display:flex;gap:8px}
-  .tile{width:var(--icon);height:var(--icon);padding:6px;background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain}
+
   .mode-switch{display:flex;gap:8px}
   .mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
+  .next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
 
-  /* ============ MAIN（2カラム：キャンバス / 右列） ============ */
+  .gender-switch{display:flex;gap:8px}
+  .gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
+
+  .tiles{display:flex;gap:8px}
+  .tile{
+    width:var(--icon);height:var(--icon);padding:6px;
+    background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain;
+  }
+
+  /* ===== Main 2カラム ===== */
   .main{
-    display:grid; grid-template-columns:1fr var(--right-col);
-    gap:22px; padding:18px 16px; background:var(--bg);
+    display:grid;grid-template-columns:1fr var(--right-col);
+    gap:22px;padding:18px 16px;background:var(--bg);
     min-height:calc(100vh - 78px);
   }
+
+  /* 左キャンバス */
   .canvas{
-    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-    padding:var(--canvas-pad); display:flex; align-items:center; justify-content:center;
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:var(--canvas-pad);display:flex;align-items:center;justify-content:center;
   }
   .mannequin{max-width:420px}
 
-  /* 右カラム */
-  .right{display:flex;flex-direction:column;gap:var(--gap)}
-  .contents-row{display:flex;justify-content:flex-end}
+  /* 右カラム全体 */
+  .right{display:flex;flex-direction:column;gap:16px}
 
-  /* ============ 右カラム：レール + パネル（2カラムで同期） ============ */
-  .right-grid{
-    display:grid; grid-template-columns: var(--rail) 1fr; gap:var(--gap);
+  /* contents button row */
+  .contents-row{display:flex;justify-content:center;gap:8px}
+  .contents-btn{
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    padding:8px 6px;background:#fff;border:1px solid var(--line);
+    border-radius:10px;min-width:48px;font-size:11px;color:#666;
   }
+  .contents-btn img{width:24px;height:24px;object-fit:contain}
 
-  /* 左レール（縦5箱） */
-  .tool-rail{display:flex;flex-direction:column;gap:var(--gap)}
-  .rail-box{
-    background:#fff; border:1px solid var(--line);
-    border-radius:var(--radius); height:96px; position:relative;
+  /* Tool sections container */
+  .tool-sections{display:flex;flex-direction:column;gap:0}
+
+  /* Each tool section with side icons */
+  .tool-section{display:grid;grid-template-columns:32px 1fr;gap:12px;margin-bottom:16px}
+  
+  /* Side icons column */
+  .side-icons{
+    display:flex;flex-direction:column;gap:8px;
+    padding-top:40px; /* パネルタイトルの高さ分下げる */
   }
+  .side-icon{
+    width:26px;height:26px;padding:4px;
+    background:#fff;border:1px solid var(--line);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .side-icon img{width:18px;height:18px;object-fit:contain}
 
-  /* 右パネル群 */
-  .panel-col{display:flex;flex-direction:column;gap:var(--gap)}
+  /* Panel styling */
   .panel{
-    background:#fff; border:1px solid var(--line);
-    border-radius:var(--radius); padding:14px 16px; display:flex; flex-direction:column; gap:12px;
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;display:flex;flex-direction:column;gap:12px;
   }
-  .panel h3{font-size:14px;font-weight:700}
+  .panel h3{font-size:14px;font-weight:700;margin-bottom:8px}
 
-  /* Stationery */
+  /* Stationery buttons */
   .st-row{display:flex;gap:12px}
-  .st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
-
-  /* Zoom / Opacity （外観のみ） */
-  .z-row{display:flex;align-items:center;gap:12px}
-  .ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
-  .bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
-  .bar i{position:absolute;top:-5px;left:20%;width:14px;height:14px;background:#fff;border:1px solid var(--line);border-radius:50%}
-  .ghost-btn{padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:8px}
-  .note{font-size:12px;color:#777}
-
-  /* Color */
-  .swatches{display:grid;grid-template-columns:repeat(5,28px);gap:10px}
-  .swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
-  .color-actions{display:flex;gap:8px}
-
-  /* ============ Layer：レール最下段の白箱に「内3 / 外4」 ============ */
-  .rail-box.layer{height:180px; padding:0;}        /* 他の箱より大きい */
-  .rail-box.layer .layer-card{
-    position:absolute; top:8px; left:8px;
-    width: calc(100% - 56px); height: calc(100% - 16px);
-    background:#fff; border:1px solid var(--line); border-radius:18px;
-    padding:10px; display:flex; flex-direction:column; align-items:flex-end; gap:12px;
+  .st-btn{
+    width:44px;height:44px;padding:8px;
+    border:1px solid var(--line);background:#f9f9f9;border-radius:10px;
+    object-fit:contain;display:flex;align-items:center;justify-content:center;
   }
-  .rail-box.layer .layer-card img{width:22px;height:22px;object-fit:contain}
+  .st-btn img{width:28px;height:28px;object-fit:contain}
 
-  .rail-box.layer .layer-outer{
-    position:absolute; top:8px; right:8px;
-    display:flex; flex-direction:column; align-items:center; gap:12px;
+  /* Zoom / Opacity sliders */
+  .slider-row{display:flex;align-items:center;gap:12px}
+  .slider-btn{
+    width:32px;height:32px;
+    border:1px solid var(--line);border-radius:8px;background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;color:#666;
   }
-  .rail-box.layer .layer-outer img{width:24px;height:24px;object-fit:contain}
+  .slider-track{
+    position:relative;flex:1;height:8px;
+    border:1px solid var(--line);border-radius:999px;
+    background:linear-gradient(90deg,#e0e0e0,#a0a0a0);
+  }
+  .slider-thumb{
+    position:absolute;top:-6px;left:20%;
+    width:20px;height:20px;
+    background:#4a90e2;border:2px solid #fff;
+    border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,0.2);
+  }
+  .reset-btn{
+    padding:6px 12px;
+    border:1px solid var(--line);background:#fff;border-radius:8px;
+    font-size:13px;
+  }
+  .percent-text{font-size:13px;color:#666;margin-top:-8px}
 
-  /* ============ Responsive ============ */
+  /* Color swatches */
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .swatch{
+    width:100%;aspect-ratio:1;
+    border-radius:8px;border:1px solid var(--line);
+    cursor:pointer;transition:transform 0.1s;
+  }
+  .swatch:hover{transform:scale(1.05)}
+  .swatch.add{
+    background:#f5f5f5;
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;color:#999;
+  }
+  .swatch.picker{
+    background:linear-gradient(45deg,#ff0000,#00ff00,#0000ff);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .swatch.picker img{width:20px;height:20px}
+
+  /* Layer panel section */
+  .layer-section{
+    display:grid;grid-template-columns:1fr 32px;gap:12px;
+    margin-bottom:16px;
+  }
+  .layer-panel{
+    background:#fff;border:1px solid var(--line);
+    border-radius:18px;padding:16px;min-height:200px;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .layer-panel h3{font-size:14px;font-weight:700;margin-bottom:8px}
+  .layer-content{
+    flex:1;background:#f9f9f9;border:1px solid var(--line);
+    border-radius:12px;padding:12px;
+  }
+  
+  /* Layer side icons */
+  .layer-icons{
+    display:flex;flex-direction:column;gap:8px;
+    padding-top:40px;
+  }
+  .layer-icon{
+    width:26px;height:26px;padding:4px;
+    background:#fff;border:1px solid var(--line);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .layer-icon img{width:18px;height:18px;object-fit:contain}
+
+  /* Icon placeholders (using Unicode symbols) */
+  .icon-lock::before{content:"🔒";font-size:14px}
+  .icon-plus::before{content:"➕";font-size:14px}
+  .icon-eye::before{content:"👁";font-size:14px}
+  .icon-hide::before{content:"🚫";font-size:14px}
+  .icon-copy::before{content:"📄";font-size:14px}
+  .icon-trash::before{content:"🗑";font-size:14px}
+
+  /* Responsive */
   @media (max-width:1024px){
     .main{grid-template-columns:1fr}
-    .right-grid{grid-template-columns:1fr}
-    .contents-row{justify-content:flex-start}
+    .contents-row{justify-content:flex-start;flex-wrap:wrap}
   }
 </style>
 </head>
 <body>
 
-  <!-- ========== TOP ========== -->
+  <!-- ===== Top（2段） ===== -->
   <div class="topbar">
-    <!-- 1段目：Title / Next -->
+    <!-- 1段目：Title / 右肩に 2D/3D + Next -->
     <div class="row">
       <div class="page-title">Vivora Fashion Illustration 2025</div>
       <div class="flex-1"></div>
       <button class="next-btn">Next Step ››</button>
     </div>
 
-    <!-- 2段目：Gender + History + 2D/3D（あなたの配置を維持） -->
+    <!-- 2段目：gender + history -->
     <div class="row">
       <nav class="gender-switch">
         <button>Woman</button><button>Man</button><button>Kids</button>
@@ -150,113 +223,205 @@
         <img class="tile" src="../../create_parts/create_button/upload.png" alt="Upload">
         <img class="tile" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
         <img class="tile" src="../../create_parts/create_button/save.png" alt="Save">
-
-        <!-- 2D/3D はあなたの修正どおりこの行に配置 -->
-        <div class="mode-switch"><button>2D</button><button>3D</button></div>
+      </div>
+      <div class="mode-switch">
+        <button>2D</button><button>3D</button>
       </div>
     </div>
   </div>
 
-  <!-- ========== MAIN ========== -->
+  <!-- ===== Main：左キャンバス / 右ツール ===== -->
   <div class="main">
     <!-- 左：キャンバス -->
     <section class="canvas">
       <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
     </section>
 
-    <!-- 右：contents（上）＋ right-grid（レール&パネル） -->
+    <!-- 右：ツールパネル -->
     <aside class="right">
+      
+      <!-- Contents buttons -->
       <div class="contents-row">
-        <div class="tiles">
-          <img class="tile" src="../../create_parts/contents_button/0_home.png" alt="Home">
-          <img class="tile" src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
-          <img class="tile" src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric">
-          <img class="tile" src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing">
-          <img class="tile" src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern">
-          <img class="tile" src="../../create_parts/contents_button/5_grading.png" alt="Grading">
-          <img class="tile" src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print/Cut">
-          <img class="tile" src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
+        <div class="contents-btn">
+          <img src="../../create_parts/contents_button/0_home.png" alt="Home">
+          <span>Home</span>
+        </div>
+        <div class="contents-btn">
+          <img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
+          <span>Fi</span>
+        </div>
+        <div class="contents-btn">
+          <img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm">
+          <span>Fm</span>
+        </div>
+        <div class="contents-btn">
+          <img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd">
+          <span>Cd</span>
+        </div>
+        <div class="contents-btn">
+          <img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc">
+          <span>Pc</span>
+        </div>
+        <div class="contents-btn">
+          <img src="../../create_parts/contents_button/5_grading.png" alt="Gd">
+          <span>Gd</span>
+        </div>
+        <div class="contents-btn">
+          <img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc">
+          <span>Plc</span>
+        </div>
+        <div class="contents-btn">
+          <img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
+          <span>Dk</span>
         </div>
       </div>
 
-      <!-- 2カラム同期：左レール / 右パネル -->
-      <div class="right-grid">
-        <!-- 左：縦レール（5箱） -->
-        <div class="tool-rail">
-          <div class="rail-box" title="Stationery rail"></div>
-          <div class="rail-box" title="Zoom rail"></div>
-          <div class="rail-box" title="Opacity rail"></div>
-          <div class="rail-box" title="Color rail"></div>
-
-          <!-- ✅ 最下段：Layer rail（内3／外4） -->
-          <div class="rail-box layer" title="Layer rail">
-            <!-- 内側白カード（右上に3つ） -->
-            <div class="layer-card">
-              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-            </div>
-            <!-- 外側の縦4つ -->
-            <div class="layer-outer">
-              <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
-              <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-              <img src="../../create_parts/layer_button/layerpanel.png"         alt="Upload">
-              <img src="../../create_parts/layer_button/layerdestruction.png"   alt="Delete">
+      <!-- Tool sections -->
+      <div class="tool-sections">
+        
+        <!-- Stationery section -->
+        <div class="tool-section">
+          <div class="side-icons">
+            <div class="side-icon icon-lock"></div>
+            <div class="side-icon icon-plus"></div>
+            <div class="side-icon icon-eye"></div>
+            <div class="side-icon icon-hide"></div>
+            <div class="side-icon icon-copy"></div>
+            <div class="side-icon icon-trash"></div>
+          </div>
+          <div class="panel">
+            <h3>Stationery</h3>
+            <div class="st-row">
+              <div class="st-btn">
+                <img src="../../create_parts/design_button/pen.png" alt="Pen">
+              </div>
+              <div class="st-btn">
+                <img src="../../create_parts/design_button/brush.png" alt="Brush">
+              </div>
+              <div class="st-btn">
+                <img src="../../create_parts/design_button/square.png" alt="Shape">
+              </div>
+              <div class="st-btn">
+                <img src="../../create_parts/design_button/text.png" alt="Text">
+              </div>
+              <div class="st-btn">
+                <img src="../../create_parts/design_button/eraser.png" alt="Eraser">
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- 右：各パネル（Stationery/Zoom/Opacity/Color） -->
-        <div class="panel-col">
-          <section class="panel">
-            <h3>Stationery</h3>
-            <div class="st-row">
-              <img class="st-btn" src="../../create_parts/design_button/pen.png"   alt="Pen">
-              <img class="st-btn" src="../../create_parts/design_button/brush.png" alt="Brush">
-              <img class="st-btn" src="../../create_parts/design_button/square.png"alt="Shape">
-              <img class="st-btn" src="../../create_parts/design_button/text.png"  alt="Text">
-              <img class="st-btn" src="../../create_parts/design_button/eraser.png"alt="Eraser">
-            </div>
-          </section>
-
-          <section class="panel">
+        <!-- Zoom section -->
+        <div class="tool-section">
+          <div class="side-icons">
+            <div class="side-icon icon-lock"></div>
+            <div class="side-icon icon-plus"></div>
+            <div class="side-icon icon-eye"></div>
+            <div class="side-icon icon-hide"></div>
+            <div class="side-icon icon-copy"></div>
+            <div class="side-icon icon-trash"></div>
+          </div>
+          <div class="panel">
             <h3>Zoom</h3>
-            <div class="z-row">
-              <span class="ghost">−</span>
-              <div class="bar"><i></i></div>
-              <span class="ghost">＋</span>
-              <button class="ghost-btn">Reset</button>
+            <div class="slider-row">
+              <button class="slider-btn">−</button>
+              <div class="slider-track">
+                <div class="slider-thumb"></div>
+              </div>
+              <button class="slider-btn">+</button>
+              <button class="reset-btn">Reset</button>
             </div>
-            <div class="note">10%</div>
-          </section>
+            <div class="percent-text">10%</div>
+          </div>
+        </div>
 
-          <section class="panel">
+        <!-- Opacity section -->
+        <div class="tool-section">
+          <div class="side-icons">
+            <div class="side-icon icon-lock"></div>
+            <div class="side-icon icon-plus"></div>
+            <div class="side-icon icon-eye"></div>
+            <div class="side-icon icon-hide"></div>
+            <div class="side-icon icon-copy"></div>
+            <div class="side-icon icon-trash"></div>
+          </div>
+          <div class="panel">
             <h3>Opacity</h3>
-            <div class="z-row">
-              <span class="ghost">−</span>
-              <div class="bar"><i></i></div>
-              <span class="ghost">＋</span>
-              <button class="ghost-btn">Reset</button>
+            <div class="slider-row">
+              <button class="slider-btn">−</button>
+              <div class="slider-track">
+                <div class="slider-thumb"></div>
+              </div>
+              <button class="slider-btn">+</button>
+              <button class="reset-btn">Reset</button>
             </div>
-            <div class="note">10%</div>
-          </section>
+            <div class="percent-text">10%</div>
+          </div>
+        </div>
 
-          <section class="panel">
+        <!-- Color section -->
+        <div class="tool-section">
+          <div class="side-icons">
+            <div class="side-icon icon-lock"></div>
+            <div class="side-icon icon-plus"></div>
+            <div class="side-icon icon-eye"></div>
+            <div class="side-icon icon-hide"></div>
+            <div class="side-icon icon-copy"></div>
+            <div class="side-icon icon-trash"></div>
+          </div>
+          <div class="panel">
             <h3>Color</h3>
             <div class="swatches">
-              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
-              <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
-              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
+              <!-- 1st row -->
+              <div class="swatch" style="background:#b8b8b8"></div>
+              <div class="swatch" style="background:#ffdd00"></div>
+              <div class="swatch" style="background:#ff9900"></div>
+              <div class="swatch" style="background:#ffb3ba"></div>
+              <!-- 2nd row -->
+              <div class="swatch" style="background:#ff0000"></div>
+              <div class="swatch" style="background:#66ff66"></div>
+              <div class="swatch" style="background:#008844"></div>
+              <div class="swatch" style="background:#87ceeb"></div>
+              <!-- 3rd row -->
+              <div class="swatch" style="background:#0066ff"></div>
+              <div class="swatch" style="background:#9933ff"></div>
+              <div class="swatch" style="background:#8b4513"></div>
+              <div class="swatch" style="background:#808080"></div>
+              <!-- 4th row -->
+              <div class="swatch" style="background:#000000"></div>
+              <div class="swatch add">+</div>
+              <div class="swatch add">+</div>
+              <div class="swatch add">+</div>
+              <!-- 5th row -->
+              <div class="swatch add">+</div>
+              <div class="swatch picker">
+                <span style="font-size:20px">🖊</span>
+              </div>
             </div>
-            <div class="color-actions">
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">…</button>
-            </div>
-          </section>
+          </div>
         </div>
-      </div>
+
+        <!-- Layer panel section -->
+        <div class="layer-section">
+          <div class="layer-panel">
+            <h3>Layer Panel</h3>
+            <div class="layer-content">
+              <!-- レイヤーコンテンツがここに入ります -->
+            </div>
+          </div>
+          <div class="layer-icons">
+            <div class="layer-icon icon-lock"></div>
+            <div class="layer-icon icon-plus"></div>
+            <div class="layer-icon icon-eye"></div>
+            <div class="layer-icon icon-hide"></div>
+            <div class="layer-icon icon-copy"></div>
+            <div class="layer-icon icon-trash"></div>
+          </div>
+        </div>
+
+      </div><!-- /.tool-sections -->
     </aside>
-  </div>
+  </div><!-- /.main -->
+
 </body>
 </html>
