@@ -6,21 +6,21 @@
 <title>Vivora Fashion Illustration 2025</title>
 
 <style>
-  /* ============ TOKENS ============ */
+  /* ===== Tokens ===== */
   :root{
     --bg:#efe7e0; --panel:#ffffff; --line:#e6e0db; --tile:#ece7e1; --text:#333;
     --icon:26px; --st-icon:30px; --radius:12px; --radius-sm:10px;
     --right-col:360px; --rail:60px; --canvas-pad:26px; --gap:16px;
   }
 
-  /* ============ BASE ============ */
+  /* ===== Base ===== */
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff}
   img{display:block;max-width:100%;height:auto}
   button{font:inherit}
 
-  /* ============ TOPBAR（2段） ============ */
+  /* ===== Topbar（2段） ===== */
   .topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
   .row{display:flex;align-items:center;gap:12px}
   .row + .row{margin-top:10px}
@@ -34,7 +34,7 @@
   .mode-switch{display:flex;gap:8px}
   .mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
 
-  /* ============ MAIN（2カラム：キャンバス / 右列） ============ */
+  /* ===== Main（2カラム：キャンバス / 右カラム） ===== */
   .main{
     display:grid; grid-template-columns:1fr var(--right-col);
     gap:22px; padding:18px 16px; background:var(--bg);
@@ -50,8 +50,8 @@
   .right{display:flex;flex-direction:column;gap:var(--gap)}
   .contents-row{display:flex;justify-content:flex-end}
 
-  /* ============ 右カラム：レール + パネル（2カラム同期） ============ */
-  .right-grid{display:grid; grid-template-columns: var(--rail) 1fr; gap:var(--gap)}
+  /* ===== レール + パネル（2カラム同期） ===== */
+  .right-grid{display:grid; grid-template-columns:var(--rail) 1fr; gap:var(--gap)}
 
   /* 左レール（縦5箱） */
   .tool-rail{display:flex;flex-direction:column;gap:var(--gap)}
@@ -59,10 +59,8 @@
     background:#fff; border:1px solid var(--line);
     border-radius:var(--radius); height:96px; position:relative;
   }
-  /* Layer用だけ高さを拡張 */
-  .rail-box.layer{height:180px; padding:8px}
 
-  /* 右パネル群 */
+  /* 右の各パネル */
   .panel-col{display:flex;flex-direction:column;gap:var(--gap)}
   .panel{
     background:#fff; border:1px solid var(--line);
@@ -74,7 +72,7 @@
   .st-row{display:flex;gap:12px}
   .st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
 
-  /* Zoom / Opacity （外観のみ） */
+  /* Zoom / Opacity（外観のみ） */
   .z-row{display:flex;align-items:center;gap:12px}
   .ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
   .bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
@@ -87,42 +85,43 @@
   .swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
   .color-actions{display:flex;gap:8px}
 
-  /* ============ Layer：四角の中に3つ / 外に4つ（レール5段目） ============ */
-  /* レール内を2列グリッドに：左＝白カード / 右＝外側ツール列 */
+  /* ===== Layer（レール5段目：四角の中3／外4） ===== */
+  .rail-box.layer{height:180px; padding:8px}
+  /* レール内を2列：左=白カード / 右=外ツール列 */
   .rail-box.layer .layer-grid{
     display:grid; grid-template-columns: 1fr 32px; gap:12px; height:100%;
   }
-  /* 白いカード（左列いっぱい） */
-  .rail-box.layer .layer-card{
-    width:100%; height:100%; background:#fff; border:1px solid var(--line); border-radius:18px; position:relative;
+  /* 白いカード（左全面） */
+  .rail-box.layer .card{
+    width:100%; height:100%; background:#fff;
+    border:1px solid var(--line); border-radius:18px; position:relative;
   }
-  /* 白カードの右上に縦3つ（内側） */
-  .rail-box.layer .layer-side{
+  /* 白カード右上の縦3つ（内側） */
+  .rail-box.layer .card .side{
     position:absolute; top:10px; right:10px;
     display:flex; flex-direction:column; gap:12px; align-items:center;
   }
-  .rail-box.layer .layer-side img{width:22px;height:22px;object-fit:contain}
+  .rail-box.layer .card .side img{width:22px;height:22px;object-fit:contain}
 
   /* 外側の縦4つ（右列） */
-  .rail-box.layer .layer-outer{
-    display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:flex-start; padding-top:0;
+  .rail-box.layer .tools{
+    display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:flex-start;
   }
-  .rail-box.layer .layer-outer img{width:24px;height:24px;object-fit:contain}
-
+  .rail-box.layer .tools img{width:24px;height:24px;object-fit:contain}
 </style>
 </head>
 <body>
 
-  <!-- ========== TOP ========== -->
+  <!-- ===== Topbar ===== -->
   <div class="topbar">
-    <!-- 1段目：Title / Next（2D/3Dはあなたの修正に従って2段目へ） -->
+    <!-- 1段目：Title / Next -->
     <div class="row">
       <div class="page-title">Vivora Fashion Illustration 2025</div>
       <div class="flex-1"></div>
       <button class="next-btn">Next Step ››</button>
     </div>
 
-    <!-- 2段目：Gender + History + 2D/3D（あなたの配置を維持） -->
+    <!-- 2段目：Gender + History + 2D/3D（あなたの配置を尊重） -->
     <div class="row">
       <nav class="gender-switch">
         <button>Woman</button><button>Man</button><button>Kids</button>
@@ -135,21 +134,19 @@
         <img class="tile" src="../../create_parts/create_button/upload.png" alt="Upload">
         <img class="tile" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
         <img class="tile" src="../../create_parts/create_button/save.png" alt="Save">
-
-        <!-- 2D/3D はここに -->
         <div class="mode-switch"><button>2D</button><button>3D</button></div>
       </div>
     </div>
   </div>
 
-  <!-- ========== MAIN ========== -->
+  <!-- ===== Main ===== -->
   <div class="main">
-    <!-- 左：キャンバス -->
+    <!-- キャンバス -->
     <section class="canvas">
       <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
     </section>
 
-    <!-- 右：contents（上）＋ right-grid（レール&パネル） -->
+    <!-- 右：contents + レール/パネル -->
     <aside class="right">
       <div class="contents-row">
         <div class="tiles">
@@ -164,28 +161,25 @@
         </div>
       </div>
 
-      <!-- 2カラム同期：左レール / 右パネル -->
       <div class="right-grid">
-        <!-- 左：縦レール（上から Stationery / Zoom / Opacity / Color / Layer） -->
+        <!-- 左：縦レール（Stationery / Zoom / Opacity / Color / Layer） -->
         <div class="tool-rail">
           <div class="rail-box" title="Stationery rail"></div>
           <div class="rail-box" title="Zoom rail"></div>
           <div class="rail-box" title="Opacity rail"></div>
           <div class="rail-box" title="Color rail"></div>
 
-          <!-- ✅ 最下段：Layer rail（内3／外4） -->
+          <!-- ✅ 最下段：Layer rail（四角の中3／外4） -->
           <div class="rail-box layer" title="Layer rail">
             <div class="layer-grid">
-              <!-- 左：白カード -->
-              <div class="layer-card">
-                <div class="layer-side">
+              <div class="card">
+                <div class="side">
                   <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
                   <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
                   <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
                 </div>
               </div>
-              <!-- 右：外側の縦4つ -->
-              <div class="layer-outer">
+              <div class="tools">
                 <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
                 <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
                 <img src="../../create_parts/layer_button/layerpanel.png"         alt="Upload">
@@ -195,7 +189,7 @@
           </div>
         </div>
 
-        <!-- 右：各パネル（Stationery / Zoom / Opacity / Color） -->
+        <!-- 右：各パネル -->
         <div class="panel-col">
           <section class="panel">
             <h3>Stationery</h3>
@@ -235,7 +229,6 @@
             <div class="swatches">
               <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
               <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
-              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
             </div>
             <div class="color-actions">
               <button class="ghost-btn">+</button>
