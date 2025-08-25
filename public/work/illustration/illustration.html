@@ -1,80 +1,160 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Vivora Fashion Illustration 2025</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vivora Fashion Illustration 2025</title>
+  <style>
+    :root {
+      --bg: #efe7e0;
+      --panel: #ffffff;
+      --line: #e6e0db;
+      --tile: #ece7e1;
+      --text: #333;
+      --icon: 26px;
+      --st-icon: 30px;
+      --radius: 12px;
+      --radius-sm: 10px;
+      --right-col: 360px;
+      --rail: 60px;
+      --canvas-pad: 26px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: #fff;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    button { font: inherit; }
 
-<style>
-  :root{
-    --bg:#efe7e0;
-    --panel:#ffffff;
-    --line:#e6e0db;
-    --tile:#ece7e1;
-    --text:#333;
-    --icon:26px;
-    --st-icon:30px;
-    --radius:12px;
-    --radius-sm:10px;
-    --right-col:360px;
-    --rail:60px;
-    --canvas-pad:26px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:#fff}
-  img{display:block;max-width:100%;height:auto}
-  button{font:inherit}
+    .topbar { padding: 14px 16px; background: var(--bg); border-bottom: 1px solid var(--line); }
+    .row { display: flex; align-items: center; gap: 12px; }
+    .row + .row { margin-top: 10px; }
+    .page-title { font-size: 16px; font-weight: 600; }
+    .flex-1 { flex: 1; }
+    .mode-switch { display: flex; gap: 8px; }
+    .mode-switch button {
+      padding: 6px 14px; border: 1px solid var(--line);
+      background: var(--tile); border-radius: 10px;
+    }
+    .next-btn {
+      padding: 8px 14px; border: 1px solid var(--line);
+      background: var(--panel); border-radius: 12px;
+    }
+    .gender-switch { display: flex; gap: 8px; }
+    .gender-switch button {
+      padding: 6px 12px; border: 1px solid var(--line);
+      background: #fff; border-radius: 8px;
+    }
+    .tiles { display: flex; gap: 8px; }
+    .tile {
+      width: var(--icon); height: var(--icon); padding: 6px;
+      background: var(--tile); border: 1px solid var(--line);
+      border-radius: var(--radius-sm); object-fit: contain;
+    }
 
-  .topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
-  .row{display:flex;align-items:center;gap:12px}
-  .row + .row{margin-top:10px}
-  .page-title{font-size:16px;font-weight:600}
-  .flex-1{flex:1}
-  .mode-switch{display:flex;gap:8px}
-  .mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
-  .next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
-  .gender-switch{display:flex;gap:8px}
-  .gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
-  .tiles{display:flex;gap:8px}
-  .tile{width:var(--icon);height:var(--icon);padding:6px;background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain}
+    .main {
+      display: grid;
+      grid-template-columns: 1fr var(--right-col);
+      gap: 22px;
+      padding: 18px 16px;
+      background: var(--bg);
+      min-height: calc(100vh - 78px);
+    }
+    .canvas {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: var(--canvas-pad);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mannequin { max-width: 420px; }
+    .right { display: flex; flex-direction: column; gap: 16px; }
+    .contents-row { display: flex; justify-content: flex-end; }
+    .right-grid {
+      display: grid;
+      grid-template-columns: var(--rail) 1fr;
+      gap: 16px;
+    }
+    .tool-rail {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .rail-box {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: var(--radius); height: 96px;
+    }
+    .panel-col {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .panel {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .panel h3 { font-size: 14px; font-weight: 700; }
+    .st-row { display: flex; gap: 12px; }
+    .st-btn {
+      width: var(--st-icon); height: var(--st-icon);
+      padding: 6px; border: 1px solid var(--line);
+      background: #fff; border-radius: 10px;
+      object-fit: contain;
+    }
+    .z-row { display: flex; align-items: center; gap: 12px; }
+    .ghost {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px;
+      border: 1px solid var(--line); border-radius: 8px; background: #fff;
+    }
+    .bar {
+      position: relative; flex: 1; height: 6px;
+      border: 1px solid var(--line); border-radius: 999px;
+      background: linear-gradient(90deg,#dcd6cf,#a8a19b);
+    }
+    .bar i {
+      position: absolute; top: -5px; left: 20%;
+      width: 14px; height: 14px; background: #fff;
+      border: 1px solid var(--line); border-radius: 50%;
+    }
+    .ghost-btn {
+      padding: 6px 10px; border: 1px solid var(--line);
+      background: #fff; border-radius: 8px;
+    }
+    .note { font-size: 12px; color: #777; }
+    .swatches {
+      display: grid; grid-template-columns: repeat(5, 28px); gap: 10px;
+    }
+    .swatches div {
+      width: 28px; height: 28px;
+      border-radius: 8px; border: 1px solid var(--line);
+    }
+    .color-actions { display: flex; gap: 8px; }
 
-  .main{display:grid;grid-template-columns:1fr var(--right-col);gap:22px;padding:18px 16px;background:var(--bg);min-height:calc(100vh - 78px)}
-  .canvas{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:var(--canvas-pad);display:flex;align-items:center;justify-content:center}
-  .mannequin{max-width:420px}
-  .right{display:flex;flex-direction:column;gap:16px}
-  .contents-row{display:flex;justify-content:flex-end}
+    .layer-wrap {
+      display: grid;
+      grid-template-columns: 1fr 32px 32px;
+      gap: 12px;
+      align-items: start;
+    }
+    .layer-card {
+      height: 180px; background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px; padding: 12px;
+    }
+    .layer-side, .layer-tool {
+      display: flex; flex-direction: column;
+      gap: 12px; align-items: center;
+    }
+    .layer-side img { width: 22px; height: 22px; object-fit: contain; }
+    .layer-tool img { width: 24px; height: 24px; object-fit: contain; }
 
-  .right-grid{display:grid;grid-template-columns:var(--rail) 1fr;gap:16px}
-  .tool-rail{display:flex;flex-direction:column;gap:16px}
-  .rail-box{background:#fff;border:1px solid var(--line);border-radius:var(--radius);height:96px}
-  .panel-col{display:flex;flex-direction:column;gap:16px}
-  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:12px}
-  .panel h3{font-size:14px;font-weight:700}
-  .st-row{display:flex;gap:12px}
-  .st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
-  .z-row{display:flex;align-items:center;gap:12px}
-  .ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
-  .bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
-  .bar i{position:absolute;top:-5px;left:20%;width:14px;height:14px;background:#fff;border:1px solid var(--line);border-radius:50%}
-  .ghost-btn{padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:8px}
-  .note{font-size:12px;color:#777}
-  .swatches{display:grid;grid-template-columns:repeat(5,28px);gap:10px}
-  .swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
-  .color-actions{display:flex;gap:8px}
-
-  .layer-wrap{display:grid;grid-template-columns:1fr 32px 32px;gap:12px;align-items:start}
-  .layer-card{height:180px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px}
-  .layer-side,.layer-tool{display:flex;flex-direction:column;gap:12px;align-items:center}
-  .layer-side img{width:22px;height:22px;object-fit:contain}
-  .layer-tool img{width:24px;height:24px;object-fit:contain}
-
-  @media (max-width:1024px){
-    .main{grid-template-columns:1fr}
-    .right-grid{grid-template-columns:1fr}
-    .contents-row{justify-content:flex-start}
-  }
-</style>
+    @media (max-width: 1024px) {
+      .main { grid-template-columns: 1fr; }
+      .right-grid { grid-template-columns: 1fr; }
+      .contents-row { justify-content: flex-start; }
+    }
+  </style>
 </head>
 <body>
   <div class="topbar">
@@ -121,14 +201,31 @@
 
       <div class="right-grid">
         <div class="tool-rail">
+          <div class="rail-box" title="Layer panel"></div>
           <div class="rail-box" title="Stationery tool"></div>
           <div class="rail-box" title="Zoom bar"></div>
           <div class="rail-box" title="Opacity bar"></div>
           <div class="rail-box" title="Color panel"></div>
-          <div class="rail-box" title="Layer panel"></div>
         </div>
 
         <div class="panel-col">
+          <!-- ✅ Layer パネル最上段 -->
+          <div class="layer-wrap">
+            <div class="layer-card">
+              <div class="layer-side">
+                <img src="../../create_parts/layer_button/layerlock.png" alt="Lock">
+                <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+                <img src="../../create_parts/layer_button/layerhidden.png" alt="Hide">
+              </div>
+            </div>
+            <div class="layer-tool">
+              <img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png" alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete">
+            </div>
+          </div>
+
           <section class="panel">
             <h3>Stationery</h3>
             <div class="st-row">
@@ -165,9 +262,14 @@
           <section class="panel">
             <h3>Color</h3>
             <div class="swatches">
-              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
-              <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
-              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
+              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div>
+              <div style="background:#ffd85e"></div><div style="background:#ffa23c"></div>
+              <div style="background:#f0514f"></div><div style="background:#49b062"></div>
+              <div style="background:#77c6ff"></div><div style="background:#4c73d3"></div>
+              <div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
+              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div>
+              <div style="background:#a9a9a9"></div><div style="background:#704c23"></div>
+              <div style="background:#000"></div>
             </div>
             <div class="color-actions">
               <button class="ghost-btn">+</button>
@@ -175,25 +277,6 @@
               <button class="ghost-btn">…</button>
             </div>
           </section>
-
-          <section class="panel">
-            <div class="layer-wrap">
-              <div class="layer-card">
-                <div class="layer-side">
-                  <img src="../../create_parts/layer_button/layerlock.png" alt="Lock">
-                  <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-                  <img src="../../create_parts/layer_button/layerhidden.png" alt="Hide">
-                </div>
-              </div>
-              <div class="layer-tool">
-                <img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add Layer">
-                <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate Layer">
-                <img src="../../create_parts/layer_button/layerpanel.png" alt="Download Layer">
-                <img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete Layer">
-              </div>
-            </div>
-          </section>
-
         </div>
       </div>
     </aside>
