@@ -196,3 +196,29 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
+/* === Layer Panel === */
+.layer-wrap {
+  display: grid;
+  grid-template-columns: 1fr 32px 32px;
+  gap: 12px;
+  align-items: start;
+}
+.layer-card {
+  height: 180px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 12px;
+}
+.layer-side, .layer-tool {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.layer-side img,
+.layer-tool img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
