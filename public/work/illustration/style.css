@@ -196,3 +196,27 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
+/* ==== NEW: Layer (left rail icons + right white cards) ==== */
+
+/* 左レール：縦4アイコンを中央に */
+.vfi-layer { height:118px; }
+.vfi-layer .vfi-layer-outer{
+  position:absolute; top:8px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; gap:10px; align-items:center;
+}
+.vfi-layer .vfi-layer-outer img{
+  width:24px; height:24px; object-fit:contain;
+  background:#fff; border:1px solid var(--line); border-radius:10px; padding:6px;
+}
+
+/* 右側の白カード（右上に3アイコン） */
+.vfi-layer-card{
+  position:relative; height:118px;
+  background:#fff; border:1px solid var(--line);
+  border-radius:18px; padding:12px;
+}
+.vfi-layer-icons{
+  position:absolute; top:12px; right:12px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.vfi-layer-icons img{ width:22px; height:22px; object-fit:contain; }
