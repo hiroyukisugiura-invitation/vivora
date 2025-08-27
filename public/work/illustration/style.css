@@ -1,5 +1,5 @@
 /* =======================================
-   Vivora Illustration — UI Stylesheet (v3)
+   Vivora Illustration — UI Stylesheet (Final)
 ======================================= */
 
 /* 1. 基本設定と変数定義 */
@@ -203,6 +203,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   padding: 6px;
   border: 1px solid #eee;
   border-radius: var(--radius-md);
+  cursor: pointer;
 }
 
 /* 10. スライダーとカラーピッカーのスタイル */
@@ -247,7 +248,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 .color-actions { display: flex; gap: 8px; margin-top: 12px; }
 
 /* 11. レスポンシブ対応 */
-@media (max-width: 1024px) {
+@media (max-width: 1000px) {
   .main-container {
     grid-template-columns: 1fr;
     height: auto;
