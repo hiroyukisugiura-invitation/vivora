@@ -210,3 +210,25 @@ button{font:inherit;cursor:pointer}
 .right-grid{ grid-template-columns: var(--rail) 1fr !important; }
 @media (max-width:760px){ .right-grid{ grid-template-columns:1fr !important; } }
 .rail-box.layer, .layer-wrap{ display:none !important; }   /* 旧レイヤー系は非表示 */
+/* ===== Layer rail — strict sizing (final) ===== */
+.tool-rail .rail-box{ height:118px !important; }  /* 右カードと同じ高さに統一 */
+
+.vfi-layer .vfi-layer-outer{
+  position:absolute; top:8px; bottom:8px; left:50%; transform:translateX(-50%);
+  width:40px; background:#fff; border:1px solid var(--line); border-radius:12px;
+  display:grid; grid-template-rows:repeat(4,1fr); place-items:center;
+  padding:6px 0; overflow:hidden;
+}
+
+/* ← ここで画像サイズを“絶対”固定（他CSSに勝つ） */
+.vfi-layer .vfi-layer-outer .ico{
+  width:18px !important; height:18px !important;
+  max-width:none !important; max-height:none !important;
+  padding:4px; background:#fff; border:1px solid var(--line); border-radius:9px;
+  object-fit:contain; display:block;
+}
+
+/* レイアウト固定＋旧スタイル無効化（保険） */
+.right-grid{ grid-template-columns: var(--rail) 1fr !important; }
+@media (max-width:760px){ .right-grid{ grid-template-columns:1fr !important; } }
+.rail-box.layer, .layer-wrap{ display:none !important; }
