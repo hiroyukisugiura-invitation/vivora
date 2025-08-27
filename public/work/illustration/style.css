@@ -144,3 +144,43 @@ button{font:inherit;cursor:pointer}
 
 /* ============ Safety: disable legacy layer styles if present ============ */
 .rail-box.layer, .layer-wrap{ display:none !important; }
+/* ===== Layer rail v2: span背景アイコンで固定表示 ===== */
+:root{
+  --layer-row-h:118px;      /* 行の高さ（右カードと一致） */
+  --layer-rail-w:40px;      /* 縦帯の幅 */
+  --layer-ico:18px;         /* アイコンサイズ（全レイヤー共通） */
+}
+
+/* 左レールの各行：高さだけ上書き */
+.tool-rail .rail-box.rail-v2{ height: var(--layer-row-h); position:relative; }
+
+/* 縦帯（白）を中央に配置して4つを等間隔配置 */
+.rail-v2 .band{
+  position:absolute; top:8px; bottom:8px; left:50%; transform:translateX(-50%);
+  width:var(--layer-rail-w);
+  background:#fff; border:1px solid var(--line); border-radius:12px;
+  display:grid; grid-template-rows: repeat(4, 1fr); place-items:center;  /* ←均等割り */
+  padding:6px 0;
+}
+
+/* アイコン共通（span背景） */
+.rail-v2 .ico{
+  width:var(--layer-ico); height:var(--layer-ico);
+  background-size:contain; background-position:center; background-repeat:no-repeat;
+  border:1px solid var(--line); border-radius:9px; background-color:#fff;
+}
+
+/* 画像パスをここで一元管理（PNG差し替えもここだけ） */
+.rail-v2 .ico.plus { background-image:url("../../create_parts/layer_button/layerpanelplus.png"); }
+.rail-v2 .ico.dup  { background-image:url("../../create_parts/layer_button/layerreproduction.png"); }
+.rail-v2 .ico.up   { background-image:url("../../create_parts/layer_button/layerpanel.png"); }
+.rail-v2 .ico.del  { background-image:url("../../create_parts/layer_button/layerdestruction.png"); }
+
+/* レイアウトは2カラム固定（崩れ防止） */
+.right-grid{ grid-template-columns: var(--rail) 1fr !important; }
+@media (max-width:760px){
+  .right-grid{ grid-template-columns:1fr !important; }
+}
+
+/* 旧スタイルは使わない（万一残っていても非表示に） */
+.rail-box.layer, .layer-wrap{ display:none !important; }
