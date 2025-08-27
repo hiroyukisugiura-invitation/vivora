@@ -66,7 +66,9 @@ button{font:inherit}
 .tool-rail{display:flex;flex-direction:column;gap:var(--gap)}
 .rail-box{
   background:#fff; border:1px solid var(--line);
-  border-radius:var(--radius); height:96px; position:relative;
+  border-radius:var(--radius); height:96px; 
+  /* position:relative; はこの後のレイヤーパネルで使うので残します */
+  position:relative; 
 }
 
 /* 右パネル群 */
@@ -94,54 +96,45 @@ button{font:inherit}
 .swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
 .color-actions{display:flex;gap:8px}
 
-/* ============ Layer：【成功例のレイアウトに戻す】 ============ */
+/* ============ Layer：【Flexboxで作り直した最終版】 ============ */
 .rail-box.layer {
   height: 180px;
-  padding: 0;
+  /* ★ Flexboxレイアウトを適用 */
+  display: flex;
+  flex-direction: column;      /* 子要素を縦に並べる */
+  justify-content: space-between; /* 上下の子要素を両端に引き離す */
+  align-items: flex-end;         /* 全ての子要素を右端に揃える */
+  padding: 10px 12px;          /* 内側の余白 */
 }
-/* 上段のアイコン（Lock, eye...）*/
-.rail-box.layer .layer-card {
-  /* ★ 位置指定を復活 */
-  position: absolute;
-  top: 10px;
-  right: 12px;
 
-  /* ▼ 不要なスタイルを削除 */
+/* 上下のアイコンのグループから、古い位置指定を全て削除 */
+.rail-box.layer .layer-card,
+.rail-box.layer .layer-outer {
+  position: static; /* ★ position指定をリセット */
   width: auto;
   height: auto;
   background: none;
   border: none;
-  padding: 0;
   
-  /* ▼ アイコンを縦に並べて間隔を指定 */
+  /* グループ内のアイコンを縦に並べる */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
 }
+
 .rail-box.layer .layer-card img {
   width: 22px;
   height: 22px;
   object-fit: contain;
 }
-/* 下段のアイコン（+, duplicate...）*/
-.rail-box.layer .layer-outer {
-  /* ★ 位置指定を復活 */
-  position: absolute;
-  bottom: 10px;
-  right: 12px;
 
-  /* ▼ アイコンを縦に並べて間隔を指定 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
 .rail-box.layer .layer-outer img {
   width: 24px;
   height: 24px;
   object-fit: contain;
 }
+
 
 /* ============ Responsive ============ */
 @media (max-width:1024px){
