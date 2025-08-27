@@ -96,33 +96,41 @@ button{font:inherit}
 .color-actions{display:flex;gap:8px}
 
 /* ============ Layer ============ */
-/* 左レールの Layer 行を「箱の中で」上/中/下に配置 */
-.tool-rail .rail-box.layer{
-  height:420px;                 /* ← 長い四角→大きいカードに */
-  position:relative;
-  padding:10px 8px;             /* 内側余白（左右は狭め） */
+.rail-box.layer {
+  height: 180px;
 }
-
-.rail-box.layer .rail-stack{
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between; /* 上端／中央／下端に三分割 */
-  align-items:center;
+.rail-box.layer .layer-card {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: auto;
+  height: auto;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
-
-/* 3グループ */
-.rail-stack .g-top,
-.rail-stack .g-mid,
-.rail-stack .g-btm{
-  display:flex; flex-direction:column; align-items:center; gap:10px;
+.rail-box.layer .layer-card img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
 }
-
-/* アイコンサイズ */
-.rail-box.layer img{ width:26px; height:26px; object-fit:contain }
-.rail-box.layer img.big{ width:44px; height:44px } /* ＋ を大きく */
-.rail-box.layer img.trash{ margin-top:0 }          /* 明示（下端に置くのは親で制御） */
-
+.rail-box.layer .layer-outer {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.rail-box.layer .layer-outer img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
 
 /* ============ Responsive ============ */
 @media (max-width:1024px){
