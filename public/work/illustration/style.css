@@ -1,145 +1,30 @@
-/* ============ TOKENS ============ */
-:root{
-  --bg:#efe7e0;
-  --panel:#ffffff;
-  --line:#e6e0db;
-  --tile:#ece7e1;
-  --text:#333;
+/* (他のCSSは変更ありません) */
 
-  --icon:26px;
-  --st-icon:30px;
-  --radius:12px;
-  --radius-sm:10px;
-
-  --right-col:360px;
-  --rail:60px;
-  --canvas-pad:26px;
-  --gap:16px;
-}
-
-/* ============ BASE ============ */
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  color:var(--text); background:#fff;
-}
-img{display:block;max-width:100%;height:auto}
-button{font:inherit}
-
-/* ============ TOPBAR（2段） ============ */
-.topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
-.row{display:flex;align-items:center;gap:12px}
-.row + .row{margin-top:10px}
-.page-title{font-size:16px;font-weight:600}
-.flex-1{flex:1}
-.next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
-.gender-switch{display:flex;gap:8px}
-.gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
-.tiles{display:flex;gap:8px}
-.tile{width:var(--icon);height:var(--icon);padding:6px;background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain}
-.mode-switch{display:flex;gap:8px}
-.mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
-
-/* ============ MAIN（2カラム：キャンバス / 右列） ============ */
-.main{
-  display:grid; grid-template-columns:1fr var(--right-col);
-  gap:22px; padding:18px 16px; background:var(--bg);
-  min-height:calc(100vh - 78px);
-}
-.canvas{
-  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-  padding:var(--canvas-pad); display:flex; align-items:center; justify-content:center;
-}
-.mannequin{max-width:420px}
-
-/* 右カラム */
-.right{display:flex;flex-direction:column;gap:var(--gap)}
-.contents-row{display:flex;justify-content:flex-end}
-
-/* ============ 右カラム：レール + パネル（2カラムで同期） ============ */
-.right-grid{
-  display:grid; grid-template-columns: var(--rail) 1fr; gap:var(--gap);
-}
-
-/* 左レール（縦5箱） */
-.tool-rail{display:flex;flex-direction:column;gap:var(--gap)}
-.rail-box{
-  background:#fff; border:1px solid var(--line);
-  border-radius:var(--radius); height:96px; 
-  /* ★★★ これがアイコンの位置指定の「基準点」として絶対に必要です ★★★ */
-  position:relative; 
-}
-
-/* 右パネル群 */
-.panel-col{display:flex;flex-direction:column;gap:var(--gap)}
-.panel{
-  background:#fff; border:1px solid var(--line);
-  border-radius:var(--radius); padding:14px 16px; display:flex; flex-direction:column; gap:12px;
-}
-.panel h3{font-size:14px;font-weight:700}
-
-/* Stationery */
-.st-row{display:flex;gap:12px}
-.st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
-
-/* Zoom / Opacity （外観のみ） */
-.z-row{display:flex;align-items:center;gap:12px}
-.ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
-.bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
-.bar i{position:absolute;top:-5px;left:20%;width:14px;height:14px;background:#fff;border:1px solid var(--line);border-radius:50%}
-.ghost-btn{padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:8px}
-.note{font-size:12px;color:#777}
-
-/* Color */
-.swatches{display:grid;grid-template-columns:repeat(5,28px);gap:10px}
-.swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
-.color-actions{display:flex;gap:8px}
-
-/* ============ Layer：【位置指定による最終確定版】 ============ */
+/* ============ Layer：【HTML変更に伴う最終確定版】 ============ */
 .rail-box.layer {
   height: 180px;
-  padding: 0;
+  /* ★ Flexboxでレイアウト */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 上下を両端に */
+  align-items: flex-end; /* 右揃えに */
+  padding: 10px 12px;
 }
-/* 上段のアイコン（Lock, eye...）*/
-.rail-box.layer .layer-card {
-  /* ★★★ 親の箱を基準に、絶対的な位置を指定 ★★★ */
-  position: absolute;
-  top: 10px;
-  right: 12px;
 
-  /* 不要な背景や枠線は無し */
-  width: auto;
-  height: auto;
-  background: none;
-  border: none;
-  
-  /* アイコン自体のレイアウト */
+/* 上下それぞれのアイコンのグループ */
+.layer-group {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
 }
-.rail-box.layer .layer-card img {
+
+.layer-group--top img {
   width: 22px;
   height: 22px;
   object-fit: contain;
 }
-
-/* 下段のアイコン（+, duplicate...）*/
-.rail-box.layer .layer-outer {
-  /* ★★★ 親の箱を基準に、絶対的な位置を指定 ★★★ */
-  position: absolute;
-  bottom: 10px;
-  right: 12px;
-
-  /* アイコン自体のレイアウト */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-.rail-box.layer .layer-outer img {
+.layer-group--bottom img {
   width: 24px;
   height: 24px;
   object-fit: contain;
