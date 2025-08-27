@@ -196,68 +196,16 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
-/* ===== Layer: 2枚目のカタチに揃える ===== */
+/* ===== LAYER — final minimal (clean) ===== */
 
-/* 左レール：各段の高さをカードと一致させる */
-.vfi-layer{ height:118px; }
+/* 左レールの高さ：通常96px／レイヤー行だけ118px */
+.tool-rail .rail-box { height:96px; }
+.vfi-layer { height:118px; }
 
-/* 縦4アイコン帯（行の右端に細く配置） */
-.vfi-layer .vfi-layer-outer{
-  position:absolute;
-  top:8px; bottom:8px;
-  left:50%; transform:translateX(-50%);
-  width:44px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:16px;
-  display:flex; flex-direction:column;
-  justify-content:space-between; align-items:center;
-  padding:8px 0;
-}
-.vfi-layer .vfi-layer-outer img{
-  width:22px; height:22px; object-fit:contain;
-  background:#fff; border:1px solid var(--line); border-radius:10px; padding:5px;
-}
-
-/* 右側：白カード（右上3アイコン）×5 */
-.vfi-layer-card{
-  position:relative; height:118px;
-  background:#fff; border:1px solid var(--line);
-  border-radius:18px; padding:12px;
-}
-.vfi-layer-icons{
-  position:absolute; top:12px; right:12px;
-  display:flex; flex-direction:column; gap:12px;
-}
-.vfi-layer-icons img{ width:22px; height:22px; object-fit:contain; }
-
-/* 2カラム固定（崩れ防止） */
-.right-grid{ grid-template-columns: var(--rail) 1fr !important; }
-@media (max-width:760px){
-  .right-grid{ grid-template-columns:1fr !important; }
-}
-
-/* 旧レイヤーブロックを使っていない場合は無効化（任意） */
-.rail-box.layer{ display:none; }
-/* ====== layer_revert_patch.css —— 最後に1回だけ読み込む ====== */
-
-/* 1) レイアウトは常に2カラム固定（狭い時だけ1カラム） */
-.right-grid{ grid-template-columns: var(--rail) 1fr !important; }
-@media (max-width:760px){
-  .right-grid{ grid-template-columns: 1fr !important; }
-}
-
-/* 2) 旧レイヤーブロックは使わない（誤表示防止） */
-.rail-box.layer{ display:none !important; }
-
-/* 3) 左レール：基本は従来の96px、高さ調整が必要な段だけ vfi-layer を使う */
-.tool-rail .rail-box{ height:96px; }
-.vfi-layer{ height:118px; } /* レイヤー行のみ少し高く */
-
-/* 4) 縦4アイコン帯（シンプル版） */
+/* 左レール：縦4アイコン帯（中央に細く） */
 .vfi-layer .vfi-layer-outer{
   position:absolute; top:8px; bottom:8px; left:50%; transform:translateX(-50%);
-  width:40px;                      /* スリムで統一 */
+  width:40px;
   display:flex; flex-direction:column; justify-content:space-between; align-items:center;
   padding:6px 0;
   background:#fff; border:1px solid var(--line); border-radius:12px;
@@ -267,7 +215,7 @@ button{font:inherit}
   background:#fff; border:1px solid var(--line); border-radius:9px;
 }
 
-/* 5) 右列：レイヤー白カード（右上3アイコン）——最少定義 */
+/* 右列：レイヤー白カード（右上3アイコン） */
 .vfi-layer-card{
   position:relative; height:118px;
   background:#fff; border:1px solid var(--line); border-radius:18px; padding:12px;
@@ -276,7 +224,8 @@ button{font:inherit}
   position:absolute; top:12px; right:12px;
   display:flex; flex-direction:column; gap:12px;
 }
-.vfi-layer-icons img{ width:22px; height:22px; object-fit:contain; }
+.vfi-layer-icons img{ width:22px; height:22px; }
 
-/* 6) 見出しの余白だけ軽く（従来トーンへ） */
-.panel h3{ margin-bottom:6px; }
+/* レイアウトは従来の2カラムを維持（スマホだけ1カラム） */
+.right-grid{ grid-template-columns: var(--rail) 1fr; }
+@media (max-width:760px){ .right-grid{ grid-template-columns:1fr; } }
