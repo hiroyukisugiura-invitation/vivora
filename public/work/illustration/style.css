@@ -196,3 +196,46 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
+/* ===== Layer: 2枚目のカタチに揃える ===== */
+
+/* 左レール：各段の高さをカードと一致させる */
+.vfi-layer{ height:118px; }
+
+/* 縦4アイコン帯（行の右端に細く配置） */
+.vfi-layer .vfi-layer-outer{
+  position:absolute;
+  top:8px; bottom:8px;
+  left:50%; transform:translateX(-50%);
+  width:44px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  display:flex; flex-direction:column;
+  justify-content:space-between; align-items:center;
+  padding:8px 0;
+}
+.vfi-layer .vfi-layer-outer img{
+  width:22px; height:22px; object-fit:contain;
+  background:#fff; border:1px solid var(--line); border-radius:10px; padding:5px;
+}
+
+/* 右側：白カード（右上3アイコン）×5 */
+.vfi-layer-card{
+  position:relative; height:118px;
+  background:#fff; border:1px solid var(--line);
+  border-radius:18px; padding:12px;
+}
+.vfi-layer-icons{
+  position:absolute; top:12px; right:12px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.vfi-layer-icons img{ width:22px; height:22px; object-fit:contain; }
+
+/* 2カラム固定（崩れ防止） */
+.right-grid{ grid-template-columns: var(--rail) 1fr !important; }
+@media (max-width:760px){
+  .right-grid{ grid-template-columns:1fr !important; }
+}
+
+/* 旧レイヤーブロックを使っていない場合は無効化（任意） */
+.rail-box.layer{ display:none; }
