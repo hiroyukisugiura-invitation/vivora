@@ -110,13 +110,13 @@
     background:#fff; border:1px solid var(--line); border-radius:18px;
     padding:10px; display:flex; flex-direction:column; align-items:flex-end; gap:12px;
   }
-  .rail-box.layer .layer-card img{width:22px;height:22px;object-fit:contain}
+  .rail-box.layer .layer-card img{width:auto;height:auto;object-fit:contain}
 
   .rail-box.layer .layer-outer{
     position:absolute; top:8px; right:8px;
     display:flex; flex-direction:column; align-items:center; gap:12px;
   }
-  .rail-box.layer .layer-outer img{width:24px;height:24px;object-fit:contain}
+  .rail-box.layer .layer-outer img{width:auto;height:auto;object-fit:contain}
 
   /* ============ Responsive ============ */
   @media (max-width:1024px){
@@ -183,10 +183,46 @@
       <div class="right-grid">
         <!-- 左：縦レール（5箱） -->
         <div class="tool-rail">
-          <div class="rail-box" title="Stationery rail"></div>
-          <div class="rail-box" title="Zoom rail"></div>
-          <div class="rail-box" title="Opacity rail"></div>
-          <div class="rail-box" title="Color rail"></div>
+          <!-- row 1 -->
+          <div class="rail-box" title="Stationery rail">
+            <!-- 外側の縦4つ（PNGそのまま） -->
+            <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
+          </div>
+
+          <!-- row 2 -->
+          <div class="rail-box" title="Zoom rail">
+            <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
+          </div>
+
+          <!-- row 3 -->
+          <div class="rail-box" title="Opacity rail">
+            <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
+          </div>
+
+          <!-- row 4 -->
+          <div class="rail-box" title="Color rail">
+            <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
+          </div>
 
           <!-- ✅ 最下段：Layer rail（内3／外4） -->
           <div class="rail-box layer" title="Layer rail">
@@ -208,7 +244,13 @@
 
         <!-- 右：各パネル（Stationery/Zoom/Opacity/Color） -->
         <div class="panel-col">
-          <section class="panel">
+          <!-- 右上3アイコンを各パネルの中に“そのまま”配置 -->
+          <section class="panel" style="position:relative;">
+            <div style="position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:12px;">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
             <h3>Stationery</h3>
             <div class="st-row">
               <img class="st-btn" src="../../create_parts/design_button/pen.png"   alt="Pen">
@@ -219,7 +261,12 @@
             </div>
           </section>
 
-          <section class="panel">
+          <section class="panel" style="position:relative;">
+            <div style="position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:12px;">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
             <h3>Zoom</h3>
             <div class="z-row">
               <span class="ghost">−</span>
@@ -230,7 +277,12 @@
             <div class="note">10%</div>
           </section>
 
-          <section class="panel">
+          <section class="panel" style="position:relative;">
+            <div style="position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:12px;">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
             <h3>Opacity</h3>
             <div class="z-row">
               <span class="ghost">−</span>
@@ -241,7 +293,12 @@
             <div class="note">10%</div>
           </section>
 
-          <section class="panel">
+          <section class="panel" style="position:relative;">
+            <div style="position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:12px;">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
             <h3>Color</h3>
             <div class="swatches">
               <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
