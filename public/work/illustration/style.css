@@ -1,148 +1,140 @@
-/* =======================================
-   Vivora Illustration — Final Stylesheet
-======================================= */
+/* ============ TOKENS ============ */
+:root{
+  --bg:#efe7e0;
+  --panel:#ffffff;
+  --line:#e6e0db;
+  --tile:#ece7e1;
+  --text:#333;
 
-/* 1. Tokens & Base Styles */
-:root {
-  --c-bg-light: #efe7e0;
-  --c-bg-dark: #373f43;
-  --c-panel: #ffffff;
-  --c-line: #e6e0db;
-  --c-text: #333;
-  --c-text-light: #888;
-  --c-accent: #3498db;
-  --radius: 14px;
-  --radius-sm: 10px;
+  --icon:26px;
+  --st-icon:30px;
+  --radius:12px;
+  --radius-sm:10px;
+
+  --right-col:360px;
+  --rail:60px;
+  --canvas-pad:26px;
+  --gap:16px;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--c-text);
-  background-color: var(--c-bg-light);
+/* ============ BASE ============ */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--text); background:#fff;
+}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit}
+
+/* ============ TOPBAR（2段） ============ */
+.topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:12px}
+.row + .row{margin-top:10px}
+.page-title{font-size:16px;font-weight:600}
+.flex-1{flex:1}
+.next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
+.gender-switch{display:flex;gap:8px}
+.gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
+.tiles{display:flex;gap:8px}
+.tile{width:var(--icon);height:var(--icon);padding:6px;background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain}
+.mode-switch{display:flex;gap:8px}
+.mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
+
+/* ============ MAIN（2カラム：キャンバス / 右列） ============ */
+.main{
+  display:grid; grid-template-columns:1fr var(--right-col);
+  gap:22px; padding:18px 16px; background:var(--bg);
+  min-height:calc(100vh - 78px);
+}
+.canvas{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:var(--canvas-pad); display:flex; align-items:center; justify-content:center;
+}
+.mannequin{max-width:420px}
+
+/* 右カラム */
+.right{display:flex;flex-direction:column;gap:var(--gap)}
+.contents-row{display:flex;justify-content:flex-end}
+
+/* ============ 右カラム：レール + パネル（2カラムで同期） ============ */
+.right-grid{
+  display:grid; grid-template-columns: var(--rail) 1fr; gap:var(--gap);
+}
+
+/* 左レール（縦5箱） */
+.tool-rail{display:flex;flex-direction:column;gap:var(--gap)}
+.rail-box{
+  background:#fff; border:1px solid var(--line);
+  border-radius:var(--radius); height:96px; 
+  position:relative;
+}
+
+/* 右パネル群 */
+.panel-col{display:flex;flex-direction:column;gap:var(--gap)}
+.panel{
+  background:#fff; border:1px solid var(--line);
+  border-radius:var(--radius); padding:14px 16px; display:flex; flex-direction:column; gap:12px;
+}
+.panel h3{font-size:14px;font-weight:700}
+
+/* Stationery */
+.st-row{display:flex;gap:12px}
+.st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
+
+/* Zoom / Opacity （外観のみ） */
+.z-row{display:flex;align-items:center;gap:12px}
+.ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
+.bar i{position:absolute;top:-5px;left:20%;width:14px;height:14px;background:#fff;border:1px solid var(--line);border-radius:50%}
+.ghost-btn{padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:8px}
+.note{font-size:12px;color:#777}
+
+/* Color */
+.swatches{display:grid;grid-template-columns:repeat(5,28px);gap:10px}
+.swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
+.color-actions{display:flex;gap:8px}
+
+/* ============ Layer ============ */
+.rail-box.layer {
+  height: 180px;
+}
+.rail-box.layer .layer-card {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: auto;
+  height: auto;
+  background: none;
+  border: none;
   display: flex;
   flex-direction: column;
-}
-button { font: inherit; cursor: pointer; border: none; background: none; }
-img { display: block; max-width: 100%; }
-
-/* 2. Header */
-.header {
-  background-color: var(--c-bg-dark);
-  padding: 12px 24px;
-  color: white;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 6px;
 }
-.header__main { display: flex; flex-direction: column; gap: 10px; }
-.header__title { font-size: 18px; font-weight: 600; }
-.header__controls { display: flex; align-items: center; gap: 20px; }
-.gender-toggle, .action-buttons, .view-mode { display: flex; gap: 8px; }
-
-.btn { padding: 8px 16px; border-radius: var(--radius-sm); font-weight: 500; }
-.btn--primary { background-color: #f0f0f0; color: var(--c-text); }
-.btn--toggle { background-color: #f0f0f040; color: #fff; }
-.btn--toggle.is-active { background-color: #fff; color: var(--c-text); }
-.btn-icon {
-  background-color: #f0f0f020;
-  border-radius: var(--radius-sm);
-  width: 32px; height: 32px;
-  display: grid; place-content: center;
-  padding: 6px;
+.rail-box.layer .layer-card img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
 }
-.btn-icon img { width: 100%; height: 100%; object-fit: contain; }
-
-/* 3. Main Content */
-.main-content {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 24px;
-  padding: 24px;
-  overflow: hidden;
+.rail-box.layer .layer-outer {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
-
-/* 4. Canvas */
-.canvas {
-  background-color: var(--c-panel);
-  border-radius: var(--radius);
-  padding: 24px;
-}
-.mannequin-view {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  height: 100%;
-}
-.mannequin-view img {
-  width: 100%;
-  height: 100%;
+.rail-box.layer .layer-outer img {
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 
-/* 5. Tool Area */
-.tool-area { display: flex; flex-direction: column; gap: 16px; }
-.tool-nav { display: flex; justify-content: space-between; gap: 8px; }
-.nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px; border-radius: 4px;}
-.nav-item.is-active { background-color: #00000010; }
-.nav-item img { width: 28px; height: 28px; }
-.nav-item span { font-size: 12px; font-weight: 500; }
-
-/* 6. Tool Grid (Rail + Panels) */
-.tool-grid { display: grid; grid-template-columns: 60px 1fr; gap: 16px; flex: 1; }
-.tool-rail { display: flex; flex-direction: column; gap: 16px; }
-.rail-card {
-  background-color: var(--c-panel);
-  border-radius: var(--radius);
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+/* ============ Responsive ============ */
+@media (max-width:1024px){
+  .main{grid-template-columns:1fr}
+  .right-grid{grid-template-columns:1fr}
+  .contents-row{justify-content:flex-start}
 }
-.rail-divider { width: 80%; height: 1px; background: var(--c-line); margin: 4px 0; }
-.layer-btn { width: 24px; height: 24px; padding: 2px; }
-.layer-btn img { width: 100%; height: 100%; object-fit: contain; }
-
-/* 7. Panels */
-.panel-stack { display: flex; flex-direction: column; gap: 16px; }
-.panel {
-  background-color: var(--c-panel);
-  border-radius: var(--radius);
-  padding: 16px;
-}
-.panel__title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
-.panel__content { display: flex; gap: 8px; }
-.panel__content--row { flex-direction: row; }
-.panel__content--slider { align-items: center; }
-.panel__footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: var(--c-text-light);
-  margin-top: 8px;
-}
-.btn-text { font-size: 12px; color: var(--c-text-light); text-decoration: underline; }
-
-.tool-btn {
-  width: 40px; height: 40px;
-  border: 1px solid var(--c-line);
-  border-radius: var(--radius-sm);
-  display: grid; place-content: center;
-  padding: 8px;
-}
-.tool-btn.is-active { background-color: #00000010; }
-.tool-btn img { width: 100%; height: 100%; object-fit: contain; }
-
-.slider-bar { flex: 1; height: 4px; background: var(--c-line); border-radius: 99px; position: relative; }
-.slider-handle {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 14px; height: 14px; background: var(--c-accent); border-radius: 50%;
-}
-
-.color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
-.color-swatch { aspect-ratio: 1/1; border-radius: var(--radius-sm); }
-.tool-btn--picker { width: auto; aspect-ratio: 1/1; }
