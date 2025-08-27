@@ -4,134 +4,136 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vivora Fashion Illustration 2025</title>
+  <!-- CSSファイルをリンク -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ==================== HEADER ==================== -->
-  <header class="topbar">
-    <!-- 1段目: タイトルとNextボタン -->
-    <div class="topbar-row">
-      <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-      <div class="spacer"></div>
-      <button class="btn-primary">Next Step ››</button>
+  <!-- ==================== 上部ヘッダー ==================== -->
+  <header class="top-bar">
+    <div class="top-bar__row">
+      <h1 class="top-bar__title">Vivora Fashion Illustration 2025</h1>
+      <div class="top-bar__spacer"></div>
+      <button class="btn btn--primary">Next Step ››</button>
     </div>
-
-    <!-- 2段目: 各種ツール -->
-    <div class="topbar-row">
-      <nav class="gender-switch">
-        <button class="btn-toggle is-active">Woman</button>
-        <button class="btn-toggle">Man</button>
-        <button class="btn-toggle">Kids</button>
+    <div class="top-bar__row">
+      <nav class="gender-nav">
+        <button class="btn btn--toggle is-active">Woman</button>
+        <button class="btn btn--toggle">Man</button>
+        <button class="btn btn--toggle">Kids</button>
       </nav>
-      <div class="action-tiles">
-        <img class="tile" src="../../public/create_parts/create_button/retreat.png" alt="Undo">
-        <img class="tile" src="../../public/create_parts/create_button/forward.png" alt="Redo">
-        <img class="tile" src="../../public/create_parts/create_button/reset.png" alt="Reset">
-        <img class="tile" src="../../public/create_parts/create_button/download.png" alt="Download">
-        <img class="tile" src="../../public/create_parts/create_button/upload.png" alt="Upload">
-        <img class="tile" src="../../public/create_parts/create_button/graph_paper.png" alt="Grid">
-        <img class="tile" src="../../public/create_parts/create_button/save.png" alt="Save">
+      <div class="history-tools">
+        <img class="tool-tile" src="../../public/create_parts/create_button/retreat.png" alt="Undo">
+        <img class="tool-tile" src="../../public/create_parts/create_button/forward.png" alt="Redo">
+        <img class="tool-tile" src="../../public/create_parts/create_button/reset.png" alt="Reset">
+        <img class="tool-tile" src="../../public/create_parts/create_button/download.png" alt="Download">
+        <img class="tool-tile" src="../../public/create_parts/create_button/upload.png" alt="Upload">
+        <img class="tool-tile" src="../../public/create_parts/create_button/graph_paper.png" alt="Grid">
+        <img class="tool-tile" src="../../public/create_parts/create_button/save.png" alt="Save">
       </div>
-      <div class="mode-switch">
-        <button class="btn-toggle is-active">2D</button>
-        <button class="btn-toggle">3D</button>
+      <div class="mode-select">
+        <button class="btn btn--toggle is-active">2D</button>
+        <button class="btn btn--toggle">3D</button>
       </div>
     </div>
   </header>
 
-  <!-- ==================== MAIN AREA ==================== -->
-  <main class="main-layout">
-    <!-- 左側: キャンバス -->
-    <section class="canvas-area">
-      <!-- Mannequinの画像パスも正しいものに修正 -->
-      <img class="mannequin" src="../../public/mannequin/mannequin_woman/mannequin_woman_front.png" alt="Mannequin">
+  <!-- ==================== メインコンテンツ ==================== -->
+  <main class="main-container">
+    <!-- 左側: キャンバスエリア -->
+    <section class="canvas-wrapper">
+      <img class="mannequin-img" src="../../public/mannequin/mannequin_woman/mannequin_woman_front.png" alt="Mannequin">
     </section>
 
-    <!-- 右側: ツールパネル -->
-    <aside class="right-column">
-      <!-- 上部: コンテンツナビゲーション -->
-      <nav class="contents-nav">
-        <img class="tile" src="../../public/create_parts/contents_button/0_home.png" alt="Home">
-        <img class="tile is-active" src="../../public/create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
-        <img class="tile" src="../../public/create_parts/contents_button/2_fabric-matching.png" alt="Fabric">
-        <img class="tile" src="../../public/create_parts/contents_button/3_clothing-design.png" alt="Clothing">
-        <img class="tile" src="../../public/create_parts/contents_button/4_pattern-creation.png" alt="Pattern">
-        <img class="tile" src="../../public/create_parts/contents_button/5_grading.png" alt="Grading">
-        <img class="tile" src="../../public/create_parts/contents_button/6_print-layout-cut.png" alt="Print/Cut">
-        <img class="tile" src="../../public/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
+    <!-- 右側: ツールカラム -->
+    <aside class="sidebar">
+      <!-- 上部: ページナビゲーション -->
+      <nav class="page-nav">
+        <img class="tool-tile" src="../../public/create_parts/contents_button/0_home.png" alt="Home">
+        <img class="tool-tile is-active" src="../../public/create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
+        <img class="tool-tile" src="../../public/create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching">
+        <img class="tool-tile" src="../../public/create_parts/contents_button/3_clothing-design.png" alt="Clothing Design">
+        <img class="tool-tile" src="../../public/create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation">
+        <img class="tool-tile" src="../../public/create_parts/contents_button/5_grading.png" alt="Grading">
+        <img class="tool-tile" src="../../public/create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout">
+        <img class="tool-tile" src="../../public/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
       </nav>
 
-      <!-- メインツール (レール + パネル) -->
-      <div class="tool-grid">
-        <!-- 左: ツールレール -->
+      <!-- 下部: ツールセット -->
+      <div class="tool-area">
+        <!-- 左: ツールアイコンのレール -->
         <div class="tool-rail">
-          <div class="rail-box" title="Stationery"></div>
-          <div class="rail-box" title="Zoom"></div>
-          <div class="rail-box" title="Opacity"></div>
-          <div class="rail-box" title="Color"></div>
-          <!-- レイヤーパネル -->
-          <div class="rail-box layer-rail-box" title="Layers">
-            <div class="layer-icons-top">
-              <img src="../../public/create_parts/layer_button/layerlock.png" alt="Lock">
-              <img src="../../public/create_parts/layer_button/layerdisplay.png" alt="Display">
-              <img src="../../public/create_parts/layer_button/layerhidden.png" alt="Hide">
+          <div class="rail-box"></div>
+          <div class="rail-box"></div>
+          <div class="rail-box"></div>
+          <div class="rail-box"></div>
+          <!-- レイヤー操作用の特別な箱 -->
+          <div class="rail-box rail-box--layers">
+            <div class="layer-group layer-group--top">
+              <img src="../../public/create_parts/layer_button/layerlock.png" alt="Lock Layer">
+              <img src="../../public/create_parts/layer_button/layerdisplay.png" alt="Show Layer">
+              <img src="../../public/create_parts/layer_button/layerhidden.png" alt="Hide Layer">
             </div>
-            <div class="layer-icons-bottom">
+            <div class="layer-group layer-group--bottom">
               <img src="../../public/create_parts/layer_button/layerpanelplus.png" alt="Add Layer">
               <img src="../../public/create_parts/layer_button/layerreproduction.png" alt="Duplicate Layer">
-              <img src="../../public/create_parts/layer_button/layerpanel.png" alt="Upload Layer">
+              <img src="../../public/create_parts/layer_button/layerpanel.png" alt="Layer Panel">
               <img src="../../public/create_parts/layer_button/layerdestruction.png" alt="Delete Layer">
             </div>
           </div>
         </div>
 
-        <!-- 右: ツール詳細パネル -->
-        <div class="panel-column">
+        <!-- 右: ツールの詳細パネル -->
+        <div class="panel-stack">
           <section class="panel">
-            <h3 class="panel-title">Stationery</h3>
-            <div class="stationery-tools">
-              <img class="tool-icon" src="../../public/create_parts/design_button/pen.png" alt="Pen">
-              <img class="tool-icon" src="../../public/create_parts/design_button/brush.png" alt="Brush">
-              <img class="tool-icon" src="../../public/create_parts/design_button/square.png" alt="Shape">
-              <img class="tool-icon" src="../../public/create_parts/design_button/text.png" alt="Text">
-              <img class="tool-icon" src="../../public/create_parts/design_button/eraser.png" alt="Eraser">
+            <h3 class="panel__title">Stationery</h3>
+            <div class="panel__content panel__content--icons">
+              <img class="icon-btn" src="../../public/create_parts/design_button/pen.png" alt="Pen">
+              <img class="icon-btn" src="../../public/create_parts/design_button/brush.png" alt="Brush">
+              <img class="icon-btn" src="../../public/create_parts/design_button/square.png" alt="Shape">
+              <img class="icon-btn" src="../../public/create_parts/design_button/text.png" alt="Text">
+              <img class="icon-btn" src="../../public/create_parts/design_button/eraser.png" alt="Eraser">
             </div>
           </section>
-
           <section class="panel">
-            <h3 class="panel-title">Zoom</h3>
-            <div class="slider-control">
-              <span class="control-icon">−</span>
-              <div class="slider-bar"><i class="slider-handle"></i></div>
-              <span class="control-icon">＋</span>
-              <button class="btn-secondary">Reset</button>
+            <h3 class="panel__title">Zoom</h3>
+            <div class="panel__content">
+              <div class="slider">
+                <span class="slider__icon">−</span>
+                <div class="slider__bar"><i class="slider__handle"></i></div>
+                <span class="slider__icon">＋</span>
+                <button class="btn btn--secondary">Reset</button>
+              </div>
+              <span class="panel__note">10%</span>
             </div>
-            <div class="control-note">10%</div>
           </section>
-
           <section class="panel">
-            <h3 class="panel-title">Opacity</h3>
-            <div class="slider-control">
-              <span class="control-icon">−</span>
-              <div class="slider-bar"><i class="slider-handle"></i></div>
-              <span class="control-icon">＋</span>
-              <button class="btn-secondary">Reset</button>
+            <h3 class="panel__title">Opacity</h3>
+            <div class="panel__content">
+              <div class="slider">
+                <span class="slider__icon">−</span>
+                <div class="slider__bar"><i class="slider__handle"></i></div>
+                <span class="slider__icon">＋</span>
+                <button class="btn btn--secondary">Reset</button>
+              </div>
+              <span class="panel__note">10%</span>
             </div>
-            <div class="control-note">10%</div>
           </section>
-
           <section class="panel">
-            <h3 class="panel-title">Color</h3>
-            <div class="color-swatches">
-              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
-              <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
-              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
-            </div>
-            <div class="color-actions">
-              <button class="btn-secondary">+</button>
-              <button class="btn-secondary">🎨</button>
-              <button class="btn-secondary">…</button>
+            <h3 class="panel__title">Color</h3>
+            <div class="panel__content">
+              <div class="color-grid">
+                <div style="background-color: #e6e0db;"></div><div style="background-color: #c3c0bb;"></div><div style="background-color: #ffd85e;"></div><div style="background-color: #ffa23c;"></div><div style="background-color: #f0514f;"></div><div style="background-color: #49b062;"></div>
+                <div style="background-color: #77c6ff;"></div><div style="background-color: #4c73d3;"></div><div style="background-color: #ef90b7;"></div><div style="background-color: #1e1e1e;"></div><div style="background-color: #8e5ab3;"></div><div style="background-color: #ffe768;"></div>
+                <div style="background-color: #a9a9a9;"></div><div style="background-color: #704c23;"></div><div style="background-color: #000000;"></div>
+              </div>
+              <div class="color-actions">
+                <button class="btn btn--secondary">+</button>
+                <button class="btn btn--secondary">
+                  <img src="../../public/color/pad color/spuit.png" alt="Eyedropper" style="width: 16px; height: 16px;">
+                </button>
+                <button class="btn btn--secondary">…</button>
+              </div>
             </div>
           </section>
         </div>
