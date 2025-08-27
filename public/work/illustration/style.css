@@ -184,3 +184,29 @@ button{font:inherit;cursor:pointer}
 
 /* 旧スタイルは使わない（万一残っていても非表示に） */
 .rail-box.layer, .layer-wrap{ display:none !important; }
+/* ===== LAYER (final, force sizing) ===== */
+.tool-rail .rail-box { height:118px; }                 /* レール各段の高さを統一 */
+.vfi-layer .vfi-layer-outer{
+  position:absolute; top:8px; bottom:8px; left:50%; transform:translateX(-50%);
+  width:40px;                                          /* 細い縦帯 */
+  background:#fff; border:1px solid var(--line); border-radius:12px;
+  display:flex; flex-direction:column; justify-content:space-between; align-items:center;
+  padding:6px 0; overflow:hidden;
+}
+/* ← ここが勝ち筋。画像のグローバル指定を無効化して確実に4つ収める */
+.vfi-layer .vfi-layer-outer img{
+  width:18px !important; height:18px !important;
+  max-width:none !important;                           /* global img の影響を遮断 */
+  padding:4px; background:#fff; border:1px solid var(--line); border-radius:9px;
+  object-fit:contain; display:block;
+}
+
+/* 右列のレイヤーカード（すでにあるならそのまま、なければ追加してもOK） */
+.vfi-layer-card{ position:relative; height:118px; background:#fff; border:1px solid var(--line); border-radius:18px; padding:12px; }
+.vfi-layer-icons{ position:absolute; top:12px; right:12px; display:flex; flex-direction:column; gap:12px; }
+.vfi-layer-icons img{ width:22px; height:22px; }
+
+/* レイアウト固定＆旧CSS無効化（保険） */
+.right-grid{ grid-template-columns: var(--rail) 1fr !important; }
+@media (max-width:760px){ .right-grid{ grid-template-columns:1fr !important; } }
+.rail-box.layer, .layer-wrap{ display:none !important; }   /* 旧レイヤー系は非表示 */
