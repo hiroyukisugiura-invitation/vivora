@@ -4,46 +4,60 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <!-- 外部CSSファイルを読み込みます -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <!-- ========== TOP ========== -->
-  <div class="topbar">
-    <!-- 1段目：Title / Next -->
+  <header class="topbar">
     <div class="row">
       <div class="page-title">Vivora Fashion Illustration 2025</div>
       <div class="flex-1"></div>
       <button class="next-btn">Next Step ››</button>
     </div>
 
-    <!-- 2段目：Gender + History + 2D/3D -->
     <div class="row">
       <nav class="gender-switch">
         <button>Woman</button><button>Man</button><button>Kids</button>
       </nav>
       <div class="tiles">
-        <img class="tile" src="../../create_parts/create_button/retreat.png" alt="Undo">
-        <img class="tile" src="../../create_parts/create_button/forward.png" alt="Redo">
-        <img class="tile" src="../../create_parts/create_button/reset.png" alt="Reset">
+        <img class="tile" src="../../create_parts/create_button/retreat.png"  alt="Undo">
+        <img class="tile" src="../../create_parts/create_button/forward.png"  alt="Redo">
+        <img class="tile" src="../../create_parts/create_button/reset.png"    alt="Reset">
         <img class="tile" src="../../create_parts/create_button/download.png" alt="Download">
-        <img class="tile" src="../../create_parts/create_button/upload.png" alt="Upload">
+        <img class="tile" src="../../create_parts/create_button/upload.png"   alt="Upload">
         <img class="tile" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
-        <img class="tile" src="../../create_parts/create_button/save.png" alt="Save">
+        <img class="tile" src="../../create_parts/create_button/save.png"     alt="Save">
         <div class="mode-switch"><button>2D</button><button>3D</button></div>
       </div>
     </div>
-  </div>
+  </header>
 
   <!-- ========== MAIN ========== -->
-  <div class="main">
+  <main class="main">
     <!-- 左：キャンバス -->
     <section class="canvas">
       <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
     </section>
 
-    <!-- 右：contents（上）＋ right-grid（レール&パネル） -->
+    <!-- 中央：Layer パネル -->
+    <aside class="layer-panel">
+      <div class="g-top">
+        <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+        <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+        <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hidden">
+      </div>
+      <div class="g-mid">
+        <img class="big" src="../../create_parts/layer_button/layerpanelplus.png"  alt="Add">
+        <img         src="../../create_parts/layer_button/layerreproduction.png"   alt="Duplicate">
+        <img         src="../../create_parts/layer_button/layerlayer integration.png" alt="Integration">
+      </div>
+      <div class="g-btm">
+        <img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete">
+      </div>
+    </aside>
+
+    <!-- 右：Stationery / Zoom / Opacity / Color -->
     <aside class="right">
       <div class="contents-row">
         <div class="tiles">
@@ -58,83 +72,55 @@
         </div>
       </div>
 
-      <!-- 2カラム同期：左レール / 右パネル -->
-      <div class="right-grid">
-        <!-- 左：縦レール（5箱） -->
-        <div class="tool-rail">
-          <div class="rail-box" title="Stationery rail"></div>
-          <div class="rail-box" title="Zoom rail"></div>
-          <div class="rail-box" title="Opacity rail"></div>
-          <div class="rail-box" title="Color rail"></div>
-
-          <!-- 最下段：Layer rail -->
-          <div class="rail-box layer" title="Layer rail">
-            <div class="layer-card">
-              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-            </div>
-            <div class="layer-outer">
-              <img src="../../create_parts/layer_button/layerpanelplus.png">
-              <img src="../../create_parts/layer_button/layerreproduction.png">
-              <img src="../../create_parts/layer_button/layerpanel.png">
-              <img src="../../create_parts/layer_button/layerlayer integration.png">
-              <img src="../../create_parts/layer_button/layerdestruction.png">
-            </div>
+      <div class="panel-col">
+        <section class="panel">
+          <h3>Stationery</h3>
+          <div class="st-row">
+            <img class="st-btn" src="../../create_parts/design_button/pen.png"    alt="Pen">
+            <img class="st-btn" src="../../create_parts/design_button/brush.png"  alt="Brush">
+            <img class="st-btn" src="../../create_parts/design_button/square.png" alt="Shape">
+            <img class="st-btn" src="../../create_parts/design_button/text.png"   alt="Text">
+            <img class="st-btn" src="../../create_parts/design_button/eraser.png" alt="Eraser">
           </div>
-        </div>
+        </section>
 
-        <!-- 右：各パネル（Stationery/Zoom/Opacity/Color） -->
-        <div class="panel-col">
-          <section class="panel">
-            <h3>Stationery</h3>
-            <div class="st-row">
-              <img class="st-btn" src="../../create_parts/design_button/pen.png"   alt="Pen">
-              <img class="st-btn" src="../../create_parts/design_button/brush.png" alt="Brush">
-              <img class="st-btn" src="../../create_parts/design_button/square.png"alt="Shape">
-              <img class="st-btn" src="../../create_parts/design_button/text.png"  alt="Text">
-              <img class="st-btn" src="../../create_parts/design_button/eraser.png"alt="Eraser">
-            </div>
-          </section>
+        <section class="panel">
+          <h3>Zoom</h3>
+          <div class="z-row">
+            <span class="ghost">−</span>
+            <div class="bar"><i></i></div>
+            <span class="ghost">＋</span>
+            <button class="ghost-btn">Reset</button>
+          </div>
+          <div class="note">10%</div>
+        </section>
 
-          <section class="panel">
-            <h3>Zoom</h3>
-            <div class="z-row">
-              <span class="ghost">−</span>
-              <div class="bar"><i></i></div>
-              <span class="ghost">＋</span>
-              <button class="ghost-btn">Reset</button>
-            </div>
-            <div class="note">10%</div>
-          </section>
+        <section class="panel">
+          <h3>Opacity</h3>
+          <div class="z-row">
+            <span class="ghost">−</span>
+            <div class="bar"><i></i></div>
+            <span class="ghost">＋</span>
+            <button class="ghost-btn">Reset</button>
+          </div>
+          <div class="note">10%</div>
+        </section>
 
-          <section class="panel">
-            <h3>Opacity</h3>
-            <div class="z-row">
-              <span class="ghost">−</span>
-              <div class="bar"><i></i></div>
-              <span class="ghost">＋</span>
-              <button class="ghost-btn">Reset</button>
-            </div>
-            <div class="note">10%</div>
-          </section>
-
-          <section class="panel">
-            <h3>Color</h3>
-            <div class="swatches">
-              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
-              <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
-              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
-            </div>
-            <div class="color-actions">
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">…</button>
-            </div>
-          </section>
-        </div>
+        <section class="panel panel-color">
+          <h3>Color</h3>
+          <div class="swatches">
+            <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
+            <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
+            <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
+          </div>
+          <div class="color-actions">
+            <button class="ghost-btn">+</button>
+            <button class="ghost-btn">+</button>
+            <button class="ghost-btn">…</button>
+          </div>
+        </section>
       </div>
     </aside>
-  </div>
+  </main>
 </body>
 </html>
