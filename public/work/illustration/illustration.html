@@ -1,126 +1,150 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ========== TOP (変更なし) ========== -->
-  <div class="topbar">
-    <div class="row">
-      <div class="page-title">Vivora Fashion Illustration 2025</div>
-      <div class="flex-1"></div>
-      <button class="next-btn">Next Step ››</button>
-    </div>
-    <div class="row">
-      <nav class="gender-switch">
-        <button>Woman</button><button>Man</button><button>Kids</button>
-      </nav>
-      <div class="tiles">
-        <img class="tile" src="../../create_parts/create_button/retreat.png" alt="Undo">
-        <img class="tile" src="../../create_parts/create_button/forward.png" alt="Redo">
-        <img class="tile" src="../../create_parts/create_button/reset.png" alt="Reset">
-        <img class="tile" src="../../create_parts/create_button/download.png" alt="Download">
-        <img class="tile" src="../../create_parts/create_button/upload.png" alt="Upload">
-        <img class="tile" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
-        <img class="tile" src="../../create_parts/create_button/save.png" alt="Save">
-        <div class="mode-switch"><button>2D</button><button>3D</button></div>
+  <!-- ==================== Header ==================== -->
+  <header class="header">
+    <div class="header__main">
+      <h1 class="header__title">Vivora Fashion Illustration 2025</h1>
+      <div class="header__controls">
+        <div class="gender-toggle">
+          <button class="btn btn--toggle is-active">Woman</button>
+          <button class="btn btn--toggle">Man</button>
+          <button class="btn btn--toggle">Kids</button>
+        </div>
+        <div class="action-buttons">
+          <button class="btn-icon"><img src="../../public/create_parts/create_button/retreat.png" alt="Undo"></button>
+          <button class="btn-icon"><img src="../../public/create_parts/create_button/forward.png" alt="Redo"></button>
+          <button class="btn-icon"><img src="../../public/create_parts/create_button/reset.png" alt="Reset"></button>
+          <button class="btn-icon"><img src="../../public/create_parts/create_button/download.png" alt="Download"></button>
+          <button class="btn-icon"><img src="../../public/create_parts/create_button/upload.png" alt="Upload"></button>
+          <button class="btn-icon"><img src="../../public/create_parts/create_button/graph_paper.png" alt="Grid"></button>
+          <button class="btn-icon"><img src="../../public/create_parts/create_button/save.png" alt="Save"></button>
+        </div>
+        <div class="view-mode">
+          <button class="btn btn--toggle is-active">2D</button>
+          <button class="btn btn--toggle">3D</button>
+        </div>
       </div>
     </div>
-  </div>
+    <button class="btn btn--primary">Next Step ››</button>
+  </header>
 
-  <!-- ========== MAIN (変更あり) ========== -->
-  <div class="main">
+  <!-- ==================== Main Content ==================== -->
+  <main class="main-content">
+    <!-- Left: Canvas Area -->
     <section class="canvas">
-      <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+      <div class="mannequin-view">
+        <img src="../../public/mannequin/mannequin_woman/mannequin_woman_front.png" alt="Front View">
+        <img src="../../public/mannequin/mannequin_woman/mannequin_woman_side.png" alt="Side View">
+        <img src="../../public/mannequin/mannequin_woman/mannequin_woman_back.png" alt="Back View">
+      </div>
     </section>
 
-    <aside class="right">
-      <div class="contents-row">
-        <div class="tiles">
-          <img class="tile" src="../../create_parts/contents_button/0_home.png" alt="Home">
-          <img class="tile" src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
-          <img class="tile" src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric">
-          <img class="tile" src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing">
-          <img class="tile" src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern">
-          <img class="tile" src="../../create_parts/contents_button/5_grading.png" alt="Grading">
-          <img class="tile" src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print/Cut">
-          <img class="tile" src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
-        </div>
-      </div>
+    <!-- Right: Tool Area -->
+    <aside class="tool-area">
+      <!-- Top Navigation -->
+      <nav class="tool-nav">
+        <button class="nav-item"><img src="../../public/create_parts/contents_button/0_home.png" alt="Home"><span>Home</span></button>
+        <button class="nav-item is-active"><img src="../../public/create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations"><span>Fi</span></button>
+        <button class="nav-item"><img src="../../public/create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"><span>Fm</span></button>
+        <button class="nav-item"><img src="../../public/create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"><span>Cd</span></button>
+        <button class="nav-item"><img src="../../public/create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"><span>Pc</span></button>
+        <button class="nav-item"><img src="../../public/create_parts/contents_button/5_grading.png" alt="Grading"><span>Gd</span></button>
+        <button class="nav-item"><img src="../../public/create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"><span>Plc</span></button>
+        <button class="nav-item"><img src="../../public/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode"><span>Dk</span></button>
+      </nav>
 
-      <div class="right-grid">
-        <!-- ★★★ 左：縦レールは4箱になります ★★★ -->
+      <!-- Main Tools (Rail + Panels) -->
+      <div class="tool-grid">
+        <!-- Vertical Tool Rail -->
         <div class="tool-rail">
-          <div class="rail-box" title="Stationery rail"></div>
-          <div class="rail-box" title="Zoom rail"></div>
-          <div class="rail-box" title="Opacity rail"></div>
-          <div class="rail-box" title="Color rail"></div>
+          <div class="rail-card">
+            <button class="layer-btn"><img src="../../public/create_parts/layer_button/layerlock.png" alt="Lock"></button>
+            <button class="layer-btn"><img src="../../public/create_parts/layer_button/layerdisplay.png" alt="Show"></button>
+            <button class="layer-btn"><img src="../../public/create_parts/layer_button/layerhidden.png" alt="Hide"></button>
+            <div class="rail-divider"></div>
+            <button class="layer-btn"><img src="../../public/create_parts/layer_button/layerpanelplus.png" alt="Add"></button>
+            <button class="layer-btn"><img src="../../public/create_parts/layer_button/layerreproduction.png" alt="Duplicate"></button>
+            <button class="layer-btn"><img src="../../public/create_parts/layer_button/layerpanel.png" alt="Panel"></button>
+            <button class="layer-btn"><img src="../../public/create_parts/layer_button/layerdestruction.png" alt="Delete"></button>
+          </div>
+          <!-- Repeat rail-card for each layer -->
+          <div class="rail-card"></div>
+          <div class="rail-card"></div>
+          <div class="rail-card"></div>
         </div>
 
-        <!-- ★★★ 右：パネル群の最後にレイヤーパネルを追加 ★★★ -->
-        <div class="panel-col">
+        <!-- Tool Panels -->
+        <div class="panel-stack">
           <section class="panel">
-            <h3>Stationery</h3>
-            <div class="st-row">
-              <img class="st-btn" src="../../create_parts/design_button/pen.png"   alt="Pen">
-              <img class="st-btn" src="../../create_parts/design_button/brush.png" alt="Brush">
-              <img class="st-btn" src="../../create_parts/design_button/square.png"alt="Shape">
-              <img class="st-btn" src="../../create_parts/design_button/text.png"  alt="Text">
-              <img class="st-btn" src="../../create_parts/design_button/eraser.png"alt="Eraser">
+            <h3 class="panel__title">Stationery</h3>
+            <div class="panel__content panel__content--row">
+              <button class="tool-btn"><img src="../../public/create_parts/design_button/direct_select.png" alt="Select"></button>
+              <button class="tool-btn is-active"><img src="../../public/create_parts/design_button/pen.png" alt="Pen"></button>
+              <button class="tool-btn"><img src="../../public/create_parts/design_button/square.png" alt="Shape"></button>
+              <button class="tool-btn"><img src="../../public/create_parts/design_button/text.png" alt="Text"></button>
+              <button class="tool-btn"><img src="../../public/create_parts/design_button/eraser.png" alt="Eraser"></button>
             </div>
           </section>
-
+          
           <section class="panel">
-            <h3>Zoom</h3>
-            <div class="z-row">
-              <span class="ghost">−</span> <div class="bar"><i></i></div> <span class="ghost">＋</span> <button class="ghost-btn">Reset</button>
+            <h3 class="panel__title">Zoom</h3>
+            <div class="panel__content panel__content--slider">
+              <span>−</span>
+              <div class="slider-bar"><i class="slider-handle" style="left: 10%;"></i></div>
+              <span>＋</span>
             </div>
-            <div class="note">10%</div>
-          </section>
-
-          <section class="panel">
-            <h3>Opacity</h3>
-            <div class="z-row">
-              <span class="ghost">−</span> <div class="bar"><i></i></div> <span class="ghost">＋</span> <button class="ghost-btn">Reset</button>
+            <div class="panel__footer">
+              <span>10%</span>
+              <button class="btn-text">Reset</button>
             </div>
-            <div class="note">10%</div>
           </section>
 
           <section class="panel">
-            <h3>Color</h3>
-            <div class="swatches">
-              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
-              <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
-              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
+            <h3 class="panel__title">Opacity</h3>
+            <div class="panel__content panel__content--slider">
+              <span>−</span>
+              <div class="slider-bar"><i class="slider-handle" style="left: 10%;"></i></div>
+              <span>＋</span>
             </div>
-            <div class="color-actions">
-              <button class="ghost-btn">+</button> <button class="ghost-btn">+</button> <button class="ghost-btn">…</button>
+            <div class="panel__footer">
+              <span>10%</span>
+              <button class="btn-text">Reset</button>
             </div>
           </section>
 
-          <!-- ▼▼▼ 新しいレイヤーパネルをここに追加 ▼▼▼ -->
-          <section class="panel panel--layer">
-            <div class="layer-group">
-              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-            </div>
-            <div class="layer-group">
-              <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
-              <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-              <img src="../../create_parts/layer_button/layerpanel.png"         alt="Upload">
-              <img src="../../create_parts/layer_button/layerdestruction.png"   alt="Delete">
+          <section class="panel">
+            <h3 class="panel__title">Color</h3>
+            <div class="panel__content">
+              <div class="color-grid">
+                <div class="color-swatch" style="background-color: #ffffff; border: 1px solid #eee;"></div>
+                <div class="color-swatch" style="background-color: #cccccc;"></div>
+                <div class="color-swatch" style="background-color: #ffeb3b;"></div>
+                <div class="color-swatch" style="background-color: #ff9800;"></div>
+                <div class="color-swatch" style="background-color: #f44336;"></div>
+                <div class="color-swatch" style="background-color: #e91e63;"></div>
+                <div class="color-swatch" style="background-color: #f44336;"></div>
+                <div class="color-swatch" style="background-color: #4caf50;"></div>
+                <div class="color-swatch" style="background-color: #00bcd4;"></div>
+                <div class="color-swatch" style="background-color: #2196f3;"></div>
+                <div class="color-swatch" style="background-color: #9c27b0;"></div>
+                <div class="color-swatch" style="background-color: #673ab7;"></div>
+                <div class="color-swatch" style="background-color: #795548;"></div>
+                <div class="color-swatch" style="background-color: #607d8b;"></div>
+                <button class="tool-btn tool-btn--picker"><img src="../../public/color/pad color/spuit.png" alt="Picker"></button>
+              </div>
             </div>
           </section>
-          <!-- ▲▲▲ 新しいレイヤーパネルはここまで ▲▲▲ -->
-
         </div>
       </div>
     </aside>
-  </div>
+  </main>
 </body>
 </html>
