@@ -1,257 +1,141 @@
-/* =======================================
-   Vivora Illustration — UI Stylesheet (Final)
-======================================= */
+/* ============ TOKENS ============ */
+:root{
+  --bg:#efe7e0;
+  --panel:#ffffff;
+  --line:#e6e0db;
+  --tile:#ece7e1;
+  --text:#333;
 
-/* 1. 基本設定と変数定義 */
-:root {
-  /* Colors */
-  --c-dark-bg: #373f43;    /* ヘッダーの背景 */
-  --c-main-bg: #efe7e0;    /* 全体の背景 */
-  --c-panel-bg: #ffffff;   /* パネルの背景 */
-  --c-line: #e6e0db;       /* 線の色 */
-  --c-text-dark: #333333; /* 暗い文字色 */
-  --c-text-light: #777777; /* 薄い文字色 */
-  --c-btn-active: #373f43; /* アクティブなボタンの背景 */
-  --c-tile-bg: #e5e5e5;      /* アイコンタイルの背景 */
-  --c-tile-border: #dcdcdc; /* アイコンタイルの枠線 */
-  --c-accent-border: #4c73d3; /* アクティブなタイルの枠線 */
+  --icon:26px;
+  --st-icon:30px;
+  --radius:12px;
+  --radius-sm:10px;
 
-  /* Sizing & Spacing */
-  --radius-lg: 16px; /* パネルの角丸 */
-  --radius-md: 10px; /* ボタンの角丸 */
-  --radius-sm: 8px;  /* 小さい要素の角丸 */
+  --right-col:360px;
+  --rail:60px;
+  --canvas-pad:26px;
+  --gap:16px;
 }
 
-/* 2. リセットと全体スタイル */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
+/* ============ BASE ============ */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--text); background:#fff;
+}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit}
+
+/* ============ TOPBAR（2段） ============ */
+.topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:12px}
+.row + .row{margin-top:10px}
+.page-title{font-size:16px;font-weight:600}
+.flex-1{flex:1}
+.next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
+.gender-switch{display:flex;gap:8px}
+.gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
+.tiles{display:flex;gap:8px}
+.tile{width:var(--icon);height:var(--icon);padding:6px;background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain}
+.mode-switch{display:flex;gap:8px}
+.mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
+
+/* ============ MAIN（2カラム：キャンバス / 右列） ============ */
+.main{
+  display:grid; grid-template-columns:1fr var(--right-col);
+  gap:22px; padding:18px 16px; background:var(--bg);
+  min-height:calc(100vh - 78px);
+}
+.canvas{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:var(--canvas-pad); display:flex; align-items:center; justify-content:center;
+}
+.mannequin{max-width:420px}
+
+/* 右カラム */
+.right{display:flex;flex-direction:column;gap:var(--gap)}
+.contents-row{display:flex;justify-content:flex-end}
+
+/* ============ 右カラム：レール + パネル（2カラムで同期） ============ */
+.right-grid{
+  display:grid; grid-template-columns: var(--rail) 1fr; gap:var(--gap);
+}
+
+/* 左レール（縦5箱） */
+.tool-rail{display:flex;flex-direction:column;gap:var(--gap)}
+.rail-box{
+  background:#fff; border:1px solid var(--line);
+  border-radius:var(--radius); height:96px; position:relative;
+}
+
+/* 右パネル群 */
+.panel-col{display:flex;flex-direction:column;gap:var(--gap)}
+.panel{
+  background:#fff; border:1px solid var(--line);
+  border-radius:var(--radius); padding:14px 16px; display:flex; flex-direction:column; gap:12px;
+}
+.panel h3{font-size:14px;font-weight:700}
+
+/* Stationery */
+.st-row{display:flex;gap:12px}
+.st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
+
+/* Zoom / Opacity （外観のみ） */
+.z-row{display:flex;align-items:center;gap:12px}
+.ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
+.bar i{position:absolute;top:-5px;left:20%;width:14px;height:14px;background:#fff;border:1px solid var(--line);border-radius:50%}
+.ghost-btn{padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:8px}
+.note{font-size:12px;color:#777}
+
+/* Color */
+.swatches{display:grid;grid-template-columns:repeat(5,28px);gap:10px}
+.swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
+.color-actions{display:flex;gap:8px}
+
+/* ============ Layer：【修正済み】 ============ */
+.rail-box.layer {
+  height: 180px;
   padding: 0;
 }
-html, body { height: 100%; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--c-text-dark);
-  background-color: var(--c-main-bg);
+.rail-box.layer .layer-card {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: auto;
+  height: auto;
+  background: none;
+  border: none;
+  padding: 0;
   display: flex;
   flex-direction: column;
-}
-img { display: block; max-width: 100%; }
-button { font: inherit; cursor: pointer; border: none; background: none; }
-
-/* 3. ヘッダー */
-.top-bar {
-  background-color: var(--c-dark-bg);
-  padding: 12px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex-shrink: 0;
-  color: white;
-}
-.top-bar__row { display: flex; align-items: center; gap: 16px; }
-.top-bar__title { font-size: 18px; font-weight: 600; margin-right: 16px; }
-.top-bar__spacer { flex: 1; }
-
-/* 4. 共通コンポーネント (ボタン, タイル) */
-.btn {
-  padding: 8px 16px;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  transition: opacity 0.2s;
-}
-.btn:hover { opacity: 0.85; }
-.btn--primary { background-color: #f0f0f0; color: var(--c-text-dark); }
-.btn--secondary {
-  border: 1px solid #dcdcdc;
-  background-color: white;
-  color: var(--c-text-dark);
-  padding: 6px 12px;
-}
-.btn--toggle {
-  background-color: white;
-  color: var(--c-text-dark);
-}
-.btn--toggle.is-active {
-  background-color: var(--c-btn-active);
-  color: white;
-}
-
-.tool-tile {
-  width: 34px;
-  height: 34px;
-  padding: 7px;
-  background-color: var(--c-tile-bg);
-  border: 1px solid var(--c-tile-border);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.tool-tile:hover { transform: translateY(-1px); }
-.tool-tile.is-active {
-  border: 2px solid var(--c-accent-border);
-  padding: 6px; /* border-widthの分だけpaddingを減らす */
-}
-
-.history-tools, .gender-nav, .mode-select {
-  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
-
-/* 5. メインレイアウト */
-.main-container {
-  flex: 1; /* ヘッダー以外の残りの高さをすべて使う */
-  display: grid;
-  grid-template-columns: 1fr 380px; /* 右カラム幅を少し広めに */
-  gap: 24px;
-  padding: 24px;
-  overflow: hidden;
-}
-
-/* 6. キャンバス (左側) */
-.canvas-wrapper {
-  background-color: var(--c-panel-bg);
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  overflow: auto; /* マネキンが大きい場合にスクロールできるように */
-}
-.mannequin-img {
-  max-width: 100%;
-  max-height: 100%;
+.rail-box.layer .layer-card img {
+  width: 22px;
+  height: 22px;
   object-fit: contain;
 }
-
-/* 7. サイドバー (右側) */
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.page-nav {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-/* 8. ツールエリア */
-.tool-area {
-  display: grid;
-  grid-template-columns: 60px 1fr; /* レール + パネル */
-  gap: 16px;
-  flex: 1;
-}
-.tool-rail {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.rail-box {
-  background-color: var(--c-panel-bg);
-  border-radius: var(--radius-lg);
-  height: 96px;
-}
-.rail-box--layers {
-  height: 180px;
-  position: relative; /* 子要素の位置の基準 */
-}
-.layer-group {
+.rail-box.layer .layer-outer {
   position: absolute;
+  bottom: 12px;
   right: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
 }
-.layer-group--top { top: 12px; }
-.layer-group--top img { width: 22px; height: 22px; }
-.layer-group--bottom { bottom: 12px; }
-.layer-group--bottom img { width: 24px; height: 24px; }
-
-/* 9. パネル */
-.panel-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.panel {
-  background-color: var(--c-panel-bg);
-  border-radius: var(--radius-lg);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-}
-.panel__title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
-.panel__content { display: flex; flex-direction: column; }
-.panel__content--icons {
-  flex-direction: row;
-  gap: 12px;
-}
-.panel__note {
-  font-size: 12px;
-  color: var(--c-text-light);
-  align-self: flex-end;
-  margin-top: 8px;
-}
-.icon-btn {
-  width: 36px;
-  height: 36px;
-  padding: 6px;
-  border: 1px solid #eee;
-  border-radius: var(--radius-md);
-  cursor: pointer;
+.rail-box.layer .layer-outer img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
-/* 10. スライダーとカラーピッカーのスタイル */
-.slider { display: flex; align-items: center; gap: 12px; }
-.slider__icon {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #ddd;
-  border-radius: var(--radius-sm);
-  display: grid;
-  place-content: center;
-  font-size: 20px;
-}
-.slider__bar {
-  flex: 1;
-  height: 6px;
-  background: linear-gradient(90deg, #dcd6cf, #a8a19b);
-  border-radius: 99px;
-  position: relative;
-}
-.slider__handle {
-  position: absolute;
-  top: 50%;
-  left: 20%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-}
-.color-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-}
-.color-grid div {
-  aspect-ratio: 1 / 1; /* 正方形を維持 */
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--c-line);
-}
-.color-actions { display: flex; gap: 8px; margin-top: 12px; }
-
-/* 11. レスポンシブ対応 */
-@media (max-width: 1000px) {
-  .main-container {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-  .page-nav { justify-content: flex-start; }
+/* ============ Responsive ============ */
+@media (max-width:1024px){
+  .main{grid-template-columns:1fr}
+  .right-grid{grid-template-columns:1fr}
+  .contents-row{justify-content:flex-start}
 }
