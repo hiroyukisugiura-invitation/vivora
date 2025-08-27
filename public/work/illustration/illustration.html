@@ -4,111 +4,201 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="./styles.css?v=base-0" />
+  <link rel="stylesheet" href="styles.css?v=2025-08-27-final" />
 </head>
 <body>
-<div id="vfi-root"><!-- ★ 全CSSはこの内側にだけ適用されます -->
+<div id="vfi-root">
 
-  <!-- ===== TOPBAR ===== -->
+  <!-- ========== TOPBAR ========== -->
   <header class="vfi-topbar">
-    <div class="vfi-row vfi-row--top">
+    <div class="vfi-row">
       <div class="vfi-title">Vivora Fashion Illustration 2025</div>
       <div class="vfi-flex"></div>
-      <!-- ANCHOR: top-right cluster (2D/3D, Next など) -->
-      <div class="vfi-top-actions">
-        <button class="vfi-chip">2D</button>
-        <button class="vfi-chip">3D</button>
-        <button class="vfi-btn">Next Step ››</button>
-      </div>
+      <div class="vfi-mode"><button>2D</button><button>3D</button></div>
+      <button class="vfi-next">Next Step ››</button>
     </div>
-
-    <div class="vfi-row vfi-row--sub">
-      <!-- ANCHOR: gender switch -->
+    <div class="vfi-row">
       <nav class="vfi-segment">
         <button class="is-active">Woman</button>
         <button>Man</button>
         <button>Kids</button>
       </nav>
-      <!-- ANCHOR: history tiles -->
       <div class="vfi-tiles">
-        <div class="vfi-tile" title="Undo"></div>
-        <div class="vfi-tile" title="Redo"></div>
-        <div class="vfi-tile" title="Reset"></div>
-        <div class="vfi-tile" title="Download"></div>
-        <div class="vfi-tile" title="Upload"></div>
-        <div class="vfi-tile" title="Grid"></div>
-        <div class="vfi-tile" title="Save"></div>
+        <img class="vfi-tile" src="../../create_parts/create_button/retreat.png"     alt="Undo">
+        <img class="vfi-tile" src="../../create_parts/create_button/forward.png"     alt="Redo">
+        <img class="vfi-tile" src="../../create_parts/create_button/reset.png"       alt="Reset">
+        <img class="vfi-tile" src="../../create_parts/create_button/download.png"    alt="Download">
+        <img class="vfi-tile" src="../../create_parts/create_button/upload.png"      alt="Upload">
+        <img class="vfi-tile" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
+        <img class="vfi-tile" src="../../create_parts/create_button/save.png"        alt="Save">
       </div>
     </div>
   </header>
 
-  <!-- ===== MAIN ===== -->
+  <!-- ========== MAIN ========== -->
   <main class="vfi-main">
-    <!-- 左：キャンバス -->
+    <!-- Canvas -->
     <section class="vfi-canvas">
-      <!-- ANCHOR: mannequin -->
       <div class="vfi-canvas-box">
-        <img class="vfi-mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin" />
+        <img class="vfi-mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
       </div>
     </section>
 
-    <!-- 右：contents（上）＋ LAYERS（中央）＋ パネル群（下） -->
+    <!-- Right column -->
     <aside class="vfi-right">
-
-      <!-- contents buttons -->
+      <!-- Contents buttons -->
       <div class="vfi-contents">
-        <!-- ANCHOR: contents buttons row -->
         <div class="vfi-tiles vfi-tiles--contents">
-          <div class="vfi-tile" title="Home"></div>
-          <div class="vfi-tile" title="Fi"></div>
-          <div class="vfi-tile" title="Fm"></div>
-          <div class="vfi-tile" title="Cd"></div>
-          <div class="vfi-tile" title="Pc"></div>
-          <div class="vfi-tile" title="Gd"></div>
-          <div class="vfi-tile" title="Plc"></div>
-          <div class="vfi-tile" title="Dk"></div>
+          <img class="vfi-tile" src="../../create_parts/contents_button/0_home.png"                     alt="Home">
+          <img class="vfi-tile" src="../../create_parts/contents_button/1_fashion-illustrations.png"    alt="Illustrations">
+          <img class="vfi-tile" src="../../create_parts/contents_button/2_fabric-matching.png"          alt="Fabric">
+          <img class="vfi-tile" src="../../create_parts/contents_button/3_clothing-design.png"          alt="Clothing">
+          <img class="vfi-tile" src="../../create_parts/contents_button/4_pattern-creation.png"         alt="Pattern">
+          <img class="vfi-tile" src="../../create_parts/contents_button/5_grading.png"                  alt="Grading">
+          <img class="vfi-tile" src="../../create_parts/contents_button/6_print-layout-cut.png"         alt="Print/Cut">
+          <img class="vfi-tile" src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
         </div>
       </div>
 
-      <!-- LAYERS + PANELS（2カラム固定） -->
+      <!-- Layers + Panels -->
       <div class="vfi-rightgrid">
-        <!-- 左：カセット列（5本） -->
+        <!-- Left: Layer cassettes (x5) -->
         <div class="vfi-rail">
-          <!-- ANCHOR: LAYERS START -->
+          <!-- row1 -->
           <div class="vfi-cassette">
-            <div class="vfi-cassette__preview"></div>
-            <div class="vfi-cassette__rail"></div>
+            <div class="vfi-cassette__preview">
+              <div class="vfi-inicons">
+                <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+                <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+                <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+              </div>
+            </div>
+            <div class="vfi-cassette__rail">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
           </div>
+          <!-- row2 -->
           <div class="vfi-cassette">
-            <div class="vfi-cassette__preview"></div>
-            <div class="vfi-cassette__rail"></div>
+            <div class="vfi-cassette__preview">
+              <div class="vfi-inicons">
+                <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+                <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+                <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+              </div>
+            </div>
+            <div class="vfi-cassette__rail">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
           </div>
+          <!-- row3 -->
           <div class="vfi-cassette">
-            <div class="vfi-cassette__preview"></div>
-            <div class="vfi-cassette__rail"></div>
+            <div class="vfi-cassette__preview">
+              <div class="vfi-inicons">
+                <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+                <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+                <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+              </div>
+            </div>
+            <div class="vfi-cassette__rail">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
           </div>
+          <!-- row4 -->
           <div class="vfi-cassette">
-            <div class="vfi-cassette__preview"></div>
-            <div class="vfi-cassette__rail"></div>
+            <div class="vfi-cassette__preview">
+              <div class="vfi-inicons">
+                <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+                <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+                <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+              </div>
+            </div>
+            <div class="vfi-cassette__rail">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
           </div>
+          <!-- row5 -->
           <div class="vfi-cassette">
-            <div class="vfi-cassette__preview"></div>
-            <div class="vfi-cassette__rail"></div>
+            <div class="vfi-cassette__preview">
+              <div class="vfi-inicons">
+                <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+                <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+                <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+              </div>
+            </div>
+            <div class="vfi-cassette__rail">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
           </div>
-          <!-- ANCHOR: LAYERS END -->
         </div>
 
-        <!-- 右：パネル列（ダミー見出し。中身は次の指示で埋め込む） -->
+        <!-- Right panels -->
         <div class="vfi-panels">
-          <section class="vfi-panel"><h3>Stationery</h3></section>
-          <section class="vfi-panel"><h3>Zoom</h3></section>
-          <section class="vfi-panel"><h3>Opacity</h3></section>
-          <section class="vfi-panel"><h3>Color</h3></section>
+          <section class="vfi-panel">
+            <h3>Stationery</h3>
+            <div class="vfi-st-row">
+              <img class="vfi-st" src="../../create_parts/design_button/pen.png" />
+              <img class="vfi-st" src="../../create_parts/design_button/select.png" />
+              <img class="vfi-st" src="../../create_parts/design_button/square.png" />
+              <img class="vfi-st" src="../../create_parts/design_button/text.png" />
+              <img class="vfi-st" src="../../create_parts/design_button/eraser.png" />
+            </div>
+          </section>
+
+          <section class="vfi-panel">
+            <h3>Zoom</h3>
+            <div class="vfi-z-row">
+              <span class="vfi-ghost">−</span>
+              <div class="vfi-bar"><i></i></div>
+              <span class="vfi-ghost">＋</span>
+              <button class="vfi-ghostbtn">Reset</button>
+            </div>
+            <div class="vfi-note">10%</div>
+          </section>
+
+          <section class="vfi-panel">
+            <h3>Opacity</h3>
+            <div class="vfi-z-row">
+              <span class="vfi-ghost">−</span>
+              <div class="vfi-bar"><i></i></div>
+              <span class="vfi-ghost">＋</span>
+              <button class="vfi-ghostbtn">Reset</button>
+            </div>
+            <div class="vfi-note">10%</div>
+          </section>
+
+          <section class="vfi-panel">
+            <h3>Color</h3>
+            <div class="vfi-swatches">
+              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
+              <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
+              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
+            </div>
+            <div class="vfi-color-actions">
+              <button class="vfi-ghostbtn">+</button>
+              <button class="vfi-ghostbtn">+</button>
+              <button class="vfi-ghostbtn">…</button>
+            </div>
+          </section>
         </div>
       </div>
     </aside>
   </main>
 
-</div><!-- /#vfi-root -->
+</div>
 </body>
 </html>
