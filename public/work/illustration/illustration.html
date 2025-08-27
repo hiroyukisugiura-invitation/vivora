@@ -1,130 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Vivora Fashion Illustration 2025</title>
-
-<style>
-  /* ============ TOKENS ============ */
-  :root{
-    --bg:#efe7e0;
-    --panel:#ffffff;
-    --line:#e6e0db;
-    --tile:#ece7e1;
-    --text:#333;
-
-    --icon:26px;
-    --st-icon:30px;
-    --radius:12px;
-    --radius-sm:10px;
-
-    --right-col:360px;
-    --rail:60px;
-    --canvas-pad:26px;
-    --gap:16px;
-  }
-
-  /* ============ BASE ============ */
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    color:var(--text); background:#fff;
-  }
-  img{display:block;max-width:100%;height:auto}
-  button{font:inherit}
-
-  /* ============ TOPBAR（2段） ============ */
-  .topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
-  .row{display:flex;align-items:center;gap:12px}
-  .row + .row{margin-top:10px}
-  .page-title{font-size:16px;font-weight:600}
-  .flex-1{flex:1}
-  .next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
-  .gender-switch{display:flex;gap:8px}
-  .gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
-  .tiles{display:flex;gap:8px}
-  .tile{width:var(--icon);height:var(--icon);padding:6px;background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain}
-  .mode-switch{display:flex;gap:8px}
-  .mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
-
-  /* ============ MAIN（2カラム：キャンバス / 右列） ============ */
-  .main{
-    display:grid; grid-template-columns:1fr var(--right-col);
-    gap:22px; padding:18px 16px; background:var(--bg);
-    min-height:calc(100vh - 78px);
-  }
-  .canvas{
-    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-    padding:var(--canvas-pad); display:flex; align-items:center; justify-content:center;
-  }
-  .mannequin{max-width:420px}
-
-  /* 右カラム */
-  .right{display:flex;flex-direction:column;gap:var(--gap)}
-  .contents-row{display:flex;justify-content:flex-end}
-
-  /* ============ 右カラム：レール + パネル（2カラムで同期） ============ */
-  .right-grid{
-    display:grid; grid-template-columns: var(--rail) 1fr; gap:var(--gap);
-  }
-
-  /* 左レール（縦5箱） */
-  .tool-rail{display:flex;flex-direction:column;gap:var(--gap)}
-  .rail-box{
-    background:#fff; border:1px solid var(--line);
-    border-radius:var(--radius); height:96px; position:relative;
-  }
-
-  /* 右パネル群 */
-  .panel-col{display:flex;flex-direction:column;gap:var(--gap)}
-  .panel{
-    background:#fff; border:1px solid var(--line);
-    border-radius:var(--radius); padding:14px 16px; display:flex; flex-direction:column; gap:12px;
-  }
-  .panel h3{font-size:14px;font-weight:700}
-
-  /* Stationery */
-  .st-row{display:flex;gap:12px}
-  .st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
-
-  /* Zoom / Opacity （外観のみ） */
-  .z-row{display:flex;align-items:center;gap:12px}
-  .ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
-  .bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
-  .bar i{position:absolute;top:-5px;left:20%;width:14px;height:14px;background:#fff;border:1px solid var(--line);border-radius:50%}
-  .ghost-btn{padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:8px}
-  .note{font-size:12px;color:#777}
-
-  /* Color */
-  .swatches{display:grid;grid-template-columns:repeat(5,28px);gap:10px}
-  .swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
-  .color-actions{display:flex;gap:8px}
-
-  /* ============ Layer：レール最下段の白箱に「内3 / 外4」 ============ */
-  .rail-box.layer{height:180px; padding:0;}        /* 他の箱より大きい */
-  .rail-box.layer .layer-card{
-    position:absolute; top:8px; left:8px;
-    width: calc(100% - 56px); height: calc(100% - 16px);
-    background:#fff; border:1px solid var(--line); border-radius:18px;
-    padding:10px; display:flex; flex-direction:column; align-items:flex-end; gap:12px;
-  }
-  .rail-box.layer .layer-card img{width:22px;height:22px;object-fit:contain}
-
-  .rail-box.layer .layer-outer{
-    position:absolute; top:8px; right:8px;
-    display:flex; flex-direction:column; align-items:center; gap:12px;
-  }
-  .rail-box.layer .layer-outer img{width:24px;height:24px;object-fit:contain}
-
-  /* ============ Responsive ============ */
-  @media (max-width:1024px){
-    .main{grid-template-columns:1fr}
-    .right-grid{grid-template-columns:1fr}
-    .contents-row{justify-content:flex-start}
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="styles.css?v=stable-final" />
 </head>
 <body>
 
@@ -137,7 +17,7 @@
       <button class="next-btn">Next Step ››</button>
     </div>
 
-    <!-- 2段目：Gender + History + 2D/3D（あなたの配置を維持） -->
+    <!-- 2段目：Gender + History + 2D/3D -->
     <div class="row">
       <nav class="gender-switch">
         <button>Woman</button><button>Man</button><button>Kids</button>
@@ -150,8 +30,6 @@
         <img class="tile" src="../../create_parts/create_button/upload.png" alt="Upload">
         <img class="tile" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
         <img class="tile" src="../../create_parts/create_button/save.png" alt="Save">
-
-        <!-- 2D/3D はあなたの修正どおりこの行に配置 -->
         <div class="mode-switch"><button>2D</button><button>3D</button></div>
       </div>
     </div>
@@ -181,93 +59,94 @@
 
       <!-- 2カラム同期：左レール / 右パネル -->
       <div class="right-grid">
-       <div class="tool-rail">
-  <!-- row 1 -->
-  <div class="rail-box vfi-layer">
-    <div class="vfi-layer-outer">
-      <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
-      <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
-      <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
-      <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
-    </div>
-  </div>
-  <!-- row 2 -->
-  <div class="rail-box vfi-layer">
-    <div class="vfi-layer-outer">
-      <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
-      <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
-      <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
-      <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
-    </div>
-  </div>
-  <!-- row 3 -->
-  <div class="rail-box vfi-layer">
-    <div class="vfi-layer-outer">
-      <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
-      <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
-      <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
-      <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
-    </div>
-  </div>
-  <!-- row 4 -->
-  <div class="rail-box vfi-layer">
-    <div class="vfi-layer-outer">
-      <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
-      <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
-      <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
-      <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
-    </div>
-  </div>
-  <!-- row 5 -->
-  <div class="rail-box vfi-layer">
-    <div class="vfi-layer-outer">
-      <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
-      <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
-      <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
-      <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
-    </div>
-  </div>
-</div>
+        <!-- 左：縦レール（新UI：縦4アイコン×5） -->
+        <div class="tool-rail">
+          <!-- row 1 -->
+          <div class="rail-box vfi-layer">
+            <div class="vfi-layer-outer">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
+          </div>
+          <!-- row 2 -->
+          <div class="rail-box vfi-layer">
+            <div class="vfi-layer-outer">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
+          </div>
+          <!-- row 3 -->
+          <div class="rail-box vfi-layer">
+            <div class="vfi-layer-outer">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
+          </div>
+          <!-- row 4 -->
+          <div class="rail-box vfi-layer">
+            <div class="vfi-layer-outer">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
+          </div>
+          <!-- row 5 -->
+          <div class="rail-box vfi-layer">
+            <div class="vfi-layer-outer">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"        alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete">
+            </div>
+          </div>
+        </div>
 
-        <!-- 右：各パネル（Stationery/Zoom/Opacity/Color） -->
+        <!-- 右：各パネル（先頭に白カード×5 → 既存パネル） -->
         <div class="panel-col">
           <!-- LAYER CARDS (5x) -->
-<div class="vfi-layer-card">
-  <div class="vfi-layer-icons">
-    <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-    <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-    <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-  </div>
-</div>
-<div class="vfi-layer-card">
-  <div class="vfi-layer-icons">
-    <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-    <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-    <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-  </div>
-</div>
-<div class="vfi-layer-card">
-  <div class="vfi-layer-icons">
-    <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-    <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-    <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-  </div>
-</div>
-<div class="vfi-layer-card">
-  <div class="vfi-layer-icons">
-    <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-    <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-    <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-  </div>
-</div>
-<div class="vfi-layer-card">
-  <div class="vfi-layer-icons">
-    <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-    <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-    <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-  </div>
-</div>
-<!-- /LAYER CARDS -->
+          <div class="vfi-layer-card">
+            <div class="vfi-layer-icons">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
+          </div>
+          <div class="vfi-layer-card">
+            <div class="vfi-layer-icons">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
+          </div>
+          <div class="vfi-layer-card">
+            <div class="vfi-layer-icons">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
+          </div>
+          <div class="vfi-layer-card">
+            <div class="vfi-layer-icons">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
+          </div>
+          <div class="vfi-layer-card">
+            <div class="vfi-layer-icons">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
+          </div>
+          <!-- /LAYER CARDS -->
 
           <section class="panel">
             <h3>Stationery</h3>
