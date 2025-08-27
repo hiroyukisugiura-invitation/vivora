@@ -1,124 +1,126 @@
-/* ============ TOKENS ============ */
-:root{
-  --bg:#efe7e0;
-  --panel:#ffffff;
-  --line:#e6e0db;
-  --tile:#ece7e1;
-  --text:#333;
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-  --icon:26px;
-  --st-icon:30px;
-  --radius:12px;
-  --radius-sm:10px;
+  <!-- ========== TOP (変更なし) ========== -->
+  <div class="topbar">
+    <div class="row">
+      <div class="page-title">Vivora Fashion Illustration 2025</div>
+      <div class="flex-1"></div>
+      <button class="next-btn">Next Step ››</button>
+    </div>
+    <div class="row">
+      <nav class="gender-switch">
+        <button>Woman</button><button>Man</button><button>Kids</button>
+      </nav>
+      <div class="tiles">
+        <img class="tile" src="../../create_parts/create_button/retreat.png" alt="Undo">
+        <img class="tile" src="../../create_parts/create_button/forward.png" alt="Redo">
+        <img class="tile" src="../../create_parts/create_button/reset.png" alt="Reset">
+        <img class="tile" src="../../create_parts/create_button/download.png" alt="Download">
+        <img class="tile" src="../../create_parts/create_button/upload.png" alt="Upload">
+        <img class="tile" src="../../create_parts/create_button/graph_paper.png" alt="Grid">
+        <img class="tile" src="../../create_parts/create_button/save.png" alt="Save">
+        <div class="mode-switch"><button>2D</button><button>3D</button></div>
+      </div>
+    </div>
+  </div>
 
-  --right-col:360px;
-  --rail:60px;
-  --canvas-pad:26px;
-  --gap:16px;
-}
+  <!-- ========== MAIN (変更あり) ========== -->
+  <div class="main">
+    <section class="canvas">
+      <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
+    </section>
 
-/* ============ BASE ============ */
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  color:var(--text); background:#fff;
-}
-img{display:block;max-width:100%;height:auto}
-button{font:inherit}
+    <aside class="right">
+      <div class="contents-row">
+        <div class="tiles">
+          <img class="tile" src="../../create_parts/contents_button/0_home.png" alt="Home">
+          <img class="tile" src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations">
+          <img class="tile" src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric">
+          <img class="tile" src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing">
+          <img class="tile" src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern">
+          <img class="tile" src="../../create_parts/contents_button/5_grading.png" alt="Grading">
+          <img class="tile" src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print/Cut">
+          <img class="tile" src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode">
+        </div>
+      </div>
 
-/* ============ TOPBAR（2段） ============ */
-.topbar{padding:14px 16px;background:var(--bg);border-bottom:1px solid var(--line)}
-.row{display:flex;align-items:center;gap:12px}
-.row + .row{margin-top:10px}
-.page-title{font-size:16px;font-weight:600}
-.flex-1{flex:1}
-.next-btn{padding:8px 14px;border:1px solid var(--line);background:var(--panel);border-radius:12px}
-.gender-switch{display:flex;gap:8px}
-.gender-switch button{padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:8px}
-.tiles{display:flex;gap:8px}
-.tile{width:var(--icon);height:var(--icon);padding:6px;background:var(--tile);border:1px solid var(--line);border-radius:var(--radius-sm);object-fit:contain}
-.mode-switch{display:flex;gap:8px}
-.mode-switch button{padding:6px 14px;border:1px solid var(--line);background:var(--tile);border-radius:10px}
+      <div class="right-grid">
+        <!-- ★★★ 左：縦レールは4箱になります ★★★ -->
+        <div class="tool-rail">
+          <div class="rail-box" title="Stationery rail"></div>
+          <div class="rail-box" title="Zoom rail"></div>
+          <div class="rail-box" title="Opacity rail"></div>
+          <div class="rail-box" title="Color rail"></div>
+        </div>
 
-/* ============ MAIN（2カラム：キャンバス / 右列） ============ */
-.main{
-  display:grid; grid-template-columns:1fr var(--right-col);
-  gap:22px; padding:18px 16px; background:var(--bg);
-  min-height:calc(100vh - 78px);
-}
-.canvas{
-  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-  padding:var(--canvas-pad); display:flex; align-items:center; justify-content:center;
-}
-.mannequin{max-width:420px}
+        <!-- ★★★ 右：パネル群の最後にレイヤーパネルを追加 ★★★ -->
+        <div class="panel-col">
+          <section class="panel">
+            <h3>Stationery</h3>
+            <div class="st-row">
+              <img class="st-btn" src="../../create_parts/design_button/pen.png"   alt="Pen">
+              <img class="st-btn" src="../../create_parts/design_button/brush.png" alt="Brush">
+              <img class="st-btn" src="../../create_parts/design_button/square.png"alt="Shape">
+              <img class="st-btn" src="../../create_parts/design_button/text.png"  alt="Text">
+              <img class="st-btn" src="../../create_parts/design_button/eraser.png"alt="Eraser">
+            </div>
+          </section>
 
-/* 右カラム */
-.right{display:flex;flex-direction:column;gap:var(--gap)}
-.contents-row{display:flex;justify-content:flex-end}
+          <section class="panel">
+            <h3>Zoom</h3>
+            <div class="z-row">
+              <span class="ghost">−</span> <div class="bar"><i></i></div> <span class="ghost">＋</span> <button class="ghost-btn">Reset</button>
+            </div>
+            <div class="note">10%</div>
+          </section>
 
-/* ============ 右カラム：レール + パネル（2カラムで同期） ============ */
-.right-grid{
-  display:grid; grid-template-columns: var(--rail) 1fr; gap:var(--gap);
-}
+          <section class="panel">
+            <h3>Opacity</h3>
+            <div class="z-row">
+              <span class="ghost">−</span> <div class="bar"><i></i></div> <span class="ghost">＋</span> <button class="ghost-btn">Reset</button>
+            </div>
+            <div class="note">10%</div>
+          </section>
 
-/* 左レール（縦4箱） */
-.tool-rail{display:flex;flex-direction:column;gap:var(--gap)}
-.rail-box{
-  background:#fff; border:1px solid var(--line);
-  border-radius:var(--radius); height:96px; 
-}
+          <section class="panel">
+            <h3>Color</h3>
+            <div class="swatches">
+              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
+              <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
+              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
+            </div>
+            <div class="color-actions">
+              <button class="ghost-btn">+</button> <button class="ghost-btn">+</button> <button class="ghost-btn">…</button>
+            </div>
+          </section>
 
-/* 右パネル群 */
-.panel-col{display:flex;flex-direction:column;gap:var(--gap)}
-.panel{
-  background:#fff; border:1px solid var(--line);
-  border-radius:var(--radius); padding:14px 16px; display:flex; flex-direction:column; gap:12px;
-}
-.panel h3{font-size:14px;font-weight:700}
+          <!-- ▼▼▼ 新しいレイヤーパネルをここに追加 ▼▼▼ -->
+          <section class="panel panel--layer">
+            <div class="layer-group">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
+            <div class="layer-group">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"         alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"   alt="Delete">
+            </div>
+          </section>
+          <!-- ▲▲▲ 新しいレイヤーパネルはここまで ▲▲▲ -->
 
-/* Stationery */
-.st-row{display:flex;gap:12px}
-.st-btn{width:var(--st-icon);height:var(--st-icon);padding:6px;border:1px solid var(--line);background:#fff;border-radius:10px;object-fit:contain}
-
-/* Zoom / Opacity （外観のみ） */
-.z-row{display:flex;align-items:center;gap:12px}
-.ghost{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:8px;background:#fff}
-.bar{position:relative;flex:1;height:6px;border:1px solid var(--line);border-radius:999px;background:linear-gradient(90deg,#dcd6cf,#a8a19b)}
-.bar i{position:absolute;top:-5px;left:20%;width:14px;height:14px;background:#fff;border:1px solid var(--line);border-radius:50%}
-.ghost-btn{padding:6px 10px;border:1px solid var(--line);background:#fff;border-radius:8px}
-.note{font-size:12px;color:#777}
-
-/* Color */
-.swatches{display:grid;grid-template-columns:repeat(5,28px);gap:10px}
-.swatches div{width:28px;height:28px;border-radius:8px;border:1px solid var(--line)}
-.color-actions{display:flex;gap:8px}
-
-/* ============ Layer Panel (NEW) ============ */
-.panel--layer {
-  flex-direction: row; /* ★ アイコンのグループを横に並べる */
-  justify-content: space-between; /* ★ 左右に引き離す */
-  align-items: center; /* ★ 上下中央に揃える */
-  min-height: 180px; /* ★ 高さを確保 */
-}
-
-.layer-group {
-  display: flex;
-  flex-direction: column; /* グループ内のアイコンは縦に並べる */
-  align-items: center;
-  gap: 8px; /* アイコン間の隙間 */
-}
-
-.layer-group img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
-
-
-/* ============ Responsive ============ */
-@media (max-width:1024px){
-  .main{grid-template-columns:1fr}
-  .right-grid{grid-template-columns:1fr}
-  .contents-row{justify-content:flex-start}
-}
+        </div>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>
