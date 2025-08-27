@@ -4,21 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <!-- 外部CSSファイルを読み込みます -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ========== TOP ========== -->
+  <!-- ========== TOP (変更なし) ========== -->
   <div class="topbar">
-    <!-- 1段目：Title / Next -->
     <div class="row">
       <div class="page-title">Vivora Fashion Illustration 2025</div>
       <div class="flex-1"></div>
       <button class="next-btn">Next Step ››</button>
     </div>
-
-    <!-- 2段目：Gender + History + 2D/3D -->
     <div class="row">
       <nav class="gender-switch">
         <button>Woman</button><button>Man</button><button>Kids</button>
@@ -36,14 +32,12 @@
     </div>
   </div>
 
-  <!-- ========== MAIN ========== -->
+  <!-- ========== MAIN (変更あり) ========== -->
   <div class="main">
-    <!-- 左：キャンバス -->
     <section class="canvas">
       <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin">
     </section>
 
-    <!-- 右：contents（上）＋ right-grid（レール&パネル） -->
     <aside class="right">
       <div class="contents-row">
         <div class="tiles">
@@ -58,32 +52,16 @@
         </div>
       </div>
 
-      <!-- 2カラム同期：左レール / 右パネル -->
       <div class="right-grid">
-        <!-- 左：縦レール（5箱） -->
+        <!-- ★★★ 左：縦レールは4箱になります ★★★ -->
         <div class="tool-rail">
           <div class="rail-box" title="Stationery rail"></div>
           <div class="rail-box" title="Zoom rail"></div>
           <div class="rail-box" title="Opacity rail"></div>
           <div class="rail-box" title="Color rail"></div>
-
-          <!-- 最下段：Layer rail -->
-          <div class="rail-box layer" title="Layer rail">
-            <div class="layer-card">
-              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
-              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
-              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
-            </div>
-            <div class="layer-outer">
-              <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
-              <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-              <img src="../../create_parts/layer_button/layerpanel.png"         alt="Upload">
-              <img src="../../create_parts/layer_button/layerdestruction.png"   alt="Delete">
-            </div>
-          </div>
         </div>
 
-        <!-- 右：各パネル（Stationery/Zoom/Opacity/Color） -->
+        <!-- ★★★ 右：パネル群の最後にレイヤーパネルを追加 ★★★ -->
         <div class="panel-col">
           <section class="panel">
             <h3>Stationery</h3>
@@ -99,10 +77,7 @@
           <section class="panel">
             <h3>Zoom</h3>
             <div class="z-row">
-              <span class="ghost">−</span>
-              <div class="bar"><i></i></div>
-              <span class="ghost">＋</span>
-              <button class="ghost-btn">Reset</button>
+              <span class="ghost">−</span> <div class="bar"><i></i></div> <span class="ghost">＋</span> <button class="ghost-btn">Reset</button>
             </div>
             <div class="note">10%</div>
           </section>
@@ -110,10 +85,7 @@
           <section class="panel">
             <h3>Opacity</h3>
             <div class="z-row">
-              <span class="ghost">−</span>
-              <div class="bar"><i></i></div>
-              <span class="ghost">＋</span>
-              <button class="ghost-btn">Reset</button>
+              <span class="ghost">−</span> <div class="bar"><i></i></div> <span class="ghost">＋</span> <button class="ghost-btn">Reset</button>
             </div>
             <div class="note">10%</div>
           </section>
@@ -126,11 +98,26 @@
               <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
             </div>
             <div class="color-actions">
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">…</button>
+              <button class="ghost-btn">+</button> <button class="ghost-btn">+</button> <button class="ghost-btn">…</button>
             </div>
           </section>
+
+          <!-- ▼▼▼ 新しいレイヤーパネルをここに追加 ▼▼▼ -->
+          <section class="panel panel--layer">
+            <div class="layer-group">
+              <img src="../../create_parts/layer_button/layerlock.png"    alt="Lock">
+              <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display">
+              <img src="../../create_parts/layer_button/layerhidden.png"  alt="Hide">
+            </div>
+            <div class="layer-group">
+              <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="Add">
+              <img src="../../create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
+              <img src="../../create_parts/layer_button/layerpanel.png"         alt="Upload">
+              <img src="../../create_parts/layer_button/layerdestruction.png"   alt="Delete">
+            </div>
+          </section>
+          <!-- ▲▲▲ 新しいレイヤーパネルはここまで ▲▲▲ -->
+
         </div>
       </div>
     </aside>
