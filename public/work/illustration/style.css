@@ -196,3 +196,77 @@ button{font:inherit}
   .right-grid{grid-template-columns:1fr}
   .panel-contents .contents-tiles{justify-content:flex-start}
 }
+/* ==== VFI Layer Cassette (left column) ==== */
+:root{
+  --cassette-col: 240px;       /* 左カラムの幅（必要に応じて調整） */
+  --cassette-h: 180px;         /* 1段の高さ */
+  --cassette-pad: 14px;        /* 外枠の内側余白 */
+  --cassette-rail-w: 56px;     /* 右の縦アイコン帯の幅 */
+  --cassette-bg: #c7c2bb;      /* 外枠のグレー */
+  --cassette-track: #eee7df;   /* 右の縦帯の色 */
+  --cassette-radius: 26px;     /* 外枠の角丸 */
+}
+
+/* right-grid を左=カセット列 / 右=パネル列に */
+.right-grid{
+  display:grid;
+  grid-template-columns: var(--cassette-col) 1fr !important;
+  gap: var(--gap);
+  align-items:start;
+}
+
+/* 左カラム全体（5本縦並び） */
+.vfi-rail{
+  display:flex;
+  flex-direction:column;
+  gap: var(--gap);
+}
+
+/* —— 1カセット —— */
+.vfi-cassette{
+  position:relative;
+  height: var(--cassette-h);
+  background: var(--cassette-bg);
+  border-radius: var(--cassette-radius);
+  /* 薄くエッジを出すなら↓有効化
+  box-shadow: 0 2px 6px rgba(0,0,0,.06) inset;
+  */
+}
+
+/* 白いプレビュー箱（カセットの中・右は縦帯ぶん空ける） */
+.vfi-cassette__preview{
+  position:absolute;
+  top: var(--cassette-pad);
+  bottom: var(--cassette-pad);
+  left: var(--cassette-pad);
+  right: calc(var(--cassette-rail-w) + var(--cassette-pad)*1.2);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius: calc(var(--cassette-radius) - 6px);
+}
+
+/* 白箱の右上3アイコン */
+.vfi-cassette__inicons{
+  position:absolute; top: 12px; right: 12px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.vfi-cassette__inicons img{ width:24px; height:24px; object-fit:contain }
+
+/* 右端の縦4アイコン帯 */
+.vfi-cassette__rail{
+  position:absolute;
+  top: var(--cassette-pad);
+  right: var(--cassette-pad);
+  bottom: var(--cassette-pad);
+  width: var(--cassette-rail-w);
+  background: var(--cassette-track);
+  border:1px solid var(--line);
+  border-radius: 22px;
+  display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+  padding: 10px 0;
+}
+.vfi-cassette__rail img{
+  width:26px; height:26px; object-fit:contain;
+  background:#fff; border:1px solid var(--line); border-radius:999px;
+  padding:6px;
+}
