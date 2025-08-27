@@ -239,3 +239,44 @@ button{font:inherit}
 
 /* 旧レイヤーブロックを使っていない場合は無効化（任意） */
 .rail-box.layer{ display:none; }
+/* ====== layer_revert_patch.css —— 最後に1回だけ読み込む ====== */
+
+/* 1) レイアウトは常に2カラム固定（狭い時だけ1カラム） */
+.right-grid{ grid-template-columns: var(--rail) 1fr !important; }
+@media (max-width:760px){
+  .right-grid{ grid-template-columns: 1fr !important; }
+}
+
+/* 2) 旧レイヤーブロックは使わない（誤表示防止） */
+.rail-box.layer{ display:none !important; }
+
+/* 3) 左レール：基本は従来の96px、高さ調整が必要な段だけ vfi-layer を使う */
+.tool-rail .rail-box{ height:96px; }
+.vfi-layer{ height:118px; } /* レイヤー行のみ少し高く */
+
+/* 4) 縦4アイコン帯（シンプル版） */
+.vfi-layer .vfi-layer-outer{
+  position:absolute; top:8px; bottom:8px; left:50%; transform:translateX(-50%);
+  width:40px;                      /* スリムで統一 */
+  display:flex; flex-direction:column; justify-content:space-between; align-items:center;
+  padding:6px 0;
+  background:#fff; border:1px solid var(--line); border-radius:12px;
+}
+.vfi-layer .vfi-layer-outer img{
+  width:18px; height:18px; padding:4px; object-fit:contain;
+  background:#fff; border:1px solid var(--line); border-radius:9px;
+}
+
+/* 5) 右列：レイヤー白カード（右上3アイコン）——最少定義 */
+.vfi-layer-card{
+  position:relative; height:118px;
+  background:#fff; border:1px solid var(--line); border-radius:18px; padding:12px;
+}
+.vfi-layer-icons{
+  position:absolute; top:12px; right:12px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.vfi-layer-icons img{ width:22px; height:22px; object-fit:contain; }
+
+/* 6) 見出しの余白だけ軽く（従来トーンへ） */
+.panel h3{ margin-bottom:6px; }
