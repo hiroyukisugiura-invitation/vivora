@@ -7,10 +7,9 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- Topbar -->
   <header class="topbar">
     <div class="brand">Vivora Fashion Illustration 2025</div>
-    <div class="page-title">page title</div>
+    <div class="page-title" id="pageTitle">page title</div>
 
     <nav class="gender-switch" data-toggle-group="gender">
       <button class="btn-gender is-active" data-gender="woman">Woman</button>
@@ -40,19 +39,15 @@
     </div>
   </header>
 
-  <!-- Layout -->
   <main class="app">
-    <!-- Canvas -->
     <section class="canvas">
       <div class="canvas-inner" id="canvasInner">
-        <!-- front / side / back （存在しない場合はフォールバックで単一PNGを使用） -->
-        <img class="mannequin" data-pose="front" src="../../mannequin/mannequin_woman_front.png" alt="Woman Front" onerror="this.onerror=null;this.src='../../mannequin/mannequin_woman.png';" />
-        <img class="mannequin" data-pose="side"  src="../../mannequin/mannequin_woman_side.png"  alt="Woman Side"  onerror="this.onerror=null;this.src='../../mannequin/mannequin_woman.png';" />
-        <img class="mannequin" data-pose="back"  src="../../mannequin/mannequin_woman_back.png"  alt="Woman Back"  onerror="this.onerror=null;this.src='../../mannequin/mannequin_woman.png';" />
+        <img class="mannequin" data-pose="front" src="../../mannequin/mannequin_woman/mannequin_woman_front.png" alt="Woman Front" />
+        <img class="mannequin" data-pose="side"  src="../../mannequin/mannequin_woman/mannequin_woman_side.png"  alt="Woman Side" />
+        <img class="mannequin" data-pose="back"  src="../../mannequin/mannequin_woman/mannequin_woman_back.png"  alt="Woman Back" />
       </div>
     </section>
 
-    <!-- Right rail -->
     <aside class="right-rail">
       <div class="contents-row" data-toggle-group="contents">
         <button class="icon-tile is-active" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select" /></button>
@@ -137,7 +132,6 @@
   </main>
 
   <script>
-    // 汎用：単一選択トグル
     function bindToggleGroup(root){
       root.addEventListener('click', (e)=>{
         const btn = e.target.closest('button');
@@ -148,42 +142,39 @@
     }
     document.querySelectorAll('[data-toggle-group]').forEach(bindToggleGroup);
 
-    // Gender切替（PNGは front/side/back が無い場合フォールバック）
     const mannequinImgs = document.querySelectorAll('.mannequin');
-    document.querySelector('.gender-switch').addEventListener('click', (e)=>{
-      const btn = e.target.closest('button[data-gender]');
-      if(!btn) return;
-      const g = btn.dataset.gender;
+    const genderMap = {
+      woman:{dir:'mannequin_woman', base:'mannequin_woman'},
+      man:{dir:'mannequin_man', base:'mannequin_man'},
+      kids:{dir:'mannequin_baby', base:'mannequin_baby'}
+    };
+    document.querySelector('.gender-switch').addEventListener('click',(e)=>{
+      const b = e.target.closest('button[data-gender]');
+      if(!b) return;
+      const g = b.dataset.gender;
+      const {dir,base} = genderMap[g];
       mannequinImgs.forEach(img=>{
         const pose = img.dataset.pose;
-        const primary = `../../mannequin/mannequin_${g}_${pose}.png`;
-        const fallback = `../../mannequin/mannequin_${g}.png`;
-        img.src = primary;
-        img.onerror = ()=>{ img.onerror=null; img.src=fallback; };
+        img.src = `../../mannequin/${dir}/${base}_${pose}.png`;
+        img.alt = `${g} ${pose}`;
       });
     });
 
-    // Mode切替（見た目のトグルのみ）
-    document.querySelector('.mode-switch').addEventListener('click', (e)=>{
-      const btn = e.target.closest('button[data-mode]');
-      if(!btn) return;
-      document.body.dataset.mode = btn.dataset.mode;
+    document.querySelector('.mode-switch').addEventListener('click',(e)=>{
+      const b = e.target.closest('button[data-mode]'); if(!b) return;
+      document.body.dataset.mode = b.dataset.mode;
     });
 
-    // Contents/Stationery 現在ツールの保持
     let currentTool = 'select';
-    document.querySelector('.contents-row').addEventListener('click', (e)=>{
-      const b = e.target.closest('button[data-tool]');
-      if(!b) return;
+    document.querySelector('.contents-row').addEventListener('click',(e)=>{
+      const b = e.target.closest('button[data-tool]'); if(!b) return;
       currentTool = b.dataset.tool;
     });
-    document.querySelector('.stationery-grid').addEventListener('click', (e)=>{
-      const b = e.target.closest('button[data-tool]');
-      if(!b) return;
+    document.querySelector('.stationery-grid').addEventListener('click',(e)=>{
+      const b = e.target.closest('button[data-tool]'); if(!b) return;
       currentTool = b.dataset.tool;
     });
 
-    // Zoom
     const canvasInner = document.getElementById('canvasInner');
     const zoomRange = document.getElementById('zoomRange');
     const zoomPct   = document.getElementById('zoomPct');
@@ -193,7 +184,6 @@
     document.getElementById('zoomOut').onclick= ()=>{ zoomRange.value=Math.max(10,  +zoomRange.value-10); applyZoom(zoomRange.value); };
     document.getElementById('zoomReset').onclick=()=>{ zoomRange.value=100; applyZoom(100); };
 
-    // Opacity
     const opacityRange = document.getElementById('opacityRange');
     const opacityPct   = document.getElementById('opacityPct');
     function applyOpacity(v){ mannequinImgs.forEach(m=>m.style.opacity=v/100); opacityPct.textContent=`${v}%`; }
@@ -202,11 +192,9 @@
     document.getElementById('opacityDown').onclick= ()=>{ opacityRange.value=Math.max(10,  +opacityRange.value-5); applyOpacity(opacityRange.value); };
     document.getElementById('opacityReset').onclick=()=>{ opacityRange.value=100; applyOpacity(100); };
 
-    // Color
     let currentColor = '#333333';
-    document.getElementById('colorGrid').addEventListener('click', (e)=>{
-      const sw = e.target.closest('.swatch');
-      if(!sw) return;
+    document.getElementById('colorGrid').addEventListener('click',(e)=>{
+      const sw = e.target.closest('.swatch'); if(!sw) return;
       document.querySelectorAll('#colorGrid .swatch').forEach(s=>s.classList.remove('is-selected'));
       sw.classList.add('is-selected');
       if(sw.classList.contains('eyedrop')) return;
@@ -214,10 +202,8 @@
       document.documentElement.style.setProperty('--current-color', currentColor);
     });
 
-    // Next Step（プレースホルダー）
-    document.getElementById('nextStepBtn').addEventListener('click', ()=>{ /* ここに遷移処理 */ });
+    document.getElementById('nextStepBtn').addEventListener('click',()=>{});
 
-    // 初期適用
     applyZoom(zoomRange.value);
     applyOpacity(opacityRange.value);
   </script>
