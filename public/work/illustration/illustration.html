@@ -7,37 +7,44 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- Topbar -->
+  <!-- ===== Top Bar (title + Next only) ===== -->
   <header class="topbar">
     <div class="brand">Vivora Fashion Illustration 2025</div>
+    <div class="spacer"></div>
+    <div class="next-button">
+      <button class="btn-next">Next Step ▸▸</button>
+    </div>
+  </header>
 
+  <!-- ===== Controls Row (left: gender / center: action bar) ===== -->
+  <div class="controls-row">
     <nav class="gender-switch" data-toggle-group="gender">
       <button class="btn-gender is-active" data-gender="woman">Woman</button>
       <button class="btn-gender" data-gender="man">Man</button>
       <button class="btn-gender" data-gender="kids">Kids</button>
     </nav>
 
-    <div class="history-tool">
-      <button><img src="../../create_parts/create_button/back.png" alt="Back" /></button>
-      <button><img src="../../create_parts/create_button/forward.png" alt="Forward" /></button>
-      <button><img src="../../create_parts/create_button/rotateleft.png" alt="Rotate Left" /></button>
-      <button><img src="../../create_parts/create_button/rotateright.png" alt="Rotate Right" /></button>
-      <button><img src="../../create_parts/create_button/fliph.png" alt="Flip H" /></button>
-      <button><img src="../../create_parts/create_button/flipv.png" alt="Flip V" /></button>
-      <button><img src="../../create_parts/create_button/grid.png" alt="Grid" /></button>
-      <button><img src="../../create_parts/create_button/save.png" alt="Save" /></button>
+    <div class="action-bar">
+      <div class="history-tool">
+        <button class="icon-btn"><img src="../../create_parts/create_button/back.png" alt="Back" /></button>
+        <button class="icon-btn"><img src="../../create_parts/create_button/forward.png" alt="Forward" /></button>
+        <button class="icon-btn"><img src="../../create_parts/create_button/rotateleft.png" alt="Rotate Left" /></button>
+        <button class="icon-btn"><img src="../../create_parts/create_button/rotateright.png" alt="Rotate Right" /></button>
+        <button class="icon-btn"><img src="../../create_parts/create_button/fliph.png" alt="Flip H" /></button>
+        <button class="icon-btn"><img src="../../create_parts/create_button/flipv.png" alt="Flip V" /></button>
+        <button class="icon-btn"><img src="../../create_parts/create_button/grid.png" alt="Grid" /></button>
+        <button class="icon-btn"><img src="../../create_parts/create_button/save.png" alt="Save" /></button>
+      </div>
       <div class="mode-switch" data-toggle-group="mode">
         <button class="btn-mode is-active" data-mode="2d">2D</button>
         <button class="btn-mode" data-mode="3d">3D</button>
       </div>
     </div>
 
-    <div class="next-button">
-      <button class="btn-next">Next Step ▸▸</button>
-    </div>
-  </header>
+    <div class="right-void"></div>
+  </div>
 
-  <!-- Layout -->
+  <!-- ===== Main ===== -->
   <main class="app">
     <!-- Canvas -->
     <section class="canvas">
@@ -48,24 +55,24 @@
       </div>
     </section>
 
-    <!-- Right Panel -->
+    <!-- Right Rail -->
     <aside class="right-rail">
-      <!-- Contents -->
+      <!-- Contents buttons (上段アイコン列) -->
       <div class="contents-row" data-toggle-group="contents">
-        <button data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select" /></button>
-        <button data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
-        <button data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush" /></button>
-        <button data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt="Eraser" /></button>
-        <button data-tool="line"><img src="../../create_parts/design_button/line.png" alt="Line" /></button>
-        <button data-tool="rect"><img src="../../create_parts/design_button/rect.png" alt="Rectangle" /></button>
-        <button data-tool="circle"><img src="../../create_parts/design_button/circle.png" alt="Circle" /></button>
-        <button data-tool="text"><img src="../../create_parts/design_button/text.png" alt="Text" /></button>
-        <button data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt="Fill" /></button>
+        <button class="icon-tile is-active" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select" /></button>
+        <button class="icon-tile" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
+        <button class="icon-tile" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush" /></button>
+        <button class="icon-tile" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt="Eraser" /></button>
+        <button class="icon-tile" data-tool="line"><img src="../../create_parts/design_button/line.png" alt="Line" /></button>
+        <button class="icon-tile" data-tool="rect"><img src="../../create_parts/design_button/rect.png" alt="Rectangle" /></button>
+        <button class="icon-tile" data-tool="circle"><img src="../../create_parts/design_button/circle.png" alt="Circle" /></button>
+        <button class="icon-tile" data-tool="text"><img src="../../create_parts/design_button/text.png" alt="Text" /></button>
+        <button class="icon-tile" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt="Fill" /></button>
       </div>
 
       <!-- Stationery -->
       <section class="panel">
-        <h3>Stationery</h3>
+        <div class="panel-title">Stationery</div>
         <div class="stationery-grid" data-toggle-group="stationery">
           <button class="st-btn" data-tool="play"><img src="../../create_parts/design_button/play.png" alt="Play" /></button>
           <button class="st-btn is-active" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
@@ -78,72 +85,75 @@
 
       <!-- Zoom -->
       <section class="panel">
-        <h3>Zoom</h3>
+        <div class="panel-title">Zoom</div>
         <div class="row">
           <button id="zoomOut">−</button>
-          <input id="zoomRange" type="range" min="10" max="400" value="100" />
+          <input id="zoomRange" type="range" min="10" max="400" value="10" />
           <button id="zoomIn">＋</button>
         </div>
         <div class="panel-subrow">
-          <span id="zoomPct">100%</span>
+          <span id="zoomPct">10%</span>
           <button id="zoomReset">Reset</button>
         </div>
       </section>
 
       <!-- Opacity -->
       <section class="panel">
-        <h3>Opacity</h3>
+        <div class="panel-title">Opacity</div>
         <div class="row">
           <button id="opacityDown">−</button>
-          <input id="opacityRange" type="range" min="10" max="100" value="100" />
+          <input id="opacityRange" type="range" min="10" max="100" value="10" />
           <button id="opacityUp">＋</button>
         </div>
         <div class="panel-subrow">
-          <span id="opacityPct">100%</span>
+          <span id="opacityPct">10%</span>
           <button id="opacityReset">Reset</button>
         </div>
       </section>
 
       <!-- Color -->
       <section class="panel">
-        <h3>Color</h3>
+        <div class="panel-title">Color</div>
         <div class="color-grid" id="colorGrid">
-          <button class="swatch" data-color="#ffffff"></button>
-          <button class="swatch" data-color="#b3b3b3"></button>
-          <button class="swatch" data-color="#ffe100"></button>
-          <button class="swatch" data-color="#ff7a00"></button>
-          <button class="swatch" data-color="#ffc300"></button>
-          <button class="swatch" data-color="#ffcbcb"></button>
-          <button class="swatch" data-color="#ff3b30"></button>
-          <button class="swatch" data-color="#2ecc71"></button>
-          <button class="swatch" data-color="#1abc9c"></button>
-          <button class="swatch" data-color="#3498db"></button>
-          <button class="swatch" data-color="#4b6cb7"></button>
-          <button class="swatch" data-color="#1b4f72"></button>
-          <button class="swatch" data-color="#8e44ad"></button>
-          <button class="swatch" data-color="#a04000"></button>
-          <button class="swatch" data-color="#7f8c8d"></button>
-          <button class="swatch" data-color="#2c3e50"></button>
-          <button class="swatch" data-color="#000000"></button>
+          <!-- 3 x 6（見本と同配列） -->
+          <button class="swatch" data-color="#FFFFFF" style="background:#FFFFFF"></button>
+          <button class="swatch" data-color="#D0CFCC" style="background:#D0CFCC"></button>
+          <button class="swatch" data-color="#FFE17A" style="background:#FFE17A"></button>
+          <button class="swatch" data-color="#FFB52E" style="background:#FFB52E"></button>
+          <button class="swatch" data-color="#FFC845" style="background:#FFC845"></button>
+          <button class="swatch" data-color="#F6B5BE" style="background:#F6B5BE"></button>
+
+          <button class="swatch" data-color="#E74C3C" style="background:#E74C3C"></button>
+          <button class="swatch" data-color="#27AE60" style="background:#27AE60"></button>
+          <button class="swatch" data-color="#2ECC71" style="background:#2ECC71"></button>
+          <button class="swatch" data-color="#3498DB" style="background:#3498DB"></button>
+          <button class="swatch" data-color="#6FB1FF" style="background:#6FB1FF"></button>
+          <button class="swatch" data-color="#7FB3D5" style="background:#7FB3D5"></button>
+
+          <button class="swatch" data-color="#8E44AD" style="background:#8E44AD"></button>
+          <button class="swatch" data-color="#A04000" style="background:#A04000"></button>
+          <button class="swatch" data-color="#7F8C8D" style="background:#7F8C8D"></button>
+          <button class="swatch" data-color="#2C3E50" style="background:#2C3E50"></button>
+          <button class="swatch" data-color="#000000" style="background:#000000"></button>
           <button class="swatch eyedrop" title="Eyedropper"></button>
         </div>
       </section>
     </aside>
   </main>
 
-  <!-- JS -->
+  <!-- ===== JS ===== -->
   <script>
-    // 汎用トグル
+    // 単一選択トグル
     function bindToggleGroup(root){
       root.addEventListener('click', (e)=>{
         const btn = e.target.closest('button'); if(!btn) return;
-        [...root.querySelectorAll('button')].forEach(b=>b.classList.remove('is-active'));
-        btn.classList.add('is-active');
+        [...root.querySelectorAll('button')].forEach(b=>b.classList.remove('is-active','is-selected'));
+        btn.classList.add('is-active','is-selected');
       });
     }
     document.querySelectorAll('[data-toggle-group]').forEach(bindToggleGroup);
 
-    // Gender 切替
+    // Gender 切替（フォルダ構成に準拠）
     const mannequinImgs = document.querySelectorAll('.mannequin');
     const genderMap = {
       woman:{dir:'mannequin_woman', base:'mannequin_woman'},
@@ -156,6 +166,7 @@
       mannequinImgs.forEach(img=>{
         const pose = img.dataset.pose;
         img.src = `../../mannequin/${dir}/${base}_${pose}.png`;
+        img.alt = `${g} ${pose}`;
       });
     });
 
@@ -167,7 +178,7 @@
     zoomRange.addEventListener('input', e=>applyZoom(e.target.value));
     document.getElementById('zoomIn').onclick = ()=>{ zoomRange.value=Math.min(400, +zoomRange.value+10); applyZoom(zoomRange.value); };
     document.getElementById('zoomOut').onclick= ()=>{ zoomRange.value=Math.max(10,  +zoomRange.value-10); applyZoom(zoomRange.value); };
-    document.getElementById('zoomReset').onclick=()=>{ zoomRange.value=100; applyZoom(100); };
+    document.getElementById('zoomReset').onclick=()=>{ zoomRange.value=10; applyZoom(10); };
 
     // Opacity
     const opacityRange = document.getElementById('opacityRange');
@@ -176,14 +187,22 @@
     opacityRange.addEventListener('input', e=>applyOpacity(e.target.value));
     document.getElementById('opacityUp').onclick  = ()=>{ opacityRange.value=Math.min(100, +opacityRange.value+5); applyOpacity(opacityRange.value); };
     document.getElementById('opacityDown').onclick= ()=>{ opacityRange.value=Math.max(10,  +opacityRange.value-5); applyOpacity(opacityRange.value); };
-    document.getElementById('opacityReset').onclick=()=>{ opacityRange.value=100; applyOpacity(100); };
+    document.getElementById('opacityReset').onclick=()=>{ opacityRange.value=10; applyOpacity(10); };
 
     // Color
+    let currentColor = '#333333';
     document.getElementById('colorGrid').addEventListener('click',(e)=>{
       const sw = e.target.closest('.swatch'); if(!sw) return;
       document.querySelectorAll('#colorGrid .swatch').forEach(s=>s.classList.remove('is-selected'));
       sw.classList.add('is-selected');
+      if(sw.classList.contains('eyedrop')) return;
+      currentColor = sw.dataset.color || currentColor;
+      document.documentElement.style.setProperty('--current-color', currentColor);
     });
+
+    // 初期適用（見本と同じ 10% 表示）
+    applyZoom(zoomRange.value);
+    applyOpacity(opacityRange.value);
   </script>
 </body>
 </html>
