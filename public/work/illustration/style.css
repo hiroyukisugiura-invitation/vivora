@@ -1,158 +1,209 @@
-/* styles.css */
-/* ===== Tokens ===== */
+/* =========================
+   Vivora Illustration Styles
+   ========================= */
+
+/* --- Reset --- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:ui-sans-serif,system-ui,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;color:#333}
+button{cursor:pointer;border:none;background:none}
+img{display:block;max-width:100%}
+
+/* --- Tokens --- */
 :root{
   --bg:#efe7e0;
   --panel:#ffffff;
-  --rail:#eae3dc;
   --line:#e6e0db;
   --tile:#ece7e1;
-  --text:#333;
-  --accent:#222;
-  --brand:#000;
-  --radius:12px;
-  --radius-sm:10px;
-  --shadow:0 8px 24px rgba(0,0,0,.06);
+  --shadow:0 6px 18px rgba(0,0,0,.08);
 
-  --icon:26px;       /* history/contents の小アイコン */
-  --st-icon:30px;    /* Stationery 小ボタン */
+  --radius:12px;
+  --radius-sm:8px;
+
+  --icon:24px;
+  --st-icon:28px;
 }
 
-/* ===== Reset ===== */
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-button{cursor:pointer;border:0;background:none}
-img{display:block;max-width:100%}
-
-/* ===== Topbar ===== */
+/* --- Topbar --- */
 .topbar{
   display:grid;
-  grid-template-columns: auto 1fr auto auto auto;
-  grid-template-rows: auto;
-  gap:16px;
+  grid-template-columns: auto 1fr auto auto;
   align-items:center;
+  gap:16px;
   padding:10px 16px;
   background:#e9e1d9;
   border-bottom:1px solid var(--line);
 }
-.brand-text{font:600 14px/1.2 ui-sans-serif,system-ui,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;color:var(--brand)}
-.page-title{justify-self:center;font:700 18px/1 ui-sans-serif,system-ui;color:#222}
-
-/* Gender switch */
-.gender-switch{
-  display:flex; gap:8px; align-items:center;
-  margin-left:8px;
-}
+.brand{font-weight:600;font-size:14px;color:#000}
+.page-title{justify-self:center;font-weight:700;font-size:18px;color:#222}
+.gender-switch{display:flex;gap:8px}
 .btn-gender{
-  padding:8px 12px; border-radius:8px; background:#fff; border:1px solid var(--line);
-  box-shadow:var(--shadow); font:600 13px/1 ui-sans-serif; color:#333;
+  padding:6px 12px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:#fff;
+  font-weight:600;
 }
 .btn-gender.is-active{outline:2px solid #c9b89c}
 
-/* History tool */
+.history-box{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
 .history-tool{
-  display:flex; gap:8px; background:#fff; padding:8px; border:1px solid var(--line);
-  border-radius:12px; box-shadow:var(--shadow); justify-self:center;
+  display:flex;gap:6px;
+  background:#fff;
+  padding:6px 8px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
 }
-.icon-btn{width:34px;height:34px;display:grid;place-items:center;border-radius:8px;background:#fff}
-.icon-btn img{width:var(--icon);height:var(--icon);object-fit:contain}
+.history-tool button img{width:var(--icon);height:var(--icon)}
 
-/* Mode switch */
-.mode-switch{display:flex;gap:8px}
+.mode-switch{display:flex;gap:6px}
 .btn-mode{
-  width:56px;height:34px;border-radius:10px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);
-  font:700 12px/1 ui-sans-serif;
+  padding:6px 12px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:#fff;
+  font-weight:600;
 }
-.btn-mode.is-active{background:#f1ece6;border-color:#cbbba2}
+.btn-mode.is-active{background:#f3ede4;border-color:#cbbba2}
 
-/* Next button */
 .next-button .btn-next{
-  padding:10px 16px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);
-  font:700 14px/1 ui-sans-serif;
+  padding:8px 14px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:#fff;
+  font-weight:700;
+  box-shadow:var(--shadow);
 }
 
-/* ===== App Grid ===== */
+/* --- App Layout --- */
 .app{
   display:grid;
   grid-template-columns: 1fr 320px;
   gap:16px;
   padding:16px;
   background:var(--bg);
-  min-height:calc(100vh - 62px);
+  height:calc(100vh - 62px);
 }
 
-/* Canvas */
+/* --- Canvas --- */
 .canvas{
-  background:#fff;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);
-  padding:10px; display:grid; place-items:center;
+  background:#fff;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 .canvas-inner{
-  width:100%; height:100%;
+  display:flex;
+  justify-content:space-evenly;
+  align-items:center;
+  width:100%;
+  height:100%;
   transform-origin: top left;
-  display:flex; align-items:flex-start; justify-content:space-evenly; gap:40px;
-  padding:24px;
 }
-.mannequin{max-height:560px;width:auto}
+.mannequin{
+  max-height:520px;
+  width:auto;
+}
 
-/* Right Rail */
+/* --- Right Rail --- */
 .right-rail{
-  display:flex; flex-direction:column; gap:14px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
-
-/* Contents button row */
 .contents-row{
-  display:grid; grid-template-columns: repeat(9, 1fr);
-  gap:8px; background:#fff; padding:10px; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
+  display:grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap:6px;
+  background:#fff;
+  padding:8px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
 }
-.icon-tile{width:32px;height:32px;display:grid;place-items:center;border-radius:8px;background:#fff}
-.icon-tile img{width:24px;height:24px}
+.contents-row button img{width:var(--icon);height:var(--icon)}
 
-/* Panels */
 .panel{
-  background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
   padding:12px;
 }
-.panel-title{
-  font:700 14px/1.2 ui-sans-serif; color:var(--text); margin-bottom:10px;
+.panel h3{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:8px;
 }
 
 /* Stationery */
 .stationery-grid{
-  display:grid; grid-template-columns: repeat(6, 1fr); gap:10px;
+  display:grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap:8px;
 }
 .st-btn{
-  width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;
+  width:40px;height:40px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:#fff;
+  display:flex;align-items:center;justify-content:center;
 }
 .st-btn img{width:var(--st-icon);height:var(--st-icon)}
-.st-btn.is-active{outline:2px solid #cbbba2}
+.st-btn.is-active{outline:2px solid #c9b89c}
 
-/* Range rows */
-.row{display:grid; grid-template-columns: 40px 1fr 40px; gap:10px; align-items:center;}
-.range{width:100%}
-.btn-mini{
-  width:36px;height:32px;border-radius:8px;background:#fff;border:1px solid var(--line); font:700 14px/1 ui-sans-serif;
+/* Zoom / Opacity */
+.row{
+  display:grid;
+  grid-template-columns: 36px 1fr 36px;
+  align-items:center;
+  gap:8px;
 }
+.row button{
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:#fff;
+  font-weight:700;
+}
+.row input[type=range]{width:100%}
 .panel-subrow{
-  display:flex; justify-content:space-between; align-items:center; margin-top:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:6px;
 }
-.btn-reset{
-  padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:#fff; font:600 12px/1 ui-sans-serif;
+.panel-subrow button{
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:4px 8px;
+  background:#fff;
 }
 
-/* Color */
+/* Color Grid */
 .color-grid{
-  display:grid; grid-template-columns: repeat(6, 1fr); gap:10px;
+  display:grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap:6px;
 }
 .swatch{
-  width:36px;height:36px;border-radius:8px;border:1px solid var(--line); background:#ddd;
+  width:32px;height:32px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
 }
-.swatch[data-color="#ffffff"]{background:#fff}
-.swatch.eyedrop{background:linear-gradient(45deg,#000 50%,#fff 50%);}
-.swatch.is-selected{outline:2px solid #cbbba2}
+.swatch.is-selected{outline:2px solid #c9b89c}
+.swatch.eyedrop{background:linear-gradient(45deg,#000 50%,#fff 50%)}
 
-/* Tool Panel */
-.tool-panel .tool-placeholder{
-  height:80px;border:1px dashed var(--line);border-radius:10px;background:#faf8f6;
+/* Tools Placeholder */
+.tool-placeholder{
+  height:80px;
+  border:1px dashed var(--line);
+  border-radius:var(--radius);
+  background:#fafafa;
 }
-
-/* Current drawing color (previewable in dev tools) */
-:root{ --current-color:#333 }
