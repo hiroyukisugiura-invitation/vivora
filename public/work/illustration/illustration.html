@@ -4,17 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-
-  <!-- CSS -->
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- ===== Top Bar ===== -->
+  <!-- Topbar -->
   <header class="topbar">
     <div class="brand">Vivora Fashion Illustration 2025</div>
     <div class="page-title">page title</div>
 
-    <nav class="gender-switch">
+    <nav class="gender-switch" data-toggle-group="gender">
       <button class="btn-gender is-active" data-gender="woman">Woman</button>
       <button class="btn-gender" data-gender="man">Man</button>
       <button class="btn-gender" data-gender="kids">Kids</button>
@@ -22,66 +20,64 @@
 
     <div class="history-box">
       <div class="history-tool">
-        <button><img src="../../create_parts/create_button/back.png" alt="Back" /></button>
-        <button><img src="../../create_parts/create_button/forward.png" alt="Forward" /></button>
-        <button><img src="../../create_parts/create_button/rotateleft.png" alt="Rotate Left" /></button>
-        <button><img src="../../create_parts/create_button/rotateright.png" alt="Rotate Right" /></button>
-        <button><img src="../../create_parts/create_button/fliph.png" alt="Flip H" /></button>
-        <button><img src="../../create_parts/create_button/flipv.png" alt="Flip V" /></button>
-        <button><img src="../../create_parts/create_button/grid.png" alt="Grid" /></button>
-        <button><img src="../../create_parts/create_button/save.png" alt="Save" /></button>
+        <button class="icon-btn" data-action="back"><img src="../../create_parts/create_button/back.png" alt="Back" /></button>
+        <button class="icon-btn" data-action="forward"><img src="../../create_parts/create_button/forward.png" alt="Forward" /></button>
+        <button class="icon-btn" data-action="rotate-left"><img src="../../create_parts/create_button/rotateleft.png" alt="Rotate Left" /></button>
+        <button class="icon-btn" data-action="rotate-right"><img src="../../create_parts/create_button/rotateright.png" alt="Rotate Right" /></button>
+        <button class="icon-btn" data-action="flip-h"><img src="../../create_parts/create_button/fliph.png" alt="Flip H" /></button>
+        <button class="icon-btn" data-action="flip-v"><img src="../../create_parts/create_button/flipv.png" alt="Flip V" /></button>
+        <button class="icon-btn" data-action="grid"><img src="../../create_parts/create_button/grid.png" alt="Grid" /></button>
+        <button class="icon-btn" data-action="save"><img src="../../create_parts/create_button/save.png" alt="Save" /></button>
       </div>
-      <div class="mode-switch">
+      <div class="mode-switch" data-toggle-group="mode">
         <button class="btn-mode is-active" data-mode="2d">2D</button>
         <button class="btn-mode" data-mode="3d">3D</button>
       </div>
     </div>
 
     <div class="next-button">
-      <button class="btn-next">Next Step ▸▸</button>
+      <button class="btn-next" id="nextStepBtn">Next Step ▸▸</button>
     </div>
   </header>
 
-  <!-- ===== App Layout ===== -->
+  <!-- Layout -->
   <main class="app">
     <!-- Canvas -->
     <section class="canvas">
-      <div class="canvas-inner">
-        <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Woman Front" />
-        <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Woman Side" />
-        <img class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Woman Back" />
+      <div class="canvas-inner" id="canvasInner">
+        <!-- front / side / back （存在しない場合はフォールバックで単一PNGを使用） -->
+        <img class="mannequin" data-pose="front" src="../../mannequin/mannequin_woman_front.png" alt="Woman Front" onerror="this.onerror=null;this.src='../../mannequin/mannequin_woman.png';" />
+        <img class="mannequin" data-pose="side"  src="../../mannequin/mannequin_woman_side.png"  alt="Woman Side"  onerror="this.onerror=null;this.src='../../mannequin/mannequin_woman.png';" />
+        <img class="mannequin" data-pose="back"  src="../../mannequin/mannequin_woman_back.png"  alt="Woman Back"  onerror="this.onerror=null;this.src='../../mannequin/mannequin_woman.png';" />
       </div>
     </section>
 
-    <!-- Right Panel -->
+    <!-- Right rail -->
     <aside class="right-rail">
-      <!-- Contents Buttons -->
-      <div class="contents-row">
-        <button><img src="../../create_parts/design_button/select.png" alt="Select" /></button>
-        <button><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
-        <button><img src="../../create_parts/design_button/brush.png" alt="Brush" /></button>
-        <button><img src="../../create_parts/design_button/eraser.png" alt="Eraser" /></button>
-        <button><img src="../../create_parts/design_button/line.png" alt="Line" /></button>
-        <button><img src="../../create_parts/design_button/rect.png" alt="Rectangle" /></button>
-        <button><img src="../../create_parts/design_button/circle.png" alt="Circle" /></button>
-        <button><img src="../../create_parts/design_button/text.png" alt="Text" /></button>
-        <button><img src="../../create_parts/design_button/fill.png" alt="Fill" /></button>
+      <div class="contents-row" data-toggle-group="contents">
+        <button class="icon-tile is-active" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select" /></button>
+        <button class="icon-tile" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
+        <button class="icon-tile" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush" /></button>
+        <button class="icon-tile" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt="Eraser" /></button>
+        <button class="icon-tile" data-tool="line"><img src="../../create_parts/design_button/line.png" alt="Line" /></button>
+        <button class="icon-tile" data-tool="rect"><img src="../../create_parts/design_button/rect.png" alt="Rectangle" /></button>
+        <button class="icon-tile" data-tool="circle"><img src="../../create_parts/design_button/circle.png" alt="Circle" /></button>
+        <button class="icon-tile" data-tool="text"><img src="../../create_parts/design_button/text.png" alt="Text" /></button>
+        <button class="icon-tile" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt="Fill" /></button>
       </div>
 
-      <!-- Stationery -->
       <section class="panel">
         <h3>Stationery</h3>
-        <div class="stationery-grid">
-          <button class="st-btn"><img src="../../create_parts/design_button/play.png" alt="Play" /></button>
-          <button class="st-btn is-active"><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/brush.png" alt="Brush" /></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/stroke.png" alt="Stroke" /></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/text.png" alt="Text" /></button>
-          <button class="st-btn"><img src="../../create_parts/design_button/shape.png" alt="Shape" /></button>
+        <div class="stationery-grid" data-toggle-group="stationery">
+          <button class="st-btn" data-tool="play"><img src="../../create_parts/design_button/play.png" alt="Play" /></button>
+          <button class="st-btn is-active" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
+          <button class="st-btn" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush" /></button>
+          <button class="st-btn" data-tool="stroke"><img src="../../create_parts/design_button/stroke.png" alt="Stroke" /></button>
+          <button class="st-btn" data-tool="text"><img src="../../create_parts/design_button/text.png" alt="Text" /></button>
+          <button class="st-btn" data-tool="shape"><img src="../../create_parts/design_button/shape.png" alt="Shape" /></button>
         </div>
       </section>
 
-      <!-- Zoom -->
       <section class="panel">
         <h3>Zoom</h3>
         <div class="row">
@@ -95,7 +91,6 @@
         </div>
       </section>
 
-      <!-- Opacity -->
       <section class="panel">
         <h3>Opacity</h3>
         <div class="row">
@@ -109,10 +104,10 @@
         </div>
       </section>
 
-      <!-- Color -->
       <section class="panel">
         <h3>Color</h3>
         <div class="color-grid" id="colorGrid">
+          <button class="swatch is-selected" data-color="#333333"></button>
           <button class="swatch" data-color="#ffffff"></button>
           <button class="swatch" data-color="#b3b3b3"></button>
           <button class="swatch" data-color="#ffc300"></button>
@@ -130,11 +125,10 @@
           <button class="swatch" data-color="#7f8c8d"></button>
           <button class="swatch" data-color="#2c3e50"></button>
           <button class="swatch" data-color="#000000"></button>
-          <button class="swatch eyedrop"></button>
+          <button class="swatch eyedrop" title="Eyedropper"></button>
         </div>
       </section>
 
-      <!-- Tool Panel -->
       <section class="panel">
         <h3>Tools</h3>
         <div class="tool-placeholder"></div>
@@ -142,60 +136,90 @@
     </aside>
   </main>
 
-  <!-- ===== JavaScript ===== -->
   <script>
-    // Gender Switch
-    document.querySelectorAll('.btn-gender').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.btn-gender').forEach(b => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        const g = btn.dataset.gender;
-        document.querySelectorAll('.mannequin').forEach(img => {
-          img.src = `../../mannequin/mannequin_${g}.png`;
-        });
+    // 汎用：単一選択トグル
+    function bindToggleGroup(root){
+      root.addEventListener('click', (e)=>{
+        const btn = e.target.closest('button');
+        if(!btn) return;
+        [...root.querySelectorAll('button')].forEach(b=>b.classList.remove('is-active','is-selected'));
+        btn.classList.add('is-active','is-selected');
+      });
+    }
+    document.querySelectorAll('[data-toggle-group]').forEach(bindToggleGroup);
+
+    // Gender切替（PNGは front/side/back が無い場合フォールバック）
+    const mannequinImgs = document.querySelectorAll('.mannequin');
+    document.querySelector('.gender-switch').addEventListener('click', (e)=>{
+      const btn = e.target.closest('button[data-gender]');
+      if(!btn) return;
+      const g = btn.dataset.gender;
+      mannequinImgs.forEach(img=>{
+        const pose = img.dataset.pose;
+        const primary = `../../mannequin/mannequin_${g}_${pose}.png`;
+        const fallback = `../../mannequin/mannequin_${g}.png`;
+        img.src = primary;
+        img.onerror = ()=>{ img.onerror=null; img.src=fallback; };
       });
     });
 
-    // Mode Switch
-    document.querySelectorAll('.btn-mode').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-      });
+    // Mode切替（見た目のトグルのみ）
+    document.querySelector('.mode-switch').addEventListener('click', (e)=>{
+      const btn = e.target.closest('button[data-mode]');
+      if(!btn) return;
+      document.body.dataset.mode = btn.dataset.mode;
+    });
+
+    // Contents/Stationery 現在ツールの保持
+    let currentTool = 'select';
+    document.querySelector('.contents-row').addEventListener('click', (e)=>{
+      const b = e.target.closest('button[data-tool]');
+      if(!b) return;
+      currentTool = b.dataset.tool;
+    });
+    document.querySelector('.stationery-grid').addEventListener('click', (e)=>{
+      const b = e.target.closest('button[data-tool]');
+      if(!b) return;
+      currentTool = b.dataset.tool;
     });
 
     // Zoom
+    const canvasInner = document.getElementById('canvasInner');
     const zoomRange = document.getElementById('zoomRange');
-    const zoomPct = document.getElementById('zoomPct');
-    const canvasInner = document.querySelector('.canvas-inner');
-    function applyZoom(v) {
-      canvasInner.style.transform = `scale(${v/100})`;
-      zoomPct.textContent = `${v}%`;
-    }
-    zoomRange.addEventListener('input', e => applyZoom(e.target.value));
-    document.getElementById('zoomIn').onclick = () => { zoomRange.value = Math.min(400, Number(zoomRange.value)+10); applyZoom(zoomRange.value); };
-    document.getElementById('zoomOut').onclick = () => { zoomRange.value = Math.max(10, Number(zoomRange.value)-10); applyZoom(zoomRange.value); };
-    document.getElementById('zoomReset').onclick = () => { zoomRange.value = 100; applyZoom(100); };
+    const zoomPct   = document.getElementById('zoomPct');
+    function applyZoom(v){ canvasInner.style.transform=`scale(${v/100})`; zoomPct.textContent=`${v}%`; }
+    zoomRange.addEventListener('input', e=>applyZoom(e.target.value));
+    document.getElementById('zoomIn').onclick = ()=>{ zoomRange.value=Math.min(400, +zoomRange.value+10); applyZoom(zoomRange.value); };
+    document.getElementById('zoomOut').onclick= ()=>{ zoomRange.value=Math.max(10,  +zoomRange.value-10); applyZoom(zoomRange.value); };
+    document.getElementById('zoomReset').onclick=()=>{ zoomRange.value=100; applyZoom(100); };
 
     // Opacity
     const opacityRange = document.getElementById('opacityRange');
-    const opacityPct = document.getElementById('opacityPct');
-    function applyOpacity(v) {
-      document.querySelectorAll('.mannequin').forEach(m => m.style.opacity = v/100);
-      opacityPct.textContent = `${v}%`;
-    }
-    opacityRange.addEventListener('input', e => applyOpacity(e.target.value));
-    document.getElementById('opacityUp').onclick = () => { opacityRange.value = Math.min(100, Number(opacityRange.value)+5); applyOpacity(opacityRange.value); };
-    document.getElementById('opacityDown').onclick = () => { opacityRange.value = Math.max(10, Number(opacityRange.value)-5); applyOpacity(opacityRange.value); };
-    document.getElementById('opacityReset').onclick = () => { opacityRange.value = 100; applyOpacity(100); };
+    const opacityPct   = document.getElementById('opacityPct');
+    function applyOpacity(v){ mannequinImgs.forEach(m=>m.style.opacity=v/100); opacityPct.textContent=`${v}%`; }
+    opacityRange.addEventListener('input', e=>applyOpacity(e.target.value));
+    document.getElementById('opacityUp').onclick  = ()=>{ opacityRange.value=Math.min(100, +opacityRange.value+5); applyOpacity(opacityRange.value); };
+    document.getElementById('opacityDown').onclick= ()=>{ opacityRange.value=Math.max(10,  +opacityRange.value-5); applyOpacity(opacityRange.value); };
+    document.getElementById('opacityReset').onclick=()=>{ opacityRange.value=100; applyOpacity(100); };
 
     // Color
-    document.getElementById('colorGrid').addEventListener('click', e => {
+    let currentColor = '#333333';
+    document.getElementById('colorGrid').addEventListener('click', (e)=>{
       const sw = e.target.closest('.swatch');
-      if (!sw) return;
-      document.querySelectorAll('.swatch').forEach(s => s.classList.remove('is-selected'));
+      if(!sw) return;
+      document.querySelectorAll('#colorGrid .swatch').forEach(s=>s.classList.remove('is-selected'));
       sw.classList.add('is-selected');
+      if(sw.classList.contains('eyedrop')) return;
+      currentColor = sw.dataset.color || currentColor;
+      document.documentElement.style.setProperty('--current-color', currentColor);
     });
+
+    // Next Step（プレースホルダー）
+    document.getElementById('nextStepBtn').addEventListener('click', ()=>{ /* ここに遷移処理 */ });
+
+    // 初期適用
+    applyZoom(zoomRange.value);
+    applyOpacity(opacityRange.value);
   </script>
 </body>
 </html>
