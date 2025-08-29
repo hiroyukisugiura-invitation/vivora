@@ -1,136 +1,192 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="wrapper">
-    <!-- Page Title -->
-    <header class="header">
-      <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-      <div class="gender-switch">
-        <button>Woman</button><button>Man</button><button>Kids</button>
-      </div>
-      <div class="history-tool">
-        <button>↺</button><button>↻</button><button>📂</button>
-        <button>📁</button><button>🖊</button><button>2D</button><button>3D</button>
-      </div>
-      <button class="next-button">Next Step ►►</button>
-    </header>
+/* Vivora UI Styles (style.css) */
 
-    <!-- Main Canvas Area -->
-    <main class="main">
-      <div class="canvas">
-        <img id="mannequin" src="public/mannequin/mannequin_woman_front.png" alt="Mannequin" />
-      </div>
+:root {
+  --bg: #f3eee7;
+  --panel: #ffffff;
+  --line: #dcd4ca;
+  --text: #333;
+  --accent: #000;
+  --radius: 12px;
+}
 
-      <!-- Right Sidebar -->
-      <aside class="right-panel">
-        <!-- Contents Button -->
-        <div class="contents-button">
-          <button>Home</button><button>Fi</button><button>Fm</button><button>Cd</button>
-          <button>Pc</button><button>Gd</button><button>Plc</button><button>Dk</button>
-        </div>
+/* ===========================
+   基本レイアウトと背景設定
+=========================== */
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
 
-        <!-- Layer & Tool Panels -->
-        <div class="panel-body">
-          <!-- Layer Panel -->
-          <div class="layer-panel">
-            <div class="layer"></div><div class="layer"></div>
-            <div class="layer"></div><div class="layer"></div>
-            <div class="layer"></div>
-          </div>
+.wrapper {
+  padding: 20px;
+}
 
-          <!-- Tools -->
-          <div class="tool-panel">
-            <section class="stationery-tool">
-              <p>Stationery</p>
-              <button>↑</button><button>🖌</button><button>□</button><button>T</button><button>🔎</button>
-            </section>
+/* ===========================
+   ヘッダー部分（タイトル／切替／操作）
+=========================== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
 
-            <section class="zoom-bar">
-              <p>Zoom <span id="zoom-value">100%</span></p>
-              <button onclick="adjustZoom(-10)">-</button>
-              <input type="range" id="zoom-slider" min="0" max="100" value="100" onchange="updateZoom(this.value)" />
-              <button onclick="adjustZoom(10)">+</button>
-            </section>
+.page-title {
+  font-size: 20px;
+  font-weight: bold;
+}
 
-            <section class="opacity-bar">
-              <p>Opacity <span id="opacity-value">100%</span></p>
-              <button onclick="adjustOpacity(-10)">-</button>
-              <input type="range" id="opacity-slider" min="0" max="100" value="100" onchange="updateOpacity(this.value)" />
-              <button onclick="adjustOpacity(10)">+</button>
-            </section>
+.gender-switch button,
+.history-tool button,
+.next-button,
+.contents-button button,
+.stationery-tool button,
+.color-extend button {
+  padding: 6px 12px;
+  margin: 2px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
 
-            <section class="color-panel">
-              <p>Color</p>
-              <div class="colors">
-                <div class="color-box white"></div>
-                <div class="color-box gray"></div>
-                <div class="color-box yellow"></div>
-                <div class="color-box orange"></div>
-                <div class="color-box pink"></div>
-                <div class="color-box red"></div>
-                <div class="color-box green"></div>
-                <div class="color-box darkgreen"></div>
-                <div class="color-box blue"></div>
-                <div class="color-box navy"></div>
-                <div class="color-box purple"></div>
-                <div class="color-box brown"></div>
-                <div class="color-box darkgray"></div>
-                <div class="color-box black"></div>
-              </div>
-              <div class="color-extend">
-                <button>+</button><button>+</button><button>+</button><button>+</button><button>🔍</button>
-              </div>
-            </section>
-          </div>
-        </div>
-      </aside>
-    </main>
-  </div>
+/* ===========================
+   メインレイアウト（キャンバス＋右パネル）
+=========================== */
+.main {
+  display: flex;
+  gap: 20px;
+}
 
-  <script>
-    const mannequin = document.getElementById("mannequin");
-    const zoomSlider = document.getElementById("zoom-slider");
-    const opacitySlider = document.getElementById("opacity-slider");
-    const zoomValue = document.getElementById("zoom-value");
-    const opacityValue = document.getElementById("opacity-value");
+/* ---------- キャンバスエリア ---------- */
+.canvas {
+  flex: 1;
+  background: white;
+  border-radius: var(--radius);
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    function updateZoom(val) {
-      const scale = Math.max(0.01, val / 100);
-      mannequin.style.transform = `scale(${scale})`;
-      zoomValue.textContent = `${val}%`;
-    }
+.canvas img {
+  max-width: 60%;
+  max-height: 90%;
+  object-fit: contain;
+}
 
-    function adjustZoom(delta) {
-      let val = parseInt(zoomSlider.value) + delta;
-      val = Math.max(0, Math.min(100, val));
-      zoomSlider.value = val;
-      updateZoom(val);
-    }
+/* ---------- 右パネル（3セクション構成） ---------- */
+.right-panel {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-    function updateOpacity(val) {
-      const opacity = Math.max(0, val / 100);
-      mannequin.style.opacity = opacity;
-      opacityValue.textContent = `${val}%`;
-    }
+/* === セクション①：Contentsボタン群 === */
+.contents-button {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  background: var(--panel);
+  padding: 10px;
+  border-radius: var(--radius);
+}
 
-    function adjustOpacity(delta) {
-      let val = parseInt(opacitySlider.value) + delta;
-      val = Math.max(0, Math.min(100, val));
-      opacitySlider.value = val;
-      updateOpacity(val);
-    }
+/* === セクション②③：Layer（左）とTool（右）の2カラム === */
+.panel-body {
+  display: flex;
+  gap: 10px;
+}
 
-    // 初期状態の中央表示用CSSリセット
-    window.addEventListener("DOMContentLoaded", () => {
-      updateZoom(100);
-      updateOpacity(100);
-    });
-  </script>
-</body>
-</html>
+/* ---------- レイヤーパネル（左側） ---------- */
+.layer-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.layer-panel .layer {
+  width: 40px;
+  height: 80px;
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+/* ---------- ツールパネル（右側） ---------- */
+.tool-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tool-panel section {
+  background: var(--panel);
+  padding: 10px;
+  border-radius: var(--radius);
+}
+
+/* === Stationery（描画ツールボタン群） === */
+.stationery-tool button {
+  width: 40px;
+  height: 40px;
+}
+
+/* === Zoom・Opacity共通設定 === */
+.zoom-bar,
+.opacity-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.zoom-bar p,
+.opacity-bar p {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+/* === Colorパネル（カラー選択＋追加） === */
+.color-panel .colors {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.color-box {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.color-box.white { background: #fff; }
+.color-box.gray { background: #ccc; }
+.color-box.yellow { background: #ffe600; }
+.color-box.orange { background: #ffa500; }
+.color-box.pink { background: #f7b7c2; }
+.color-box.red { background: #e60000; }
+.color-box.green { background: #32cd32; }
+.color-box.darkgreen { background: #006400; }
+.color-box.blue { background: #87cefa; }
+.color-box.navy { background: #0033cc; }
+.color-box.purple { background: #800080; }
+.color-box.brown { background: #8b0000; }
+.color-box.darkgray { background: #555; }
+.color-box.black { background: #000; }
+
+.color-extend {
+  display: flex;
+  gap: 6px;
+}
