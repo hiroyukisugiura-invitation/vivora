@@ -2,207 +2,97 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ===== Top Bar (title + Next only) ===== -->
-  <header class="topbar">
-    <div class="brand">Vivora Fashion Illustration 2025</div>
-    <div class="spacer"></div>
-    <div class="next-button">
-      <button class="btn-next">Next Step ▸▸</button>
-    </div>
-  </header>
-
-  <!-- ===== Controls Row (left: gender / center: action bar) ===== -->
-  <div class="controls-row">
-    <nav class="gender-switch" data-toggle-group="gender">
-      <button class="btn-gender is-active" data-gender="woman">Woman</button>
-      <button class="btn-gender" data-gender="man">Man</button>
-      <button class="btn-gender" data-gender="kids">Kids</button>
-    </nav>
- 
-    <div class="action-bar">
+  <div class="wrapper">
+    <!-- Page Title -->
+    <header class="header">
+      <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
+      <div class="gender-switch">
+        <button>Woman</button><button>Man</button><button>Kids</button>
+      </div>
       <div class="history-tool">
-        <button class="icon-btn"><img src="../../create_parts/create_button/back.png" alt="Back" /></button>
-        <button class="icon-btn"><img src="../../create_parts/create_button/forward.png" alt="Forward" /></button>
-        <button class="icon-btn"><img src="../../create_parts/create_button/rotateleft.png" alt="Rotate Left" /></button>
-        <button class="icon-btn"><img src="../../create_parts/create_button/rotateright.png" alt="Rotate Right" /></button>
-        <button class="icon-btn"><img src="../../create_parts/create_button/fliph.png" alt="Flip H" /></button>
-        <button class="icon-btn"><img src="../../create_parts/create_button/flipv.png" alt="Flip V" /></button>
-        <button class="icon-btn"><img src="../../create_parts/create_button/grid.png" alt="Grid" /></button>
-        <button class="icon-btn"><img src="../../create_parts/create_button/save.png" alt="Save" /></button>
+        <button>↺</button><button>↻</button><button>📂</button>
+        <button>📁</button><button>🖊</button><button>2D</button><button>3D</button>
       </div>
-      <div class="mode-switch" data-toggle-group="mode">
-        <button class="btn-mode is-active" data-mode="2d">2D</button>
-        <button class="btn-mode" data-mode="3d">3D</button>
-      </div>
-    </div>
+      <button class="next-button">Next Step ►►</button>
+    </header>
 
-    <div class="right-void"></div>
+    <!-- Main Canvas Area -->
+    <main class="main">
+      <div class="canvas">
+        <img id="mannequin" src="public/mannequin/mannequin_woman_front.png" alt="Mannequin" />
+      </div>
+
+      <!-- Right Sidebar -->
+      <aside class="right-panel">
+        <!-- Contents Button -->
+        <div class="contents-button">
+          <button>Home</button><button>Fi</button><button>Fm</button><button>Cd</button>
+          <button>Pc</button><button>Gd</button><button>Plc</button><button>Dk</button>
+        </div>
+
+        <!-- Layer & Tool Panels -->
+        <div class="panel-body">
+          <!-- Layer Panel -->
+          <div class="layer-panel">
+            <div class="layer"></div><div class="layer"></div>
+            <div class="layer"></div><div class="layer"></div>
+            <div class="layer"></div>
+          </div>
+
+          <!-- Tools -->
+          <div class="tool-panel">
+            <section class="stationery-tool">
+              <p>Stationery</p>
+              <button>↑</button><button>🖌</button><button>□</button><button>T</button><button>🔎</button>
+            </section>
+
+            <section class="zoom-bar">
+              <p>Zoom <span id="zoom-value">100%</span></p>
+              <button onclick="adjustZoom(-10)">-</button>
+              <input type="range" id="zoom-slider" min="0" max="100" value="100" onchange="updateZoom(this.value)" />
+              <button onclick="adjustZoom(10)">+</button>
+            </section>
+
+            <section class="opacity-bar">
+              <p>Opacity <span id="opacity-value">100%</span></p>
+              <button onclick="adjustOpacity(-10)">-</button>
+              <input type="range" id="opacity-slider" min="0" max="100" value="100" onchange="updateOpacity(this.value)" />
+              <button onclick="adjustOpacity(10)">+</button>
+            </section>
+
+            <section class="color-panel">
+              <p>Color</p>
+              <div class="colors">
+                <div class="color-box white"></div>
+                <div class="color-box gray"></div>
+                <div class="color-box yellow"></div>
+                <div class="color-box orange"></div>
+                <div class="color-box pink"></div>
+                <div class="color-box red"></div>
+                <div class="color-box green"></div>
+                <div class="color-box darkgreen"></div>
+                <div class="color-box blue"></div>
+                <div class="color-box navy"></div>
+                <div class="color-box purple"></div>
+                <div class="color-box brown"></div>
+                <div class="color-box darkgray"></div>
+                <div class="color-box black"></div>
+              </div>
+              <div class="color-extend">
+                <button>+</button><button>+</button><button>+</button><button>+</button><button>🔍</button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </aside>
+    </main>
   </div>
 
-  <!-- ===== Main ===== -->
-  <main class="app">
-    <!-- Canvas -->
-    <section class="canvas">
-      <div class="canvas-inner" id="canvasInner">
-        <img class="mannequin" data-pose="front" src="../../mannequin/mannequin_woman/mannequin_woman_front.png" alt="Woman Front" />
-        <img class="mannequin" data-pose="side"  src="../../mannequin/mannequin_woman/mannequin_woman_side.png"  alt="Woman Side" />
-        <img class="mannequin" data-pose="back"  src="../../mannequin/mannequin_woman/mannequin_woman_back.png"  alt="Woman Back" />
-      </div>
-    </section>
-
-    <!-- Right Rail -->
-    <aside class="right-rail">
-      <!-- Contents buttons (上段アイコン列) -->
-      <div class="contents-row" data-toggle-group="contents">
-        <button class="icon-tile is-active" data-tool="select"><img src="../../create_parts/design_button/select.png" alt="Select" /></button>
-        <button class="icon-tile" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
-        <button class="icon-tile" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush" /></button>
-        <button class="icon-tile" data-tool="eraser"><img src="../../create_parts/design_button/eraser.png" alt="Eraser" /></button>
-        <button class="icon-tile" data-tool="line"><img src="../../create_parts/design_button/line.png" alt="Line" /></button>
-        <button class="icon-tile" data-tool="rect"><img src="../../create_parts/design_button/rect.png" alt="Rectangle" /></button>
-        <button class="icon-tile" data-tool="circle"><img src="../../create_parts/design_button/circle.png" alt="Circle" /></button>
-        <button class="icon-tile" data-tool="text"><img src="../../create_parts/design_button/text.png" alt="Text" /></button>
-        <button class="icon-tile" data-tool="fill"><img src="../../create_parts/design_button/fill.png" alt="Fill" /></button>
-      </div>
-
-      <!-- Stationery -->
-      <section class="panel">
-        <div class="panel-title">Stationery</div>
-        <div class="stationery-grid" data-toggle-group="stationery">
-          <button class="st-btn" data-tool="play"><img src="../../create_parts/design_button/play.png" alt="Play" /></button>
-          <button class="st-btn is-active" data-tool="pen"><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
-          <button class="st-btn" data-tool="brush"><img src="../../create_parts/design_button/brush.png" alt="Brush" /></button>
-          <button class="st-btn" data-tool="stroke"><img src="../../create_parts/design_button/stroke.png" alt="Stroke" /></button>
-          <button class="st-btn" data-tool="text"><img src="../../create_parts/design_button/text.png" alt="Text" /></button>
-          <button class="st-btn" data-tool="shape"><img src="../../create_parts/design_button/shape.png" alt="Shape" /></button>
-        </div>
-      </section>
-
-      <!-- Zoom -->
-      <section class="panel">
-        <div class="panel-title">Zoom</div>
-        <div class="row">
-          <button id="zoomOut">−</button>
-          <input id="zoomRange" type="range" min="10" max="400" value="10" />
-          <button id="zoomIn">＋</button>
-        </div>
-        <div class="panel-subrow">
-          <span id="zoomPct">10%</span>
-          <button id="zoomReset">Reset</button>
-        </div>
-      </section>
-
-      <!-- Opacity -->
-      <section class="panel">
-        <div class="panel-title">Opacity</div>
-        <div class="row">
-          <button id="opacityDown">−</button>
-          <input id="opacityRange" type="range" min="10" max="100" value="10" />
-          <button id="opacityUp">＋</button>
-        </div>
-        <div class="panel-subrow">
-          <span id="opacityPct">10%</span>
-          <button id="opacityReset">Reset</button>
-        </div>
-      </section>
-
-      <!-- Color -->
-      <section class="panel">
-        <div class="panel-title">Color</div>
-        <div class="color-grid" id="colorGrid">
-          <!-- 3 x 6（見本と同配列） -->
-          <button class="swatch" data-color="#FFFFFF" style="background:#FFFFFF"></button>
-          <button class="swatch" data-color="#D0CFCC" style="background:#D0CFCC"></button>
-          <button class="swatch" data-color="#FFE17A" style="background:#FFE17A"></button>
-          <button class="swatch" data-color="#FFB52E" style="background:#FFB52E"></button>
-          <button class="swatch" data-color="#FFC845" style="background:#FFC845"></button>
-          <button class="swatch" data-color="#F6B5BE" style="background:#F6B5BE"></button>
-
-          <button class="swatch" data-color="#E74C3C" style="background:#E74C3C"></button>
-          <button class="swatch" data-color="#27AE60" style="background:#27AE60"></button>
-          <button class="swatch" data-color="#2ECC71" style="background:#2ECC71"></button>
-          <button class="swatch" data-color="#3498DB" style="background:#3498DB"></button>
-          <button class="swatch" data-color="#6FB1FF" style="background:#6FB1FF"></button>
-          <button class="swatch" data-color="#7FB3D5" style="background:#7FB3D5"></button>
-
-          <button class="swatch" data-color="#8E44AD" style="background:#8E44AD"></button>
-          <button class="swatch" data-color="#A04000" style="background:#A04000"></button>
-          <button class="swatch" data-color="#7F8C8D" style="background:#7F8C8D"></button>
-          <button class="swatch" data-color="#2C3E50" style="background:#2C3E50"></button>
-          <button class="swatch" data-color="#000000" style="background:#000000"></button>
-          <button class="swatch eyedrop" title="Eyedropper"></button>
-        </div>
-      </section>
-    </aside>
-  </main>
-
-  <!-- ===== JS ===== -->
-  <script>
-    // 単一選択トグル
-    function bindToggleGroup(root){
-      root.addEventListener('click', (e)=>{
-        const btn = e.target.closest('button'); if(!btn) return;
-        [...root.querySelectorAll('button')].forEach(b=>b.classList.remove('is-active','is-selected'));
-        btn.classList.add('is-active','is-selected');
-      });
-    }
-    document.querySelectorAll('[data-toggle-group]').forEach(bindToggleGroup);
-
-    // Gender 切替（フォルダ構成に準拠）
-    const mannequinImgs = document.querySelectorAll('.mannequin');
-    const genderMap = {
-      woman:{dir:'mannequin_woman', base:'mannequin_woman'},
-      man:{dir:'mannequin_man', base:'mannequin_man'},
-      kids:{dir:'mannequin_baby', base:'mannequin_baby'}
-    };
-    document.querySelector('.gender-switch').addEventListener('click',(e)=>{
-      const b = e.target.closest('button[data-gender]'); if(!b) return;
-      const g = b.dataset.gender; const {dir,base} = genderMap[g];
-      mannequinImgs.forEach(img=>{
-        const pose = img.dataset.pose;
-        img.src = `../../mannequin/${dir}/${base}_${pose}.png`;
-        img.alt = `${g} ${pose}`;
-      });
-    });
-
-    // Zoom
-    const canvasInner = document.getElementById('canvasInner');
-    const zoomRange = document.getElementById('zoomRange');
-    const zoomPct   = document.getElementById('zoomPct');
-    function applyZoom(v){ canvasInner.style.transform=`scale(${v/100})`; zoomPct.textContent=`${v}%`; }
-    zoomRange.addEventListener('input', e=>applyZoom(e.target.value));
-    document.getElementById('zoomIn').onclick = ()=>{ zoomRange.value=Math.min(400, +zoomRange.value+10); applyZoom(zoomRange.value); };
-    document.getElementById('zoomOut').onclick= ()=>{ zoomRange.value=Math.max(10,  +zoomRange.value-10); applyZoom(zoomRange.value); };
-    document.getElementById('zoomReset').onclick=()=>{ zoomRange.value=10; applyZoom(10); };
-
-    // Opacity
-    const opacityRange = document.getElementById('opacityRange');
-    const opacityPct   = document.getElementById('opacityPct');
-    function applyOpacity(v){ mannequinImgs.forEach(m=>m.style.opacity=v/100); opacityPct.textContent=`${v}%`; }
-    opacityRange.addEventListener('input', e=>applyOpacity(e.target.value));
-    document.getElementById('opacityUp').onclick  = ()=>{ opacityRange.value=Math.min(100, +opacityRange.value+5); applyOpacity(opacityRange.value); };
-    document.getElementById('opacityDown').onclick= ()=>{ opacityRange.value=Math.max(10,  +opacityRange.value-5); applyOpacity(opacityRange.value); };
-    document.getElementById('opacityReset').onclick=()=>{ opacityRange.value=10; applyOpacity(10); };
-
-    // Color
-    let currentColor = '#333333';
-    document.getElementById('colorGrid').addEventListener('click',(e)=>{
-      const sw = e.target.closest('.swatch'); if(!sw) return;
-      document.querySelectorAll('#colorGrid .swatch').forEach(s=>s.classList.remove('is-selected'));
-      sw.classList.add('is-selected');
-      if(sw.classList.contains('eyedrop')) return;
-      currentColor = sw.dataset.color || currentColor;
-      document.documentElement.style.setProperty('--current-color', currentColor);
-    });
-
-    // 初期適用（見本と同じ 10% 表示）
-    applyZoom(zoomRange.value);
-    applyOpacity(opacityRange.value);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
