@@ -1,14 +1,20 @@
 /* Vivora UI Styles (style.css) */
 
+/* ===========================
+   カスタム変数（色・角丸など）
+=========================== */
 :root {
-  --bg: #f3eee7;
-  --panel: #ffffff;
-  --line: #dcd4ca;
-  --text: #333;
-  --accent: #000;
-  --radius: 12px;
+  --bg: #f3eee7;         /* 全体背景ベージュ */
+  --panel: #ffffff;      /* パネル白背景 */
+  --line: #dcd4ca;       /* 枠線用の薄グレー */
+  --text: #333;          /* テキスト色 */
+  --accent: #000;        /* アクセント黒 */
+  --radius: 12px;        /* 角丸 */
 }
 
+/* ===========================
+   基本スタイル設定
+=========================== */
 body {
   margin: 0;
   font-family: "Helvetica Neue", sans-serif;
@@ -20,6 +26,9 @@ body {
   padding: 20px;
 }
 
+/* ===========================
+   ヘッダー部分（タイトル／切替／操作）
+=========================== */
 .header {
   display: flex;
   align-items: center;
@@ -48,11 +57,15 @@ body {
   cursor: pointer;
 }
 
+/* ===========================
+   メインレイアウト（キャンバス＋右パネル）
+=========================== */
 .main {
   display: flex;
   gap: 20px;
 }
 
+/* ---------- キャンバスエリア ---------- */
 .canvas {
   flex: 1;
   background: white;
@@ -69,6 +82,7 @@ body {
   object-fit: contain;
 }
 
+/* ---------- 右パネル（3セクション構成） ---------- */
 .right-panel {
   width: 280px;
   display: flex;
@@ -76,6 +90,7 @@ body {
   gap: 20px;
 }
 
+/* === セクション①：Contentsボタン群 === */
 .contents-button {
   display: flex;
   flex-wrap: wrap;
@@ -85,11 +100,13 @@ body {
   border-radius: var(--radius);
 }
 
+/* === セクション②③：Layer（左）とTool（右）の2カラム === */
 .panel-body {
   display: flex;
   gap: 10px;
 }
 
+/* ---------- レイヤーパネル（左側） ---------- */
 .layer-panel {
   display: flex;
   flex-direction: column;
@@ -104,6 +121,7 @@ body {
   border: 1px solid var(--line);
 }
 
+/* ---------- ツールパネル（右側） ---------- */
 .tool-panel {
   flex: 1;
   display: flex;
@@ -117,11 +135,13 @@ body {
   border-radius: var(--radius);
 }
 
+/* === Stationery（描画ツールボタン群） === */
 .stationery-tool button {
   width: 40px;
   height: 40px;
 }
 
+/* === Zoom・Opacity共通設定 === */
 .zoom-bar,
 .opacity-bar {
   display: flex;
@@ -139,6 +159,7 @@ input[type="range"] {
   width: 100%;
 }
 
+/* === Colorパネル（カラー選択＋追加） === */
 .color-panel .colors {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -153,21 +174,23 @@ input[type="range"] {
   border-radius: 6px;
 }
 
-.color-box.white { background: #fff; }
-.color-box.gray { background: #ccc; }
-.color-box.yellow { background: #ffe600; }
-.color-box.orange { background: #ffa500; }
-.color-box.pink { background: #f7b7c2; }
-.color-box.red { background: #e60000; }
-.color-box.green { background: #32cd32; }
+/* === カラーボックス各色 === */
+.color-box.white     { background: #fff; }
+.color-box.gray      { background: #ccc; }
+.color-box.yellow    { background: #ffe600; }
+.color-box.orange    { background: #ffa500; }
+.color-box.pink      { background: #f7b7c2; }
+.color-box.red       { background: #e60000; }
+.color-box.green     { background: #32cd32; }
 .color-box.darkgreen { background: #006400; }
-.color-box.blue { background: #87cefa; }
-.color-box.navy { background: #0033cc; }
-.color-box.purple { background: #800080; }
-.color-box.brown { background: #8b0000; }
-.color-box.darkgray { background: #555; }
-.color-box.black { background: #000; }
+.color-box.blue      { background: #87cefa; }
+.color-box.navy      { background: #0033cc; }
+.color-box.purple    { background: #800080; }
+.color-box.brown     { background: #8b0000; }
+.color-box.darkgray  { background: #555; }
+.color-box.black     { background: #000; }
 
+/* === カラー追加ボタン行 === */
 .color-extend {
   display: flex;
   gap: 6px;
