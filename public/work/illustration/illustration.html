@@ -1,98 +1,116 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="wrapper">
-    <!-- Page Title -->
-    <header class="header">
-      <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-      <div class="gender-switch">
-        <button>Woman</button><button>Man</button><button>Kids</button>
-      </div>
-      <div class="history-tool">
-        <button>↺</button><button>↻</button><button>📂</button>
-        <button>📁</button><button>🖊</button><button>2D</button><button>3D</button>
-      </div>
-      <button class="next-button">Next Step ►►</button>
-    </header>
 
-    <!-- Main Canvas Area -->
-    <main class="main">
-      <div class="canvas">
-        <img id="mannequin" src="public/mannequin/mannequin_woman_front.png" alt="Mannequin" />
-      </div>
+/* ===== Reset / Tokens ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:ui-sans-serif,system-ui,"Hiragino Kaku Gothic ProN","Meiryo",sans-serif;color:#333}
+button{cursor:pointer;border:none;background:none}
+img{display:block;max-width:100%}
 
-      <!-- Right Sidebar -->
-      <aside class="right-panel">
-        <!-- Contents Button -->
-        <div class="contents-button">
-          <button>Home</button><button>Fi</button><button>Fm</button><button>Cd</button>
-          <button>Pc</button><button>Gd</button><button>Plc</button><button>Dk</button>
-        </div>
+:root{
+  --bg:#efe7e0;
+  --panel:#ffffff;
+  --line:#e6e0db;
+  --tile:#ece7e1;
+  --shadow:0 6px 18px rgba(0,0,0,.08);
+  --radius:12px; --radius-sm:8px;
+  --icon:24px; --st-icon:28px;
+}
 
-        <!-- Layer & Tool Panels -->
-        <div class="panel-body">
-          <!-- Layer Panel -->
-          <div class="layer-panel">
-            <div class="layer"></div><div class="layer"></div>
-            <div class="layer"></div><div class="layer"></div>
-            <div class="layer"></div>
-          </div>
+/* ===== Topbar ===== */
+.topbar{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:16px;
+  padding:10px 16px;
+  background:#e9e1d9;
+  border-bottom:1px solid var(--line);
+}
+.brand{font-weight:600;font-size:14px}
+.btn-next{
+  padding:8px 14px;border:1px solid var(--line);border-radius:var(--radius);
+  background:#fff;font-weight:700;box-shadow:var(--shadow)
+}
 
-          <!-- Tools -->
-          <div class="tool-panel">
-            <section class="stationery-tool">
-              <p>Stationery</p>
-              <button>↑</button><button>🖌</button><button>□</button><button>T</button><button>🔎</button>
-            </section>
+/* ===== Controls Row ===== */
+.controls-row{
+  display:grid;
+  grid-template-columns: auto 1fr auto;
+  align-items:center;
+  gap:16px;
+  padding:14px 16px 0;
+  background:#efe7e0;
+}
+.gender-switch{display:flex;gap:8px}
+.btn-gender{
+  padding:6px 12px;border:1px solid var(--line);
+  border-radius:var(--radius-sm);background:#fff;font-weight:600
+}
+.btn-gender.is-active{outline:2px solid #c9b89c}
 
-            <section class="zoom-bar">
-              <p>Zoom <span id="zoom-value">100%</span></p>
-              <button onclick="adjustZoom(-10)">-</button>
-              <input type="range" id="zoom-slider" min="0" max="100" value="100" onchange="updateZoom(this.value)" />
-              <button onclick="adjustZoom(10)">+</button>
-            </section>
+.action-bar{
+  justify-self:center; display:flex; align-items:center; gap:10px;
+  background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow);
+  padding:8px 10px;
+}
+.history-tool{display:flex;gap:8px}
+.icon-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#fff}
+.icon-btn img{width:var(--icon);height:var(--icon)}
+.mode-switch{display:flex;gap:8px;margin-left:6px}
+.btn-mode{
+  padding:6px 12px;border:1px solid var(--line);
+  border-radius:var(--radius-sm);background:#fff;font-weight:700
+}
+.btn-mode.is-active{background:#f3ede4;border-color:#cbbba2}
 
-            <section class="opacity-bar">
-              <p>Opacity <span id="opacity-value">100%</span></p>
-              <button onclick="adjustOpacity(-10)">-</button>
-              <input type="range" id="opacity-slider" min="0" max="100" value="100" onchange="updateOpacity(this.value)" />
-              <button onclick="adjustOpacity(10)">+</button>
-            </section>
+/* ===== Main Layout ===== */
+.app{
+  display:grid;
+  grid-template-columns: 1fr 300px;
+  gap:16px;
+  padding:16px;
+  background:var(--bg);
+  height:calc(100vh - 96px);
+}
 
-            <section class="color-panel">
-              <p>Color</p>
-              <div class="colors">
-                <div class="color-box white"></div>
-                <div class="color-box gray"></div>
-                <div class="color-box yellow"></div>
-                <div class="color-box orange"></div>
-                <div class="color-box pink"></div>
-                <div class="color-box red"></div>
-                <div class="color-box green"></div>
-                <div class="color-box darkgreen"></div>
-                <div class="color-box blue"></div>
-                <div class="color-box navy"></div>
-                <div class="color-box purple"></div>
-                <div class="color-box brown"></div>
-                <div class="color-box darkgray"></div>
-                <div class="color-box black"></div>
-              </div>
-              <div class="color-extend">
-                <button>+</button><button>+</button><button>+</button><button>+</button><button>🔍</button>
-              </div>
-            </section>
-          </div>
-        </div>
-      </aside>
-    </main>
-  </div>
+/* Canvas */
+.canvas{
+  background:#fff;border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center
+}
+.canvas-inner{
+  width:100%;height:100%;transform-origin:top left;
+  display:flex;justify-content:space-evenly;align-items:center;padding:24px
+}
+.mannequin{max-height:540px;width:auto}
 
-  <script src="script.js"></script>
-</body>
-</html>
+/* Right rail */
+.right-rail{display:flex;flex-direction:column;gap:14px}
+.contents-row{
+  display:grid;grid-template-columns:repeat(9,1fr);gap:6px;
+  background:#fff;padding:8px;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+}
+.contents-row .icon-tile{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#fff;border:1px solid transparent}
+.contents-row .icon-tile.is-active{border-color:#cbbba2;outline:2px solid #cbbba2}
+.contents-row img{width:var(--icon);height:var(--icon)}
+
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px}
+.panel-title{font:700 14px/1.2 ui-sans-serif;color:#333;margin-bottom:8px}
+
+/* Stationery */
+.stationery-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.st-btn{width:40px;height:40px;border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;display:flex;align-items:center;justify-content:center}
+.st-btn img{width:var(--st-icon);height:var(--st-icon)}
+.st-btn.is-active{outline:2px solid #c9b89c}
+
+/* Sliders */
+.row{display:grid;grid-template-columns:36px 1fr 36px;align-items:center;gap:8px}
+.row button{border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;font-weight:700}
+.row input[type=range]{width:100%}
+.panel-subrow{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.panel-subrow button{border:1px solid var(--line);border-radius:var(--radius-sm);padding:4px 8px;background:#fff}
+
+/* Color */
+.color-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.swatch{width:32px;height:32px;border:1px solid var(--line);border-radius:10px}
+.swatch.is-selected{outline:2px solid #c9b89c}
+.swatch.eyedrop{background:linear-gradient(45deg,#000 50%,#fff 50%)}
