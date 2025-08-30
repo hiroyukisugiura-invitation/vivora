@@ -193,11 +193,46 @@ img{display:block}
 .panel-block{ padding-top:12px; padding-bottom:12px; }
 .layers .layer-row{ padding-left:8px; padding-right:8px; }
 
-/* ---------------------------------------
-   レスポンシブ（幅が狭い時は右パネルを下へ）
----------------------------------------- */
-@media (max-width: 1120px){
-  .main{ grid-template-columns: 1fr; }
-  .side-panel{ order:2; }
-  .canvas-area{ order:1; }
+/* ===== Color panel (replacement) ===== */
+.color-panel { padding: 12px; }
+.color-panel .panel-title { margin: 0 0 8px 0; font-size: 14px; font-weight: 600; }
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
 }
+
+.chip {
+  width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 4px;
+  cursor: pointer;
+}
+.chip img { width: 100%; height: 100%; object-fit: contain; }
+
+.chip.placeholder {
+  background: transparent; border: none; box-shadow: none; cursor: default;
+}
+
+.color-actions {
+  display: flex; gap: 8px; align-items: center;
+  margin-top: 8px;
+}
+.chip.add, .chip.pick { width: 36px; height: 36px; }
+.chip.add img, .chip.pick img { width: 100%; height: 100%; object-fit: contain; }
+
+/* 選択状態の見た目（任意） */
+.chip.is-active {
+  outline: 2px solid #333; outline-offset: 1px;
+}
+
+/* 右パネル内で詰まる時の微調整（任意） */
+@media (max-width: 1120px){
+  .color-grid { grid-template-columns: repeat(5, 32px); gap: 6px; }
+}
+
