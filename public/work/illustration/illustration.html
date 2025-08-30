@@ -1,158 +1,217 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/work/illustration/style.css" />
 </head>
 <body>
   <div class="app-wrapper">
 
-    <!-- ===== ヘッダー ===== -->
+    <!-- ===== Header ===== -->
     <header class="header">
-      <h1 class="title">Vivora Fashion Illustration 2025</h1>
-      <div class="gender-buttons">
-        <button>Woman</button>
-        <button>Man</button>
-        <button>Kids</button>
+      <!-- 左：タイトル＋gender（タイトル直下） -->
+      <div class="header-left">
+        <h1 class="title">Vivora Fashion Illustration 2025</h1>
+        <div class="gender-buttons">
+          <a href="#" data-gender="woman"><img src="/create_parts/create_button/button_woman.png" alt="Woman"></a>
+          <a href="#" data-gender="man"><img src="/create_parts/create_button/button_man.png" alt="Man"></a>
+          <a href="#" data-gender="kids"><img src="/create_parts/create_button/button_kids.png" alt="Kids"></a>
+        </div>
       </div>
-      <div class="toolbar">
-        <button><img src="./files/undo.png" alt="Undo"></button>
-        <button><img src="./files/redo.png" alt="Redo"></button>
-        <button><img src="./files/download.png" alt="Download"></button>
-        <button><img src="./files/upload.png" alt="Upload"></button>
-        <button><img src="./files/grid.png" alt="Grid"></button>
-        <button><img src="./files/save.png" alt="Save"></button>
-        <button>2D</button>
-        <button>3D</button>
-      </div>
+
+      <!-- 中央：History tool（白タブ） -->
+      <nav class="toolbar">
+        <a href="#"><img src="/create_parts/create_button/retreat.png"      alt="Undo"></a>
+        <a href="#"><img src="/create_parts/create_button/forward.png"      alt="Redo"></a>
+        <a href="/download.html"><img src="/create_parts/create_button/download.png"     alt="Download"></a>
+        <a href="/upload.html"><img   src="/create_parts/create_button/upload.png"       alt="Upload"></a>
+        <a href="/grid.html"><img     src="/create_parts/create_button/graph_paper.png"  alt="Grid"></a>
+        <a href="/save.html"><img     src="/create_parts/create_button/save.png"         alt="Save"></a>
+        <a href="/work/pattern/pattern.html"><img src="/create_parts/create_button/2d.png" alt="2D"></a>
+        <a href="/work/print/print.html"><img   src="/create_parts/create_button/3d.png" alt="3D"></a>
+      </nav>
+
+      <!-- 右：Next Step -->
       <div class="next-step">
-        <button>Next Step ▶▶</button>
+        <a href="/next.html"><img src="/create_parts/create_button/button_next.png" alt="Next Step"></a>
       </div>
     </header>
 
-    <!-- ===== メインコンテンツ ===== -->
+    <!-- ===== Main ===== -->
     <main class="main">
-      <!-- 左：キャンバス -->
-      <div class="canvas-area">
-        <img src="./files/mannequin_woman_front.png" alt="mannequin" class="mannequin">
-      </div>
+      <!-- 左：Canvas -->
+      <section class="canvas-area">
+        <img class="mannequin"
+             src="/mannequin/mannequin_woman/mannequin_woman_front.png"
+             alt="mannequin">
+      </section>
 
-      <!-- 右：サイドパネル -->
+      <!-- 右：Side panel -->
       <aside class="side-panel">
 
-        <!-- コンテンツツール -->
+        <!-- 上段：Contents（8個） -->
         <div class="content-tools">
-          <img src="./files/0-home.png" alt="Home">
-          <img src="./files/1-fashion.png" alt="Fashion">
-          <img src="./files/2-fabric.png" alt="Fabric">
-          <img src="./files/3-design.png" alt="Design">
-          <img src="./files/4-pattern.png" alt="Pattern">
-          <img src="./files/5-grading.png" alt="Grading">
-          <img src="./files/6-layout.png" alt="Layout">
-          <img src="./files/7-digital.png" alt="Digital">
+          <a href="/index.html"><img src="/create_parts/contents_button/0_home.png" alt="Home"></a>
+          <a href="/work/illustration/kids/kids.html"><img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></a>
+          <a href="/work/fabric/fabric.html"><img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm"></a>
+          <a href="/work/clothing/clothing.html"><img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd"></a>
+          <a href="/work/pattern/pattern.html"><img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc"></a>
+          <a href="/work/grading/grading.html"><img src="/create_parts/contents_button/5_grading.png" alt="Gd"></a>
+          <a href="/work/print/print.html"><img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></a>
+          <a href="/work/illustration/kids/kids.html"><img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></a>
         </div>
 
+        <!-- 下段：Layers（左）＋ Tools（右） -->
         <div class="tools-area">
-          <!-- 左：レイヤー（縦5段） -->
+
+          <!-- 左：Layer panel（添付デザイン通り／5段） -->
           <div class="layers">
-            <div class="layer-row">
-              <img src="./files/layerpanel.png" alt="Layer">
-              <img src="./files/layerlock.png" alt="Lock">
-              <img src="./files/layerdisplay.png" alt="Display">
-              <img src="./files/layerhidden.png" alt="Hidden">
+            <!-- 1 -->
+            <div class="layer-card">
+              <div class="rail-left">
+                <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
+                <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
+                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
+              </div>
+              <div class="layer-canvas"></div>
+              <div class="rail-right">
+                <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
+                <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
+                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
+                <img src="/create_parts/layer_button/layerdestruction.png"         alt="delete">
+              </div>
             </div>
-            <div class="layer-row">
-              <img src="./files/layerpanel.png" alt="Layer">
-              <img src="./files/layerlock.png" alt="Lock">
-              <img src="./files/layerdisplay.png" alt="Display">
-              <img src="./files/layerhidden.png" alt="Hidden">
+            <!-- 2 -->
+            <div class="layer-card">
+              <div class="rail-left">
+                <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
+                <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
+                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
+              </div>
+              <div class="layer-canvas"></div>
+              <div class="rail-right">
+                <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
+                <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
+                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
+                <img src="/create_parts/layer_button/layerdestruction.png"         alt="delete">
+              </div>
             </div>
-            <div class="layer-row">
-              <img src="./files/layerpanel.png" alt="Layer">
-              <img src="./files/layerlock.png" alt="Lock">
-              <img src="./files/layerdisplay.png" alt="Display">
-              <img src="./files/layerhidden.png" alt="Hidden">
+            <!-- 3 -->
+            <div class="layer-card">
+              <div class="rail-left">
+                <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
+                <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
+                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
+              </div>
+              <div class="layer-canvas"></div>
+              <div class="rail-right">
+                <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
+                <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
+                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
+                <img src="/create_parts/layer_button/layerdestruction.png"         alt="delete">
+              </div>
             </div>
-            <div class="layer-row">
-              <img src="./files/layerpanel.png" alt="Layer">
-              <img src="./files/layerlock.png" alt="Lock">
-              <img src="./files/layerdisplay.png" alt="Display">
-              <img src="./files/layerhidden.png" alt="Hidden">
+            <!-- 4 -->
+            <div class="layer-card">
+              <div class="rail-left">
+                <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
+                <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
+                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
+              </div>
+              <div class="layer-canvas"></div>
+              <div class="rail-right">
+                <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
+                <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
+                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
+                <img src="/create_parts/layer_button/layerdestruction.png"         alt="delete">
+              </div>
             </div>
-            <div class="layer-row">
-              <img src="./files/layerpanel.png" alt="Layer">
-              <img src="./files/layerlock.png" alt="Lock">
-              <img src="./files/layerdisplay.png" alt="Display">
-              <img src="./files/layerhidden.png" alt="Hidden">
+            <!-- 5 -->
+            <div class="layer-card">
+              <div class="rail-left">
+                <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
+                <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
+                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
+              </div>
+              <div class="layer-canvas"></div>
+              <div class="rail-right">
+                <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
+                <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
+                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
+                <img src="/create_parts/layer_button/layerdestruction.png"         alt="delete">
+              </div>
             </div>
           </div>
 
-          <!-- 右：ツール群 -->
+          <!-- 右：Stationery → Zoom → Opacity → Color -->
           <div class="tool-groups">
 
-            <!-- Stationery -->
-            <div class="panel-block">
-              <h3>Stationery</h3>
+            <section class="panel-block">
+              <div class="panel-title">Stationery</div>
               <div class="icon-row">
-                <img src="./files/select.png" alt="Select">
-                <img src="./files/brush.png" alt="Brush">
-                <img src="./files/square.png" alt="Square">
-                <img src="./files/text.png" alt="Text">
-                <img src="./files/eraser.png" alt="Eraser">
+                <img src="/create_parts/design_button/select.png" alt="Select">
+                <img src="/create_parts/design_button/brush.png"  alt="Brush">
+                <img src="/create_parts/design_button/square.png" alt="Square">
+                <img src="/create_parts/design_button/text.png"   alt="Text">
+                <img src="/create_parts/design_button/eraser.png" alt="Eraser">
               </div>
-            </div>
+            </section>
 
-            <!-- Zoom -->
-            <div class="panel-block">
-              <h3>Zoom</h3>
+            <section class="panel-block">
+              <div class="panel-title">Zoom</div>
               <div class="zoom-control">
                 <button onclick="changeZoom(-10)">-</button>
                 <span id="zoom-value">100%</span>
                 <button onclick="changeZoom(10)">+</button>
-                <button onclick="resetZoom()">Reset</button>
+                <button class="reset" onclick="resetZoom()">Reset</button>
               </div>
-            </div>
+            </section>
 
-            <!-- Opacity -->
-            <div class="panel-block">
-              <h3>Opacity</h3>
+            <section class="panel-block">
+              <div class="panel-title">Opacity</div>
               <div class="opacity-control">
                 <button onclick="changeOpacity(-10)">-</button>
                 <span id="opacity-value">100%</span>
                 <button onclick="changeOpacity(10)">+</button>
-                <button onclick="resetOpacity()">Reset</button>
+                <button class="reset" onclick="resetOpacity()">Reset</button>
               </div>
-            </div>
+            </section>
 
-            <!-- Color -->
-            <div class="panel-block">
-              <h3>Color</h3>
+            <!-- Color：ここはあなたが後で差し替えやすいよう最小構成だけ保持 -->
+            <section class="panel-block">
+              <div class="panel-title">Color</div>
               <div class="color-palette">
                 <div class="row">
-                  <div class="color-swatch" style="background:#fff"></div>
-                  <div class="color-swatch" style="background:#ccc"></div>
-                  <div class="color-swatch" style="background:#ff0"></div>
-                  <div class="color-swatch" style="background:#ffa500"></div>
-                  <div class="color-swatch" style="background:#fbb"></div>
+                  <img src="/pc%20color/white.png"      alt="white">
+                  <img src="/pc%20color/light%20gray.png" alt="light-gray">
+                  <img src="/pc%20color/yellow.png"     alt="yellow">
+                  <img src="/pc%20color/orange.png"     alt="orange">
+                  <img src="/pc%20color/pink.png"       alt="pink">
                 </div>
                 <div class="row">
-                  <div class="color-swatch" style="background:#f00"></div>
-                  <div class="color-swatch" style="background:#0f0"></div>
-                  <div class="color-swatch" style="background:#0cf"></div>
-                  <div class="color-swatch" style="background:#00f"></div>
-                  <div class="color-swatch" style="background:#800080"></div>
+                  <img src="/pc%20color/red.png"       alt="red">
+                  <img src="/pc%20color/green.png"     alt="green">
+                  <img src="/pc%20color/lime.png"      alt="lime">
+                  <img src="/pc%20color/sky%20blue.png"  alt="sky-blue">
+                  <img src="/pc%20color/blue.png"      alt="blue">
                 </div>
                 <div class="row">
-                  <div class="color-swatch" style="background:#964B00"></div>
-                  <div class="color-swatch" style="background:#333"></div>
-                  <div class="color-swatch" style="background:#000"></div>
-                  <button class="color-add">+</button>
-                  <img src="./files/spuit.png" alt="Dropper">
+                  <img src="/pc%20color/purple.png"    alt="purple">
+                  <img src="/pc%20color/brown.png"     alt="brown">
+                  <img src="/pc%20color/dark%20gray.png" alt="dark-gray">
+                  <img src="/pc%20color/black.png"     alt="black">
+                </div>
+                <div class="row add-row">
+                  <img class="add"   src="/pc%20color/color%20upload.png" alt="Add">
+                  <img class="add"   src="/pc%20color/color%20upload.png" alt="Add">
+                  <img class="add"   src="/pc%20color/color%20upload.png" alt="Add">
+                  <img class="add"   src="/pc%20color/color%20upload.png" alt="Add">
+                  <img class="spuit" src="/pc%20color/spuit.png"          alt="Eyedropper">
                 </div>
               </div>
-            </div>
+            </section>
 
           </div>
         </div>
@@ -160,27 +219,34 @@
     </main>
   </div>
 
-  <!-- ===== JS ===== -->
+  <!-- ===== JS（最小） ===== -->
   <script>
-    let zoom = 100;
-    function changeZoom(val) {
-      zoom = Math.min(200, Math.max(10, zoom + val));
-      document.getElementById('zoom-value').innerText = zoom + '%';
-    }
-    function resetZoom() {
-      zoom = 100;
-      document.getElementById('zoom-value').innerText = zoom + '%';
-    }
+    // gender switch
+    const mannequin = document.querySelector(".mannequin");
+    const GENDER_SRC = {
+      woman: "/mannequin/mannequin_woman/mannequin_woman_front.png",
+      man:   "/mannequin/mannequin_man/mannequin_man_front.png",
+      kids:  "/mannequin/mannequin_kids/mannequin_kida_front.png" // 表記ゆれ対応
+    };
+    document.querySelectorAll("[data-gender]").forEach(a=>{
+      a.addEventListener("click", e=>{
+        e.preventDefault();
+        const key = a.dataset.gender;
+        if (GENDER_SRC[key]) mannequin.src = GENDER_SRC[key];
+      });
+    });
 
-    let opacity = 100;
-    function changeOpacity(val) {
-      opacity = Math.min(100, Math.max(0, opacity + val));
-      document.getElementById('opacity-value').innerText = opacity + '%';
-    }
-    function resetOpacity() {
-      opacity = 100;
-      document.getElementById('opacity-value').innerText = opacity + '%';
-    }
+    // Zoom / Opacity（値表示のみ）
+    let zoom = 100, opacity = 100;
+    const zoomEl = document.getElementById("zoom-value");
+    const opEl   = document.getElementById("opacity-value");
+    function updateZoom(){ if(zoomEl) zoomEl.textContent = zoom + "%"; }
+    function updateOpacity(){ if(opEl) opEl.textContent = opacity + "%"; }
+    window.changeZoom = (d)=>{ zoom = Math.min(200, Math.max(10, zoom + d)); updateZoom(); };
+    window.resetZoom  = ()=>{ zoom = 100; updateZoom(); };
+    window.changeOpacity = (d)=>{ opacity = Math.min(100, Math.max(0, opacity + d)); updateOpacity(); };
+    window.resetOpacity  = ()=>{ opacity = 100; updateOpacity(); };
+    updateZoom(); updateOpacity();
   </script>
 </body>
 </html>
