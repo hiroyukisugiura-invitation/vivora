@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app">
-    <!-- ヘッダー：タイトルとボタン -->
+  <div class="wrapper">
+    <!-- ヘッダー部分 -->
     <header class="header">
       <h1 class="title">Vivora Fashion Illustration 2025</h1>
       <div class="gender-buttons">
@@ -16,128 +16,141 @@
         <button>Man</button>
         <button>Kids</button>
       </div>
-      <div class="next-step">
-        <button>Next Step ▶▶</button>
+      <div class="nav-controls">
+        <button><img src="img/undo.png" alt="Undo"></button>
+        <button><img src="img/redo.png" alt="Redo"></button>
+        <button><img src="img/download.png" alt="Download"></button>
+        <button><img src="img/upload.png" alt="Upload"></button>
+        <button><img src="img/grid.png" alt="Grid"></button>
+        <button><img src="img/save.png" alt="Save"></button>
+        <button>2D</button>
+        <button>3D</button>
+        <button class="next-step">Next Step ▶▶</button>
       </div>
     </header>
 
-    <!-- ツールバー（Undo, Saveなど） -->
-    <div class="toolbar">
-      <button><img src="./public/undo.png" alt="Undo"></button>
-      <button><img src="./public/redo.png" alt="Redo"></button>
-      <button><img src="./public/download.png" alt="Download"></button>
-      <button><img src="./public/upload.png" alt="Upload"></button>
-      <button><img src="./public/grid.png" alt="Grid"></button>
-      <button><img src="./public/save.png" alt="Save"></button>
-      <button><img src="./public/2d.png" alt="2D"></button>
-      <button><img src="./public/3d.png" alt="3D"></button>
-    </div>
-
-    <!-- メインエリア：左にレイヤー、中央にマネキン、右にツール -->
-    <div class="main-area">
-
-      <!-- 左：レイヤー（5段構成） -->
-      <div class="layer-panel">
-        <div class="layer-item">
-          <img src="./public/layerpanel.png" alt="Layer">
-          <img src="./public/layerlock.png" alt="Lock">
-          <img src="./public/layerdisplay.png" alt="Display">
-          <img src="./public/layerhidden.png" alt="Hidden">
-          <img src="./public/layerpanelplus.png" alt="Add">
-          <img src="./public/layerreproduction.png" alt="Copy">
-        </div>
-        <!-- 以下、4つ複製 -->
-        <div class="layer-item">...（同様の構成）</div>
-        <div class="layer-item">...（同様の構成）</div>
-        <div class="layer-item">...（同様の構成）</div>
-        <div class="layer-item">...（同様の構成）</div>
-      </div>
-
-      <!-- 中央：マネキン表示エリア -->
+    <!-- メインコンテンツ部分 -->
+    <main class="main">
       <div class="canvas-area">
-        <img src="./public/mannequin-woman-front-1.png" alt="mannequin" class="mannequin">
+        <img src="img/mannequin_woman_front.png" alt="mannequin" class="mannequin">
       </div>
 
-      <!-- 右：ツール群 -->
-      <div class="tools">
+      <div class="tools-right">
         <!-- コンテンツツール -->
         <div class="content-tools">
-          <img src="./public/0-home.png" alt="Home">
-          <img src="./public/1-fashion-illustrations.png" alt="Fashion">
-          <img src="./public/2-fabric-matching.png" alt="Fabric">
-          <img src="./public/3-clothing-design.png" alt="Design">
-          <img src="./public/4-pattern-creation.png" alt="Pattern">
-          <img src="./public/5-grading.png" alt="Grading">
-          <img src="./public/6-print-layout-cut.png" alt="Print">
-          <img src="./public/digital-dressing-kids-mode.png" alt="Dress">
+          <img src="img/0_home.png" alt="Home">
+          <img src="img/1_fashion.png" alt="Fashion">
+          <img src="img/2_fabric.png" alt="Fabric">
+          <img src="img/3_design.png" alt="Design">
+          <img src="img/4_pattern.png" alt="Pattern">
+          <img src="img/5_grading.png" alt="Grading">
+          <img src="img/6_layout.png" alt="Layout">
+          <img src="img/7_digital.png" alt="Digital Dressing">
         </div>
 
-        <!-- ステーショナリー -->
-        <div class="stationery">
-          <p>Stationery</p>
-          <div class="icon-row">
-            <img src="./public/select.png" alt="Select">
-            <img src="./public/brush.png" alt="Brush">
-            <img src="./public/square.png" alt="Shape">
-            <img src="./public/sentence.png" alt="Text">
-            <img src="./public/eraser.png" alt="Eraser">
+        <div class="tools-bottom">
+          <div class="tools-left">
+            <!-- レイヤー5段 -->
+            <div class="layer-block">
+              <img src="img/layerpanel.png" alt="Layer">
+              <img src="img/layerlock.png" alt="Lock">
+              <img src="img/layerdisplay.png" alt="Display">
+              <img src="img/layerhidden.png" alt="Hidden">
+              <img src="img/layeradd.png" alt="Add">
+            </div>
+            <div class="layer-block">
+              <img src="img/layerpanel.png" alt="Layer">
+              <img src="img/layerlock.png" alt="Lock">
+              <img src="img/layerdisplay.png" alt="Display">
+              <img src="img/layerhidden.png" alt="Hidden">
+              <img src="img/layercopy.png" alt="Copy">
+            </div>
+            <div class="layer-block">
+              <img src="img/layerpanel.png" alt="Layer">
+              <img src="img/layerlock.png" alt="Lock">
+              <img src="img/layerdisplay.png" alt="Display">
+              <img src="img/layerhidden.png" alt="Hidden">
+              <img src="img/layerdelete.png" alt="Delete">
+            </div>
+            <div class="layer-block">
+              <img src="img/layerpanel.png" alt="Layer">
+              <img src="img/layerlock.png" alt="Lock">
+              <img src="img/layerdisplay.png" alt="Display">
+              <img src="img/layerhidden.png" alt="Hidden">
+              <img src="img/layermerge.png" alt="Merge">
+            </div>
+            <div class="layer-block">
+              <img src="img/layerpanel.png" alt="Layer">
+              <img src="img/layerlock.png" alt="Lock">
+              <img src="img/layerdisplay.png" alt="Display">
+              <img src="img/layerhidden.png" alt="Hidden">
+              <img src="img/layerreproduce.png" alt="Reproduce">
+            </div>
           </div>
-        </div>
 
-        <!-- ズーム -->
-        <div class="zoom">
-          <p>Zoom</p>
-          <div class="zoom-control">
-            <button>-</button>
-            <span>100%</span>
-            <button>+</button>
-            <button>Reset</button>
-          </div>
-        </div>
+          <!-- ステーショナリーツール群 -->
+          <div class="tools-controls">
+            <div class="tool-section">
+              <h3>Stationery</h3>
+              <div class="tool-icons">
+                <img src="img/select.png" alt="Select">
+                <img src="img/brush.png" alt="Brush">
+                <img src="img/square.png" alt="Square">
+                <img src="img/text.png" alt="Text">
+                <img src="img/eraser.png" alt="Eraser">
+              </div>
+            </div>
 
-        <!-- 透明度 -->
-        <div class="opacity">
-          <p>Opacity</p>
-          <div class="opacity-control">
-            <button>-</button>
-            <span>100%</span>
-            <button>+</button>
-            <button>Reset</button>
-          </div>
-        </div>
+            <div class="tool-section">
+              <h3>Zoom</h3>
+              <div class="zoom-control">
+                <button>-</button>
+                <span>100%</span>
+                <button>+</button>
+                <button>Reset</button>
+              </div>
+            </div>
 
-        <!-- カラー -->
-        <div class="color">
-          <p>Color</p>
-          <div class="color-swatches">
-            <div class="row">
-              <div class="swatch white"></div>
-              <div class="swatch gray"></div>
-              <div class="swatch yellow"></div>
-              <div class="swatch orange"></div>
-              <div class="swatch pink"></div>
+            <div class="tool-section">
+              <h3>Opacity</h3>
+              <div class="zoom-control">
+                <button>-</button>
+                <span>100%</span>
+                <button>+</button>
+                <button>Reset</button>
+              </div>
             </div>
-            <div class="row">
-              <div class="swatch red"></div>
-              <div class="swatch green"></div>
-              <div class="swatch lime"></div>
-              <div class="swatch sky"></div>
-              <div class="swatch blue"></div>
+
+            <div class="tool-section">
+              <h3>Color</h3>
+              <div class="color-palette">
+                <div class="color-row">
+                  <div class="color" style="background:#fff;"></div>
+                  <div class="color" style="background:#ccc;"></div>
+                  <div class="color" style="background:#ff0;"></div>
+                  <div class="color" style="background:#ffa500;"></div>
+                  <div class="color" style="background:#f99;"></div>
+                </div>
+                <div class="color-row">
+                  <div class="color" style="background:#f00;"></div>
+                  <div class="color" style="background:#0f0;"></div>
+                  <div class="color" style="background:#0ff;"></div>
+                  <div class="color" style="background:#00f;"></div>
+                  <div class="color" style="background:#800080;"></div>
+                </div>
+                <div class="color-row">
+                  <div class="color" style="background:#a52a2a;"></div>
+                  <div class="color" style="background:#333;"></div>
+                  <div class="color" style="background:#000;"></div>
+                  <button class="color-add">+</button>
+                  <img src="img/spuit.png" alt="Eyedropper">
+                </div>
+              </div>
             </div>
-            <div class="row">
-              <div class="swatch purple"></div>
-              <div class="swatch brown"></div>
-              <div class="swatch dark"></div>
-              <div class="swatch black"></div>
-            </div>
-            <div class="row">
-              <button>+</button><button>+</button><button>+</button><button>+</button>
-              <img src="./public/spuit.png" alt="Dropper">
-            </div>
-          </div>
-        </div>
+          </div> <!-- tools-controls 終わり -->
+        </div> <!-- tools-bottom 終わり -->
       </div>
-    </div>
+    </main>
   </div>
   <script src="script.js"></script>
 </body>
