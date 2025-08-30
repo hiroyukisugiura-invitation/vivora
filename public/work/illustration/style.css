@@ -1,195 +1,203 @@
-/* ===============================
-   Vivora Fashion Illustration 2025
-   style.css
-   =============================== */
+/* =========================================
+   Vivora Fashion Illustration 2025 - style.css
+   ・HTMLとJSはindex.html内に統合
+   ・本ファイルはCSSのみ（分離）
+   ・スクショの見た目を忠実に再現するレイアウト
+========================================= */
 
-:root {
-  --bg: #f3eee7;
-  --white: #ffffff;
-  --gray: #ccc;
-  --text: #333;
-  --radius: 12px;
+/* ---- 基本色・角丸など ---- */
+:root{
+  --bg:#efe8e0;            /* 全体ベージュ */
+  --panel:#ffffff;          /* 白パネル */
+  --line:#e7dfd8;           /* 枠線の薄グレー */
+  --text:#2e2e2e;           /* 文字色 */
+  --radius:14px;            /* 角丸 */
+  --shadow:0 1px 0 rgba(0,0,0,.02), 0 2px 8px rgba(0,0,0,.04);
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Helvetica Neue", sans-serif;
-  background: var(--bg);
-  color: var(--text);
+/* ---- ベース ---- */
+*{box-sizing:border-box}
+body{
+  margin:0; padding:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+img{display:block}
+
+/* ---- ラッパー ---- */
+.app-wrapper{
+  display:flex; flex-direction:column;
+  min-height:100vh;
+  padding:18px 22px;
 }
 
-.app-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+/* ---------------------------------------
+   ヘッダー（タイトル / ジェンダー / Next）
+---------------------------------------- */
+.header{
+  display:grid;
+  grid-template-columns: 1fr auto auto;
+  align-items:center;
+  column-gap:18px;
+  row-gap:12px;
+  margin-bottom:12px;
+}
+.title{
+  font-size:22px;
+  font-weight:600;
+  margin:0;
 }
 
-/* ===== Header ===== */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
+/* 性別切替（画像ボタン） */
+.gender-buttons{
+  display:flex; gap:10px; align-items:center;
+}
+.gender-buttons img{
+  height:36px; width:auto;
+  padding:6px 10px; background:var(--panel);
+  border:1px solid var(--line); border-radius:8px;
+  box-shadow:var(--shadow); cursor:pointer;
 }
 
-.title {
-  font-size: 18px;
-  font-weight: bold;
+/* Next Step（右上固定） */
+.next-step{ justify-self:end; }
+.next-step img{
+  height:36px; width:auto; cursor:pointer;
+  padding:4px 8px; border-radius:8px; background:var(--panel);
+  border:1px solid var(--line); box-shadow:var(--shadow);
 }
 
-.gender-buttons button,
-.toolbar button,
-.next-step button {
-  background: var(--white);
-  border: 1px solid var(--gray);
-  border-radius: 6px;
-  padding: 6px 12px;
-  margin-right: 6px;
-  cursor: pointer;
+/* ---------------------------------------
+   上部ツールバー（Undo〜Save / 2D 3D）
+---------------------------------------- */
+.toolbar{
+  grid-column: 1 / 3;       /* タイトルの下に中央寄せ配置 */
+  justify-self:center;
+  display:flex; gap:10px; align-items:center;
+  background:var(--panel); border:1px solid var(--line);
+  border-radius:12px; box-shadow:var(--shadow);
+  padding:10px 14px; margin-top:2px; margin-bottom:10px;
+}
+.toolbar img{
+  width:26px; height:26px; cursor:pointer;
+}
+.toolbar button{
+  font:inherit; color:inherit;
+  padding:6px 10px; background:var(--panel);
+  border:1px solid var(--line); border-radius:8px;
+  box-shadow:var(--shadow); cursor:pointer;
 }
 
-.toolbar img {
-  width: 20px;
-  height: 20px;
+/* ---------------------------------------
+   メイン（左:キャンバス / 右:サイドパネル）
+---------------------------------------- */
+.main{
+  display:grid;
+  grid-template-columns: 1fr 360px;   /* 左広め・右固定 */
+  gap:22px;
+  align-items:start;
 }
 
-.next-step button {
-  font-weight: bold;
+/* キャンバス */
+.canvas-area{
+  background:var(--panel); border:1px solid var(--line);
+  border-radius:16px; box-shadow:var(--shadow);
+  min-height:560px; padding:22px;
+  display:flex; align-items:center; justify-content:center;
+}
+.mannequin{
+  max-height:520px; width:auto; height:auto;
 }
 
-/* ===== Main ===== */
-.main {
-  display: flex;
-  flex: 1;
-  padding: 20px;
-  gap: 20px;
+/* ---------------------------------------
+   右サイドパネル
+---------------------------------------- */
+.side-panel{ display:flex; flex-direction:column; gap:14px; }
+
+/* 上段：コンテンツツール（8つ横並び） */
+.content-tools{
+  display:flex; gap:10px; flex-wrap:wrap;
+  background:var(--panel); border:1px solid var(--line);
+  border-radius:12px; box-shadow:var(--shadow);
+  padding:10px 12px;
+}
+.content-tools img{
+  width:32px; height:32px; cursor:pointer;
 }
 
-.canvas-area {
-  flex: 1;
-  background: var(--white);
-  border-radius: var(--radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* 下段：レイヤー + ツール群（左右2カラム） */
+.tools-area{ display:grid; grid-template-columns: 66px 1fr; gap:12px; }
+
+/* レイヤー列（縦5段） */
+.layers{ display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+.layer-row{
+  background:var(--panel); border:1px solid var(--line);
+  border-radius:10px; box-shadow:var(--shadow);
+  padding:6px; display:flex; justify-content:space-between; align-items:center;
+}
+.layer-row img{ width:18px; height:18px; }
+
+/* 右：ツール群（Stationery / Zoom / Opacity / Color） */
+.tool-groups{ display:flex; flex-direction:column; gap:14px; }
+
+/* パネル共通 */
+.panel-block{
+  background:var(--panel); border:1px solid var(--line);
+  border-radius:12px; box-shadow:var(--shadow);
+  padding:10px 12px;
+}
+.panel-title, .panel-block h3{
+  margin:0 0 8px 0; font-size:14px; font-weight:600;
 }
 
-.mannequin {
-  max-height: 90%;
+/* Stationeryアイコン列 */
+.icon-row{ display:flex; gap:10px; align-items:center; }
+.icon-row img{ width:26px; height:26px; cursor:pointer; }
+
+/* Zoom / Opacity（数値ボタン式） */
+.zoom-control, .opacity-control{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+}
+.zoom-control button, .opacity-control button{
+  font:inherit; color:inherit;
+  padding:4px 8px; background:var(--panel); border:1px solid var(--line);
+  border-radius:8px; box-shadow:var(--shadow); cursor:pointer;
+}
+#zoom-value, #opacity-value{
+  font-size:12px; padding:2px 8px; background:#f2f2f2; border-radius:10px;
 }
 
-/* ===== Side Panel ===== */
-.side-panel {
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* Color パレット */
+.color-palette{ display:flex; flex-direction:column; gap:8px; }
+.color-palette .row{ display:flex; gap:8px; }
+.color-palette .row img{
+  width:32px; height:32px; cursor:pointer;
+  padding:1px; background:#fff; border:1px solid var(--line); border-radius:8px;
+  box-shadow: var(--shadow);
 }
-
-.content-tools {
-  display: flex;
-  justify-content: space-between;
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 8px;
+.add-row{ margin-top:2px; display:flex; gap:8px; align-items:center; }
+.add-row .add{
+  width:34px; height:34px; background:#f2f2f2;
+  border:1px solid var(--line); border-radius:8px; padding:6px; cursor:pointer;
+  box-shadow:var(--shadow);
 }
+.add-row .spuit{ width:34px; height:34px; padding:6px; border:1px solid var(--line); border-radius:8px; background:#fff; box-shadow:var(--shadow); }
 
-.content-tools img {
-  width: 28px;
-  height: 28px;
-}
+/* ---------------------------------------
+   細かな微調整（スクショ寄せ）
+---------------------------------------- */
+.header{ margin-bottom:8px; }
+.toolbar{ margin:2px auto 10px; }           /* 中央寄せ */
+.content-tools{ margin-top:2px; }
+.panel-block{ padding-top:12px; padding-bottom:12px; }
+.layers .layer-row{ padding-left:8px; padding-right:8px; }
 
-.tools-area {
-  display: flex;
-  gap: 12px;
-}
-
-.layers {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.layer-row {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 6px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.layer-row img {
-  width: 18px;
-  height: 18px;
-}
-
-.tool-groups {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.panel-block {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 12px;
-}
-
-.panel-block h3 {
-  margin: 0 0 8px 0;
-  font-size: 14px;
-}
-
-.icon-row img {
-  width: 28px;
-  height: 28px;
-  margin-right: 6px;
-  cursor: pointer;
-}
-
-.zoom-control,
-.opacity-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.zoom-control button,
-.opacity-control button,
-.color-add {
-  background: var(--white);
-  border: 1px solid var(--gray);
-  border-radius: 6px;
-  padding: 2px 6px;
-  cursor: pointer;
-}
-
-/* ===== Colors ===== */
-.color-palette {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.row {
-  display: flex;
-  gap: 6px;
-}
-
-.color-swatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  border: 1px solid var(--gray);
-  cursor: pointer;
-}
-
-.spuit-icon {
-  width: 24px;
-  height: 24px;
-  margin-left: 6px;
-  cursor: pointer;
+/* ---------------------------------------
+   レスポンシブ（幅が狭い時は右パネルを下へ）
+---------------------------------------- */
+@media (max-width: 1120px){
+  .main{ grid-template-columns: 1fr; }
+  .side-panel{ order:2; }
+  .canvas-area{ order:1; }
 }
