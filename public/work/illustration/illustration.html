@@ -175,26 +175,50 @@
               </div>
             </section>
 
-            <!-- Color はあなたが後で差し替える前提で最小構成 -->
-          <section class="panel">
-            <h3>Color</h3>
-            <div class="swatches">
-              <div style="background:#e6e0db"></div><div style="background:#c3c0bb"></div><div style="background:#ffd85e"></div><div style="background:#ffa23c"></div><div style="background:#f0514f"></div>
-              <div style="background:#49b062"></div><div style="background:#77c6ff"></div><div style="background:#4c73d3"></div><div style="background:#ef90b7"></div><div style="background:#1e1e1e"></div>
-              <div style="background:#8e5ab3"></div><div style="background:#ffe768"></div><div style="background:#a9a9a9"></div><div style="background:#704c23"></div><div style="background:#000"></div>
-            </div>
-            <div class="color-actions">
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">+</button>
-              <button class="ghost-btn">…</button>
-            </div>
-          </section>
+<!-- ====== Color Panel（差し替え用：HTML＋JS最小） ====== -->
+<section class="panel-block" id="color-panel">
+  <div class="panel-title">Color</div>
 
-          </div>
-        </div>
-      </aside>
-    </main>
+  <!-- 5列×3段（実ファイルに厳密一致。スペースは %20） -->
+  <div class="color-grid">
+    <a class="chip" href="/pc%20color/white.png"      title="white"><img src="/pc%20color/white.png"       alt="white"></a>
+    <a class="chip" href="/pc%20color/light%20gray.png" title="light gray"><img src="/pc%20color/light%20gray.png" alt="light gray"></a>
+    <a class="chip" href="/pc%20color/yellow.png"     title="yellow"><img src="/pc%20color/yellow.png"      alt="yellow"></a>
+    <a class="chip" href="/pc%20color/orange.png"     title="orange"><img src="/pc%20color/orange.png"      alt="orange"></a>
+    <a class="chip" href="/pc%20color/pink.png"       title="pink"><img src="/pc%20color/pink.png"          alt="pink"></a>
+
+    <a class="chip" href="/pc%20color/red.png"        title="red"><img src="/pc%20color/red.png"            alt="red"></a>
+    <a class="chip" href="/pc%20color/green.png"      title="green"><img src="/pc%20color/green.png"        alt="green"></a>
+    <a class="chip" href="/pc%20color/lime.png"       title="lime"><img src="/pc%20color/lime.png"          alt="lime"></a>
+    <a class="chip" href="/pc%20color/sky%20blue.png" title="sky blue"><img src="/pc%20color/sky%20blue.png" alt="sky blue"></a>
+    <a class="chip" href="/pc%20color/blue.png"       title="blue"><img src="/pc%20color/blue.png"          alt="blue"></a>
+
+    <a class="chip" href="/pc%20color/purple.png"     title="purple"><img src="/pc%20color/purple.png"      alt="purple"></a>
+    <a class="chip" href="/pc%20color/brown.png"      title="brown"><img src="/pc%20color/brown.png"        alt="brown"></a>
+    <a class="chip" href="/pc%20color/dark%20gray.png" title="dark gray"><img src="/pc%20color/dark%20gray.png" alt="dark gray"></a>
+    <a class="chip" href="/pc%20color/black.png"      title="black"><img src="/pc%20color/black.png"        alt="black"></a>
+    <span class="chip placeholder" aria-hidden="true"></span>
   </div>
+
+  <!-- 下段：Add×4 と Eyedropper -->
+  <div class="color-actions">
+    <a class="chip add"  href="/pc%20color/color%20upload.png" title="Add"><img src="/pc%20color/color%20upload.png" alt="Add"></a>
+    <a class="chip add"  href="/pc%20color/color%20upload.png" title="Add"><img src="/pc%20color/color%20upload.png" alt="Add"></a>
+    <a class="chip add"  href="/pc%20color/color%20upload.png" title="Add"><img src="/pc%20color/color%20upload.png" alt="Add"></a>
+    <a class="chip add"  href="/pc%20color/color%20upload.png" title="Add"><img src="/pc%20color/color%20upload.png" alt="Add"></a>
+    <a class="chip pick" href="/pc%20color/spuit.png"          title="Eyedropper"><img src="/pc%20color/spuit.png" alt="Eyedropper"></a>
+  </div>
+</section>
+
+<script>
+  /* 任意：同ページ内ハイライト（遷移は a[href] が担当。必要なければ削除可） */
+  document.querySelectorAll('#color-panel .chip').forEach(chip=>{
+    chip.addEventListener('click', ()=> {
+      document.querySelectorAll('#color-panel .chip').forEach(c=>c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+    });
+  });
+</script>
 
   <!-- ===== JS ===== -->
   <script>
