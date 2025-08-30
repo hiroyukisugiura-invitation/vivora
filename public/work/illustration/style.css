@@ -11,7 +11,7 @@ img{display:block}
 
 .app-wrapper{padding:18px 22px}
 
-/* header */
+/* ===== header ===== */
 .header{
   display:grid; grid-template-columns: 1fr auto auto; align-items:center;
   column-gap:18px; row-gap:10px; margin-bottom:6px;
@@ -31,7 +31,7 @@ img{display:block}
   padding:4px 8px; box-shadow:var(--shadow);
 }
 
-/* history tool */
+/* ===== history tool ===== */
 .toolbar{
   grid-column:1/3; justify-self:center;
   display:flex; gap:12px; align-items:center;
@@ -40,7 +40,7 @@ img{display:block}
 }
 .toolbar img{ width:26px; height:26px }
 
-/* main */
+/* ===== main ===== */
 .main{ display:grid; grid-template-columns: 1fr 360px; gap:22px; align-items:start }
 
 /* canvas */
@@ -54,7 +54,7 @@ img{display:block}
 /* side panel */
 .side-panel{ display:flex; flex-direction:column; gap:14px }
 
-/* contents */
+/* contents buttons */
 .content-tools{
   display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-start;
   background:var(--panel); border:1px solid var(--line);
@@ -62,10 +62,10 @@ img{display:block}
 }
 .content-tools img{ width:32px; height:32px; cursor:pointer }
 
-/* layer + tools */
+/* ===== layer + tools（左右分割） ===== */
 .tools-area{ display:grid; grid-template-columns: 84px 1fr; gap:12px }
 
-/* layer panel（添付デザイン） */
+/* layer panel（左コラム：添付デザイン） */
 .layers{ display:flex; flex-direction:column; gap:12px; margin-top:2px }
 .layer-track{
   position:relative; height:92px; width:84px;
@@ -83,13 +83,11 @@ img{display:block}
 
 /* right tool cards */
 .tool-groups{ display:flex; flex-direction:column; gap:14px }
-
 .panel-block{
   background:var(--panel); border:1px solid var(--line);
   border-radius:var(--r); padding:12px; box-shadow:var(--shadow);
 }
 .panel-title{ font-size:14px; font-weight:700; margin:0 0 8px }
-
 .icon-row{ display:flex; gap:12px; align-items:center }
 .icon-row img{ width:26px; height:26px; cursor:pointer }
 
@@ -106,22 +104,14 @@ img{display:block}
   font-size:12px; padding:2px 8px; background:#f2f2f2; border:1px solid #eaeaea; border-radius:10px;
 }
 
-/* ===== Color（差し替え用CSS：style.cssの末尾に追記） ===== */
-#color-panel { padding: 12px; }
+/* ===== Color（差し替え用の新UIを使う場合だけ） ===== */
+#color-panel { padding:12px; }
 #color-panel .panel-title{ margin:0 0 8px 0; font-size:14px; font-weight:700; }
-
-.color-grid{
-  display:grid;
-  grid-template-columns:repeat(5, 36px);
-  gap:8px;
-}
+.color-grid{ display:grid; grid-template-columns:repeat(5, 36px); gap:8px; }
 .color-actions{ display:flex; gap:8px; align-items:center; margin-top:8px; }
-
 #color-panel .chip{
-  width:36px; height:36px;
-  display:inline-flex; align-items:center; justify-content:center;
-  background:#fff; border:1px solid var(--line); border-radius:8px;
-  box-shadow:var(--shadow); padding:4px; cursor:pointer;
+  width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center;
+  background:#fff; border:1px solid var(--line); border-radius:8px; box-shadow:var(--shadow); padding:4px; cursor:pointer;
 }
 #color-panel .chip img{ width:100%; height:100%; object-fit:contain; }
 #color-panel .chip.placeholder{ background:transparent; border:none; box-shadow:none; cursor:default; }
@@ -131,81 +121,4 @@ img{display:block}
 @media (max-width:1120px){
   .main{ grid-template-columns: 1fr }
   .side-panel{ order:2 } .canvas-area{ order:1 }
-}
-/* ====== 右パネル全体の列幅（レイヤーを太めに） ====== */
-.tools-area{
-  display:grid;
-  grid-template-columns: 84px 1fr; /* ← 84pxに固定（左：レイヤー軌道／右：ツール群） */
-  gap:12px;
-}
-
-/* ====== レイヤーパネル（3カラム × 5段） ====== */
-.layers{ display:flex; flex-direction:column; gap:12px; margin-top:2px; }
-
-/* 1段のトラック全体（左レール／白カード／右レール） */
-.layer-track{
-  position:relative;
-  height:92px;               /* スクショに合わせた縦幅 */
-  width:84px;                /* tools-area左カラムと同幅 */
-  display:grid;
-  grid-template-columns: 20px 1fr 20px; /* 左レール 20 / 中央 1fr / 右レール 20 */
-  align-items:center;
-  column-gap:6px;
-}
-
-/* 中央の白いカード（描画スペース） */
-.layer-card{
-  height:92px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:12px;
-  box-shadow:var(--shadow);
-}
-
-/* 左右レールのアイコン（縦3つずつ） */
-.rail-left, .rail-right{
-  display:flex; flex-direction:column;
-  gap:8px; align-items:center; justify-content:center;
-}
-.rail-left img, .rail-right img{
-  width:16px; height:16px; cursor:pointer;
-}
-
-/* ====== 上部ツールバー（アイコンを小ぶりに） ====== */
-.toolbar{
-  margin:6px auto 12px;                     /* 中央寄せ */
-  display:flex; gap:12px; align-items:center;
-  background:#fff; border:1px solid var(--line);
-  border-radius:12px; padding:10px 14px; box-shadow:var(--shadow);
-  width:max-content;
-}
-.toolbar img{ width:26px; height:26px; }    /* ← アイコン固定 */
-
-/* ====== コンテンツボタン（上段8個） ====== */
-.content-tools{
-  display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-start;
-  background:#fff; border:1px solid var(--line);
-  border-radius:12px; padding:10px 12px; box-shadow:var(--shadow);
-}
-.content-tools img{ width:32px; height:32px; cursor:pointer; }
-
-/* ====== Stationery / Zoom / Opacity / Color のカード ====== */
-.panel-block{
-  background:#fff; border:1px solid var(--line);
-  border-radius:12px; padding:12px; box-shadow:var(--shadow);
-}
-.panel-title{ font-size:14px; font-weight:700; margin:0 0 8px; }
-
-.icon-row{ display:flex; gap:12px; align-items:center; }
-.icon-row img{ width:26px; height:26px; cursor:pointer; }
-
-.zoom-control, .opacity-control{
-  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-}
-.zoom-control button, .opacity-control button{
-  padding:4px 10px; background:#fff; border:1px solid var(--line);
-  border-radius:8px; box-shadow:var(--shadow); cursor:pointer;
-}
-#zoom-value, #opacity-value{
-  font-size:12px; padding:2px 8px; background:#f2f2f2; border:1px solid #eaeaea; border-radius:10px;
 }
