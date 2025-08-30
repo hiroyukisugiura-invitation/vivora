@@ -161,3 +161,30 @@ img{display:block}
   .main{ grid-template-columns: 1fr }
   .side-panel{ order:2 } .canvas-area{ order:1 }
 }
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.gender-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 10px 14px;
+  box-shadow: var(--shadow);
+}
+.toolbar img {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+}
