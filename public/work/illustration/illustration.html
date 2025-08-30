@@ -1,138 +1,696 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="wrapper">
-    <!-- 🟥 ヘッダー：タイトル・性別切替・履歴操作・Nextボタン -->
-    <header class="header">
-      <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-      <div class="gender-switch">
-        <button>Woman</button><button>Man</button><button>Kids</button>
-      </div>
-      <div class="history-tool">
-        <button>⟲</button><button>⟳</button><button>📂</button>
-        <button>📁</button><button>🖊</button><button>2D</button><button>3D</button>
-      </div>
-      <button class="next-button">Next Step ▶▶</button>
-    </header>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
 
-    <!-- 🟨 メインエリア：キャンバス＋右パネル -->
-    <main class="main">
-      <!-- 中央キャンバス：マネキン表示 -->
-      <div class="canvas">
-        <img id="mannequin" src="public/mannequin/mannequin_woman_front.png" alt="Mannequin" />
-      </div>
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=[object Object]&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=[object Object]&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=[object Object]&display=swap"
+    />
+  </head>
+  <body>
+    <div class="root">
+      <section class="frame-parent">
+        <header class="frame-group">
+          <div class="frame-container">
+            <div class="vivora-fashion-illustration-20-wrapper">
+              <h3 class="vivora-fashion-illustration">
+                Vivora Fashion Illustration 2025
+              </h3>
+            </div>
+            <div class="button-woman-parent">
+              <img
+                class="button-woman-icon"
+                alt=""
+                src="./public/button-woman@2x.png"
+              />
 
-      <!-- 🟦 右パネル：Contents / Layer / Tools -->
-      <aside class="right-panel">
+              <img
+                class="button-woman-icon"
+                alt=""
+                src="./public/button-man@2x.png"
+              />
 
-        <!-- セクション①：Contentsボタン群 -->
-        <div class="contents-button">
-          <button>Home</button><button>Fi</button><button>Fm</button><button>Cd</button>
-          <button>Pc</button><button>Gd</button><button>Plc</button><button>Dk</button>
-        </div>
-
-        <!-- セクション②③：Layer + Toolパネル -->
-        <div class="panel-body">
-
-          <!-- セクション②：レイヤー（5段） -->
-          <div class="layer-panel">
-            <div class="layer"></div><div class="layer"></div>
-            <div class="layer"></div><div class="layer"></div>
-            <div class="layer"></div>
+              <img
+                class="button-kids-icon"
+                alt=""
+                src="./public/button-kids@2x.png"
+              />
+            </div>
           </div>
+          <div class="rectangle-parent">
+            <div class="frame-child"></div>
+            <div class="retreat-parent">
+              <img class="retreat-icon" alt="" src="./public/retreat@2x.png" />
 
-          <!-- セクション③：ツール群 -->
-          <div class="tool-panel">
+              <img class="forward-icon" alt="" src="./public/forward@2x.png" />
 
-            <!-- Stationery：描画ツール -->
-            <section class="stationery-tool">
-              <p>Stationery</p>
-              <button>↑</button><button>🖌</button><button>□</button><button>T</button><button>🔍</button>
-            </section>
+              <img class="reset-icon" alt="" src="./public/reset@2x.png" />
 
-            <!-- Zoom：拡大率調整（左0% - 右100%） -->
-            <section class="zoom-bar">
-              <p>Zoom <span id="zoom-value">100%</span></p>
-              <button onclick="adjustZoom(-10)">-</button>
-              <input type="range" id="zoom-slider" min="0" max="100" value="100" onchange="updateZoom(this.value)" />
-              <button onclick="adjustZoom(10)">+</button>
-            </section>
+              <img class="retreat-icon" alt="" src="./public/download@2x.png" />
 
-            <!-- Opacity：透明度調整（左透明 - 右100%） -->
-            <section class="opacity-bar">
-              <p>Opacity <span id="opacity-value">100%</span></p>
-              <button onclick="adjustOpacity(-10)">-</button>
-              <input type="range" id="opacity-slider" min="0" max="100" value="100" onchange="updateOpacity(this.value)" />
-              <button onclick="adjustOpacity(10)">+</button>
-            </section>
+              <img class="forward-icon" alt="" src="./public/upload@2x.png" />
 
-            <!-- Color：色選択＋追加ボタン -->
-            <section class="color-panel">
-              <p>Color</p>
-              <div class="colors">
-                <div class="color-box white"></div><div class="color-box gray"></div>
-                <div class="color-box yellow"></div><div class="color-box orange"></div>
-                <div class="color-box pink"></div><div class="color-box red"></div>
-                <div class="color-box green"></div><div class="color-box darkgreen"></div>
-                <div class="color-box blue"></div><div class="color-box navy"></div>
-                <div class="color-box purple"></div><div class="color-box brown"></div>
-                <div class="color-box darkgray"></div><div class="color-box black"></div>
-              </div>
-              <div class="color-extend">
-                <button>+</button><button>+</button><button>+</button><button>+</button><button>🔍</button>
-              </div>
-            </section>
+              <img
+                class="retreat-icon"
+                alt=""
+                src="./public/graph-paper@2x.png"
+              />
 
+              <img class="reset-icon" alt="" src="./public/save@2x.png" />
+            </div>
+            <div class="d-parent">
+              <img class="d-icon" alt="" src="./public/2d@2x.png" />
+
+              <img class="d-icon" alt="" src="./public/3d@2x.png" />
+            </div>
           </div>
+        </header>
+        <div class="button-next-wrapper">
+          <img
+            class="button-next-icon"
+            alt=""
+            src="./public/button-next@2x.png"
+          />
         </div>
-      </aside>
-    </main>
-  </div>
+      </section>
+      <main class="frame-main">
+        <section class="rectangle-group">
+          <div class="frame-item"></div>
+          <img
+            class="mannequin-woman-front-1-icon"
+            loading="lazy"
+            alt=""
+            src="./public/mannequin-woman-front-1@2x.png"
+          />
+        </section>
+        <section class="frame-wrapper">
+          <div class="frame-div">
+            <div class="rectangle-container">
+              <div class="frame-inner"></div>
+              <img
+                class="home-icon"
+                loading="lazy"
+                alt=""
+                src="./public/0-home@2x.png"
+              />
 
-  <!-- ✅ JS：Zoom / Opacity機能内蔵 -->
-  <script>
-    const mannequin = document.getElementById("mannequin");
-    const zoomSlider = document.getElementById("zoom-slider");
-    const opacitySlider = document.getElementById("opacity-slider");
-    const zoomValue = document.getElementById("zoom-value");
-    const opacityValue = document.getElementById("opacity-value");
+              <img
+                class="home-icon"
+                loading="lazy"
+                alt=""
+                src="./public/1-fashion-illustrations@2x.png"
+              />
 
-    function updateZoom(val) {
-      const scale = Math.max(0.01, val / 100);
-      mannequin.style.transform = `scale(${scale})`;
-      zoomValue.textContent = `${val}%`;
-    }
+              <img
+                class="home-icon"
+                loading="lazy"
+                alt=""
+                src="./public/2-fabric-matching@2x.png"
+              />
 
-    function adjustZoom(delta) {
-      let val = parseInt(zoomSlider.value) + delta;
-      val = Math.max(0, Math.min(100, val));
-      zoomSlider.value = val;
-      updateZoom(val);
-    }
+              <img
+                class="home-icon"
+                loading="lazy"
+                alt=""
+                src="./public/3-clothing-design@2x.png"
+              />
 
-    function updateOpacity(val) {
-      const opacity = Math.max(0, val / 100);
-      mannequin.style.opacity = opacity;
-      opacityValue.textContent = `${val}%`;
-    }
+              <img
+                class="home-icon"
+                alt=""
+                src="./public/4-pattern-creation@2x.png"
+              />
 
-    function adjustOpacity(delta) {
-      let val = parseInt(opacitySlider.value) + delta;
-      val = Math.max(0, Math.min(100, val));
-      opacitySlider.value = val;
-      updateOpacity(val);
-    }
+              <img class="home-icon" alt="" src="./public/5-grading@2x.png" />
 
-    window.addEventListener("DOMContentLoaded", () => {
-      updateZoom(100);
-      updateOpacity(100);
-    });
-  </script>
-</body>
+              <img
+                class="home-icon"
+                alt=""
+                src="./public/6-print-layout-cut@2x.png"
+              />
+
+              <img
+                class="home-icon"
+                alt=""
+                src="./public/digital-dressing-kids-mode@2x.png"
+              />
+            </div>
+            <div class="frame-parent2">
+              <div class="group-div">
+                <div class="frame-parent3">
+                  <div class="layerpanel-parent">
+                    <img
+                      class="layerpanel-icon"
+                      alt=""
+                      src="./public/layerpanel@2x.png"
+                    />
+
+                    <img
+                      class="layerlock-icon"
+                      alt=""
+                      src="./public/layerlock@2x.png"
+                    />
+
+                    <div class="layerdisplay-parent">
+                      <img
+                        class="layerdisplay-icon"
+                        alt=""
+                        src="./public/layerdisplay@2x.png"
+                      />
+
+                      <img
+                        class="layerhidden-icon"
+                        alt=""
+                        src="./public/layerhidden@2x.png"
+                      />
+                    </div>
+                  </div>
+                  <div class="frame-wrapper2">
+                    <div class="layerdestruction-parent">
+                      <img
+                        class="layerdestruction-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/layerdestruction@2x.png"
+                      />
+
+                      <img
+                        class="layerlayer-integration-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/layerlayer-integration@2x.png"
+                      />
+
+                      <img
+                        class="layerpanelplus-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/layerpanelplus@2x.png"
+                      />
+
+                      <img
+                        class="layerreproduction-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/layerreproduction@2x.png"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="frame-parent3">
+                  <div class="layerpanel-group">
+                    <img
+                      class="layerpanel-icon"
+                      alt=""
+                      src="./public/layerpanel@2x.png"
+                    />
+
+                    <img
+                      class="layerlock-icon"
+                      alt=""
+                      src="./public/layerlock-1@2x.png"
+                    />
+
+                    <div class="layerdisplay-parent">
+                      <img
+                        class="layerdisplay-icon"
+                        alt=""
+                        src="./public/layerdisplay-1@2x.png"
+                      />
+
+                      <img
+                        class="layerhidden-icon"
+                        alt=""
+                        src="./public/layerhidden-1@2x.png"
+                      />
+                    </div>
+                  </div>
+                  <div class="frame-wrapper2">
+                    <div class="layerdestruction-group">
+                      <img
+                        class="layerdestruction-icon2"
+                        alt=""
+                        src="./public/layerdestruction-1@2x.png"
+                      />
+
+                      <img
+                        class="layerlayer-integration-icon2"
+                        alt=""
+                        src="./public/layerlayer-integration-1@2x.png"
+                      />
+
+                      <img
+                        class="layerpanelplus-icon"
+                        alt=""
+                        src="./public/layerpanelplus-1@2x.png"
+                      />
+
+                      <img
+                        class="layerreproduction-icon"
+                        alt=""
+                        src="./public/layerreproduction-1@2x.png"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="frame-parent3">
+                  <div class="layerpanel-container">
+                    <img
+                      class="layerpanel-icon"
+                      alt=""
+                      src="./public/layerpanel@2x.png"
+                    />
+
+                    <img
+                      class="layerlock-icon"
+                      alt=""
+                      src="./public/layerlock-2@2x.png"
+                    />
+
+                    <div class="layerdisplay-parent">
+                      <img
+                        class="layerdisplay-icon"
+                        alt=""
+                        src="./public/layerdisplay-2@2x.png"
+                      />
+
+                      <img
+                        class="layerhidden-icon"
+                        alt=""
+                        src="./public/layerhidden-2@2x.png"
+                      />
+                    </div>
+                  </div>
+                  <div class="frame-wrapper2">
+                    <div class="layerdestruction-parent">
+                      <img
+                        class="layerdestruction-icon"
+                        alt=""
+                        src="./public/layerdestruction-2@2x.png"
+                      />
+
+                      <img
+                        class="layerlayer-integration-icon"
+                        alt=""
+                        src="./public/layerlayer-integration-2@2x.png"
+                      />
+
+                      <img
+                        class="layerpanelplus-icon"
+                        alt=""
+                        src="./public/layerpanelplus-2@2x.png"
+                      />
+
+                      <img
+                        class="layerreproduction-icon"
+                        alt=""
+                        src="./public/layerreproduction-2@2x.png"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="frame-parent3">
+                  <div class="layerpanel-parent2">
+                    <img
+                      class="layerpanel-icon"
+                      alt=""
+                      src="./public/layerpanel@2x.png"
+                    />
+
+                    <img
+                      class="layerlock-icon"
+                      alt=""
+                      src="./public/layerlock-3@2x.png"
+                    />
+
+                    <div class="layerdisplay-parent">
+                      <img
+                        class="layerdisplay-icon"
+                        alt=""
+                        src="./public/layerdisplay-3@2x.png"
+                      />
+
+                      <img
+                        class="layerhidden-icon"
+                        alt=""
+                        src="./public/layerhidden-3@2x.png"
+                      />
+                    </div>
+                  </div>
+                  <div class="frame-wrapper2">
+                    <div class="layerdestruction-parent">
+                      <img
+                        class="layerdestruction-icon"
+                        alt=""
+                        src="./public/layerdestruction-3@2x.png"
+                      />
+
+                      <img
+                        class="layerlayer-integration-icon2"
+                        alt=""
+                        src="./public/layerlayer-integration-3@2x.png"
+                      />
+
+                      <img
+                        class="layerpanelplus-icon"
+                        alt=""
+                        src="./public/layerpanelplus-3@2x.png"
+                      />
+
+                      <img
+                        class="layerreproduction-icon"
+                        alt=""
+                        src="./public/layerreproduction-3@2x.png"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="frame-parent3">
+                  <div class="layerpanel-parent3">
+                    <img
+                      class="layerpanel-icon"
+                      alt=""
+                      src="./public/layerpanel@2x.png"
+                    />
+
+                    <img
+                      class="layerlock-icon"
+                      loading="lazy"
+                      alt=""
+                      src="./public/layerlock-4@2x.png"
+                    />
+
+                    <div class="layerdisplay-parent">
+                      <img
+                        class="layerdisplay-icon"
+                        alt=""
+                        src="./public/layerdisplay-4@2x.png"
+                      />
+
+                      <img
+                        class="layerhidden-icon"
+                        alt=""
+                        src="./public/layerhidden-4@2x.png"
+                      />
+                    </div>
+                  </div>
+                  <div class="frame-wrapper2">
+                    <div class="layerdestruction-parent">
+                      <img
+                        class="layerdestruction-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/layerdestruction-4@2x.png"
+                      />
+
+                      <img
+                        class="layerlayer-integration-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/layerlayer-integration-4@2x.png"
+                      />
+
+                      <img
+                        class="layerpanelplus-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/layerpanelplus-4@2x.png"
+                      />
+
+                      <img
+                        class="layerreproduction-icon5"
+                        loading="lazy"
+                        alt=""
+                        src="./public/layerreproduction-4@2x.png"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="frame-parent8">
+                <div class="rectangle-parent2">
+                  <div class="rectangle-div"></div>
+                  <h3 class="stationery">Stationery</h3>
+                  <div class="frame-wrapper7">
+                    <div class="select-parent">
+                      <img
+                        class="select-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/select@2x.png"
+                      />
+
+                      <img
+                        class="brush-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/brush@2x.png"
+                      />
+
+                      <img
+                        class="brush-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/square@2x.png"
+                      />
+
+                      <img
+                        class="brush-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/sentence@2x.png"
+                      />
+
+                      <img
+                        class="brush-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/eraser@2x.png"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="rectangle-parent3">
+                  <div class="frame-child2"></div>
+                  <div class="zoom-parent">
+                    <h3 class="zoom">Zoom</h3>
+                    <div class="frame-wrapper8">
+                      <div class="rectangle-parent4">
+                        <div class="inner-display-child"></div>
+                        <div class="zoom-level">-</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="frame-parent9">
+                    <div class="frame-wrapper9">
+                      <div class="rectangle-parent5">
+                        <div class="frame-child4"></div>
+                        <div class="zoom-level">100%</div>
+                      </div>
+                    </div>
+                    <div class="range-scale-child"></div>
+                  </div>
+                  <div class="frame-parent10">
+                    <div class="rectangle-parent6">
+                      <div class="frame-child6"></div>
+                      <div class="reset">Reset</div>
+                    </div>
+                    <div class="reset-display">
+                      <div class="inner-display">
+                        <div class="inner-display-child"></div>
+                        <div class="display-value">+</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="rectangle-parent7">
+                  <div class="frame-child7"></div>
+                  <div class="frame-parent11">
+                    <div class="opasity-parent">
+                      <h3 class="opasity">Opasity</h3>
+                      <div class="frame-wrapper10">
+                        <div class="rectangle-parent5">
+                          <div class="frame-child4"></div>
+                          <div class="zoom-level">100%</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="frame-wrapper11">
+                      <div class="frame-parent12">
+                        <div class="rectangle-parent9">
+                          <div class="inner-display-child"></div>
+                          <div class="zoom-level">-</div>
+                        </div>
+                        <div class="range-scale">
+                          <div class="range-scale-child"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="frame-parent13">
+                    <div class="rectangle-parent10">
+                      <div class="frame-child6"></div>
+                      <div class="reset">Reset</div>
+                    </div>
+                    <div class="reset-display">
+                      <div class="inner-display">
+                        <div class="inner-display-child"></div>
+                        <div class="display-value">+</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="rectangle-parent11">
+                  <div class="frame-child11"></div>
+                  <h3 class="color">Color</h3>
+                  <img class="blue-icon" alt="" src="./public/blue@2x.png" />
+
+                  <img class="pink-icon" alt="" src="./public/pink@2x.png" />
+
+                  <div class="color-options">
+                    <div class="primary-colors">
+                      <img
+                        class="white-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/white@2x.png"
+                      />
+
+                      <img
+                        class="light-gray-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/light-gray@2x.png"
+                      />
+
+                      <img
+                        class="light-gray-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/yellow@2x.png"
+                      />
+
+                      <img
+                        class="light-gray-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/orange@2x.png"
+                      />
+                    </div>
+                  </div>
+                  <div class="color-options">
+                    <div class="primary-colors">
+                      <img
+                        class="light-gray-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/red@2x.png"
+                      />
+
+                      <img
+                        class="light-gray-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/lime@2x.png"
+                      />
+
+                      <img
+                        class="light-gray-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/green@2x.png"
+                      />
+
+                      <img
+                        class="light-gray-icon"
+                        alt=""
+                        src="./public/sky-blue@2x.png"
+                      />
+                    </div>
+                  </div>
+                  <img
+                    class="spuit-icon"
+                    loading="lazy"
+                    alt=""
+                    src="./public/spuit@2x.png"
+                  />
+
+                  <div class="custom-colors-wrapper">
+                    <div class="custom-colors">
+                      <img
+                        class="purple-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/purple@2x.png"
+                      />
+
+                      <img
+                        class="purple-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/brown@2x.png"
+                      />
+
+                      <img
+                        class="purple-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/dark-gray@2x.png"
+                      />
+
+                      <img
+                        class="purple-icon"
+                        alt=""
+                        src="./public/black@2x.png"
+                      />
+
+                      <img
+                        class="color-upload-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/color-upload@2x.png"
+                      />
+
+                      <img
+                        class="color-upload-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/color-upload-1@2x.png"
+                      />
+
+                      <img
+                        class="color-upload-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/color-upload-2@2x.png"
+                      />
+
+                      <img
+                        class="color-upload-icon"
+                        loading="lazy"
+                        alt=""
+                        src="./public/color-upload-3@2x.png"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
 </html>
