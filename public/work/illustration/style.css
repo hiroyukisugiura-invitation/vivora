@@ -1,185 +1,195 @@
-/* =========================================
-   Vivora Fashion Illustration 2025 - style.css
-   ・HTML＋JSは illustration.html 内
-   ・本ファイルは CSS のみ（分離）
-   ・スクショ通りのレイアウトに最適化
-========================================= */
+/* ===============================
+   Vivora Fashion Illustration 2025
+   style.css
+   =============================== */
 
-/* ---- 基本色・角丸など ---- */
-:root{
-  --bg:#efe8e0;             /* ページのベージュ */
-  --panel:#ffffff;          /* 白パネル */
-  --line:#e7dfd8;           /* 薄い境界線 */
-  --text:#2b2b2b;           /* 標準文字色 */
-  --radius-lg:16px;         /* 大きめ角丸 */
-  --radius:12px;            /* 通常角丸  */
-  --radius-sm:8px;          /* 小さめ角丸 */
-  --shadow:0 1px 0 rgba(0,0,0,.02), 0 2px 8px rgba(0,0,0,.04);
+:root {
+  --bg: #f3eee7;
+  --white: #ffffff;
+  --gray: #ccc;
+  --text: #333;
+  --radius: 12px;
 }
 
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
-body{
-  margin:0;
-  font-family:"Helvetica Neue", Arial, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-img{ display:block; }
-
-/* =========================================
-   ヘッダー（タイトル／性別／Next）
-========================================= */
-.app-wrapper{ padding:18px 22px; }
-
-.header{
-  display:grid;
-  grid-template-columns: 1fr auto auto;
-  align-items:center;
-  column-gap:18px;
-  row-gap:12px;
-  margin-bottom:10px;
-}
-.title{
-  grid-column:1/2;
-  margin:0;
-  font-size:24px;
-  font-weight:700;
-}
-.gender-buttons{
-  display:flex;
-  gap:12px;
-  align-items:center;
-}
-.gender-buttons img{
-  height:36px; width:auto; cursor:pointer;
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--radius-sm); padding:6px 10px; box-shadow:var(--shadow);
-}
-.next-step{ justify-self:end; }
-.next-step img{
-  height:36px; width:auto; cursor:pointer;
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--radius-sm); padding:4px 8px; box-shadow:var(--shadow);
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
-/* =========================================
-   中央ツールバー
-========================================= */
-.toolbar{
-  margin:6px auto 14px;
-  display:flex; gap:12px; align-items:center;
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--radius); padding:10px 14px; box-shadow:var(--shadow);
-  width:max-content;
-}
-.toolbar img{ width:26px; height:26px; }
-
-/* =========================================
-   メイン：左キャンバス／右サイドパネル
-========================================= */
-.main{
-  display:grid;
-  grid-template-columns: 1fr 360px;
-  gap:22px;
-  align-items:start;
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-/* ---- キャンバス ---- */
-.canvas-area{
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--radius-lg); box-shadow:var(--shadow);
-  min-height:560px; padding:22px;
-  display:flex; align-items:center; justify-content:center;
-}
-.mannequin{ max-height:520px; width:auto; height:auto; }
-
-/* ---- 右サイド全体 ---- */
-.side-panel{ display:flex; flex-direction:column; gap:14px; }
-
-/* コンテンツツール（8個横並び） */
-.content-tools{
-  display:flex; gap:10px; flex-wrap:wrap;
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--radius); padding:10px 12px; box-shadow:var(--shadow);
-}
-.content-tools img{ width:32px; height:32px; cursor:pointer; }
-
-/* レイヤー＋ツール群（左右２カラムに分割） */
-.tools-area{
-  display:grid;
-  grid-template-columns: 66px 1fr;
-  gap:12px;
+/* ===== Header ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
 }
 
-/* 左：レイヤー5段 */
-.layers{ display:flex; flex-direction:column; gap:10px; margin-top:4px; }
-.layer-row{
-  display:flex; align-items:center; justify-content:space-between;
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--radius-sm); padding:6px 8px; box-shadow:var(--shadow);
-}
-.layer-row img{ width:18px; height:18px; }
-
-/* 右：ツール群（Stationery / Zoom / Opacity / Color） */
-.tool-groups{ display:flex; flex-direction:column; gap:14px; }
-
-/* パネル共通 */
-.panel-block{
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--radius); padding:12px; box-shadow:var(--shadow);
-}
-.panel-title{
-  font-size:14px; font-weight:700; margin:0 0 8px 0;
+.title {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-/* Stationeryアイコン列 */
-.icon-row{ display:flex; gap:12px; align-items:center; }
-.icon-row img{ width:26px; height:26px; cursor:pointer; }
-
-/* Zoom / Opacity（値表示のみ） */
-.zoom-control, .opacity-control{
-  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-}
-.zoom-control button, .opacity-control button{
-  font:inherit; color:inherit; cursor:pointer;
-  padding:4px 10px; background:var(--panel);
-  border:1px solid var(--line); border-radius:var(--radius-sm); box-shadow:var(--shadow);
-}
-#zoom-value, #opacity-value{
-  font-size:12px; padding:2px 8px;
-  background:#f2f2f2; border-radius:10px; border:1px solid #eaeaea;
+.gender-buttons button,
+.toolbar button,
+.next-step button {
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin-right: 6px;
+  cursor: pointer;
 }
 
-/* ===== Color（グリッド表示） ===== */
-.color-palette{ display:flex; flex-direction:column; gap:8px; }
-.color-palette .row{ display:flex; gap:8px; }
-.color-palette .row img{
-  width:32px; height:32px; cursor:pointer;
-  padding:1px; background:#fff; border:1px solid var(--line); border-radius:8px;
-  box-shadow:var(--shadow);
-}
-.add-row{ margin-top:2px; display:flex; gap:8px; align-items:center; }
-.add-row .add{
-  width:34px; height:34px; background:#f2f2f2;
-  border:1px solid var(--line); border-radius:8px; padding:6px; cursor:pointer;
-  box-shadow:var(--shadow);
-}
-.add-row .spuit{
-  width:34px; height:34px; padding:6px; border:1px solid var(--line);
-  border-radius:8px; background:#fff; box-shadow:var(--shadow);
+.toolbar img {
+  width: 20px;
+  height: 20px;
 }
 
-/* 細かな位置の最適化（スクショ寄せ） */
-.header{ margin-bottom:6px; }
-.toolbar{ margin:6px auto 10px; }
-.content-tools{ margin-top:2px; }
-.panel-block{ padding-top:12px; padding-bottom:12px; }
-.layers .layer-row{ padding-left:8px; padding-right:8px; }
+.next-step button {
+  font-weight: bold;
+}
 
-/* 幅が狭い時は右パネルを下へ */
-@media (max-width: 1120px){
-  .main{ grid-template-columns: 1fr; }
-  .side-panel{ order:2; }
-  .canvas-area{ order:1; }
+/* ===== Main ===== */
+.main {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 20px;
+}
+
+.canvas-area {
+  flex: 1;
+  background: var(--white);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mannequin {
+  max-height: 90%;
+}
+
+/* ===== Side Panel ===== */
+.side-panel {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.content-tools {
+  display: flex;
+  justify-content: space-between;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 8px;
+}
+
+.content-tools img {
+  width: 28px;
+  height: 28px;
+}
+
+.tools-area {
+  display: flex;
+  gap: 12px;
+}
+
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.layer-row {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 6px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.layer-row img {
+  width: 18px;
+  height: 18px;
+}
+
+.tool-groups {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel-block {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.panel-block h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+}
+
+.icon-row img {
+  width: 28px;
+  height: 28px;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.zoom-control,
+.opacity-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zoom-control button,
+.opacity-control button,
+.color-add {
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 6px;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+/* ===== Colors ===== */
+.color-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--gray);
+  cursor: pointer;
+}
+
+.spuit-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 6px;
+  cursor: pointer;
 }
