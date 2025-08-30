@@ -1,3 +1,4 @@
+<!-- /work/illustration/illustration.html  （HTML + JS 統合）-->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,7 +12,6 @@
 
     <!-- ===== Header ===== -->
     <header class="header">
-      <!-- 左：タイトル＋gender（タイトル直下） -->
       <div class="header-left">
         <h1 class="title">Vivora Fashion Illustration 2025</h1>
         <div class="gender-buttons">
@@ -21,7 +21,6 @@
         </div>
       </div>
 
-      <!-- 中央：History tool（白タブ） -->
       <nav class="toolbar">
         <a href="#"><img src="/create_parts/create_button/retreat.png"      alt="Undo"></a>
         <a href="#"><img src="/create_parts/create_button/forward.png"      alt="Redo"></a>
@@ -33,7 +32,6 @@
         <a href="/work/print/print.html"><img   src="/create_parts/create_button/3d.png" alt="3D"></a>
       </nav>
 
-      <!-- 右：Next Step -->
       <div class="next-step">
         <a href="/next.html"><img src="/create_parts/create_button/button_next.png" alt="Next Step"></a>
       </div>
@@ -43,9 +41,7 @@
     <main class="main">
       <!-- 左：Canvas -->
       <section class="canvas-area">
-        <img class="mannequin"
-             src="/mannequin/mannequin_woman/mannequin_woman_front.png"
-             alt="mannequin">
+        <img class="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
       </section>
 
       <!-- 右：Side panel -->
@@ -66,16 +62,16 @@
         <!-- 下段：Layers（左）＋ Tools（右） -->
         <div class="tools-area">
 
-          <!-- 左：Layer panel（添付デザイン通り／5段） -->
+          <!-- 左：Layer 5段（添付デザイン） -->
           <div class="layers">
             <!-- 1 -->
-            <div class="layer-card">
+            <div class="layer-track">
               <div class="rail-left">
                 <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
                 <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
                 <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
               </div>
-              <div class="layer-canvas"></div>
+              <div class="layer-card"></div>
               <div class="rail-right">
                 <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
                 <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
@@ -84,13 +80,13 @@
               </div>
             </div>
             <!-- 2 -->
-            <div class="layer-card">
+            <div class="layer-track">
               <div class="rail-left">
                 <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
                 <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
                 <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
               </div>
-              <div class="layer-canvas"></div>
+              <div class="layer-card"></div>
               <div class="rail-right">
                 <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
                 <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
@@ -99,13 +95,13 @@
               </div>
             </div>
             <!-- 3 -->
-            <div class="layer-card">
+            <div class="layer-track">
               <div class="rail-left">
                 <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
                 <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
                 <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
               </div>
-              <div class="layer-canvas"></div>
+              <div class="layer-card"></div>
               <div class="rail-right">
                 <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
                 <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
@@ -114,13 +110,13 @@
               </div>
             </div>
             <!-- 4 -->
-            <div class="layer-card">
+            <div class="layer-track">
               <div class="rail-left">
                 <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
                 <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
                 <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
               </div>
-              <div class="layer-canvas"></div>
+              <div class="layer-card"></div>
               <div class="rail-right">
                 <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
                 <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
@@ -129,13 +125,13 @@
               </div>
             </div>
             <!-- 5 -->
-            <div class="layer-card">
+            <div class="layer-track">
               <div class="rail-left">
                 <img src="/create_parts/layer_button/layerlock.png"   alt="lock">
                 <img src="/create_parts/layer_button/layerdisplay.png"alt="display">
                 <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
               </div>
-              <div class="layer-canvas"></div>
+              <div class="layer-card"></div>
               <div class="rail-right">
                 <img src="/create_parts/layer_button/layerpanelplus.png"           alt="add">
                 <img src="/create_parts/layer_button/layerreproduction.png"        alt="copy">
@@ -145,7 +141,7 @@
             </div>
           </div>
 
-          <!-- 右：Stationery → Zoom → Opacity → Color -->
+          <!-- 右：工具 -->
           <div class="tool-groups">
 
             <section class="panel-block">
@@ -179,36 +175,29 @@
               </div>
             </section>
 
-            <!-- Color：ここはあなたが後で差し替えやすいよう最小構成だけ保持 -->
+            <!-- Color はあなたが後で差し替える前提で最小構成 -->
             <section class="panel-block">
               <div class="panel-title">Color</div>
               <div class="color-palette">
                 <div class="row">
-                  <img src="/pc%20color/white.png"      alt="white">
+                  <img src="/pc%20color/white.png" alt="white">
                   <img src="/pc%20color/light%20gray.png" alt="light-gray">
-                  <img src="/pc%20color/yellow.png"     alt="yellow">
-                  <img src="/pc%20color/orange.png"     alt="orange">
-                  <img src="/pc%20color/pink.png"       alt="pink">
+                  <img src="/pc%20color/yellow.png" alt="yellow">
+                  <img src="/pc%20color/orange.png" alt="orange">
+                  <img src="/pc%20color/pink.png" alt="pink">
                 </div>
                 <div class="row">
-                  <img src="/pc%20color/red.png"       alt="red">
-                  <img src="/pc%20color/green.png"     alt="green">
-                  <img src="/pc%20color/lime.png"      alt="lime">
-                  <img src="/pc%20color/sky%20blue.png"  alt="sky-blue">
-                  <img src="/pc%20color/blue.png"      alt="blue">
+                  <img src="/pc%20color/red.png" alt="red">
+                  <img src="/pc%20color/green.png" alt="green">
+                  <img src="/pc%20color/lime.png" alt="lime">
+                  <img src="/pc%20color/sky%20blue.png" alt="sky-blue">
+                  <img src="/pc%20color/blue.png" alt="blue">
                 </div>
                 <div class="row">
-                  <img src="/pc%20color/purple.png"    alt="purple">
-                  <img src="/pc%20color/brown.png"     alt="brown">
+                  <img src="/pc%20color/purple.png" alt="purple">
+                  <img src="/pc%20color/brown.png" alt="brown">
                   <img src="/pc%20color/dark%20gray.png" alt="dark-gray">
-                  <img src="/pc%20color/black.png"     alt="black">
-                </div>
-                <div class="row add-row">
-                  <img class="add"   src="/pc%20color/color%20upload.png" alt="Add">
-                  <img class="add"   src="/pc%20color/color%20upload.png" alt="Add">
-                  <img class="add"   src="/pc%20color/color%20upload.png" alt="Add">
-                  <img class="add"   src="/pc%20color/color%20upload.png" alt="Add">
-                  <img class="spuit" src="/pc%20color/spuit.png"          alt="Eyedropper">
+                  <img src="/pc%20color/black.png" alt="black">
                 </div>
               </div>
             </section>
@@ -219,14 +208,14 @@
     </main>
   </div>
 
-  <!-- ===== JS（最小） ===== -->
+  <!-- ===== JS ===== -->
   <script>
     // gender switch
     const mannequin = document.querySelector(".mannequin");
     const GENDER_SRC = {
       woman: "/mannequin/mannequin_woman/mannequin_woman_front.png",
       man:   "/mannequin/mannequin_man/mannequin_man_front.png",
-      kids:  "/mannequin/mannequin_kids/mannequin_kida_front.png" // 表記ゆれ対応
+      kids:  "/mannequin/mannequin_kids/mannequin_kida_front.png"
     };
     document.querySelectorAll("[data-gender]").forEach(a=>{
       a.addEventListener("click", e=>{
