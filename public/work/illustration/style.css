@@ -132,3 +132,80 @@ img{display:block}
   .main{ grid-template-columns: 1fr }
   .side-panel{ order:2 } .canvas-area{ order:1 }
 }
+/* ====== 右パネル全体の列幅（レイヤーを太めに） ====== */
+.tools-area{
+  display:grid;
+  grid-template-columns: 84px 1fr; /* ← 84pxに固定（左：レイヤー軌道／右：ツール群） */
+  gap:12px;
+}
+
+/* ====== レイヤーパネル（3カラム × 5段） ====== */
+.layers{ display:flex; flex-direction:column; gap:12px; margin-top:2px; }
+
+/* 1段のトラック全体（左レール／白カード／右レール） */
+.layer-track{
+  position:relative;
+  height:92px;               /* スクショに合わせた縦幅 */
+  width:84px;                /* tools-area左カラムと同幅 */
+  display:grid;
+  grid-template-columns: 20px 1fr 20px; /* 左レール 20 / 中央 1fr / 右レール 20 */
+  align-items:center;
+  column-gap:6px;
+}
+
+/* 中央の白いカード（描画スペース） */
+.layer-card{
+  height:92px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+}
+
+/* 左右レールのアイコン（縦3つずつ） */
+.rail-left, .rail-right{
+  display:flex; flex-direction:column;
+  gap:8px; align-items:center; justify-content:center;
+}
+.rail-left img, .rail-right img{
+  width:16px; height:16px; cursor:pointer;
+}
+
+/* ====== 上部ツールバー（アイコンを小ぶりに） ====== */
+.toolbar{
+  margin:6px auto 12px;                     /* 中央寄せ */
+  display:flex; gap:12px; align-items:center;
+  background:#fff; border:1px solid var(--line);
+  border-radius:12px; padding:10px 14px; box-shadow:var(--shadow);
+  width:max-content;
+}
+.toolbar img{ width:26px; height:26px; }    /* ← アイコン固定 */
+
+/* ====== コンテンツボタン（上段8個） ====== */
+.content-tools{
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-start;
+  background:#fff; border:1px solid var(--line);
+  border-radius:12px; padding:10px 12px; box-shadow:var(--shadow);
+}
+.content-tools img{ width:32px; height:32px; cursor:pointer; }
+
+/* ====== Stationery / Zoom / Opacity / Color のカード ====== */
+.panel-block{
+  background:#fff; border:1px solid var(--line);
+  border-radius:12px; padding:12px; box-shadow:var(--shadow);
+}
+.panel-title{ font-size:14px; font-weight:700; margin:0 0 8px; }
+
+.icon-row{ display:flex; gap:12px; align-items:center; }
+.icon-row img{ width:26px; height:26px; cursor:pointer; }
+
+.zoom-control, .opacity-control{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.zoom-control button, .opacity-control button{
+  padding:4px 10px; background:#fff; border:1px solid var(--line);
+  border-radius:8px; box-shadow:var(--shadow); cursor:pointer;
+}
+#zoom-value, #opacity-value{
+  font-size:12px; padding:2px 8px; background:#f2f2f2; border:1px solid #eaeaea; border-radius:10px;
+}
