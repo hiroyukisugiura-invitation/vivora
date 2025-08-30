@@ -1,145 +1,96 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vivora Fashion Illustration 2025</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="wrapper">
-    <!-- Header -->
-    <header class="header">
-      <h1 class="title">Vivora Fashion Illustration 2025</h1>
-      <div class="gender-switch">
-        <button>Woman</button>
-        <button>Man</button>
-        <button>Kids</button>
-      </div>
-      <div class="history-tool">
-        <button>⟲</button>
-        <button>⟳</button>
-        <button>⬇</button>
-        <button>⬆</button>
-        <button>📐</button>
-        <button>💾</button>
-      </div>
-      <button class="next-step">Next Step ▶▶</button>
-    </header>
+<div class="app-wrapper">
+<!-- ヘッダーエリア（タイトルと上部ボタン） -->
+<header class="header">
+<h1 class="title">Vivora Fashion Illustration 2025</h1>
+<div class="gender-buttons">
+<button>Woman</button>
+<button>Man</button>
+<button>Kids</button>
+</div>
+<div class="toolbar-top">
+<!-- 上部アイコン群（Undo, Redo, Save, etc.） -->
+<button><img src="./icons/undo.png" alt="Undo"></button>
+<button><img src="./icons/redo.png" alt="Redo"></button>
+<button><img src="./icons/download.png" alt="Download"></button>
+<button><img src="./icons/upload.png" alt="Upload"></button>
+<button><img src="./icons/grid.png" alt="Grid"></button>
+<button><img src="./icons/save.png" alt="Save"></button>
+<button>2D</button>
+<button>3D</button>
+<button class="next-step">Next Step ▶︎▶︎</button>
+</div>
+</header>
 
-    <!-- Main Layout -->
-    <main class="main">
-      <!-- Canvas Area -->
-      <section class="canvas">
-        <img src="./public/mannequin-woman-front-1@2x.png" alt="mannequin" />
-      </section>
 
-      <!-- Right Panel -->
-      <aside class="right-panel">
-        <!-- Contents Tool -->
-        <div class="contents-tool">
-          <img src="./public/0-home@2x.png" alt="Home" />
-          <img src="./public/1-fashion-illustrations@2x.png" alt="Fi" />
-          <img src="./public/2-fabric-matching@2x.png" alt="Fm" />
-          <img src="./public/3-clothing-design@2x.png" alt="Cd" />
-          <img src="./public/4-pattern-creation@2x.png" alt="Pc" />
-          <img src="./public/5-grading@2x.png" alt="Gd" />
-          <img src="./public/6-print-layout-cut@2x.png" alt="Plc" />
-          <img src="./public/digital-dressing-kids-mode@2x.png" alt="Dk" />
-        </div>
+<!-- メインエリア -->
+<main class="main-content">
+<!-- 中央：マネキン表示エリア -->
+<section class="canvas-area">
+<img src="./images/mannequin_woman_front.png" alt="mannequin" class="mannequin" />
+</section>
 
-        <!-- Layer Panel -->
-        <div class="layer-panel">
-          <!-- Repeat block 5 times -->
-          <div class="layer-row">
-            <img src="./public/layerpanel@2x.png" alt="panel" />
-            <img src="./public/layerlock@2x.png" alt="lock" />
-            <img src="./public/layerdisplay@2x.png" alt="show" />
-            <img src="./public/layerhidden@2x.png" alt="hide" />
-            <img src="./public/layerdestruction@2x.png" alt="delete" />
-            <img src="./public/layerlayer-integration@2x.png" alt="merge" />
-            <img src="./public/layerpanelplus@2x.png" alt="add" />
-            <img src="./public/layerreproduction@2x.png" alt="copy" />
-          </div>
-        </div>
 
-        <!-- Stationery Tool -->
-        <section class="tool-box">
-          <h2>Stationery</h2>
-          <div class="tool-icons">
-            <img src="./public/select@2x.png" alt="Select" />
-            <img src="./public/brush@2x.png" alt="Brush" />
-            <img src="./public/square@2x.png" alt="Square" />
-            <img src="./public/sentence@2x.png" alt="Text" />
-            <img src="./public/eraser@2x.png" alt="Eraser" />
-          </div>
-        </section>
+<!-- 右サイドパネル -->
+<aside class="side-panel">
+<!-- 上段：コンテンツツール（横並び） -->
+<div class="contents-tool">
+<img src="./icons/home.png" alt="Home">
+<img src="./icons/fashion.png" alt="Fashion">
+<img src="./icons/fabric.png" alt="Fabric">
+<img src="./icons/design.png" alt="Design">
+<img src="./icons/pattern.png" alt="Pattern">
+<img src="./icons/grading.png" alt="Grading">
+<img src="./icons/print.png" alt="Print">
+<img src="./icons/dressup.png" alt="DressUp">
+</div>
 
-        <!-- Zoom Control -->
-        <section class="zoom-box">
-          <h2>Zoom</h2>
-          <div class="zoom-controls">
-            <button onclick="adjustZoom(-10)">-</button>
-            <span id="zoom-value">100%</span>
-            <button onclick="adjustZoom(10)">+</button>
-            <button onclick="resetZoom()">Reset</button>
-          </div>
-        </section>
 
-        <!-- Opacity Control -->
-        <section class="opacity-box">
-          <h2>Opacity</h2>
-          <div class="opacity-controls">
-            <button onclick="adjustOpacity(-10)">-</button>
-            <span id="opacity-value">100%</span>
-            <button onclick="adjustOpacity(10)">+</button>
-            <button onclick="resetOpacity()">Reset</button>
-          </div>
-        </section>
+<!-- 下段：レイヤー + 各種ツール -->
+<div class="tools-area">
+<!-- 左：レイヤー縦5列 -->
+<div class="layers">
+<div class="layer"><img src="./icons/layer.png"><img src="./icons/lock.png"><img src="./icons/eye.png"></div>
+<div class="layer"><img src="./icons/layer.png"><img src="./icons/lock.png"><img src="./icons/eye.png"></div>
+<div class="layer"><img src="./icons/layer.png"><img src="./icons/lock.png"><img src="./icons/eye.png"></div>
+<div class="layer"><img src="./icons/layer.png"><img src="./icons/lock.png"><img src="./icons/eye.png"></div>
+<div class="layer"><img src="./icons/layer.png"><img src="./icons/lock.png"><img src="./icons/eye.png"></div>
+</div>
 
-        <!-- Color Panel -->
-        <section class="color-panel">
-          <h2>Color</h2>
-          <div class="color-grid">
-            <img src="./public/white@2x.png" alt="White" />
-            <img src="./public/light-gray@2x.png" alt="Gray" />
-            <img src="./public/yellow@2x.png" alt="Yellow" />
-            <img src="./public/orange@2x.png" alt="Orange" />
-            <img src="./public/pink@2x.png" alt="Pink" />
-            <img src="./public/red@2x.png" alt="Red" />
-            <img src="./public/lime@2x.png" alt="Lime" />
-            <img src="./public/green@2x.png" alt="Green" />
-            <img src="./public/sky-blue@2x.png" alt="Sky Blue" />
-            <img src="./public/blue@2x.png" alt="Blue" />
-            <img src="./public/purple@2x.png" alt="Purple" />
-            <img src="./public/brown@2x.png" alt="Brown" />
-            <img src="./public/dark-gray@2x.png" alt="Dark Gray" />
-            <img src="./public/black@2x.png" alt="Black" />
-          </div>
-          <div class="color-actions">
-            <img src="./public/color-upload@2x.png" alt="Add" />
-            <img src="./public/spuit@2x.png" alt="Picker" />
-          </div>
-        </section>
-      </aside>
-    </main>
-  </div>
 
-  <script>
-    function adjustZoom(delta) {
-      const val = Math.min(200, Math.max(10, parseInt(document.getElementById("zoom-value").innerText) + delta));
-      document.getElementById("zoom-value").innerText = val + "%";
-    }
-    function resetZoom() {
-      document.getElementById("zoom-value").innerText = "100%";
-    }
-    function adjustOpacity(delta) {
-      const val = Math.min(100, Math.max(0, parseInt(document.getElementById("opacity-value").innerText) + delta));
-      document.getElementById("opacity-value").innerText = val + "%";
-    }
-    function resetOpacity() {
-      document.getElementById("opacity-value").innerText = "100%";
-    }
-  </script>
-</body>
+<!-- 右：ツール群 -->
+<div class="tool-sections">
+<!-- ステーショナリー -->
+<section class="tool-section">
+<h2>Stationery</h2>
+<div class="icons">
+<img src="./icons/select.png">
+<img src="./icons/brush.png">
+<img src="./icons/shape.png">
+<img src="./icons/text.png">
+<img src="./icons/eraser.png">
+</div>
+</section>
+
+
+<!-- ズーム -->
+<section class="tool-section">
+<h2>Zoom</h2>
+<div class="zoom-control">
+<button>-</button>
+<span>100%</span>
+<button>+</button>
+<button class="reset">Reset</button>
+</div>
+</section>
+
+
 </html>
