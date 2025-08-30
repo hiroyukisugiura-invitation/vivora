@@ -1,246 +1,161 @@
-/* =====================================
-   Vivora UI Layout Style + Interactivity
-   - Figmaに忠実な構成
-   - ツールとレイヤー分割済
-   - カラーパレット / Zoom / Opacity 対応
-===================================== */
+/* ===============================
+   Vivora Fashion Illustration UI
+   CSSファイル - style.css
+   =============================== */
 
-/* ベース設定 */
+:root {
+  --bg-color: #f3ece4;
+  --white: #ffffff;
+  --gray: #ccc;
+  --black: #333;
+  --panel-radius: 12px;
+  --icon-size: 26px;
+  --layer-icon-size: 20px;
+  --font-main: 'Helvetica Neue', sans-serif;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: "Helvetica Neue", sans-serif;
-  background-color: #f3eee7;
-  color: #333;
+  background-color: var(--bg-color);
+  font-family: var(--font-main);
+  color: var(--black);
 }
 
-.app-wrapper {
-  padding: 20px;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-/* ---------------- Header ---------------- */
+/* ===== ヘッダー ===== */
 .header {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  padding: 16px;
+  background-color: var(--bg-color);
 }
 
-.title {
+.header-title {
   font-size: 18px;
   font-weight: bold;
 }
 
 .gender-buttons button,
-.toolbar-top button,
-.next-step {
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.step-button {
+  margin-left: 8px;
   padding: 6px 12px;
-  margin: 2px;
+  border: 1px solid var(--gray);
+  background: var(--white);
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.toolbar-top img {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
+/* ===== メイン ===== */
+.main {
+  display: flex;
+  flex: 1;
+  padding: 16px;
+  gap: 16px;
 }
 
-/* ---------------- Main ---------------- */
-.main-content {
+.left-tools {
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.layer-panel {
+  background: var(--white);
+  border-radius: var(--panel-radius);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.layer-panel img {
+  width: var(--layer-icon-size);
+  height: var(--layer-icon-size);
 }
 
 .canvas-area {
   flex: 1;
-  background-color: white;
-  border-radius: 12px;
-  padding: 30px;
+  background: var(--white);
+  border-radius: var(--panel-radius);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.mannequin {
-  max-width: 100%;
-  max-height: 500px;
+.canvas-area img {
+  width: 200px;
+  height: auto;
 }
 
-/* ---------------- Side Panel ---------------- */
-.side-panel {
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* コンテンツボタン群 */
-.contents-tool {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  background: white;
-  border-radius: 12px;
-  padding: 10px;
-  justify-content: center;
-}
-
-.contents-tool img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  cursor: pointer;
-}
-
-/* レイヤー＋ツール全体 */
-.tools-area {
-  display: flex;
-  gap: 12px;
-}
-
-/* レイヤー列（左） */
-.layers {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 60px;
-  align-items: center;
-  padding-top: 4px;
-}
-
-.layer {
-  background: white;
-  border-radius: 8px;
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.layer img {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-
-/* ツール本体（右） */
-.tool-sections {
-  flex: 1;
+.right-tools {
+  width: 300px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.tool-section {
-  background: white;
-  border-radius: 12px;
-  padding: 10px;
+.tools-group {
+  background: var(--white);
+  border-radius: var(--panel-radius);
+  padding: 12px;
 }
 
-.tool-section h2 {
+.tools-group h4 {
   margin: 0 0 8px 0;
   font-size: 14px;
-  font-weight: bold;
 }
 
-.tool-section .icons img {
-  width: 32px;
-  height: 32px;
-  margin-right: 6px;
-  cursor: pointer;
-}
-
-/* Zoom / Opacity */
-.zoom-control {
+.tools-row,
+.color-grid {
   display: flex;
-  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.zoom-control button,
-.zoom-control .reset {
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  background: #eee;
-  border-radius: 6px;
-  cursor: pointer;
+.tools-row img,
+.color-grid img {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  object-fit: contain;
 }
 
-/* カラーパレット */
-.color-palette {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.color-palette .row {
-  display: flex;
-  gap: 6px;
-}
-
-.color-box {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  border: 1px solid #aaa;
-  cursor: pointer;
-}
-
-.color-box.white { background: #ffffff; }
-.color-box.gray { background: #cccccc; }
-.color-box.yellow { background: #ffe600; }
-.color-box.orange { background: #ffa500; }
-.color-box.pink { background: #f7b7c2; }
-.color-box.red { background: #e60000; }
-.color-box.green { background: #32cd32; }
-.color-box.lime { background: #ccff33; }
-.color-box.blue { background: #87cefa; }
-.color-box.navy { background: #0033cc; }
-.color-box.purple { background: #800080; }
-.color-box.brown { background: #8b0000; }
-.color-box.dark { background: #333333; }
-.color-box.black { background: #000000; }
-.color-box.add {
-  background: #eee;
-  font-weight: bold;
+.zoom-control,
+.opacity-control {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
+  margin-top: 6px;
 }
 
-.spuit img {
-  width: 24px;
-  height: 24px;
-  margin-top: 8px;
+.zoom-control button,
+.opacity-control button {
+  padding: 4px 8px;
+  border: 1px solid var(--gray);
+  background: var(--white);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* ===== 上部ツールバー ===== */
+.tool-bar {
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  background-color: var(--bg-color);
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tool-bar img {
+  width: var(--icon-size);
+  height: var(--icon-size);
   cursor: pointer;
 }
-
-/* 追加：Zoom/Opacityの動作用JS（最小構成） */
-<script>
-  let zoomValue = 100;
-  let opacityValue = 100;
-
-  const zoomButtons = document.querySelectorAll('.zoom-control button');
-  const opacityButtons = document.querySelectorAll('.opacity-controls button');
-
-  zoomButtons.forEach(btn => btn.addEventListener('click', () => {
-    if (btn.textContent === '+') zoomValue = Math.min(200, zoomValue + 10);
-    if (btn.textContent === '-') zoomValue = Math.max(10, zoomValue - 10);
-    if (btn.textContent === 'Reset') zoomValue = 100;
-    document.querySelector('.zoom-control span').textContent = zoomValue + '%';
-  }));
-
-  opacityButtons?.forEach(btn => btn.addEventListener('click', () => {
-    if (btn.textContent === '+') opacityValue = Math.min(100, opacityValue + 10);
-    if (btn.textContent === '-') opacityValue = Math.max(0, opacityValue - 10);
-    if (btn.textContent === 'Reset') opacityValue = 100;
-    document.querySelector('.opacity-control span').textContent = opacityValue + '%';
-  }));
-</script>
