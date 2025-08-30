@@ -1,4 +1,4 @@
-/* /work/illustration/style.css  （CSS 分離・フル） */
+/* /work/illustration/style.css  （CSS 分離・完成版） */
 :root{
   --bg:#efe8e0; --panel:#fff; --line:#e7dfd8; --text:#2b2b2b;
   --r-lg:16px; --r:12px; --r-sm:8px;
@@ -12,11 +12,10 @@ img{display:block}
 .app-wrapper{padding:18px 22px}
 
 /* ===== header ===== */
-.header{
-  display:grid; grid-template-columns: 1fr auto auto; align-items:center;
-  column-gap:18px; row-gap:10px; margin-bottom:6px;
-}
-.header-left{ display:flex; flex-direction:column; gap:10px }
+.header{ display:flex; flex-direction:column; gap:8px; }
+.header-top{ display:flex; align-items:center; justify-content:space-between; }
+.header-sub{ display:flex; align-items:center; justify-content:space-between; }
+
 .title{ margin:0; font-size:24px; font-weight:700 }
 .gender-buttons{ display:flex; gap:12px; align-items:center }
 .gender-buttons img{
@@ -24,19 +23,19 @@ img{display:block}
   border:1px solid var(--line); border-radius:var(--r-sm);
   padding:6px 10px; box-shadow:var(--shadow);
 }
-.next-step{ justify-self:end }
 .next-step img{
   height:36px; width:auto; cursor:pointer; background:var(--panel);
   border:1px solid var(--line); border-radius:var(--r-sm);
   padding:4px 8px; box-shadow:var(--shadow);
 }
 
-/* ===== history tool ===== */
+/* ===== history tool（中央1行） ===== */
 .toolbar{
-  grid-column:1/3; justify-self:center;
+  margin:6px auto 12px;
   display:flex; gap:12px; align-items:center;
   background:var(--panel); border:1px solid var(--line);
   border-radius:var(--r); padding:10px 14px; box-shadow:var(--shadow);
+  width:max-content;
 }
 .toolbar img{ width:26px; height:26px }
 
@@ -54,7 +53,7 @@ img{display:block}
 /* side panel */
 .side-panel{ display:flex; flex-direction:column; gap:14px }
 
-/* contents buttons */
+/* contents */
 .content-tools{
   display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-start;
   background:var(--panel); border:1px solid var(--line);
@@ -62,10 +61,9 @@ img{display:block}
 }
 .content-tools img{ width:32px; height:32px; cursor:pointer }
 
-/* ===== layer + tools（左右分割） ===== */
+/* ===== layer + tools ===== */
 .tools-area{ display:grid; grid-template-columns: 84px 1fr; gap:12px }
 
-/* layer panel（左コラム：添付デザイン） */
 .layers{ display:flex; flex-direction:column; gap:12px; margin-top:2px }
 .layer-track{
   position:relative; height:92px; width:84px;
@@ -91,100 +89,31 @@ img{display:block}
 .icon-row{ display:flex; gap:12px; align-items:center }
 .icon-row img{ width:26px; height:26px; cursor:pointer }
 
-/* Zoom / Opacity */
-.zoom-control, .opacity-control{
-  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+/* ===== Zoom/Opacity（デザイン合わせ） ===== */
+.zoop{ position:relative; display:flex; align-items:center; gap:10px; }
+.zoop .pill{
+  padding:6px 10px; background:#eee; border:1px solid var(--line);
+  border-radius:8px; cursor:pointer;
 }
-.zoom-control button, .opacity-control button{
-  font:inherit; color:inherit; cursor:pointer;
-  padding:4px 10px; background:var(--panel);
-  border:1px solid var(--line); border-radius:var(--r-sm); box-shadow:var(--shadow);
+.zoop .reset{
+  margin-left:auto; padding:6px 10px; background:#fff; border:1px solid var(--line);
+  border-radius:8px; cursor:pointer; box-shadow:var(--shadow);
 }
-#zoom-value, #opacity-value{
-  font-size:12px; padding:2px 8px; background:#f2f2f2; border:1px solid #eaeaea; border-radius:10px;
+.zoop .badge{
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  font-size:12px; padding:2px 8px; background:#f2f2f2; border-radius:12px; border:1px solid #eaeaea;
 }
-
-/* ===== Color（差し替え用の新UIを使う場合だけ） ===== */
-#color-panel { padding:12px; }
-#color-panel .panel-title{ margin:0 0 8px 0; font-size:14px; font-weight:700; }
-.color-grid{ display:grid; grid-template-columns:repeat(5, 36px); gap:8px; }
-.color-actions{ display:flex; gap:8px; align-items:center; margin-top:8px; }
-#color-panel .chip{
-  width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center;
-  background:#fff; border:1px solid var(--line); border-radius:8px; box-shadow:var(--shadow); padding:4px; cursor:pointer;
+.zoop .track{
+  flex:1; height:14px; background:#d9d9d9; border-radius:10px; position:relative; overflow:hidden;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
 }
-#color-panel .chip img{ width:100%; height:100%; object-fit:contain; }
-#color-panel .chip.placeholder{ background:transparent; border:none; box-shadow:none; cursor:default; }
-#color-panel .chip.is-active{ outline:2px solid #333; outline-offset:1px; }
-
-/* ====== Color パネル：style属性のカラーボックス用 ====== */
-.panel h3 {
-  margin: 0 0 8px;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.swatches {
-  display: grid;
-  grid-template-columns: repeat(5, 36px);
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.swatches div {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-  border: 1px solid var(--line);
-}
-
-.color-actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.color-actions .ghost-btn {
-  width: 34px;
-  height: 34px;
-  background: #f5f5f5;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
+.zoop .thumb{
+  position:absolute; left:0; top:0; height:100%; width:0%;
+  background:#bfbfbf; border-radius:10px;
 }
 
 /* responsive */
 @media (max-width:1120px){
   .main{ grid-template-columns: 1fr }
   .side-panel{ order:2 } .canvas-area{ order:1 }
-}
-.top-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.gender-buttons {
-  display: flex;
-  gap: 12px;
-}
-
-.toolbar {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 10px 14px;
-  box-shadow: var(--shadow);
-}
-.toolbar img {
-  width: 26px;
-  height: 26px;
-  cursor: pointer;
 }
