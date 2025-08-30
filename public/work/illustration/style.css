@@ -106,13 +106,26 @@ img{display:block}
   font-size:12px; padding:2px 8px; background:#f2f2f2; border:1px solid #eaeaea; border-radius:10px;
 }
 
-/* Color（最小構成。色タイルはあなた側で差し替え可） */
-.color-palette{ display:flex; flex-direction:column; gap:8px }
-.color-palette .row{ display:flex; gap:8px }
-.color-palette .row img{
-  width:32px; height:32px; cursor:pointer;
-  padding:1px; background:#fff; border:1px solid var(--line); border-radius:8px; box-shadow:var(--shadow);
+/* ===== Color（差し替え用CSS：style.cssの末尾に追記） ===== */
+#color-panel { padding: 12px; }
+#color-panel .panel-title{ margin:0 0 8px 0; font-size:14px; font-weight:700; }
+
+.color-grid{
+  display:grid;
+  grid-template-columns:repeat(5, 36px);
+  gap:8px;
 }
+.color-actions{ display:flex; gap:8px; align-items:center; margin-top:8px; }
+
+#color-panel .chip{
+  width:36px; height:36px;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:#fff; border:1px solid var(--line); border-radius:8px;
+  box-shadow:var(--shadow); padding:4px; cursor:pointer;
+}
+#color-panel .chip img{ width:100%; height:100%; object-fit:contain; }
+#color-panel .chip.placeholder{ background:transparent; border:none; box-shadow:none; cursor:default; }
+#color-panel .chip.is-active{ outline:2px solid #333; outline-offset:1px; }
 
 /* responsive */
 @media (max-width:1120px){
