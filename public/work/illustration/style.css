@@ -1,130 +1,153 @@
 /* ===============================
-   Vivora Fashion Illustration UI
-   CSSファイル - style.css
+   Vivora Fashion Illustration 2025
+   style.css
    =============================== */
 
 :root {
-  --bg-color: #f3ece4;
+  --bg: #f3eee7;
   --white: #ffffff;
   --gray: #ccc;
-  --black: #333;
-  --panel-radius: 12px;
-  --icon-size: 26px;
-  --layer-icon-size: 20px;
-  --font-main: 'Helvetica Neue', sans-serif;
+  --text: #333;
+  --radius: 12px;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-color);
-  font-family: var(--font-main);
-  color: var(--black);
+  font-family: "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
 
-.wrapper {
+.app-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-/* ===== ヘッダー ===== */
+/* ===== Header ===== */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  background-color: var(--bg-color);
+  padding: 12px 20px;
 }
 
-.header-title {
+.title {
   font-size: 18px;
   font-weight: bold;
 }
 
 .gender-buttons button,
-.step-button {
-  margin-left: 8px;
-  padding: 6px 12px;
-  border: 1px solid var(--gray);
+.toolbar button,
+.next-step button {
   background: var(--white);
+  border: 1px solid var(--gray);
   border-radius: 6px;
+  padding: 6px 12px;
+  margin-right: 6px;
   cursor: pointer;
 }
 
-/* ===== メイン ===== */
+.toolbar img {
+  width: 20px;
+  height: 20px;
+}
+
+.next-step button {
+  font-weight: bold;
+}
+
+/* ===== Main ===== */
 .main {
   display: flex;
   flex: 1;
-  padding: 16px;
-  gap: 16px;
-}
-
-.left-tools {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.layer-panel {
-  background: var(--white);
-  border-radius: var(--panel-radius);
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.layer-panel img {
-  width: var(--layer-icon-size);
-  height: var(--layer-icon-size);
+  padding: 20px;
+  gap: 20px;
 }
 
 .canvas-area {
   flex: 1;
   background: var(--white);
-  border-radius: var(--panel-radius);
+  border-radius: var(--radius);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.canvas-area img {
-  width: 200px;
-  height: auto;
+.mannequin {
+  max-height: 90%;
 }
 
-.right-tools {
-  width: 300px;
+/* ===== Side Panel ===== */
+.side-panel {
+  width: 320px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.tools-group {
+.content-tools {
+  display: flex;
+  justify-content: space-between;
   background: var(--white);
-  border-radius: var(--panel-radius);
+  border-radius: var(--radius);
+  padding: 8px;
+}
+
+.content-tools img {
+  width: 28px;
+  height: 28px;
+}
+
+.tools-area {
+  display: flex;
+  gap: 12px;
+}
+
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.layer-row {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 6px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.layer-row img {
+  width: 18px;
+  height: 18px;
+}
+
+.tool-groups {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel-block {
+  background: var(--white);
+  border-radius: var(--radius);
   padding: 12px;
 }
 
-.tools-group h4 {
+.panel-block h3 {
   margin: 0 0 8px 0;
   font-size: 14px;
 }
 
-.tools-row,
-.color-grid {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.tools-row img,
-.color-grid img {
-  width: var(--icon-size);
-  height: var(--icon-size);
-  object-fit: contain;
+.icon-row img {
+  width: 28px;
+  height: 28px;
+  margin-right: 6px;
+  cursor: pointer;
 }
 
 .zoom-control,
@@ -132,30 +155,41 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 6px;
 }
 
 .zoom-control button,
-.opacity-control button {
-  padding: 4px 8px;
-  border: 1px solid var(--gray);
+.opacity-control button,
+.color-add {
   background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 6px;
+  padding: 2px 6px;
   cursor: pointer;
-  border-radius: 4px;
 }
 
-/* ===== 上部ツールバー ===== */
-.tool-bar {
+/* ===== Colors ===== */
+.color-palette {
   display: flex;
-  justify-content: center;
-  padding: 12px;
-  background-color: var(--bg-color);
-  gap: 8px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.tool-bar img {
-  width: var(--icon-size);
-  height: var(--icon-size);
+.row {
+  display: flex;
+  gap: 6px;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--gray);
+  cursor: pointer;
+}
+
+.spuit-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 6px;
   cursor: pointer;
 }
