@@ -2,27 +2,27 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <!-- 非レスポンシブ固定幅（MacBook Pro 14"想定） -->
-  <meta name="viewport" content="width=1280" />
+  <meta name="viewport" content="width=1280" /> <!-- 非レスポンシブ固定幅 -->
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="page">
-
-    <!-- ===== HEADER（左：Next+Contents / 中央：Title / 右：History） ===== -->
+    <!-- ===== Header（左：Next+Contents / 中央：Title / 右：History） ===== -->
     <header class="hdr">
       <div class="hdr-left">
-        <a class="next-btn" href="/next.html">Next Step ▸▸</a>
+        <a class="next" href="/next.html">Next Step ▸▸</a>
+
+        <!-- contents buttons（横7,縦9 付近から配置） -->
         <nav class="contents">
-          <a href="/index.html"><img src="/create_parts/contents_button/0_home.png" alt="Home" /></a>
-          <a href="/work/illustration/kids/kids.html"><img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" /></a>
-          <a href="/work/fabric/fabric.html"><img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm" /></a>
-          <a href="/work/clothing/clothing.html"><img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd" /></a>
-          <a href="/work/pattern/pattern.html"><img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc" /></a>
-          <a href="/work/grading/grading.html"><img src="/create_parts/contents_button/5_grading.png" alt="Gd" /></a>
-          <a href="/work/print/print.html"><img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc" /></a>
-          <a href="/work/illustration/kids/kids.html"><img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" /></a>
+          <img class="snap" style="--x:7;  --y:9;"  src="/create_parts/contents_button/0_home.png"  alt="Home" />
+          <img class="snap" style="--x:11; --y:9;"  src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" />
+          <img class="snap" style="--x:15; --y:9;"  src="/create_parts/contents_button/2_fabric-matching.png"  alt="Fm" />
+          <img class="snap" style="--x:19; --y:9;"  src="/create_parts/contents_button/3_clothing-design.png"  alt="Cd" />
+          <img class="snap" style="--x:23; --y:9;"  src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc" />
+          <img class="snap" style="--x:27; --y:9;"  src="/create_parts/contents_button/5_grading.png" alt="Gd" />
+          <img class="snap" style="--x:31; --y:9;"  src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc" />
+          <img class="snap" style="--x:35; --y:9;"  src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" />
         </nav>
       </div>
 
@@ -30,88 +30,74 @@
 
       <div class="hdr-right">
         <nav class="history">
-          <button class="plain"><img src="/create_parts/create_button/retreat.png"   alt="Undo" /></button>
-          <button class="plain"><img src="/create_parts/create_button/forward.png"   alt="Redo" /></button>
-          <button class="plain"><img src="/create_parts/create_button/reset.png"     alt="Reset" id="btn-reset" /></button>
-          <button class="plain"><img src="/create_parts/create_button/download.png"  alt="Download" /></button>
-          <button class="plain"><img src="/create_parts/create_button/upload.png"    alt="Upload" /></button>
-          <button class="plain"><img src="/create_parts/create_button/save.png"      alt="Save" /></button>
+          <!-- history（76〜83,9 付近に並べる） -->
+          <img class="snap" style="--x:76; --y:9;" src="/create_parts/create_button/retreat.png"   alt="Undo" />
+          <img class="snap" style="--x:78; --y:9;" src="/create_parts/create_button/forward.png"   alt="Redo" />
+          <img class="snap" style="--x:80; --y:9;" src="/create_parts/create_button/reset.png"     alt="Reset" id="btn-reset"/>
+          <img class="snap" style="--x:82; --y:9;" src="/create_parts/create_button/download.png"  alt="Download" />
+          <img class="snap" style="--x:84; --y:9;" src="/create_parts/create_button/upload.png"    alt="Upload" />
+          <img class="snap" style="--x:86; --y:9;" src="/create_parts/create_button/save.png"      alt="Save" />
         </nav>
       </div>
     </header>
 
-    <!-- ===== CANVAS（方眼紙は初期OFF） ===== -->
+    <!-- ===== Canvas ===== -->
     <main class="stage">
       <section id="canvas" class="canvas">
-        <!-- 右上：Stationery（横一列・画像そのまま） -->
+        <!-- stationery（82〜93,14 に横一列） -->
         <nav class="stationery">
-          <!-- ▼付き3種（長押し実装は後段） -->
-          <img src="/create_parts/design_button/select.png" alt="Select" />
-          <img src="/create_parts/design_button/square.png" alt="Square" />
-          <img src="/create_parts/design_button/brush.png"  alt="Brush"  />
-
-          <!-- 独立アイコン -->
-          <img src="/create_parts/design_button/eraser.png"       alt="Eraser" />
-          <img src="/create_parts/design_button/text.png"         alt="Text"   />
-
-          <!-- 透明度（地球儀）: クリックで下段パネル表示 -->
-          <button id="btn-opacity" class="plain">
-            <img src="/create_parts/design_button/opacity_bar.png" alt="Opacity" />
-          </button>
-          <div id="op-panel" class="op-panel">
-            <div class="op-val" id="op-val">100%</div>
-            <input id="op-range" type="range" min="0" max="100" value="100" />
-          </div>
-
-          <!-- グリッド（graph_paper.png）：クリックでキャンバスにのみ反映 -->
-          <button id="btn-grid" class="plain">
-            <img src="/create_parts/create_button/graph_paper.png" alt="Grid" />
-          </button>
-
-          <!-- レイヤー（展開UIは別タスク） -->
-          <button id="btn-layer" class="plain">
-            <img src="/create_parts/design_button/layer.png" alt="Layer" />
-          </button>
+          <img class="snap" style="--x:82; --y:14;" src="/create_parts/design_button/select.png"      alt="Select" />
+          <img class="snap" style="--x:84; --y:14;" src="/create_parts/design_button/square.png"      alt="Square" />
+          <img class="snap" style="--x:86; --y:14;" src="/create_parts/design_button/brush.png"       alt="Brush" />
+          <img class="snap" style="--x:88; --y:14;" src="/create_parts/design_button/eraser.png"      alt="Eraser" />
+          <img class="snap" style="--x:90; --y:14;" src="/create_parts/design_button/text.png"        alt="Text" />
+          <img class="snap" style="--x:92; --y:14;" src="/create_parts/design_button/opacity_bar.png" alt="Opacity" id="btn-opacity" />
+          <img class="snap" style="--x:94; --y:14;" src="/create_parts/create_button/graph_paper.png" alt="Grid"    id="btn-grid" />
+          <img class="snap" style="--x:96; --y:14;" src="/create_parts/design_button/layer.png"       alt="Layer"   id="btn-layer" />
         </nav>
 
-        <!-- マネキン（中心） -->
+        <!-- 透明度パネル（ボタンクリックで表示） -->
+        <div id="op-panel" class="op-panel">
+          <div class="op-val" id="op-val">100%</div>
+          <input id="op-range" type="range" min="0" max="100" value="100" />
+        </div>
+
+        <!-- マネキン（中央） -->
         <img id="mannequin" class="mannequin"
-             src="/mannequin/mannequin_woman/mannequin_woman_front.png"
-             alt="mannequin" />
-        <!-- 方眼紙オーバーレイ（初期は非表示） -->
+             src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin" />
+
+        <!-- 方眼紙オーバーレイ（初期OFF／Gridクリック時のみ表示） -->
         <div id="grid-overlay" class="grid-overlay"></div>
       </section>
     </main>
   </div>
 
   <script>
-    // ===== Opacity: クリックでパネル表示、0〜100%でマネキン透明度 =====
+    // 透明度スライダー
     (function(){
-      const btn   = document.getElementById('btn-opacity');
+      const btn = document.getElementById('btn-opacity');
       const panel = document.getElementById('op-panel');
       const range = document.getElementById('op-range');
-      const val   = document.getElementById('op-val');
-      const man   = document.getElementById('mannequin');
-
+      const val = document.getElementById('op-val');
+      const man = document.getElementById('mannequin');
       btn.addEventListener('click', (e)=>{ e.stopPropagation(); panel.classList.toggle('show'); });
       document.body.addEventListener('click', ()=> panel.classList.remove('show'));
       range.addEventListener('input', ()=>{ val.textContent = `${range.value}%`; man.style.opacity = range.value/100; });
     })();
 
-    // ===== Grid: graph_paper.png クリックでキャンバスにのみ方眼紙をトグル =====
+    // グリッド ON/OFF
     (function(){
       const btn = document.getElementById('btn-grid');
       const overlay = document.getElementById('grid-overlay');
       btn.addEventListener('click', ()=> overlay.classList.toggle('show'));
     })();
 
-    // ===== Reset: 透明度100%、グリッドOFF、ズーム初期化だけ（最低限） =====
+    // Reset（透明度100・グリッドOFF）
     document.getElementById('btn-reset').addEventListener('click', ()=>{
       document.getElementById('op-range').value = 100;
       document.getElementById('op-val').textContent = '100%';
       document.getElementById('mannequin').style.opacity = 1;
       document.getElementById('grid-overlay').classList.remove('show');
-      document.getElementById('mannequin').style.transform = 'none';
     });
   </script>
 </body>
