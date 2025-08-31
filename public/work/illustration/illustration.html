@@ -2,63 +2,89 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=1280" /> <!-- 固定幅で非レスポンシブ -->
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-wrapper">
-    <!-- Header Top -->
+    <!-- Header -->
     <header class="header">
-      <div class="contents-button">
-        <img src="/create_parts/contents_button/0_home.png" alt="Home" />
-        <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" />
-        <img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm" />
-        <img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd" />
-        <img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc" />
-        <img src="/create_parts/contents_button/5_grading.png" alt="Gd" />
-        <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc" />
-        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" />
+      <div class="header-left">
+        <a href="#" class="next-step">
+          <img src="/create_parts/create_button/button_next.png" alt="Next Step" />
+        </a>
+        <div class="content-buttons">
+          <img src="/create_parts/contents_button/0_home.png" alt="Home">
+          <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
+          <img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm">
+          <img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd">
+          <img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc">
+          <img src="/create_parts/contents_button/5_grading.png" alt="Gd">
+          <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc">
+          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
+        </div>
       </div>
-
-      <h1 class="title">Vivora Fashion Illustration 2025</h1>
-
-      <div class="history-tool">
-        <img src="/create_parts/create_button/retreat.png" alt="Undo" />
-        <img src="/create_parts/create_button/forward.png" alt="Redo" />
-        <img src="/create_parts/create_button/reset.png" alt="Reset" />
-        <img src="/create_parts/create_button/download.png" alt="Download" />
-        <img src="/create_parts/create_button/upload.png" alt="Upload" />
-        <img src="/create_parts/create_button/save.png" alt="Save" />
+      <div class="page-title">Vivora Fashion Illustration 2025</div>
+      <div class="header-right">
+        <div class="history-buttons">
+          <img src="/create_parts/create_button/retreat.png" alt="Undo">
+          <img src="/create_parts/create_button/forward.png" alt="Redo">
+          <img src="/create_parts/create_button/reset.png" alt="Reset">
+          <img src="/create_parts/create_button/download.png" alt="Download">
+          <img src="/create_parts/create_button/upload.png" alt="Upload">
+          <img src="/create_parts/create_button/save.png" alt="Save">
+        </div>
       </div>
     </header>
 
-    <!-- Main Area -->
-    <main class="main">
-      <div class="canvas-area">
-        <img class="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin" />
-
-        <div class="stationery-tool">
-          <img src="/create_parts/design_button/select.png" alt="Select" />
-          <img src="/create_parts/design_button/square.png" alt="Square" />
-          <img src="/create_parts/design_button/brush.png" alt="Brush" />
-          <img src="/create_parts/design_button/eraser.png" alt="Eraser" />
-          <img src="/create_parts/design_button/text.png" alt="Text" />
-          <img src="/create_parts/design_button/opacity_ber.png" alt="Opacity" />
-          <img src="/create_parts/design_button/graph_paper.png" alt="Grid" />
-          <img src="/create_parts/design_button/layer.png" alt="Layer" />
-        </div>
+    <!-- Canvas Area -->
+    <div class="main-area">
+      <div class="tool-panel">
+        <img src="/create_parts/design_button/select.png" alt="Select">
+        <img src="/create_parts/design_button/square.png" alt="Square">
+        <img src="/create_parts/design_button/brush.png" alt="Brush">
+        <img src="/create_parts/design_button/eraser.png" alt="Eraser">
+        <img src="/create_parts/design_button/text.png" alt="Text">
+        <img src="/create_parts/design_button/opacity.png" alt="Opacity">
+        <img src="/create_parts/design_button/grid.png" alt="Grid">
+        <img src="/create_parts/design_button/layer.png" alt="Layer">
       </div>
-    </main>
+
+      <div class="canvas-area" id="canvas-container">
+        <img id="mannequin" class="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin" />
+      </div>
+    </div>
   </div>
 
   <script>
-    const mannequin = document.querySelector(".mannequin");
-    const GENDER_SRC = {
-      woman: "/mannequin/mannequin_woman/mannequin_woman_front.png",
-      man: "/mannequin/mannequin_man/mannequin_man_front.png",
-      kids: "/mannequin/mannequin_kids/mannequin_kida_front.png"
-    };
+    // ピンチズーム (Panzoom)
+    const canvasContainer = document.getElementById("canvas-container");
+    const mannequin = document.getElementById("mannequin");
+
+    let scale = 1;
+    let startDistance = 0;
+
+    canvasContainer.addEventListener("touchstart", function(e) {
+      if (e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        startDistance = Math.sqrt(dx * dx + dy * dy);
+      }
+    });
+
+    canvasContainer.addEventListener("touchmove", function(e) {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const newDistance = Math.sqrt(dx * dx + dy * dy);
+        const scaleChange = newDistance / startDistance;
+        scale = Math.max(0.5, Math.min(3, scale * scaleChange));
+        mannequin.style.transform = `scale(${scale})`;
+        startDistance = newDistance;
+      }
+    }, { passive: false });
   </script>
 </body>
 </html>
