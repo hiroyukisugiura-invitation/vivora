@@ -2,219 +2,200 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <!-- 固定レイアウト（非レスポンシブ） -->
+  <!-- 非レスポンシブ固定幅（MacBook Pro 14" 想定） -->
   <meta name="viewport" content="width=1280" />
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- グリッド全体（1マス=26px）。以後の絶対配置は --x / --y で指定 -->
-  <div id="stage" class="stage">
+  <div class="page">
 
-    <!-- ========== ヘッダー帯（方眼とは独立の上部帯） ========== -->
-    <header class="header-bar">
-      <!-- 左：Next + contents button -->
-      <div class="head-left">
-        <a class="next" href="/next.html">Next Step ▸▸</a>
-        <div class="contents-buttons">
-          <img src="/create_parts/contents_button/0_home.png"                  alt="Home">
-          <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
-          <img src="/create_parts/contents_button/2_fabric-matching.png"       alt="Fm">
-          <img src="/create_parts/contents_button/3_clothing-design.png"       alt="Cd">
-          <img src="/create_parts/contents_button/4_pattern-creation.png"      alt="Pc">
-          <img src="/create_parts/contents_button/5_grading.png"               alt="Gd">
-          <img src="/create_parts/contents_button/6_print-layout-cut.png"      alt="Plc">
-          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
+    <!-- ===== Header ===== -->
+    <header class="hdr">
+      <!-- 左：Next Step + contents -->
+      <div class="hdr-left">
+        <a class="next-btn" href="/next.html">Next Step ▸▸</a>
+        <div class="contents">
+          <a href="/index.html"><img src="/create_parts/contents_button/0_home.png" alt="Home"></a>
+          <a href="/work/illustration/kids/kids.html"><img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></a>
+          <a href="/work/fabric/fabric.html"><img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm"></a>
+          <a href="/work/clothing/clothing.html"><img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd"></a>
+          <a href="/work/pattern/pattern.html"><img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc"></a>
+          <a href="/work/grading/grading.html"><img src="/create_parts/contents_button/5_grading.png" alt="Gd"></a>
+          <a href="/work/print/print.html"><img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></a>
+          <a href="/work/illustration/kids/kids.html"><img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></a>
         </div>
       </div>
 
       <!-- 中央：タイトル -->
       <h1 class="title">Vivora Fashion Illustration 2025</h1>
 
-      <!-- 右：gender + history tool（同一高さ） -->
-      <div class="head-right">
-        <div class="gender">
-          <a href="#" data-gender="woman"><img src="/create_parts/create_button/button_woman.png" alt="Woman"></a>
-          <a href="#" data-gender="man"><img src="/create_parts/create_button/button_man.png" alt="Man"></a>
-          <a href="#" data-gender="kids"><img src="/create_parts/create_button/button_kids.png" alt="Kids"></a>
-        </div>
+      <!-- 右：History tool（Undo/Redo/Reset/DL/UP/Save） -->
+      <div class="hdr-right">
         <div class="history">
-          <img src="/create_parts/create_button/retreat.png"   alt="Undo">
-          <img src="/create_parts/create_button/forward.png"   alt="Redo">
-          <img src="/create_parts/create_button/reset.png"     alt="Reset">
-          <img src="/create_parts/create_button/download.png"  alt="Download">
-          <img src="/create_parts/create_button/upload.png"    alt="Upload">
-          <img src="/create_parts/create_button/save.png"      alt="Save">
-          <a href="/work/pattern/pattern.html"><img src="/create_parts/create_button/2d.png" alt="2D"></a>
-          <a href="/work/print/print.html"><img   src="/create_parts/create_button/3d.png" alt="3D"></a>
+          <button class="icon"><img src="/create_parts/create_button/retreat.png"   alt="Undo"></button>
+          <button class="icon"><img src="/create_parts/create_button/forward.png"   alt="Redo"></button>
+          <button class="icon"><img src="/create_parts/create_button/reset.png"     alt="Reset" id="btn-reset"></button>
+          <button class="icon"><img src="/create_parts/create_button/download.png"  alt="Download"></button>
+          <button class="icon"><img src="/create_parts/create_button/upload.png"    alt="Upload"></button>
+          <button class="icon"><img src="/create_parts/create_button/save.png"      alt="Save"></button>
         </div>
       </div>
     </header>
 
-    <!-- ========== キャンバス（方眼紙ON/OFF可） ========== -->
-    <section id="canvas" class="canvas grid-on">
-      <img id="mannequin" class="mannequin"
-           src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
-    </section>
+    <!-- ===== Canvas ===== -->
+    <main class="stage">
+      <section id="canvas" class="canvas">
+        <!-- 右上：stationery tool（横並び） -->
+        <nav class="stationery">
+          <!-- ▼付き3種（hoverで下方向に展開） -->
+          <div class="tool-dd">
+            <img src="/create_parts/design_button/select.png" alt="Select">
+            <div class="dd">
+              <button class="dd-btn"><img src="/create_parts/design_button/direct_select.png" alt="Direct Select"></button>
+            </div>
+          </div>
+          <div class="tool-dd">
+            <img src="/create_parts/design_button/square.png" alt="Square">
+            <div class="dd">
+              <button class="dd-btn"><img src="/create_parts/design_button/circle.png" alt="Circle"></button>
+            </div>
+          </div>
+          <div class="tool-dd" id="brush-dd">
+            <img src="/create_parts/design_button/brush.png" alt="Brush">
+            <div class="dd">
+              <button class="dd-btn pen" data-pen="pen"><img src="/create_parts/design_button/pen.png" alt="Pen"></button>
+              <button class="dd-btn pen" data-pen="circlebrush"><img src="/create_parts/design_button/circlebrush.png" alt="Circle Brush"></button>
+              <button class="dd-btn pen" data-pen="ballpointpen"><img src="/create_parts/design_button/ballpointpen.png" alt="Ballpoint"></button>
+              <button class="dd-btn pen" data-pen="markerpen"><img src="/create_parts/design_button/markerpen.png" alt="Marker"></button>
+            </div>
+          </div>
 
-    <!-- ========== ステーショナリー（右上・横一列） ========== -->
-    <div class="stationery snap"
-         style="--x:34; --y:2;"> <!-- ← ここで方眼の列/行を指定（例：横34マス・縦2マス） -->
-      <!-- ▼付き3種 -->
-      <div class="tool-dd">
-        <img src="/create_parts/design_button/select.png" alt="Select">
-        <div class="dd">
-          <img src="/create_parts/design_button/direct_select.png" alt="Direct Select">
+          <!-- 独立アイコン -->
+          <button class="icon"><img src="/create_parts/design_button/eraser.png" alt="Eraser"></button>
+          <button class="icon"><img src="/create_parts/design_button/text.png"   alt="Text"></button>
+
+          <!-- 透明度（クリックで真下にスライダー） -->
+          <div class="tool-opacity">
+            <button class="icon" id="btn-opacity"><img src="/create_parts/design_button/opacity_bar.png" alt="Opacity"></button>
+            <div class="op-panel" id="op-panel">
+              <div class="op-val" id="op-val">100%</div>
+              <input id="op-range" type="range" min="0" max="100" value="100">
+            </div>
+          </div>
+
+          <!-- Grid ON/OFF -->
+          <button class="icon" id="btn-grid"><img src="/create_parts/create_button/graph_paper.png" alt="Grid"></button>
+
+          <!-- Layer（クリックで右端にレイヤーパネル） -->
+          <button class="icon" id="btn-layer"><img src="/create_parts/design_button/layer.png" alt="Layer"></button>
+        </nav>
+
+        <!-- マネキン -->
+        <img id="mannequin" class="mannequin"
+             src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
+      </section>
+
+      <!-- 右端：Layer Panel（5段） -->
+      <aside id="layer-panel" class="layer-panel">
+        <div class="layer-box">
+          <div class="layer-top">
+            <img src="/create_parts/layer_button/layerlock.png"    alt="Lock">
+            <img src="/create_parts/layer_button/layerdisplay.png" alt="Display">
+            <img src="/create_parts/layer_button/layerhidden.png"  alt="Hidden">
+          </div>
+          <div class="layer-card"></div>
+          <div class="layer-bottom">
+            <img src="/create_parts/layer_button/layerpanelplus.png"           alt="Add">
+            <img src="/create_parts/layer_button/layerreproduction.png"        alt="Copy">
+            <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="Merge">
+            <img src="/create_parts/layer_button/layerdestruction.png"         alt="Delete">
+          </div>
         </div>
-      </div>
-
-      <div class="tool-dd">
-        <img src="/create_parts/design_button/square.png" alt="Square">
-        <div class="dd">
-          <img src="/create_parts/design_button/circle.png" alt="Circle">
-        </div>
-      </div>
-
-      <div class="tool-dd" id="brush-dd">
-        <img src="/create_parts/design_button/brush.png" alt="Brush">
-        <div class="dd">
-          <img class="pen-switch" data-pen="pen"          src="/create_parts/design_button/pen.png"           alt="Pen">
-          <img class="pen-switch" data-pen="circlebrush"  src="/create_parts/design_button/circlebrush.png"   alt="Circle Brush">
-          <img class="pen-switch" data-pen="ballpointpen" src="/create_parts/design_button/ballpointpen.png"  alt="Ballpoint">
-          <img class="pen-switch" data-pen="markerpen"    src="/create_parts/design_button/markerpen.png"     alt="Marker">
-        </div>
-      </div>
-
-      <!-- 独立5種 -->
-      <img src="/create_parts/design_button/eraser.png"       alt="Eraser">
-      <img src="/create_parts/design_button/text.png"         alt="Text">
-
-      <!-- 透明度（クリックで下段にパネル） -->
-      <div class="tool-opacity">
-        <img id="opacity-toggle" src="/create_parts/design_button/opacity_bar.png" alt="Opacity">
-        <div id="opacity-panel" class="opacity-panel">
-          <div class="opacity-label" id="opacity-value">100%</div>
-          <input id="opacity-range" type="range" min="0" max="100" value="100">
-        </div>
-      </div>
-
-      <!-- グリッド表示 / レイヤー -->
-      <img id="grid-toggle"  src="/create_parts/create_button/graph_paper.png" alt="Grid Toggle">
-      <img id="layer-toggle" src="/create_parts/design_button/layer.png"       alt="Layer">
-    </div>
-
-    <!-- ========== レイヤーパネル（右端・5段） ========== -->
-    <aside id="layer-panel" class="layer-panel snap"
-           style="--x:45; --y:6;"> <!-- 配置マス：右端沿い -->
-      <!-- 1段テンプレート（JSで5段複製） -->
-      <div class="layer-box">
-        <div class="layer-top">
-          <img src="/create_parts/layer_button/layerlock.png"    alt="Lock">
-          <img src="/create_parts/layer_button/layerdisplay.png" alt="Display">
-          <img src="/create_parts/layer_button/layerhidden.png"  alt="Hidden">
-        </div>
-        <div class="layer-card"></div>
-        <div class="layer-bottom">
-          <img src="/create_parts/layer_button/layerpanelplus.png"           alt="Add">
-          <img src="/create_parts/layer_button/layerreproduction.png"        alt="Copy">
-          <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="Merge">
-          <img src="/create_parts/layer_button/layerdestruction.png"         alt="Delete">
-        </div>
-      </div>
-    </aside>
+      </aside>
+    </main>
   </div>
 
   <script>
-    // ====== 性別切替 ======
+    // ========== Opacity ==========
     (function(){
+      const btn = document.getElementById('btn-opacity');
+      const panel = document.getElementById('op-panel');
+      const range = document.getElementById('op-range');
+      const val = document.getElementById('op-val');
       const mannequin = document.getElementById('mannequin');
-      const map = {
-        woman: '/mannequin/mannequin_woman/mannequin_woman_front.png',
-        man  : '/mannequin/mannequin_man/mannequin_man_front.png',
-        kids : '/mannequin/mannequin_kids/mannequin_kida_front.png'
-      };
-      document.querySelectorAll('[data-gender]').forEach(a=>{
-        a.addEventListener('click', e=>{
-          e.preventDefault();
-          const g = a.dataset.gender;
-          if(map[g]) mannequin.src = map[g];
-        });
-      });
-    })();
 
-    // ====== 透明度パネル ======
-    (function(){
-      const btn   = document.getElementById('opacity-toggle');
-      const panel = document.getElementById('opacity-panel');
-      const range = document.getElementById('opacity-range');
-      const label = document.getElementById('opacity-value');
-      const man   = document.getElementById('mannequin');
-
-      btn.addEventListener('click', e=>{
+      btn.addEventListener('click', (e)=>{
         e.stopPropagation();
         panel.classList.toggle('show');
       });
       document.body.addEventListener('click', ()=> panel.classList.remove('show'));
 
       range.addEventListener('input', ()=>{
-        label.textContent = `${range.value}%`;
-        man.style.opacity = range.value / 100;
+        val.textContent = `${range.value}%`;
+        mannequin.style.opacity = range.value/100;
       });
     })();
 
-    // ====== グリッドON/OFF ======
+    // ========== Grid ON/OFF ==========
     (function(){
-      const btn = document.getElementById('grid-toggle');
-      const cv  = document.getElementById('canvas');
-      btn.addEventListener('click', ()=> cv.classList.toggle('grid-on'));
+      const canvas = document.getElementById('canvas');
+      document.getElementById('btn-grid').addEventListener('click', ()=>{
+        canvas.classList.toggle('grid-on');
+      });
     })();
 
-    // ====== レイヤーパネル（5段生成＋表示切替） ======
+    // ========== Layer Panel（5段複製＋切替） ==========
     (function(){
       const panel = document.getElementById('layer-panel');
-      const toggle= document.getElementById('layer-toggle');
+      const toggle= document.getElementById('btn-layer');
+      // 5段にする
       while(panel.querySelectorAll('.layer-box').length < 5){
         panel.appendChild(panel.querySelector('.layer-box').cloneNode(true));
       }
-      toggle.addEventListener('click', ()=> panel.classList.toggle('show'));
+      toggle.addEventListener('click', ()=>{
+        panel.classList.toggle('show');
+      });
     })();
 
-    // ====== ペンツール選択（将来のカラーパレット連動フック） ======
-    document.querySelectorAll('.pen-switch').forEach(el=>{
-      el.addEventListener('click', (e)=>{
-        // e.currentTarget.dataset.pen で選択ペンを特定
-      });
-    });
-
-    // ====== ピンチズーム（タッチ） ======
+    // ========== Pinch Zoom（タッチ端末） ==========
     (function(){
-      const man   = document.getElementById('mannequin');
+      const img = document.getElementById('mannequin');
       let scale=1, start=0;
-      man.addEventListener('touchstart', (e)=>{
+      img.addEventListener('touchstart', (e)=>{
         if(e.touches.length===2){
           const dx=e.touches[0].clientX - e.touches[1].clientX;
           const dy=e.touches[0].clientY - e.touches[1].clientY;
           start=Math.hypot(dx,dy);
         }
       }, {passive:true});
-
-      man.addEventListener('touchmove', (e)=>{
+      img.addEventListener('touchmove', (e)=>{
         if(e.touches.length===2){
           e.preventDefault();
           const dx=e.touches[0].clientX - e.touches[1].clientX;
           const dy=e.touches[0].clientY - e.touches[1].clientY;
           const dist=Math.hypot(dx,dy);
-          const f=dist/start;
-          const next=Math.max(0.5, Math.min(3, scale*f));
-          man.style.transform=`scale(${next})`;
+          const next=Math.max(0.5, Math.min(3, scale*(dist/start)));
+          img.style.transform=`scale(${next})`;
         }
       }, {passive:false});
-
-      man.addEventListener('touchend', ()=>{
-        const m=man.style.transform.match(/scale\(([^)]+)\)/);
+      img.addEventListener('touchend', ()=>{
+        const m=img.style.transform.match(/scale\(([^)]+)\)/);
         scale=m? parseFloat(m[1]) : 1;
       });
     })();
+
+    // ========== Reset（カンバス：透明度/グリッド/ズーム初期化） ==========
+    document.getElementById('btn-reset').addEventListener('click', ()=>{
+      // opacity
+      document.getElementById('op-range').value = 100;
+      document.getElementById('op-val').textContent = '100%';
+      document.getElementById('mannequin').style.opacity = 1;
+      // grid
+      document.getElementById('canvas').classList.remove('grid-on');
+      // zoom
+      document.getElementById('mannequin').style.transform = 'scale(1)';
+    });
   </script>
 </body>
 </html>
