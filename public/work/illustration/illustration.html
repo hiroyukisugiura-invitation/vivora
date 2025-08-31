@@ -1,243 +1,188 @@
-/* =======================================
-   Vivora Fashion Illustration 2025 - style.css（完全版）
-   - マス目構造に完全準拠
-   - 画像はGit内の配置と一致
-   - 各種ツール表示切替、装飾、レイアウト設定
-======================================= */
+/* Vivora Fashion Illustration 2025 - style.css */
 
 :root {
-  --bg: #f1e9e1;
+  --bg: #f1e9df;
   --panel: #ffffff;
-  --line: #dcd2c8;
-  --text: #2a2a2a;
-  --icon-size: 32px;
-  --icon-gap: 8px;
-  --border-radius: 10px;
-  --shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --line: #ccc;
+  --text: #2b2b2b;
+  --radius: 12px;
+  --icon-size: 30px;
+  --button-gap: 10px;
+  --grid-color: #c9c1b8;
 }
 
 body {
   margin: 0;
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: var(--bg);
+  padding: 0;
+  background: var(--bg);
+  font-family: "Helvetica Neue", sans-serif;
   color: var(--text);
-  overflow: hidden;
 }
 
-.app {
-  width: 100vw;
-  height: 100vh;
+/* ========== Wrapper ========== */
+.app-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 0;
 }
 
-/* ------------------------------------- */
-/* Header layout                        */
-/* ------------------------------------- */
+/* ========== Header ========== */
 .header {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 6px 20px;
-  background-color: var(--bg);
-  height: 64px;
+  background: var(--bg);
+  width: 100%;
+  padding: 6px 16px 4px 16px;
   position: relative;
 }
 
-.contents-button,
-.history-tool,
-.stationery-tool {
+.header-left {
   display: flex;
   align-items: center;
-  gap: var(--icon-gap);
+  gap: var(--button-gap);
 }
 
-.page-title {
-  text-align: center;
-  font-weight: 500;
-  font-size: 16px;
-  pointer-events: none;
-}
-
-.tool-button,
-.dropdown-icon {
+.header-left img,
+.header-right img {
   width: var(--icon-size);
   height: var(--icon-size);
-  background-color: var(--panel);
+  padding: 6px;
+  background: var(--panel);
+  border-radius: var(--radius);
   border: 1px solid var(--line);
-  border-radius: var(--border-radius);
-  padding: 4px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   cursor: pointer;
 }
 
-.tool-group {
-  position: relative;
-}
-
-.tool-group .dropdown {
-  display: none;
+.page-title {
   position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 10;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--border-radius);
-  padding: 6px;
-  box-shadow: var(--shadow);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.tool-group.active .dropdown {
+.header-right {
   display: flex;
+  align-items: center;
+  gap: var(--button-gap);
 }
 
-/* ------------------------------------- */
-/* Canvas                               */
-/* ------------------------------------- */
-.canvas-wrapper {
-  flex: 1;
+/* ========== Canvas ========== */
+.canvas-area {
+  margin-top: 10px;
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  width: 90%;
+  height: 600px;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  background: var(--panel);
-  border-radius: 16px;
-  margin: 0 20px 20px;
-  position: relative;
-}
-
-#canvas {
-  position: relative;
-  width: 700px;
-  height: 600px;
-  background-color: #fff;
-  border: 1px solid var(--line);
-  border-radius: 12px;
   overflow: hidden;
 }
 
 #mannequin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 95%;
-  z-index: 2;
+  max-height: 100%;
+  max-width: 100%;
   pointer-events: none;
 }
 
-/* Grid overlay toggle (非表示が初期状態) */
-#canvas.grid::before {
-  content: "";
+/* ========== Stationery Tool ========== */
+.stationery-tool {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    linear-gradient(to right, #bbb 1px, transparent 1px),
-    linear-gradient(to bottom, #bbb 1px, transparent 1px);
-  background-size: 26px 26px;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* ------------------------------------- */
-/* Color Panel                          */
-/* ------------------------------------- */
-.color-panel {
-  position: absolute;
-  top: 100px;
-  right: 52px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 10;
-}
-
-.color-swatch {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid #aaa;
-}
-
-/* ------------------------------------- */
-/* Opacity Bar                          */
-/* ------------------------------------- */
-.opacity-bar {
-  position: absolute;
-  top: 80px;
-  right: 90px;
-  background: var(--panel);
-  padding: 6px;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  display: none;
-  z-index: 10;
-}
-
-.opacity-bar input[type="range"] {
-  width: 100px;
-}
-
-.opacity-bar.active {
-  display: block;
-}
-
-/* ------------------------------------- */
-/* Layer Panel                          */
-/* ------------------------------------- */
-.layer-panel {
-  position: absolute;
-  top: 100px;
-  right: 12px;
+  top: 64px;
+  right: 32px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  z-index: 10;
+  z-index: 20;
 }
 
-.layer-box {
-  width: 100px;
-  height: 140px;
-  background: #fff;
-  border: 2px solid #aaa;
-  border-radius: 12px;
+.stationery-tool img {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  padding: 5px;
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+/* ========== Opacity Slider ========== */
+.opacity-slider {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   padding: 6px;
+  position: absolute;
+  top: 240px;
+  right: 70px;
+  z-index: 30;
+}
+
+.opacity-slider input[type="range"] {
+  width: 100px;
+}
+
+/* ========== Layer Panel ========== */
+.layer-panel {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  top: 240px;
+  right: 20px;
+  background: var(--panel);
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  z-index: 30;
+}
+
+.layer {
+  width: 120px;
+  height: 160px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
+  padding: 6px;
 }
 
 .layer-header,
 .layer-footer {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
-.layer-footer img,
-.layer-header img {
+.layer-header img,
+.layer-footer img {
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
 
-/* ------------------------------------- */
-/* Responsive Base (固定UI)             */
-/* ------------------------------------- */
-@media screen and (max-width: 1280px) {
-  .canvas-wrapper {
-    zoom: 0.9;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .canvas-wrapper {
-    zoom: 0.75;
-  }
+/* ========== Grid (方眼紙) ========== */
+.grid-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+  z-index: 0;
 }
