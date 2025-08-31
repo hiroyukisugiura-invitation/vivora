@@ -1,77 +1,76 @@
-/* ========== 背景グリッド ========== */
-body {
-  margin: 0;
-  padding: 0;
-  background: #f5f1eb;
+/* ===== 固定レイアウト（非レスポンシブ） ===== */
+:root{
+  --bg:#efe8e0;
+  --text:#2b2b2b;
+  --panel:#ffffff;
+  --line:#d8d1c9;
+  --r-lg:16px;
+  --icon:28px;        /* ヘッダー/ツールの画像サイズ */
+  --cell:26px;        /* 方眼紙 1マス（5.08mm相当）*/
 }
-.grid-background {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background-image: 
-    linear-gradient(to right, #d9d9d9 1px, transparent 1px),
-    linear-gradient(to bottom, #d9d9d9 1px, transparent 1px);
-  background-size: 26px 26px; /* 5.08mm = 約26px */
+html,body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  width:1280px; overflow-x:auto;  /* 非レスポ対応 */
+}
+.page{ padding:14px 16px; }
+
+/* ===== Header ===== */
+.hdr{
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center; column-gap:14px;
+}
+.hdr-left{ display:flex; align-items:center; gap:12px; }
+.next-btn{
+  text-decoration:none; color:inherit; font-size:12px;
+  padding:6px 10px; background:var(--panel); border:1px solid var(--line); border-radius:8px;
+}
+.contents{ display:flex; align-items:center; gap:8px; }
+.contents img{ width:var(--icon); height:var(--icon); display:block; }
+
+.title{ text-align:center; font-size:18px; font-weight:600; }
+
+.hdr-right{ display:flex; align-items:center; gap:12px; justify-self:end; }
+.history{ display:flex; gap:8px; }
+button.plain{ border:none; padding:0; background:none; cursor:pointer; }
+.history img{ width:var(--icon); height:var(--icon); display:block; }
+
+/* ===== Canvas ===== */
+.stage{ margin-top:8px; }
+.canvas{
+  position:relative;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  min-height:610px;
+  padding:8px 10px 10px;   /* 内側余白：画像が枠に接しないよう */
+}
+.mannequin{
+  display:block; margin:0 auto; width:auto; height:600px;  /* 画像そのまま。枠や影は付けない */
 }
 
-/* ========== 共通アイコンスタイル ========== */
-.grid-background img {
-  position: absolute;
-  width: 32px;
-  height: 32px;
+/* ===== Stationery（右上横並び） ===== */
+.stationery{
+  position:absolute; top:10px; right:14px;
+  display:flex; align-items:center; gap:10px;
 }
+.stationery img{ width:var(--icon); height:var(--icon); display:block; }
 
-/* ========== Next Step ========== */
-.next-step {
-  top: 26px;    /* 1マス下 */
-  left: 26px;   /* 1マス右 */
+/* 透明度パネル（初期非表示） */
+.op-panel{
+  position:absolute; top:calc(100% + 8px); right:0; display:none;
+  width:200px; background:#ececec; border:1px solid #bbb; border-radius:10px; padding:8px 10px;
 }
+.op-panel.show{ display:block; }
+.op-val{ text-align:center; font-size:12px; margin-bottom:6px; }
+#op-range{ width:100%; }
 
-/* ========== Contents Buttons 左上 ========== */
-.btn-home   { top: 26px; left: 78px; }
-.btn-fi     { top: 26px; left: 130px; }
-.btn-fm     { top: 26px; left: 182px; }
-.btn-cd     { top: 26px; left: 234px; }
-.btn-pc     { top: 26px; left: 286px; }
-.btn-gd     { top: 26px; left: 338px; }
-.btn-plc    { top: 26px; left: 390px; }
-.btn-dk     { top: 26px; left: 442px; }
-
-/* ========== Title 中央 ========== */
-.page-title {
-  position: absolute;
-  top: 26px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: "Helvetica Neue", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: #222;
+/* 方眼紙オーバーレイ（初期非表示、gridボタンでON） */
+.grid-overlay{
+  position:absolute; inset:8px 10px 10px 10px; display:none; pointer-events:none;
+  background-image:
+    linear-gradient(to right, #d0ccc6 1px, transparent 1px),
+    linear-gradient(to bottom, #d0ccc6 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+  border-radius: calc(var(--r-lg) - 6px);
 }
-
-/* ========== History Tool 右上 ========== */
-.btn-undo     { top: 26px; right: 260px; }
-.btn-redo     { top: 26px; right: 208px; }
-.btn-reset    { top: 26px; right: 156px; }
-.btn-download { top: 26px; right: 104px; }
-.btn-upload   { top: 26px; right: 52px; }
-.btn-save     { top: 26px; right: 0; }
-
-/* ========== Stationery Tool 右上 縦並び ========== */
-.tool-select  { top: 78px; right: 0; }
-.tool-square  { top: 130px; right: 0; }
-.tool-brush   { top: 182px; right: 0; }
-.tool-eraser  { top: 234px; right: 0; }
-.tool-text    { top: 286px; right: 0; }
-.tool-opacity { top: 338px; right: 0; }
-.tool-grid    { top: 390px; right: 0; }
-.tool-layer   { top: 442px; right: 0; }
-
-/* ========== Canvas マネキン中央配置 ========== */
-.mannequin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 600px; /* 比率を固定 */
-}
+.grid-overlay.show{ display:block; }
