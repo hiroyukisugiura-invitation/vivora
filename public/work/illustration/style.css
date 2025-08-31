@@ -1,267 +1,108 @@
+/* Vivora UI Layout Styles */
 :root {
-  --bg: #efe8e0;
+  --bg: #f1ece5;
   --panel: #ffffff;
-  --line: #e7dfd8;
-  --text: #2b2b2b;
-  --r-lg: 16px;
-  --r: 12px;
-  --r-sm: 8px;
-  --shadow: 0 1px 0 rgba(0,0,0,.02), 0 2px 8px rgba(0,0,0,.04);
+  --line: #ccc;
+  --text: #222;
+  --tool-size: 36px;
+  --tool-gap: 8px;
+  --tool-padding: 4px;
+  --shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  --font: 'Helvetica Neue', sans-serif;
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); font-family: "Helvetica Neue", Arial, sans-serif; }
-img { display: block; }
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  font-family: var(--font);
+  color: var(--text);
+}
 
 .app-wrapper {
-  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 8px;
 }
 
-/* ---------------------- Header ---------------------- */
 .header {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: start;
-  column-gap: 18px;
-  row-gap: 8px;
-  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background: var(--bg);
 }
 
-.header-left {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 .title {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 16px;
+  margin: 0 auto;
+  font-weight: normal;
 }
-.gender-buttons {
+
+.contents-button,
+.history-tool {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: var(--tool-gap);
 }
-.gender-buttons img {
-  height: 36px;
+
+.contents-button img,
+.history-tool img {
+  width: var(--tool-size);
+  height: var(--tool-size);
+  padding: var(--tool-padding);
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  padding: 6px 10px;
+  border-radius: 6px;
   box-shadow: var(--shadow);
   cursor: pointer;
 }
 
-.next-step {
-  justify-self: end;
-}
-.next-step img {
-  height: 36px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  padding: 4px 8px;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-}
-
-/* ---------------------- History Tool ---------------------- */
-.toolbar {
-  grid-column: 1 / span 2;
-  justify-self: center;
-  display: flex;
-  gap: 10px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 10px 14px;
-  box-shadow: var(--shadow);
-}
-.toolbar img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-  cursor: pointer;
-}
-
-/* ---------------------- Main ---------------------- */
 .main {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 22px;
-  align-items: start;
-}
-
-/* ---------------------- Canvas ---------------------- */
-.canvas-area {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow);
-  min-height: 560px;
-  padding: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.mannequin {
-  max-height: 520px;
-  width: auto;
-}
-
-/* ---------------------- Side Panel ---------------------- */
-.side-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* Contents */
-.content-tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 10px 12px;
-  box-shadow: var(--shadow);
-}
-.content-tools img {
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-}
-
-/* Layer + Tools Grid */
-.tools-area {
-  display: grid;
-  grid-template-columns: 84px 1fr;
-  gap: 12px;
-}
-
-/* ---------------------- Layer Panel ---------------------- */
-.layers {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 2px;
-}
-.layer-track {
-  position: relative;
-  height: 92px;
-  width: 84px;
-  display: grid;
-  grid-template-columns: 20px 1fr 20px;
-  column-gap: 6px;
-  align-items: center;
-}
-.layer-card {
-  height: 92px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-}
-.rail-left, .rail-right {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-}
-.rail-left img, .rail-right img {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-/* ---------------------- Tools ---------------------- */
-.tool-groups {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.panel-block {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 12px;
-  box-shadow: var(--shadow);
-}
-.panel-title {
-  font-size: 14px;
-  font-weight: 700;
-  margin: 0 0 8px;
-}
-.icon-row {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-.icon-row img {
-  width: 26px;
-  height: 26px;
-  cursor: pointer;
-}
-
-/* Zoom / Opacity */
-.zoom-control, .opacity-control {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.zoom-control button, .opacity-control button {
-  font: inherit;
-  padding: 4px 10px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  box-shadow: var(--shadow);
-  cursor: pointer;
-}
-#zoom-value, #opacity-value {
-  font-size: 12px;
-  padding: 2px 8px;
-  background: #f2f2f2;
-  border-radius: 10px;
-  border: 1px solid #eaeaea;
-}
-
-/* ---------------------- Color Swatches ---------------------- */
-#color-panel {
-  padding: 12px;
-}
-.color-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 36px);
-  gap: 8px;
-}
-.color-grid .chip {
-  width: 36px;
-  height: 36px;
-  padding: 4px;
-  background: #fff;
-  border: 1px solid var(--line);
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #333;
   border-radius: 8px;
-  box-shadow: var(--shadow);
+  background: var(--panel);
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.color-grid .chip img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  flex-direction: column;
 }
 
-/* ---------------------- Responsive ---------------------- */
-@media (max-width: 1120px) {
-  .main {
-    grid-template-columns: 1fr;
-  }
-  .side-panel { order: 2; }
-  .canvas-area { order: 1; }
+.canvas-area {
+  flex: 1;
+  position: relative;
+  background-color: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-top: 8px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stationery-tool {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stationery-tool img {
+  width: var(--tool-size);
+  height: var(--tool-size);
+  padding: var(--tool-padding);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
 }
