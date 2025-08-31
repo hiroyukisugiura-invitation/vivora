@@ -1,38 +1,32 @@
-/* ===== 固定レイアウト（非レスポンシブ） ===== */
+/* ===== 固定レイアウト ===== */
 :root{
-  --bg:#efe8e0;
-  --text:#2b2b2b;
-  --panel:#ffffff;
-  --line:#d8d1c9;
-  --r-lg:16px;
-  --icon:28px;        /* ヘッダー/ツールの画像サイズ */
-  --cell:26px;        /* 方眼紙 1マス（5.08mm相当）*/
+  --bg:#efe8e0; --text:#2b2b2b; --panel:#fff; --line:#d8d1c9;
+  --r-lg:16px; --r:12px; --r-sm:8px;
+  --icon:28px;              /* アイコン正方サイズ */
+  --cell:26px;              /* 方眼1マス（5.08mm） */
 }
+
 html,body{
   margin:0; background:var(--bg); color:var(--text);
   font-family:"Helvetica Neue", Arial, sans-serif;
-  width:1280px; overflow-x:auto;  /* 非レスポ対応 */
+  width:1280px; overflow-x:hidden;       /* 非レスポンシブ固定 */
 }
-.page{ padding:14px 16px; }
+.page{ padding:12px 16px; }
 
-/* ===== Header ===== */
+/* ===== ヘッダー ===== */
 .hdr{
-  display:grid; grid-template-columns:auto 1fr auto; align-items:center; column-gap:14px;
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+  column-gap:14px; padding:4px 0 6px;
 }
 .hdr-left{ display:flex; align-items:center; gap:12px; }
-.next-btn{
-  text-decoration:none; color:inherit; font-size:12px;
-  padding:6px 10px; background:var(--panel); border:1px solid var(--line); border-radius:8px;
-}
-.contents{ display:flex; align-items:center; gap:8px; }
-.contents img{ width:var(--icon); height:var(--icon); display:block; }
-
-.title{ text-align:center; font-size:18px; font-weight:600; }
-
+.next{ text-decoration:none; color:inherit; font-size:12px;
+  padding:6px 10px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-sm); }
+.contents{ position:relative; height:var(--icon); }
+.contents .snap{ position:absolute; width:var(--icon); height:var(--icon); }
+.title{ margin:0; text-align:center; font-size:18px; font-weight:600; }
 .hdr-right{ display:flex; align-items:center; gap:12px; justify-self:end; }
-.history{ display:flex; gap:8px; }
-button.plain{ border:none; padding:0; background:none; cursor:pointer; }
-.history img{ width:var(--icon); height:var(--icon); display:block; }
+.history{ position:relative; height:var(--icon); }
+.history .snap{ position:absolute; width:var(--icon); height:var(--icon); }
 
 /* ===== Canvas ===== */
 .stage{ margin-top:8px; }
@@ -41,36 +35,36 @@ button.plain{ border:none; padding:0; background:none; cursor:pointer; }
   background:var(--panel);
   border:1px solid var(--line);
   border-radius:var(--r-lg);
-  min-height:610px;
-  padding:8px 10px 10px;   /* 内側余白：画像が枠に接しないよう */
+  height:610px; /* 画像と同じ縦バランスに固定 */
 }
 .mannequin{
-  display:block; margin:0 auto; width:auto; height:600px;  /* 画像そのまま。枠や影は付けない */
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  height:560px; width:auto;
 }
 
-/* ===== Stationery（右上横並び） ===== */
-.stationery{
-  position:absolute; top:10px; right:14px;
-  display:flex; align-items:center; gap:10px;
-}
-.stationery img{ width:var(--icon); height:var(--icon); display:block; }
+/* Stationery（右上横一列） */
+.stationery{ position:absolute; top:10px; right:14px; }
+.stationery .snap{ position:absolute; width:var(--icon); height:var(--icon); }
 
-/* 透明度パネル（初期非表示） */
+/* 方眼紙（初期OFF） */
+.grid-overlay{
+  position:absolute; inset:10px 12px 12px 12px; display:none; pointer-events:none;
+  background-image:
+    linear-gradient(to right, #d0ccc6 1px, transparent 1px),
+    linear-gradient(to bottom, #d0ccc6 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+  border-radius: calc(var(--r-lg) - 4px);
+}
+.grid-overlay.show{ display:block; }
+
+/* 透明度パネル */
 .op-panel{
-  position:absolute; top:calc(100% + 8px); right:0; display:none;
-  width:200px; background:#ececec; border:1px solid #bbb; border-radius:10px; padding:8px 10px;
+  position:absolute; top:calc(10px + var(--icon) + 8px); right:14px;
+  display:none; width:200px; background:#ececec; border:1px solid #bbb; border-radius:10px; padding:8px 10px;
 }
 .op-panel.show{ display:block; }
 .op-val{ text-align:center; font-size:12px; margin-bottom:6px; }
 #op-range{ width:100%; }
 
-/* 方眼紙オーバーレイ（初期非表示、gridボタンでON） */
-.grid-overlay{
-  position:absolute; inset:8px 10px 10px 10px; display:none; pointer-events:none;
-  background-image:
-    linear-gradient(to right, #d0ccc6 1px, transparent 1px),
-    linear-gradient(to bottom, #d0ccc6 1px, transparent 1px);
-  background-size: var(--cell) var(--cell);
-  border-radius: calc(var(--r-lg) - 6px);
-}
-.grid-overlay.show{ display:block; }
+/* ====== 1マス=26pxのスナップ配置（left/topをマス指定） ====== */
+.snap{ left: calc(var(--cell) * var(--x)); top: calc(var(--cell) * var(--y)); }
