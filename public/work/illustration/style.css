@@ -1,86 +1,77 @@
-/* ===== 固定レイアウト（1画面=1280px） ===== */
-:root{
-  --bg:#efe8e0; --panel:#fff; --line:#d8d1c9; --text:#2b2b2b;
-  --r-lg:16px; --r:12px; --r-sm:8px;
-  --shadow:0 1px 0 rgba(0,0,0,.02), 0 2px 8px rgba(0,0,0,.04);
-  --icon:28px;               /* アイコン四角サイズ */
+/* ========== 背景グリッド ========== */
+body {
+  margin: 0;
+  padding: 0;
+  background: #f5f1eb;
 }
-html,body{ margin:0; background:var(--bg); color:var(--text); font-family:"Helvetica Neue", Arial, sans-serif; width:1280px; overflow-x:auto; }
-.page{ padding:14px 16px; }
-
-/* ===== Header ===== */
-.hdr{ display:grid; grid-template-columns:auto 1fr auto; align-items:center; column-gap:14px; }
-.hdr-left{ display:flex; align-items:center; gap:12px; }
-.next-btn{ display:inline-block; padding:6px 10px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-sm); box-shadow:var(--shadow); text-decoration:none; color:inherit; font-size:12px; }
-.contents{ display:flex; align-items:center; gap:8px; }
-.contents img{ width:var(--icon); height:var(--icon); padding:6px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-sm); box-shadow:var(--shadow); }
-
-.title{ text-align:center; font-size:18px; font-weight:600; }
-
-.hdr-right{ display:flex; align-items:center; gap:12px; justify-self:end; }
-.gender{ display:flex; gap:8px; }
-.gender img{ height:36px; width:auto; padding:4px 8px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-sm); box-shadow:var(--shadow); }
-.history{ display:flex; gap:8px; }
-.history .icon img{ width:var(--icon); height:var(--icon); padding:6px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-sm); box-shadow:var(--shadow); }
-
-/* ===== Canvas（完成画像の大きな白パネル） ===== */
-.stage{ margin-top:10px; }
-.canvas{
-  position:relative;
-  background:var(--panel); border:1px solid var(--line); border-radius:var(--r-lg);
-  min-height:610px;
-  box-shadow:var(--shadow);
-  padding:10px 12px 12px;   /* 右上のツールと内縁が触れないように少し余白 */
-}
-/* 方眼紙ON（1マス=26px） */
-.canvas.grid-on::before{
-  content:""; position:absolute; inset:10px 12px;
-  background-image:linear-gradient(to right,#d0ccc6 1px,transparent 1px), linear-gradient(to bottom,#d0ccc6 1px,transparent 1px);
-  background-size:26px 26px;
-  border-radius:calc(var(--r-lg) - 4px);
-  pointer-events:none;
-}
-.mannequin{
-  display:block; margin: 0 auto;
-  max-height:560px; width:auto;
-  touch-action:pinch-zoom; transition:transform .15s ease-out;
+.grid-background {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-image: 
+    linear-gradient(to right, #d9d9d9 1px, transparent 1px),
+    linear-gradient(to bottom, #d9d9d9 1px, transparent 1px);
+  background-size: 26px 26px; /* 5.08mm = 約26px */
 }
 
-/* ===== Stationery（右上横一列） ===== */
-.stationery{
-  position:absolute; top:12px; right:16px;
-  display:flex; align-items:center; gap:10px;
+/* ========== 共通アイコンスタイル ========== */
+.grid-background img {
+  position: absolute;
+  width: 32px;
+  height: 32px;
 }
-.stationery .icon img,
-.tool-dd > img{ width:var(--icon); height:var(--icon); padding:6px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-sm); box-shadow:var(--shadow); cursor:pointer; }
 
-.tool-dd{ position:relative; }
-.tool-dd .dd{
-  position:absolute; top:calc(100% + 6px); left:0;
-  display:none; flex-direction:column; gap:6px; padding:6px;
-  background:var(--panel); border:1px solid var(--line); border-radius:var(--r-sm); box-shadow:var(--shadow);
+/* ========== Next Step ========== */
+.next-step {
+  top: 26px;    /* 1マス下 */
+  left: 26px;   /* 1マス右 */
 }
-.tool-dd:hover .dd{ display:flex; }
 
-/* 透明度パネル */
-.tool-opacity{ position:relative; }
-.op-panel{
-  position:absolute; top:calc(100% + 8px); left:0; display:none;
-  width:200px; background:#ececec; border:1px solid #bbb; border-radius:10px; padding:8px 10px; box-shadow:var(--shadow);
-}
-.op-panel.show{ display:block; }
-.op-val{ text-align:center; font-size:12px; margin-bottom:6px; }
-#op-range{ width:100%; }
+/* ========== Contents Buttons 左上 ========== */
+.btn-home   { top: 26px; left: 78px; }
+.btn-fi     { top: 26px; left: 130px; }
+.btn-fm     { top: 26px; left: 182px; }
+.btn-cd     { top: 26px; left: 234px; }
+.btn-pc     { top: 26px; left: 286px; }
+.btn-gd     { top: 26px; left: 338px; }
+.btn-plc    { top: 26px; left: 390px; }
+.btn-dk     { top: 26px; left: 442px; }
 
-/* ===== Layer Panel（右端5段） ===== */
-.layer-panel{
-  position:absolute; top:80px; right:12px;
-  display:none; flex-direction:column; gap:26px;  /* レイヤー間隔：1マス=26px */
+/* ========== Title 中央 ========== */
+.page-title {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
 }
-.layer-panel.show{ display:flex; }
-.layer-box{
-  width:170px; height:195px; background:#fff; border:2px solid #bfbfbf; border-radius:12px; padding:6px; box-shadow:var(--shadow);
+
+/* ========== History Tool 右上 ========== */
+.btn-undo     { top: 26px; right: 260px; }
+.btn-redo     { top: 26px; right: 208px; }
+.btn-reset    { top: 26px; right: 156px; }
+.btn-download { top: 26px; right: 104px; }
+.btn-upload   { top: 26px; right: 52px; }
+.btn-save     { top: 26px; right: 0; }
+
+/* ========== Stationery Tool 右上 縦並び ========== */
+.tool-select  { top: 78px; right: 0; }
+.tool-square  { top: 130px; right: 0; }
+.tool-brush   { top: 182px; right: 0; }
+.tool-eraser  { top: 234px; right: 0; }
+.tool-text    { top: 286px; right: 0; }
+.tool-opacity { top: 338px; right: 0; }
+.tool-grid    { top: 390px; right: 0; }
+.tool-layer   { top: 442px; right: 0; }
+
+/* ========== Canvas マネキン中央配置 ========== */
+.mannequin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 600px; /* 比率を固定 */
 }
-.layer-top, .layer-bottom{ display:flex; align-items:center; justify-content:space-between; padding:2px 4px; }
-.layer-top img, .layer-bottom img{ width:20px; height:20px; }
-.layer-card{ height:140px; border:1px solid #d6d6d6; border-radius:10px; background:#fff; margin:6px 2px; }
