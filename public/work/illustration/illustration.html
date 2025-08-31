@@ -1,143 +1,243 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="app">
-    <!-- Header -->
-    <header class="header">
-      <div class="header-left">
-        <a class="next-button" href="#">Next Step ▸▸</a>
-        <div class="contents-button">
-          <img src="../create_parts/contents_button/0_home.png" alt="Home">
-          <img src="../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
-          <img src="../create_parts/contents_button/2_fabric-matching.png" alt="Fm">
-          <img src="../create_parts/contents_button/3_clothing-design.png" alt="Cd">
-          <img src="../create_parts/contents_button/4_pattern-creation.png" alt="Pc">
-          <img src="../create_parts/contents_button/5_grading.png" alt="Gd">
-          <img src="../create_parts/contents_button/6_print-layout-cut.png" alt="Plc">
-          <img src="../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
-        </div>
-      </div>
-      <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-      <div class="history-tool">
-        <img src="../create_parts/create_button/retreat.png" alt="Undo">
-        <img src="../create_parts/create_button/forward.png" alt="Redo">
-        <img src="../create_parts/create_button/reset.png" alt="Reset">
-        <img src="../create_parts/create_button/download.png" alt="Download">
-        <img src="../create_parts/create_button/upload.png" alt="Upload">
-        <img src="../create_parts/create_button/save.png" alt="Save">
-      </div>
-    </header>
+/* =======================================
+   Vivora Fashion Illustration 2025 - style.css（完全版）
+   - マス目構造に完全準拠
+   - 画像はGit内の配置と一致
+   - 各種ツール表示切替、装飾、レイアウト設定
+======================================= */
 
-    <!-- Canvas Area -->
-    <main class="canvas">
-      <!-- マネキン本体 -->
-      <img src="../mannequin/mannequin_woman/mannequin_woman_front.png" alt="Mannequin" class="mannequin" id="mannequin">
-    </main>
+:root {
+  --bg: #f1e9e1;
+  --panel: #ffffff;
+  --line: #dcd2c8;
+  --text: #2a2a2a;
+  --icon-size: 32px;
+  --icon-gap: 8px;
+  --border-radius: 10px;
+  --shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
 
-    <!-- Stationery Tool -->
-    <aside class="stationery-tool">
-      <div class="tool-group">
-        <img src="../object_btn/select.png" alt="Select" class="tool-btn" onclick="toggleDropdown('select')">
-        <div class="dropdown hidden" id="select">
-          <img src="../object_btn/direct_select.png" alt="Direct Select">
-        </div>
-      </div>
-      <div class="tool-group">
-        <img src="../object_btn/square.png" alt="Square" class="tool-btn" onclick="toggleDropdown('shape')">
-        <div class="dropdown hidden" id="shape">
-          <img src="../object_btn/circle.png" alt="Circle">
-        </div>
-      </div>
-      <div class="tool-group">
-        <img src="../object_btn/brush.png" alt="Brush" class="tool-btn" onclick="toggleDropdown('brush')">
-        <div class="dropdown hidden" id="brush">
-          <img src="../object_btn/pen.png" alt="Pen">
-          <img src="../object_btn/circlebrush.png" alt="Circle Brush">
-          <img src="../object_btn/ballpointpen.png" alt="Ballpoint">
-          <img src="../object_btn/markerpen.png" alt="Marker">
-        </div>
-      </div>
-      <img src="../object_btn/eraser.png" alt="Eraser" class="tool-btn">
-      <img src="../object_btn/sentence.png" alt="Text" class="tool-btn">
-      <div class="opacity-wrapper">
-        <img src="../object_btn/opasity_ber.png" alt="Opacity" class="tool-btn" onclick="toggleOpacity()">
-        <div class="opacity-panel hidden" id="opacityPanel">
-          <input type="range" min="0" max="100" value="100" id="opacitySlider">
-          <span id="opacityValue">100%</span>
-        </div>
-      </div>
-      <img src="../object_btn/graph_paper.png" alt="Grid" class="tool-btn" onclick="toggleGrid()">
-      <img src="../object_btn/layer.png" alt="Layer" class="tool-btn" onclick="toggleLayerPanel()">
-    </aside>
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
 
-    <!-- Color Panel -->
-    <div class="color-panel" id="colorPanel">
-      <img src="../color/pad color/white.png" alt="white">
-      <img src="../color/pad color/dark gray.png" alt="gray">
-      <img src="../color/pad color/yellow.png" alt="yellow">
-      <img src="../color/pad color/orange.png" alt="orange">
-      <img src="../color/pad color/pink.png" alt="pink">
-      <img src="../color/pad color/red.png" alt="red">
-      <img src="../color/pad color/green.png" alt="green">
-      <img src="../color/pad color/lime.png" alt="lime">
-      <img src="../color/pad color/sky blue.png" alt="sky">
-      <img src="../color/pad color/blue.png" alt="blue">
-      <img src="../color/pad color/purple.png" alt="purple">
-      <img src="../color/pad color/brown.png" alt="brown">
-      <img src="../color/pad color/black.png" alt="black">
-      <img src="../color/pad color/color upload.png" alt="+">
-      <img src="../color/pad color/spuit.png" alt="spuit">
-    </div>
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-    <!-- Layer Panel -->
-    <div class="layer-panel hidden" id="layerPanel">
-      <div class="layer-box">
-        <div class="layer-header">
-          <img src="../create_parts/layer_button/layerlock.png" alt="lock">
-          <img src="../create_parts/layer_button/layerdisplay.png" alt="display">
-          <img src="../create_parts/layer_button/layerhidden.png" alt="hidden">
-        </div>
-        <div class="layer-canvas"></div>
-        <div class="layer-footer">
-          <img src="../create_parts/layer_button/layerpanelplus.png" alt="plus">
-          <img src="../create_parts/layer_button/layerreproduction.png" alt="copy">
-          <img src="../create_parts/layer_button/layerlayer integration.png" alt="merge">
-          <img src="../create_parts/layer_button/layerdestruction.png" alt="delete">
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <script>
-    function toggleDropdown(id) {
-      document.querySelectorAll('.dropdown').forEach(drop => drop.classList.add('hidden'));
-      const target = document.getElementById(id);
-      if (target) target.classList.toggle('hidden');
-    }
+/* ------------------------------------- */
+/* Header layout                        */
+/* ------------------------------------- */
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 6px 20px;
+  background-color: var(--bg);
+  height: 64px;
+  position: relative;
+}
 
-    function toggleOpacity() {
-      document.getElementById('opacityPanel').classList.toggle('hidden');
-    }
+.contents-button,
+.history-tool,
+.stationery-tool {
+  display: flex;
+  align-items: center;
+  gap: var(--icon-gap);
+}
 
-    function toggleGrid() {
-      document.querySelector('.canvas').classList.toggle('grid');
-    }
+.page-title {
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  pointer-events: none;
+}
 
-    function toggleLayerPanel() {
-      document.getElementById('layerPanel').classList.toggle('hidden');
-    }
+.tool-button,
+.dropdown-icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  background-color: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--border-radius);
+  padding: 4px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
 
-    document.getElementById('opacitySlider').addEventListener('input', function() {
-      const value = this.value;
-      document.getElementById('opacityValue').textContent = value + '%';
-      document.getElementById('mannequin').style.opacity = value / 100;
-    });
-  </script>
-</body>
-</html>
+.tool-group {
+  position: relative;
+}
+
+.tool-group .dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--border-radius);
+  padding: 6px;
+  box-shadow: var(--shadow);
+}
+
+.tool-group.active .dropdown {
+  display: flex;
+}
+
+/* ------------------------------------- */
+/* Canvas                               */
+/* ------------------------------------- */
+.canvas-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: var(--panel);
+  border-radius: 16px;
+  margin: 0 20px 20px;
+  position: relative;
+}
+
+#canvas {
+  position: relative;
+  width: 700px;
+  height: 600px;
+  background-color: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#mannequin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 95%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Grid overlay toggle (非表示が初期状態) */
+#canvas.grid::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, #bbb 1px, transparent 1px),
+    linear-gradient(to bottom, #bbb 1px, transparent 1px);
+  background-size: 26px 26px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ------------------------------------- */
+/* Color Panel                          */
+/* ------------------------------------- */
+.color-panel {
+  position: absolute;
+  top: 100px;
+  right: 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #aaa;
+}
+
+/* ------------------------------------- */
+/* Opacity Bar                          */
+/* ------------------------------------- */
+.opacity-bar {
+  position: absolute;
+  top: 80px;
+  right: 90px;
+  background: var(--panel);
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  display: none;
+  z-index: 10;
+}
+
+.opacity-bar input[type="range"] {
+  width: 100px;
+}
+
+.opacity-bar.active {
+  display: block;
+}
+
+/* ------------------------------------- */
+/* Layer Panel                          */
+/* ------------------------------------- */
+.layer-panel {
+  position: absolute;
+  top: 100px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10;
+}
+
+.layer-box {
+  width: 100px;
+  height: 140px;
+  background: #fff;
+  border: 2px solid #aaa;
+  border-radius: 12px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.layer-header,
+.layer-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.layer-footer img,
+.layer-header img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* ------------------------------------- */
+/* Responsive Base (固定UI)             */
+/* ------------------------------------- */
+@media screen and (max-width: 1280px) {
+  .canvas-wrapper {
+    zoom: 0.9;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .canvas-wrapper {
+    zoom: 0.75;
+  }
+}
