@@ -8,82 +8,136 @@
 </head>
 <body>
   <div class="app">
-    <!-- ========== Header ========== -->
+    <!-- Header -->
     <header class="header">
       <div class="header-left">
-        <a href="#" class="next-step">Next Step ▸▸</a>
-        <div class="contents-buttons">
-          <img src="/create_parts/contents_button/0_home.png" alt="Home">
-          <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
-          <img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm">
-          <img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd">
-          <img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc">
-          <img src="/create_parts/contents_button/5_grading.png" alt="Gd">
-          <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc">
-          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
+        <a class="next-button" href="#">Next Step ▸▸</a>
+        <div class="contents-button">
+          <img src="../create_parts/contents_button/0_home.png" alt="Home">
+          <img src="../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
+          <img src="../create_parts/contents_button/2_fabric-matching.png" alt="Fm">
+          <img src="../create_parts/contents_button/3_clothing-design.png" alt="Cd">
+          <img src="../create_parts/contents_button/4_pattern-creation.png" alt="Pc">
+          <img src="../create_parts/contents_button/5_grading.png" alt="Gd">
+          <img src="../create_parts/contents_button/6_print-layout-cut.png" alt="Plc">
+          <img src="../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
         </div>
       </div>
-
       <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-
-      <div class="header-right">
-        <div class="history-buttons">
-          <img src="/create_parts/create_button/retreat.png" alt="Undo">
-          <img src="/create_parts/create_button/forward.png" alt="Redo">
-          <img src="/create_parts/create_button/reset.png" alt="Reset">
-          <img src="/create_parts/create_button/download.png" alt="Download">
-          <img src="/create_parts/create_button/upload.png" alt="Upload">
-          <img src="/create_parts/create_button/save.png" alt="Save">
-        </div>
+      <div class="history-tool">
+        <img src="../create_parts/create_button/retreat.png" alt="Undo">
+        <img src="../create_parts/create_button/forward.png" alt="Redo">
+        <img src="../create_parts/create_button/reset.png" alt="Reset">
+        <img src="../create_parts/create_button/download.png" alt="Download">
+        <img src="../create_parts/create_button/upload.png" alt="Upload">
+        <img src="../create_parts/create_button/save.png" alt="Save">
       </div>
     </header>
 
-    <!-- ========== Tools ========== -->
-    <div class="tools-panel">
-      <div class="tool-button">
-        <img src="/create_parts/object_btn/select.png" alt="Select">
-        <div class="dropdown">
-          <img src="/create_parts/object_btn/direct_select.png" alt="Direct Select">
+    <!-- Canvas Area -->
+    <main class="canvas">
+      <!-- マネキン本体 -->
+      <img src="../mannequin/mannequin_woman/mannequin_woman_front.png" alt="Mannequin" class="mannequin" id="mannequin">
+    </main>
+
+    <!-- Stationery Tool -->
+    <aside class="stationery-tool">
+      <div class="tool-group">
+        <img src="../object_btn/select.png" alt="Select" class="tool-btn" onclick="toggleDropdown('select')">
+        <div class="dropdown hidden" id="select">
+          <img src="../object_btn/direct_select.png" alt="Direct Select">
         </div>
       </div>
-      <div class="tool-button">
-        <img src="/create_parts/object_btn/square.png" alt="Square">
-        <div class="dropdown">
-          <img src="/create_parts/object_btn/circle.png" alt="Circle">
+      <div class="tool-group">
+        <img src="../object_btn/square.png" alt="Square" class="tool-btn" onclick="toggleDropdown('shape')">
+        <div class="dropdown hidden" id="shape">
+          <img src="../object_btn/circle.png" alt="Circle">
         </div>
       </div>
-      <div class="tool-button">
-        <img src="/create_parts/object_btn/brush.png" alt="Brush">
-        <div class="dropdown">
-          <img src="/create_parts/object_btn/pen.png" alt="Pen">
-          <img src="/create_parts/object_btn/circlebrush.png" alt="Circle Brush">
-          <img src="/create_parts/object_btn/ballpointpen.png" alt="Ballpoint">
-          <img src="/create_parts/object_btn/markerpen.png" alt="Marker">
+      <div class="tool-group">
+        <img src="../object_btn/brush.png" alt="Brush" class="tool-btn" onclick="toggleDropdown('brush')">
+        <div class="dropdown hidden" id="brush">
+          <img src="../object_btn/pen.png" alt="Pen">
+          <img src="../object_btn/circlebrush.png" alt="Circle Brush">
+          <img src="../object_btn/ballpointpen.png" alt="Ballpoint">
+          <img src="../object_btn/markerpen.png" alt="Marker">
         </div>
       </div>
-      <img src="/create_parts/object_btn/eraser.png" alt="Eraser">
-      <img src="/create_parts/object_btn/sentence.png" alt="Text">
-      <img id="opacity-btn" src="/create_parts/object_btn/opasity_ber.png" alt="Opacity">
-      <img id="grid-btn" src="/create_parts/object_btn/graph_paper.png" alt="Grid">
-      <img id="layer-btn" src="/create_parts/object_btn/layer.png" alt="Layer">
+      <img src="../object_btn/eraser.png" alt="Eraser" class="tool-btn">
+      <img src="../object_btn/sentence.png" alt="Text" class="tool-btn">
+      <div class="opacity-wrapper">
+        <img src="../object_btn/opasity_ber.png" alt="Opacity" class="tool-btn" onclick="toggleOpacity()">
+        <div class="opacity-panel hidden" id="opacityPanel">
+          <input type="range" min="0" max="100" value="100" id="opacitySlider">
+          <span id="opacityValue">100%</span>
+        </div>
+      </div>
+      <img src="../object_btn/graph_paper.png" alt="Grid" class="tool-btn" onclick="toggleGrid()">
+      <img src="../object_btn/layer.png" alt="Layer" class="tool-btn" onclick="toggleLayerPanel()">
+    </aside>
+
+    <!-- Color Panel -->
+    <div class="color-panel" id="colorPanel">
+      <img src="../color/pad color/white.png" alt="white">
+      <img src="../color/pad color/dark gray.png" alt="gray">
+      <img src="../color/pad color/yellow.png" alt="yellow">
+      <img src="../color/pad color/orange.png" alt="orange">
+      <img src="../color/pad color/pink.png" alt="pink">
+      <img src="../color/pad color/red.png" alt="red">
+      <img src="../color/pad color/green.png" alt="green">
+      <img src="../color/pad color/lime.png" alt="lime">
+      <img src="../color/pad color/sky blue.png" alt="sky">
+      <img src="../color/pad color/blue.png" alt="blue">
+      <img src="../color/pad color/purple.png" alt="purple">
+      <img src="../color/pad color/brown.png" alt="brown">
+      <img src="../color/pad color/black.png" alt="black">
+      <img src="../color/pad color/color upload.png" alt="+">
+      <img src="../color/pad color/spuit.png" alt="spuit">
     </div>
 
-    <!-- ========== Canvas ========== -->
-    <main class="canvas-container" id="canvas-area">
-      <img class="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin" id="mannequin">
-    </main>
+    <!-- Layer Panel -->
+    <div class="layer-panel hidden" id="layerPanel">
+      <div class="layer-box">
+        <div class="layer-header">
+          <img src="../create_parts/layer_button/layerlock.png" alt="lock">
+          <img src="../create_parts/layer_button/layerdisplay.png" alt="display">
+          <img src="../create_parts/layer_button/layerhidden.png" alt="hidden">
+        </div>
+        <div class="layer-canvas"></div>
+        <div class="layer-footer">
+          <img src="../create_parts/layer_button/layerpanelplus.png" alt="plus">
+          <img src="../create_parts/layer_button/layerreproduction.png" alt="copy">
+          <img src="../create_parts/layer_button/layerlayer integration.png" alt="merge">
+          <img src="../create_parts/layer_button/layerdestruction.png" alt="delete">
+        </div>
+      </div>
+    </div>
   </div>
-
+  
   <script>
-    // Grid toggle
-    const gridBtn = document.getElementById('grid-btn');
-    const canvasArea = document.getElementById('canvas-area');
-    gridBtn.addEventListener('click', () => {
-      canvasArea.classList.toggle('show-grid');
-    });
+    function toggleDropdown(id) {
+      document.querySelectorAll('.dropdown').forEach(drop => drop.classList.add('hidden'));
+      const target = document.getElementById(id);
+      if (target) target.classList.toggle('hidden');
+    }
 
-    // Opacity slider (later)
-    // Layer toggle (later)
+    function toggleOpacity() {
+      document.getElementById('opacityPanel').classList.toggle('hidden');
+    }
+
+    function toggleGrid() {
+      document.querySelector('.canvas').classList.toggle('grid');
+    }
+
+    function toggleLayerPanel() {
+      document.getElementById('layerPanel').classList.toggle('hidden');
+    }
+
+    document.getElementById('opacitySlider').addEventListener('input', function() {
+      const value = this.value;
+      document.getElementById('opacityValue').textContent = value + '%';
+      document.getElementById('mannequin').style.opacity = value / 100;
+    });
   </script>
 </body>
 </html>
