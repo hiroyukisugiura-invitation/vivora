@@ -1,227 +1,72 @@
-<!-- HTML + JavaScript (illustration.html) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-wrapper">
-    <!-- ===== Header ===== -->
-    <header class="header">
+  <div class="container">
+    <!-- Header Row -->
+    <div class="header">
       <div class="header-left">
-        <h1 class="title">Vivora Fashion Illustration 2025</h1>
-        <!-- gender switch -->
-        <div class="gender-buttons">
-          <a href="#" data-gender="woman"><img src="/create_parts/create_button/button_woman.png" alt="Woman"></a>
-          <a href="#" data-gender="man"><img src="/create_parts/create_button/button_man.png" alt="Man"></a>
-          <a href="#" data-gender="kids"><img src="/create_parts/create_button/button_kids.png" alt="Kids"></a>
+        <a href="#" class="next-step"><img src="/create_parts/create_button/button_next.png" alt="Next Step"></a>
+        <div class="contents-buttons">
+          <img src="/create_parts/contents_button/0_home.png" alt="Home">
+          <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
+          <img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm">
+          <img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd">
+          <img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc">
+          <img src="/create_parts/contents_button/5_grading.png" alt="Gd">
+          <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc">
+          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
         </div>
       </div>
-
-      <!-- history tool -->
-      <nav class="toolbar">
-        <a href="#"><img src="/create_parts/create_button/retreat.png" alt="Undo"></a>
-        <a href="#"><img src="/create_parts/create_button/forward.png" alt="Redo"></a>
-        <a href="/download.html"><img src="/create_parts/create_button/download.png" alt="Download"></a>
-        <a href="/upload.html"><img src="/create_parts/create_button/upload.png" alt="Upload"></a>
-        <a href="/grid.html"><img src="/create_parts/create_button/graph_paper.png" alt="Grid"></a>
-        <a href="/save.html"><img src="/create_parts/create_button/save.png" alt="Save"></a>
-        <a href="/work/pattern/pattern.html"><img src="/create_parts/create_button/2d.png" alt="2D"></a>
-        <a href="/work/print/print.html"><img src="/create_parts/create_button/3d.png" alt="3D"></a>
-      </nav>
-
-      <div class="next-step">
-        <a href="/next.html"><img src="/create_parts/create_button/button_next.png" alt="Next Step"></a>
+      <h1 class="title">Vivora Fashion Illustration 2025</h1>
+      <div class="header-right">
+        <div class="history-tool">
+          <img src="/create_parts/create_button/retreat.png" alt="Undo">
+          <img src="/create_parts/create_button/forward.png" alt="Redo">
+          <img src="/create_parts/create_button/reset.png" alt="Reset">
+          <img src="/create_parts/create_button/download.png" alt="Download">
+          <img src="/create_parts/create_button/upload.png" alt="Upload">
+          <img src="/create_parts/create_button/save.png" alt="Save">
+        </div>
+        <div class="stationery-tool">
+          <img src="/create_parts/design_button/select.png" alt="Select">
+          <img src="/create_parts/design_button/square.png" alt="Square">
+          <img src="/create_parts/design_button/brush.png" alt="Brush">
+          <img src="/create_parts/design_button/eraser.png" alt="Eraser">
+          <img src="/create_parts/design_button/text.png" alt="Text">
+          <img src="/create_parts/design_button/opasity_ber.png" alt="Opacity">
+          <img src="/create_parts/design_button/graph_paper.png" alt="Grid">
+          <img src="/create_parts/design_button/layer.png" alt="Layer">
+        </div>
       </div>
-    </header>
+    </div>
 
-    <!-- ===== Main Area ===== -->
-    <main class="main">
-      <!-- canvas -->
-      <section class="canvas-area">
-        <img class="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
-      </section>
-
-      <!-- side panel -->
-      <aside class="side-panel">
-        <!-- Contents Tool -->
-        <div class="content-tools">
-          <a href="/index.html"><img src="/create_parts/contents_button/0_home.png" alt="Home"></a>
-          <a href="#"><img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"></a>
-          <a href="#"><img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm"></a>
-          <a href="#"><img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd"></a>
-          <a href="#"><img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc"></a>
-          <a href="#"><img src="/create_parts/contents_button/5_grading.png" alt="Gd"></a>
-          <a href="#"><img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc"></a>
-          <a href="#"><img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"></a>
-        </div>
-
-        <!-- Layer + Tools -->
-        <div class="tools-area">
-          <!-- Left: Layer Panel -->
-          <div class="layers">
-            <!-- 5 layers -->
-            <!-- repeated block -->
-            <div class="layer-track">
-              <div class="rail-left">
-                <img src="/create_parts/layer_button/layerlock.png" alt="lock">
-                <img src="/create_parts/layer_button/layerdisplay.png" alt="display">
-                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
-              </div>
-              <div class="layer-card"></div>
-              <div class="rail-right">
-                <img src="/create_parts/layer_button/layerpanelplus.png" alt="add">
-                <img src="/create_parts/layer_button/layerreproduction.png" alt="copy">
-                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
-                <img src="/create_parts/layer_button/layerdestruction.png" alt="delete">
-              </div>
-            </div>
-            <div class="layer-track">
-              <div class="rail-left">
-                <img src="/create_parts/layer_button/layerlock.png" alt="lock">
-                <img src="/create_parts/layer_button/layerdisplay.png" alt="display">
-                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
-              </div>
-              <div class="layer-card"></div>
-              <div class="rail-right">
-                <img src="/create_parts/layer_button/layerpanelplus.png" alt="add">
-                <img src="/create_parts/layer_button/layerreproduction.png" alt="copy">
-                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
-                <img src="/create_parts/layer_button/layerdestruction.png" alt="delete">
-              </div>
-            </div>
-            <div class="layer-track">
-              <div class="rail-left">
-                <img src="/create_parts/layer_button/layerlock.png" alt="lock">
-                <img src="/create_parts/layer_button/layerdisplay.png" alt="display">
-                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
-              </div>
-              <div class="layer-card"></div>
-              <div class="rail-right">
-                <img src="/create_parts/layer_button/layerpanelplus.png" alt="add">
-                <img src="/create_parts/layer_button/layerreproduction.png" alt="copy">
-                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
-                <img src="/create_parts/layer_button/layerdestruction.png" alt="delete">
-              </div>
-            </div>
-            <div class="layer-track">
-              <div class="rail-left">
-                <img src="/create_parts/layer_button/layerlock.png" alt="lock">
-                <img src="/create_parts/layer_button/layerdisplay.png" alt="display">
-                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
-              </div>
-              <div class="layer-card"></div>
-              <div class="rail-right">
-                <img src="/create_parts/layer_button/layerpanelplus.png" alt="add">
-                <img src="/create_parts/layer_button/layerreproduction.png" alt="copy">
-                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
-                <img src="/create_parts/layer_button/layerdestruction.png" alt="delete">
-              </div>
-            </div>
-            <div class="layer-track">
-              <div class="rail-left">
-                <img src="/create_parts/layer_button/layerlock.png" alt="lock">
-                <img src="/create_parts/layer_button/layerdisplay.png" alt="display">
-                <img src="/create_parts/layer_button/layerhidden.png" alt="hidden">
-              </div>
-              <div class="layer-card"></div>
-              <div class="rail-right">
-                <img src="/create_parts/layer_button/layerpanelplus.png" alt="add">
-                <img src="/create_parts/layer_button/layerreproduction.png" alt="copy">
-                <img src="/create_parts/layer_button/layerlayer%20integration.png" alt="merge">
-                <img src="/create_parts/layer_button/layerdestruction.png" alt="delete">
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Tools -->
-          <div class="tool-groups">
-            <section class="panel-block">
-              <div class="panel-title">Stationery</div>
-              <div class="icon-row">
-                <img src="/create_parts/design_button/select.png" alt="Select">
-                <img src="/create_parts/design_button/brush.png" alt="Brush">
-                <img src="/create_parts/design_button/square.png" alt="Square">
-                <img src="/create_parts/design_button/text.png" alt="Text">
-                <img src="/create_parts/design_button/eraser.png" alt="Eraser">
-              </div>
-            </section>
-
-            <section class="panel-block">
-              <div class="panel-title">Zoom</div>
-              <div class="zoom-control">
-                <button onclick="changeZoom(-10)">-</button>
-                <span id="zoom-value">100%</span>
-                <button onclick="changeZoom(10)">+</button>
-                <button class="reset" onclick="resetZoom()">Reset</button>
-              </div>
-            </section>
-
-            <section class="panel-block">
-              <div class="panel-title">Opacity</div>
-              <div class="opacity-control">
-                <button onclick="changeOpacity(-10)">-</button>
-                <span id="opacity-value">100%</span>
-                <button onclick="changeOpacity(10)">+</button>
-                <button class="reset" onclick="resetOpacity()">Reset</button>
-              </div>
-            </section>
-
-            <section class="panel-block" id="color-panel">
-              <div class="panel-title">Color</div>
-              <div class="color-grid">
-                <div class="chip"><img src="/pad color/white.png"></div>
-                <div class="chip"><img src="/pad color/light gray.png"></div>
-                <div class="chip"><img src="/pad color/yellow.png"></div>
-                <div class="chip"><img src="/pad color/orange.png"></div>
-                <div class="chip"><img src="/pad color/pink.png"></div>
-                <div class="chip"><img src="/pad color/red.png"></div>
-                <div class="chip"><img src="/pad color/green.png"></div>
-                <div class="chip"><img src="/pad color/lime.png"></div>
-                <div class="chip"><img src="/pad color/sky blue.png"></div>
-                <div class="chip"><img src="/pad color/blue.png"></div>
-                <div class="chip"><img src="/pad color/purple.png"></div>
-                <div class="chip"><img src="/pad color/brown.png"></div>
-                <div class="chip"><img src="/pad color/dark gray.png"></div>
-                <div class="chip"><img src="/pad color/black.png"></div>
-                <div class="chip"><img src="/pad color/color upload.png"></div>
-              </div>
-            </section>
-
-          </div>
-        </div>
-      </aside>
-    </main>
+    <!-- Canvas Area -->
+    <div class="canvas-area">
+      <img class="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="Mannequin">
+    </div>
   </div>
 
-<script>
-  const mannequin = document.querySelector(".mannequin");
-  const GENDER_SRC = {
-    woman: "/mannequin/mannequin_woman/mannequin_woman_front.png",
-    man: "/mannequin/mannequin_man/mannequin_man_front.png",
-    kids: "/mannequin/mannequin_kids/mannequin_kida_front.png"
-  };
-  document.querySelectorAll("[data-gender]").forEach(a => {
-    a.addEventListener("click", e => {
-      e.preventDefault();
-      const g = a.dataset.gender;
-      if (GENDER_SRC[g]) mannequin.src = GENDER_SRC[g];
+  <!-- JS for Gender Switch -->
+  <script>
+    const mannequin = document.querySelector(".mannequin");
+    const GENDER_SRC = {
+      woman: "/mannequin/mannequin_woman/mannequin_woman_front.png",
+      man: "/mannequin/mannequin_man/mannequin_man_front.png",
+      kids: "/mannequin/mannequin_kids/mannequin_kida_front.png"
+    };
+    document.querySelectorAll("[data-gender]").forEach(el => {
+      el.addEventListener("click", e => {
+        e.preventDefault();
+        const gender = el.dataset.gender;
+        mannequin.src = GENDER_SRC[gender];
+      });
     });
-  });
-
-  let zoom = 100, opacity = 100;
-  const zoomEl = document.getElementById("zoom-value");
-  const opEl = document.getElementById("opacity-value");
-  function updateZoom(){ if(zoomEl) zoomEl.textContent = zoom + "%"; }
-  function updateOpacity(){ if(opEl) opEl.textContent = opacity + "%"; }
-  window.changeZoom = d => { zoom = Math.min(200, Math.max(10, zoom + d)); updateZoom(); };
-  window.resetZoom = () => { zoom = 100; updateZoom(); };
-  window.changeOpacity = d => { opacity = Math.min(100, Math.max(0, opacity + d)); updateOpacity(); };
-  window.resetOpacity = () => { opacity = 100; updateOpacity(); };
-  updateZoom(); updateOpacity();
-</script>
+  </script>
 </body>
 </html>
