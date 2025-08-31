@@ -1,103 +1,66 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=1280" /> <!-- 非レスポンシブ固定幅 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page">
-    <!-- ===== Header（左：Next+Contents / 中央：Title / 右：History） ===== -->
-    <header class="hdr">
-      <div class="hdr-left">
-        <a class="next" href="/next.html">Next Step ▸▸</a>
-
-        <!-- contents buttons（横7,縦9 付近から配置） -->
-        <nav class="contents">
-          <img class="snap" style="--x:7;  --y:9;"  src="/create_parts/contents_button/0_home.png"  alt="Home" />
-          <img class="snap" style="--x:11; --y:9;"  src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" />
-          <img class="snap" style="--x:15; --y:9;"  src="/create_parts/contents_button/2_fabric-matching.png"  alt="Fm" />
-          <img class="snap" style="--x:19; --y:9;"  src="/create_parts/contents_button/3_clothing-design.png"  alt="Cd" />
-          <img class="snap" style="--x:23; --y:9;"  src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc" />
-          <img class="snap" style="--x:27; --y:9;"  src="/create_parts/contents_button/5_grading.png" alt="Gd" />
-          <img class="snap" style="--x:31; --y:9;"  src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc" />
-          <img class="snap" style="--x:35; --y:9;"  src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" />
-        </nav>
+  <div class="app-wrapper">
+    <!-- ヘッダー -->
+    <header class="header">
+      <div class="header-left">
+        <button class="next-button">Next Step ▶▶</button>
+        <div class="contents-buttons">
+          <img src="/create_parts/contents_button/0_home.png" alt="Home">
+          <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
+          <img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm">
+          <img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd">
+          <img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc">
+          <img src="/create_parts/contents_button/5_grading.png" alt="Gd">
+          <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc">
+          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
+        </div>
       </div>
-
-      <h1 class="title">Vivora Fashion Illustration 2025</h1>
-
-      <div class="hdr-right">
-        <nav class="history">
-          <!-- history（76〜83,9 付近に並べる） -->
-          <img class="snap" style="--x:76; --y:9;" src="/create_parts/create_button/retreat.png"   alt="Undo" />
-          <img class="snap" style="--x:78; --y:9;" src="/create_parts/create_button/forward.png"   alt="Redo" />
-          <img class="snap" style="--x:80; --y:9;" src="/create_parts/create_button/reset.png"     alt="Reset" id="btn-reset"/>
-          <img class="snap" style="--x:82; --y:9;" src="/create_parts/create_button/download.png"  alt="Download" />
-          <img class="snap" style="--x:84; --y:9;" src="/create_parts/create_button/upload.png"    alt="Upload" />
-          <img class="snap" style="--x:86; --y:9;" src="/create_parts/create_button/save.png"      alt="Save" />
-        </nav>
+      <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
+      <div class="header-right">
+        <div class="history-tool">
+          <img src="/create_parts/create_button/retreat.png" alt="Undo">
+          <img src="/create_parts/create_button/forward.png" alt="Redo">
+          <img src="/create_parts/create_button/reset.png" alt="Reset">
+          <img src="/create_parts/create_button/download.png" alt="Download">
+          <img src="/create_parts/create_button/upload.png" alt="Upload">
+          <img src="/create_parts/create_button/save.png" alt="Save">
+        </div>
+        <div class="stationery-tool">
+          <img src="/create_parts/object_btn/select.png" alt="Select">
+          <img src="/create_parts/object_btn/square.png" alt="Square">
+          <img src="/create_parts/object_btn/brush.png" alt="Brush">
+          <img src="/create_parts/object_btn/eraser.png" alt="Eraser">
+          <img src="/create_parts/object_btn/sentence.png" alt="Text">
+          <img src="/create_parts/object_btn/opasity_ber.png" alt="Opacity">
+          <img src="/create_parts/object_btn/graph_paper.png" alt="Grid" id="toggle-grid">
+          <img src="/create_parts/object_btn/layer.png" alt="Layer">
+        </div>
       </div>
     </header>
 
-    <!-- ===== Canvas ===== -->
-    <main class="stage">
-      <section id="canvas" class="canvas">
-        <!-- stationery（82〜93,14 に横一列） -->
-        <nav class="stationery">
-          <img class="snap" style="--x:82; --y:14;" src="/create_parts/design_button/select.png"      alt="Select" />
-          <img class="snap" style="--x:84; --y:14;" src="/create_parts/design_button/square.png"      alt="Square" />
-          <img class="snap" style="--x:86; --y:14;" src="/create_parts/design_button/brush.png"       alt="Brush" />
-          <img class="snap" style="--x:88; --y:14;" src="/create_parts/design_button/eraser.png"      alt="Eraser" />
-          <img class="snap" style="--x:90; --y:14;" src="/create_parts/design_button/text.png"        alt="Text" />
-          <img class="snap" style="--x:92; --y:14;" src="/create_parts/design_button/opacity_bar.png" alt="Opacity" id="btn-opacity" />
-          <img class="snap" style="--x:94; --y:14;" src="/create_parts/create_button/graph_paper.png" alt="Grid"    id="btn-grid" />
-          <img class="snap" style="--x:96; --y:14;" src="/create_parts/design_button/layer.png"       alt="Layer"   id="btn-layer" />
-        </nav>
-
-        <!-- 透明度パネル（ボタンクリックで表示） -->
-        <div id="op-panel" class="op-panel">
-          <div class="op-val" id="op-val">100%</div>
-          <input id="op-range" type="range" min="0" max="100" value="100" />
-        </div>
-
-        <!-- マネキン（中央） -->
-        <img id="mannequin" class="mannequin"
-             src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin" />
-
-        <!-- 方眼紙オーバーレイ（初期OFF／Gridクリック時のみ表示） -->
-        <div id="grid-overlay" class="grid-overlay"></div>
-      </section>
+    <!-- キャンバス領域 -->
+    <main class="main">
+      <div class="canvas">
+        <div class="grid-overlay" id="grid-overlay"></div>
+        <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="Mannequin">
+      </div>
     </main>
   </div>
 
   <script>
-    // 透明度スライダー
-    (function(){
-      const btn = document.getElementById('btn-opacity');
-      const panel = document.getElementById('op-panel');
-      const range = document.getElementById('op-range');
-      const val = document.getElementById('op-val');
-      const man = document.getElementById('mannequin');
-      btn.addEventListener('click', (e)=>{ e.stopPropagation(); panel.classList.toggle('show'); });
-      document.body.addEventListener('click', ()=> panel.classList.remove('show'));
-      range.addEventListener('input', ()=>{ val.textContent = `${range.value}%`; man.style.opacity = range.value/100; });
-    })();
-
-    // グリッド ON/OFF
-    (function(){
-      const btn = document.getElementById('btn-grid');
-      const overlay = document.getElementById('grid-overlay');
-      btn.addEventListener('click', ()=> overlay.classList.toggle('show'));
-    })();
-
-    // Reset（透明度100・グリッドOFF）
-    document.getElementById('btn-reset').addEventListener('click', ()=>{
-      document.getElementById('op-range').value = 100;
-      document.getElementById('op-val').textContent = '100%';
-      document.getElementById('mannequin').style.opacity = 1;
-      document.getElementById('grid-overlay').classList.remove('show');
+    // 方眼紙トグル
+    const gridToggle = document.getElementById("toggle-grid");
+    const gridOverlay = document.getElementById("grid-overlay");
+    gridToggle.addEventListener("click", () => {
+      gridOverlay.classList.toggle("visible");
     });
   </script>
 </body>
