@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app-wrapper">
-    <!-- ヘッダー -->
+  <div class="app">
+    <!-- ========== Header ========== -->
     <header class="header">
       <div class="header-left">
-        <button class="next-button">Next Step ▶▶</button>
+        <a href="#" class="next-step">Next Step ▸▸</a>
         <div class="contents-buttons">
           <img src="/create_parts/contents_button/0_home.png" alt="Home">
           <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
@@ -23,9 +23,11 @@
           <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
         </div>
       </div>
+
       <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
+
       <div class="header-right">
-        <div class="history-tool">
+        <div class="history-buttons">
           <img src="/create_parts/create_button/retreat.png" alt="Undo">
           <img src="/create_parts/create_button/forward.png" alt="Redo">
           <img src="/create_parts/create_button/reset.png" alt="Reset">
@@ -33,35 +35,55 @@
           <img src="/create_parts/create_button/upload.png" alt="Upload">
           <img src="/create_parts/create_button/save.png" alt="Save">
         </div>
-        <div class="stationery-tool">
-          <img src="/create_parts/object_btn/select.png" alt="Select">
-          <img src="/create_parts/object_btn/square.png" alt="Square">
-          <img src="/create_parts/object_btn/brush.png" alt="Brush">
-          <img src="/create_parts/object_btn/eraser.png" alt="Eraser">
-          <img src="/create_parts/object_btn/sentence.png" alt="Text">
-          <img src="/create_parts/object_btn/opasity_ber.png" alt="Opacity">
-          <img src="/create_parts/object_btn/graph_paper.png" alt="Grid" id="toggle-grid">
-          <img src="/create_parts/object_btn/layer.png" alt="Layer">
-        </div>
       </div>
     </header>
 
-    <!-- キャンバス領域 -->
-    <main class="main">
-      <div class="canvas">
-        <div class="grid-overlay" id="grid-overlay"></div>
-        <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="Mannequin">
+    <!-- ========== Tools ========== -->
+    <div class="tools-panel">
+      <div class="tool-button">
+        <img src="/create_parts/object_btn/select.png" alt="Select">
+        <div class="dropdown">
+          <img src="/create_parts/object_btn/direct_select.png" alt="Direct Select">
+        </div>
       </div>
+      <div class="tool-button">
+        <img src="/create_parts/object_btn/square.png" alt="Square">
+        <div class="dropdown">
+          <img src="/create_parts/object_btn/circle.png" alt="Circle">
+        </div>
+      </div>
+      <div class="tool-button">
+        <img src="/create_parts/object_btn/brush.png" alt="Brush">
+        <div class="dropdown">
+          <img src="/create_parts/object_btn/pen.png" alt="Pen">
+          <img src="/create_parts/object_btn/circlebrush.png" alt="Circle Brush">
+          <img src="/create_parts/object_btn/ballpointpen.png" alt="Ballpoint">
+          <img src="/create_parts/object_btn/markerpen.png" alt="Marker">
+        </div>
+      </div>
+      <img src="/create_parts/object_btn/eraser.png" alt="Eraser">
+      <img src="/create_parts/object_btn/sentence.png" alt="Text">
+      <img id="opacity-btn" src="/create_parts/object_btn/opasity_ber.png" alt="Opacity">
+      <img id="grid-btn" src="/create_parts/object_btn/graph_paper.png" alt="Grid">
+      <img id="layer-btn" src="/create_parts/object_btn/layer.png" alt="Layer">
+    </div>
+
+    <!-- ========== Canvas ========== -->
+    <main class="canvas-container" id="canvas-area">
+      <img class="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin" id="mannequin">
     </main>
   </div>
 
   <script>
-    // 方眼紙トグル
-    const gridToggle = document.getElementById("toggle-grid");
-    const gridOverlay = document.getElementById("grid-overlay");
-    gridToggle.addEventListener("click", () => {
-      gridOverlay.classList.toggle("visible");
+    // Grid toggle
+    const gridBtn = document.getElementById('grid-btn');
+    const canvasArea = document.getElementById('canvas-area');
+    gridBtn.addEventListener('click', () => {
+      canvasArea.classList.toggle('show-grid');
     });
+
+    // Opacity slider (later)
+    // Layer toggle (later)
   </script>
 </body>
 </html>
