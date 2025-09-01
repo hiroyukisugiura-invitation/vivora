@@ -50,7 +50,7 @@
           <img src="/create_parts/object_btn/brush.png"         alt="Brush"  title="ペン" />
           <img src="/create_parts/object_btn/eraser.png"        alt="Eraser" title="ケシゴム" />
           <img src="/create_parts/object_btn/sentence.png"      alt="Text"   title="テキスト" />
-          <img src="/create_parts/object_btn/opasity_ber.png"   alt="Globe"  title="透明度" />
+          <img src="/create_parts/object_btn/opasity_ber.png"   alt="opasity"  title="透明度" />
           <img src="/create_parts/object_btn/graph_paper.png"   alt="Grid"   title="方眼紙" />
           <img src="/create_parts/object_btn/layer.png"         alt="Layer"  title="レイヤー" />
         </div>
@@ -68,5 +68,25 @@
     document.querySelectorAll('.stationery-toolbar img, .history-tool img, .contents-button img')
       .forEach(el => el.addEventListener('click', () => {/* TODO */}));
   </script>
+<!-- HTMLは変更不要。既存のJSファイルの末尾に次を追記してください -->
+<script>
+/** 画面にフィットするスケールを計算してCSS変数に反映 */
+(function(){
+  const BASE_W = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--base-w')) || 1280;
+  const BASE_H = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--base-h')) || 820;
+  const MARGIN = 32; // 左右上下の最低余白(px)
+
+  function fitStage(){
+    const vw = window.innerWidth  - MARGIN*2;
+    const vh = window.innerHeight - MARGIN*2;
+    const s  = Math.max(0.5, Math.min(vw/BASE_W, vh/BASE_H)); // 最小0.5倍に制限（必要なら調整）
+    document.documentElement.style.setProperty('--app-scale', s);
+  }
+  window.addEventListener('resize', fitStage, { passive:true });
+  window.addEventListener('orientationchange', fitStage, { passive:true });
+  document.addEventListener('DOMContentLoaded', fitStage);
+})();
+</script>
+  
 </body>
 </html>
