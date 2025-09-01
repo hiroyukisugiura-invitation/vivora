@@ -119,13 +119,4 @@ board は固定解像度（例 1440x900）。
 // ================= 共通ユーティリティ =================
 const $ = (sel, root=document) => root.querySelector(sel);
 const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
-
-// ============== 2D / 3D トグル（見た目だけの状態） ==============
-(function initModeToggle(){
-const b2d = $('#btn-2d');
-const b3d = $('#btn-3d');
-const onClick = (e) => {
-b2d.classList.toggle('active', e.target===b2d);
-b3d.classList.toggle('active', e.target===b3d);
 </html>
