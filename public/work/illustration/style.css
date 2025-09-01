@@ -425,3 +425,26 @@ body{
 .canvas .toolbox-right{
   right: calc(var(--right-edge-g) * var(--G));
 }
+/* =========================
+   Canvas内ツールのアイコンサイズを
+   上部ツール群（historyと同じ）に揃える
+   ========================= */
+
+/* 上部ツールと同じ基準サイズに */
+.canvas .toolbox-right img,
+.canvas .toolbox-right svg,
+.stationery-tools img,
+.stationery-tools svg{
+  width: 28px;   /* historyと同じ大きさに */
+  height: 28px;  /* 値は必要に応じて28〜30pxで調整可 */
+  object-fit: contain;
+}
+
+/* アイコンを均等に並べる */
+.canvas .toolbox-right,
+.stationery-tools{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;   /* アイコン間隔（historyに合わせるなら10〜12px） */
+  align-items: center;
+}
