@@ -1,29 +1,19 @@
-/************************************
- * Vivora Fashion Illustration 2025
- * 固定ボード方式CSS（HTMLとは分離）
- * - 変数でサイズ/色を集中管理
- * - history tool と stationery のタイルサイズを統一
- ************************************/
 :root{
-  /* 色 */
-  --bg:   #efe7e0;  /* ページ下地（ベージュ） */
-  --panel:#ffffff;  /* 白パネル */
-  --tile: #ece7e1;  /* タイルの薄グレー */
-  --line: #e6e0db;  /* 枠線 */
-  --text: #2d2a26;  /* 濃いテキスト */
+  --bg:   #efe7e0;
+  --panel:#ffffff;
+  --tile: #ece7e1;
+  --line: #e6e0db;
+  --text: #2d2a26;
 
-  /* レイアウト */
-  --board-w: 1440px;    /* 固定ボード横幅 */
-  --board-h: 900px;     /* 固定ボード高さ */
-  --topbar-h: 72px;     /* トップバー高さ */
+  --board-w: 1440px;
+  --board-h: 900px;
+  --topbar-h: 72px;
 
-  /* アイコン/タイル */
-  --tile-size: 44px;    /* history / stationery の正方タイル */
+  --tile-size: 44px;
   --tile-radius: 12px;
-  --gap: 12px;          /* 間隔 */
+  --gap: 12px;
 }
 
-/* ========= ページ基礎 ========= */
 *{ box-sizing:border-box }
 html,body{ height:100% }
 body{
@@ -31,11 +21,11 @@ body{
   background:var(--bg);
   color:var(--text);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-  overflow:hidden; /* スクロール無効：ボードに集中 */
+  overflow:hidden;
 }
 #app-root{ height:100%; display:flex; flex-direction:column }
 
-/* ========= Topbar ========= */
+/* Topbar */
 .topbar{
   height:var(--topbar-h);
   display:grid;
@@ -48,10 +38,7 @@ body{
 }
 .topbar__left, .topbar__right{ display:flex; align-items:center; gap:14px }
 .topbar__center{ display:flex; justify-content:center }
-.app-title{
-  font-size:18px; font-weight:600; margin:0;
-  letter-spacing:0.2px; opacity:.9;
-}
+.app-title{ font-size:18px; font-weight:600; margin:0; letter-spacing:0.2px; opacity:.9 }
 
 .ghost-btn{
   height:36px; padding:0 14px;
@@ -60,7 +47,7 @@ body{
 .ghost-btn:hover{ background:#fffdfb }
 
 .contents-button{ display:flex; gap:8px }
-.contents-button img{ width:28px; height:28px; display:block }
+.contents-button img{ width:28px; height:28px }
 
 .history-tool{ display:flex; gap:10px }
 .history-tool .tile{
@@ -71,27 +58,25 @@ body{
 }
 .history-tool .tile img{ width:24px; height:24px }
 
-/* ========= Work area ========= */
+/* Work */
 .work{ position:relative; flex:1; min-height:0; }
-#board-wrapper{
-  position:absolute; inset:0; /* 余白なしで中央化用 */
-}
+#board-wrapper{ position:absolute; inset:0; }
 #board{
   position:absolute; left:50%; top:50%;
   width:var(--board-w); height:var(--board-h);
-  transform:translate(-50%, -50%); transform-origin:0 0; /* JSでscaleを付与 */
+  transform:translate(-50%, -50%);
+  transform-origin:0 0;
   background:#faf7f3; border:1px solid var(--line); border-radius:14px;
   box-shadow: 0 10px 30px rgba(0,0,0,.06);
-  overflow:hidden; /* 内部を切り抜く（アートボード感） */
+  overflow:hidden;
 }
 
-/* ========= Canvas（白板は不要：背景だけ） ========= */
 #canvas{
   position:absolute; inset:60px 60px;
   background:#fff; border:1px solid var(--line); border-radius:12px;
 }
 
-/* ========= Stationery（キャンバス内） ========= */
+/* Stationery */
 .stationery{
   position:absolute; left:16px; top:16px;
   display:flex; gap:10px; z-index:5;
@@ -104,7 +89,7 @@ body{
 }
 .st-btn img{ width:24px; height:24px; pointer-events:none }
 
-/* Pen のサブパネル（Penに連動して出現） */
+/* Penパネル */
 .pen-panel{
   position:absolute; left:0; top:calc(100% + 10px);
   width:240px; padding:10px; border-radius:12px;
@@ -118,18 +103,14 @@ body{
 .pen-panel label{ min-width:42px; font-size:12px; color:#666 }
 .pen-panel input[type="range"]{ flex:1 }
 
-/* ========= Stage / Mannequin ========= */
-.stage{
-  position:absolute; inset:0;
-  display:grid; place-items:center;
-  touch-action:none; /* ドラッグとズーム制御 */
-}
+/* Stage */
+.stage{ position:absolute; inset:0; display:grid; place-items:center; touch-action:none; }
 .mannequin{
   max-width:52%; max-height:85%;
   object-fit:contain; user-select:none; -webkit-user-drag:none;
 }
 
-/* ========= 目安グリッド（GキーでON/OFF） ========= */
+/* Grid */
 .grid{
   position:absolute; inset:0;
   background-image:
@@ -140,14 +121,6 @@ body{
 }
 .grid.show{ opacity:1 }
 
-/* ========= 細部の調整 ========= */
+/* その他 */
 button{ font:inherit }
 button:active{ transform:translateY(1px) }
-
-/* ダークモード（任意） */
-@media (prefers-color-scheme: dark){
-  :root{ --bg:#201c18; --panel:#26221f; --tile:#2a2622; --line:#3a342f; --text:#efe9e3 }
-  .topbar{ background:#26211d }
-  #board{ background:#26211d; border-color:var(--line) }
-  #canvas{ background:#1f1a16 }
-}
