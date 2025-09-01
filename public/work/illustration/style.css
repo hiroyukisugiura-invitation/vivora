@@ -1,21 +1,25 @@
-/* =======================================
-   Vivora Fashion Illustration 2025 - UI
-   - 固定レイアウト（1280x800）
+/* ===================================================
+   Vivora Fashion Illustration 2025 — 固定UI
+   - 1280x800 の中央ボード
    - キャンバス内は Mannequin + Stationery のみ
-======================================= */
+   - 内側ホワイトボード（白背景・枠）は廃止
+   =================================================== */
 :root{
-  --bg:#e9e1d7;          /* 背景ベージュ */
-  --panel:#ffffff;       /* 白ボード */
-  --line:#d8d0c7;        /* 枠線 */
+  --bg:#e9e1d7;          /* 外側ベージュ */
+  --panel:#ffffff;       /* ボード白 */
+  --line:#d8d0c7;        /* 線色 */
   --text:#2a2a2a;
 
   --board-w:1280px;
   --board-h:800px;
   --r:12px;
   --shadow:0 2px 8px rgba(0,0,0,.08);
-  --icon:26px;
+
+  --icon:22px;           /* ステーショナリー基本サイズ */
+  --gap:12px;            /* ステーショナリー間隔 */
 }
 
+/* ベース */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -26,7 +30,7 @@ body{
   overflow:hidden;
 }
 
-/* 中央配置 */
+/* ボードを中央固定 */
 .app{
   width:100vw; height:100vh;
   display:flex; align-items:center; justify-content:center;
@@ -42,69 +46,83 @@ body{
   overflow:hidden;
 }
 
-/* ── ヘッダー帯 ───────────────────────────── */
+/* ヘッダー帯 */
 .ghost-btn{
   appearance:none; border:none; background:#f5f0ea;
-  color:#333; font-size:13px; padding:6px 10px; border-radius:6px;
+  color:#333; font-size:12px; padding:4px 8px;   /* 小型化 */
+  border-radius:6px;
   box-shadow: inset 0 0 0 1px var(--line);
   cursor:pointer;
 }
 #next-step{
-  position:absolute; top:14px; left:18px;
+  position:absolute; top:10px; left:18px;        /* さらに上へ */
 }
+
+/* タイトルを最上段へ */
 .page-title{
-  position:absolute; top:12px; left:50%; transform:translateX(-50%);
-  margin:0; font-size:18px; font-weight:500;
+  position:absolute; top:6px; left:50%; transform:translateX(-50%);
+  margin:0; font-size:18px; font-weight:500; letter-spacing:.2px;
 }
+
+/* History（右上） */
 .history-tool{
   position:absolute; top:22px; right:18px;
   display:flex; gap:14px; align-items:center;
 }
 .history-tool img{ width:22px; height:22px; display:block; }
 
-/* ── Contents ───────────────────────── */
+/* Contents（Next Stepの下） */
 .contents-button{
   position:absolute; top:58px; left:18px;
   display:flex; gap:12px; align-items:center;
 }
 .contents-button img{ width:28px; height:28px; display:block; }
 
-/* ── Canvas ───────────────────────── */
+/* ===== キャンバス =====
+   ※ 白い内側ボードは廃止（背景/枠なし） */
 .canvas-wrapper{
   position:absolute;
-  top:104px; left:18px;
+  top:92px;                 /* 以前より上へ */
+  left:18px;
   width:calc(100% - 36px);
-  height:calc(100% - 122px);
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:10px;
-  overflow:hidden;
+  height:calc(100% - 110px);
+  background:transparent;   /* ← 白背景なし */
+  border:none;              /* ← 枠なし */
+  border-radius:0;
+  overflow:visible;
 }
 
-/* Stationery（右上横並び） */
+/* Stationery（右上・9個・横並び） */
 .stationery-toolbar{
-  position:absolute; top:16px; right:16px;
-  display:flex; gap:14px; align-items:center;
+  position:absolute;
+  top:16px;
+  right:18px;
+  display:flex;
+  gap:var(--gap);
+  align-items:center;
   z-index:3;
 }
 .stationery-toolbar img{
-  width:22px; height:22px; display:block;
-  user-select:none; -webkit-user-drag:none;
+  width:var(--icon);
+  height:var(--icon);
+  display:block;
+  user-select:none;
+  -webkit-user-drag:none;
 }
 
-/* マネキン中央 */
+/* マネキン（常に中央） */
 #mannequin{
-  position:absolute; top:50%; left:50%;
+  position:absolute;
+  top:50%; left:50%;
   transform:translate(-50%,-50%);
   height:85%;
-  pointer-events:none; z-index:1;
+  pointer-events:none;
+  z-index:1;
 }
 
-/* ── その他のパネル類は一旦非表示 ── */
+/* 念のため：他パネルを無効化（後日キャンバス外に実装） */
 .tool-right-panel,
 .color-panel,
 .opacity-bar,
 .layer-panel,
-.tool-dropdown{
-  display:none !important;
-}
+.tool-dropdown{ display:none !important; }
