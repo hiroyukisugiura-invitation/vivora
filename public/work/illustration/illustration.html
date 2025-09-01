@@ -10,20 +10,20 @@
   <div class="viewport">
     <div class="app" role="application" aria-label="Vivora Fashion Illustration 2025">
 
-      <!-- 1段目：左にタイトル、右にhistory（stationery右端に同期） -->
+      <!-- 1段目：タイトル左 / history右 -->
       <header class="top-strip">
         <h1 class="title">Vivora Fashion Illustration 2025</h1>
         <div class="history-tool" aria-label="history">
-          <img src="/create_parts/create_button/retreat.png"  alt="Redo"     title="戻る" draggable="false"/>
-          <img src="/create_parts/create_button/forward.png"  alt="Cycle"    title="進む" draggable="false"/>
-          <img src="/create_parts/create_button/reset.png"    alt="Undo"     title="リセット" draggable="false"/>
-          <img src="/create_parts/create_button/download.png" alt="Download" title="ダウンロード" draggable="false"/>
-          <img src="/create_parts/create_button/upload.png"   alt="Upload"   title="アップロード" draggable="false"/>
-          <img src="/create_parts/create_button/save.png"     alt="Save"     title="保存" draggable="false"/>
+          <img src="/create_parts/create_button/retreat.png"  alt="戻る"     title="戻る" draggable="false"/>
+          <img src="/create_parts/create_button/forward.png"  alt="進む"     title="進む" draggable="false"/>
+          <img src="/create_parts/create_button/reset.png"    alt="リセット" title="リセット" draggable="false"/>
+          <img src="/create_parts/create_button/download.png" alt="DL"       title="ダウンロード" draggable="false"/>
+          <img src="/create_parts/create_button/upload.png"   alt="UP"       title="アップロード" draggable="false"/>
+          <img src="/create_parts/create_button/save.png"     alt="保存"     title="保存" draggable="false"/>
         </div>
       </header>
 
-      <!-- 2段目：Next Step + contents（タイトルの下に1マス空けて配置） -->
+      <!-- 2段目：Next Step + contents -->
       <div class="nav-strip">
         <button id="next-step" class="ghost-btn" type="button">Next Step ▶▶</button>
         <nav class="contents-button" aria-label="contents">
@@ -41,19 +41,141 @@
       <!-- キャンバス -->
       <main class="board" role="main">
         <div class="canvas-wrapper" id="canvas">
-          <!-- Stationery（枠なし） -->
+          <!-- Stationery（右上） -->
           <div class="stationery-toolbar" id="stationery" aria-label="stationery">
-            <img src="/create_parts/object_btn/select.png"      alt="Select"  title="選択" draggable="false"/>
-            <img src="/create_parts/object_btn/square.png"      alt="Square"  title="図形" draggable="false"/>
-            <img src="/create_parts/object_btn/brush.png"       alt="Brush"   title="ペン" draggable="false"/>
-            <img src="/create_parts/object_btn/eraser.png"      alt="Eraser"  title="ケシゴム" draggable="false"/>
-            <img src="/create_parts/object_btn/sentence.png"    alt="Text"    title="テキスト" draggable="false"/>
-            <img src="/create_parts/object_btn/opasity_ber.png" alt="Opacity" title="透明度" draggable="false"/>
-            <img src="/create_parts/object_btn/graph_paper.png" alt="Grid"    title="方眼紙" draggable="false"/>
-            <img src="/create_parts/object_btn/layer.png"       alt="Layer"   title="レイヤー" draggable="false"/>
+
+            <!-- ▼ ドロップダウントリガー（Select） -->
+            <button class="tool-trigger" id="trigger-select"
+              aria-haspopup="menu" aria-expanded="false" data-tool="select" title="Select (V)">
+              <img id="icon-select-current" src="/create_parts/object_btn/select.png" alt="Select" draggable="false">
+              <span class="caret"></span>
+            </button>
+
+            <!-- ▼ ドロップダウントリガー（Box） -->
+            <button class="tool-trigger" id="trigger-box"
+              aria-haspopup="menu" aria-expanded="false" data-tool="box" title="Shape (M)">
+              <img id="icon-box-current" src="/create_parts/object_btn/square.png" alt="Box" draggable="false">
+              <span class="caret"></span>
+            </button>
+
+            <!-- ▼ ドロップダウントリガー（Pen） -->
+            <button class="tool-trigger" id="trigger-pen"
+              aria-haspopup="menu" aria-expanded="false" data-tool="pen" title="Pen/Brush (B)">
+              <img id="icon-pen-current" src="/create_parts/object_btn/brush.png" alt="Pen" draggable="false">
+              <span class="caret"></span>
+            </button>
+
+            <!-- 以降は“いつもの８項目”の残り（独立アイコン） -->
+            <img src="/create_parts/object_btn/eraser.png"     alt="Eraser" title="消しゴム (E)" draggable="false" data-quick="eraser"/>
+            <img src="/create_parts/object_btn/sentence.png"   alt="Text"   title="テキスト (T)" draggable="false" data-quick="text"/>
+            <img src="/create_parts/object_btn/opasity_ber.png" alt="Opacity" title="不透明度 (O)" draggable="false" data-quick="opacity"/>
+            <img src="/create_parts/object_btn/graph_paper.png" alt="Grid"    title="方眼紙" draggable="false" data-quick="grid"/>
+            <img src="/create_parts/object_btn/layer.png"       alt="Layer"   title="レイヤー" draggable="false" data-quick="layer"/>
           </div>
 
-          <!-- マネキン（スムーズピンチ＋二本指パン） -->
+          <!-- ▼ ドロップダウン：Select -->
+          <div class="dropdown hide" id="menu-select" role="menu" aria-label="Select menu">
+            <!-- role="menuitemradio" で選択状態を表現 -->
+            <button class="menuitem" role="menuitemradio" data-sub="select"    data-icon="/create_parts/object_btn/select.png"  title="通常選択 (V)">
+              <img src="/create_parts/object_btn/select.png" alt="">
+              <span>通常選択</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="direct"    data-icon="/create_parts/object_btn/direct_select.png" title="ダイレクト選択 (A)">
+              <img src="/create_parts/object_btn/direct_select.png" alt="">
+              <span>ダイレクト</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="lasso"     data-icon="/create_parts/object_btn/lasso.png" title="なげなわ (L)">
+              <img src="/create_parts/object_btn/lasso.png" alt="">
+              <span>なげなわ</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="polygon"   data-icon="/create_parts/object_btn/polygon_select.png" title="多角形選択">
+              <img src="/create_parts/object_btn/polygon_select.png" alt="">
+              <span>多角形選択</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="group"     data-icon="/create_parts/object_btn/group_select.png" title="グループ選択">
+              <img src="/create_parts/object_btn/group_select.png" alt="">
+              <span>グループ選択</span>
+            </button>
+            <label class="pin"><input type="checkbox" id="pin-select">📌 固定</label>
+          </div>
+
+          <!-- ▼ ドロップダウン：Box（図形） -->
+          <div class="dropdown hide" id="menu-box" role="menu" aria-label="Box menu">
+            <button class="menuitem" role="menuitemradio" data-sub="rect"     data-icon="/create_parts/object_btn/square.png" title="長方形 (M)">
+              <img src="/create_parts/object_btn/square.png" alt=""><span>長方形</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="roundrect" data-icon="/create_parts/object_btn/roundrect.png" title="角丸">
+              <img src="/create_parts/object_btn/roundrect.png" alt=""><span>角丸</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="ellipse"  data-icon="/create_parts/object_btn/ellipse.png" title="楕円 / 正円 (O)">
+              <img src="/create_parts/object_btn/ellipse.png" alt=""><span>楕円</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="triangle" data-icon="/create_parts/object_btn/triangle.png" title="三角形">
+              <img src="/create_parts/object_btn/triangle.png" alt=""><span>三角形</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="line"     data-icon="/create_parts/object_btn/line.png" title="直線">
+              <img src="/create_parts/object_btn/line.png" alt=""><span>直線</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="arrow"    data-icon="/create_parts/object_btn/arrow.png" title="矢印">
+              <img src="/create_parts/object_btn/arrow.png" alt=""><span>矢印</span>
+            </button>
+            <label class="pin"><input type="checkbox" id="pin-box">📌 固定</label>
+          </div>
+
+          <!-- ▼ ドロップダウン：Pen（ペン種） -->
+          <div class="dropdown hide" id="menu-pen" role="menu" aria-label="Pen menu">
+            <button class="menuitem" role="menuitemradio" data-sub="pencil" data-icon="/create_parts/object_btn/pencil.png" title="鉛筆">
+              <img src="/create_parts/object_btn/pencil.png" alt=""><span>鉛筆</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="brush"  data-icon="/create_parts/object_btn/brush.png" title="ブラシ (B)">
+              <img src="/create_parts/object_btn/brush.png" alt=""><span>ブラシ</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="marker" data-icon="/create_parts/object_btn/marker.png" title="マーカー">
+              <img src="/create_parts/object_btn/marker.png" alt=""><span>マーカー</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="pen"    data-icon="/create_parts/object_btn/pen.png" title="つけペン (P)">
+              <img src="/create_parts/object_btn/pen.png" alt=""><span>つけペン</span>
+            </button>
+            <button class="menuitem" role="menuitemradio" data-sub="eraser" data-icon="/create_parts/object_btn/eraser.png" title="消しゴム (E)">
+              <img src="/create_parts/object_btn/eraser.png" alt=""><span>消しゴム</span>
+            </button>
+            <label class="pin"><input type="checkbox" id="pin-pen">📌 固定</label>
+          </div>
+
+          <!-- ▼ ペン用：カラー縦パネル（自動表示） -->
+          <aside id="color-panel" class="color-panel hide" aria-label="Color panel">
+            <!-- 12色（順序はスクショ準拠） -->
+            <button class="swatch" data-color="#FFFFFF" title="White"></button>
+            <button class="swatch" data-color="#8E8E8E" title="Gray"></button>
+            <button class="swatch" data-color="#FFD400" title="Yellow"></button>
+            <button class="swatch" data-color="#F39C12" title="Orange"></button>
+            <button class="swatch" data-color="#F5A3A3" title="Pink"></button>
+            <button class="swatch" data-color="#E31E24" title="Red"></button>
+            <button class="swatch" data-color="#5EC255" title="Light Green"></button>
+            <button class="swatch" data-color="#0E7F54" title="Green"></button>
+            <button class="swatch" data-color="#89C7E7" title="Sky"></button>
+            <button class="swatch" data-color="#0C4DB7" title="Blue"></button>
+            <button class="swatch" data-color="#6E2C91" title="Purple"></button>
+            <button class="swatch" data-color="#8C2A24" title="Brown"></button>
+            <button class="swatch" data-color="#6B6B6B" title="Dark Gray"></button>
+            <button class="swatch" data-color="#000000" title="Black"></button>
+
+            <button class="swatch add" data-action="add" title="色を追加">+</button>
+            <button class="swatch pick" data-action="eyedrop" title="スポイト">
+              <img src="/create_parts/object_btn/eyedropper.png" alt="">
+            </button>
+          </aside>
+
+          <!-- ▼ 不透明度 HUD -->
+          <div id="opacity-hud" class="opacity-hud hide" role="dialog" aria-label="Opacity">
+            <div class="hud-row">
+              <span id="opacity-label">100 %</span>
+              <button id="opacity-pin" class="hud-pin" title="固定">📌</button>
+            </div>
+            <input id="opacity-range" type="range" min="0" max="100" value="100" step="1" />
+          </div>
+
+          <!-- マネキン（ピンチ＆二本指パン） -->
           <div id="man-zoom">
             <img id="mannequin"
                  src="/mannequin/mannequin_woman/mannequin_woman_front.png"
@@ -65,40 +187,58 @@
   </div>
 
   <script>
-    // ===== 1) ステージ自動フィット（整数pxスナップ） =====
+    // ===============================
+    // グローバル状態（中央管理）
+    // ===============================
+    const state = {
+      currentTool: 'select',     // 'select' | 'box' | 'pen' | quick-tools...
+      subTool:     { select:'select', box:'rect', pen:'brush' }, // 各グループの直近
+      color: '#000000',          // ペンの塗り色（初期：黒）
+      opacity: 100,              // 0-100 (%)
+      timers: { hud: null },     // HUD自動クローズ用
+    };
+
+    // ユーティリティ
+    const $  = sel => document.querySelector(sel);
+    const $$ = sel => [...document.querySelectorAll(sel)];
+    const hide = el => el.classList.add('hide');
+    const show = el => el.classList.remove('hide');
+
+    // ===============================
+    // ステージ自動フィット（既存）
+    // ===============================
     (function(){
       const css = () => getComputedStyle(document.documentElement);
       const num = v => parseFloat(v) || 0;
-
       function snapScale(baseW, baseH, vw, vh){
         const raw = Math.max(0.5, Math.min(vw/baseW, vh/baseH));
         const wSnap = Math.floor(baseW * raw);
         const hSnap = Math.floor(baseH * raw);
         let s = Math.min(wSnap/baseW, hSnap/baseH);
         const dpr = window.devicePixelRatio || 1;
-        s = Math.round(s * dpr * 2) / (dpr * 2); // 0.5/DPR刻み
+        s = Math.round(s * dpr * 2) / (dpr * 2);
         return Math.max(0.5, s);
       }
-
       function fit(){
         const W = num(css().getPropertyValue('--base-w')) || 1280;
         const H = num(css().getPropertyValue('--base-h')) || 820;
         const M = num(css().getPropertyValue('--viewport-margin')) || 24;
         const vw = window.innerWidth  - M*2;
         const vh = window.innerHeight - M*2;
-        const s  = snapScale(W,H,vw,vh);
-        document.documentElement.style.setProperty('--app-scale', s);
+        document.documentElement.style.setProperty('--app-scale', snapScale(W,H,vw,vh));
       }
       addEventListener('resize', fit, {passive:true});
       addEventListener('orientationchange', fit, {passive:true});
       document.addEventListener('DOMContentLoaded', fit);
     })();
 
-    // ===== 2) History の右端を Stationery の右端に同期 =====
+    // ===============================
+    // History の右端を Stationery に同期（既存）
+    // ===============================
     (function(){
       function sync(){
-        const canvas = document.getElementById('canvas');
-        const st = document.getElementById('stationery');
+        const canvas = $('#canvas');
+        const st = $('#stationery');
         const hist = document.querySelector('.history-tool');
         if(!canvas || !st || !hist) return;
         const c = canvas.getBoundingClientRect();
@@ -112,44 +252,212 @@
       new ResizeObserver(sync).observe(document.body);
     })();
 
-    // ===== 3) 画像ドラッグ抑止 =====
-    document.addEventListener('DOMContentLoaded', ()=>{
-      document.querySelectorAll('img').forEach(img=>{
-        img.addEventListener('mousedown', e=>e.preventDefault());
-        img.addEventListener('dragstart', e=>e.preventDefault());
+    // ===============================
+    // ドロップダウン 共通挙動
+    // ===============================
+    const triggers = $$('.tool-trigger');
+    const menus = {
+      select: $('#menu-select'),
+      box:    $('#menu-box'),
+      pen:    $('#menu-pen')
+    };
+    const icons = {
+      select: $('#icon-select-current'),
+      box:    $('#icon-box-current'),
+      pen:    $('#icon-pen-current')
+    };
+    const pins = {
+      select: $('#pin-select'),
+      box:    $('#pin-box'),
+      pen:    $('#pin-pen')
+    };
+
+    function closeAllMenus(exceptName){
+      for(const [name, menu] of Object.entries(menus)){
+        if(name === exceptName && pins[name]?.checked) continue; // ピン固定は閉じない
+        hide(menu);
+        const trg = document.querySelector(`.tool-trigger[data-tool="${name}"]`);
+        trg?.setAttribute('aria-expanded','false');
+      }
+    }
+
+    function openMenu(name, triggerEl){
+      const menu = menus[name];
+      if(!menu) return;
+      closeAllMenus(name);
+      positionMenuUnderTrigger(menu, triggerEl);
+      show(menu);
+      triggerEl.setAttribute('aria-expanded','true');
+      // メニュー内先頭にフォーカス
+      const first = menu.querySelector('.menuitem');
+      first?.focus({preventScroll:true});
+    }
+
+    function positionMenuUnderTrigger(menu, triggerEl){
+      // トリガーの真下にカードを出す（ステーショナリーはabsolute内にある）
+      const toolBar = $('#stationery').getBoundingClientRect();
+      const t = triggerEl.getBoundingClientRect();
+      const parent = $('#stationery').offsetParent.getBoundingClientRect();
+      // 親基準オフセット
+      menu.style.left = (t.left - parent.left) + 'px';
+      menu.style.top  = (t.bottom - parent.top + 6) + 'px'; // ほんの少し下げる
+    }
+
+    // クリック/長押し
+    triggers.forEach(trg=>{
+      let pressTimer=null;
+      trg.addEventListener('mousedown', e=>{
+        pressTimer = setTimeout(()=>openMenu(trg.dataset.tool, trg), 400); // 長押しで開く
+      });
+      trg.addEventListener('mouseup', e=>{
+        clearTimeout(pressTimer);
+      });
+      trg.addEventListener('click', e=>{
+        // 短押し：直近サブツールに即切替（=通常の8アイコン状態のまま）
+        const name = trg.dataset.tool;
+        state.currentTool = name;
+        // ペンの場合はカラー/HUDを呼び出す
+        if(name === 'pen'){
+          showColorAndHud();
+        }
       });
     });
 
-    // ===== 4) テーマ切替（light/dark/system） =====
-    (function(){
-      const KEY='vivora.theme', root=document.documentElement;
-      function apply(t){ root.setAttribute('data-theme', t); }
-      window.setTheme = t=>{
-        if(!['light','dark','system'].includes(t)) return;
-        localStorage.setItem(KEY,t); apply(t);
-      };
-      apply(localStorage.getItem(KEY)||'system');
-      matchMedia('(prefers-color-scheme: dark)')
-        .addEventListener('change',()=>{ if(root.getAttribute('data-theme')==='system') apply('system'); });
-    })();
+    // メニュー項目選択 → サブツール記憶 → アイコン更新 → 閉じる →（ペンなら色HUD）
+    $$('.dropdown .menuitem').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const menuEl = btn.closest('.dropdown');
+        const group = menuEl.id.replace('menu-',''); // select | box | pen
+        const sub   = btn.dataset.sub;
+        const icon  = btn.dataset.icon;
 
-    // ===== 5) マネキン：スムーズピンチ＋二本指パン =====
+        state.currentTool = group;
+        state.subTool[group] = sub;
+        if(icons[group] && icon){ icons[group].src = icon; }
+
+        if(!pins[group]?.checked){ hide(menuEl); }
+        document.querySelector(`.tool-trigger[data-tool="${group}"]`)
+          ?.setAttribute('aria-expanded','false');
+
+        if(group === 'pen'){ showColorAndHud(); }
+      });
+    });
+
+    // 外側クリック・Esc で閉じる（ピン固定は閉じない）
+    document.addEventListener('click', (e)=>{
+      const within = e.target.closest('.dropdown, .tool-trigger, #color-panel, #opacity-hud');
+      if(!within){ closeAllMenus(); hideColorPanel(); maybeHideHUD(true); }
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){ closeAllMenus(); hideColorPanel(); maybeHideHUD(true); }
+    });
+
+    // ===============================
+    // カラー縦パネル＆ 不透明度 HUD
+    // ===============================
+    const colorPanel = $('#color-panel');
+    const opacityHUD = $('#opacity-hud');
+    const opacityLabel = $('#opacity-label');
+    const opacityRange = $('#opacity-range');
+    const opacityPin   = $('#opacity-pin');
+
+    function showColorAndHud(){
+      // カラーはステーショナリーの左下からスライドイン
+      positionColorPanel();
+      show(colorPanel);
+      // HUDはカラー列の右肩に配置
+      positionHUD();
+      show(opacityHUD);
+      resetHudTimer(); // 2秒で自動閉じ（ピンONなら閉じない）
+    }
+    function hideColorPanel(){ hide(colorPanel); }
+
+    function positionColorPanel(){
+      const st = $('#stationery').getBoundingClientRect();
+      const parent = $('#canvas').getBoundingClientRect();
+      colorPanel.style.left = (st.left - parent.left) + 'px';
+      colorPanel.style.top  = (st.bottom - parent.top + 10) + 'px';
+    }
+    function positionHUD(){
+      const cp = colorPanel.getBoundingClientRect();
+      const parent = $('#canvas').getBoundingClientRect();
+      opacityHUD.style.left = (cp.right - parent.left + 16) + 'px';
+      opacityHUD.style.top  = (cp.top   - parent.top + 8) + 'px';
+    }
+
+    // 2秒無操作でフェードアウト（ピン固定は維持）
+    function resetHudTimer(){
+      clearTimeout(state.timers.hud);
+      state.timers.hud = setTimeout(()=> maybeHideHUD(false), 2000);
+    }
+    function maybeHideHUD(force){
+      // force=true なら強制閉じ
+      const pinned = opacityPin.classList.contains('on');
+      if(force || !pinned){ hide(opacityHUD); hide(colorPanel); }
+    }
+
+    // カラー選択
+    $$('#color-panel .swatch').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const act = btn.dataset.action;
+        if(act === 'add'){
+          // 将来：カラーピッカーを開く（暫定は黒に戻す）
+          state.color = '#000000';
+        }else if(act === 'eyedrop'){
+          // 将来：スポイトモード開始（暫定は何もしない）
+        }else{
+          state.color = btn.dataset.color;
+          // ここで描画モジュールに通知する想定（emit）
+        }
+        resetHudTimer();
+      });
+    });
+
+    // 不透明度
+    opacityRange.addEventListener('input', ()=>{
+      state.opacity = parseInt(opacityRange.value,10);
+      opacityLabel.textContent = `${state.opacity} %`;
+      resetHudTimer();
+    });
+    opacityPin.addEventListener('click', ()=>{
+      opacityPin.classList.toggle('on');
+      opacityPin.title = opacityPin.classList.contains('on') ? '固定中' : '固定';
+    });
+
+    // ショートカット（主要のみ）
+    document.addEventListener('keydown', (e)=>{
+      if(e.target.closest('input, textarea, [contenteditable="true"]')) return;
+
+      const k = e.key.toLowerCase();
+      if(k === 'v'){ state.currentTool = 'select'; icons.select.src = '/create_parts/object_btn/select.png'; }
+      if(k === 'a'){ state.currentTool = 'select'; state.subTool.select = 'direct'; icons.select.src = '/create_parts/object_btn/direct_select.png'; }
+      if(k === 'l'){ state.currentTool = 'select'; state.subTool.select = 'lasso';  icons.select.src = '/create_parts/object_btn/lasso.png'; }
+      if(k === 'm'){ state.currentTool = 'box';    state.subTool.box    = 'rect';   icons.box.src    = '/create_parts/object_btn/square.png'; }
+      if(k === 'o'){ state.currentTool = 'box';    state.subTool.box    = 'ellipse';icons.box.src    = '/create_parts/object_btn/ellipse.png'; }
+      if(k === 'b'){ state.currentTool = 'pen';    state.subTool.pen    = 'brush';  icons.pen.src    = '/create_parts/object_btn/brush.png'; showColorAndHud(); }
+      if(k === 'p'){ state.currentTool = 'pen';    state.subTool.pen    = 'pen';    icons.pen.src    = '/create_parts/object_btn/pen.png';   showColorAndHud(); }
+      if(k === 'e'){ state.currentTool = 'pen';    state.subTool.pen    = 'eraser'; icons.pen.src    = '/create_parts/object_btn/eraser.png';}
+      if(k === 'c'){ // カラーパネルのトグル
+        if(colorPanel.classList.contains('hide')){ showColorAndHud(); }
+        else { hideColorPanel(); maybeHideHUD(true); }
+      }
+      if(k === '['){ opacityRange.value = Math.max(0, parseInt(opacityRange.value,10)-5); opacityRange.dispatchEvent(new Event('input')); }
+      if(k === ']'){ opacityRange.value = Math.min(100, parseInt(opacityRange.value,10)+5); opacityRange.dispatchEvent(new Event('input')); }
+    });
+
+    // ===============================
+    // マネキン：スムーズピンチ＋二本指パン（既存）
+    // ===============================
     (function(){
       const wrap   = document.getElementById('man-zoom');
       const canvas = document.getElementById('canvas');
-
-      let scale=1, targetScale=1;
-      let panX=0, targetPanX=0;
-      let panY=0, targetPanY=0;
+      let scale=1, targetScale=1, panX=0, targetPanX=0, panY=0, targetPanY=0;
       const MIN=0.5, MAX=4;
-
       const apply = ()=>{
         wrap.style.setProperty('--man-scale', scale);
         wrap.style.setProperty('--man-x', panX+'px');
         wrap.style.setProperty('--man-y', panY+'px');
       };
-
-      // 慣性イージング
       let raf=null;
       function animate(){
         scale += (targetScale-scale)*0.20;
@@ -162,59 +470,34 @@
         raf=requestAnimationFrame(animate);
       }
       const tick=()=>{ if(!raf) raf=requestAnimationFrame(animate); };
-
       const setScale=s=>{ targetScale=Math.min(MAX,Math.max(MIN,s)); tick(); };
       const addPan=(dx,dy)=>{ targetPanX+=dx; targetPanY+=dy; tick(); };
-
-      // Ctrl+Wheel = ピンチ、2本指スクロール = パン
       canvas.addEventListener('wheel', (e)=>{
-        if (e.ctrlKey){
-          e.preventDefault();
-          setScale(targetScale * Math.exp(-e.deltaY*0.002));
-        }else{
-          addPan(-e.deltaX, -e.deltaY);
-        }
+        if (e.ctrlKey){ e.preventDefault(); setScale(targetScale * Math.exp(-e.deltaY*0.002)); }
+        else{ addPan(-e.deltaX, -e.deltaY); }
       }, {passive:false});
-
-      // Safari gesture
       let gBase=1;
       addEventListener('gesturestart', ()=>{ gBase=targetScale; }, {passive:true});
-      addEventListener('gesturechange', (e)=>{
-        e.preventDefault();
-        setScale(gBase * e.scale);
-      }, {passive:false});
-
-      // タッチピンチ＆パン
+      addEventListener('gesturechange', (e)=>{ e.preventDefault(); setScale(gBase * e.scale); }, {passive:false});
       let t0=null, base=1;
       const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
       const mid =(a,b)=>({x:(a.clientX+b.clientX)/2, y:(a.clientY+b.clientY)/2});
       canvas.addEventListener('touchstart', e=>{
-        if(e.touches.length===2){
-          const [a,b]=e.touches; t0={d:dist(a,b), c:mid(a,b)}; base=targetScale;
-        }
+        if(e.touches.length===2){ const [a,b]=e.touches; t0={d:dist(a,b), c:mid(a,b)}; base=targetScale; }
       }, {passive:true});
       canvas.addEventListener('touchmove', e=>{
-        if(e.touches.length===2 && t0){
-          e.preventDefault();
-          const [a,b]=e.touches; const d=dist(a,b), c=mid(a,b);
-          setScale(base * (d/t0.d));
-          addPan((c.x - t0.c.x),(c.y - t0.c.y));
-        }
+        if(e.touches.length===2 && t0){ e.preventDefault(); const [a,b]=e.touches; const d=dist(a,b), c=mid(a,b);
+          setScale(base * (d/t0.d)); addPan((c.x - t0.c.x),(c.y - t0.c.y)); }
       }, {passive:false});
       canvas.addEventListener('touchend', ()=>{ t0=null; }, {passive:true});
-
-      // マウスドラッグ（任意・有効）
       let drag=false, mx=0,my=0;
       wrap.addEventListener('mousedown', e=>{ drag=true; mx=e.clientX; my=e.clientY; e.preventDefault(); });
       addEventListener('mousemove', e=>{ if(!drag) return; addPan(e.clientX-mx, e.clientY-my); mx=e.clientX; my=e.clientY; });
       addEventListener('mouseup',   ()=>{ drag=false; });
-
-      // ダブルクリック/タップでリセット
       let last=0;
       canvas.addEventListener('click', e=>{
         const now=Date.now(); if(now-last<300){ targetScale=1; targetPanX=0; targetPanY=0; tick(); } last=now;
       });
-
       apply();
     })();
   </script>
