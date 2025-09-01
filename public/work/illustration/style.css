@@ -350,3 +350,78 @@ body{
 .board, .canvas, .workspace{
   margin-top: calc(0.8 * var(--G));   /* 角丸の接触を回避（必要時） */
 }
+/* =========================
+   Topbar: 理想バランス（方眼1マス基準）
+   HTMLは触らない
+   ========================= */
+:root{
+  /* 1マス ≒ 4.52mm。端末差は --grid-tune で微調整 */
+  --grid: 17px;
+  --grid-tune: 0px;
+  --G: calc(var(--grid) + var(--grid-tune));
+
+  /* ─ 配置パラメータ（必要ならここだけ触ればOK） ─ */
+  --title-left-g: 2;    /* タイトルの左マージン（マス）       → 2マス */
+  --title-row:    2.9;  /* タイトルの縦位置（マス）           → 2.9マス */
+
+  --next-left-g:      2;    /* Next Step の左位置（マス）       → 2マス */
+  --toolbar-row:      7.20; /* Next Step/ツールの縦位置（マス） → 7.20マス */
+  --contents-left-g:  9.8;  /* ツール群の左位置（マス）         → 9.8マス */
+
+  --right-edge-g: 2;        /* 右端ツールの内側余白（マス）     → 2マス */
+}
+
+/* Topbar の高さをグリッドで定義（上段=タイトル、下段=ツール） */
+.topbar{
+  position: relative;
+  display: block;
+  height: calc(11 * var(--G));   /* タイトルとツールが綺麗に収まる高さ */
+  padding: 0;
+}
+
+/* タイトル：左から2マス、上から2.9マス */
+.topbar h1,
+.topbar .app-title{
+  position: absolute;
+  left: calc(var(--title-left-g) * var(--G));
+  top:  calc(var(--title-row) * var(--G));
+  margin: 0;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+/* Next Step：左から2マス、上から7.2マス（理想スクショのライン） */
+#next-step{
+  position: absolute;
+  left: calc(var(--next-left-g) * var(--G));
+  top:  calc(var(--toolbar-row) * var(--G));
+  line-height: 1;
+}
+
+/* ツール群（Home〜Dk）：NextStepの右に同じ高さで並べる */
+.topbar .contents-button{
+  position: absolute;
+  left: calc(var(--contents-left-g) * var(--G)); /* ← ここで横位置だけ調整 */
+  top:  calc(var(--toolbar-row) * var(--G));
+  display: inline-flex;
+  align-items: center;
+  gap: calc(0.7 * var(--G)); /* アイコン間隔（必要に応じて 0.6〜0.8） */
+}
+
+/* 右上 history 群の右端ラインはステーショナリと同一（既存と統一） */
+.topbar .history-tools,
+.topbar .topbar-right,
+.topbar > *:last-child{
+  position: absolute !important;
+  right: calc(var(--right-edge-g) * var(--G));
+  top:   calc(var(--toolbar-row) * var(--G));
+  display: inline-flex;
+  gap: calc(0.7 * var(--G));
+}
+
+/* ステーショナリ右端も同じラインに（保険） */
+.stationery-tools,
+.tools-right,
+.canvas .toolbox-right{
+  right: calc(var(--right-edge-g) * var(--G));
+}
