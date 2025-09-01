@@ -106,3 +106,43 @@ body{
   transform:translate(-50%, -50%);
   height:85%; pointer-events:none; z-index:1;
 }
+/* ============ 右端そろえ用トークン ============ */
+:root{
+  --right-edge: 28px;   /* 右端の基準ライン（必要なら数pxずつ調整） */
+}
+
+/* ============ タイトル（左寄せ固定） ============ */
+/* タイトル要素に .app-title が付いていない場合は、.topbar h1 などに置き換えてOK */
+.topbar .app-title{
+  margin-left: 24px;
+  text-align: left;
+  line-height: 1;
+}
+
+/* もし .topbar が中央寄せのままなら左寄せへ */
+.topbar{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* 中央寄せ→左寄せ */
+}
+
+/* ============ history tool を右端にスナップ ============ */
+/* ここでは .history-tools がhistoryアイコン群のラッパと想定。
+   クラス名が違う場合は該当ラッパのクラスに置き換えてください。 */
+.topbar .history-tools{
+  position: absolute;         /* 親(.topbar)を relative にしておくと綺麗に効きます */
+  right: var(--right-edge);   /* ← stationery と同じ基準ライン */
+  top: 60px;                  /* 上下位置は画面に合わせて微調整（例） */
+}
+
+/* ============ stationery tool の右端ライン統一 ============ */
+/* 右側の白いツールボックス（stationery）全体のラッパ想定 */
+.canvas .stationery-tools{
+  position: absolute;
+  right: var(--right-edge);   /* ← history と同じ値でピタッと揃う */
+  /* 既存 top/bottom がある場合はそのままでOK */
+}
+
+/* もし .topbar が absolute 子要素の基準になっていない場合はこれを付与 */
+.topbar{ position: relative; }
+
