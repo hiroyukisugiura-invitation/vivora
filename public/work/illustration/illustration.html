@@ -10,128 +10,119 @@
   <div class="app">
     <!-- Header -->
     <div class="header">
-      <div class="next-step">
-        <button class="tool-button">Next Step ››</button>
-      </div>
-
       <div class="contents-button">
-        <img src="/create_parts/contents_button/0_home.png" class="tool-button" />
-        <img src="/create_parts/contents_button/1_fashion-illustrations.png" class="tool-button" />
-        <img src="/create_parts/contents_button/2_fabric-matching.png" class="tool-button" />
-        <img src="/create_parts/contents_button/3_clothing-design.png" class="tool-button" />
-        <img src="/create_parts/contents_button/4_pattern-creation.png" class="tool-button" />
-        <img src="/create_parts/contents_button/5_grading.png" class="tool-button" />
-        <img src="/create_parts/contents_button/6_print-layout-cut.png" class="tool-button" />
-        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" class="tool-button" />
+        <img src="../../create_parts/create_button/button_next.png" alt="Next Step" class="tool-button" />
+        <img src="../../create_parts/contents_button/0_home.png" alt="Home" class="tool-button" />
+        <img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" class="tool-button" />
+        <img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fm" class="tool-button" />
+        <img src="../../create_parts/contents_button/3_clothing-design.png" alt="Cd" class="tool-button" />
+        <img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pc" class="tool-button" />
+        <img src="../../create_parts/contents_button/5_grading.png" alt="Gd" class="tool-button" />
+        <img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Plc" class="tool-button" />
+        <img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" class="tool-button" />
       </div>
-
       <div class="page-title">Vivora Fashion Illustration 2025</div>
-
       <div class="history-tool">
-        <img src="/create_parts/create_button/retreat.png" class="tool-button" />
-        <img src="/create_parts/create_button/undo.png" class="tool-button" />
-        <img src="/create_parts/create_button/reset.png" class="tool-button" />
-        <img src="/create_parts/create_button/download.png" class="tool-button" />
-        <img src="/create_parts/create_button/upload.png" class="tool-button" />
-        <img src="/create_parts/create_button/save.png" class="tool-button" />
+        <img src="../../create_parts/create_button/reset.png" alt="Reset" class="tool-button" />
+        <img src="../../create_parts/create_button/retreat.png" alt="Undo" class="tool-button" />
+        <img src="../../create_parts/create_button/forward.png" alt="Redo" class="tool-button" />
+        <img src="../../create_parts/create_button/download.png" alt="Download" class="tool-button" />
+        <img src="../../create_parts/create_button/upload.png" alt="Upload" class="tool-button" />
+        <img src="../../create_parts/create_button/save.png" alt="Save" class="tool-button" />
       </div>
     </div>
 
     <!-- Canvas -->
     <div class="canvas-wrapper">
       <div id="canvas">
-        <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin" />
+        <img id="mannequin" src="../../mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin" />
       </div>
     </div>
 
-    <!-- Right Tool Panel -->
+    <!-- Tool Right Panel -->
     <div class="tool-right-panel">
+      <!-- Stationery -->
       <div class="stationery-tool">
-        <div class="tool-group" id="select-tool">
-          <img src="/create_parts/object_btn/select.png" class="tool-button" />
+        <div class="tool-group">
+          <img src="../../create_parts/object_btn/select.png" alt="Select" class="tool-button" />
         </div>
         <div class="tool-group">
-          <img src="/create_parts/object_btn/square.png" class="tool-button" />
+          <img src="../../create_parts/object_btn/square.png" alt="Square" class="tool-button" />
         </div>
         <div class="tool-group">
-          <img src="/create_parts/object_btn/brush.png" class="tool-button" />
+          <img src="../../create_parts/object_btn/brush.png" alt="Brush" class="tool-button" />
         </div>
         <div class="tool-group">
-          <img src="/create_parts/object_btn/eraser.png" class="tool-button" />
+          <img src="../../create_parts/object_btn/eraser.png" alt="Eraser" class="tool-button" />
         </div>
         <div class="tool-group">
-          <img src="/create_parts/object_btn/sentence.png" class="tool-button" />
+          <img src="../../create_parts/object_btn/sentence.png" alt="Text" class="tool-button" />
         </div>
         <div class="tool-group">
-          <img src="/create_parts/object_btn/graph_paper.png" class="tool-button" />
+          <img src="../../create_parts/object_btn/opasity_ber.png" alt="Opacity" class="tool-button" onclick="toggleOpacity()" />
         </div>
         <div class="tool-group">
-          <img src="/create_parts/object_btn/layer.png" class="tool-button" />
+          <img src="../../create_parts/object_btn/graph_paper.png" alt="Grid" class="tool-button" onclick="toggleGrid()" />
+        </div>
+        <div class="tool-group">
+          <img src="../../create_parts/object_btn/layer.png" alt="Layer" class="tool-button" />
         </div>
       </div>
 
-      <!-- Dropdown under Select -->
-      <div class="dropdown">
-        <img src="/create_parts/object_btn/direct_select.png" class="tool-button" />
-        <img src="/create_parts/object_btn/circle.png" class="tool-button" />
-        <img src="/create_parts/object_btn/pen.png" class="tool-button" />
-        <img src="/create_parts/object_btn/markerpen.png" class="tool-button" />
-        <img src="/create_parts/object_btn/ballpointpen.png" class="tool-button" />
-      </div>
-
-      <!-- Opacity bar -->
-      <div class="opacity-bar">
+      <!-- Opacity Bar -->
+      <div class="opacity-bar" id="opacityBar">
         <label for="opacity">100%</label>
         <input type="range" id="opacity" min="0" max="100" value="100" />
       </div>
 
-      <!-- Color panel -->
+      <!-- Color Panel -->
       <div class="color-panel">
-        <div class="color-swatch" style="background:#fff"></div>
-        <div class="color-swatch" style="background:#aaa"></div>
-        <div class="color-swatch" style="background:#ff0"></div>
-        <div class="color-swatch" style="background:#ffa500"></div>
-        <div class="color-swatch" style="background:#fbb"></div>
-        <div class="color-swatch" style="background:#f00"></div>
-        <div class="color-swatch" style="background:#6f6"></div>
-        <div class="color-swatch" style="background:#060"></div>
-        <div class="color-swatch" style="background:#7cf"></div>
-        <div class="color-swatch" style="background:#00f"></div>
-        <div class="color-swatch" style="background:#60a"></div>
-        <div class="color-swatch" style="background:#933"></div>
-        <div class="color-swatch" style="background:#666"></div>
-        <div class="color-swatch" style="background:#000"></div>
-        <div class="tool-button">＋</div>
-        <img src="/create_parts/object_btn/spuit.png" class="tool-button" />
+        <div class="color-swatch" style="background: white;"></div>
+        <div class="color-swatch" style="background: lightgray;"></div>
+        <div class="color-swatch" style="background: gray;"></div>
+        <div class="color-swatch" style="background: yellow;"></div>
+        <div class="color-swatch" style="background: orange;"></div>
+        <div class="color-swatch" style="background: pink;"></div>
+        <div class="color-swatch" style="background: red;"></div>
+        <div class="color-swatch" style="background: lime;"></div>
+        <div class="color-swatch" style="background: green;"></div>
+        <div class="color-swatch" style="background: skyblue;"></div>
+        <div class="color-swatch" style="background: blue;"></div>
+        <div class="color-swatch" style="background: purple;"></div>
+        <div class="color-swatch" style="background: brown;"></div>
+        <div class="color-swatch" style="background: black;"></div>
+        <div class="color-swatch" style="background: #f1e9e1;"><b>+</b></div>
+        <img src="../../color/spuit.png" alt="Spuit" class="tool-button" />
       </div>
 
-      <!-- Layer panel -->
+      <!-- Layer Panel -->
       <div class="layer-panel">
         <div class="layer-box">
           <div class="layer-header">
-            <img src="/create_parts/layer_button/layerlock.png" />
-            <img src="/create_parts/layer_button/layerdisplay.png" />
-            <img src="/create_parts/layer_button/layerhidden.png" />
+            <img src="../../create_parts/layer_button/layerlock.png" alt="Lock" />
+            <img src="../../create_parts/layer_button/layerdisplay.png" alt="Display" />
+            <img src="../../create_parts/layer_button/layerhidden.png" alt="Hidden" />
           </div>
           <div class="layer-footer">
-            <img src="/create_parts/layer_button/layerpanelplus.png" />
-            <img src="/create_parts/layer_button/layerreproduction.png" />
-            <img src="/create_parts/layer_button/layerdestruction.png" />
+            <img src="../../create_parts/layer_button/layerpanelplus.png" alt="Add" />
+            <img src="../../create_parts/layer_button/layerreproduction.png" alt="Copy" />
+            <img src="../../create_parts/layer_button/layerdestruction.png" alt="Delete" />
           </div>
         </div>
-        <!-- Repeat .layer-box for up to 5 layers -->
+        <!-- Add more layer-box divs if needed -->
       </div>
     </div>
   </div>
 
   <script>
-    // Dropdown Toggle Example
-    const selectTool = document.getElementById('select-tool');
-    const dropdown = document.querySelector('.dropdown');
+    function toggleGrid() {
+      document.getElementById('canvas').classList.toggle('grid');
+    }
 
-    selectTool.addEventListener('click', () => {
-      dropdown.classList.toggle('active');
-    });
+    function toggleOpacity() {
+      const bar = document.getElementById('opacityBar');
+      bar.classList.toggle('active');
+    }
   </script>
 </body>
 </html>
