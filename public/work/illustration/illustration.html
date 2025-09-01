@@ -7,47 +7,39 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- 画面中央に固定ステージを配置（外側は非スケール領域） -->
   <div class="viewport">
-    <!-- ステージ（固定寸法を transform: scale で拡縮） -->
     <div class="app" role="application" aria-label="Vivora Fashion Illustration 2025">
-
-      <!-- Topbar（canvasの外） -->
       <header class="topbar">
-        <!-- 左：Next Step + contents（横並び） -->
         <div class="topbar-left">
           <button id="next-step" class="ghost-btn" type="button">Next Step ▶▶</button>
           <nav class="contents-button" aria-label="contents">
-            <img src="/create_parts/contents_button/0_home.png"                     alt="Home"  title="Home" draggable="false"/>
-            <img src="/create_parts/contents_button/1_fashion-illustrations.png"    alt="Fi"    title="Fashion Illustrations" draggable="false"/>
-            <img src="/create_parts/contents_button/2_fabric-matching.png"          alt="Fm"    title="Fabric Matching" draggable="false"/>
-            <img src="/create_parts/contents_button/3_clothing-design.png"          alt="Cd"    title="Clothing Design" draggable="false"/>
-            <img src="/create_parts/contents_button/4_pattern-creation.png"         alt="Pc"    title="Pattern Creation" draggable="false"/>
-            <img src="/create_parts/contents_button/5_grading.png"                  alt="Gd"    title="Grading" draggable="false"/>
-            <img src="/create_parts/contents_button/6_print-layout-cut.png"         alt="Plc"   title="Print/Layout/Cut" draggable="false"/>
-            <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk"    title="Digital Dressing (Kids)" draggable="false"/>
+            <img src="/create_parts/contents_button/0_home.png" alt="Home" title="Home" draggable="false"/>
+            <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" title="Fashion Illustrations" draggable="false"/>
+            <img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm" title="Fabric Matching" draggable="false"/>
+            <img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd" title="Clothing Design" draggable="false"/>
+            <img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc" title="Pattern Creation" draggable="false"/>
+            <img src="/create_parts/contents_button/5_grading.png" alt="Gd" title="Grading" draggable="false"/>
+            <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc" title="Print/Layout/Cut" draggable="false"/>
+            <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" title="Digital Dressing (Kids)" draggable="false"/>
           </nav>
         </div>
 
-        <!-- 中央：ページネーム（完全センター） -->
         <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-        <!-- 右：history（右端をStationeryの右端と揃える） -->
         <div class="history-tool" aria-label="history">
-          <img src="/create_parts/create_button/retreat.png"   alt="Redo"      title="戻る" draggable="false"/>
-          <img src="/create_parts/create_button/forward.png"   alt="Cycle"     title="進む" draggable="false"/>
-          <img src="/create_parts/create_button/reset.png"     alt="Undo"      title="リセット" draggable="false"/>
-          <img src="/create_parts/create_button/download.png"  alt="Download"  title="ダウンロード" draggable="false"/>
-          <img src="/create_parts/create_button/upload.png"    alt="Upload"    title="アップロード" draggable="false"/>
-          <img src="/create_parts/create_button/save.png"      alt="Save"      title="保存" draggable="false"/>
+          <img src="/create_parts/create_button/retreat.png"  alt="Redo"     title="戻る" draggable="false"/>
+          <img src="/create_parts/create_button/forward.png"  alt="Cycle"    title="進む" draggable="false"/>
+          <img src="/create_parts/create_button/reset.png"    alt="Undo"     title="リセット" draggable="false"/>
+          <img src="/create_parts/create_button/download.png" alt="Download" title="ダウンロード" draggable="false"/>
+          <img src="/create_parts/create_button/upload.png"   alt="Upload"   title="アップロード" draggable="false"/>
+          <img src="/create_parts/create_button/save.png"     alt="Save"     title="保存" draggable="false"/>
         </div>
       </header>
 
-      <!-- Board（canvas本体） -->
       <main class="board" role="main">
         <div class="canvas-wrapper" id="canvas">
-          <!-- Stationery（canvas内 右上：8アイコン。枠なし） -->
-          <div class="stationery-toolbar" aria-label="stationery">
+          <!-- Stationery（枠なし・右上） -->
+          <div class="stationery-toolbar" id="stationery" aria-label="stationery">
             <img src="/create_parts/object_btn/select.png"      alt="Select"  title="選択" draggable="false"/>
             <img src="/create_parts/object_btn/square.png"      alt="Square"  title="図形" draggable="false"/>
             <img src="/create_parts/object_btn/brush.png"       alt="Brush"   title="ペン" draggable="false"/>
@@ -58,7 +50,7 @@
             <img src="/create_parts/object_btn/layer.png"       alt="Layer"   title="レイヤー" draggable="false"/>
           </div>
 
-          <!-- マネキン（ピンチで拡大縮小できるようラッパーを用意） -->
+          <!-- Mannequin: pinch/zoom 可 -->
           <div id="man-zoom">
             <img id="mannequin"
                  src="/mannequin/mannequin_woman/mannequin_woman_front.png"
@@ -69,23 +61,26 @@
     </div>
   </div>
 
-  <!-- ================================
-       JS（HTMLと統合）
-       - ステージ自動フィット（DPRスナップ）
-       - クリックフック
-       - テーマ切替（light / dark / system）
-       - マネキン：ピンチ/ホイールで拡大縮小
-  ================================= -->
   <script>
-    // ---------- Auto scale (Illustrator-like board) ----------
+    // ========= 1) ステージ自動フィット（整数ピクセルに“スナップ”） =========
     (function(){
       const css = () => getComputedStyle(document.documentElement);
       const num = v => parseFloat(v) || 0;
 
-      function snapScale(s){
+      function snapScaleToIntegralPixels(s, baseW, baseH, vw, vh){
+        // いったん候補スケール
+        s = Math.max(0.5, Math.min(vw/baseW, vh/baseH));
+        // ステージの描画サイズが整数pxになるよう再計算
+        const wSnap = Math.floor(baseW * s);
+        const hSnap = Math.floor(baseH * s);
+        const sW = wSnap / baseW;
+        const sH = hSnap / baseH;
+        // 最小側を採用（はみ出し防止）
+        let s2 = Math.min(sW, sH);
+        // DPRに合わせてさらに 1/(2*DPR) 刻みにスナップ（hairline対策）
         const dpr = window.devicePixelRatio || 1;
-        // 0.5/dpr刻みでスナップ（hairline対策）
-        return Math.max(0.5, Math.min(4, Math.round(s * dpr * 2) / (dpr * 2)));
+        s2 = Math.round(s2 * dpr * 2) / (dpr * 2);
+        return Math.max(0.5, s2);
       }
 
       function fitStage(){
@@ -96,9 +91,7 @@
         const vw = window.innerWidth  - MARGIN*2;
         const vh = window.innerHeight - MARGIN*2;
 
-        let s = Math.max(0.5, Math.min(vw/BASE_W, vh/BASE_H));
-        s = snapScale(s);
-
+        const s = snapScaleToIntegralPixels(1, BASE_W, BASE_H, vw, vh);
         document.documentElement.style.setProperty('--app-scale', s);
       }
 
@@ -107,94 +100,100 @@
       document.addEventListener('DOMContentLoaded', fitStage);
     })();
 
-    // ---------- Prevent image drag/select ----------
+    // ========= 2) 右端を“実測”で同期：history の右端＝stationery の右端 =========
+    (function(){
+      const boardPad = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--board-pad')) || 14;
+
+      function syncRightEdge(){
+        const canvas = document.getElementById('canvas');
+        const st = document.getElementById('stationery');
+        const hist = document.querySelector('.history-tool');
+        if(!canvas || !st || !hist) return;
+
+        const cRect = canvas.getBoundingClientRect();
+        const sRect = st.getBoundingClientRect();
+
+        // キャンバス右端 - Stationery右端 の差分を history の右マージンに反映
+        const gap = Math.max(0, Math.round((cRect.right - sRect.right)));
+        const mr = gap + boardPad(); // ボードの内側余白ぶんを足す
+        hist.style.marginRight = `${mr}px`;
+      }
+
+      const ro = new ResizeObserver(syncRightEdge);
+      window.addEventListener('resize', syncRightEdge, { passive:true });
+      window.addEventListener('load', syncRightEdge, { passive:true });
+      ro.observe(document.body);
+    })();
+
+    // ========= 3) 画像ドラッグ抑止 =========
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('img').forEach(img => {
         img.addEventListener('mousedown', e => e.preventDefault());
         img.addEventListener('dragstart', e => e.preventDefault());
       });
-
-      // 将来機能フック
-      const clickable = document.querySelectorAll(
-        '.stationery-toolbar img, .history-tool img, .contents-button img, #next-step'
-      );
-      clickable.forEach(el => el.addEventListener('click', () => {/* TODO */}));
     });
 
-    // ---------- Theme: light / dark / system ----------
+    // ========= 4) テーマ切替（light / dark / system） =========
     (function(){
       const KEY = 'vivora.theme';
       const root = document.documentElement;
-
       function apply(theme){ root.setAttribute('data-theme', theme); }
       window.setTheme = function(theme){
         if(!['light','dark','system'].includes(theme)) return;
         localStorage.setItem(KEY, theme); apply(theme);
       };
       apply(localStorage.getItem(KEY) || 'system');
-
-      // OSテーマ変更時、system 選択中は追従
       const mq = window.matchMedia('(prefers-color-scheme: dark)');
       mq.addEventListener('change', () => {
         if(root.getAttribute('data-theme') === 'system') apply('system');
       });
     })();
 
-    // ---------- Mannequin pinch/zoom (trackpad pinch / wheel / touch / Safari gesture) ----------
+    // ========= 5) マネキン：ピンチ/ホイールで拡大縮小 =========
     (function(){
-      const zoomWrap = document.getElementById('man-zoom');
-      const mannequin = document.getElementById('mannequin');
+      const wrap = document.getElementById('man-zoom');
+      const canvas = document.getElementById('canvas');
 
-      let scale = 1;               // 現在スケール
-      const MIN = 0.6, MAX = 3;    // 係数
-      const STEP = 0.12;           // ホイール刻みのベース
+      let scale = 1;
+      const MIN = 0.6, MAX = 3;
+      const STEP = 0.12;
 
-      function apply(){
-        zoomWrap.style.setProperty('--man-scale', scale);
-      }
+      function apply(){ wrap.style.setProperty('--man-scale', scale); }
 
-      // Ctrl+Wheel（Chromeのトラックパッドピンチはwheel+ctrlで来ることが多い）
-      document.getElementById('canvas').addEventListener('wheel', (e)=>{
+      // Ctrl+Wheel（Chrome等のトラックパッド）
+      canvas.addEventListener('wheel', (e)=>{
         if(!e.ctrlKey) return;
         e.preventDefault();
-        const ds = Math.exp(-e.deltaY * STEP / 100); // なめらか
+        const ds = Math.exp(-e.deltaY * STEP / 100);
         scale = Math.min(MAX, Math.max(MIN, scale * ds));
         apply();
       }, { passive:false });
 
-      // Safariのgestureイベント
-      let gestureBase = 1;
-      window.addEventListener('gesturestart', (e)=>{ gestureBase = scale; }, { passive:true });
+      // Safari gesture
+      let gBase = 1;
+      window.addEventListener('gesturestart', ()=>{ gBase = scale; }, { passive:true });
       window.addEventListener('gesturechange', (e)=>{
         e.preventDefault();
-        scale = Math.min(MAX, Math.max(MIN, gestureBase * e.scale));
+        scale = Math.min(MAX, Math.max(MIN, gBase * e.scale));
         apply();
       }, { passive:false });
 
-      // タッチ2本指ピンチ
-      let touchDist0 = null, touchBase = 1;
-      const dist = (t1, t2)=> Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
-
-      const canvas = document.getElementById('canvas');
-      canvas.addEventListener('touchstart', (e)=>{
-        if(e.touches.length === 2){
-          touchDist0 = dist(e.touches[0], e.touches[1]);
-          touchBase = scale;
-        }
+      // Touch pinch
+      let d0 = null, base = 1;
+      const dist = (a,b)=>Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY);
+      canvas.addEventListener('touchstart', e=>{
+        if(e.touches.length===2){ d0 = dist(e.touches[0], e.touches[1]); base = scale; }
       }, { passive:true });
-
-      canvas.addEventListener('touchmove', (e)=>{
-        if(e.touches.length === 2 && touchDist0){
+      canvas.addEventListener('touchmove', e=>{
+        if(e.touches.length===2 && d0){
           e.preventDefault();
-          const ratio = dist(e.touches[0], e.touches[1]) / touchDist0;
-          scale = Math.min(MAX, Math.max(MIN, touchBase * ratio));
+          const ratio = dist(e.touches[0], e.touches[1]) / d0;
+          scale = Math.min(MAX, Math.max(MIN, base * ratio));
           apply();
         }
       }, { passive:false });
+      canvas.addEventListener('touchend', ()=>{ d0 = null; }, { passive:true });
 
-      canvas.addEventListener('touchend', ()=>{ touchDist0 = null; }, { passive:true });
-
-      // 初期反映
       apply();
     })();
   </script>
