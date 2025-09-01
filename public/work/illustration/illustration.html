@@ -39,20 +39,50 @@
         <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)">
       </div>
 
-      <!-- ── キャンバス領域 ───────────────────── -->
-      <div class="canvas-wrapper">
-        <!-- Stationery（キャンバス内 右上・横並び） -->
-        <div class="stationery-toolbar">
-          <img src="/create_parts/object_btn/select.png"       alt="Select"  title="Select">
-          <img src="/create_parts/object_btn/square.png"       alt="Rect"    title="Rectangle">
-          <img src="/create_parts/object_btn/pen.png"          alt="Pen"     title="Pen">
-          <img src="/create_parts/object_btn/eraser.png"       alt="Eraser"  title="Eraser">
-          <img src="/create_parts/object_btn/sentence.png"     alt="Text"    title="Text">
-          <img src="/create_parts/object_btn/markerpen.png"    alt="Marker"  title="Marker">
-          <img src="/create_parts/object_btn/direct_select.png"alt="Path"    title="Direct Select">
-          <img src="/create_parts/object_btn/graph_paper.png"  alt="Grid"    title="Grid">
-          <img src="/create_parts/object_btn/layer.png"        alt="Layer"   title="Layer Panel">
+     <!-- キャンバス領域 -->
+<div class="canvas-wrapper">
+  <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
+
+  <!-- 右パネル -->
+  <div class="tool-right-panel">
+    <div class="stationery-tool">
+      <img src="/create_parts/object_btn/select.png" alt="Select">
+      <img src="/create_parts/object_btn/square.png" alt="Square">
+      <img src="/create_parts/object_btn/pen.png" alt="Pen">
+      <img src="/create_parts/object_btn/eraser.png" alt="Eraser">
+      <img src="/create_parts/object_btn/sentence.png" alt="Text">
+      <img src="/create_parts/object_btn/markerpen.png" alt="Marker">
+      <img src="/create_parts/object_btn/graph_paper.png" alt="Grid">
+      <img src="/create_parts/object_btn/layer.png" alt="Layer">
+    </div>
+
+    <div class="color-panel">
+      <div class="color-swatch" style="background: #ffffff"></div>
+      <div class="color-swatch" style="background: #000000"></div>
+      <!-- …色を続けて配置… -->
+    </div>
+
+    <div class="opacity-bar">
+      <span>100%</span>
+      <input type="range" min="0" max="100" value="100">
+    </div>
+
+    <div class="layer-panel">
+      <div class="layer-box">
+        <div class="layer-header">
+          <img src="/create_parts/layer_button/layerlock.png" alt="Lock">
+          <img src="/create_parts/layer_button/layerdisplay.png" alt="Display">
+          <img src="/create_parts/layer_button/layerhidden.png" alt="Hide">
         </div>
+        <div class="layer-footer">
+          <img src="/create_parts/layer_button/layerpanelplus.png" alt="Add">
+          <img src="/create_parts/layer_button/layerreproduction.png" alt="Copy">
+          <img src="/create_parts/layer_button/layerdestruction.png" alt="Delete">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
         <!-- マネキン（中央） -->
         <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
