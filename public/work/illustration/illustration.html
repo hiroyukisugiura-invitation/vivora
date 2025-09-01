@@ -7,88 +7,111 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app-wrapper">
-    <!-- Header -->
+  <div class="app">
+    <!-- ヘッダー -->
     <header class="header">
-      <div class="header-left">
-        <a href="#" class="next-button">Next Step ▸▸</a>
-        <div class="contents-button">
-          <img src="/create_parts/contents_button/0_home.png" alt="Home" />
-          <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" />
-          <img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm" />
-          <img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd" />
-          <img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc" />
-          <img src="/create_parts/contents_button/5_grading.png" alt="Gd" />
-          <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc" />
-          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" />
-        </div>
+      <div class="contents-button">
+        <a href="#" class="next-step">Next Step ▸▸</a>
+        <img src="/create_parts/contents_button/0_home.png" alt="Home" class="tool-button">
+        <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" class="tool-button">
+        <img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm" class="tool-button">
+        <img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd" class="tool-button">
+        <img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc" class="tool-button">
+        <img src="/create_parts/contents_button/5_grading.png" alt="Gd" class="tool-button">
+        <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc" class="tool-button">
+        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" class="tool-button">
       </div>
-      <div class="page-title">Vivora Fashion Illustration 2025</div>
-      <div class="header-right">
-        <div class="history-tool">
-          <img src="/create_parts/create_button/retreat.png" alt="Undo" />
-          <img src="/create_parts/create_button/forward.png" alt="Redo" />
-          <img src="/create_parts/create_button/reset.png" alt="Reset" />
-          <img src="/create_parts/create_button/download.png" alt="Download" />
-          <img src="/create_parts/create_button/upload.png" alt="Upload" />
-          <img src="/create_parts/create_button/save.png" alt="Save" />
-        </div>
-        <div class="stationery-tool">
-          <img src="/create_parts/object_btn/select.png" alt="Select" />
-          <img src="/create_parts/object_btn/square.png" alt="Square" />
-          <img src="/create_parts/object_btn/brush.png" alt="Brush" />
-          <img src="/create_parts/object_btn/eraser.png" alt="Eraser" />
-          <img src="/create_parts/object_btn/sentence.png" alt="Text" />
-          <img src="/create_parts/object_btn/opasity_ber.png" alt="Opacity" />
-          <img src="/create_parts/object_btn/graph_paper.png" alt="Grid" id="grid-toggle" />
-          <img src="/create_parts/object_btn/layer.png" alt="Layer" />
-        </div>
+      <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
+      <div class="history-tool">
+        <img src="/create_parts/create_button/retreat.png" alt="Undo" class="tool-button">
+        <img src="/create_parts/create_button/forward.png" alt="Redo" class="tool-button">
+        <img src="/create_parts/create_button/reset.png" alt="Reset" class="tool-button">
+        <img src="/create_parts/create_button/download.png" alt="Download" class="tool-button">
+        <img src="/create_parts/create_button/upload.png" alt="Upload" class="tool-button">
+        <img src="/create_parts/create_button/save.png" alt="Save" class="tool-button">
       </div>
     </header>
 
-    <!-- Canvas Area -->
-    <main class="canvas-area">
-      <div class="canvas" id="canvas">
-        <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin" />
+    <!-- キャンバス＋右パネル -->
+    <main class="canvas-wrapper">
+      <div id="canvas">
+        <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
+      </div>
+
+      <!-- 文房具ツール -->
+      <div class="stationery-tool">
+        <div class="tool-group">
+          <img src="/create_parts/object_btn/select.png" alt="Select" class="tool-button">
+          <div class="dropdown">
+            <img src="/create_parts/object_btn/direct_select.png" alt="Direct Select" class="dropdown-icon">
+          </div>
+        </div>
+        <div class="tool-group">
+          <img src="/create_parts/object_btn/square.png" alt="Square" class="tool-button">
+          <div class="dropdown">
+            <img src="/create_parts/object_btn/circle.png" alt="Circle" class="dropdown-icon">
+          </div>
+        </div>
+        <div class="tool-group">
+          <img src="/create_parts/object_btn/brush.png" alt="Brush" class="tool-button">
+          <div class="dropdown">
+            <img src="/create_parts/object_btn/pen.png" alt="Pen" class="dropdown-icon">
+            <img src="/create_parts/object_btn/circlebrush.png" alt="Circle Brush" class="dropdown-icon">
+            <img src="/create_parts/object_btn/ballpointpen.png" alt="Ballpoint" class="dropdown-icon">
+            <img src="/create_parts/object_btn/markerpen.png" alt="Marker" class="dropdown-icon">
+          </div>
+        </div>
+        <img src="/create_parts/object_btn/eraser.png" alt="Eraser" class="tool-button">
+        <img src="/create_parts/object_btn/sentence.png" alt="Text" class="tool-button">
+        <img src="/create_parts/object_btn/graph_paper.png" alt="Grid" class="tool-button">
+        <img src="/create_parts/object_btn/layer.png" alt="Layer" class="tool-button">
+      </div>
+
+      <!-- 不透明度バー -->
+      <div class="opacity-bar">
+        <input type="range" min="0" max="100" value="100">
+      </div>
+
+      <!-- カラーパネル -->
+      <div class="color-panel">
+        <div class="color-swatch" style="background-color: #ffffff"></div>
+        <div class="color-swatch" style="background-color: #b2b2b2"></div>
+        <div class="color-swatch" style="background-color: #ffef00"></div>
+        <div class="color-swatch" style="background-color: #f5a623"></div>
+        <div class="color-swatch" style="background-color: #f8b4c2"></div>
+        <div class="color-swatch" style="background-color: #e02020"></div>
+        <div class="color-swatch" style="background-color: #73c32c"></div>
+        <div class="color-swatch" style="background-color: #007f5f"></div>
+        <div class="color-swatch" style="background-color: #7ed6f5"></div>
+        <div class="color-swatch" style="background-color: #003f88"></div>
+        <div class="color-swatch" style="background-color: #7b2cbf"></div>
+        <div class="color-swatch" style="background-color: #912f1b"></div>
+        <div class="color-swatch" style="background-color: #666"></div>
+        <div class="color-swatch" style="background-color: #000000"></div>
+        <div class="color-swatch add-color">+</div>
+        <img src="/create_parts/object_btn/spuit.png" alt="Spuit" class="tool-button">
+      </div>
+
+      <!-- レイヤーパネル -->
+      <div class="layer-panel">
+        <div class="layer-box">
+          <div class="layer-header">
+            <img src="/create_parts/layer_button/layerlock.png" alt="Lock">
+            <img src="/create_parts/layer_button/layerdisplay.png" alt="Display">
+            <img src="/create_parts/layer_button/layerhidden.png" alt="Hide">
+          </div>
+          <div class="layer-body"></div>
+          <div class="layer-footer">
+            <img src="/create_parts/layer_button/layerpanelplus.png" alt="Add">
+            <img src="/create_parts/layer_button/layerreproduction.png" alt="Copy">
+            <img src="/create_parts/layer_button/layerlayer integration.png" alt="Merge">
+            <img src="/create_parts/layer_button/layerdestruction.png" alt="Delete">
+          </div>
+        </div>
+        <!-- 複数レイヤーはJSで追加 -->
       </div>
     </main>
   </div>
-
-  <script>
-    // Toggle grid background
-    const gridToggle = document.getElementById('grid-toggle');
-    const canvas = document.getElementById('canvas');
-
-    gridToggle.addEventListener('click', () => {
-      canvas.classList.toggle('grid-background');
-    });
-
-    // Optional: mannequin pinch zoom (touch devices)
-    let scale = 1;
-    let startDist = 0;
-    const mannequin = document.getElementById('mannequin');
-
-    mannequin.addEventListener('touchstart', e => {
-      if (e.touches.length === 2) {
-        const dx = e.touches[0].clientX - e.touches[1].clientX;
-        const dy = e.touches[0].clientY - e.touches[1].clientY;
-        startDist = Math.hypot(dx, dy);
-      }
-    });
-
-    mannequin.addEventListener('touchmove', e => {
-      if (e.touches.length === 2) {
-        const dx = e.touches[0].clientX - e.touches[1].clientX;
-        const dy = e.touches[0].clientY - e.touches[1].clientY;
-        const newDist = Math.hypot(dx, dy);
-        const scaleFactor = newDist / startDist;
-        mannequin.style.transform = `scale(${scale * scaleFactor})`;
-      }
-    });
-
-    mannequin.addEventListener('touchend', () => {
-      scale = parseFloat(mannequin.style.transform.replace(/[^\d\.]/g, '')) || 1;
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
