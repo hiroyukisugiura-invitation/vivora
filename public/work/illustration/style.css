@@ -220,3 +220,61 @@ body{
   /* 既存指定があればそれを優先。足りない場合の保険だけ効くよう弱めに書く */
   padding-bottom: max(env(safe-area-inset-bottom, 0px), 8px);
 }
+/* =========================
+   Topbar 2段レイアウト
+   HTML変更なしで配置入れ替え
+   ========================= */
+:root{
+  --edge: 28px;        /* 右端ライン（history/ステーショナリと共通） */
+  --gap: 12px;
+  --title-left: 24px;  /* タイトルの左寄せ量 */
+}
+
+/* Topbar を2段のグリッドにする */
+.topbar{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;  /* 左列=NextStep/contents、右列=history */
+  grid-template-rows: auto auto;    /* 1段目=タイトル、2段目=ツール列 */
+  align-items: center;
+  column-gap: var(--gap);
+  padding-right: var(--edge);       /* 右端ラインを統一 */
+}
+
+/* 1段目：タイトルを左に */
+.topbar h1,
+.topbar .app-title{
+  grid-column: 1 / 2;   /* 左列 */
+  grid-row: 1;          /* 1段目 */
+  margin-left: var(--title-left);
+  white-space: nowrap;
+  text-align: left;
+}
+
+/* 2段目：左側（NextStep と contents を同じセルに収める） */
+#next-step,
+.topbar .contents-button{
+  grid-column: 1 / 2;   /* 左列の同じセル */
+  grid-row: 2;          /* 2段目 */
+  align-self: center;
+}
+#next-step{ margin-left: var(--title-left); }   /* タイトルと左端を合わせる */
+.topbar .contents-button{ margin-left: var(--gap); }
+
+/* 2段目：右側（history 群を右端へ） */
+.topbar .history-tools,
+.topbar .topbar-right,
+.topbar > *:last-child{         /* クラス名が異なる場合の保険 */
+  grid-column: 2 / 3;           /* 右列 */
+  grid-row: 2;                  /* 2段目 */
+  justify-self: end;
+}
+.topbar .history-tools img,
+.topbar .history-tools svg{ margin-left: var(--gap); }
+
+/* 右側のステーショナリ群と右端ラインを合わせる（既に指定があればそのままでOK） */
+.stationery-tools,
+.tools-right,
+.canvas .toolbox-right{
+  right: var(--edge);
+}
