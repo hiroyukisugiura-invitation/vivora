@@ -1,174 +1,85 @@
 /* ==== Tokens ==== */
 :root{
-  --base-w: 1280;
-  --base-h: 820;
-  --app-scale: 1;
-  --viewport-margin: 24;
-
-  --unit: 8px;          /* “1マス”の基準 */
-  --top-h: 44px;        /* 1段目（タイトル＆history）の高さ */
-
-  --radius: 12px;
-  --radius-lg: 14px;
-  --radius-sm: 10px;
-
+  --base-w: 1280; --base-h: 820; --app-scale: 1; --viewport-margin: 24;
+  --unit: 8px; --top-h: 44px;
+  --radius: 12px; --radius-lg: 14px; --radius-sm: 10px;
   --shadow: 0 3px 10px rgba(0,0,0,.12);
   --shadow-strong: 0 8px 28px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
-
-  --st-icon: 22px;      /* StationeryとHistoryのアイコンサイズ */
-  --tile-gap: 10px;
-
-  --board-pad: 14px;
-  --st-right: 16px;
+  --st-icon: 22px; --tile-gap: 10px; --board-pad: 14px; --st-right: 16px;
 }
 
 /* ==== Theme ==== */
-:root,
-:root[data-theme="light"],
-:root[data-theme="system"]:not(.force-dark){
-  --bg: #efe7e0;
-  --panel: #ffffff;
-  --ink: #222;
-  --line: #cfc7c0;
+:root, :root[data-theme="light"], :root[data-theme="system"]:not(.force-dark){
+  --bg:#efe7e0; --panel:#fff; --ink:#222; --line:#cfc7c0;
 }
-:root[data-theme="dark"]{
-  --bg: #111213; --panel:#191a1b; --ink:#f2f2f2; --line:#2b2d2f;
-}
+:root[data-theme="dark"]{ --bg:#111213; --panel:#191a1b; --ink:#f2f2f2; --line:#2b2d2f; }
 @media (prefers-color-scheme: dark){
-  :root[data-theme="system"]{
-    --bg: #111213; --panel:#191a1b; --ink:#f2f2f2; --line:#2b2d2f;
-  }
+  :root[data-theme="system"]{ --bg:#111213; --panel:#191a1b; --ink:#f2f2f2; --line:#2b2d2f; }
 }
 
 /* ==== Base ==== */
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
-body{
-  margin:0; color:var(--ink); background:var(--bg);
-  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;
-}
-.viewport{
-  min-height:100dvh; display:grid; place-items:center; padding:var(--viewport-margin);
-}
-.app{
-  width:calc(var(--base-w)*1px);
-  height:calc(var(--base-h)*1px);
-  transform:scale(var(--app-scale));
-  transform-origin:top left;
-  position:relative;
-  will-change:transform; backface-visibility:hidden;
-}
+*{ box-sizing:border-box; } html,body{ height:100%; }
+body{ margin:0; color:var(--ink); background:var(--bg);
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif; }
+.viewport{ min-height:100dvh; display:grid; place-items:center; padding:var(--viewport-margin); }
+.app{ width:calc(var(--base-w)*1px); height:calc(var(--base-h)*1px);
+  transform:scale(var(--app-scale)); transform-origin:top left; position:relative; will-change:transform; backface-visibility:hidden; }
 
-/* ==== 1段目：タイトル / history ==== */
-.top-strip{
-  position:absolute; left:0; right:0; top:0;
-  height:var(--top-h);
-  display:grid; grid-template-columns: 1fr auto;
-  align-items:center; padding:10px 14px 0 18px;
-}
-.title{
-  margin:0; font-size:16px; letter-spacing:.2px; font-weight:600;
-}
-.history-tool{
-  display:inline-flex; align-items:center; gap:12px;
-  margin-right: calc(var(--board-pad) + var(--st-right));
-  height:40px;                 /* contents と高さ揃え */
-  transform: translateY(4px);  /* 微調整 */
-}
-.history-tool img{ width: var(--st-icon); height: var(--st-icon); display:block; cursor:pointer; }
+/* ==== 上段 ==== */
+.top-strip{ position:absolute; left:0; right:0; top:0; height:var(--top-h);
+  display:grid; grid-template-columns:1fr auto; align-items:center; padding:10px 14px 0 18px; }
+.title{ margin:0; font-size:16px; letter-spacing:.2px; font-weight:600; }
+.history-tool{ display:inline-flex; align-items:center; gap:12px;
+  margin-right: calc(var(--board-pad) + var(--st-right)); height:40px; transform:translateY(4px); }
+.history-tool img{ width:var(--st-icon); height:var(--st-icon); display:block; cursor:pointer; }
 
-/* ==== 2段目：Next Step + contents ==== */
-.nav-strip{
-  position:absolute; left:18px; top: calc(var(--top-h) + var(--unit));
-  height:40px; display:flex; align-items:center; gap:12px;
-}
-.ghost-btn{
-  border:1px solid var(--line); background:transparent; color:var(--ink);
-  padding:6px 10px; border-radius:var(--radius-sm); cursor:pointer; font-size:12px;
-}
+/* ==== 2段目 ==== */
+.nav-strip{ position:absolute; left:18px; top:calc(var(--top-h) + var(--unit));
+  height:40px; display:flex; align-items:center; gap:12px; }
+.ghost-btn{ border:1px solid var(--line); background:transparent; color:var(--ink);
+  padding:6px 10px; border-radius:var(--radius-sm); cursor:pointer; font-size:12px; }
 .ghost-btn:hover{ background:rgba(0,0,0,.05); }
 .contents-button{ display:inline-flex; align-items:center; gap:10px; height:40px; }
 .contents-button img{ width:24px; height:24px; display:block; transform:translateY(1px); filter:drop-shadow(var(--shadow)); }
 
-/* ==== Board / Canvas ==== */
+/* ==== Board ==== */
 .board{ position:absolute; inset: calc(var(--top-h) + var(--unit) + 40px) 0 0 0; padding:var(--board-pad); }
-.canvas-wrapper{
-  position:relative; width:100%; height:100%;
-  background:var(--panel);
-  outline:1px solid var(--line); outline-offset:-1px;
-  border-radius:var(--radius-lg); box-shadow:var(--shadow-strong);
-  overflow:hidden;
-}
+.canvas-wrapper{ position:relative; width:100%; height:100%; background:var(--panel);
+  outline:1px solid var(--line); outline-offset:-1px; border-radius:var(--radius-lg); box-shadow:var(--shadow-strong); overflow:hidden; }
 
-/* ==== Stationery（右上） ==== */
-.stationery-toolbar{
-  position:absolute; top:14px; right:var(--st-right);
-  display:grid; grid-auto-flow:column; gap:12px; align-items:center;
-  padding:0; background:transparent; border:none;
-}
+/* ==== Stationery ==== */
+.stationery-toolbar{ position:absolute; top:14px; right:var(--st-right);
+  display:grid; grid-auto-flow:column; gap:12px; align-items:center; }
 .stationery-toolbar img,
-.stationery-toolbar .tool-trigger img{
-  width: var(--st-icon); height: var(--st-icon); display:block;
-}
-.stationery-toolbar img[draggable="false"]{ cursor:pointer; }
+.stationery-toolbar .tool-trigger img{ width:var(--st-icon); height:var(--st-icon); display:block; }
+.tool-trigger{ position:relative; display:inline-grid; place-items:center; width:var(--st-icon); height:var(--st-icon);
+  background:transparent; border:none; padding:0; cursor:pointer; }
+.tool-trigger .caret{ position:absolute; bottom:-4px; left:50%; transform:translateX(-50%);
+  width:0;height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-top:6px solid rgba(0,0,0,.35); }
 
-/* ▼ ドロップダウントリガー（Select/Box/Pen） */
-.tool-trigger{
-  position:relative; display:inline-grid; place-items:center;
-  width: var(--st-icon); height: var(--st-icon);
-  background:transparent; border:none; padding:0; cursor:pointer;
-}
-.tool-trigger .caret{
-  position:absolute; bottom:-4px; left:50%; width:0; height:0;
-  transform:translateX(-50%);
-  border-left:5px solid transparent; border-right:5px solid transparent;
-  border-top:6px solid rgba(0,0,0,.35); /* 小さな下向き三角 */
-}
-
-/* ▼ 共通ドロップダウンカード */
-.dropdown{
-  position:absolute; z-index:30; min-width:184px;
-  background:var(--panel); color:var(--ink);
-  border:1px solid var(--line); border-radius:var(--radius-sm);
-  box-shadow:var(--shadow-strong); padding:8px; user-select:none;
-}
+/* ==== ドロップダウン ==== */
+.dropdown{ position:absolute; z-index:30; min-width:184px; background:var(--panel); color:var(--ink);
+  border:1px solid var(--line); border-radius:var(--radius-sm); box-shadow:var(--shadow-strong); padding:8px; user-select:none; }
 .dropdown.hide{ display:none; }
-.menuitem{
-  width:100%; height:32px; display:grid; grid-template-columns: 24px 1fr;
-  align-items:center; gap:10px; padding:0 6px; border-radius:8px;
-  border:none; background:transparent; color:inherit; cursor:pointer;
-}
+.menuitem{ width:100%; height:32px; display:grid; grid-template-columns:24px 1fr; align-items:center; gap:10px;
+  padding:0 6px; border-radius:8px; border:none; background:transparent; color:inherit; cursor:pointer; }
 .menuitem:hover, .menuitem:focus-visible{ background:rgba(0,0,0,.06); outline:none; }
 .menuitem img{ width:22px; height:22px; }
 .pin{ display:block; margin-top:6px; font-size:12px; opacity:.7; }
 
-/* ▼ カラー縦パネル */
-.color-panel{
-  position:absolute; z-index:25; padding:8px;
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:var(--radius-sm); box-shadow:var(--shadow-strong);
-  display:grid; gap:8px;
-}
+/* ==== カラー縦パネル ==== */
+.color-panel{ position:absolute; z-index:25; padding:8px; background:var(--panel); border:1px solid var(--line);
+  border-radius:var(--radius-sm); box-shadow:var(--shadow-strong); display:grid; gap:8px; }
 .color-panel.hide{ display:none; }
-.swatch{
-  width:28px; height:28px; border-radius:50%;
-  border:1px solid rgba(0,0,0,.15);
-  background:var(--panel); cursor:pointer;
-}
-.swatch[data-color]{ background: var(--panel); }
-.swatch[data-color]::before{
-  content:""; display:block; width:100%; height:100%; border-radius:50%;
-  background: attr(data-color color); /* FallbackはJSで色反映するのでOK */
-}
+.swatch{ width:28px; height:28px; border-radius:50%; border:1px solid rgba(0,0,0,.15); background:var(--panel); cursor:pointer; }
+.swatch[data-color]{ background:var(--panel); }
+.swatch[data-color]::before{ content:""; display:block; width:100%; height:100%; border-radius:50%; background: currentColor; }
+.swatch[data-color]{ color: #000; } /* JS側で個別に currentColor を上書き推奨（初期でもOK） */
 .swatch.add, .swatch.pick{ display:grid; place-items:center; font-weight:600; }
 
-/* ▼ 不透明度 HUD */
-.opacity-hud{
-  position:absolute; z-index:26; width:180px;
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:10px; box-shadow:var(--shadow-strong);
-  padding:8px 10px;
-}
+/* ==== 不透明度 HUD ==== */
+.opacity-hud{ position:absolute; z-index:26; width:180px; background:var(--panel); border:1px solid var(--line);
+  border-radius:10px; box-shadow:var(--shadow-strong); padding:8px 10px; }
 .opacity-hud.hide{ display:none; }
 .hud-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
 #opacity-label{ font-size:12px; opacity:.8; }
@@ -177,20 +88,12 @@ body{
 #opacity-range{ width:100%; }
 
 /* ==== Mannequin ==== */
-#man-zoom{
-  position:absolute; left:50%; top:50%;
+#man-zoom{ position:absolute; left:50%; top:50%;
   transform: translate(calc(-50% + var(--man-x, 0px)), calc(-50% + var(--man-y, 0px))) scale(var(--man-scale, 1));
-  transform-origin:center center; cursor: grab;
-}
+  transform-origin:center center; cursor: grab; }
 #man-zoom:active{ cursor: grabbing; }
-#mannequin{
-  display:block; width:auto; height:auto;
-  max-width:56%; max-height:80%;
-  user-select:none; pointer-events:none;
-}
+#mannequin{ display:block; width:auto; height:auto; max-width:56%; max-height:80%; user-select:none; pointer-events:none; }
 
-/* Focus */
+/* Focus & Util */
 :focus-visible{ outline:2px solid #7aa2ff; outline-offset:2px; }
-
-/* 小さなユーティリティ */
 .hide{ display:none !important; }
