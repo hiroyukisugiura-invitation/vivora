@@ -7,16 +7,28 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- ================================
-       Vivora Fashion Illustration 2025
-       - タイトル & history：キャンバス外（ベージュ帯）
-       - キャンバス内：mannequin + stationery のみ
-       ================================= -->
-
+  <!-- ============== Top (canvasの外) ============== -->
   <div class="app">
-    <!-- ▼ ベージュ領域のトップバー（キャンバス外） -->
     <div class="topbar">
+      <!-- 左：Next Step + contents -->
+      <div class="topbar-left">
+        <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
+        <nav class="contents-button" aria-label="contents">
+          <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home" />
+          <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations" />
+          <img src="/create_parts/contents_button/2_fabric-matching.png"         alt="Fm"    title="Fabric Matching" />
+          <img src="/create_parts/contents_button/3_clothing-design.png"         alt="Cd"    title="Clothing Design" />
+          <img src="/create_parts/contents_button/4_pattern-creation.png"        alt="Pc"    title="Pattern Creation" />
+          <img src="/create_parts/contents_button/5_grading.png"                 alt="Gd"    title="Grading" />
+          <img src="/create_parts/contents_button/6_print-layout-cut.png"        alt="Plc"   title="Print/Layout/Cut" />
+          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)" />
+        </nav>
+      </div>
+
+      <!-- 中央：ページネーム -->
       <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
+
+      <!-- 右：history -->
       <div class="history-tool" aria-label="history">
         <img src="/create_parts/create_button/reset.png"     alt="Undo"     title="Undo" />
         <img src="/create_parts/create_button/retreat.png"   alt="Redo"     title="Redo" />
@@ -27,27 +39,10 @@
       </div>
     </div>
 
-    <!-- ▼ ホワイトのボード（キャンバス本体） -->
+    <!-- ============== Board (canvas 本体) ============== -->
     <div class="board">
-
-      <!-- Next Step（左上・小さめ） -->
-      <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
-
-      <!-- Contents（Next Stepの右側） -->
-      <nav class="contents-button" aria-label="contents">
-        <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home" />
-        <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations" />
-        <img src="/create_parts/contents_button/2_fabric-matching.png"         alt="Fm"    title="Fabric Matching" />
-        <img src="/create_parts/contents_button/3_clothing-design.png"         alt="Cd"    title="Clothing Design" />
-        <img src="/create_parts/contents_button/4_pattern-creation.png"        alt="Pc"    title="Pattern Creation" />
-        <img src="/create_parts/contents_button/5_grading.png"                 alt="Gd"    title="Grading" />
-        <img src="/create_parts/contents_button/6_print-layout-cut.png"        alt="Plc"   title="Print/Layout/Cut" />
-        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)" />
-      </nav>
-
-      <!-- ===== キャンバス（白ボード内） ===== -->
       <div class="canvas-wrapper">
-        <!-- Stationery（キャンバス内 右上） -->
+        <!-- Stationery（canvas内 右上） -->
         <div class="stationery-toolbar" aria-label="stationery">
           <img src="/create_parts/object_btn/select.png"        alt="Select"        title="Select" />
           <img src="/create_parts/object_btn/square.png"        alt="Rectangle"     title="Rectangle" />
@@ -60,7 +55,7 @@
           <img src="/create_parts/object_btn/layer.png"         alt="Layer Panel"   title="Layer Panel" />
         </div>
 
-        <!-- マネキン（中央） -->
+        <!-- Mannequin（中央） -->
         <img id="mannequin"
              src="/mannequin/mannequin_woman/mannequin_woman_front.png"
              alt="Mannequin (Woman Front)" />
@@ -68,12 +63,10 @@
     </div>
   </div>
 
-  <!-- クリックフック：将来機能用 -->
   <script>
+    // 将来の機能フック
     document.querySelectorAll('.stationery-toolbar img, .history-tool img, .contents-button img')
-      .forEach(el => el.addEventListener('click', () => {
-        // TODO: 後で各機能を実装
-      }));
+      .forEach(el => el.addEventListener('click', () => {/* TODO */}));
   </script>
 </body>
 </html>
