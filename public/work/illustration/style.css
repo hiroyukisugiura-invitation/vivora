@@ -145,4 +145,78 @@ body{
 
 /* もし .topbar が absolute 子要素の基準になっていない場合はこれを付与 */
 .topbar{ position: relative; }
+/* =========================
+   Vivora Illustration – quick fix
+   HTMLは触らずに整列＆サイズ調整
+   ========================= */
 
+/* 右端/余白の共通トークン（ここだけ調整で全体が揃う） */
+:root{
+  --edge: 28px;      /* 右端の基準ライン（25–36pxで微調整可） */
+  --gap: 12px;       /* ツール間のすき間 */
+  --title-left: 24px;/* タイトルの左マージン */
+}
+
+/* ---------- Topbar: タイトル左寄せ & 右端の整列 ---------- */
+.topbar{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  padding-right: var(--edge);   /* 右端の基準をcanvas内ツールと一致させる */
+}
+
+/* タイトル（要素名が h1 でなければ .topbar の中の見出し/タイトル要素に合わせて効きます） */
+.topbar h1,
+.topbar .app-title{
+  order: 1;                /* 左寄せ側の自然な位置へ */
+  margin-left: var(--title-left);
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* 左側のツール群（Next Stepやcontentsボタン群）は先頭に来る想定 */
+.topbar > *:first-child{ order: 0; }
+
+/* 右側（history tool 群）を一番右へ押し出す。
+   ラッパのクラス名が不明でも最後の子を右寄せにできる安全策 */
+.topbar > *:last-child{
+  margin-left: auto;
+}
+
+/* history tool のアイコン間隔を少し詰める（任意） */
+.topbar > *:last-child img,
+.topbar > *:last-child svg{
+  margin-left: var(--gap);
+}
+
+/* ---------- Stationery と history の右端ラインを合わせる ---------- */
+/* 右側のステーショナリー群のラッパに当たりそうな候補を包括（クラス名違いでも効くよう複数記述） */
+.stationery-tools,
+.tools-right,
+.right-tools,
+.canvas .toolbox-right,
+.canvas .tools{
+  position: absolute;
+  right: var(--edge);   /* ← topbarのpadding-right と同じにして“同一ライン” */
+}
+
+/* ---------- マネキン：初回サイズを拡大（2枚目相当） ---------- */
+/* 画像ID/クラスの両対応。値は画面に依存せず“ちょうど良い”範囲で安定するよう clamp に */
+#mannequin,
+.mannequin-base{
+  display: block;
+  margin: 0 auto;                   /* 常に中央に見えるよう保険 */
+  height: clamp(420px, 54vh, 560px);/* 目安：2枚目くらいのサイズ */
+  width: auto;
+  object-fit: contain;              /* 画像の比率保持 */
+  image-rendering: auto;
+}
+
+/* キャンバス内で上下が窮屈に感じる場合は余白を少し加える（任意） */
+.canvas,
+.board,
+.workspace{
+  /* 既存指定があればそれを優先。足りない場合の保険だけ効くよう弱めに書く */
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 8px);
+}
