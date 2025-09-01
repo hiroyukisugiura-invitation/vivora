@@ -14,7 +14,7 @@
 
       <!-- Topbar（canvasの外） -->
       <header class="topbar">
-        <!-- 左：Next Step + contents（横並び。スクショ通りに密接配置） -->
+        <!-- 左：Next Step + contents（横並び・密接配置） -->
         <div class="topbar-left">
           <button id="next-step" class="ghost-btn" type="button">Next Step ▶▶</button>
           <nav class="contents-button" aria-label="contents">
@@ -72,6 +72,7 @@
        - ステージ自動フィット
        - クリックフック
        - テーマ（light / dark / system）
+       - 仕上げ微調整を前提に値はCSS変数で管理
   ================================= -->
   <script>
     // ---------- Auto scale (Illustrator-like board) ----------
@@ -102,7 +103,7 @@
         '.stationery-toolbar img, .history-tool img, .contents-button img, #next-step'
       );
       clickable.forEach(el => el.addEventListener('click', () => {
-        // TODO: 実処理は後で追加
+        // TODO: 将来の実処理をここへ
       }));
     });
 
@@ -114,10 +115,9 @@
       function apply(theme){
         // theme: 'light' | 'dark' | 'system'
         root.setAttribute('data-theme', theme);
-        // system の場合は OS の変更にも追従（CSS 側で prefers… を参照）
       }
 
-      // 公開API（必要になったら即使える）
+      // 公開API（必要になったらUIから呼べる）
       window.setTheme = function(theme){
         if(!['light','dark','system'].includes(theme)) return;
         localStorage.setItem(KEY, theme);
