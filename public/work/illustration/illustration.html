@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,14 +7,14 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- ビューポート：画面中心にステージを配置（外側は非スケール領域） -->
+  <!-- 画面中央に固定ステージを配置（外側は非スケール領域） -->
   <div class="viewport">
-    <!-- ステージ全体（固定ベース寸法をtransform: scaleで拡縮） -->
+    <!-- ステージ（固定寸法を transform: scale で拡縮） -->
     <div class="app" role="application" aria-label="Vivora Fashion Illustration 2025">
 
-      <!-- Topbar（canvasの外／ステージ内・固定座標） -->
+      <!-- Topbar（canvasの外） -->
       <div class="topbar">
-        <!-- 左：Next Step + contents（枠なしアイコンだけ） -->
+        <!-- 左：Next Step + contents -->
         <div class="topbar-left stack">
           <button id="next-step" class="ghost-btn" type="button">Next Step ▶▶</button>
           <nav class="contents-button" aria-label="contents">
@@ -47,7 +46,7 @@
       <!-- Board（canvas本体） -->
       <div class="board">
         <div class="canvas-wrapper">
-          <!-- Stationery（canvas内 右上：画像順に8アイコン） -->
+          <!-- Stationery（canvas内 右上：8アイコン） -->
           <div class="stationery-toolbar" aria-label="stationery">
             <img src="/create_parts/object_btn/select.png"      alt="Select"  title="選択" draggable="false"/>
             <img src="/create_parts/object_btn/square.png"      alt="Square"  title="図形" draggable="false"/>
@@ -59,7 +58,7 @@
             <img src="/create_parts/object_btn/layer.png"       alt="Layer"   title="レイヤー" draggable="false"/>
           </div>
 
-          <!-- マネキン（中央） -->
+          <!-- マネキン（常にキャンバス中心） -->
           <img id="mannequin"
                src="/mannequin/mannequin_woman/mannequin_woman_front.png"
                alt="Mannequin (Woman Front)" draggable="false"/>
@@ -68,7 +67,49 @@
     </div>
   </div>
 
-  <!-- 外部JS -->
-  <script src="app.js"></script>
+  <!-- ================================
+       JS（HTMLと統合）
+       - ステージ自動フィット（固定寸法 → 画面にscaleでフィット）
+       - 将来機能のクリックフック
+  ================================= -->
+  <script>
+    // ステージを画面にフィットさせる（イラレ風：固定寸法をscaleで拡縮）
+    (function(){
+      const css = () => getComputedStyle(document.documentElement);
+      const num = v => parseFloat(v) || 0;
+
+      function fitStage(){
+        const BASE_W = num(css().getPropertyValue('--base-w')) || 1280;
+        const BASE_H = num(css().getPropertyValue('--base-h')) || 820;
+        const MARGIN = num(css().getPropertyValue('--viewport-margin')) || 32;
+
+        const vw = window.innerWidth  - MARGIN*2;
+        const vh = window.innerHeight - MARGIN*2;
+        const s  = Math.max(0.5, Math.min(vw/BASE_W, vh/BASE_H)); // 最小0.5倍（必要なら調整）
+        document.documentElement.style.setProperty('--app-scale', s);
+      }
+
+      window.addEventListener('resize', fitStage, { passive:true });
+      window.addEventListener('orientationchange', fitStage, { passive:true });
+      document.addEventListener('DOMContentLoaded', fitStage);
+    })();
+
+    // 画像ドラッグや長押し選択を抑止（UI誤操作を防ぐ）
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('mousedown', e => e.preventDefault());
+        img.addEventListener('dragstart', e => e.preventDefault());
+      });
+
+      // 将来機能のクリック・フック（今はプレースホルダ）
+      const clickable = document.querySelectorAll(
+        '.stationery-toolbar img, .history-tool img, .contents-button img, #next-step'
+      );
+      clickable.forEach(el => el.addEventListener('click', () => {
+        // TODO: 実処理を後で追加
+        // console.log('clicked:', el.alt || el.id);
+      }));
+    });
+  </script>
 </body>
 </html>
