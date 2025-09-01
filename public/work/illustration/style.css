@@ -1,4 +1,4 @@
-/* ===== Tokens ===== */
+/* ==== Tokens ==== */
 :root{
   --base-w: 1280;
   --base-h: 820;
@@ -12,20 +12,21 @@
   --shadow: 0 3px 10px rgba(0,0,0,.12);
   --shadow-strong: 0 8px 28px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
 
-  --st-icon: 26px;
+  --st-icon: 22px;     /* スクショ比の小さめアイコン */
   --tile-gap: 10px;
 
-  --board-pad: 14px;   /* ボード左右余白 */
+  --board-pad: 14px;   /* キャンバス外側余白 */
+  --st-right: 16px;    /* Stationery の右寄せ位置 */
 }
 
-/* ===== Theme (light / dark / system) ===== */
+/* ==== Theme (light / dark / system) ==== */
 :root,
 :root[data-theme="light"],
 :root[data-theme="system"]:not(.force-dark){
-  --bg: #efe7e0;
-  --panel: #ffffff;
-  --ink: #222;
-  --line: #cfc7c0;
+  --bg: #efe7e0;      /* ベージュ外側 */
+  --panel: #ffffff;   /* キャンバス白 */
+  --ink: #222;        /* テキスト */
+  --line: #cfc7c0;    /* 枠線 */
 }
 :root[data-theme="dark"]{
   --bg: #111213;
@@ -42,136 +43,105 @@
   }
 }
 
-/* ===== Base ===== */
-*{ box-sizing: border-box; }
-html, body{ height: 100%; }
+/* ==== Base ==== */
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
 body{
-  margin: 0;
-  color: var(--ink);
-  background: var(--bg);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+  margin:0;
+  color:var(--ink);
+  background:var(--bg);
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;
 }
 .viewport{
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  padding: var(--viewport-margin);
+  min-height:100dvh;
+  display:grid;
+  place-items:center;
+  padding:var(--viewport-margin);
 }
-
-/* ===== Stage (scaled) ===== */
 .app{
-  width: calc(var(--base-w) * 1px);
-  height: calc(var(--base-h) * 1px);
-  transform: scale(var(--app-scale));
-  transform-origin: top left;
-  position: relative;
-  will-change: transform;
-  backface-visibility: hidden;
+  width:calc(var(--base-w)*1px);
+  height:calc(var(--base-h)*1px);
+  transform:scale(var(--app-scale));
+  transform-origin:top left;
+  position:relative;
+  will-change:transform;
+  backface-visibility:hidden;
 }
 
-/* ===== Topbar ===== */
-.topbar{
-  position: absolute; left:0; right:0; top:0;
-  height: 72px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  padding: 10px 14px;
+/* ==== Top strip (title left / history right) ==== */
+.top-strip{
+  position:absolute; left:0; right:0; top:0;
+  height:44px;                       /* スクショの細い帯感 */
+  display:grid; grid-template-columns: 1fr auto;
+  align-items:center;
+  padding:10px 14px 0 18px;          /* 左を少し広め */
 }
-.topbar-left{ display: inline-flex; align-items: center; gap: 12px; }
-
-.ghost-btn{
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--ink);
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-size: 12px;
+.title{
+  margin:0;
+  font-size:20px;
+  letter-spacing:.2px;
+  font-weight:600;
 }
-.ghost-btn:hover{ background: rgba(0,0,0,.05); }
-
-.contents-button{
-  display: inline-flex;
-  align-items: center;
-  gap: var(--tile-gap);
-  margin-left: 6px;
-}
-.contents-button img{
-  width: 26px; height: 26px; display:block;
-  transform: translateY(1px);
-  filter: drop-shadow(var(--shadow));
-}
-
-.page-title{
-  margin: 0;
-  text-align: center;
-  font-size: 18px;
-  letter-spacing: .2px;
-  transform: translateY(-2px);
-  justify-self: center;
-}
-
-/* 右端は JS が実測で margin-right を設定（初期値だけ置く） */
 .history-tool{
-  justify-self: end;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--tile-gap);
-  margin-right: calc(var(--board-pad) + 16px);
+  display:inline-flex; align-items:center; gap:12px;
+  /* 右端はJSでステーショナリー右端に同期。初期値だけ置く */
+  margin-right: calc(var(--board-pad) + var(--st-right));
 }
 .history-tool img{ width:26px; height:26px; display:block; cursor:pointer; }
 
-/* ===== Board ===== */
+/* ==== Second strip (Next Step + contents) ==== */
+.nav-strip{
+  position:absolute; left:18px; top:44px;   /* タイトルの直下に左寄せ */
+  height:40px; display:flex; align-items:center; gap:12px;
+}
+.ghost-btn{
+  border:1px solid var(--line);
+  background:transparent; color:var(--ink);
+  padding:6px 10px; border-radius:var(--radius-sm);
+  cursor:pointer; font-size:12px;
+}
+.ghost-btn:hover{ background:rgba(0,0,0,.05); }
+.contents-button{
+  display:inline-flex; align-items:center; gap:10px;
+}
+.contents-button img{
+  width:26px; height:26px; display:block;
+  transform:translateY(1px);
+  filter:drop-shadow(var(--shadow));
+}
+
+/* ==== Board / Canvas ==== */
 .board{
-  position: absolute; inset: 72px 0 0 0;
-  padding: var(--board-pad);
+  position:absolute; inset:84px 0 0 0; /* タイトル+ナビ2段の高さ分下げる */
+  padding:var(--board-pad);
 }
 .canvas-wrapper{
-  position: relative;
-  width: 100%; height: 100%;
-  background: var(--panel);
-  outline: 1px solid var(--line);      /* borderよりズーム耐性が高い */
-  outline-offset: -1px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-strong);
-  overflow: hidden;
+  position:relative; width:100%; height:100%;
+  background:var(--panel);
+  outline:1px solid var(--line); outline-offset:-1px; /* ズームに強い枠線 */
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-strong);
+  overflow:hidden;
 }
 
-/* Stationery: 枠なし・背景なし・右上 */
+/* Stationery（枠・背景なし／右上） */
 .stationery-toolbar{
-  position: absolute;
-  top: 14px; right: 16px;
-  display: grid;
-  grid-auto-flow: column;
-  gap: 10px;
-  align-items: center;
-  padding: 0;
-  border-radius: 999px;
-  background: transparent;
-  border: none;
+  position:absolute; top:14px; right:var(--st-right);
+  display:grid; grid-auto-flow:column; gap:12px; align-items:center;
+  padding:0; background:transparent; border:none;
 }
-.stationery-toolbar img{
-  width: var(--st-icon);
-  height: var(--st-icon);
-  display:block;
-  cursor:pointer;
-}
+.stationery-toolbar img{ width:var(--st-icon); height:var(--st-icon); display:block; cursor:pointer; }
 
-/* Mannequin: ピンチ拡大はラッパーに適用 */
+/* Mannequin center; zoom wrapper scales */
 #man-zoom{
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%) scale(var(--man-scale, 1));
-  transform-origin: center center;
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%) scale(var(--man-scale,1));
+  transform-origin:center center;
 }
 #mannequin{
-  display:block;
-  width:auto; height:auto;
-  max-width:56%;
-  max-height:80%;
-  user-select:none;
-  pointer-events:none;
+  display:block; width:auto; height:auto;
+  max-width:56%; max-height:80%;
+  user-select:none; pointer-events:none;
 }
 
 /* Focus */
