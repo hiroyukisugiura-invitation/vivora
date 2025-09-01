@@ -1,122 +1,208 @@
-<!-- ============================================
-Vivora Fashion Illustration 2025 — Main HTML + JS
-固定ボード方式（イラレ風）：内部は常に同じ座標系、
-画面サイズに応じて board を等比スケールでフィット
-- ファイル分離: 本HTML(＋最小限JS) / style.css（必須）
-- 画像パスは /public 配下想定（例：/mannequin/mannequin_woman.png など）
-- キャンバス内は「mannequin＋stationery toolのみ」を厳守
-- 2D/3Dボタンはキャンバスの外、右上（Next Step左隣）に配置
-- カラーパレットはペンツールからカーソルが離れたら自動クローズ
-============================================= -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Vivora Fashion Illustration 2025</title>
-<link rel="stylesheet" href="style.css" />
-<link rel="preload" href="/mannequin/mannequin_woman.png" as="image" />
+  <!-- Vivora Fashion Illustration 2025 — HTML＋JS（CSSは別ファイル） -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="style.css"/>
+  <!-- 先読み（任意）：マネキン画像 -->
+  <link rel="preload" href="/mannequin/mannequin_woman.png" as="image" />
 </head>
 <body>
-<div id="app-root">
-<!-- ================= Top Bar（キャンバスの外） ================= -->
-<header class="topbar" aria-label="global toolbar">
-<div class="topbar__left">
-<button id="next-step" class="ghost-btn" title="Next Step">Next Step ▶▶</button>
-<!-- 2D/3D：キャンバスの外／右上でNext Step左隣（ユーザー指定） -->
-<div class="mode-toggle" role="group" aria-label="2D / 3D">
-<button id="btn-2d" class="toggle active" title="2D">2D</button>
-<button id="btn-3d" class="toggle" title="3D">3D</button>
-</div>
-<!-- contents button（枠なしアイコンだけ） -->
-<nav class="contents-button" aria-label="contents">
-<img src="/create_parts/contents_button/0_home.png" alt="Home" title="Home" />
-<img src="/create_parts/contents_button/1_file.png" alt="File" title="File" />
-<img src="/create_parts/contents_button/2_edit.png" alt="Edit" title="Edit" />
-<img src="/create_parts/contents_button/3_view.png" alt="View" title="View" />
-<img src="/create_parts/contents_button/4_window.png" alt="Window" title="Window" />
-</nav>
-</div>
-<div class="topbar__center">
-<h1 class="app-title" title="Vivora title">Vivora Fashion Illustration 2025</h1>
-</div>
-<div class="topbar__right">
-<!-- history tool（サイズをstationeryに揃える） -->
-<div class="history-tool" aria-label="history tool">
-<button class="tile" title="Undo">
-<img src="/create_parts/create_button/undo.png" alt="Undo" />
-</button>
-<button class="tile" title="Redo">
-<img src="/create_parts/create_button/redo.png" alt="Redo" />
-</button>
-<button class="tile" title="Reset">
-<img src="/create_parts/create_button/reset.png" alt="Reset" />
-</button>
-</div>
-</div>
-</header>
+  <div id="app-root">
+    <!-- ================= Topbar（キャンバスの外） ================= -->
+    <header class="topbar" aria-label="global toolbar">
+      <div class="topbar__left">
+        <button id="next-step" class="ghost-btn" title="Next Step">Next Step ▶▶</button>
+        <!-- contents button（枠なしアイコンだけ） -->
+        <nav class="contents-button" aria-label="contents">
+          <!-- ※ あなたのリポジトリの実ファイル名に合わせてパスを調整してください -->
+          <img src="/create_parts/contents_button/0_home.png"    alt="Home"   title="Home" />
+          <img src="/create_parts/contents_button/1_file.png"    alt="File"   title="File" />
+          <img src="/create_parts/contents_button/2_edit.png"    alt="Edit"   title="Edit" />
+          <img src="/create_parts/contents_button/3_view.png"    alt="View"   title="View" />
+          <img src="/create_parts/contents_button/4_window.png"  alt="Window" title="Window" />
+        </nav>
+      </div>
 
+      <div class="topbar__center">
+        <h1 class="app-title" title="Vivora title">Vivora Fashion Illustration 2025</h1>
+      </div>
 
-<!-- ================= Work Area（固定ボード） ================= -->
-<main class="work">
-<!-- board-wrapper はウィンドウに合わせてscale()でフィット -->
-<div id="board-wrapper">
-<!--
-board は固定解像度（例 1440x900）。
-ブラウザ縮小/拡大でも内部座標は不変（イラレ風）。
--->
-<section id="board" aria-label="fixed artboard">
-<!-- === キャンバス（背景の白板は不要：指定により削除） === -->
-<div id="canvas" aria-label="drawing canvas">
-<!-- マネキン（中央配置・ドラッグでパン、ホイールでズーム） -->
-<div id="stage" class="stage" aria-label="mannequin stage">
-<img id="mannequin" class="mannequin" src="/mannequin/mannequin_woman.png" alt="mannequin" draggable="false" />
-</div>
+      <div class="topbar__right">
+        <!-- history tool（Stationeryと同じタイル寸法） -->
+        <div class="history-tool" aria-label="history tool">
+          <button class="tile" title="Undo">
+            <img src="/create_parts/create_button/undo.png" alt="Undo" />
+          </button>
+          <button class="tile" title="Redo">
+            <img src="/create_parts/create_button/redo.png" alt="Redo" />
+          </button>
+          <button class="tile" title="Reset">
+            <img src="/create_parts/create_button/reset.png" alt="Reset" />
+          </button>
+        </div>
+      </div>
+    </header>
 
+    <!-- ================= Work Area（固定ボード） ================= -->
+    <main class="work">
+      <div id="board-wrapper">
+        <!-- 固定ボード（内部座標は常に一定、ブラウザに応じて scale()） -->
+        <section id="board" aria-label="fixed artboard">
+          <!-- === キャンバス（白板は不要の指定だが背景だけ確保） === -->
+          <div id="canvas" aria-label="drawing canvas">
+            <!-- マネキン（中央配置／ドラッグでパン、ホイールでズーム） -->
+            <div id="stage" class="stage" aria-label="mannequin stage">
+              <img id="mannequin" class="mannequin"
+                   src="/mannequin/mannequin_woman.png"
+                   alt="mannequin" draggable="false" />
+            </div>
 
-<!-- Stationery Tool（キャンバス内にのみ配置） -->
-<div id="stationery" class="stationery" aria-label="stationery tool">
-<button class="st-btn" data-tool="pen" id="tool-pen" title="Pen">
-<img src="/create_parts/design_button/pen.png" alt="Pen" />
-</button>
-<button class="st-btn" data-tool="brush" title="Brush">
-<img src="/create_parts/design_button/brush.png" alt="Brush" />
-</button>
-<button class="st-btn" data-tool="eraser" title="Eraser">
-<img src="/create_parts/design_button/eraser.png" alt="Eraser" />
-</button>
-<button class="st-btn" data-tool="picker" title="Color Picker">
-<img src="/create_parts/design_button/colorpicker.png" alt="Color Picker" />
-</button>
+            <!-- Stationery Tool（キャンバス内のみ配置） -->
+            <div id="stationery" class="stationery" aria-label="stationery tool">
+              <button class="st-btn" data-tool="pen" id="tool-pen" title="Pen">
+                <img src="/create_parts/design_button/pen.png" alt="Pen" />
+              </button>
+              <button class="st-btn" data-tool="brush" title="Brush">
+                <img src="/create_parts/design_button/brush.png" alt="Brush" />
+              </button>
+              <button class="st-btn" data-tool="eraser" title="Eraser">
+                <img src="/create_parts/design_button/eraser.png" alt="Eraser" />
+              </button>
+              <button class="st-btn" data-tool="picker" title="Color Picker">
+                <img src="/create_parts/design_button/colorpicker.png" alt="Color Picker" />
+              </button>
 
+              <!-- Pen サブ：カラーパレット（Penからカーソル離れたら閉じる） -->
+              <div id="pen-panel" class="pen-panel" role="dialog" aria-label="pen options" hidden>
+                <div class="row">
+                  <label>太さ</label>
+                  <input id="pen-size" type="range" min="1" max="24" value="6" />
+                  <span id="pen-size-val">6</span>
+                </div>
+                <div class="row">
+                  <label>カラー</label>
+                  <input id="pen-color" type="color" value="#111111" />
+                </div>
+              </div>
+            </div>
 
-<!-- Pen サブ：カラーパレット（Penからカーソル離れたら閉じる） -->
-<div id="pen-panel" class="pen-panel" role="dialog" aria-label="pen options" hidden>
-<div class="row">
-<label>太さ</label>
-<input id="pen-size" type="range" min="1" max="24" value="6" />
-<span id="pen-size-val">6</span>
-</div>
-<div class="row">
-<label>カラー</label>
-<input id="pen-color" type="color" value="#111111" />
-</div>
-</div>
-</div>
+            <!-- 目安グリッド（必要時のみ表示：Gキー） -->
+            <div id="grid" class="grid" aria-hidden="true"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
 
+  <!-- =================== JS（HTML内に記述） =================== -->
+  <script>
+    // ================= 共通ユーティリティ =================
+    const $  = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
-<!-- 目安グリッド（必要時のみ表示） -->
-<div id="grid" class="grid" aria-hidden="true"></div>
-</div>
-</section>
-</div>
-</main>
-</div>
+    // ============== Pen サブパネル（離れたら自動クローズ） ==============
+    (function initPenPanel(){
+      const penBtn  = $('#tool-pen');
+      const panel   = $('#pen-panel');
+      const station = $('#stationery');
+      const size    = $('#pen-size');
+      const sizeVal = $('#pen-size-val');
 
+      // Penボタンに入ったら開く
+      penBtn.addEventListener('mouseenter', () => {
+        panel.hidden = false;
+        // 少し遅らせて開閉アニメを自然に
+        requestAnimationFrame(() => panel.classList.add('open'));
+      });
 
-<!-- =================== JS（最小限） =================== -->
-<script>
-// ================= 共通ユーティリティ =================
-const $ = (sel, root=document) => root.querySelector(sel);
-const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+      // Stationery領域から出たら閉じる
+      station.addEventListener('mouseleave', (e) => {
+        panel.classList.remove('open');
+        panel.hidden = true;
+      });
+
+      size.addEventListener('input', () => { sizeVal.textContent = size.value; });
+    })();
+
+    // ============== 固定ボードのスケーリング（イラレ風） ==============
+    (function fitBoard(){
+      const wrapper = document.getElementById('board-wrapper');
+      const board   = document.getElementById('board');
+      // CSSと一致させる固定サイズ
+      const BW = 1440, BH = 900;
+
+      function applyScale(){
+        const W = wrapper.clientWidth;
+        const H = wrapper.clientHeight;
+        const scale = Math.min(W / BW, H / BH);
+        board.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      }
+      window.addEventListener('resize', applyScale);
+      new ResizeObserver(applyScale).observe(wrapper);
+      applyScale();
+    })();
+
+    // ============== ステージ：ドラッグでパン、ホイールでズーム ==============
+    (function initStage(){
+      const stage = document.getElementById('stage');
+      let scale = 1;        // 拡大率
+      let tx = 0, ty = 0;   // 平行移動
+      let dragging = false; // ドラッグ中
+      let px=0, py=0;       // 直前のポインタ位置
+
+      function update(){
+        stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+      }
+
+      // ドラッグでパン
+      stage.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        stage.setPointerCapture(e.pointerId);
+        px = e.clientX; py = e.clientY;
+      });
+      stage.addEventListener('pointermove', (e) => {
+        if(!dragging) return;
+        const dx = e.clientX - px;
+        const dy = e.clientY - py;
+        px = e.clientX; py = e.clientY;
+        tx += dx; ty += dy;
+        update();
+      });
+      stage.addEventListener('pointerup',   (e) => { dragging=false; stage.releasePointerCapture(e.pointerId); });
+      stage.addEventListener('pointercancel', () => { dragging=false; });
+
+      // ホイールでズーム（トラックパッド対応）
+      stage.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta  = -e.deltaY;            // 上スクロールで拡大
+        const factor = Math.exp(delta * 0.0015);
+        const rect = stage.getBoundingClientRect();
+        const cx = e.clientX - rect.left;    // ステージ内座標
+        const cy = e.clientY - rect.top;
+
+        // ズーム中心を維持（スクリーン座標固定）
+        const nx = (cx - tx) / scale;
+        const ny = (cy - ty) / scale;
+        scale = Math.min(5, Math.max(0.2, scale * factor));
+        tx = cx - nx * scale;
+        ty = cy - ny * scale;
+        update();
+      }, { passive:false });
+
+      // 初期位置
+      update();
+    })();
+
+    // ============== グリッドのON/OFF（Gキー） ==============
+    (function gridToggle(){
+      const grid = document.getElementById('grid');
+      window.addEventListener('keydown', (e) => {
+        if(e.key.toLowerCase()==='g') grid.classList.toggle('show');
+      });
+    })();
+  </script>
+</body>
 </html>
