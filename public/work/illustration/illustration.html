@@ -1,184 +1,321 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <!-- Vivora Fashion Illustration 2025 — HTML＋JS -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div id="app-root">
-    <!-- ================= Topbar ================= -->
-    <header class="topbar" aria-label="global toolbar">
-      <div class="topbar__left">
-        <button id="next-step" class="ghost-btn" title="Next Step">Next Step ▶▶</button>
-        <!-- contents button -->
-        <nav class="contents-button" aria-label="contents">
-          <img src="../../create_parts/contents_button/0_home.png"   alt="Home"   title="Home" />
-          <img src="../../create_parts/contents_button/1_file.png"   alt="File"   title="File" />
-          <img src="../../create_parts/contents_button/2_edit.png"   alt="Edit"   title="Edit" />
-          <img src="../../create_parts/contents_button/3_view.png"   alt="View"   title="View" />
-          <img src="../../create_parts/contents_button/4_window.png" alt="Window" title="Window" />
-        </nav>
+  <!-- =========================================================
+       Vivora Fashion Illustration 2025 — 固定レイアウト基盤
+       - グリッド（方眼）を重ねて座標合わせ可
+       - キャンバス内：mannequin + stationery tool だけ
+       - 右側（キャンバス外）：History / Layer パネル
+       - 2D/3Dボタンは仕様により未実装（指示あるまで非表示）
+     ========================================================= -->
+
+  <div class="board" aria-label="workspace board">
+    <!-- === 方眼トグル（必要に応じてON/OFF可） === -->
+    <button id="toggle-grid" class="ghost-btn grid-toggle" title="グリッド表示の切替">Grid</button>
+
+    <!-- === タイトル（小さめ） === -->
+    <h1 class="app-title" title="タイトル">
+      Vivora Fashion Illustration 2025
+    </h1>
+
+    <!-- === Next Step（小さめ） === -->
+    <button id="next-step" class="ghost-btn next-step" title="Next Step">Next Step ▶▶</button>
+
+    <!-- === contents button（アイコン群：枠なし） === -->
+    <nav class="contents-bar" aria-label="contents">
+      <!-- ★ 画像パスはリポジトリの実ファイル名に合わせて差し替え可 -->
+      <img src="./create_parts/contents_button/0_home.png"     alt="Home"     title="Home" />
+      <img src="./create_parts/contents_button/1_file.png"     alt="File"     title="File" />
+      <img src="./create_parts/contents_button/2_edit.png"     alt="Edit"     title="Edit" />
+      <img src="./create_parts/contents_button/3_view.png"     alt="View"     title="View" />
+      <img src="./create_parts/contents_button/4_help.png"     alt="Help"     title="Help" />
+    </nav>
+
+    <!-- === History tool（キャンバスの外・右上寄せ / Stationeryと同じサイズ感） === -->
+    <div class="history-tool" aria-label="history tool">
+      <div class="tile"><img src="./create_parts/create_button/undo.png"  alt="Undo"  title="Undo"></div>
+      <div class="tile"><img src="./create_parts/create_button/redo.png"  alt="Redo"  title="Redo"></div>
+      <div class="tile"><img src="./create_parts/create_button/reset.png" alt="Reset" title="Reset"></div>
+    </div>
+
+    <!-- === メインキャンバス（中に：mannequin + stationery tool） === -->
+    <section id="canvas" aria-label="canvas">
+      <!-- Mannequin（中央寄せ / ドラッグで移動。ズーム・不透明は右下スライダーで） -->
+      <div id="mannequin-wrap">
+        <!-- ★ 画像は実ファイルに合わせて差し替え -->
+        <img id="mannequin" src="./mannequin/mannequin_woman.png" alt="Mannequin">
       </div>
 
-      <div class="topbar__center">
-        <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
-      </div>
+      <!-- Stationery tool（キャンバス“内” 左辺に縦配置） -->
+      <aside class="stationery" aria-label="stationery tool">
+        <!-- ★ PNG名は実在アイコンに合わせて適宜変更 -->
+        <button class="st-btn" data-tool="select" title="Select">
+          <img src="./create_parts/design_button/select.png" alt="Select">
+        </button>
+        <button class="st-btn has-palette" data-tool="pen" title="Pen（離れたらパレット閉）">
+          <img src="./create_parts/design_button/pen.png" alt="Pen">
+        </button>
+        <button class="st-btn" data-tool="brush" title="Brush">
+          <img src="./create_parts/design_button/brush.png" alt="Brush">
+        </button>
+        <button class="st-btn" data-tool="eraser" title="Eraser">
+          <img src="./create_parts/design_button/eraser.png" alt="Eraser">
+        </button>
+        <button class="st-btn" data-tool="shape" title="Shape">
+          <img src="./create_parts/design_button/shape.png" alt="Shape">
+        </button>
+        <button class="st-btn" data-tool="text" title="Text">
+          <img src="./create_parts/design_button/text.png" alt="Text">
+        </button>
 
-      <div class="topbar__right">
-        <!-- history tool -->
-        <div class="history-tool" aria-label="history tool">
-          <button class="tile" title="Undo">
-            <img src="../../create_parts/create_button/undo.png" alt="Undo" />
-          </button>
-          <button class="tile" title="Redo">
-            <img src="../../create_parts/create_button/redo.png" alt="Redo" />
-          </button>
-          <button class="tile" title="Reset">
-            <img src="../../create_parts/create_button/reset.png" alt="Reset" />
-          </button>
+        <!-- Pen用カラーパレット（ペンからカーソルが離れたら閉じる） -->
+        <div id="color-palette" class="palette" aria-hidden="true">
+          <button class="color-dot" data-color="#000000" title="#000000"></button>
+          <button class="color-dot" data-color="#ff0000" title="#ff0000"></button>
+          <button class="color-dot" data-color="#00aa00" title="#00aa00"></button>
+          <button class="color-dot" data-color="#0066ff" title="#0066ff"></button>
+          <button class="color-dot" data-color="#ffaa00" title="#ffaa00"></button>
+          <button class="color-dot" data-color="#ffffff" title="#ffffff"></button>
+        </div>
+      </aside>
+
+      <!-- 右下：ズーム / 不透明度スライダー（0〜100%） -->
+      <div class="sliders">
+        <label class="slider">
+          <span>Zoom</span>
+          <input id="zoom" type="range" min="0" max="100" value="50" step="1" />
+        </label>
+        <label class="slider">
+          <span>Opacity</span>
+          <input id="opacity" type="range" min="0" max="100" value="100" step="1" />
+        </label>
+      </div>
+    </section>
+
+    <!-- === 右カラム：Layer パネル（5段想定 / 画像UI配置ルール準拠） === -->
+    <aside class="right-rail" aria-label="right rail">
+      <!-- 内側白カード（右上に lock / display / hidden の3つ） -->
+      <div class="layer-stack">
+        <!-- 縦に5つ（デフォルト表示） -->
+        <!-- ▼ 各レイヤーカード -->
+        <div class="layer-card">
+          <div class="layer-inner">
+            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
+            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
+            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
+          </div>
+          <div class="layer-outer">
+            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
+            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
+            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
+          </div>
+        </div>
+
+        <div class="layer-card">
+          <div class="layer-inner">
+            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
+            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
+            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
+          </div>
+          <div class="layer-outer">
+            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
+            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
+            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
+          </div>
+        </div>
+
+        <div class="layer-card">
+          <div class="layer-inner">
+            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
+            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
+            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
+          </div>
+          <div class="layer-outer">
+            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
+            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
+            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
+          </div>
+        </div>
+
+        <div class="layer-card">
+          <div class="layer-inner">
+            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
+            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
+            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
+          </div>
+          <div class="layer-outer">
+            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
+            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
+            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
+          </div>
+        </div>
+
+        <div class="layer-card">
+          <div class="layer-inner">
+            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
+            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
+            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
+          </div>
+          <div class="layer-outer">
+            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
+            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
+            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
+          </div>
         </div>
       </div>
-    </header>
-
-    <!-- ================= Work Area ================= -->
-    <main class="work">
-      <div id="board-wrapper">
-        <section id="board" aria-label="fixed artboard">
-          <div id="canvas" aria-label="drawing canvas">
-            <!-- マネキン -->
-            <div id="stage" class="stage">
-              <img id="mannequin" class="mannequin"
-                   src="../../mannequin/mannequin_woman.png"
-                   alt="mannequin" draggable="false" />
-            </div>
-
-            <!-- Stationery Tool -->
-            <div id="stationery" class="stationery">
-              <button class="st-btn" data-tool="pen" id="tool-pen" title="Pen">
-                <img src="../../create_parts/design_button/pen.png" alt="Pen" />
-              </button>
-              <button class="st-btn" data-tool="brush" title="Brush">
-                <img src="../../create_parts/design_button/brush.png" alt="Brush" />
-              </button>
-              <button class="st-btn" data-tool="eraser" title="Eraser">
-                <img src="../../create_parts/design_button/eraser.png" alt="Eraser" />
-              </button>
-              <button class="st-btn" data-tool="picker" title="Color Picker">
-                <img src="../../create_parts/design_button/colorpicker.png" alt="Color Picker" />
-              </button>
-
-              <!-- Pen サブパネル -->
-              <div id="pen-panel" class="pen-panel" hidden>
-                <div class="row">
-                  <label>太さ</label>
-                  <input id="pen-size" type="range" min="1" max="24" value="6" />
-                  <span id="pen-size-val">6</span>
-                </div>
-                <div class="row">
-                  <label>カラー</label>
-                  <input id="pen-color" type="color" value="#111111" />
-                </div>
-              </div>
-            </div>
-
-            <!-- グリッド -->
-            <div id="grid" class="grid" aria-hidden="true"></div>
-          </div>
-        </section>
-      </div>
-    </main>
+    </aside>
   </div>
 
-  <!-- ================= JS ================= -->
+  <!-- ===================== JS ===================== -->
   <script>
-    const $  = (sel, root=document) => root.querySelector(sel);
+    // -------------------------------
+    // 基本定数（調整しやすいよう集約）
+    // -------------------------------
+    const MANNEQUIN_MIN_SCALE = 0.5;  // Zoom 0% 相当
+    const MANNEQUIN_MAX_SCALE = 2.0;  // Zoom 100% 相当
+    const INITIAL_ZOOM = 0.5;         // 0.0〜1.0 (50%で開始)
 
-    // Penパネル
-    (function(){
-      const penBtn  = $('#tool-pen');
-      const panel   = $('#pen-panel');
-      const station = $('#stationery');
-      const size    = $('#pen-size');
-      const sizeVal = $('#pen-size-val');
+    const board   = document.querySelector('.board');
+    const canvas  = document.getElementById('canvas');
+    const wrap    = document.getElementById('mannequin-wrap');
+    const mannequin = document.getElementById('mannequin');
 
-      penBtn.addEventListener('mouseenter', () => {
-        panel.hidden = false;
-        requestAnimationFrame(() => panel.classList.add('open'));
+    const zoomRange = document.getElementById('zoom');
+    const opacityRange = document.getElementById('opacity');
+
+    const gridBtn = document.getElementById('toggle-grid');
+
+    // -------------------------------
+    // グリッド表示切替
+    // -------------------------------
+    gridBtn.addEventListener('click', () => {
+      board.classList.toggle('show-grid');
+    });
+
+    // -------------------------------
+    // ズーム / 不透明度
+    // -------------------------------
+    function setZoomFromRange() {
+      // 0..100 → 0.0..1.0
+      const t = Number(zoomRange.value) / 100;
+      const scale = MANNEQUIN_MIN_SCALE + (MANNEQUIN_MAX_SCALE - MANNEQUIN_MIN_SCALE) * t;
+      wrap.style.setProperty('--man-scale', scale);
+    }
+    function setOpacityFromRange() {
+      const t = Number(opacityRange.value) / 100; // 0..1
+      mannequin.style.opacity = t.toFixed(3);
+    }
+    zoomRange.addEventListener('input', setZoomFromRange);
+    opacityRange.addEventListener('input', setOpacityFromRange);
+    // 初期
+    zoomRange.value = INITIAL_ZOOM * 100;
+    setZoomFromRange();
+    setOpacityFromRange();
+
+    // -------------------------------
+    // ドラッグでMannequinを移動
+    // -------------------------------
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let originX = 0, originY = 0;
+
+    wrap.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      wrap.setPointerCapture(e.pointerId);
+      startX = e.clientX;
+      startY = e.clientY;
+      const style = getComputedStyle(wrap);
+      originX = parseFloat(style.getPropertyValue('--man-x')) || 0;
+      originY = parseFloat(style.getPropertyValue('--man-y')) || 0;
+    });
+
+    wrap.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      wrap.style.setProperty('--man-x', (originX + dx) + 'px');
+      wrap.style.setProperty('--man-y', (originY + dy) + 'px');
+    });
+
+    wrap.addEventListener('pointerup', (e) => {
+      isDragging = false;
+      wrap.releasePointerCapture(e.pointerId);
+    });
+
+    // -------------------------------
+    // Penのカラーパレット動作
+    // 「ペンボタンからカーソルが離れたら閉じる」仕様
+    // -------------------------------
+    const penBtn = document.querySelector('.st-btn.has-palette');
+    const palette = document.getElementById('color-palette');
+
+    // ペンにホバー中 → パレット表示
+    penBtn.addEventListener('mouseenter', () => {
+      palette.setAttribute('aria-hidden', 'false');
+      palette.classList.add('open');
+    });
+
+    // ペン／パレット双方からマウスが離れたら閉
+    function maybeClosePalette(e) {
+      // 関連ターゲットがペン or パレット内なら閉じない
+      const to = e.relatedTarget;
+      if (!to) return;
+      if (penBtn.contains(to)) return;
+      if (palette.contains(to)) return;
+      palette.classList.remove('open');
+      palette.setAttribute('aria-hidden', 'true');
+    }
+    penBtn.addEventListener('mouseleave', maybeClosePalette);
+    palette.addEventListener('mouseleave', maybeClosePalette);
+
+    // パレット色選択 → 将来の描画色に反映（今は選択ハイライトのみ）
+    palette.querySelectorAll('.color-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        const color = dot.dataset.color;
+        // ここで選択中の描画色を保持するなどの処理（必要に応じて拡張）
+        palette.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
       });
-      station.addEventListener('mouseleave', () => {
-        panel.classList.remove('open');
-        panel.hidden = true;
+    });
+
+    // -------------------------------
+    // 初期センタリング（CSS変数で座標管理）
+    // -------------------------------
+    function centerMannequin() {
+      // キャンバス中央に見た目上配置（画像サイズ読み込んでから）
+      const cRect = canvas.getBoundingClientRect();
+      const mRect = mannequin.getBoundingClientRect();
+      const x = (cRect.width  - mRect.width ) / 2;
+      const y = (cRect.height - mRect.height) / 2;
+      wrap.style.setProperty('--man-x', x + 'px');
+      wrap.style.setProperty('--man-y', y + 'px');
+    }
+    // 画像読み込み後にセンター
+    if (mannequin.complete) {
+      centerMannequin();
+    } else {
+      mannequin.addEventListener('load', centerMannequin);
+    }
+
+    // -------------------------------
+    // Reset（HistoryのResetアイコン想定）
+    // -------------------------------
+    document.querySelectorAll('.history-tool img[alt="Reset"]').forEach(img => {
+      img.addEventListener('click', () => {
+        zoomRange.value = 50;
+        opacityRange.value = 100;
+        setZoomFromRange();
+        setOpacityFromRange();
+        centerMannequin();
       });
-      size.addEventListener('input', () => { sizeVal.textContent = size.value; });
-    })();
+    });
 
-    // 固定ボード scale
-    (function(){
-      const wrapper = document.getElementById('board-wrapper');
-      const board   = document.getElementById('board');
-      const BW = 1440, BH = 900;
-      function applyScale(){
-        const W = wrapper.clientWidth;
-        const H = wrapper.clientHeight;
-        const scale = Math.min(W / BW, H / BH);
-        board.style.transform = `translate(-50%, -50%) scale(${scale})`;
-      }
-      window.addEventListener('resize', applyScale);
-      new ResizeObserver(applyScale).observe(wrapper);
-      applyScale();
-    })();
-
-    // パン＆ズーム
-    (function(){
-      const stage = document.getElementById('stage');
-      let scale = 1, tx = 0, ty = 0, dragging = false, px=0, py=0;
-
-      function update(){
-        stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
-      }
-      stage.addEventListener('pointerdown', (e) => {
-        dragging = true;
-        stage.setPointerCapture(e.pointerId);
-        px = e.clientX; py = e.clientY;
-      });
-      stage.addEventListener('pointermove', (e) => {
-        if(!dragging) return;
-        const dx = e.clientX - px, dy = e.clientY - py;
-        px = e.clientX; py = e.clientY;
-        tx += dx; ty += dy;
-        update();
-      });
-      stage.addEventListener('pointerup',   (e) => { dragging=false; stage.releasePointerCapture(e.pointerId); });
-      stage.addEventListener('pointercancel', () => { dragging=false; });
-
-      stage.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const delta  = -e.deltaY;
-        const factor = Math.exp(delta * 0.0015);
-        const rect = stage.getBoundingClientRect();
-        const cx = e.clientX - rect.left;
-        const cy = e.clientY - rect.top;
-        const nx = (cx - tx) / scale;
-        const ny = (cy - ty) / scale;
-        scale = Math.min(5, Math.max(0.2, scale * factor));
-        tx = cx - nx * scale;
-        ty = cy - ny * scale;
-        update();
-      }, { passive:false });
-
-      update();
-    })();
-
-    // グリッド ON/OFF
-    (function(){
-      const grid = document.getElementById('grid');
-      window.addEventListener('keydown', (e) => {
-        if(e.key.toLowerCase()==='g') grid.classList.toggle('show');
-      });
-    })();
   </script>
 </body>
 </html>
