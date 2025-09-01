@@ -1,25 +1,27 @@
 /* =======================================
-   Vivora Illustration — Theme & Layout (Final)
-   - HTML+JS は index.html に統合
-   - ステージ固定寸法を scale で拡縮
-   - data-theme="light|dark|system"（system=OS準拠）
+   Vivora Illustration — Theme & Layout (Pinch-ready)
 ======================================= */
 
-/* ----- Tokens (board size & metrics) ----- */
+/* ----- Tokens ----- */
 :root{
   --base-w: 1280;            /* px */
   --base-h: 820;             /* px */
   --app-scale: 1;
   --viewport-margin: 24;
 
-  /* metrics */
   --radius: 12px;
   --radius-lg: 14px;
   --radius-sm: 10px;
+
   --shadow: 0 3px 10px rgba(0,0,0,.12);
   --shadow-strong: 0 8px 28px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
+
   --st-icon: 26px;
   --tile-gap: 10px;
+
+  /* 右端揃えのためのパディング（boardの左右余白 & stationeryの右オフセット） */
+  --board-pad: 14px;
+  --st-right: 16px;
 }
 
 /* ----- Theme palettes ----- */
@@ -27,12 +29,12 @@
 :root,
 :root[data-theme="light"],
 :root[data-theme="system"]:not(.force-dark) {
-  --bg: #efe7e0;      /* 外側背景（スクショのベージュ） */
-  --panel: #ffffff;   /* ボード内（白） */
-  --ink: #222;        /* 文字色 */
+  --bg: #efe7e0;      /* 外側背景（ベージュ） */
+  --panel: #ffffff;   /* キャンバス白 */
+  --ink: #222;        /* 文字 */
   --line: #cfc7c0;    /* 細い境界線 */
-  --chip-bg: rgba(0,0,0,.06);
-  --chip-line: rgba(0,0,0,.08);
+  --chip-bg: transparent;      /* Stationeryは枠なし＝透明 */
+  --chip-line: transparent;
 }
 
 /* Dark */
@@ -41,23 +43,23 @@
   --panel: #191a1b;
   --ink: #f2f2f2;
   --line: #2b2d2f;
-  --chip-bg: rgba(255,255,255,.10);
-  --chip-line: rgba(255,255,255,.12);
+  --chip-bg: transparent;
+  --chip-line: transparent;
 }
 
-/* System: prefers-color-scheme が dark のとき適用 */
+/* System */
 @media (prefers-color-scheme: dark){
   :root[data-theme="system"]{
     --bg: #111213;
     --panel: #191a1b;
     --ink: #f2f2f2;
     --line: #2b2d2f;
-    --chip-bg: rgba(255,255,255,.10);
-    --chip-line: rgba(255,255,255,.12);
+    --chip-bg: transparent;
+    --chip-line: transparent;
   }
 }
 
-/* ----- Base reset ----- */
+/* ----- Reset ----- */
 *{ box-sizing: border-box; }
 html, body{ height: 100%; }
 body{
@@ -82,6 +84,8 @@ body{
   transform: scale(var(--app-scale));
   transform-origin: top left;
   position: relative;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* ----- Topbar ----- */
@@ -95,7 +99,6 @@ body{
   padding: 10px 14px;
 }
 
-/* 左：Next Step と contents を密接配置（仕上げ調整込み） */
 .topbar-left{
   display: inline-flex;
   align-items: center;
@@ -113,35 +116,36 @@ body{
 }
 .ghost-btn:hover{ background: rgba(0,0,0,.05); }
 
+/* contents */
 .contents-button{
   display: inline-flex;
   align-items: center;
-  gap: var(--tile-gap);   /* 10px：わずかに呼吸させる */
-  margin-left: 6px;      /* Next Step との空き */
+  gap: var(--tile-gap);
+  margin-left: 6px;
 }
 .contents-button img{
-  width: 26px;           /* 28→26：視覚的な密度を調整 */
-  height: 26px;
-  display: block;
-  transform: translateY(1px);  /* ベースライン微調整 */
+  width: 26px; height: 26px; display: block;
+  transform: translateY(1px);
   filter: drop-shadow(var(--shadow));
 }
 
-/* 中央タイトル（完全センター＆見出し感を少し強調） */
+/* タイトル：完全センター */
 .page-title{
   margin: 0;
   text-align: center;
   font-size: 18px;
   letter-spacing: .2px;
   transform: translateY(-2px);
+  justify-self: center;
 }
 
-/* 右：history 行 */
+/* 右：history — Stationery の右端と揃える */
 .history-tool{
   justify-self: end;
   display: inline-flex;
   align-items: center;
   gap: var(--tile-gap);
+  margin-right: calc(var(--board-pad) + var(--st-right)); /* 揃えの肝 */
 }
 .history-tool img{
   width: 26px; height: 26px; display: block; cursor: pointer;
@@ -151,31 +155,32 @@ body{
 .board{
   position: absolute;
   inset: 72px 0 0 0; /* topbarの高さ分だけ下げる */
-  padding: 14px;
+  padding: var(--board-pad);
 }
 .canvas-wrapper{
   position: relative;
   width: 100%; height: 100%;
   background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);       /* 14px：高級感 */
-  box-shadow: var(--shadow-strong);      /* 影を少し強めに */
+  /* borderの代わりに outline でhairline対策 */
+  outline: 1px solid var(--line);
+  outline-offset: -1px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-strong);
   overflow: hidden;
 }
 
-/* Stationery（右上ピル型。視認性を微強化） */
+/* Stationery（枠・背景なし。右上合わせ） */
 .stationery-toolbar{
   position: absolute;
-  top: 14px; right: 16px;
+  top: 14px; right: var(--st-right);
   display: grid;
   grid-auto-flow: column;
   gap: 10px;
   align-items: center;
-  background: var(--chip-bg);
-  border: 1px solid var(--chip-line);
-  padding: 6px 10px;
+  background: var(--chip-bg);   /* 透明 */
+  border: 1px solid var(--chip-line); /* 透明 */
+  padding: 0;                   /* 内側余白も撤去 */
   border-radius: 999px;
-  backdrop-filter: blur(6px);
 }
 .stationery-toolbar img{
   width: var(--st-icon);
@@ -184,11 +189,16 @@ body{
   cursor: pointer;
 }
 
-/* Mannequin（常に中心） */
-#mannequin{
+/* Mannequin（中心配置）。拡大縮小は #man-zoom に当てる */
+#man-zoom{
   position: absolute;
   left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(var(--man-scale, 1));
+  transform-origin: center center;
+}
+#mannequin{
+  display: block;
+  width: auto; height: auto;
   max-width: 56%;
   max-height: 80%;
   user-select: none;
