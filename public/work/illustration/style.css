@@ -1,296 +1,142 @@
-/* =========================================================
-   Vivora Fashion Illustration 2025 — 固定レイアウト用CSS
-   - すべての絶対座標は CSS変数で集中管理
-   - 方眼（グリッド）は .show-grid でON
-   - 2D/3Dボタンは仕様により未実装
-   ========================================================= */
-
-/* ---------- トークン ---------- */
+/* ==== Tokens ==== */
 :root{
-  /* レイアウト寸法（固定ボード） */
-  --board-w: 1440px;
-  --board-h: 900px;
+  --base-w: 1280;
+  --base-h: 820;
+  --app-scale: 1;
+  --viewport-margin: 24;
 
-  /* グリッド（方眼） */
-  --cell: 16px;         /* 1マスのサイズ */
-  --grid-line: #e6e0db; /* 細線 */
-  --grid-bold: #d8d1ca; /* 太線（5マスごと） */
+  --unit: 8px;          /* “1マス”の基準 */
+  --top-h: 44px;        /* 1段目（タイトル＆history）の高さ */
 
-  /* 色 */
-  --bg:  #f2ede7;  /* ベージュ基調 */
+  --radius: 12px;
+  --radius-lg: 14px;
+  --radius-sm: 10px;
+
+  --shadow: 0 3px 10px rgba(0,0,0,.12);
+  --shadow-strong: 0 8px 28px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
+
+  --st-icon: 22px;      /* ← Stationery と History を同一サイズに */
+  --tile-gap: 10px;
+
+  --board-pad: 14px;
+  --st-right: 16px;
+}
+
+/* ==== Theme ==== */
+:root,
+:root[data-theme="light"],
+:root[data-theme="system"]:not(.force-dark){
+  --bg: #efe7e0;
   --panel: #ffffff;
-  --tile:  #ece7e1;
-  --line:  #e6e0db;
-  --text:  #333;
-
-  /* 角丸 / 影 */
-  --radius: 16px;
-  --radius-sm: 12px;
-  --shadow: 0 2px 8px rgba(0,0,0,.06);
-
-  /* タイトル / ボタン */
-  --title-size: 18px;      /* 主張しすぎないサイズ感 */
-  --icon: 26px;            /* contents / history アイコン */
-  --st-icon: 30px;         /* stationery 小アイコン */
-
-  /* 主要ブロック座標（マス単位で調整） */
-  /* 例：左から2-22マス、高さ3-4マスなどの指定に合わせやすいように */
-  --title-x: calc(2 * var(--cell));
-  --title-y: calc(3 * var(--cell));
-
-  --contents-x: calc(2 * var(--cell));
-  --contents-y: calc(8 * var(--cell));
-  --contents-h: calc(2 * var(--cell));
-
-  --nextstep-x: calc(34 * var(--cell));
-  --nextstep-y: calc(3 * var(--cell));
-
-  /* キャンバス領域（全体中心寄せ気味に配置） */
-  --canvas-x: calc(10 * var(--cell));
-  --canvas-y: calc(12 * var(--cell));
-  --canvas-w: 960px;
-  --canvas-h: 640px;
-
-  /* History（右上 / Stationeryと同スケール感 / キャンバスの外） */
-  --history-x: calc(77 * var(--cell));
-  --history-y: calc(9 * var(--cell));
-
-  /* 右カラム（レイヤー群） */
-  --rail-x: calc(82 * var(--cell));
-  --rail-y: calc(13 * var(--cell));
-  --rail-w: 280px;
-  --rail-gap: 14px;
+  --ink: #222;
+  --line: #cfc7c0;
+}
+:root[data-theme="dark"]{
+  --bg: #111213; --panel:#191a1b; --ink:#f2f2f2; --line:#2b2d2f;
+}
+@media (prefers-color-scheme: dark){
+  :root[data-theme="system"]{
+    --bg: #111213; --panel:#191a1b; --ink:#f2f2f2; --line:#2b2d2f;
+  }
 }
 
-/* ---------- ベース ---------- */
-*{ box-sizing: border-box; }
-html, body{
-  height: 100%;
-  margin: 0;
-  background: #ddd; /* 外側余白の背景 */
-  color: var(--text);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", "ヒラギノ角ゴ ProN", "Yu Gothic UI", "Meiryo", sans-serif;
+/* ==== Base ==== */
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;
+}
+.viewport{
+  min-height:100dvh; display:grid; place-items:center; padding:var(--viewport-margin);
+}
+.app{
+  width:calc(var(--base-w)*1px);
+  height:calc(var(--base-h)*1px);
+  transform:scale(var(--app-scale));
+  transform-origin:top left;
+  position:relative;
+  will-change:transform; backface-visibility:hidden;
 }
 
-.board{
-  position: relative;
-  width: var(--board-w);
-  height: var(--board-h);
-  margin: 24px auto;
-  background: var(--bg);
-  border-radius: 24px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
+/* ==== 1段目：タイトル左 / history右 ==== */
+.top-strip{
+  position:absolute; left:0; right:0; top:0;
+  height:var(--top-h);
+  display:grid; grid-template-columns: 1fr auto;
+  align-items:center; padding:10px 14px 0 18px;
 }
-
-/* ---------- 方眼（グリッド） ---------- */
-.board::before,
-.board::after{
-  content: "";
-  position: absolute; inset: 0;
-  pointer-events: none;
-  opacity: 0;              /* デフォ非表示 */
-  transition: opacity .2s ease;
+.title{
+  margin:0; font-size:16px;   /* ← 小さめに */
+  letter-spacing:.2px; font-weight:600;
 }
-.board.show-grid::before{
-  /* 細いマス目 */
-  opacity: 1;
-  background:
-    linear-gradient(to right,
-      var(--grid-line) 1px, transparent 1px) 0 0/var(--cell) var(--cell),
-    linear-gradient(to bottom,
-      var(--grid-line) 1px, transparent 1px) 0 0/var(--cell) var(--cell);
-}
-.board.show-grid::after{
-  /* 5マス太線 */
-  opacity: .8;
-  background:
-    linear-gradient(to right,
-      var(--grid-bold) 2px, transparent 2px) 0 0/calc(var(--cell)*5) calc(var(--cell)*5),
-    linear-gradient(to bottom,
-      var(--grid-bold) 2px, transparent 2px) 0 0/calc(var(--cell)*5) calc(var(--cell)*5);
-}
-
-/* ---------- 共通ボタン ---------- */
-.ghost-btn{
-  appearance: none;
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--text);
-  padding: 8px 12px;
-  border-radius: 12px;
-  font-size: 14px;
-  line-height: 1;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-}
-.ghost-btn:hover{ background: #fafafa; }
-
-/* 方眼トグル */
-.grid-toggle{
-  position: absolute;
-  top: 12px; right: 12px;
-  z-index: 50;
-}
-
-/* ---------- タイトル & Next Step ---------- */
-.app-title{
-  position: absolute;
-  left: var(--title-x); top: var(--title-y);
-  margin: 0;
-  font-size: var(--title-size);
-  font-weight: 700;
-  letter-spacing: .02em;
-}
-.next-step{
-  position: absolute;
-  left: var(--nextstep-x); top: var(--nextstep-y);
-}
-
-/* ---------- contents bar（枠なしアイコン） ---------- */
-.contents-bar{
-  position: absolute;
-  left: var(--contents-x); top: var(--contents-y);
-  height: var(--contents-h);
-  display: flex; gap: 12px; align-items: center;
-}
-.contents-bar img{
-  width: var(--icon); height: var(--icon);
-  display: block;
-}
-
-/* ---------- History tool（右上） ---------- */
 .history-tool{
-  position: absolute;
-  left: var(--history-x); top: var(--history-y);
-  display: flex; gap: 10px; align-items: center;
+  display:inline-flex; align-items:center; gap:12px;
+  margin-right: calc(var(--board-pad) + var(--st-right));
 }
-.history-tool .tile{
-  width: 40px; height: 40px;
-  border-radius: 12px;
-  background: var(--tile);
-  box-shadow: var(--shadow);
-  display: grid; place-items: center;
-}
-.history-tool img{ width: 22px; height: 22px; display: block; }
-
-/* ---------- キャンバス ---------- */
-#canvas{
-  position: absolute;
-  left: var(--canvas-x);
-  top: var(--canvas-y);
-  width: var(--canvas-w);
-  height: var(--canvas-h);
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
+.history-tool img{
+  width: var(--st-icon); height: var(--st-icon); display:block; cursor:pointer;
 }
 
-/* Mannequin 包含（座標＆スケールをCSS変数で管理） */
-#mannequin-wrap{
-  position: absolute; inset: 0;
-  /* ドラッグ平行移動 */
-  transform: translate(var(--man-x, 0), var(--man-y, 0)) scale(var(--man-scale, 1));
-  transform-origin: top left;
+/* ==== 2段目：Next Step + contents（タイトルの下に1マス） ==== */
+.nav-strip{
+  position:absolute; left:18px; top: calc(var(--top-h) + var(--unit));
+  height:40px; display:flex; align-items:center; gap:12px;
+}
+.ghost-btn{
+  border:1px solid var(--line); background:transparent; color:var(--ink);
+  padding:6px 10px; border-radius:var(--radius-sm); cursor:pointer; font-size:12px;
+}
+.ghost-btn:hover{ background:rgba(0,0,0,.05); }
+
+.contents-button{
+  display:inline-flex; align-items:center; gap:10px;
+}
+.contents-button img{
+  width:24px; height:24px; display:block;   /* ほんのり控えめ */
+  transform:translateY(1px);
+  filter:drop-shadow(var(--shadow));
+}
+
+/* ==== Board / Canvas ==== */
+.board{
+  position:absolute; inset: calc(var(--top-h) + var(--unit) + 40px) 0 0 0;
+  padding:var(--board-pad);
+}
+.canvas-wrapper{
+  position:relative; width:100%; height:100%;
+  background:var(--panel);
+  outline:1px solid var(--line); outline-offset:-1px;   /* ズームに強い */
+  border-radius:var(--radius-lg); box-shadow:var(--shadow-strong);
+  overflow:hidden;
+}
+
+/* Stationery（枠なし・右上） */
+.stationery-toolbar{
+  position:absolute; top:14px; right:var(--st-right);
+  display:grid; grid-auto-flow:column; gap:12px; align-items:center;
+  padding:0; background:transparent; border:none;
+}
+.stationery-toolbar img{
+  width: var(--st-icon); height: var(--st-icon); display:block; cursor:pointer;
+}
+
+/* Mannequin：スムーズピンチ＋二本指パン対応 */
+#man-zoom{
+  position:absolute; left:50%; top:50%;
+  transform: translate(calc(-50% + var(--man-x, 0px)),
+                       calc(-50% + var(--man-y, 0px)))
+             scale(var(--man-scale, 1));
+  transform-origin:center center;
   cursor: grab;
 }
-#mannequin-wrap:active{ cursor: grabbing; }
+#man-zoom:active{ cursor: grabbing; }
+
 #mannequin{
-  max-width: none; /* スケールに任せる */
-  display: block;
+  display:block; width:auto; height:auto;
+  max-width:56%; max-height:80%;
+  user-select:none; pointer-events:none;
 }
 
-/* Stationery（キャンバス内・左縁に縦並び） */
-.stationery{
-  position: absolute;
-  left: 10px; top: 10px;
-  display: flex; flex-direction: column; gap: 8px;
-  z-index: 10;
-}
-.st-btn{
-  width: 44px; height: 44px;
-  padding: 8px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-}
-.st-btn img{ width: var(--st-icon); height: var(--st-icon); display: block; }
-.st-btn:hover{ background: #fafafa; }
-
-/* Penのカラーパレット（ペンから離れたら閉） */
-.palette{
-  position: absolute;
-  left: 56px; top: 0;
-  padding: 8px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  display: none;
-  gap: 6px;
-}
-.palette.open{ display: flex; }
-.color-dot{
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  border: 1px solid #bbb;
-  background: #000;
-  cursor: pointer;
-}
-.color-dot[data-color="#000000"]{ background: #000; }
-.color-dot[data-color="#ff0000"]{ background: #f33; }
-.color-dot[data-color="#00aa00"]{ background: #0a3; }
-.color-dot[data-color="#0066ff"]{ background: #06f; }
-.color-dot[data-color="#ffaa00"]{ background: #fa0; }
-.color-dot[data-color="#ffffff"]{ background: #fff; }
-.color-dot.active{ outline: 2px solid #333; }
-
-/* 右下スライダー（Zoom / Opacity） */
-.sliders{
-  position: absolute;
-  right: 12px; bottom: 12px;
-  display: flex; gap: 12px;
-  background: rgba(255,255,255,.9);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 8px 10px;
-  box-shadow: var(--shadow);
-}
-.slider{
-  display: flex; align-items: center; gap: 8px;
-  font-size: 12px;
-}
-.slider input[type="range"]{ width: 160px; }
-
-/* ---------- 右カラム（Layer 5段） ---------- */
-.right-rail{
-  position: absolute;
-  left: var(--rail-x); top: var(--rail-y);
-  width: var(--rail-w);
-}
-.layer-stack{
-  display: flex; flex-direction: column; gap: var(--rail-gap);
-}
-.layer-card{
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 10px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: start;
-  gap: 10px;
-}
-.layer-inner{
-  display: flex; gap: 8px; justify-content: flex-end;
-}
-.layer-inner img{ width: 22px; height: 22px; }
-.layer-outer{
-  display: flex; flex-direction: column; gap: 8px;
-}
-.layer-outer img{ width: 22px; height: 22px; }
+/* Focus */
+:focus-visible{ outline:2px solid #7aa2ff; outline-offset:2px; }
