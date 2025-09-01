@@ -1,49 +1,71 @@
 /* =======================================
-   Vivora Illustration — Base Styles
-   - HTML+JSはindex.htmlに統合
-   - ステージ固定寸法（--base-w/--base-h）をscaleで拡縮
+   Vivora Illustration — Theme & Layout
+   - HTML+JS は index.html に統合
+   - ステージ固定寸法を scale で拡縮
+   - data-theme="light|dark|system"（system=OS準拠）
 ======================================= */
 
-/* -------- Design Tokens -------- */
+/* ----- Tokens (base board size) ----- */
 :root{
-  /* 固定ステージ寸法（イラレ的な作業ボードサイズ） */
   --base-w: 1280;   /* px */
   --base-h: 820;    /* px */
-
-  /* スケール（JSで上書き） */
   --app-scale: 1;
+  --viewport-margin: 24;
 
-  /* ビューポート外側の最低余白 */
-  --viewport-margin: 32;
-
-  /* 色 */
-  --bg: #111;         /* 全体背景（ダーク） */
-  --text: #fff;       /* テキスト */
-  --tile: #ece7e1;    /* contents/history用の淡グレー */
-  --line: #e6e0db;    /* 薄い枠線 */
-
-  /* 角丸・影 */
+  /* 共通サイズ */
   --radius: 12px;
   --radius-sm: 10px;
-  --shadow: 0 4px 14px rgba(0,0,0,.25);
-
-  /* アイコン系サイズ */
-  --icon: 26px;       /* contents/history タイルの中の見た目基準 */
-  --st-icon: 30px;    /* Stationery の小ボタン */
-  --gap: 10px;
+  --shadow: 0 3px 10px rgba(0,0,0,.12);
+  --st-icon: 26px;
+  --tile-gap: 8px;
 }
 
-/* -------- Reset / Base -------- */
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+/* ----- Theme palettes ----- */
+/* Light */
+:root,
+:root[data-theme="light"],
+:root[data-theme="system"]:not(.force-dark) {
+  --bg: #efe7e0;      /* 背景（スクショのベージュ） */
+  --panel: #ffffff;   /* ボード内 */
+  --ink: #222;        /* 文字 */
+  --line: #cfc7c0;    /* 細い境界線 */
+  --chip-bg: rgba(0,0,0,.06);
+  --chip-line: rgba(0,0,0,.08);
+}
+
+/* Dark（将来用。切替APIは実装済み） */
+:root[data-theme="dark"]{
+  --bg: #111213;
+  --panel: #191a1b;
+  --ink: #f2f2f2;
+  --line: #2b2d2f;
+  --chip-bg: rgba(255,255,255,.10);
+  --chip-line: rgba(255,255,255,.12);
+}
+
+/* System: prefers-color-scheme が dark の時だけ疑似的にダーク指定を補助 */
+@media (prefers-color-scheme: dark){
+  :root[data-theme="system"]{
+    --bg: #111213;
+    --panel: #191a1b;
+    --ink: #f2f2f2;
+    --line: #2b2d2f;
+    --chip-bg: rgba(255,255,255,.10);
+    --chip-line: rgba(255,255,255,.12);
+  }
+}
+
+/* ----- Base reset ----- */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
 body{
   margin: 0;
-  color: var(--text);
+  color: var(--ink);
   background: var(--bg);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
 }
 
-/* -------- Viewport（非スケール領域） -------- */
+/* ----- Viewport (non-scaled area) ----- */
 .viewport{
   min-height: 100dvh;
   display: grid;
@@ -51,35 +73,29 @@ body{
   padding: var(--viewport-margin);
 }
 
-/* -------- App（スケール対象） --------
-   fixed-sizeの作業ボードをtransformで拡縮。
-   transform-originを左上にして座標系を安定化。 */
+/* ----- App (scaled board) ----- */
 .app{
   width: calc(var(--base-w) * 1px);
   height: calc(var(--base-h) * 1px);
   transform: scale(var(--app-scale));
   transform-origin: top left;
   position: relative;
-  /* 背景ボードは不要指定だったため透明のまま */
 }
 
-/* -------- Topbar（ステージ固定座標） -------- */
+/* ----- Topbar ----- */
 .topbar{
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-
-  height: 72px;                 /* トップバー高（基準） */
+  left: 0; right: 0; top: 0;
+  height: 72px;
   display: grid;
   grid-template-columns: 1fr auto 1fr;  /* 左／中央／右 */
   align-items: center;
-  padding: 8px 12px;
-  pointer-events: auto;
+  padding: 10px 14px;
 }
 
+/* 左：Next Step と contents を密接配置（スクショ通り） */
 .topbar-left{
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 12px;
 }
@@ -87,79 +103,71 @@ body{
 .ghost-btn{
   border: 1px solid var(--line);
   background: transparent;
-  color: var(--text);
-  padding: 8px 12px;
+  color: var(--ink);
+  padding: 6px 10px;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  font-size: 12px;
 }
-.ghost-btn:hover{ background: rgba(255,255,255,0.06); }
+.ghost-btn:hover{ background: rgba(0,0,0,.05); }
 
-/* contentsボタン群（左寄せ・高さ合わせ） */
+/* contents：アイコン行をNextStepの直後に水平配置 */
 .contents-button{
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--tile-gap);
 }
 .contents-button img{
-  width: 28px;
-  height: 28px;
-  display: block;
+  width: 28px; height: 28px; display: block;
   filter: drop-shadow(var(--shadow));
 }
 
-/* 中央タイトル（正確センター） */
+/* 中央：ページタイトル（完全センター） */
 .page-title{
   margin: 0;
   text-align: center;
-  font-size: 20px;
-  letter-spacing: .3px;
+  font-size: 18px;
+  letter-spacing: .2px;
 }
 
-/* 右：historyツール群 */
+/* 右：history 行 */
 .history-tool{
   justify-self: end;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--tile-gap);
 }
 .history-tool img{
-  width: 26px;
-  height: 26px;
-  display: block;
-  filter: drop-shadow(var(--shadow));
-  cursor: pointer;
+  width: 26px; height: 26px; display: block; cursor: pointer;
 }
 
-/* -------- Board（キャンバス領域） --------
-   トップバーの下に1マス空けるイメージでpadding設定 */
+/* ----- Board: canvas area ----- */
 .board{
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 72px;              /* .topbar高と一致 */
-  bottom: 0;
-  padding: 10px 10px 12px 10px; /* 「canvasには1マスだけ開けて」の余白イメージ */
+  inset: 72px 0 0 0; /* topbarの高さ分だけ下げる */
+  padding: 14px;
 }
-
 .canvas-wrapper{
   position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  width: 100%; height: 100%;
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
-/* -------- Stationery（canvas内右上） -------- */
+/* Stationery（右上の黒いピル） */
 .stationery-toolbar{
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 12px; right: 12px;
   display: grid;
   grid-auto-flow: column;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
-  background: rgba(0,0,0,.25);
-  padding: 6px 8px;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-line);
+  padding: 6px 10px;
   border-radius: 999px;
   backdrop-filter: blur(6px);
 }
@@ -170,19 +178,18 @@ body{
   cursor: pointer;
 }
 
-/* -------- Mannequin（中央） -------- */
+/* Mannequin（常に中心） */
 #mannequin{
   position: absolute;
-  left: 50%;
-  top: 50%;
-  max-width: 60%;
-  max-height: 80%;
+  left: 50%; top: 50%;
   transform: translate(-50%, -50%);
+  max-width: 56%;
+  max-height: 80%;
   user-select: none;
-  pointer-events: none; /* 現状はドラッグ不可＋クリック貫通 */
+  pointer-events: none;
 }
 
-/* -------- アクセシビリティ補助 -------- */
+/* Focus */
 :focus-visible{
   outline: 2px solid #7aa2ff;
   outline-offset: 2px;
