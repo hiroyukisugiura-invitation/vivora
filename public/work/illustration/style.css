@@ -20,9 +20,8 @@
 
 body {
   margin: 0;
-  font-family: 'Helvetica Neue', sans-serif;
   background: var(--bg);
-  color: var(--text);
+  font-family: 'Helvetica Neue', sans-serif;
   overflow: hidden;
 }
 
@@ -30,6 +29,7 @@ body {
    各要素のマス配置と絶対位置（calcで制御）
 ======================================= */
 
+/* ヘッダー：Next Step */
 #next-step {
   position: absolute;
   top: calc(var(--grid-size) * 5);
@@ -39,32 +39,36 @@ body {
   font-size: 14px;
 }
 
+/* コンテンツボタン：8項目 */
 .contents-button {
   position: absolute;
   top: calc(var(--grid-size) * 8);
   left: calc(var(--grid-size) * 3);
   display: flex;
-  gap: calc(var(--grid-size) * 0.5);
+  gap: var(--icon-gap);
 }
 
+/* タイトル */
 .page-title {
   position: absolute;
   top: calc(var(--grid-size) * 3);
   left: calc(var(--grid-size) * 42);
-  width: calc(var(--grid-size) * 17);
+  width: calc(var(--grid-size) * 18);
   text-align: center;
-  font-weight: bold;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
+/* ヒストリーツール */
 .history-tool {
   position: absolute;
   top: calc(var(--grid-size) * 8);
   left: calc(var(--grid-size) * 78);
   display: flex;
-  gap: calc(var(--grid-size) * 0.5);
+  gap: var(--icon-gap);
 }
 
+/* Canvasエリア */
 .canvas-wrapper {
   position: absolute;
   top: calc(var(--grid-size) * 11);
@@ -78,104 +82,37 @@ body {
   overflow: hidden;
 }
 
+#canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+/* マネキン配置：46〜55列、21〜58行分の大きさ */
 #mannequin {
   position: absolute;
   top: calc(var(--grid-size) * 21);
   left: calc(var(--grid-size) * 46);
-  width: calc(var(--grid-size) * 9);
   height: calc(var(--grid-size) * 37);
+  width: calc(var(--grid-size) * 9);
   object-fit: contain;
   z-index: 2;
   pointer-events: none;
 }
 
-.stationery-tool {
+/* Grid overlay toggle */
+#canvas.grid::before {
+  content: "";
   position: absolute;
-  top: calc(var(--grid-size) * 13);
-  left: calc(var(--grid-size) * 78);
-  display: flex;
-  gap: calc(var(--grid-size) * 0.5);
-}
-
-.tool-dropdown {
-  position: absolute;
-  top: calc(var(--grid-size) * 16);
-  left: calc(var(--grid-size) * 78);
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 10;
-}
-
-.tool-dropdown.active {
-  display: flex;
-}
-
-.tool-dropdown .row {
-  display: flex;
-  align-items: center;
-  gap: calc(var(--grid-size) * 0.5);
-}
-
-.direct-select {
-  top: calc(var(--grid-size) * 16);
-  left: calc(var(--grid-size) * 78);
-}
-
-.circle-icon {
-  top: calc(var(--grid-size) * 16);
-  left: calc(var(--grid-size) * 80);
-}
-
-.pen-tools {
-  position: absolute;
-  top: calc(var(--grid-size) * 17);
-  left: calc(var(--grid-size) * 83);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.color-panel {
-  position: absolute;
-  top: calc(var(--grid-size) * 18);
-  left: calc(var(--grid-size) * 85);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.opacity-bar {
-  position: absolute;
-  top: calc(var(--grid-size) * 15);
-  left: calc(var(--grid-size) * 88);
-  background: var(--panel);
-  padding: 4px;
-  border-radius: 6px;
-  border: 1px solid var(--line);
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.layer-panel {
-  position: absolute;
-  top: calc(var(--grid-size) * 16);
-  left: calc(var(--grid-size) * 94);
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--grid-size) * 0.5);
-}
-
-.layer-box {
-  width: calc(var(--grid-size) * 3);
-  height: calc(var(--grid-size) * 7);
-  background: #fff;
-  border: 2px solid #aaa;
-  border-radius: 10px;
-  padding: 4px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(to right, #bbb 1px, transparent 1px),
+    linear-gradient(to bottom, #bbb 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  z-index: 1;
+  pointer-events: none;
 }
