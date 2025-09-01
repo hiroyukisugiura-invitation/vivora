@@ -1,12 +1,11 @@
 /* ===================================================
    Vivora Fashion Illustration 2025 — 固定UI（1280×800）
-   - Topbar：左=Next+contents（Nextは左上）/ 中央=Title / 右=History
-   - Stationery：8アイコン（選択時のみドロップダウン表示）
+   - Topbar：左=Next+contents（枠なし）/ 中央=Title / 右=History
+   - Stationery：2枚目の順番で8アイコン
    =================================================== */
 :root{
   --bg:#e9e1d7;
   --panel:#ffffff;
-  --tile:#ece7e1;
   --line:#d8d0c7;
   --text:#2a2a2a;
 
@@ -17,9 +16,7 @@
 
   --icon:22px;
   --gap:12px;
-
-  --dd-pad:8px;
-  --dd-bg:#fff;
+  --content-icon:28px;
 }
 
 *{ box-sizing:border-box }
@@ -47,39 +44,42 @@ body{
   position:relative;
 }
 
-.topbar-left{ justify-self:start; }
-.contents-tile{
-  position:relative;
-  background:var(--tile);
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:10px 12px;
-  display:flex; align-items:center; gap:12px;
+.topbar-left{
+  display:flex; align-items:center; gap:14px; justify-self:start;
 }
+
+/* Next Step：アイコン2個ぶんの横幅 */
 .ghost-btn{
-  position:absolute; top:-26px; left:-2px;   /* 左上に浮かせる */
   appearance:none; border:none; background:#f5f0ea;
-  color:#333; font-size:12px; padding:4px 8px;
-  border-radius:6px; box-shadow: inset 0 0 0 1px var(--line);
+  color:#333; font-size:14px; padding:6px 10px;
+  border-radius:10px; box-shadow: inset 0 0 0 1px var(--line);
   cursor:pointer;
+  min-width: calc((2 * var(--content-icon)) + 12px); /* 2アイコン + gap相当 */
+  text-align:center;
 }
+
+/* contents：枠なしアイコンだけ */
 .contents-button{ display:flex; gap:12px; align-items:center; }
-.contents-button img{ width:28px; height:28px; display:block; }
+.contents-button img{ width:var(--content-icon); height:var(--content-icon); display:block; }
 
 .page-title{
   margin:0; font-size:18px; font-weight:500; letter-spacing:.2px;
   justify-self:center;
 }
+
 .history-tool{ display:flex; gap:14px; align-items:center; justify-self:end; }
 .history-tool img{ width:22px; height:22px; display:block; }
 
-/* ===== Board（canvas 本体） ===== */
+/* ===== Board（canvas本体） ===== */
 .board{
   position:relative;
-  width:var(--board-w); height:var(--board-h);
+  width:var(--board-w);
+  height:var(--board-h);
   background:var(--panel);
-  border:1px solid var(--line); border-radius:var(--r);
-  box-shadow:var(--shadow); overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
 
 /* Canvas */
@@ -95,67 +95,10 @@ body{
   position:absolute; top:10px; right:10px;
   display:flex; gap:var(--gap); align-items:center; z-index:3;
 }
-.st-btn{ padding:0; border:0; background:transparent; cursor:pointer; }
-.st-btn img{ width:var(--icon); height:var(--icon); display:block; user-select:none; -webkit-user-drag:none; }
-
-/* ▼ ドロップダウン基礎（共通スタイル） */
-.dropdown-panels{
-  position:absolute; top:42px; right:10px; /* ツールバー直下に落ちる */
-  display:grid; grid-template-columns: 1fr; /* 位置決めは各パネルの transform で */
-  pointer-events:none; /* パネル以外の領域はクリック透過 */
+.stationery-toolbar img{
+  width:var(--icon); height:var(--icon);
+  user-select:none; -webkit-user-drag:none; display:block;
 }
-.dd-panel{
-  position:absolute;
-  padding:var(--dd-pad);
-  background:var(--dd-bg);
-  border:1px solid var(--line);
-  border-radius:10px;
-  box-shadow:var(--shadow);
-  display:none; pointer-events:auto;
-}
-/* 各パネルの出現位置（ツールボタンの真下に寄せる） */
-.dd-panel[data-for="select"]  { transform:translateX(calc(-7*34px)); }
-.dd-panel[data-for="square"]  { transform:translateX(calc(-6*34px)); }
-.dd-panel[data-for="brush"]   { transform:translateX(calc(-5*34px)); }
-.dd-panel[data-for="eraser"]  { transform:translateX(calc(-4*34px)); }
-.dd-panel[data-for="opacity"] { transform:translateX(calc(-3*34px)); }
-.dd-panel[data-for="grid"]    { transform:translateX(calc(-2*34px)); }
-.dd-panel[data-for="layer"]   { transform:translateX(calc(-1*34px)); }
-.dd-panel[data-for="color"]   { transform:translateX(calc(-0*34px)); }
-
-/* 開くとき */
-.dd-panel.open{ display:block; }
-
-/* パネル内の簡易UI */
-.dd-panel button{
-  margin:0 6px 6px 0; padding:6px 10px; font-size:12px;
-  border:1px solid var(--line); border-radius:6px; background:#fff; cursor:pointer;
-}
-.dd-panel .chk{ display:block; font-size:12px; margin-bottom:6px; }
-
-/* opacity（縦スライダー風） */
-.dd-opacity{ padding:10px; }
-.op-track{
-  position:relative; width:10px; height:220px;
-  background:linear-gradient(#000, #fff); border-radius:10px;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);
-}
-.op-thumb{
-  position:absolute; left:50%; transform:translate(-50%, -50%);
-  top:var(--y, 50%); width:22px; height:6px; border-radius:3px; background:#333;
-}
-
-/* color（縦パレット） */
-.dd-color{ display:flex; flex-direction:column; gap:8px; }
-.dd-color span{
-  --size:24px;
-  width:var(--size); height:var(--size);
-  border-radius:50%; background:var(--c,#ccc);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
-}
-
-/* layer（簡易カード） */
-.dd-layer{ display:flex; gap:8px; flex-wrap:wrap; max-width:240px; }
 
 /* Mannequin（中央） */
 #mannequin{
