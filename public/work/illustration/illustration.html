@@ -10,24 +10,30 @@
   <div class="app">
     <!-- Header -->
     <div class="header">
-      <div class="contents-button">
-        <button class="tool-button"><img src="/create_parts/contents_button/0_home.png" alt="Home" /></button>
-        <button class="tool-button"><img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" /></button>
-        <button class="tool-button"><img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm" /></button>
-        <button class="tool-button"><img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd" /></button>
-        <button class="tool-button"><img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc" /></button>
-        <button class="tool-button"><img src="/create_parts/contents_button/5_grading.png" alt="Gd" /></button>
-        <button class="tool-button"><img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Pk" /></button>
-        <button class="tool-button"><img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" /></button>
+      <div class="next-step">
+        <button class="tool-button">Next Step ››</button>
       </div>
+
+      <div class="contents-button">
+        <img src="/create_parts/contents_button/0_home.png" class="tool-button" />
+        <img src="/create_parts/contents_button/1_fashion-illustrations.png" class="tool-button" />
+        <img src="/create_parts/contents_button/2_fabric-matching.png" class="tool-button" />
+        <img src="/create_parts/contents_button/3_clothing-design.png" class="tool-button" />
+        <img src="/create_parts/contents_button/4_pattern-creation.png" class="tool-button" />
+        <img src="/create_parts/contents_button/5_grading.png" class="tool-button" />
+        <img src="/create_parts/contents_button/6_print-layout-cut.png" class="tool-button" />
+        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" class="tool-button" />
+      </div>
+
       <div class="page-title">Vivora Fashion Illustration 2025</div>
+
       <div class="history-tool">
-        <button class="tool-button"><img src="/create_parts/create_button/reset.png" alt="Undo" /></button>
-        <button class="tool-button"><img src="/create_parts/create_button/retreat.png" alt="Redo" /></button>
-        <button class="tool-button"><img src="/create_parts/create_button/forward.png" alt="Refresh" /></button>
-        <button class="tool-button"><img src="/create_parts/create_button/download.png" alt="Download" /></button>
-        <button class="tool-button"><img src="/create_parts/create_button/upload.png" alt="Upload" /></button>
-        <button class="tool-button"><img src="/create_parts/create_button/save.png" alt="Save" /></button>
+        <img src="/create_parts/create_button/retreat.png" class="tool-button" />
+        <img src="/create_parts/create_button/undo.png" class="tool-button" />
+        <img src="/create_parts/create_button/reset.png" class="tool-button" />
+        <img src="/create_parts/create_button/download.png" class="tool-button" />
+        <img src="/create_parts/create_button/upload.png" class="tool-button" />
+        <img src="/create_parts/create_button/save.png" class="tool-button" />
       </div>
     </div>
 
@@ -38,69 +44,93 @@
       </div>
     </div>
 
-    <!-- Tool Right Panel -->
+    <!-- Right Tool Panel -->
     <div class="tool-right-panel">
-      <!-- Stationery Tool -->
       <div class="stationery-tool">
-        <button class="tool-button"><img src="/create_parts/object_btn/select.png" alt="Select" /></button>
-        <button class="tool-button"><img src="/create_parts/object_btn/square.png" alt="Square" /></button>
-        <button class="tool-button"><img src="/create_parts/object_btn/brush.png" alt="Brush" /></button>
-        <button class="tool-button"><img src="/create_parts/object_btn/eraser.png" alt="Eraser" /></button>
-        <button class="tool-button"><img src="/create_parts/object_btn/sentence.png" alt="Text" /></button>
-        <button class="tool-button"><img src="/create_parts/object_btn/graph_paper.png" alt="Grid" /></button>
-        <button class="tool-button"><img src="/create_parts/object_btn/layer.png" alt="Layer" /></button>
+        <div class="tool-group" id="select-tool">
+          <img src="/create_parts/object_btn/select.png" class="tool-button" />
+        </div>
+        <div class="tool-group">
+          <img src="/create_parts/object_btn/square.png" class="tool-button" />
+        </div>
+        <div class="tool-group">
+          <img src="/create_parts/object_btn/brush.png" class="tool-button" />
+        </div>
+        <div class="tool-group">
+          <img src="/create_parts/object_btn/eraser.png" class="tool-button" />
+        </div>
+        <div class="tool-group">
+          <img src="/create_parts/object_btn/sentence.png" class="tool-button" />
+        </div>
+        <div class="tool-group">
+          <img src="/create_parts/object_btn/graph_paper.png" class="tool-button" />
+        </div>
+        <div class="tool-group">
+          <img src="/create_parts/object_btn/layer.png" class="tool-button" />
+        </div>
       </div>
 
-      <!-- Opacity Bar -->
-      <div class="opacity-bar" id="opacityBar">
-        <label for="opacityRange">100%</label>
-        <input type="range" id="opacityRange" min="0" max="100" value="100" />
+      <!-- Dropdown under Select -->
+      <div class="dropdown">
+        <img src="/create_parts/object_btn/direct_select.png" class="tool-button" />
+        <img src="/create_parts/object_btn/circle.png" class="tool-button" />
+        <img src="/create_parts/object_btn/pen.png" class="tool-button" />
+        <img src="/create_parts/object_btn/markerpen.png" class="tool-button" />
+        <img src="/create_parts/object_btn/ballpointpen.png" class="tool-button" />
       </div>
 
-      <!-- Color Panel -->
+      <!-- Opacity bar -->
+      <div class="opacity-bar">
+        <label for="opacity">100%</label>
+        <input type="range" id="opacity" min="0" max="100" value="100" />
+      </div>
+
+      <!-- Color panel -->
       <div class="color-panel">
-        <div class="color-swatch" style="background: #ffffff"></div>
-        <div class="color-swatch" style="background: #cccccc"></div>
-        <div class="color-swatch" style="background: #ffff00"></div>
-        <div class="color-swatch" style="background: #ff9900"></div>
-        <div class="color-swatch" style="background: #ffb6c1"></div>
-        <div class="color-swatch" style="background: #ff0000"></div>
-        <div class="color-swatch" style="background: #00cc00"></div>
-        <div class="color-swatch" style="background: #008000"></div>
-        <div class="color-swatch" style="background: #00ccff"></div>
-        <div class="color-swatch" style="background: #0000ff"></div>
-        <div class="color-swatch" style="background: #800080"></div>
-        <div class="color-swatch" style="background: #8b0000"></div>
-        <div class="color-swatch" style="background: #666666"></div>
-        <div class="color-swatch" style="background: #000000"></div>
+        <div class="color-swatch" style="background:#fff"></div>
+        <div class="color-swatch" style="background:#aaa"></div>
+        <div class="color-swatch" style="background:#ff0"></div>
+        <div class="color-swatch" style="background:#ffa500"></div>
+        <div class="color-swatch" style="background:#fbb"></div>
+        <div class="color-swatch" style="background:#f00"></div>
+        <div class="color-swatch" style="background:#6f6"></div>
+        <div class="color-swatch" style="background:#060"></div>
+        <div class="color-swatch" style="background:#7cf"></div>
+        <div class="color-swatch" style="background:#00f"></div>
+        <div class="color-swatch" style="background:#60a"></div>
+        <div class="color-swatch" style="background:#933"></div>
+        <div class="color-swatch" style="background:#666"></div>
+        <div class="color-swatch" style="background:#000"></div>
+        <div class="tool-button">＋</div>
+        <img src="/create_parts/object_btn/spuit.png" class="tool-button" />
       </div>
 
-      <!-- Layer Panel -->
+      <!-- Layer panel -->
       <div class="layer-panel">
         <div class="layer-box">
           <div class="layer-header">
-            <img src="/create_parts/layer_button/layerlock.png" alt="lock" />
-            <img src="/create_parts/layer_button/layerdisplay.png" alt="show" />
-            <img src="/create_parts/layer_button/layerhidden.png" alt="hide" />
+            <img src="/create_parts/layer_button/layerlock.png" />
+            <img src="/create_parts/layer_button/layerdisplay.png" />
+            <img src="/create_parts/layer_button/layerhidden.png" />
           </div>
           <div class="layer-footer">
-            <img src="/create_parts/layer_button/layerpanelplus.png" alt="plus" />
-            <img src="/create_parts/layer_button/layerreproduction.png" alt="duplicate" />
-            <img src="/create_parts/layer_button/layerdestruction.png" alt="delete" />
+            <img src="/create_parts/layer_button/layerpanelplus.png" />
+            <img src="/create_parts/layer_button/layerreproduction.png" />
+            <img src="/create_parts/layer_button/layerdestruction.png" />
           </div>
         </div>
+        <!-- Repeat .layer-box for up to 5 layers -->
       </div>
     </div>
   </div>
 
   <script>
-    // Opacity toggle simulation
-    document.querySelectorAll('.tool-button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (btn.alt === 'Eraser') {
-          document.getElementById('opacityBar').classList.toggle('active');
-        }
-      });
+    // Dropdown Toggle Example
+    const selectTool = document.getElementById('select-tool');
+    const dropdown = document.querySelector('.dropdown');
+
+    selectTool.addEventListener('click', () => {
+      dropdown.classList.toggle('active');
     });
   </script>
 </body>
