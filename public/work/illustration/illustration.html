@@ -14,7 +14,7 @@
 
       <!-- Topbar（canvasの外） -->
       <header class="topbar">
-        <!-- 左：Next Step + contents（横並び・密接配置） -->
+        <!-- 左：Next Step + contents（横並び） -->
         <div class="topbar-left">
           <button id="next-step" class="ghost-btn" type="button">Next Step ▶▶</button>
           <nav class="contents-button" aria-label="contents">
@@ -32,7 +32,7 @@
         <!-- 中央：ページネーム（完全センター） -->
         <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-        <!-- 右：history（アイコン行） -->
+        <!-- 右：history（右端をStationeryの右端と揃える） -->
         <div class="history-tool" aria-label="history">
           <img src="/create_parts/create_button/retreat.png"   alt="Redo"      title="戻る" draggable="false"/>
           <img src="/create_parts/create_button/forward.png"   alt="Cycle"     title="進む" draggable="false"/>
@@ -45,8 +45,8 @@
 
       <!-- Board（canvas本体） -->
       <main class="board" role="main">
-        <div class="canvas-wrapper">
-          <!-- Stationery（canvas内 右上：8アイコン） -->
+        <div class="canvas-wrapper" id="canvas">
+          <!-- Stationery（canvas内 右上：8アイコン。枠なし） -->
           <div class="stationery-toolbar" aria-label="stationery">
             <img src="/create_parts/object_btn/select.png"      alt="Select"  title="選択" draggable="false"/>
             <img src="/create_parts/object_btn/square.png"      alt="Square"  title="図形" draggable="false"/>
@@ -58,10 +58,12 @@
             <img src="/create_parts/object_btn/layer.png"       alt="Layer"   title="レイヤー" draggable="false"/>
           </div>
 
-          <!-- マネキン（常にキャンバス中心） -->
-          <img id="mannequin"
-               src="/mannequin/mannequin_woman/mannequin_woman_front.png"
-               alt="Mannequin (Woman Front)" draggable="false"/>
+          <!-- マネキン（ピンチで拡大縮小できるようラッパーを用意） -->
+          <div id="man-zoom">
+            <img id="mannequin"
+                 src="/mannequin/mannequin_woman/mannequin_woman_front.png"
+                 alt="Mannequin (Woman Front)" draggable="false"/>
+          </div>
         </div>
       </main>
     </div>
@@ -69,25 +71,37 @@
 
   <!-- ================================
        JS（HTMLと統合）
-       - ステージ自動フィット
+       - ステージ自動フィット（DPRスナップ）
        - クリックフック
-       - テーマ（light / dark / system）
-       - 仕上げ微調整を前提に値はCSS変数で管理
+       - テーマ切替（light / dark / system）
+       - マネキン：ピンチ/ホイールで拡大縮小
   ================================= -->
   <script>
     // ---------- Auto scale (Illustrator-like board) ----------
     (function(){
       const css = () => getComputedStyle(document.documentElement);
       const num = v => parseFloat(v) || 0;
+
+      function snapScale(s){
+        const dpr = window.devicePixelRatio || 1;
+        // 0.5/dpr刻みでスナップ（hairline対策）
+        return Math.max(0.5, Math.min(4, Math.round(s * dpr * 2) / (dpr * 2)));
+      }
+
       function fitStage(){
         const BASE_W = num(css().getPropertyValue('--base-w')) || 1280;
         const BASE_H = num(css().getPropertyValue('--base-h')) || 820;
         const MARGIN = num(css().getPropertyValue('--viewport-margin')) || 24;
+
         const vw = window.innerWidth  - MARGIN*2;
         const vh = window.innerHeight - MARGIN*2;
-        const s  = Math.max(0.5, Math.min(vw/BASE_W, vh/BASE_H)); // 最小0.5倍
+
+        let s = Math.max(0.5, Math.min(vw/BASE_W, vh/BASE_H));
+        s = snapScale(s);
+
         document.documentElement.style.setProperty('--app-scale', s);
       }
+
       window.addEventListener('resize', fitStage, { passive:true });
       window.addEventListener('orientationchange', fitStage, { passive:true });
       document.addEventListener('DOMContentLoaded', fitStage);
@@ -99,12 +113,12 @@
         img.addEventListener('mousedown', e => e.preventDefault());
         img.addEventListener('dragstart', e => e.preventDefault());
       });
+
+      // 将来機能フック
       const clickable = document.querySelectorAll(
         '.stationery-toolbar img, .history-tool img, .contents-button img, #next-step'
       );
-      clickable.forEach(el => el.addEventListener('click', () => {
-        // TODO: 将来の実処理をここへ
-      }));
+      clickable.forEach(el => el.addEventListener('click', () => {/* TODO */}));
     });
 
     // ---------- Theme: light / dark / system ----------
@@ -112,28 +126,76 @@
       const KEY = 'vivora.theme';
       const root = document.documentElement;
 
-      function apply(theme){
-        // theme: 'light' | 'dark' | 'system'
-        root.setAttribute('data-theme', theme);
-      }
-
-      // 公開API（必要になったらUIから呼べる）
+      function apply(theme){ root.setAttribute('data-theme', theme); }
       window.setTheme = function(theme){
         if(!['light','dark','system'].includes(theme)) return;
-        localStorage.setItem(KEY, theme);
-        apply(theme);
+        localStorage.setItem(KEY, theme); apply(theme);
       };
+      apply(localStorage.getItem(KEY) || 'system');
 
-      // 初期化：保存値 → 未保存なら system
-      const saved = localStorage.getItem(KEY) || 'system';
-      apply(saved);
-
-      // OSテーマ変更時、system 選択中なら即反映
+      // OSテーマ変更時、system 選択中は追従
       const mq = window.matchMedia('(prefers-color-scheme: dark)');
       mq.addEventListener('change', () => {
-        const cur = root.getAttribute('data-theme');
-        if(cur === 'system') apply('system');
+        if(root.getAttribute('data-theme') === 'system') apply('system');
       });
+    })();
+
+    // ---------- Mannequin pinch/zoom (trackpad pinch / wheel / touch / Safari gesture) ----------
+    (function(){
+      const zoomWrap = document.getElementById('man-zoom');
+      const mannequin = document.getElementById('mannequin');
+
+      let scale = 1;               // 現在スケール
+      const MIN = 0.6, MAX = 3;    // 係数
+      const STEP = 0.12;           // ホイール刻みのベース
+
+      function apply(){
+        zoomWrap.style.setProperty('--man-scale', scale);
+      }
+
+      // Ctrl+Wheel（Chromeのトラックパッドピンチはwheel+ctrlで来ることが多い）
+      document.getElementById('canvas').addEventListener('wheel', (e)=>{
+        if(!e.ctrlKey) return;
+        e.preventDefault();
+        const ds = Math.exp(-e.deltaY * STEP / 100); // なめらか
+        scale = Math.min(MAX, Math.max(MIN, scale * ds));
+        apply();
+      }, { passive:false });
+
+      // Safariのgestureイベント
+      let gestureBase = 1;
+      window.addEventListener('gesturestart', (e)=>{ gestureBase = scale; }, { passive:true });
+      window.addEventListener('gesturechange', (e)=>{
+        e.preventDefault();
+        scale = Math.min(MAX, Math.max(MIN, gestureBase * e.scale));
+        apply();
+      }, { passive:false });
+
+      // タッチ2本指ピンチ
+      let touchDist0 = null, touchBase = 1;
+      const dist = (t1, t2)=> Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+
+      const canvas = document.getElementById('canvas');
+      canvas.addEventListener('touchstart', (e)=>{
+        if(e.touches.length === 2){
+          touchDist0 = dist(e.touches[0], e.touches[1]);
+          touchBase = scale;
+        }
+      }, { passive:true });
+
+      canvas.addEventListener('touchmove', (e)=>{
+        if(e.touches.length === 2 && touchDist0){
+          e.preventDefault();
+          const ratio = dist(e.touches[0], e.touches[1]) / touchDist0;
+          scale = Math.min(MAX, Math.max(MIN, touchBase * ratio));
+          apply();
+        }
+      }, { passive:false });
+
+      canvas.addEventListener('touchend', ()=>{ touchDist0 = null; }, { passive:true });
+
+      // 初期反映
+      apply();
     })();
   </script>
 </body>
