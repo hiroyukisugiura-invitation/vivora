@@ -7,17 +7,15 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- ■アプリ全体（中央固定ボード） -->
   <div class="app">
     <div class="board">
-      <!-- ── ヘッダー帯 ───────────────────────── -->
       <!-- Next Step（左上） -->
       <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
 
       <!-- ページタイトル（中央上） -->
       <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-      <!-- History tool（右上：戻る/進む/回転/ダウン/アップ/保存） -->
+      <!-- History tool（右上） -->
       <div class="history-tool">
         <img src="/create_parts/create_button/reset.png"     alt="Undo"     title="Undo">
         <img src="/create_parts/create_button/retreat.png"   alt="Redo"     title="Redo">
@@ -27,7 +25,7 @@
         <img src="/create_parts/create_button/save.png"      alt="Save"     title="Save">
       </div>
 
-      <!-- Contents button（左上：Next Stepの下に横並び） -->
+      <!-- Contents button（Next Step の下、左上に横並び） -->
       <div class="contents-button">
         <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home">
         <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations">
@@ -39,60 +37,25 @@
         <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)">
       </div>
 
-     <!-- キャンバス領域 -->
-<div class="canvas-wrapper">
-  <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
-
-  <!-- 右パネル -->
-  <div class="tool-right-panel">
-    <div class="stationery-tool">
-      <img src="/create_parts/object_btn/select.png" alt="Select">
-      <img src="/create_parts/object_btn/square.png" alt="Square">
-      <img src="/create_parts/object_btn/pen.png" alt="Pen">
-      <img src="/create_parts/object_btn/eraser.png" alt="Eraser">
-      <img src="/create_parts/object_btn/sentence.png" alt="Text">
-      <img src="/create_parts/object_btn/markerpen.png" alt="Marker">
-      <img src="/create_parts/object_btn/graph_paper.png" alt="Grid">
-      <img src="/create_parts/object_btn/layer.png" alt="Layer">
-    </div>
-
-    <div class="color-panel">
-      <div class="color-swatch" style="background: #ffffff"></div>
-      <div class="color-swatch" style="background: #000000"></div>
-      <!-- …色を続けて配置… -->
-    </div>
-
-    <div class="opacity-bar">
-      <span>100%</span>
-      <input type="range" min="0" max="100" value="100">
-    </div>
-
-    <div class="layer-panel">
-      <div class="layer-box">
-        <div class="layer-header">
-          <img src="/create_parts/layer_button/layerlock.png" alt="Lock">
-          <img src="/create_parts/layer_button/layerdisplay.png" alt="Display">
-          <img src="/create_parts/layer_button/layerhidden.png" alt="Hide">
+      <!-- ── キャンバス領域 ───────────────────── -->
+      <div class="canvas-wrapper">
+        <!-- Stationery（キャンバス内 右上・横並び） -->
+        <div class="stationery-toolbar">
+          <img src="/create_parts/object_btn/select.png"       alt="Select"  title="Select">
+          <img src="/create_parts/object_btn/square.png"       alt="Rect"    title="Rectangle">
+          <img src="/create_parts/object_btn/pen.png"          alt="Pen"     title="Pen">
+          <img src="/create_parts/object_btn/eraser.png"       alt="Eraser"  title="Eraser">
+          <img src="/create_parts/object_btn/sentence.png"     alt="Text"    title="Text">
+          <img src="/create_parts/object_btn/markerpen.png"    alt="Marker"  title="Marker">
+          <img src="/create_parts/object_btn/direct_select.png"alt="Path"    title="Direct Select">
+          <img src="/create_parts/object_btn/graph_paper.png"  alt="Grid"    title="Grid">
+          <img src="/create_parts/object_btn/layer.png"        alt="Layer"   title="Layer Panel">
         </div>
-        <div class="layer-footer">
-          <img src="/create_parts/layer_button/layerpanelplus.png" alt="Add">
-          <img src="/create_parts/layer_button/layerreproduction.png" alt="Copy">
-          <img src="/create_parts/layer_button/layerdestruction.png" alt="Delete">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
         <!-- マネキン（中央） -->
         <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
       </div>
     </div>
   </div>
-
-  <!-- 今はJS最小限（動作は後で追加予定） -->
-  <script>
-    // 将来：各ツールのクリック処理をここに追加
-  </script>
 </body>
 </html>
