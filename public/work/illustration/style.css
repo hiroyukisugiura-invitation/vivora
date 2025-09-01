@@ -70,22 +70,17 @@ body{
   margin:0; font-size:16px;   /* ← 小さめに */
   letter-spacing:.2px; font-weight:600;
 }
+
+/* ==== history tool ==== */
 .history-tool{
   display:inline-flex; align-items:center; gap:12px;
   margin-right: calc(var(--board-pad) + var(--st-right));
-}
-/* history tool の高さを contents button と揃える */
-.history-tool {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-right: calc(var(--board-pad) + var(--st-right));
 
-  /* ★ contents-button と同じ高さに寄せる */
-  height: 40px;        /* nav-strip の高さと合わせる */
-  transform: translateY(6px); /* 必要に応じて微調整（例: +6px 下げる） */
+  /* ★ contents button と高さを揃える */
+  height:40px;                 /* nav-strip と同じ高さ */
+  align-items: center;         /* アイコンを中央に */
+  transform: translateY(4px);  /* 微調整：下に少し下げる */
 }
-
 .history-tool img{
   width: var(--st-icon); height: var(--st-icon); display:block; cursor:pointer;
 }
@@ -103,6 +98,7 @@ body{
 
 .contents-button{
   display:inline-flex; align-items:center; gap:10px;
+  height:40px; /* 高さ固定 */
 }
 .contents-button img{
   width:24px; height:24px; display:block;   /* ほんのり控えめ */
