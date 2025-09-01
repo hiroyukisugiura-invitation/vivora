@@ -1,119 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- ヘッダー領域 -->
-  <div id="next-step">Next Step ▶▶</div>
+  <!-- ■アプリ全体（中央固定ボード） -->
+  <div class="app">
+    <div class="board">
+      <!-- ── ヘッダー帯 ───────────────────────── -->
+      <!-- Next Step（左上） -->
+      <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
 
-  <div class="contents-button">
-    <img src="/create_parts/contents_button/0_home.png" alt="Home">
-    <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi">
-    <img src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm">
-    <img src="/create_parts/contents_button/3_clothing-design.png" alt="Cd">
-    <img src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc">
-    <img src="/create_parts/contents_button/5_grading.png" alt="Gd">
-    <img src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc">
-    <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk">
-  </div>
+      <!-- ページタイトル（中央上） -->
+      <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-  <div class="page-title">Vivora Fashion Illustration 2025</div>
-
-  <div class="history-tool">
-    <img src="/create_parts/create_button/reset.png" alt="Undo">
-    <img src="/create_parts/create_button/retreat.png" alt="Redo">
-    <img src="/create_parts/create_button/forward.png" alt="Forward">
-    <img src="/create_parts/create_button/download.png" alt="Download">
-    <img src="/create_parts/create_button/upload.png" alt="Upload">
-    <img src="/create_parts/create_button/save.png" alt="Save">
-  </div>
-
-  <!-- Canvas表示部分 -->
-  <div class="canvas-wrapper">
-    <div id="canvas">
-      <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
-    </div>
-  </div>
-
-  <!-- ステーショナリーツール -->
-  <div class="stationery-tool">
-    <img src="/create_parts/object_btn/select.png" alt="Select">
-    <img src="/create_parts/object_btn/square.png" alt="Square">
-    <img src="/create_parts/object_btn/pen.png" alt="Pen">
-    <img src="/create_parts/object_btn/eraser.png" alt="Eraser">
-    <img src="/create_parts/object_btn/sentence.png" alt="Text">
-    <img src="/create_parts/object_btn/markerpen.png" alt="Marker">
-    <img src="/create_parts/object_btn/graph_paper.png" alt="Grid">
-    <img src="/create_parts/object_btn/layer.png" alt="Layer">
-  </div>
-
-  <!-- ドロップダウン（サンプル） -->
-  <div class="tool-dropdown">
-    <img src="/create_parts/object_btn/direct_select.png" alt="Direct Select">
-    <img src="/create_parts/object_btn/circle.png" alt="Circle">
-  </div>
-
-  <!-- カラーパネル -->
-  <div class="color-panel">
-    <div class="color-swatch" style="background: #ffffff"></div>
-    <div class="color-swatch" style="background: #cccccc"></div>
-    <div class="color-swatch" style="background: #f1e800"></div>
-    <div class="color-swatch" style="background: #f39c12"></div>
-    <div class="color-swatch" style="background: #f8b8d2"></div>
-    <div class="color-swatch" style="background: #e74c3c"></div>
-    <div class="color-swatch" style="background: #8dd22a"></div>
-    <div class="color-swatch" style="background: #27693d"></div>
-    <div class="color-swatch" style="background: #7ed6df"></div>
-    <div class="color-swatch" style="background: #2980b9"></div>
-    <div class="color-swatch" style="background: #8e44ad"></div>
-    <div class="color-swatch" style="background: #a04000"></div>
-    <div class="color-swatch" style="background: #666"></div>
-    <div class="color-swatch" style="background: #000000"></div>
-    <img src="/create_parts/object_btn/plus.png" alt="Add">
-    <img src="/create_parts/object_btn/spuit.png" alt="Spuit">
-  </div>
-
-  <!-- 透明度バー -->
-  <div class="opacity-bar">
-    <span>100%</span>
-    <input type="range" min="0" max="100" value="100">
-  </div>
-
-  <!-- レイヤーパネル -->
-  <div class="layer-panel">
-    <div class="layer-box">
-      <div class="layer-header">
-        <img src="/create_parts/layer_button/layerlock.png" alt="Lock">
-        <img src="/create_parts/layer_button/layerdisplay.png" alt="Display">
-        <img src="/create_parts/layer_button/layerhidden.png" alt="Hide">
+      <!-- History tool（右上：戻る/進む/回転/ダウン/アップ/保存） -->
+      <div class="history-tool">
+        <img src="/create_parts/create_button/reset.png"     alt="Undo"     title="Undo">
+        <img src="/create_parts/create_button/retreat.png"   alt="Redo"     title="Redo">
+        <img src="/create_parts/create_button/forward.png"   alt="Rotate"   title="Rotate">
+        <img src="/create_parts/create_button/download.png"  alt="Download" title="Download">
+        <img src="/create_parts/create_button/upload.png"    alt="Upload"   title="Upload">
+        <img src="/create_parts/create_button/save.png"      alt="Save"     title="Save">
       </div>
-      <div class="layer-footer">
-        <img src="/create_parts/layer_button/layerpanelplus.png" alt="Add">
-        <img src="/create_parts/layer_button/layerreproduction.png" alt="Copy">
-        <img src="/create_parts/layer_button/layerdestruction.png" alt="Delete">
+
+      <!-- Contents button（左上：Next Stepの下に横並び） -->
+      <div class="contents-button">
+        <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home">
+        <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations">
+        <img src="/create_parts/contents_button/2_fabric-matching.png"         alt="Fm"    title="Fabric Matching">
+        <img src="/create_parts/contents_button/3_clothing-design.png"         alt="Cd"    title="Clothing Design">
+        <img src="/create_parts/contents_button/4_pattern-creation.png"        alt="Pc"    title="Pattern Creation">
+        <img src="/create_parts/contents_button/5_grading.png"                 alt="Gd"    title="Grading">
+        <img src="/create_parts/contents_button/6_print-layout-cut.png"        alt="Plc"   title="Print/Layout/Cut">
+        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)">
+      </div>
+
+      <!-- ── キャンバス領域 ───────────────────── -->
+      <div class="canvas-wrapper">
+        <!-- Stationery（キャンバス内 右上・横並び） -->
+        <div class="stationery-toolbar">
+          <img src="/create_parts/object_btn/select.png"       alt="Select"  title="Select">
+          <img src="/create_parts/object_btn/square.png"       alt="Rect"    title="Rectangle">
+          <img src="/create_parts/object_btn/pen.png"          alt="Pen"     title="Pen">
+          <img src="/create_parts/object_btn/eraser.png"       alt="Eraser"  title="Eraser">
+          <img src="/create_parts/object_btn/sentence.png"     alt="Text"    title="Text">
+          <img src="/create_parts/object_btn/markerpen.png"    alt="Marker"  title="Marker">
+          <img src="/create_parts/object_btn/direct_select.png"alt="Path"    title="Direct Select">
+          <img src="/create_parts/object_btn/graph_paper.png"  alt="Grid"    title="Grid">
+          <img src="/create_parts/object_btn/layer.png"        alt="Layer"   title="Layer Panel">
+        </div>
+
+        <!-- マネキン（中央） -->
+        <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
       </div>
     </div>
-    <!-- 以下追加レイヤーも同構造 -->
   </div>
 
+  <!-- 今はJS最小限（動作は後で追加予定） -->
   <script>
-    // Stationery ドロップダウン切り替え
-    document.querySelectorAll('.stationery-tool img').forEach((icon, index) => {
-      icon.addEventListener('click', () => {
-        document.querySelector('.tool-dropdown').style.display = 'flex';
-      });
-    });
-
-    // カラー選択ログ（後で拡張可能）
-    document.querySelectorAll('.color-swatch').forEach((el) => {
-      el.addEventListener('click', () => {
-        console.log('Color selected:', el.style.background);
-      });
-    });
+    // 将来：各ツールのクリック処理をここに追加
   </script>
 </body>
 </html>
