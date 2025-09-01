@@ -5,6 +5,9 @@
   --app-scale: 1;
   --viewport-margin: 24;
 
+  --unit: 8px;          /* “1マス”の基準 */
+  --top-h: 44px;        /* 1段目（タイトル＆history）の高さ */
+
   --radius: 12px;
   --radius-lg: 14px;
   --radius-sm: 10px;
@@ -12,34 +15,28 @@
   --shadow: 0 3px 10px rgba(0,0,0,.12);
   --shadow-strong: 0 8px 28px rgba(0,0,0,.10), 0 2px 8px rgba(0,0,0,.06);
 
-  --st-icon: 22px;     /* スクショ比の小さめアイコン */
+  --st-icon: 22px;      /* ← Stationery と History を同一サイズに */
   --tile-gap: 10px;
 
-  --board-pad: 14px;   /* キャンバス外側余白 */
-  --st-right: 16px;    /* Stationery の右寄せ位置 */
+  --board-pad: 14px;
+  --st-right: 16px;
 }
 
-/* ==== Theme (light / dark / system) ==== */
+/* ==== Theme ==== */
 :root,
 :root[data-theme="light"],
 :root[data-theme="system"]:not(.force-dark){
-  --bg: #efe7e0;      /* ベージュ外側 */
-  --panel: #ffffff;   /* キャンバス白 */
-  --ink: #222;        /* テキスト */
-  --line: #cfc7c0;    /* 枠線 */
+  --bg: #efe7e0;
+  --panel: #ffffff;
+  --ink: #222;
+  --line: #cfc7c0;
 }
 :root[data-theme="dark"]{
-  --bg: #111213;
-  --panel: #191a1b;
-  --ink: #f2f2f2;
-  --line: #2b2d2f;
+  --bg: #111213; --panel:#191a1b; --ink:#f2f2f2; --line:#2b2d2f;
 }
 @media (prefers-color-scheme: dark){
   :root[data-theme="system"]{
-    --bg: #111213;
-    --panel: #191a1b;
-    --ink: #f2f2f2;
-    --line: #2b2d2f;
+    --bg: #111213; --panel:#191a1b; --ink:#f2f2f2; --line:#2b2d2f;
   }
 }
 
@@ -47,16 +44,11 @@
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 body{
-  margin:0;
-  color:var(--ink);
-  background:var(--bg);
+  margin:0; color:var(--ink); background:var(--bg);
   font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;
 }
 .viewport{
-  min-height:100dvh;
-  display:grid;
-  place-items:center;
-  padding:var(--viewport-margin);
+  min-height:100dvh; display:grid; place-items:center; padding:var(--viewport-margin);
 }
 .app{
   width:calc(var(--base-w)*1px);
@@ -64,80 +56,82 @@ body{
   transform:scale(var(--app-scale));
   transform-origin:top left;
   position:relative;
-  will-change:transform;
-  backface-visibility:hidden;
+  will-change:transform; backface-visibility:hidden;
 }
 
-/* ==== Top strip (title left / history right) ==== */
+/* ==== 1段目：タイトル左 / history右 ==== */
 .top-strip{
   position:absolute; left:0; right:0; top:0;
-  height:44px;                       /* スクショの細い帯感 */
+  height:var(--top-h);
   display:grid; grid-template-columns: 1fr auto;
-  align-items:center;
-  padding:10px 14px 0 18px;          /* 左を少し広め */
+  align-items:center; padding:10px 14px 0 18px;
 }
 .title{
-  margin:0;
-  font-size:20px;
-  letter-spacing:.2px;
-  font-weight:600;
+  margin:0; font-size:16px;   /* ← 小さめに */
+  letter-spacing:.2px; font-weight:600;
 }
 .history-tool{
   display:inline-flex; align-items:center; gap:12px;
-  /* 右端はJSでステーショナリー右端に同期。初期値だけ置く */
   margin-right: calc(var(--board-pad) + var(--st-right));
 }
-.history-tool img{ width:26px; height:26px; display:block; cursor:pointer; }
+.history-tool img{
+  width: var(--st-icon); height: var(--st-icon); display:block; cursor:pointer;
+}
 
-/* ==== Second strip (Next Step + contents) ==== */
+/* ==== 2段目：Next Step + contents（タイトルの下に1マス） ==== */
 .nav-strip{
-  position:absolute; left:18px; top:44px;   /* タイトルの直下に左寄せ */
+  position:absolute; left:18px; top: calc(var(--top-h) + var(--unit));
   height:40px; display:flex; align-items:center; gap:12px;
 }
 .ghost-btn{
-  border:1px solid var(--line);
-  background:transparent; color:var(--ink);
-  padding:6px 10px; border-radius:var(--radius-sm);
-  cursor:pointer; font-size:12px;
+  border:1px solid var(--line); background:transparent; color:var(--ink);
+  padding:6px 10px; border-radius:var(--radius-sm); cursor:pointer; font-size:12px;
 }
 .ghost-btn:hover{ background:rgba(0,0,0,.05); }
+
 .contents-button{
   display:inline-flex; align-items:center; gap:10px;
 }
 .contents-button img{
-  width:26px; height:26px; display:block;
+  width:24px; height:24px; display:block;   /* ほんのり控えめ */
   transform:translateY(1px);
   filter:drop-shadow(var(--shadow));
 }
 
 /* ==== Board / Canvas ==== */
 .board{
-  position:absolute; inset:84px 0 0 0; /* タイトル+ナビ2段の高さ分下げる */
+  position:absolute; inset: calc(var(--top-h) + var(--unit) + 40px) 0 0 0;
   padding:var(--board-pad);
 }
 .canvas-wrapper{
   position:relative; width:100%; height:100%;
   background:var(--panel);
-  outline:1px solid var(--line); outline-offset:-1px; /* ズームに強い枠線 */
-  border-radius:var(--radius-lg);
-  box-shadow:var(--shadow-strong);
+  outline:1px solid var(--line); outline-offset:-1px;   /* ズームに強い */
+  border-radius:var(--radius-lg); box-shadow:var(--shadow-strong);
   overflow:hidden;
 }
 
-/* Stationery（枠・背景なし／右上） */
+/* Stationery（枠なし・右上） */
 .stationery-toolbar{
   position:absolute; top:14px; right:var(--st-right);
   display:grid; grid-auto-flow:column; gap:12px; align-items:center;
   padding:0; background:transparent; border:none;
 }
-.stationery-toolbar img{ width:var(--st-icon); height:var(--st-icon); display:block; cursor:pointer; }
+.stationery-toolbar img{
+  width: var(--st-icon); height: var(--st-icon); display:block; cursor:pointer;
+}
 
-/* Mannequin center; zoom wrapper scales */
+/* Mannequin：スムーズピンチ＋二本指パン対応 */
 #man-zoom{
   position:absolute; left:50%; top:50%;
-  transform:translate(-50%,-50%) scale(var(--man-scale,1));
+  transform: translate(calc(-50% + var(--man-x, 0px)),
+                       calc(-50% + var(--man-y, 0px)))
+             scale(var(--man-scale, 1));
   transform-origin:center center;
+  cursor: grab;
 }
+#man-zoom:active{ cursor: grabbing; }
+
 #mannequin{
   display:block; width:auto; height:auto;
   max-width:56%; max-height:80%;
