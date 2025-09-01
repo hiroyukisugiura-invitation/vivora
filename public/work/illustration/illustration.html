@@ -7,24 +7,22 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- ===== Topbar（canvasの外：ベージュ帯） ===== -->
   <div class="app">
+    <!-- Topbar（canvasの外） -->
     <div class="topbar">
-      <!-- 左：Next Step + contents（Nextは左上固定） -->
+      <!-- 左：Next Step + contents（枠なしアイコンだけ） -->
       <div class="topbar-left">
-        <div class="contents-tile">
-          <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
-          <nav class="contents-button" aria-label="contents">
-            <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home" />
-            <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations" />
-            <img src="/create_parts/contents_button/2_fabric-matching.png"         alt="Fm"    title="Fabric Matching" />
-            <img src="/create_parts/contents_button/3_clothing-design.png"         alt="Cd"    title="Clothing Design" />
-            <img src="/create_parts/contents_button/4_pattern-creation.png"        alt="Pc"    title="Pattern Creation" />
-            <img src="/create_parts/contents_button/5_grading.png"                 alt="Gd"    title="Grading" />
-            <img src="/create_parts/contents_button/6_print-layout-cut.png"        alt="Plc"   title="Print/Layout/Cut" />
-            <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)" />
-          </nav>
-        </div>
+        <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
+        <nav class="contents-button" aria-label="contents">
+          <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home" />
+          <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations" />
+          <img src="/create_parts/contents_button/2_fabric-matching.png"         alt="Fm"    title="Fabric Matching" />
+          <img src="/create_parts/contents_button/3_clothing-design.png"         alt="Cd"    title="Clothing Design" />
+          <img src="/create_parts/contents_button/4_pattern-creation.png"        alt="Pc"    title="Pattern Creation" />
+          <img src="/create_parts/contents_button/5_grading.png"                 alt="Gd"    title="Grading" />
+          <img src="/create_parts/contents_button/6_print-layout-cut.png"        alt="Plc"   title="Print/Layout/Cut" />
+          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)" />
+        </nav>
       </div>
 
       <!-- 中央：ページネーム -->
@@ -41,86 +39,23 @@
       </div>
     </div>
 
-    <!-- ===== Board（canvas 本体） ===== -->
+    <!-- Board（canvas本体） -->
     <div class="board">
       <div class="canvas-wrapper">
 
-        <!-- Stationery tool（canvas内 右上：8アイコン / 折りたたみ制御） -->
+        <!-- Stationery（canvas内 右上：画像順に8アイコン） -->
         <div class="stationery-toolbar" aria-label="stationery">
-          <!-- data-panel で対応するドロップダウンを紐づけ -->
-          <button class="st-btn" data-panel="select"><img src="/create_parts/object_btn/select.png"  alt="Select"  title="Select"></button>
-          <button class="st-btn" data-panel="square"><img src="/create_parts/object_btn/square.png"  alt="Square"  title="Square"></button>
-          <button class="st-btn" data-panel="brush"><img  src="/create_parts/object_btn/brush.png"   alt="Brush"   title="Brush"></button>
-          <button class="st-btn" data-panel="eraser"><img src="/create_parts/object_btn/eraser.png"  alt="Eraser"  title="Eraser"></button>
-          <button class="st-btn" data-panel="opacity"><img src="/create_parts/object_btn/opacity.png" alt="Opacity" title="Opacity"></button>
-          <button class="st-btn" data-panel="grid"><img   src="/create_parts/object_btn/graph_paper.png" alt="Grid" title="Grid"></button>
-          <button class="st-btn" data-panel="layer"><img  src="/create_parts/object_btn/layer.png"   alt="Layer"   title="Layer"></button>
-          <!-- 8個目：カラーパレット -->
-          <button class="st-btn" data-panel="color"><img  src="/create_parts/object_btn/markerpen.png" alt="Color"  title="Color"></button>
+          <img src="/create_parts/object_btn/select.png"        alt="Select" title="Select" />
+          <img src="/create_parts/object_btn/square.png"        alt="Square" title="Square" />
+          <img src="/create_parts/object_btn/brush.png"         alt="Brush"  title="Brush" />
+          <img src="/create_parts/object_btn/eraser.png"        alt="Eraser" title="Eraser" />
+          <img src="/create_parts/object_btn/sentence.png"      alt="Text"   title="Text" />
+          <img src="/create_parts/object_btn/globe.png"         alt="Globe"  title="Globe" />
+          <img src="/create_parts/object_btn/graph_paper.png"   alt="Grid"   title="Grid" />
+          <img src="/create_parts/object_btn/layer.png"         alt="Layer"  title="Layer" />
         </div>
 
-        <!-- ▼▼ 各ドロップダウン（デフォルト非表示） ▼▼ -->
-        <div class="dropdown-panels">
-
-          <!-- select：ツールバリエーション（例） -->
-          <div class="dd-panel" data-for="select">
-            <button>Direct</button><button>Group</button><button>Node</button>
-          </div>
-
-          <!-- square：図形 -->
-          <div class="dd-panel" data-for="square">
-            <button>Rect</button><button>Ellipse</button><button>Line</button>
-          </div>
-
-          <!-- brush -->
-          <div class="dd-panel" data-for="brush">
-            <button>Pen</button><button>Brush</button><button>Marker</button>
-          </div>
-
-          <!-- eraser -->
-          <div class="dd-panel" data-for="eraser">
-            <button>Soft</button><button>Hard</button><button>Vector</button>
-          </div>
-
-          <!-- opacity（縦スライダー風） -->
-          <div class="dd-panel dd-opacity" data-for="opacity">
-            <div class="op-track"><span class="op-thumb" style="--y:50%"></span></div>
-          </div>
-
-          <!-- grid（オン/オフ） -->
-          <div class="dd-panel" data-for="grid">
-            <label class="chk"><input type="checkbox"> Show grid</label>
-            <label class="chk"><input type="checkbox"> Snap to grid</label>
-          </div>
-
-          <!-- layer（ミニ操作） -->
-          <div class="dd-panel dd-layer" data-for="layer">
-            <button>New</button><button>Up</button><button>Down</button><button>Delete</button>
-          </div>
-
-          <!-- color（縦パレット簡略版） -->
-          <div class="dd-panel dd-color" data-for="color" aria-label="color palette">
-            <span style="--c:#000000"></span>
-            <span style="--c:#8f8f8f"></span>
-            <span style="--c:#c0c0c0"></span>
-            <span style="--c:#ffffff"></span>
-            <span style="--c:#f9d96b"></span>
-            <span style="--c:#f24e4e"></span>
-            <span style="--c:#ff9900"></span>
-            <span style="--c:#f2ccde"></span>
-            <span style="--c:#79c267"></span>
-            <span style="--c:#28a5a7"></span>
-            <span style="--c:#3a78ff"></span>
-            <span style="--c:#6a4cff"></span>
-            <span style="--c:#a349a4"></span>
-            <span style="--c:#7a3b26"></span>
-            <span style="--c:#3b3b3b"></span>
-          </div>
-
-        </div>
-        <!-- ▲▲ ドロップダウンここまで ▲▲ -->
-
-        <!-- Mannequin（中央） -->
+        <!-- マネキン（中央） -->
         <img id="mannequin"
              src="/mannequin/mannequin_woman/mannequin_woman_front.png"
              alt="Mannequin (Woman Front)" />
@@ -128,30 +63,10 @@
     </div>
   </div>
 
+  <!-- 将来の機能フック -->
   <script>
-    // --- ドロップダウン開閉（1つだけ開く） ---
-    const toolbar  = document.querySelector('.stationery-toolbar');
-    const panels   = document.querySelectorAll('.dd-panel');
-
-    function closeAll(){ panels.forEach(p => p.classList.remove('open')); }
-
-    toolbar.addEventListener('click', (e) => {
-      const btn = e.target.closest('.st-btn');
-      if(!btn) return;
-      const key = btn.dataset.panel;
-      const panel = document.querySelector(`.dd-panel[data-for="${key}"]`);
-      if(!panel) return;
-
-      const isOpen = panel.classList.contains('open');
-      closeAll();
-      if(!isOpen){ panel.classList.add('open'); }
-    });
-
-    // キャンバス空白クリックで閉じる
-    document.querySelector('.canvas-wrapper').addEventListener('click', (e)=>{
-      if(e.target.closest('.st-btn') || e.target.closest('.dd-panel')) return;
-      closeAll();
-    });
+    document.querySelectorAll('.stationery-toolbar img, .history-tool img, .contents-button img')
+      .forEach(el => el.addEventListener('click', () => {/* TODO */}));
   </script>
 </body>
 </html>
