@@ -7,15 +7,23 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+  <!-- ================================
+       Vivora Fashion Illustration 2025
+       固定レイアウト（1280x800）
+       - キャンバス内：mannequin + stationery のみ
+       - 他パネルは未配置/非表示
+       ================================= -->
+
   <div class="app">
     <div class="board">
-      <!-- Next Step（左上） -->
+
+      <!-- Next Step（左上・小さめ） -->
       <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
 
-      <!-- ページタイトル（中央上） -->
+      <!-- タイトル（最上段中央） -->
       <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-      <!-- History tool（右上） -->
+      <!-- History tool（右上：スクショ順） -->
       <div class="history-tool">
         <img src="/create_parts/create_button/reset.png"     alt="Undo"     title="Undo">
         <img src="/create_parts/create_button/retreat.png"   alt="Redo"     title="Redo">
@@ -25,7 +33,7 @@
         <img src="/create_parts/create_button/save.png"      alt="Save"     title="Save">
       </div>
 
-      <!-- Contents button（Next Step の下、左上に横並び） -->
+      <!-- Contents button（Next Stepの下・左上に横並び） -->
       <div class="contents-button">
         <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home">
         <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations">
@@ -37,25 +45,40 @@
         <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)">
       </div>
 
-      <!-- ── キャンバス領域 ───────────────────── -->
+      <!-- ────────── キャンバス領域 ──────────
+           ※ 内側ホワイトボードは廃止（背景/枠なし）
+      ------------------------------------------------>
       <div class="canvas-wrapper">
-        <!-- Stationery（キャンバス内 右上・横並び） -->
+        <!-- Stationery（キャンバス内 右上・9個固定） -->
         <div class="stationery-toolbar">
-          <img src="/create_parts/object_btn/select.png"       alt="Select"  title="Select">
-          <img src="/create_parts/object_btn/square.png"       alt="Rect"    title="Rectangle">
-          <img src="/create_parts/object_btn/pen.png"          alt="Pen"     title="Pen">
-          <img src="/create_parts/object_btn/eraser.png"       alt="Eraser"  title="Eraser">
-          <img src="/create_parts/object_btn/sentence.png"     alt="Text"    title="Text">
-          <img src="/create_parts/object_btn/markerpen.png"    alt="Marker"  title="Marker">
-          <img src="/create_parts/object_btn/direct_select.png"alt="Path"    title="Direct Select">
-          <img src="/create_parts/object_btn/graph_paper.png"  alt="Grid"    title="Grid">
-          <img src="/create_parts/object_btn/layer.png"        alt="Layer"   title="Layer Panel">
+          <img src="/create_parts/object_btn/select.png"        alt="Select"        title="Select">
+          <img src="/create_parts/object_btn/square.png"        alt="Rectangle"     title="Rectangle">
+          <img src="/create_parts/object_btn/pen.png"           alt="Pen"           title="Pen">
+          <img src="/create_parts/object_btn/eraser.png"        alt="Eraser"        title="Eraser">
+          <img src="/create_parts/object_btn/sentence.png"      alt="Text"          title="Text">
+          <img src="/create_parts/object_btn/markerpen.png"     alt="Marker"        title="Marker">
+          <img src="/create_parts/object_btn/direct_select.png" alt="Direct Select" title="Direct Select">
+          <img src="/create_parts/object_btn/graph_paper.png"   alt="Grid"          title="Grid">
+          <img src="/create_parts/object_btn/layer.png"         alt="Layer Panel"   title="Layer Panel">
         </div>
 
         <!-- マネキン（中央） -->
-        <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
+        <img id="mannequin"
+             src="/mannequin/mannequin_woman/mannequin_woman_front.png"
+             alt="mannequin">
       </div>
     </div>
   </div>
+
+  <!-- ========== JS（将来用の最小フック） ========== -->
+  <script>
+    // 日本語コメント：将来的に各アイコンの機能を実装する場所
+    document.querySelectorAll('.stationery-toolbar img').forEach((el) => {
+      el.addEventListener('click', () => {
+        // TODO: ここに各ツールの動作を実装
+        // console.log(el.title);
+      });
+    });
+  </script>
 </body>
 </html>
