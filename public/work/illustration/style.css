@@ -3,7 +3,7 @@
    - マス目構造に完全準拠（1マス = 26px）
    - 画像はGit内の配置と一致
    - 各種ツール表示切替、装飾、レイアウト設定
-   - レスポンシブは無効（固定配置）
+   - レスポンシブは無効（固定座標）
 ======================================= */
 
 :root {
@@ -32,130 +32,99 @@ body {
   position: relative;
 }
 
-/* ヘッダーエリア */
-.header {
-  position: absolute;
-  top: calc(var(--grid-size) * 1);
-  left: calc(var(--grid-size) * 1);
-  width: calc(var(--grid-size) * 96);
-  height: calc(var(--grid-size) * 9);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0;
-  background-color: var(--bg);
-  z-index: 10;
-}
+/* ------------------------------------- */
+/* Fixed UI Element Placement by Grid   */
+/* ------------------------------------- */
 
+/* Header contents button */
 .contents-button {
   position: absolute;
-  top: calc(var(--grid-size) * 4);
+  top: calc(var(--grid-size) * 5);
   left: calc(var(--grid-size) * 3);
   display: flex;
   gap: var(--icon-gap);
 }
 
+/* Page title */
+.page-title {
+  position: absolute;
+  top: calc(var(--grid-size) * 3);
+  left: calc(var(--grid-size) * 42);
+  width: calc(var(--grid-size) * 18);
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* Header history tool */
 .history-tool {
   position: absolute;
-  top: calc(var(--grid-size) * 4);
+  top: calc(var(--grid-size) * 5);
   left: calc(var(--grid-size) * 78);
   display: flex;
   gap: var(--icon-gap);
 }
 
-.page-title {
-  position: absolute;
-  top: calc(var(--grid-size) * 3);
-  left: calc(var(--grid-size) * 42);
-  font-weight: 500;
-  font-size: 16px;
-  pointer-events: none;
-}
-
-.tool-button {
-  width: var(--icon-size);
-  height: var(--icon-size);
-  background-color: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--border-radius);
-  padding: 4px;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-}
-
-/* Canvas */
+/* Canvas wrapper */
 .canvas-wrapper {
   position: absolute;
   top: calc(var(--grid-size) * 11);
   left: calc(var(--grid-size) * 3);
   width: calc(var(--grid-size) * 94);
-  height: calc(var(--grid-size) * 57);
+  height: calc(var(--grid-size) * 56);
   background: var(--panel);
-  border-radius: 16px;
   border: 1px solid var(--line);
+  border-radius: 12px;
   z-index: 1;
-  overflow: hidden;
 }
 
 #canvas {
   width: 100%;
   height: 100%;
   position: relative;
+  background-color: #fff;
 }
 
 #mannequin {
   position: absolute;
-  top: calc(var(--grid-size) * 10);
+  top: calc(var(--grid-size) * 21);
   left: calc(var(--grid-size) * 46);
   width: calc(var(--grid-size) * 9);
-  height: calc(var(--grid-size) * 38);
+  height: calc(var(--grid-size) * 37);
   object-fit: contain;
-  pointer-events: none;
   z-index: 2;
+  pointer-events: none;
 }
 
-/* Stationery Tool（縦） */
-.tool-right-panel {
+/* Stationery tool */
+.stationery-tool {
   position: absolute;
   top: calc(var(--grid-size) * 13);
   left: calc(var(--grid-size) * 78);
   display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: var(--icon-gap);
 }
 
-.stationery-tool {
-  display: flex;
-  flex-direction: column;
-  gap: var(--icon-gap);
-  align-items: center;
-}
-
-.tool-group {
-  position: relative;
-}
-
-.tool-group .dropdown {
-  display: none;
+/* Dropdown tool icons */
+.tool-dropdown {
   position: absolute;
-  top: calc(var(--grid-size) * 2);
-  left: 0;
-  flex-direction: column;
-  gap: var(--icon-gap);
-  z-index: 20;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--border-radius);
-  padding: 6px;
-  box-shadow: var(--shadow);
-}
-
-.tool-group.active .dropdown {
+  top: calc(var(--grid-size) * 16);
+  left: calc(var(--grid-size) * 78);
   display: flex;
+  gap: var(--icon-gap);
 }
 
-/* Color Panel */
+/* Pen tools vertical */
+.pen-tools {
+  position: absolute;
+  top: calc(var(--grid-size) * 16);
+  left: calc(var(--grid-size) * 83);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Color panel */
 .color-panel {
   position: absolute;
   top: calc(var(--grid-size) * 18);
@@ -169,34 +138,29 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 1px solid #aaa;
   cursor: pointer;
+  border: 1px solid #aaa;
 }
 
-/* Opacity */
+/* Opacity bar */
 .opacity-bar {
   position: absolute;
   top: calc(var(--grid-size) * 15);
   left: calc(var(--grid-size) * 88);
-  width: calc(var(--grid-size) * 5);
-  height: calc(var(--grid-size) * 2);
   background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  display: none;
-  align-items: center;
   padding: 4px;
-}
-
-.opacity-bar.active {
+  border: 1px solid var(--line);
+  border-radius: 6px;
   display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .opacity-bar input[type="range"] {
-  width: 100%;
+  width: 80px;
 }
 
-/* Layer Panel */
+/* Layer panel */
 .layer-panel {
   position: absolute;
   top: calc(var(--grid-size) * 16);
@@ -207,7 +171,7 @@ body {
 }
 
 .layer-box {
-  width: calc(var(--grid-size) * 4);
+  width: calc(var(--grid-size) * 3);
   height: calc(var(--grid-size) * 7);
   background: #fff;
   border: 2px solid #aaa;
@@ -217,17 +181,4 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-}
-
-.layer-box .layer-header,
-.layer-box .layer-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-}
-
-.layer-box img {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
 }
