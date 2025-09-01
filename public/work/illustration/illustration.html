@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vivora Fashion Illustration 2025</title>
+  <!-- 固定レイアウト用CSS -->
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
@@ -11,74 +12,71 @@
        Vivora Fashion Illustration 2025
        固定レイアウト（1280x800）
        - キャンバス内：mannequin + stationery のみ
-       - 他パネルは未配置/非表示
+       - 内側ホワイトボードは撤去（背景/枠なし）
        ================================= -->
 
   <div class="app">
     <div class="board">
 
-      <!-- Next Step（左上・小さめ） -->
+      <!-- Next Step（左上・小さめ・2枚目準拠） -->
       <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
 
       <!-- タイトル（最上段中央） -->
       <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-      <!-- History tool（右上：スクショ順） -->
-      <div class="history-tool">
-        <img src="/create_parts/create_button/reset.png"     alt="Undo"     title="Undo">
-        <img src="/create_parts/create_button/retreat.png"   alt="Redo"     title="Redo">
-        <img src="/create_parts/create_button/forward.png"   alt="Rotate"   title="Rotate">
-        <img src="/create_parts/create_button/download.png"  alt="Download" title="Download">
-        <img src="/create_parts/create_button/upload.png"    alt="Upload"   title="Upload">
-        <img src="/create_parts/create_button/save.png"      alt="Save"     title="Save">
+      <!-- History tool（右上：2枚目の順序に合わせて） -->
+      <div class="history-tool" aria-label="history">
+        <img src="/create_parts/create_button/reset.png"     alt="Undo"     title="Undo" />
+        <img src="/create_parts/create_button/retreat.png"   alt="Redo"     title="Redo" />
+        <img src="/create_parts/create_button/forward.png"   alt="Cycle"    title="Cycle" />
+        <img src="/create_parts/create_button/download.png"  alt="Download" title="Download" />
+        <img src="/create_parts/create_button/upload.png"    alt="Upload"   title="Upload" />
+        <img src="/create_parts/create_button/save.png"      alt="Save"     title="Save" />
       </div>
 
-      <!-- Contents button（Next Stepの下・左上に横並び） -->
-      <div class="contents-button">
-        <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home">
-        <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations">
-        <img src="/create_parts/contents_button/2_fabric-matching.png"         alt="Fm"    title="Fabric Matching">
-        <img src="/create_parts/contents_button/3_clothing-design.png"         alt="Cd"    title="Clothing Design">
-        <img src="/create_parts/contents_button/4_pattern-creation.png"        alt="Pc"    title="Pattern Creation">
-        <img src="/create_parts/contents_button/5_grading.png"                 alt="Gd"    title="Grading">
-        <img src="/create_parts/contents_button/6_print-layout-cut.png"        alt="Plc"   title="Print/Layout/Cut">
-        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)">
-      </div>
+      <!-- Contents button（Next Stepの下・左上横並び） -->
+      <nav class="contents-button" aria-label="contents">
+        <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home" />
+        <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations" />
+        <img src="/create_parts/contents_button/2_fabric-matching.png"         alt="Fm"    title="Fabric Matching" />
+        <img src="/create_parts/contents_button/3_clothing-design.png"         alt="Cd"    title="Clothing Design" />
+        <img src="/create_parts/contents_button/4_pattern-creation.png"        alt="Pc"    title="Pattern Creation" />
+        <img src="/create_parts/contents_button/5_grading.png"                 alt="Gd"    title="Grading" />
+        <img src="/create_parts/contents_button/6_print-layout-cut.png"        alt="Plc"   title="Print/Layout/Cut" />
+        <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)" />
+      </nav>
 
-      <!-- ────────── キャンバス領域 ──────────
-           ※ 内側ホワイトボードは廃止（背景/枠なし）
-      ------------------------------------------------>
+      <!-- ===== キャンバス ===== -->
       <div class="canvas-wrapper">
-        <!-- Stationery（キャンバス内 右上・9個固定） -->
-        <div class="stationery-toolbar">
-          <img src="/create_parts/object_btn/select.png"        alt="Select"        title="Select">
-          <img src="/create_parts/object_btn/square.png"        alt="Rectangle"     title="Rectangle">
-          <img src="/create_parts/object_btn/pen.png"           alt="Pen"           title="Pen">
-          <img src="/create_parts/object_btn/eraser.png"        alt="Eraser"        title="Eraser">
-          <img src="/create_parts/object_btn/sentence.png"      alt="Text"          title="Text">
-          <img src="/create_parts/object_btn/markerpen.png"     alt="Marker"        title="Marker">
-          <img src="/create_parts/object_btn/direct_select.png" alt="Direct Select" title="Direct Select">
-          <img src="/create_parts/object_btn/graph_paper.png"   alt="Grid"          title="Grid">
-          <img src="/create_parts/object_btn/layer.png"         alt="Layer Panel"   title="Layer Panel">
+        <!-- Stationery（キャンバス内 右上・9個） -->
+        <div class="stationery-toolbar" aria-label="stationery">
+          <!-- 2枚目の並びに合わせた最小構成（選択/矩形/ペン/消しゴム/塗り/テキスト/ダイレクト/グリッド/レイヤー） -->
+          <img src="/create_parts/object_btn/select.png"        alt="Select"        title="Select" />
+          <img src="/create_parts/object_btn/square.png"        alt="Rectangle"     title="Rectangle" />
+          <img src="/create_parts/object_btn/pen.png"           alt="Pen"           title="Pen" />
+          <img src="/create_parts/object_btn/eraser.png"        alt="Eraser"        title="Eraser" />
+          <img src="/create_parts/object_btn/markerpen.png"     alt="Fill/Marker"   title="Fill/Marker" />
+          <img src="/create_parts/object_btn/sentence.png"      alt="Text"          title="Text" />
+          <img src="/create_parts/object_btn/direct_select.png" alt="Direct Select" title="Direct Select" />
+          <img src="/create_parts/object_btn/graph_paper.png"   alt="Grid"          title="Grid" />
+          <img src="/create_parts/object_btn/layer.png"         alt="Layer Panel"   title="Layer Panel" />
         </div>
 
-        <!-- マネキン（中央） -->
+        <!-- マネキン（常に中央） -->
         <img id="mannequin"
              src="/mannequin/mannequin_woman/mannequin_woman_front.png"
-             alt="mannequin">
+             alt="Mannequin (Woman Front)" />
       </div>
     </div>
   </div>
 
-  <!-- ========== JS（将来用の最小フック） ========== -->
+  <!-- ========== JS：将来の機能フックのみ（UIは静的配置） ========== -->
   <script>
-    // 日本語コメント：将来的に各アイコンの機能を実装する場所
-    document.querySelectorAll('.stationery-toolbar img').forEach((el) => {
-      el.addEventListener('click', () => {
-        // TODO: ここに各ツールの動作を実装
-        // console.log(el.title);
-      });
-    });
+    // 日本語コメント：各ボタンのクリックで機能追加予定
+    document.querySelectorAll('.stationery-toolbar img, .history-tool img, .contents-button img')
+      .forEach(el => el.addEventListener('click', () => {
+        // TODO: ここに各機能を実装（今はUIのみ）
+      }));
   </script>
 </body>
 </html>
