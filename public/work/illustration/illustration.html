@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="system">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,9 +13,9 @@
     <div class="app" role="application" aria-label="Vivora Fashion Illustration 2025">
 
       <!-- Topbar（canvasの外） -->
-      <div class="topbar">
-        <!-- 左：Next Step + contents -->
-        <div class="topbar-left stack">
+      <header class="topbar">
+        <!-- 左：Next Step + contents（横並び。スクショ通りに密接配置） -->
+        <div class="topbar-left">
           <button id="next-step" class="ghost-btn" type="button">Next Step ▶▶</button>
           <nav class="contents-button" aria-label="contents">
             <img src="/create_parts/contents_button/0_home.png"                     alt="Home"  title="Home" draggable="false"/>
@@ -29,10 +29,10 @@
           </nav>
         </div>
 
-        <!-- 中央：ページネーム -->
+        <!-- 中央：ページネーム（完全センター） -->
         <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-        <!-- 右：history -->
+        <!-- 右：history（アイコン行） -->
         <div class="history-tool" aria-label="history">
           <img src="/create_parts/create_button/retreat.png"   alt="Redo"      title="戻る" draggable="false"/>
           <img src="/create_parts/create_button/forward.png"   alt="Cycle"     title="進む" draggable="false"/>
@@ -41,10 +41,10 @@
           <img src="/create_parts/create_button/upload.png"    alt="Upload"    title="アップロード" draggable="false"/>
           <img src="/create_parts/create_button/save.png"      alt="Save"      title="保存" draggable="false"/>
         </div>
-      </div>
+      </header>
 
       <!-- Board（canvas本体） -->
-      <div class="board">
+      <main class="board" role="main">
         <div class="canvas-wrapper">
           <!-- Stationery（canvas内 右上：8アイコン） -->
           <div class="stationery-toolbar" aria-label="stationery">
@@ -63,53 +63,78 @@
                src="/mannequin/mannequin_woman/mannequin_woman_front.png"
                alt="Mannequin (Woman Front)" draggable="false"/>
         </div>
-      </div>
+      </main>
     </div>
   </div>
 
   <!-- ================================
        JS（HTMLと統合）
-       - ステージ自動フィット（固定寸法 → 画面にscaleでフィット）
-       - 将来機能のクリックフック
+       - ステージ自動フィット
+       - クリックフック
+       - テーマ（light / dark / system）
   ================================= -->
   <script>
-    // ステージを画面にフィットさせる（イラレ風：固定寸法をscaleで拡縮）
+    // ---------- Auto scale (Illustrator-like board) ----------
     (function(){
       const css = () => getComputedStyle(document.documentElement);
       const num = v => parseFloat(v) || 0;
-
       function fitStage(){
         const BASE_W = num(css().getPropertyValue('--base-w')) || 1280;
         const BASE_H = num(css().getPropertyValue('--base-h')) || 820;
-        const MARGIN = num(css().getPropertyValue('--viewport-margin')) || 32;
-
+        const MARGIN = num(css().getPropertyValue('--viewport-margin')) || 24;
         const vw = window.innerWidth  - MARGIN*2;
         const vh = window.innerHeight - MARGIN*2;
-        const s  = Math.max(0.5, Math.min(vw/BASE_W, vh/BASE_H)); // 最小0.5倍（必要なら調整）
+        const s  = Math.max(0.5, Math.min(vw/BASE_W, vh/BASE_H)); // 最小0.5倍
         document.documentElement.style.setProperty('--app-scale', s);
       }
-
       window.addEventListener('resize', fitStage, { passive:true });
       window.addEventListener('orientationchange', fitStage, { passive:true });
       document.addEventListener('DOMContentLoaded', fitStage);
     })();
 
-    // 画像ドラッグや長押し選択を抑止（UI誤操作を防ぐ）
+    // ---------- Prevent image drag/select ----------
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('img').forEach(img => {
         img.addEventListener('mousedown', e => e.preventDefault());
         img.addEventListener('dragstart', e => e.preventDefault());
       });
-
-      // 将来機能のクリック・フック（今はプレースホルダ）
       const clickable = document.querySelectorAll(
         '.stationery-toolbar img, .history-tool img, .contents-button img, #next-step'
       );
       clickable.forEach(el => el.addEventListener('click', () => {
-        // TODO: 実処理を後で追加
-        // console.log('clicked:', el.alt || el.id);
+        // TODO: 実処理は後で追加
       }));
     });
+
+    // ---------- Theme: light / dark / system ----------
+    (function(){
+      const KEY = 'vivora.theme';
+      const root = document.documentElement;
+
+      function apply(theme){
+        // theme: 'light' | 'dark' | 'system'
+        root.setAttribute('data-theme', theme);
+        // system の場合は OS の変更にも追従（CSS 側で prefers… を参照）
+      }
+
+      // 公開API（必要になったら即使える）
+      window.setTheme = function(theme){
+        if(!['light','dark','system'].includes(theme)) return;
+        localStorage.setItem(KEY, theme);
+        apply(theme);
+      };
+
+      // 初期化：保存値 → 未保存なら system
+      const saved = localStorage.getItem(KEY) || 'system';
+      apply(saved);
+
+      // OSテーマ変更時、system 選択中なら即反映
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      mq.addEventListener('change', () => {
+        const cur = root.getAttribute('data-theme');
+        if(cur === 'system') apply('system');
+      });
+    })();
   </script>
 </body>
 </html>
