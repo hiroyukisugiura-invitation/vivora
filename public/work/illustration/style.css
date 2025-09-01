@@ -1,145 +1,153 @@
-<!-- =============================
-▼▼▼ 別ファイル: style.css（ここからコピペして保存） ▼▼▼
-============================== -->
-<style id="__inline-style-preview__">
 /************************************
-* Vivora Fashion Illustration 2025
-* 固定ボード方式CSS（HTMLとは分離して style.css に保存）
-* - 変数でサイズ/色を集中管理
-* - history tool と stationery のタイルサイズを統一
-************************************/
+ * Vivora Fashion Illustration 2025
+ * 固定ボード方式CSS（HTMLとは分離）
+ * - 変数でサイズ/色を集中管理
+ * - history tool と stationery のタイルサイズを統一
+ ************************************/
 :root{
-/* 色 */
---bg: #efe7e0; /* ページ下地（ベージュ） */
---panel: #ffffff; /* 白パネル */
---tile: #ece7e1; /* タイルの薄グレー */
---line: #e6e0db; /* 枠線 */
---text: #2d2a26; /* 濃いテキスト */
+  /* 色 */
+  --bg:   #efe7e0;  /* ページ下地（ベージュ） */
+  --panel:#ffffff;  /* 白パネル */
+  --tile: #ece7e1;  /* タイルの薄グレー */
+  --line: #e6e0db;  /* 枠線 */
+  --text: #2d2a26;  /* 濃いテキスト */
 
+  /* レイアウト */
+  --board-w: 1440px;    /* 固定ボード横幅 */
+  --board-h: 900px;     /* 固定ボード高さ */
+  --topbar-h: 72px;     /* トップバー高さ */
 
-/* レイアウト */
---board-w: 1440px; /* 固定ボード横幅 */
---board-h: 900px; /* 固定ボード高さ */
---topbar-h: 72px; /* トップバー高さ */
-
-
-/* アイコン/タイル */
---tile-size: 44px; /* history / stationery の正方タイル */
---tile-radius: 12px;
---gap: 12px; /* 間隔 */
+  /* アイコン/タイル */
+  --tile-size: 44px;    /* history / stationery の正方タイル */
+  --tile-radius: 12px;
+  --gap: 12px;          /* 間隔 */
 }
-
 
 /* ========= ページ基礎 ========= */
-*{box-sizing:border-box}
-html,body{height:100%}
+*{ box-sizing:border-box }
+html,body{ height:100% }
 body{
-margin:0; background:var(--bg); color:var(--text);
-font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-overflow:hidden; /* 画面スクロールを抑止（ボードにフォーカス） */
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  overflow:hidden; /* スクロール無効：ボードに集中 */
 }
-#app-root{height:100%; display:flex; flex-direction:column}
-
+#app-root{ height:100%; display:flex; flex-direction:column }
 
 /* ========= Topbar ========= */
 .topbar{
-height:var(--topbar-h);
-display:grid; grid-template-columns: 1fr max-content 1fr;
-align-items:center; gap:16px; padding:0 20px; border-bottom:1px solid var(--line);
-background:#f6f1ec;
+  height:var(--topbar-h);
+  display:grid;
+  grid-template-columns: 1fr max-content 1fr;
+  align-items:center;
+  gap:16px;
+  padding:0 20px;
+  border-bottom:1px solid var(--line);
+  background:#f6f1ec;
 }
-.topbar__left, .topbar__right{display:flex; align-items:center; gap:14px}
-.topbar__center{display:flex; justify-content:center}
-.app-title{font-size:18px; font-weight:600; margin:0; letter-spacing:0.2px; opacity:.9}
-
+.topbar__left, .topbar__right{ display:flex; align-items:center; gap:14px }
+.topbar__center{ display:flex; justify-content:center }
+.app-title{
+  font-size:18px; font-weight:600; margin:0;
+  letter-spacing:0.2px; opacity:.9;
+}
 
 .ghost-btn{
-height:36px; padding:0 14px; border:1px solid var(--line); background:#fff; border-radius:10px; cursor:pointer;
+  height:36px; padding:0 14px;
+  border:1px solid var(--line); background:#fff; border-radius:10px; cursor:pointer;
 }
-.ghost-btn:hover{background:#fffdfb}
+.ghost-btn:hover{ background:#fffdfb }
 
+.contents-button{ display:flex; gap:8px }
+.contents-button img{ width:28px; height:28px; display:block }
 
-.mode-toggle{display:flex; border:1px solid var(--line); border-radius:10px; overflow:hidden}
-.mode-toggle .toggle{height:36px; padding:0 12px; background:#fff; border:none; cursor:pointer}
-.mode-toggle .toggle.active{background:#f0ebe6; font-weight:600}
-
-
-.contents-button{display:flex; gap:8px}
-.contents-button img{width:28px; height:28px; display:block}
-
-
-.history-tool{display:flex; gap:10px}
+.history-tool{ display:flex; gap:10px }
 .history-tool .tile{
-width:var(--tile-size); height:var(--tile-size); border-radius:var(--tile-radius);
-border:1px solid var(--line); background:#fff; display:grid; place-items:center; cursor:pointer
+  width:var(--tile-size); height:var(--tile-size);
+  border-radius:var(--tile-radius);
+  border:1px solid var(--line); background:#fff;
+  display:grid; place-items:center; cursor:pointer;
 }
-.history-tool .tile img{width:24px; height:24px}
-
+.history-tool .tile img{ width:24px; height:24px }
 
 /* ========= Work area ========= */
-.work{position:relative; flex:1; min-height:0;}
+.work{ position:relative; flex:1; min-height:0; }
 #board-wrapper{
-position:absolute; inset:0; /* 余白なしで中央化用のキャンバス */
+  position:absolute; inset:0; /* 余白なしで中央化用 */
 }
 #board{
-position:absolute; left:50%; top:50%; width:var(--board-w); height:var(--board-h);
-transform:translate(-50%, -50%); transform-origin:0 0; /* JSでscaleを付与 */
-background:#faf7f3; border:1px solid var(--line); border-radius:14px; box-shadow: 0 10px 30px rgba(0,0,0,.06);
-overflow:hidden; /* 内部を切り抜く（イラレのアートボード感） */
+  position:absolute; left:50%; top:50%;
+  width:var(--board-w); height:var(--board-h);
+  transform:translate(-50%, -50%); transform-origin:0 0; /* JSでscaleを付与 */
+  background:#faf7f3; border:1px solid var(--line); border-radius:14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+  overflow:hidden; /* 内部を切り抜く（アートボード感） */
 }
 
-
 /* ========= Canvas（白板は不要：背景だけ） ========= */
-#canvas{position:absolute; inset:60px 60px; background:#fff; border:1px solid var(--line); border-radius:12px}
-
+#canvas{
+  position:absolute; inset:60px 60px;
+  background:#fff; border:1px solid var(--line); border-radius:12px;
+}
 
 /* ========= Stationery（キャンバス内） ========= */
 .stationery{
-position:absolute; left:16px; top:16px; display:flex; gap:10px; z-index:5;
+  position:absolute; left:16px; top:16px;
+  display:flex; gap:10px; z-index:5;
 }
 .st-btn{
-width:var(--tile-size); height:var(--tile-size); border-radius:var(--tile-radius);
-border:1px solid var(--line); background:var(--tile); display:grid; place-items:center; cursor:pointer;
+  width:var(--tile-size); height:var(--tile-size);
+  border-radius:var(--tile-radius);
+  border:1px solid var(--line); background:var(--tile);
+  display:grid; place-items:center; cursor:pointer;
 }
-.st-btn img{width:24px; height:24px; pointer-events:none}
+.st-btn img{ width:24px; height:24px; pointer-events:none }
 
-
-/* Pen のサブパネル（ペンに連動して出現） */
+/* Pen のサブパネル（Penに連動して出現） */
 .pen-panel{
-position:absolute; left:0; top:calc(100% + 10px); width:240px; padding:10px; border-radius:12px;
-background:#fff; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.08);
-opacity:0; transform:translateY(-6px); pointer-events:none; transition:opacity .18s, transform .18s;
+  position:absolute; left:0; top:calc(100% + 10px);
+  width:240px; padding:10px; border-radius:12px;
+  background:#fff; border:1px solid var(--line);
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  opacity:0; transform:translateY(-6px);
+  pointer-events:none; transition:opacity .18s, transform .18s;
 }
-.pen-panel.open{opacity:1; transform:translateY(0); pointer-events:auto}
-.pen-panel .row{display:flex; align-items:center; gap:10px; padding:6px 2px}
-.pen-panel label{min-width:42px; font-size:12px; color:#666}
-.pen-panel input[type="range"]{flex:1}
-
+.pen-panel.open{ opacity:1; transform:translateY(0); pointer-events:auto }
+.pen-panel .row{ display:flex; align-items:center; gap:10px; padding:6px 2px }
+.pen-panel label{ min-width:42px; font-size:12px; color:#666 }
+.pen-panel input[type="range"]{ flex:1 }
 
 /* ========= Stage / Mannequin ========= */
-.stage{position:absolute; inset:0; display:grid; place-items:center; touch-action:none; /* ドラッグとズーム制御 */}
-.mannequin{max-width:52%; max-height:85%; object-fit:contain; user-select:none; -webkit-user-drag:none}
-
+.stage{
+  position:absolute; inset:0;
+  display:grid; place-items:center;
+  touch-action:none; /* ドラッグとズーム制御 */
+}
+.mannequin{
+  max-width:52%; max-height:85%;
+  object-fit:contain; user-select:none; -webkit-user-drag:none;
+}
 
 /* ========= 目安グリッド（GキーでON/OFF） ========= */
-.grid{position:absolute; inset:0; background-image:
-linear-gradient(#0000 31px, rgba(0,0,0,.08) 32px, #0000 33px),
-linear-gradient(90deg, #0000 31px, rgba(0,0,0,.08) 32px, #0000 33px);
-background-size:32px 32px, 32px 32px; opacity:0; pointer-events:none; transition:opacity .12s}
-.grid.show{opacity:1}
-
+.grid{
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(#0000 31px, rgba(0,0,0,.08) 32px, #0000 33px),
+    linear-gradient(90deg, #0000 31px, rgba(0,0,0,.08) 32px, #0000 33px);
+  background-size:32px 32px, 32px 32px;
+  opacity:0; pointer-events:none; transition:opacity .12s;
+}
+.grid.show{ opacity:1 }
 
 /* ========= 細部の調整 ========= */
-button{font:inherit}
-button:active{transform:translateY(1px)}
+button{ font:inherit }
+button:active{ transform:translateY(1px) }
 
-
-/* ダークモード互換（任意） */
+/* ダークモード（任意） */
 @media (prefers-color-scheme: dark){
-:root{ --bg:#201c18; --panel:#26221f; --tile:#2a2622; --line:#3a342f; --text:#efe9e3 }
-.topbar{ background:#26211d }
-#board{ background:#26211d; border-color:var(--line) }
-#canvas{ background:#1f1a16 }
+  :root{ --bg:#201c18; --panel:#26221f; --tile:#2a2622; --line:#3a342f; --text:#efe9e3 }
+  .topbar{ background:#26211d }
+  #board{ background:#26211d; border-color:var(--line) }
+  #canvas{ background:#1f1a16 }
 }
-</style>
-<!-- ▲▲▲ style.css 終了 ▲▲▲ -->
