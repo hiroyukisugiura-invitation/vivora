@@ -10,7 +10,7 @@
   <!-- ===== Topbar（canvasの外：ベージュ帯） ===== -->
   <div class="app">
     <div class="topbar">
-      <!-- 左：Next Step + contents（Next Step はタイルの左上） -->
+      <!-- 左：Next Step + contents（Nextは左上固定） -->
       <div class="topbar-left">
         <div class="contents-tile">
           <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
@@ -45,29 +45,61 @@
     <div class="board">
       <div class="canvas-wrapper">
 
-        <!-- Stationery tool（canvas内 右上・横並び） -->
+        <!-- Stationery tool（canvas内 右上：8アイコン / 折りたたみ制御） -->
         <div class="stationery-toolbar" aria-label="stationery">
-          <img src="/create_parts/object_btn/select.png"        alt="Select"        title="Select" />
-          <img src="/create_parts/object_btn/square.png"        alt="Rectangle"     title="Rectangle" />
-          <img src="/create_parts/object_btn/pen.png"           alt="Pen"           title="Pen" />
-          <img src="/create_parts/object_btn/eraser.png"        alt="Eraser"        title="Eraser" />
-          <img src="/create_parts/object_btn/markerpen.png"     alt="Fill/Marker"   title="Fill/Marker" />
-          <img src="/create_parts/object_btn/sentence.png"      alt="Text"          title="Text" />
-          <img src="/create_parts/object_btn/direct_select.png" alt="Direct Select" title="Direct Select" />
-          <img src="/create_parts/object_btn/graph_paper.png"   alt="Grid"          title="Grid" />
-          <img src="/create_parts/object_btn/layer.png"         alt="Layer Panel"   title="Layer Panel" />
+          <!-- data-panel で対応するドロップダウンを紐づけ -->
+          <button class="st-btn" data-panel="select"><img src="/create_parts/object_btn/select.png"  alt="Select"  title="Select"></button>
+          <button class="st-btn" data-panel="square"><img src="/create_parts/object_btn/square.png"  alt="Square"  title="Square"></button>
+          <button class="st-btn" data-panel="brush"><img  src="/create_parts/object_btn/brush.png"   alt="Brush"   title="Brush"></button>
+          <button class="st-btn" data-panel="eraser"><img src="/create_parts/object_btn/eraser.png"  alt="Eraser"  title="Eraser"></button>
+          <button class="st-btn" data-panel="opacity"><img src="/create_parts/object_btn/opacity.png" alt="Opacity" title="Opacity"></button>
+          <button class="st-btn" data-panel="grid"><img   src="/create_parts/object_btn/graph_paper.png" alt="Grid" title="Grid"></button>
+          <button class="st-btn" data-panel="layer"><img  src="/create_parts/object_btn/layer.png"   alt="Layer"   title="Layer"></button>
+          <!-- 8個目：カラーパレット -->
+          <button class="st-btn" data-panel="color"><img  src="/create_parts/object_btn/markerpen.png" alt="Color"  title="Color"></button>
         </div>
 
-        <!-- 右側レール群（見た目のみ） -->
-        <div class="tool-rails">
-          <div class="dropdown-rail">
-            <span class="dd-icon"></span>
-            <span class="dd-icon"></span>
-            <span class="dd-icon"></span>
+        <!-- ▼▼ 各ドロップダウン（デフォルト非表示） ▼▼ -->
+        <div class="dropdown-panels">
+
+          <!-- select：ツールバリエーション（例） -->
+          <div class="dd-panel" data-for="select">
+            <button>Direct</button><button>Group</button><button>Node</button>
           </div>
 
-          <div class="color-rail" aria-label="color palette">
-            <!-- 2枚目に合わせた代表色（ダミー） -->
+          <!-- square：図形 -->
+          <div class="dd-panel" data-for="square">
+            <button>Rect</button><button>Ellipse</button><button>Line</button>
+          </div>
+
+          <!-- brush -->
+          <div class="dd-panel" data-for="brush">
+            <button>Pen</button><button>Brush</button><button>Marker</button>
+          </div>
+
+          <!-- eraser -->
+          <div class="dd-panel" data-for="eraser">
+            <button>Soft</button><button>Hard</button><button>Vector</button>
+          </div>
+
+          <!-- opacity（縦スライダー風） -->
+          <div class="dd-panel dd-opacity" data-for="opacity">
+            <div class="op-track"><span class="op-thumb" style="--y:50%"></span></div>
+          </div>
+
+          <!-- grid（オン/オフ） -->
+          <div class="dd-panel" data-for="grid">
+            <label class="chk"><input type="checkbox"> Show grid</label>
+            <label class="chk"><input type="checkbox"> Snap to grid</label>
+          </div>
+
+          <!-- layer（ミニ操作） -->
+          <div class="dd-panel dd-layer" data-for="layer">
+            <button>New</button><button>Up</button><button>Down</button><button>Delete</button>
+          </div>
+
+          <!-- color（縦パレット簡略版） -->
+          <div class="dd-panel dd-color" data-for="color" aria-label="color palette">
             <span style="--c:#000000"></span>
             <span style="--c:#8f8f8f"></span>
             <span style="--c:#c0c0c0"></span>
@@ -85,30 +117,8 @@
             <span style="--c:#3b3b3b"></span>
           </div>
 
-          <div class="opacity-rail" aria-label="opacity">
-            <div class="op-track"><span class="op-thumb" style="--y:20%"></span></div>
-          </div>
-
-          <div class="layer-rail" aria-label="layers">
-            <div class="layer-card">
-              <div class="layer-header"><span class="lock"></span></div>
-              <div class="layer-body"></div>
-              <div class="layer-footer"><span></span><span></span><span></span></div>
-            </div>
-            <div class="layer-card">
-              <div class="layer-header"><span class="lock"></span></div>
-              <div class="layer-body"></div>
-              <div class="layer-footer"><span></span><span></span><span></span></div>
-            </div>
-            <div class="layer-card">
-              <div class="layer-header"><span class="lock"></span></div>
-              <div class="layer-body"></div>
-              <div class="layer-footer"><span></span><span></span><span></span></div>
-            </div>
-            <button class="layer-plus">＋</button>
-            <button class="layer-trash"></button>
-          </div>
         </div>
+        <!-- ▲▲ ドロップダウンここまで ▲▲ -->
 
         <!-- Mannequin（中央） -->
         <img id="mannequin"
@@ -119,9 +129,29 @@
   </div>
 
   <script>
-    // 将来の機能フック
-    document.querySelectorAll('.stationery-toolbar img, .history-tool img, .contents-button img')
-      .forEach(el => el.addEventListener('click', () => { /* TODO: 実装予定 */ }));
+    // --- ドロップダウン開閉（1つだけ開く） ---
+    const toolbar  = document.querySelector('.stationery-toolbar');
+    const panels   = document.querySelectorAll('.dd-panel');
+
+    function closeAll(){ panels.forEach(p => p.classList.remove('open')); }
+
+    toolbar.addEventListener('click', (e) => {
+      const btn = e.target.closest('.st-btn');
+      if(!btn) return;
+      const key = btn.dataset.panel;
+      const panel = document.querySelector(`.dd-panel[data-for="${key}"]`);
+      if(!panel) return;
+
+      const isOpen = panel.classList.contains('open');
+      closeAll();
+      if(!isOpen){ panel.classList.add('open'); }
+    });
+
+    // キャンバス空白クリックで閉じる
+    document.querySelector('.canvas-wrapper').addEventListener('click', (e)=>{
+      if(e.target.closest('.st-btn') || e.target.closest('.dd-panel')) return;
+      closeAll();
+    });
   </script>
 </body>
 </html>
