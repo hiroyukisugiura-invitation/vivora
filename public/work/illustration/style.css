@@ -74,6 +74,18 @@ body{
   display:inline-flex; align-items:center; gap:12px;
   margin-right: calc(var(--board-pad) + var(--st-right));
 }
+/* history tool の高さを contents button と揃える */
+.history-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: calc(var(--board-pad) + var(--st-right));
+
+  /* ★ contents-button と同じ高さに寄せる */
+  height: 40px;        /* nav-strip の高さと合わせる */
+  transform: translateY(6px); /* 必要に応じて微調整（例: +6px 下げる） */
+}
+
 .history-tool img{
   width: var(--st-icon); height: var(--st-icon); display:block; cursor:pointer;
 }
