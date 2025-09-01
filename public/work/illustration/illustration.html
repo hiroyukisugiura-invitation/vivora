@@ -1,215 +1,98 @@
-/* =======================================
-   Vivora Fashion Illustration 2025 - style.css（完全版）
-   - マス目構造に完全準拠（1マス = 26px）
-   - 画像はGit内の配置と一致
-   - 各種ツール表示切替、装飾、レイアウト設定
-   - レスポンシブは無効（固定配置）
-======================================= */
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- ヘッダー部分 -->
+    <div class="header">
+      <div class="contents-button">
+        <a class="tool-button" href="#">Next Step ▸▸</a>
+        <img class="tool-button" src="/create_parts/contents_button/0_home.png" alt="Home" />
+        <img class="tool-button" src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi" />
+        <img class="tool-button" src="/create_parts/contents_button/2_fabric-matching.png" alt="Fm" />
+        <img class="tool-button" src="/create_parts/contents_button/3_clothing-design.png" alt="Cd" />
+        <img class="tool-button" src="/create_parts/contents_button/4_pattern-creation.png" alt="Pc" />
+        <img class="tool-button" src="/create_parts/contents_button/5_grading.png" alt="Gd" />
+        <img class="tool-button" src="/create_parts/contents_button/6_print-layout-cut.png" alt="Plc" />
+        <img class="tool-button" src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" />
+      </div>
+      <div class="page-title">Vivora Fashion Illustration 2025</div>
+      <div class="history-tool">
+        <img class="tool-button" src="/create_parts/create_button/retreat.png" alt="Undo" />
+        <img class="tool-button" src="/create_parts/create_button/forward.png" alt="Redo" />
+        <img class="tool-button" src="/create_parts/create_button/reset.png" alt="Reset" />
+        <img class="tool-button" src="/create_parts/create_button/download.png" alt="Download" />
+        <img class="tool-button" src="/create_parts/create_button/upload.png" alt="Upload" />
+        <img class="tool-button" src="/create_parts/create_button/save.png" alt="Save" />
+      </div>
+    </div>
 
-:root {
-  --bg: #f1e9e1;
-  --panel: #ffffff;
-  --line: #dcd2c8;
-  --text: #2a2a2a;
-  --icon-size: 32px;
-  --icon-gap: 8px;
-  --border-radius: 10px;
-  --shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  --grid-size: 26px;
-}
+    <!-- キャンバス部分 -->
+    <div class="canvas-wrapper">
+      <div id="canvas">
+        <img id="mannequin" src="/mannequin/mannequin_woman/mannequin_woman_front.png" alt="Mannequin" />
+      </div>
+    </div>
 
-body {
-  margin: 0;
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-  overflow: hidden;
-}
+    <!-- 右パネル -->
+    <div class="tool-right-panel">
+      <!-- ステーショナリーツール -->
+      <div class="stationery-tool">
+        <img class="tool-button" src="/create_parts/object_btn/select.png" alt="Select" />
+        <img class="tool-button" src="/create_parts/object_btn/square.png" alt="Square" />
+        <img class="tool-button" src="/create_parts/object_btn/brush.png" alt="Brush" />
+        <img class="tool-button" src="/create_parts/object_btn/eraser.png" alt="Eraser" />
+        <img class="tool-button" src="/create_parts/object_btn/sentence.png" alt="Text" />
+        <img class="tool-button" src="/create_parts/object_btn/graph_paper.png" alt="Grid" />
+        <img class="tool-button" src="/create_parts/object_btn/layer.png" alt="Layer" />
+      </div>
 
-.app {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-}
+      <!-- Opacityバー -->
+      <div class="opacity-bar">
+        <input type="range" min="0" max="100" value="100" />
+        <span>100%</span>
+      </div>
 
-.header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(var(--grid-size) * 3);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 var(--grid-size);
-  background-color: var(--bg);
-  z-index: 10;
-}
+      <!-- カラーパネル -->
+      <div class="color-panel">
+        <div class="color-swatch" style="background:#ffffff;"></div>
+        <div class="color-swatch" style="background:#aaaaaa;"></div>
+        <div class="color-swatch" style="background:#ff0;"></div>
+        <div class="color-swatch" style="background:#f90;"></div>
+        <div class="color-swatch" style="background:#f9c;"></div>
+        <div class="color-swatch" style="background:#f00;"></div>
+        <div class="color-swatch" style="background:#0c0;"></div>
+        <div class="color-swatch" style="background:#090;"></div>
+        <div class="color-swatch" style="background:#09c;"></div>
+        <div class="color-swatch" style="background:#00c;"></div>
+        <div class="color-swatch" style="background:#90c;"></div>
+        <div class="color-swatch" style="background:#630;"></div>
+        <div class="color-swatch" style="background:#666;"></div>
+        <div class="color-swatch" style="background:#000;"></div>
+      </div>
 
-.contents-button,
-.history-tool,
-.stationery-tool {
-  display: flex;
-  align-items: center;
-  gap: var(--icon-gap);
-}
-
-.page-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-weight: 500;
-  font-size: 16px;
-  pointer-events: none;
-}
-
-.tool-button,
-.dropdown-icon {
-  width: var(--icon-size);
-  height: var(--icon-size);
-  background-color: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--border-radius);
-  padding: 4px;
-  box-shadow: var(--shadow);
-  cursor: pointer;
-}
-
-.tool-group {
-  position: relative;
-}
-
-.tool-group .dropdown {
-  display: none;
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 10;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--border-radius);
-  padding: 6px;
-  box-shadow: var(--shadow);
-}
-
-.tool-group.active .dropdown {
-  display: flex;
-}
-
-.canvas-wrapper {
-  position: absolute;
-  top: calc(var(--grid-size) * 3.5);
-  left: calc(var(--grid-size) * 1);
-  width: calc(var(--grid-size) * 38);
-  height: calc(var(--grid-size) * 52);
-  background: var(--panel);
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  z-index: 1;
-  overflow: hidden;
-}
-
-#canvas {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-}
-
-#mannequin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 92%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-#canvas.grid::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    linear-gradient(to right, #bbb 1px, transparent 1px),
-    linear-gradient(to bottom, #bbb 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.tool-right-panel {
-  position: absolute;
-  top: calc(var(--grid-size) * 3.5);
-  left: calc(var(--grid-size) * 41);
-  display: flex;
-  flex-direction: column;
-  gap: var(--grid-size);
-  z-index: 5;
-}
-
-.stationery-tool,
-.color-panel,
-.layer-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: center;
-}
-
-.color-swatch {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid #aaa;
-}
-
-.opacity-bar {
-  background: var(--panel);
-  padding: 4px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  display: none;
-  align-items: center;
-  gap: 4px;
-}
-
-.opacity-bar.active {
-  display: flex;
-}
-
-.opacity-bar input[type="range"] {
-  width: 80px;
-}
-
-.layer-box {
-  width: 100px;
-  height: 140px;
-  background: #fff;
-  border: 2px solid #aaa;
-  border-radius: 12px;
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.layer-box .layer-header,
-.layer-box .layer-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-}
-
-.layer-box img {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-}
+      <!-- レイヤーパネル -->
+      <div class="layer-panel">
+        <div class="layer-box">
+          <div class="layer-header">
+            <img src="/create_parts/layer_button/layerlock.png" alt="Lock" />
+            <img src="/create_parts/layer_button/layerdisplay.png" alt="Display" />
+            <img src="/create_parts/layer_button/layerhidden.png" alt="Hide" />
+          </div>
+          <div class="layer-footer">
+            <img src="/create_parts/layer_button/layerpanelplus.png" alt="Add" />
+            <img src="/create_parts/layer_button/layerreproduction.png" alt="Copy" />
+            <img src="/create_parts/layer_button/layerlayer integration.png" alt="Merge" />
+            <img src="/create_parts/layer_button/layerdestruction.png" alt="Delete" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
