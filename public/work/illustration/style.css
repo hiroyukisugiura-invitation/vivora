@@ -588,3 +588,104 @@ body{
 .canvas img, .canvas svg{
   image-rendering: auto;
 }
+/* ===== Illustrator風：サイズ固定 & スクロール ===== */
+:root{
+  /* 完成レイアウトの“基準寸法”（px）—調整可 */
+  --base-w: 1280px;   /* Topbar＋Canvas が綺麗に収まる幅 */
+  --base-h: 820px;    /* ↑に合わせて調整。足りなければ増やす */
+
+  /* 1マス基準（前回の方眼値）。ズレるなら grid-tune を± */
+  --grid: 17px;
+  --grid-tune: 0px;
+  --G: calc(var(--grid) + var(--grid-tune));
+
+  /* タイトルとコンテンツ群の左端を“同じ”にする */
+  --left-anchor-g: 2;  /* ← タイトル＆contents の左端を同一アンカーに */
+}
+
+/* ページ枠はスクロールで見せる（レイアウトは固定） */
+html, body { height: 100%; }
+body{
+  margin: 0;
+  overflow: auto;                  /* 画面が小さければスクロール */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #e8e0d6;            /* 任意（外側背景） */
+}
+
+/* .app を固定ピクセル舞台に。transform は使わない */
+.app{
+  width: var(--base-w);
+  min-width: var(--base-w);        /* 折返し禁止 */
+  height: var(--base-h);
+  min-height: var(--base-h);
+  position: relative;
+  transform: none !important;      /* 以前のscaleを無効化 */
+}
+
+/* Topbar 高さも固定（方眼マスで決める） */
+.topbar{
+  position: relative;
+  height: calc(11 * var(--G));
+  padding: 0;
+  min-width: var(--base-w);        /* 折返し防止 */
+  white-space: nowrap;             /* ツール群の折返し禁止 */
+  overflow: visible;
+}
+
+/* ───── アンカー（タイトル＆contents左端を揃える）───── */
+.topbar h1,
+.topbar .app-title{
+  position: absolute;
+  left: calc(var(--left-anchor-g) * var(--G));
+  top:  calc(2.9 * var(--G));      /* 2–4マスの中で微調整 */
+  margin: 0;
+  line-height: 1.1;
+}
+#next-step{
+  position: absolute;
+  left: calc(var(--left-anchor-g) * var(--G)); /* タイトルと完全に同じ左端 */
+  top:  calc(8.0 * var(--G));                  /* 8–10マス帯 */
+  height: calc(2 * var(--G));
+  display: inline-flex; align-items: center;
+}
+
+/* contents ボタン群（Home〜Dk）— Next Step の右に続ける */
+.topbar .contents-button{
+  position: absolute;
+  top:  calc(8.0 * var(--G));
+  left: calc(var(--left-anchor-g) * var(--G) + 8.5 * var(--G)); /* NextStepの横幅に合わせてオフセット */
+  height: calc(2 * var(--G));
+  display: inline-flex; align-items: center;
+  gap: calc(0.7 * var(--G));
+}
+
+/* history tool：右側。Canvas との間は 1マス空け */
+.topbar .history-tools,
+.topbar .topbar-right,
+.topbar > *:last-child{
+  position: absolute !important;
+  top:  calc(9.0 * var(--G));
+  right: calc(1 * var(--G));       /* Canvasの1マス内側に合わせるなら変更可 */
+  display: inline-flex; align-items: center; gap: calc(0.7 * var(--G));
+}
+
+/* Canvas ラッパ— Topbar 直下に1マス空ける＆固定枠 */
+.board, .canvas, .workspace{
+  margin-top: calc(1 * var(--G));  /* 指示どおり“上に1マス” */
+  position: relative;
+  width: calc(var(--base-w) - 2 * var(--G)); /* 左右の外周に余白がある想定なら調整可 */
+  margin-left: calc(1 * var(--G));           /* 左 1マス */
+  margin-right: calc(1 * var(--G));          /* 右 1マス */
+}
+
+/* Stationery は現状の“4マスピッチ”を維持（サイズは28px） */
+.stationery-tools, .canvas .toolbox-right{ gap: calc(4 * var(--G)); }
+.stationery-tools img, .stationery-tools svg,
+.canvas .toolbox-right img, .canvas .toolbox-right svg{
+  width: 28px; height: 28px; object-fit: contain;
+}
+
+/* どの幅でも折り返さないガード */
+.topbar img, .topbar svg { max-width: none; }
