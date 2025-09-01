@@ -278,3 +278,75 @@ body{
 .canvas .toolbox-right{
   right: var(--edge);
 }
+/* ============ Physical-like Grid ============ */
+/* 1マス=約4.52mm → 17px を初期値に。端末差は --grid-tune で±調整 */
+:root{
+  --grid: 17px;       /* 1マス */
+  --grid-tune: 0px;   /* 0〜0.5px で微調整。例: 0.25px */
+  --G: calc(var(--grid) + var(--grid-tune)); /* 実効グリッド */
+  --edge: calc(2 * var(--G)); /* 右端の基準（2マス余白） */
+}
+
+/* Topbar全体をグリッド基準でレイアウト（HTML変更なし） */
+.topbar{
+  position: relative;
+  height: calc(10 * var(--G));      /* 方眼紙で上段の高さ ≒ 10マス */
+  display: block;                    /* 2段構成は絶対配置で作る */
+  padding: 0;                        /* 余白はグリッドで管理 */
+}
+
+/* 1段目：タイトル（左から2マス、上から3マス） */
+.topbar h1,
+.topbar .app-title{
+  position: absolute;
+  left:  calc(2 * var(--G));
+  top:   calc(3 * var(--G));
+  margin: 0;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+/* 2段目：Next Step と contents 群（左から2マス、上から8マス） */
+#next-step{
+  position: absolute;
+  left: calc(2 * var(--G));
+  top:  calc(8 * var(--G));
+}
+.topbar .contents-button{
+  position: absolute;
+  left: calc(8 * var(--G));         /* NextStepの右に並べる：余白6マス */
+  top:  calc(8 * var(--G));
+}
+
+/* 2段目：historyツール群（右から2マス、上から8マス） */
+.topbar .history-tools,
+.topbar .topbar-right,
+.topbar > *:last-child{             /* クラス差異の保険 */
+  position: absolute !important;
+  right: calc(2 * var(--G));
+  top:   calc(8 * var(--G));
+  display: inline-flex;
+  gap: calc(0.7 * var(--G));        /* アイコン間隔 ≒ 0.7マス */
+}
+
+/* キャンバス内のステーショナリ群の右端をhistoryと同一ラインに */
+.stationery-tools,
+.tools-right,
+.canvas .toolbox-right{
+  right: calc(2 * var(--G));
+}
+
+/* マネキン初期サイズ（2枚目スクショ相当） */
+#mannequin,
+.mannequin-base{
+  display: block;
+  margin: 0 auto;
+  height: clamp(440px, 56vh, 560px); /* 端末差を吸収しつつ大きめに */
+  width: auto;
+  object-fit: contain;
+}
+
+/* ボードの角丸とトップバーの境界がズレる場合の保険 */
+.board, .canvas, .workspace{
+  margin-top: calc(0.8 * var(--G));   /* 角丸の接触を回避（必要時） */
+}
