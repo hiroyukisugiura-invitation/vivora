@@ -32,10 +32,13 @@ body {
   position: relative;
 }
 
+/* ------------------------------------- */
+/* Header layout（マス固定）              */
+/* ------------------------------------- */
 .header {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: calc(var(--grid-size) * 0);
+  left: calc(var(--grid-size) * 0);
   width: 100%;
   height: calc(var(--grid-size) * 3);
   display: flex;
@@ -98,6 +101,9 @@ body {
   display: flex;
 }
 
+/* ------------------------------------- */
+/* Canvas                               */
+/* ------------------------------------- */
 .canvas-wrapper {
   position: absolute;
   top: calc(var(--grid-size) * 3.5);
@@ -143,6 +149,9 @@ body {
   pointer-events: none;
 }
 
+/* ------------------------------------- */
+/* Tool Right Panel                     */
+/* ------------------------------------- */
 .tool-right-panel {
   position: absolute;
   top: calc(var(--grid-size) * 3.5);
@@ -213,3 +222,26 @@ body {
   height: 20px;
   cursor: pointer;
 }
+
+/* NEW: Add missing opacity-bar + layer duplication + color expansion */
+.opacity-bar {
+  display: none;
+  position: absolute;
+  top: calc(var(--grid-size) * 22);
+  left: calc(var(--grid-size) * 42);
+  background: var(--panel);
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  z-index: 10;
+}
+
+.opacity-bar label {
+  font-size: 12px;
+}
+
+/* NEW: Support 4 layer boxes */
+.layer-panel .layer-box:nth-child(1) { order: 1; }
+.layer-panel .layer-box:nth-child(2) { order: 2; }
+.layer-panel .layer-box:nth-child(3) { order: 3; }
+.layer-panel .layer-box:nth-child(4) { order: 4; }
