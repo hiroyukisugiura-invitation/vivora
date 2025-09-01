@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="system">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,315 +7,216 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- =========================================================
-       Vivora Fashion Illustration 2025 — 固定レイアウト基盤
-       - グリッド（方眼）を重ねて座標合わせ可
-       - キャンバス内：mannequin + stationery tool だけ
-       - 右側（キャンバス外）：History / Layer パネル
-       - 2D/3Dボタンは仕様により未実装（指示あるまで非表示）
-     ========================================================= -->
+  <div class="viewport">
+    <div class="app" role="application" aria-label="Vivora Fashion Illustration 2025">
 
-  <div class="board" aria-label="workspace board">
-    <!-- === 方眼トグル（必要に応じてON/OFF可） === -->
-    <button id="toggle-grid" class="ghost-btn grid-toggle" title="グリッド表示の切替">Grid</button>
+      <!-- 1段目：左にタイトル、右にhistory（stationery右端に同期） -->
+      <header class="top-strip">
+        <h1 class="title">Vivora Fashion Illustration 2025</h1>
+        <div class="history-tool" aria-label="history">
+          <img src="/create_parts/create_button/retreat.png"  alt="Redo"     title="戻る" draggable="false"/>
+          <img src="/create_parts/create_button/forward.png"  alt="Cycle"    title="進む" draggable="false"/>
+          <img src="/create_parts/create_button/reset.png"    alt="Undo"     title="リセット" draggable="false"/>
+          <img src="/create_parts/create_button/download.png" alt="Download" title="ダウンロード" draggable="false"/>
+          <img src="/create_parts/create_button/upload.png"   alt="Upload"   title="アップロード" draggable="false"/>
+          <img src="/create_parts/create_button/save.png"     alt="Save"     title="保存" draggable="false"/>
+        </div>
+      </header>
 
-    <!-- === タイトル（小さめ） === -->
-    <h1 class="app-title" title="タイトル">
-      Vivora Fashion Illustration 2025
-    </h1>
+      <!-- 2段目：Next Step + contents（タイトルの下に1マス空けて配置） -->
+      <div class="nav-strip">
+        <button id="next-step" class="ghost-btn" type="button">Next Step ▶▶</button>
+        <nav class="contents-button" aria-label="contents">
+          <img src="/create_parts/contents_button/0_home.png" alt="Home"  title="Home" draggable="false"/>
+          <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"  title="Fashion Illustrations" draggable="false"/>
+          <img src="/create_parts/contents_button/2_fabric-matching.png"       alt="Fm"  title="Fabric Matching" draggable="false"/>
+          <img src="/create_parts/contents_button/3_clothing-design.png"        alt="Cd"  title="Clothing Design" draggable="false"/>
+          <img src="/create_parts/contents_button/4_pattern-creation.png"       alt="Pc"  title="Pattern Creation" draggable="false"/>
+          <img src="/create_parts/contents_button/5_grading.png"                alt="Gd"  title="Grading" draggable="false"/>
+          <img src="/create_parts/contents_button/6_print-layout-cut.png"       alt="Plc" title="Print/Layout/Cut" draggable="false"/>
+          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" title="Digital Dressing (Kids)" draggable="false"/>
+        </nav>
+      </div>
 
-    <!-- === Next Step（小さめ） === -->
-    <button id="next-step" class="ghost-btn next-step" title="Next Step">Next Step ▶▶</button>
+      <!-- キャンバス -->
+      <main class="board" role="main">
+        <div class="canvas-wrapper" id="canvas">
+          <!-- Stationery（枠なし） -->
+          <div class="stationery-toolbar" id="stationery" aria-label="stationery">
+            <img src="/create_parts/object_btn/select.png"      alt="Select"  title="選択" draggable="false"/>
+            <img src="/create_parts/object_btn/square.png"      alt="Square"  title="図形" draggable="false"/>
+            <img src="/create_parts/object_btn/brush.png"       alt="Brush"   title="ペン" draggable="false"/>
+            <img src="/create_parts/object_btn/eraser.png"      alt="Eraser"  title="ケシゴム" draggable="false"/>
+            <img src="/create_parts/object_btn/sentence.png"    alt="Text"    title="テキスト" draggable="false"/>
+            <img src="/create_parts/object_btn/opasity_ber.png" alt="Opacity" title="透明度" draggable="false"/>
+            <img src="/create_parts/object_btn/graph_paper.png" alt="Grid"    title="方眼紙" draggable="false"/>
+            <img src="/create_parts/object_btn/layer.png"       alt="Layer"   title="レイヤー" draggable="false"/>
+          </div>
 
-    <!-- === contents button（アイコン群：枠なし） === -->
-    <nav class="contents-bar" aria-label="contents">
-      <!-- ★ 画像パスはリポジトリの実ファイル名に合わせて差し替え可 -->
-      <img src="./create_parts/contents_button/0_home.png"     alt="Home"     title="Home" />
-      <img src="./create_parts/contents_button/1_file.png"     alt="File"     title="File" />
-      <img src="./create_parts/contents_button/2_edit.png"     alt="Edit"     title="Edit" />
-      <img src="./create_parts/contents_button/3_view.png"     alt="View"     title="View" />
-      <img src="./create_parts/contents_button/4_help.png"     alt="Help"     title="Help" />
-    </nav>
-
-    <!-- === History tool（キャンバスの外・右上寄せ / Stationeryと同じサイズ感） === -->
-    <div class="history-tool" aria-label="history tool">
-      <div class="tile"><img src="./create_parts/create_button/undo.png"  alt="Undo"  title="Undo"></div>
-      <div class="tile"><img src="./create_parts/create_button/redo.png"  alt="Redo"  title="Redo"></div>
-      <div class="tile"><img src="./create_parts/create_button/reset.png" alt="Reset" title="Reset"></div>
+          <!-- マネキン（スムーズピンチ＋二本指パン） -->
+          <div id="man-zoom">
+            <img id="mannequin"
+                 src="/mannequin/mannequin_woman/mannequin_woman_front.png"
+                 alt="Mannequin (Woman Front)" draggable="false"/>
+          </div>
+        </div>
+      </main>
     </div>
-
-    <!-- === メインキャンバス（中に：mannequin + stationery tool） === -->
-    <section id="canvas" aria-label="canvas">
-      <!-- Mannequin（中央寄せ / ドラッグで移動。ズーム・不透明は右下スライダーで） -->
-      <div id="mannequin-wrap">
-        <!-- ★ 画像は実ファイルに合わせて差し替え -->
-        <img id="mannequin" src="./mannequin/mannequin_woman.png" alt="Mannequin">
-      </div>
-
-      <!-- Stationery tool（キャンバス“内” 左辺に縦配置） -->
-      <aside class="stationery" aria-label="stationery tool">
-        <!-- ★ PNG名は実在アイコンに合わせて適宜変更 -->
-        <button class="st-btn" data-tool="select" title="Select">
-          <img src="./create_parts/design_button/select.png" alt="Select">
-        </button>
-        <button class="st-btn has-palette" data-tool="pen" title="Pen（離れたらパレット閉）">
-          <img src="./create_parts/design_button/pen.png" alt="Pen">
-        </button>
-        <button class="st-btn" data-tool="brush" title="Brush">
-          <img src="./create_parts/design_button/brush.png" alt="Brush">
-        </button>
-        <button class="st-btn" data-tool="eraser" title="Eraser">
-          <img src="./create_parts/design_button/eraser.png" alt="Eraser">
-        </button>
-        <button class="st-btn" data-tool="shape" title="Shape">
-          <img src="./create_parts/design_button/shape.png" alt="Shape">
-        </button>
-        <button class="st-btn" data-tool="text" title="Text">
-          <img src="./create_parts/design_button/text.png" alt="Text">
-        </button>
-
-        <!-- Pen用カラーパレット（ペンからカーソルが離れたら閉じる） -->
-        <div id="color-palette" class="palette" aria-hidden="true">
-          <button class="color-dot" data-color="#000000" title="#000000"></button>
-          <button class="color-dot" data-color="#ff0000" title="#ff0000"></button>
-          <button class="color-dot" data-color="#00aa00" title="#00aa00"></button>
-          <button class="color-dot" data-color="#0066ff" title="#0066ff"></button>
-          <button class="color-dot" data-color="#ffaa00" title="#ffaa00"></button>
-          <button class="color-dot" data-color="#ffffff" title="#ffffff"></button>
-        </div>
-      </aside>
-
-      <!-- 右下：ズーム / 不透明度スライダー（0〜100%） -->
-      <div class="sliders">
-        <label class="slider">
-          <span>Zoom</span>
-          <input id="zoom" type="range" min="0" max="100" value="50" step="1" />
-        </label>
-        <label class="slider">
-          <span>Opacity</span>
-          <input id="opacity" type="range" min="0" max="100" value="100" step="1" />
-        </label>
-      </div>
-    </section>
-
-    <!-- === 右カラム：Layer パネル（5段想定 / 画像UI配置ルール準拠） === -->
-    <aside class="right-rail" aria-label="right rail">
-      <!-- 内側白カード（右上に lock / display / hidden の3つ） -->
-      <div class="layer-stack">
-        <!-- 縦に5つ（デフォルト表示） -->
-        <!-- ▼ 各レイヤーカード -->
-        <div class="layer-card">
-          <div class="layer-inner">
-            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
-            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
-            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
-          </div>
-          <div class="layer-outer">
-            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
-            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
-          </div>
-        </div>
-
-        <div class="layer-card">
-          <div class="layer-inner">
-            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
-            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
-            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
-          </div>
-          <div class="layer-outer">
-            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
-            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
-          </div>
-        </div>
-
-        <div class="layer-card">
-          <div class="layer-inner">
-            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
-            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
-            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
-          </div>
-          <div class="layer-outer">
-            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
-            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
-          </div>
-        </div>
-
-        <div class="layer-card">
-          <div class="layer-inner">
-            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
-            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
-            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
-          </div>
-          <div class="layer-outer">
-            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
-            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
-          </div>
-        </div>
-
-        <div class="layer-card">
-          <div class="layer-inner">
-            <img src="./create_parts/layer_button/layerlock.png"    alt="Lock">
-            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display">
-            <img src="./create_parts/layer_button/layerhidden.png"  alt="Hide">
-          </div>
-          <div class="layer-outer">
-            <img src="./create_parts/layer_button/layerpanelplus.png"     alt="Add">
-            <img src="./create_parts/layer_button/layerreproduction.png"  alt="Duplicate">
-            <img src="./create_parts/layer_button/layerdestruction.png"   alt="Delete">
-          </div>
-        </div>
-      </div>
-    </aside>
   </div>
 
-  <!-- ===================== JS ===================== -->
   <script>
-    // -------------------------------
-    // 基本定数（調整しやすいよう集約）
-    // -------------------------------
-    const MANNEQUIN_MIN_SCALE = 0.5;  // Zoom 0% 相当
-    const MANNEQUIN_MAX_SCALE = 2.0;  // Zoom 100% 相当
-    const INITIAL_ZOOM = 0.5;         // 0.0〜1.0 (50%で開始)
+    // ===== 1) ステージ自動フィット（整数pxスナップ） =====
+    (function(){
+      const css = () => getComputedStyle(document.documentElement);
+      const num = v => parseFloat(v) || 0;
 
-    const board   = document.querySelector('.board');
-    const canvas  = document.getElementById('canvas');
-    const wrap    = document.getElementById('mannequin-wrap');
-    const mannequin = document.getElementById('mannequin');
+      function snapScale(baseW, baseH, vw, vh){
+        const raw = Math.max(0.5, Math.min(vw/baseW, vh/baseH));
+        const wSnap = Math.floor(baseW * raw);
+        const hSnap = Math.floor(baseH * raw);
+        let s = Math.min(wSnap/baseW, hSnap/baseH);
+        const dpr = window.devicePixelRatio || 1;
+        s = Math.round(s * dpr * 2) / (dpr * 2); // 0.5/DPR刻み
+        return Math.max(0.5, s);
+      }
 
-    const zoomRange = document.getElementById('zoom');
-    const opacityRange = document.getElementById('opacity');
+      function fit(){
+        const W = num(css().getPropertyValue('--base-w')) || 1280;
+        const H = num(css().getPropertyValue('--base-h')) || 820;
+        const M = num(css().getPropertyValue('--viewport-margin')) || 24;
+        const vw = window.innerWidth  - M*2;
+        const vh = window.innerHeight - M*2;
+        const s  = snapScale(W,H,vw,vh);
+        document.documentElement.style.setProperty('--app-scale', s);
+      }
+      addEventListener('resize', fit, {passive:true});
+      addEventListener('orientationchange', fit, {passive:true});
+      document.addEventListener('DOMContentLoaded', fit);
+    })();
 
-    const gridBtn = document.getElementById('toggle-grid');
+    // ===== 2) History の右端を Stationery の右端に同期 =====
+    (function(){
+      function sync(){
+        const canvas = document.getElementById('canvas');
+        const st = document.getElementById('stationery');
+        const hist = document.querySelector('.history-tool');
+        if(!canvas || !st || !hist) return;
+        const c = canvas.getBoundingClientRect();
+        const s = st.getBoundingClientRect();
+        const boardPad = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--board-pad'))||14;
+        const gap = Math.max(0, Math.round(c.right - s.right));
+        hist.style.marginRight = `${gap + boardPad}px`;
+      }
+      addEventListener('resize', sync, {passive:true});
+      addEventListener('load', sync, {passive:true});
+      new ResizeObserver(sync).observe(document.body);
+    })();
 
-    // -------------------------------
-    // グリッド表示切替
-    // -------------------------------
-    gridBtn.addEventListener('click', () => {
-      board.classList.toggle('show-grid');
-    });
-
-    // -------------------------------
-    // ズーム / 不透明度
-    // -------------------------------
-    function setZoomFromRange() {
-      // 0..100 → 0.0..1.0
-      const t = Number(zoomRange.value) / 100;
-      const scale = MANNEQUIN_MIN_SCALE + (MANNEQUIN_MAX_SCALE - MANNEQUIN_MIN_SCALE) * t;
-      wrap.style.setProperty('--man-scale', scale);
-    }
-    function setOpacityFromRange() {
-      const t = Number(opacityRange.value) / 100; // 0..1
-      mannequin.style.opacity = t.toFixed(3);
-    }
-    zoomRange.addEventListener('input', setZoomFromRange);
-    opacityRange.addEventListener('input', setOpacityFromRange);
-    // 初期
-    zoomRange.value = INITIAL_ZOOM * 100;
-    setZoomFromRange();
-    setOpacityFromRange();
-
-    // -------------------------------
-    // ドラッグでMannequinを移動
-    // -------------------------------
-    let isDragging = false;
-    let startX = 0, startY = 0;
-    let originX = 0, originY = 0;
-
-    wrap.addEventListener('pointerdown', (e) => {
-      isDragging = true;
-      wrap.setPointerCapture(e.pointerId);
-      startX = e.clientX;
-      startY = e.clientY;
-      const style = getComputedStyle(wrap);
-      originX = parseFloat(style.getPropertyValue('--man-x')) || 0;
-      originY = parseFloat(style.getPropertyValue('--man-y')) || 0;
-    });
-
-    wrap.addEventListener('pointermove', (e) => {
-      if (!isDragging) return;
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      wrap.style.setProperty('--man-x', (originX + dx) + 'px');
-      wrap.style.setProperty('--man-y', (originY + dy) + 'px');
-    });
-
-    wrap.addEventListener('pointerup', (e) => {
-      isDragging = false;
-      wrap.releasePointerCapture(e.pointerId);
-    });
-
-    // -------------------------------
-    // Penのカラーパレット動作
-    // 「ペンボタンからカーソルが離れたら閉じる」仕様
-    // -------------------------------
-    const penBtn = document.querySelector('.st-btn.has-palette');
-    const palette = document.getElementById('color-palette');
-
-    // ペンにホバー中 → パレット表示
-    penBtn.addEventListener('mouseenter', () => {
-      palette.setAttribute('aria-hidden', 'false');
-      palette.classList.add('open');
-    });
-
-    // ペン／パレット双方からマウスが離れたら閉
-    function maybeClosePalette(e) {
-      // 関連ターゲットがペン or パレット内なら閉じない
-      const to = e.relatedTarget;
-      if (!to) return;
-      if (penBtn.contains(to)) return;
-      if (palette.contains(to)) return;
-      palette.classList.remove('open');
-      palette.setAttribute('aria-hidden', 'true');
-    }
-    penBtn.addEventListener('mouseleave', maybeClosePalette);
-    palette.addEventListener('mouseleave', maybeClosePalette);
-
-    // パレット色選択 → 将来の描画色に反映（今は選択ハイライトのみ）
-    palette.querySelectorAll('.color-dot').forEach(dot => {
-      dot.addEventListener('click', () => {
-        const color = dot.dataset.color;
-        // ここで選択中の描画色を保持するなどの処理（必要に応じて拡張）
-        palette.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
-        dot.classList.add('active');
+    // ===== 3) 画像ドラッグ抑止 =====
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.querySelectorAll('img').forEach(img=>{
+        img.addEventListener('mousedown', e=>e.preventDefault());
+        img.addEventListener('dragstart', e=>e.preventDefault());
       });
     });
 
-    // -------------------------------
-    // 初期センタリング（CSS変数で座標管理）
-    // -------------------------------
-    function centerMannequin() {
-      // キャンバス中央に見た目上配置（画像サイズ読み込んでから）
-      const cRect = canvas.getBoundingClientRect();
-      const mRect = mannequin.getBoundingClientRect();
-      const x = (cRect.width  - mRect.width ) / 2;
-      const y = (cRect.height - mRect.height) / 2;
-      wrap.style.setProperty('--man-x', x + 'px');
-      wrap.style.setProperty('--man-y', y + 'px');
-    }
-    // 画像読み込み後にセンター
-    if (mannequin.complete) {
-      centerMannequin();
-    } else {
-      mannequin.addEventListener('load', centerMannequin);
-    }
+    // ===== 4) テーマ切替（light/dark/system） =====
+    (function(){
+      const KEY='vivora.theme', root=document.documentElement;
+      function apply(t){ root.setAttribute('data-theme', t); }
+      window.setTheme = t=>{
+        if(!['light','dark','system'].includes(t)) return;
+        localStorage.setItem(KEY,t); apply(t);
+      };
+      apply(localStorage.getItem(KEY)||'system');
+      matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change',()=>{ if(root.getAttribute('data-theme')==='system') apply('system'); });
+    })();
 
-    // -------------------------------
-    // Reset（HistoryのResetアイコン想定）
-    // -------------------------------
-    document.querySelectorAll('.history-tool img[alt="Reset"]').forEach(img => {
-      img.addEventListener('click', () => {
-        zoomRange.value = 50;
-        opacityRange.value = 100;
-        setZoomFromRange();
-        setOpacityFromRange();
-        centerMannequin();
+    // ===== 5) マネキン：スムーズピンチ＋二本指パン =====
+    (function(){
+      const wrap   = document.getElementById('man-zoom');
+      const canvas = document.getElementById('canvas');
+
+      let scale=1, targetScale=1;
+      let panX=0, targetPanX=0;
+      let panY=0, targetPanY=0;
+      const MIN=0.5, MAX=4;
+
+      const apply = ()=>{
+        wrap.style.setProperty('--man-scale', scale);
+        wrap.style.setProperty('--man-x', panX+'px');
+        wrap.style.setProperty('--man-y', panY+'px');
+      };
+
+      // 慣性イージング
+      let raf=null;
+      function animate(){
+        scale += (targetScale-scale)*0.20;
+        panX  += (targetPanX -panX )*0.20;
+        panY  += (targetPanY -panY )*0.20;
+        apply();
+        if (Math.abs(targetScale-scale)<0.0005 && Math.abs(targetPanX-panX)<0.1 && Math.abs(targetPanY-panY)<0.1){
+          cancelAnimationFrame(raf); raf=null; return;
+        }
+        raf=requestAnimationFrame(animate);
+      }
+      const tick=()=>{ if(!raf) raf=requestAnimationFrame(animate); };
+
+      const setScale=s=>{ targetScale=Math.min(MAX,Math.max(MIN,s)); tick(); };
+      const addPan=(dx,dy)=>{ targetPanX+=dx; targetPanY+=dy; tick(); };
+
+      // Ctrl+Wheel = ピンチ、2本指スクロール = パン
+      canvas.addEventListener('wheel', (e)=>{
+        if (e.ctrlKey){
+          e.preventDefault();
+          setScale(targetScale * Math.exp(-e.deltaY*0.002));
+        }else{
+          addPan(-e.deltaX, -e.deltaY);
+        }
+      }, {passive:false});
+
+      // Safari gesture
+      let gBase=1;
+      addEventListener('gesturestart', ()=>{ gBase=targetScale; }, {passive:true});
+      addEventListener('gesturechange', (e)=>{
+        e.preventDefault();
+        setScale(gBase * e.scale);
+      }, {passive:false});
+
+      // タッチピンチ＆パン
+      let t0=null, base=1;
+      const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+      const mid =(a,b)=>({x:(a.clientX+b.clientX)/2, y:(a.clientY+b.clientY)/2});
+      canvas.addEventListener('touchstart', e=>{
+        if(e.touches.length===2){
+          const [a,b]=e.touches; t0={d:dist(a,b), c:mid(a,b)}; base=targetScale;
+        }
+      }, {passive:true});
+      canvas.addEventListener('touchmove', e=>{
+        if(e.touches.length===2 && t0){
+          e.preventDefault();
+          const [a,b]=e.touches; const d=dist(a,b), c=mid(a,b);
+          setScale(base * (d/t0.d));
+          addPan((c.x - t0.c.x),(c.y - t0.c.y));
+        }
+      }, {passive:false});
+      canvas.addEventListener('touchend', ()=>{ t0=null; }, {passive:true});
+
+      // マウスドラッグ（任意・有効）
+      let drag=false, mx=0,my=0;
+      wrap.addEventListener('mousedown', e=>{ drag=true; mx=e.clientX; my=e.clientY; e.preventDefault(); });
+      addEventListener('mousemove', e=>{ if(!drag) return; addPan(e.clientX-mx, e.clientY-my); mx=e.clientX; my=e.clientY; });
+      addEventListener('mouseup',   ()=>{ drag=false; });
+
+      // ダブルクリック/タップでリセット
+      let last=0;
+      canvas.addEventListener('click', e=>{
+        const now=Date.now(); if(now-last<300){ targetScale=1; targetPanX=0; targetPanY=0; tick(); } last=now;
       });
-    });
 
+      apply();
+    })();
   </script>
 </body>
 </html>
