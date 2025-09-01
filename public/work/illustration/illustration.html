@@ -7,22 +7,24 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- ============== Top (canvasの外) ============== -->
+  <!-- ===== Topbar（canvasの外：ベージュ帯） ===== -->
   <div class="app">
     <div class="topbar">
-      <!-- 左：Next Step + contents -->
+      <!-- 左：Next Step + contents（Next Step はタイルの左上） -->
       <div class="topbar-left">
-        <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
-        <nav class="contents-button" aria-label="contents">
-          <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home" />
-          <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations" />
-          <img src="/create_parts/contents_button/2_fabric-matching.png"         alt="Fm"    title="Fabric Matching" />
-          <img src="/create_parts/contents_button/3_clothing-design.png"         alt="Cd"    title="Clothing Design" />
-          <img src="/create_parts/contents_button/4_pattern-creation.png"        alt="Pc"    title="Pattern Creation" />
-          <img src="/create_parts/contents_button/5_grading.png"                 alt="Gd"    title="Grading" />
-          <img src="/create_parts/contents_button/6_print-layout-cut.png"        alt="Plc"   title="Print/Layout/Cut" />
-          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)" />
-        </nav>
+        <div class="contents-tile">
+          <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
+          <nav class="contents-button" aria-label="contents">
+            <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home" />
+            <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations" />
+            <img src="/create_parts/contents_button/2_fabric-matching.png"         alt="Fm"    title="Fabric Matching" />
+            <img src="/create_parts/contents_button/3_clothing-design.png"         alt="Cd"    title="Clothing Design" />
+            <img src="/create_parts/contents_button/4_pattern-creation.png"        alt="Pc"    title="Pattern Creation" />
+            <img src="/create_parts/contents_button/5_grading.png"                 alt="Gd"    title="Grading" />
+            <img src="/create_parts/contents_button/6_print-layout-cut.png"        alt="Plc"   title="Print/Layout/Cut" />
+            <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)" />
+          </nav>
+        </div>
       </div>
 
       <!-- 中央：ページネーム -->
@@ -39,10 +41,11 @@
       </div>
     </div>
 
-    <!-- ============== Board (canvas 本体) ============== -->
+    <!-- ===== Board（canvas 本体） ===== -->
     <div class="board">
       <div class="canvas-wrapper">
-        <!-- Stationery（canvas内 右上） -->
+
+        <!-- Stationery tool（canvas内 右上・横並び） -->
         <div class="stationery-toolbar" aria-label="stationery">
           <img src="/create_parts/object_btn/select.png"        alt="Select"        title="Select" />
           <img src="/create_parts/object_btn/square.png"        alt="Rectangle"     title="Rectangle" />
@@ -53,6 +56,58 @@
           <img src="/create_parts/object_btn/direct_select.png" alt="Direct Select" title="Direct Select" />
           <img src="/create_parts/object_btn/graph_paper.png"   alt="Grid"          title="Grid" />
           <img src="/create_parts/object_btn/layer.png"         alt="Layer Panel"   title="Layer Panel" />
+        </div>
+
+        <!-- 右側レール群（見た目のみ） -->
+        <div class="tool-rails">
+          <div class="dropdown-rail">
+            <span class="dd-icon"></span>
+            <span class="dd-icon"></span>
+            <span class="dd-icon"></span>
+          </div>
+
+          <div class="color-rail" aria-label="color palette">
+            <!-- 2枚目に合わせた代表色（ダミー） -->
+            <span style="--c:#000000"></span>
+            <span style="--c:#8f8f8f"></span>
+            <span style="--c:#c0c0c0"></span>
+            <span style="--c:#ffffff"></span>
+            <span style="--c:#f9d96b"></span>
+            <span style="--c:#f24e4e"></span>
+            <span style="--c:#ff9900"></span>
+            <span style="--c:#f2ccde"></span>
+            <span style="--c:#79c267"></span>
+            <span style="--c:#28a5a7"></span>
+            <span style="--c:#3a78ff"></span>
+            <span style="--c:#6a4cff"></span>
+            <span style="--c:#a349a4"></span>
+            <span style="--c:#7a3b26"></span>
+            <span style="--c:#3b3b3b"></span>
+          </div>
+
+          <div class="opacity-rail" aria-label="opacity">
+            <div class="op-track"><span class="op-thumb" style="--y:20%"></span></div>
+          </div>
+
+          <div class="layer-rail" aria-label="layers">
+            <div class="layer-card">
+              <div class="layer-header"><span class="lock"></span></div>
+              <div class="layer-body"></div>
+              <div class="layer-footer"><span></span><span></span><span></span></div>
+            </div>
+            <div class="layer-card">
+              <div class="layer-header"><span class="lock"></span></div>
+              <div class="layer-body"></div>
+              <div class="layer-footer"><span></span><span></span><span></span></div>
+            </div>
+            <div class="layer-card">
+              <div class="layer-header"><span class="lock"></span></div>
+              <div class="layer-body"></div>
+              <div class="layer-footer"><span></span><span></span><span></span></div>
+            </div>
+            <button class="layer-plus">＋</button>
+            <button class="layer-trash"></button>
+          </div>
         </div>
 
         <!-- Mannequin（中央） -->
@@ -66,7 +121,7 @@
   <script>
     // 将来の機能フック
     document.querySelectorAll('.stationery-toolbar img, .history-tool img, .contents-button img')
-      .forEach(el => el.addEventListener('click', () => {/* TODO */}));
+      .forEach(el => el.addEventListener('click', () => { /* TODO: 実装予定 */ }));
   </script>
 </body>
 </html>
