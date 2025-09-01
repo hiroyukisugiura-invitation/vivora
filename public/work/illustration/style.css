@@ -549,3 +549,42 @@ body{
 .canvas .toolbox-right img, .canvas .toolbox-right svg{
   width: 28px; height: 28px; object-fit: contain;
 }
+/* ====== 固定レイアウトを等倍スケールで拡大縮小 ====== */
+/* 基準サイズ（あなたの現在UIに合わせて良い。必要なら後で微調整） */
+:root{
+  --base-w: 1280;   /* 基準の横幅(px) */
+  --base-h: 820;    /* 基準の縦幅(px) … Topbar＋Canvas が収まる値 */
+  --app-scale: 1;   /* JS で更新されるスケール値 */
+  --stage-margin: 16px; /* 画面端の余白 */
+}
+
+/* 画面全体をビューポートに */
+html, body{
+  height: 100%;
+}
+
+/* .app を“舞台(ステージ)”として固定寸法にしてスケールだけ掛ける */
+.app{
+  width: calc(var(--base-w) * 1px);
+  height: calc(var(--base-h) * 1px);
+  transform: scale(var(--app-scale));
+  transform-origin: top left;     /* 左上起点で拡大縮小（ズレ防止） */
+  will-change: transform;
+  margin: 0 auto;                 /* 中央寄せ（左右） */
+  position: relative;
+}
+
+/* ステージの外側に最低限の余白を確保（上下左右） */
+body{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--stage-margin);
+  overflow: auto;
+}
+
+/* スケール時のボケ防止（SVG/PNG） */
+.topbar img, .topbar svg,
+.canvas img, .canvas svg{
+  image-rendering: auto;
+}
