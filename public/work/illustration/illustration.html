@@ -4,27 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Vivora Fashion Illustration 2025</title>
-  <!-- 固定レイアウト用CSS -->
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <!-- ================================
        Vivora Fashion Illustration 2025
-       固定レイアウト（1280x800）
+       - タイトル & history：キャンバス外（ベージュ帯）
        - キャンバス内：mannequin + stationery のみ
-       - 内側ホワイトボードは撤去（背景/枠なし）
        ================================= -->
 
   <div class="app">
-    <div class="board">
-
-      <!-- Next Step（左上・小さめ・2枚目準拠） -->
-      <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
-
-      <!-- タイトル（最上段中央） -->
+    <!-- ▼ ベージュ領域のトップバー（キャンバス外） -->
+    <div class="topbar">
       <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-
-      <!-- History tool（右上：2枚目の順序に合わせて） -->
       <div class="history-tool" aria-label="history">
         <img src="/create_parts/create_button/reset.png"     alt="Undo"     title="Undo" />
         <img src="/create_parts/create_button/retreat.png"   alt="Redo"     title="Redo" />
@@ -33,8 +25,15 @@
         <img src="/create_parts/create_button/upload.png"    alt="Upload"   title="Upload" />
         <img src="/create_parts/create_button/save.png"      alt="Save"     title="Save" />
       </div>
+    </div>
 
-      <!-- Contents button（Next Stepの下・左上横並び） -->
+    <!-- ▼ ホワイトのボード（キャンバス本体） -->
+    <div class="board">
+
+      <!-- Next Step（左上・小さめ） -->
+      <button id="next-step" class="ghost-btn">Next Step ▶▶</button>
+
+      <!-- Contents（Next Stepの右側） -->
       <nav class="contents-button" aria-label="contents">
         <img src="/create_parts/contents_button/0_home.png"                    alt="Home"  title="Home" />
         <img src="/create_parts/contents_button/1_fashion-illustrations.png"   alt="Fi"    title="Fashion Illustrations" />
@@ -46,11 +45,10 @@
         <img src="/create_parts/contents_button/digital-dressing-kids-mode.png"alt="Dk"    title="Digital Dressing (Kids)" />
       </nav>
 
-      <!-- ===== キャンバス ===== -->
+      <!-- ===== キャンバス（白ボード内） ===== -->
       <div class="canvas-wrapper">
-        <!-- Stationery（キャンバス内 右上・9個） -->
+        <!-- Stationery（キャンバス内 右上） -->
         <div class="stationery-toolbar" aria-label="stationery">
-          <!-- 2枚目の並びに合わせた最小構成（選択/矩形/ペン/消しゴム/塗り/テキスト/ダイレクト/グリッド/レイヤー） -->
           <img src="/create_parts/object_btn/select.png"        alt="Select"        title="Select" />
           <img src="/create_parts/object_btn/square.png"        alt="Rectangle"     title="Rectangle" />
           <img src="/create_parts/object_btn/pen.png"           alt="Pen"           title="Pen" />
@@ -62,7 +60,7 @@
           <img src="/create_parts/object_btn/layer.png"         alt="Layer Panel"   title="Layer Panel" />
         </div>
 
-        <!-- マネキン（常に中央） -->
+        <!-- マネキン（中央） -->
         <img id="mannequin"
              src="/mannequin/mannequin_woman/mannequin_woman_front.png"
              alt="Mannequin (Woman Front)" />
@@ -70,12 +68,11 @@
     </div>
   </div>
 
-  <!-- ========== JS：将来の機能フックのみ（UIは静的配置） ========== -->
+  <!-- クリックフック：将来機能用 -->
   <script>
-    // 日本語コメント：各ボタンのクリックで機能追加予定
     document.querySelectorAll('.stationery-toolbar img, .history-tool img, .contents-button img')
       .forEach(el => el.addEventListener('click', () => {
-        // TODO: ここに各機能を実装（今はUIのみ）
+        // TODO: 後で各機能を実装
       }));
   </script>
 </body>
