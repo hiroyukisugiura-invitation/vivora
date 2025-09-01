@@ -3,7 +3,7 @@
    - マス目構造に完全準拠（1マス = 26px）
    - 画像はGit内の配置と一致
    - 各種ツール表示切替、装飾、レイアウト設定
-   - レスポンシブは無効（固定配置）
+   - レスポンシブは無効（完全固定配置）
 ======================================= */
 
 :root {
@@ -11,159 +11,171 @@
   --panel: #ffffff;
   --line: #dcd2c8;
   --text: #2a2a2a;
-  --grid-size: 26px;
+  --icon-size: 32px;
+  --icon-gap: 8px;
+  --border-radius: 10px;
   --shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --grid-size: 26px;
 }
 
 body {
   margin: 0;
-  background-color: var(--bg);
   font-family: 'Helvetica Neue', sans-serif;
+  background: var(--bg);
+  color: var(--text);
   overflow: hidden;
 }
 
-/* ==== Header Section ==== */
+/* =======================================
+   各要素のマス配置と絶対位置（calcで制御）
+======================================= */
+
 #next-step {
   position: absolute;
   top: calc(var(--grid-size) * 5);
   left: calc(var(--grid-size) * 3);
-  font-size: 12px;
-  z-index: 10;
+  width: calc(var(--grid-size) * 4);
+  height: calc(var(--grid-size) * 1.5);
+  font-size: 14px;
 }
 
-#contents-button {
+.contents-button {
   position: absolute;
   top: calc(var(--grid-size) * 8);
   left: calc(var(--grid-size) * 3);
   display: flex;
-  gap: 8px;
-  z-index: 10;
+  gap: calc(var(--grid-size) * 0.5);
 }
 
-#contents-button img {
-  width: calc(var(--grid-size) * 2.5);
-}
-
-#page-title {
+.page-title {
   position: absolute;
   top: calc(var(--grid-size) * 3);
   left: calc(var(--grid-size) * 42);
-  font-size: 14px;
+  width: calc(var(--grid-size) * 17);
+  text-align: center;
   font-weight: bold;
+  font-size: 14px;
 }
 
-#history-tool {
+.history-tool {
   position: absolute;
   top: calc(var(--grid-size) * 8);
   left: calc(var(--grid-size) * 78);
   display: flex;
-  gap: 8px;
-  z-index: 10;
+  gap: calc(var(--grid-size) * 0.5);
 }
 
-#history-tool img {
-  width: calc(var(--grid-size) * 2);
-}
-
-/* ==== Canvas Area ==== */
-#canvas-wrapper {
+.canvas-wrapper {
   position: absolute;
   top: calc(var(--grid-size) * 11);
   left: calc(var(--grid-size) * 3);
   width: calc(var(--grid-size) * 94);
   height: calc(var(--grid-size) * 56);
   background: var(--panel);
-  border-radius: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
   z-index: 1;
+  overflow: hidden;
 }
 
 #mannequin {
   position: absolute;
   top: calc(var(--grid-size) * 21);
   left: calc(var(--grid-size) * 46);
+  width: calc(var(--grid-size) * 9);
   height: calc(var(--grid-size) * 37);
+  object-fit: contain;
+  z-index: 2;
+  pointer-events: none;
 }
 
-/* ==== Stationery Tool ==== */
-#stationery-tool {
+.stationery-tool {
   position: absolute;
   top: calc(var(--grid-size) * 13);
   left: calc(var(--grid-size) * 78);
   display: flex;
-  gap: 6px;
+  gap: calc(var(--grid-size) * 0.5);
 }
 
-#stationery-tool img {
-  width: calc(var(--grid-size) * 2);
-}
-
-/* ==== Dropdown Tools ==== */
-#direct-select {
+.tool-dropdown {
   position: absolute;
   top: calc(var(--grid-size) * 16);
   left: calc(var(--grid-size) * 78);
-  width: calc(var(--grid-size) * 2);
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
 }
 
-#circle-tool {
-  position: absolute;
+.tool-dropdown.active {
+  display: flex;
+}
+
+.tool-dropdown .row {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--grid-size) * 0.5);
+}
+
+.direct-select {
+  top: calc(var(--grid-size) * 16);
+  left: calc(var(--grid-size) * 78);
+}
+
+.circle-icon {
   top: calc(var(--grid-size) * 16);
   left: calc(var(--grid-size) * 80);
-  width: calc(var(--grid-size) * 4);
 }
 
 .pen-tools {
   position: absolute;
-  top: calc(var(--grid-size) * 16);
+  top: calc(var(--grid-size) * 17);
   left: calc(var(--grid-size) * 83);
   display: flex;
   flex-direction: column;
-  gap: calc(var(--grid-size) * 2);
+  gap: 4px;
 }
 
-.pen-tools img {
-  width: calc(var(--grid-size) * 1.5);
-}
-
-/* ==== Color Panel ==== */
-#color-panel {
+.color-panel {
   position: absolute;
   top: calc(var(--grid-size) * 18);
   left: calc(var(--grid-size) * 85);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
-#color-panel .color {
-  width: calc(var(--grid-size) * 1.5);
-  height: calc(var(--grid-size) * 1.5);
-  border-radius: 50%;
-  border: 1px solid #888;
-}
-
-/* ==== Opacity Bar ==== */
-#opacity-bar {
+.opacity-bar {
   position: absolute;
   top: calc(var(--grid-size) * 15);
   left: calc(var(--grid-size) * 88);
-  width: calc(var(--grid-size) * 5);
+  background: var(--panel);
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }
 
-/* ==== Layer Panel ==== */
-#layer-panel {
+.layer-panel {
   position: absolute;
   top: calc(var(--grid-size) * 16);
   left: calc(var(--grid-size) * 94);
   display: flex;
   flex-direction: column;
-  gap: calc(var(--grid-size) * 2);
+  gap: calc(var(--grid-size) * 0.5);
 }
 
-.layer {
+.layer-box {
   width: calc(var(--grid-size) * 3);
   height: calc(var(--grid-size) * 7);
-  border: 1px solid #aaa;
-  border-radius: 8px;
   background: #fff;
+  border: 2px solid #aaa;
+  border-radius: 10px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
