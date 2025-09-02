@@ -1,603 +1,566 @@
 <!DOCTYPE html>
-<html lang="ja" data-theme="system">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="viewport">
-    <div class="app" role="application" aria-label="Vivora Fashion Illustration 2025">
-      <!-- ====== ヘッダー（タイトル左 / Next Step 右） ====== -->
-      <header class="topbar">
-        <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
-        <div class="right-head">
-          <button id="btn-next" class="ghost-btn" type="button" title="次のステップ">Next Step ▶▶</button>
-          <nav class="contents" aria-label="contents">
-            <!-- リポジトリ内の contents_button を使用 -->
-            <img src="/create_parts/contents_button/0_home.png" alt="Home" title="Home" draggable="false"/>
-            <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="FI" title="Fashion Illustrations" draggable="false"/>
-            <img src="/create_parts/contents_button/2_fabric-matching.png"       alt="FM" title="Fabric Matching" draggable="false"/>
-            <img src="/create_parts/contents_button/3_clothing-design.png"        alt="CD" title="Clothing Design" draggable="false"/>
-            <img src="/create_parts/contents_button/4_pattern-creation.png"       alt="PC" title="Pattern Creation" draggable="false"/>
-            <img src="/create_parts/contents_button/5_grading.png"                alt="GD" title="Grading" draggable="false"/>
-            <img src="/create_parts/contents_button/6_print-layout-cut.png"       alt="PLC" title="Print/Layout/Cut" draggable="false"/>
-            <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="DD" title="Digital Dressing (Kids)" draggable="false"/>
-          </nav>
+  <div class="app" role="application" aria-label="Vivora Fashion Illustration 2025">
+
+    <!-- ========== ヘッダー ========== -->
+    <header class="topbar" aria-label="topbar">
+      <div class="page-title">Vivora Fashion Illustration 2025</div>
+
+      <div class="top-controls">
+        <button class="next-step" id="btn-next">Next Step ▶▶</button>
+        <nav class="contents-button" aria-label="contents">
+          <img src="/create_parts/contents_button/0_home.png"  alt="Home"        title="Home"        class="cont-btn">
+          <img src="/create_parts/contents_button/1_inspiration.png" alt="Insp"  title="Inspiration" class="cont-btn">
+          <img src="/create_parts/contents_button/2_mannequin.png"   alt="Manq"  title="Mannequin"   class="cont-btn">
+          <img src="/create_parts/contents_button/3_cutting.png"     alt="Cut"   title="Cutting"     class="cont-btn">
+          <img src="/create_parts/contents_button/4_pen.png"         alt="Pen"   title="Pen"         class="cont-btn">
+          <img src="/create_parts/contents_button/5_color.png"       alt="Color" title="Color"       class="cont-btn">
+          <img src="/create_parts/contents_button/6_dic.png"         alt="Dic"   title="Dictionary"  class="cont-btn">
+        </nav>
+      </div>
+    </header>
+
+    <!-- ========== 作業領域 ========== -->
+    <main class="workspace">
+
+      <!-- ボード：マネキン + 3枚の描画キャンバス + グリッド -->
+      <section id="board" aria-label="canvas-board">
+        <!-- グリッド（方眼紙）：トグル表示 -->
+        <img id="graph-paper" src="/public/graph_paper.png" alt="Graph Paper">
+
+        <!-- マネキン（ピンチズーム＆パンのベース） -->
+        <img id="mannequin" src="/public/mannequin/mannequin_woman.png" alt="Mannequin">
+
+        <!-- 3レイヤーのキャンバス（Z順：下→上） -->
+        <canvas id="layer-1" width="1024" height="640" aria-label="Layer 1"></canvas>
+        <canvas id="layer-2" width="1024" height="640" aria-label="Layer 2"></canvas>
+        <canvas id="layer-3" width="1024" height="640" aria-label="Layer 3"></canvas>
+
+        <!-- ズームHUD -->
+        <div id="zoom-hud">100%</div>
+      </section>
+
+      <!-- 右サイドバー -->
+      <aside class="sidebar">
+
+        <!-- Upload / Download / Save -->
+        <div class="file-tools">
+          <button id="btn-upload"  title="Upload (mannequin)">⬆</button>
+          <button id="btn-download" title="Download PNG">⬇</button>
+          <button id="btn-save"     title="Save Project">💾</button>
         </div>
-      </header>
 
-      <!-- ====== ボード（キャンバス＋右パネル） ====== -->
-      <main class="board">
-        <!-- キャンバス面 -->
-        <section class="canvas-wrap" id="canvasWrap" aria-label="drawing board">
-          <!-- マス目（方眼紙） -->
-          <div id="gridOverlay" class="grid-overlay" aria-hidden="true"></div>
-
-          <!-- マネキン（ピンチズーム＋パン） -->
-          <div id="man-zoom" class="man-zoom">
-            <img id="mannequin"
-                 src="/mannequin/mannequin_woman/mannequin_woman_front.png"
-                 alt="Mannequin - Woman Front" draggable="false"/>
-          </div>
-
-          <!-- ドロー用レイヤー（キャンバスを積層） -->
-          <div id="canvasStack" class="canvas-stack" aria-live="off"></div>
-
-          <!-- 右中央に出る不透明度バー（ツール選択時のみ表示） -->
-          <div id="opacityFloat" class="opacity-float" hidden>
-            <label for="opacityRange">Opacity</label>
-            <input id="opacityRange" type="range" min="0" max="1" step="0.01" value="1"/>
-            <span id="opacityValue">100%</span>
-          </div>
-        </section>
-
-        <!-- 右パネル -->
-        <aside class="right-rail" aria-label="tool rail">
-          <!-- ファイル操作（右パネル最上部：レイヤとステーショナリの中央上） -->
-          <div class="file-ops">
-            <button id="btn-upload" class="icon-btn" title="アップロード">
-              <img src="/create_parts/create_button/upload.png" alt="Upload" draggable="false"/>
-            </button>
-            <button id="btn-download" class="icon-btn" title="ダウンロード">
-              <img src="/create_parts/create_button/download.png" alt="Download" draggable="false"/>
-            </button>
-            <button id="btn-save" class="icon-btn" title="保存（ローカル）">
-              <img src="/create_parts/create_button/save.png" alt="Save" draggable="false"/>
-            </button>
-          </div>
-
-          <!-- レイヤ（カセットUI・画像通りの縦並び） -->
-          <div class="layer-panel" id="layerPanel" aria-label="layers">
-            <!-- JSでアイテム生成（初期3枚） -->
-          </div>
-
-          <!-- ステーショナリ（縦アイコン） -->
-          <div class="tool-column" id="toolColumn" aria-label="stationery tools">
-            <button class="tool" data-tool="select" title="選択">
-              <img src="/create_parts/object_btn/select.png" alt="Select" draggable="false"/>
-            </button>
-            <button class="tool" data-tool="line" title="直線">
-              <img src="/create_parts/object_btn/triangle.png" alt="Line" draggable="false"/>
-            </button>
-            <button class="tool" data-tool="rect" title="長方形">
-              <img src="/create_parts/object_btn/square.png" alt="Rectangle" draggable="false"/>
-            </button>
-            <button class="tool" data-tool="ellipse" title="楕円">
-              <img src="/create_parts/object_btn/circle.png" alt="Ellipse" draggable="false"/>
-            </button>
-            <button class="tool" data-tool="brush" title="ブラシ（ドラッグで描画）">
-              <img src="/create_parts/object_btn/brush.png" alt="Brush" draggable="false"/>
-            </button>
-            <button class="tool" data-tool="eraser" title="消しゴム（ドラッグで消去）">
-              <img src="/create_parts/object_btn/eraser.png" alt="Eraser" draggable="false"/>
-            </button>
-            <button class="tool" data-tool="text" title="テキスト（クリックで配置）">
-              <img src="/create_parts/object_btn/sentence.png" alt="Text" draggable="false"/>
-            </button>
-            <button class="tool" data-tool="grid" title="方眼紙の表示/スナップ切替">
-              <img src="/create_parts/object_btn/graph_paper.png" alt="Grid" draggable="false"/>
-            </button>
-            <button class="tool" data-tool="layer" title="レイヤーパネルを強調表示">
-              <img src="/create_parts/object_btn/layer.png" alt="Layer" draggable="false"/>
-            </button>
-          </div>
-
-          <!-- カラーパレット（縦） -->
-          <div class="color-column" id="colorColumn" aria-label="colors">
-            <!-- JSで既定色を生成 -->
-            <div class="color-actions">
-              <button id="btn-add-color" class="pill-btn" title="色を追加">＋</button>
-              <button id="btn-eyedropper" class="pill-btn" title="スポイト">🩸</button>
-              <input id="hidden-color" type="color" hidden />
+        <!-- Layer パネル -->
+        <div class="layer-panel" aria-label="layers">
+          <!-- 各ボックス：表示(V)・ロック(🔒)・選択(●)・クリア(🗑) -->
+          <div class="layer-box" data-layer="3">
+            <div class="layer-toolbar">
+              <button class="vis" title="toggle visibility">👁</button>
+              <button class="lock" title="lock/unlock">🔒</button>
+              <button class="clr" title="clear layer">🗑</button>
             </div>
+            <div class="layer-title">Layer 3</div>
+            <input type="radio" name="active-layer" checked>
           </div>
-        </aside>
-      </main>
-    </div>
+
+          <div class="layer-box" data-layer="2">
+            <div class="layer-toolbar">
+              <button class="vis" title="toggle visibility">👁</button>
+              <button class="lock" title="lock/unlock">🔒</button>
+              <button class="clr" title="clear layer">🗑</button>
+            </div>
+            <div class="layer-title">Layer 2</div>
+            <input type="radio" name="active-layer">
+          </div>
+
+          <div class="layer-box" data-layer="1">
+            <div class="layer-toolbar">
+              <button class="vis" title="toggle visibility">👁</button>
+              <button class="lock" title="lock/unlock">🔒</button>
+              <button class="clr" title="clear layer">🗑</button>
+            </div>
+            <div class="layer-title">Layer 1</div>
+            <input type="radio" name="active-layer">
+          </div>
+        </div>
+
+        <!-- ステーショナリー -->
+        <div class="stationery-tools" aria-label="stationery">
+          <button class="tool" data-tool="pencil"   title="鉛筆">✏️</button>
+          <button class="tool" data-tool="ballpen"  title="ボールペン">🖊</button>
+          <button class="tool" data-tool="brush"    title="筆ブラシ">🖌</button>
+          <button class="tool" data-tool="marker"   title="マーカー">🖍</button>
+          <button class="tool" data-tool="anchor"   title="アンカーペン">📐</button>
+          <button class="tool" data-tool="eraser"   title="消しゴム">🧽</button>
+
+          <!-- 太さ：ツール選択時だけ表示 -->
+          <label id="size-wrap" class="size-wrap">
+            <span>Size</span>
+            <input id="size" type="range" min="1" max="60" value="8">
+            <span id="size-val">8</span>
+          </label>
+        </div>
+
+        <!-- Opacity -->
+        <div class="opacity-tool" title="Opacity">
+          <input id="opacity" type="range" min="5" max="100" value="100">
+          <span id="op-val">100%</span>
+        </div>
+
+        <!-- Color パレット -->
+        <div class="color-tool" aria-label="colors">
+          <!-- グレー3 + カラー10 + 黒 の12色構成（画像準拠） -->
+          <button class="color c-gray3"  data-col="#E6E6E6"></button>
+          <button class="color c-gray2"  data-col="#BFBFBF"></button>
+          <button class="color c-gray1"  data-col="#9E9E9E"></button>
+
+          <button class="color c-ylw"    data-col="#F8D548"></button>
+          <button class="color c-org"    data-col="#F6A34D"></button>
+          <button class="color c-red"    data-col="#E25B5B"></button>
+          <button class="color c-pink"   data-col="#DE6AAE"></button>
+          <button class="color c-vio"    data-col="#8E65D8"></button>
+          <button class="color c-blu"    data-col="#4E78DA"></button>
+          <button class="color c-cyan"   data-col="#42BFD3"></button>
+          <button class="color c-grn"    data-col="#58C16C"></button>
+          <button class="color c-brwn"   data-col="#A46D4B"></button>
+          <button class="color c-black"  data-col="#111111"></button>
+        </div>
+
+        <!-- グリッドトグル -->
+        <button id="btn-grid" class="grid-btn" title="Toggle Grid (G)">#</button>
+      </aside>
+    </main>
   </div>
 
-  <!-- ====== JS：レイアウト/描画/ツール動作 ====== -->
+  <!-- =========================
+       JavaScript（描画・操作系）
+       ========================= -->
   <script>
-  // ========= ユーティリティ =========
-  const $ = (q, el=document) => el.querySelector(q);
-  const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
-  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-  const toPx = n => `${Math.round(n)}px`;
+  // ============ 参照取得 ============
+  const board = document.getElementById('board');
+  const mannequin = document.getElementById('mannequin');
+  const grid = document.getElementById('graph-paper');
+  const zoomHUD = document.getElementById('zoom-hud');
 
-  // ========= レイアウト（安定版のスケール＆テーマを継承） =========
-  (function autoFit(){   // 画面に応じて app をスケール（DPR半刻み）:contentReference[oaicite:2]{index=2}:contentReference[oaicite:3]{index=3}
-    const css = () => getComputedStyle(document.documentElement);
-    const num = v => parseFloat(v) || 0;
-    function snapScale(baseW, baseH, vw, vh){
-      const raw = Math.max(0.5, Math.min(vw/baseW, vh/baseH));
-      const wSnap = Math.floor(baseW * raw);
-      const hSnap = Math.floor(baseH * raw);
-      let s = Math.min(wSnap/baseW, hSnap/baseH);
-      const dpr = window.devicePixelRatio || 1;
-      s = Math.round(s * dpr * 2) / (dpr * 2);
-      return Math.max(0.5, s);
-    }
-    function fit(){
-      const W = num(css().getPropertyValue('--base-w')) || 1280;
-      const H = num(css().getPropertyValue('--base-h')) || 820;
-      const M = num(css().getPropertyValue('--viewport-margin')) || 24;
-      const vw = window.innerWidth  - M*2;
-      const vh = window.innerHeight - M*2;
-      const s  = snapScale(W,H,vw,vh);
-      document.documentElement.style.setProperty('--app-scale', s);
-    }
-    addEventListener('resize', fit, {passive:true});
-    addEventListener('orientationchange', fit, {passive:true});
-    document.addEventListener('DOMContentLoaded', fit);
-  })();
+  const canvases = [
+    document.getElementById('layer-1'),
+    document.getElementById('layer-2'),
+    document.getElementById('layer-3'),
+  ];
+  const ctxs = canvases.map(c => c.getContext('2d'));
 
-  (function theme(){
-    const KEY='vivora.theme', root=document.documentElement;
-    function apply(t){ root.setAttribute('data-theme', t); }
-    window.setTheme = t=>{
-      if(!['light','dark','system'].includes(t)) return;
-      localStorage.setItem(KEY,t); apply(t);
-    };
-    apply(localStorage.getItem(KEY)||'system');
-    matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{
-      if(root.getAttribute('data-theme')==='system') apply('system');
-    });
-  })();
-
-  // ========= キャンバス＆レイヤ =========
-  const canvasWrap = $('#canvasWrap');
-  const canvasStack = $('#canvasStack');
-  const layerPanel = $('#layerPanel');
-
-  const LAYERS = []; // {id, name, canvas, ctx, visible, locked}
-  let activeLayer = null;
-
-  function makeLayer(name){
-    const c = document.createElement('canvas');
-    const rect = canvasWrap.getBoundingClientRect();
-    c.width = Math.floor(rect.width);
-    c.height = Math.floor(rect.height);
-    c.className = 'draw-layer';
-    canvasStack.appendChild(c);
-    const item = { id: crypto.randomUUID(), name, canvas:c, ctx:c.getContext('2d', {willReadFrequently:true}), visible:true, locked:false };
-    LAYERS.push(item);
-    buildLayerUI();
-    if(!activeLayer) setActiveLayer(item.id);
-    return item;
+  // サイズ（ボードに対して中央に収める）
+  function fitCanvases(){
+    const w = 1024, h = 640; // 作業領域（画像準拠：余白を確保）
+    canvases.forEach(c => { c.width = w; c.height = h; });
+    // 中央配置は CSS で実施（position:absolute + transform で追従）
   }
+  fitCanvases();
 
-  function resizeLayers(){ // ボードのサイズ変化でリサイズ（内容は保持しつつ再描画できるように ImageData を転送）
-    const rect = canvasWrap.getBoundingClientRect();
-    LAYERS.forEach(L=>{
-      const prev = L.ctx.getImageData(0,0,L.canvas.width,L.canvas.height);
-      L.canvas.width = Math.floor(rect.width);
-      L.canvas.height = Math.floor(rect.height);
-      L.ctx.putImageData(prev,0,0);
-    });
-  }
-  new ResizeObserver(resizeLayers).observe(canvasWrap);
+  // ============ 状態 ============
+  let activeLayer = 2; // 0..2（初期：最上段=2）
+  let tool = null;     // 'pencil' | 'ballpen' | 'brush' | 'marker' | 'anchor' | 'eraser'
+  let color = '#111111';
+  let size = 8;
+  let opacity = 1.0;
 
-  function setActiveLayer(id){
-    activeLayer = LAYERS.find(l=>l.id===id) || null;
-    $$('.layer-item').forEach(n=>n.classList.toggle('active', n.dataset.id===id));
-  }
+  // ズーム＆パン（ボード全体を transform）
+  let scale = 1.0;
+  let tx = 0, ty = 0;
 
-  function buildLayerUI(){
-    layerPanel.innerHTML = '';
-    LAYERS.forEach((L, idx)=>{
-      const row = document.createElement('div');
-      row.className = 'layer-item';
-      row.dataset.id = L.id;
-      row.innerHTML = `
-        <div class="layer-head">
-          <span class="layer-name">${L.name}</span>
-          <div class="layer-ops">
-            <button class="i" data-act="up" title="上へ">▲</button>
-            <button class="i" data-act="down" title="下へ">▼</button>
-          </div>
-        </div>
-        <div class="layer-foot">
-          <button class="i" data-act="lock" title="${L.locked?'ロック解除':'ロック'}">🔒</button>
-          <button class="i" data-act="vis"  title="${L.visible?'非表示':'表示'}">${L.visible?'👁':'🚫'}</button>
-          <button class="i" data-act="clear" title="レイヤをクリア">🧹</button>
-          <button class="i danger" data-act="del" title="削除">🗑</button>
-        </div>
-      `;
-      row.addEventListener('click', e=>{
-        if(e.target.closest('.i')) return; // ボタンは別ハンドラ
-        setActiveLayer(L.id);
-      });
-      row.addEventListener('mousedown', e=>e.preventDefault());
-      layerPanel.appendChild(row);
-    });
+  // アンカーペン用
+  let anchorPoints = [];
+  let anchorActive = false;
 
-    // footer: add
-    const add = document.createElement('button');
-    add.className='layer-add';
-    add.textContent='＋ 新規レイヤ';
-    add.addEventListener('click', ()=>{
-      const layer = makeLayer('Layer ' + (LAYERS.length+1));
-      setActiveLayer(layer.id);
-    });
-    layerPanel.appendChild(add);
-
-    // ops
-    $$('.layer-item .i', layerPanel).forEach(btn=>{
-      btn.addEventListener('click', e=>{
-        const row = e.currentTarget.closest('.layer-item');
-        const L = LAYERS.find(v=>v.id===row.dataset.id);
-        if(!L) return;
-        const act = e.currentTarget.dataset.act;
-        if(act==='lock'){ L.locked=!L.locked; }
-        if(act==='vis'){ L.visible=!L.visible; L.canvas.style.visibility = L.visible?'visible':'hidden'; }
-        if(act==='clear'){ L.ctx.clearRect(0,0,L.canvas.width,L.canvas.height); }
-        if(act==='del'){
-          if(confirm('このレイヤを削除しますか？')){
-            L.canvas.remove();
-            const i = LAYERS.indexOf(L);
-            LAYERS.splice(i,1);
-            activeLayer = null;
-          }
-        }
-        if(act==='up' || act==='down'){
-          const i = LAYERS.indexOf(L);
-          const j = i + (act==='up'?-1:1);
-          if(j>=0 && j<LAYERS.length){
-            // スタック入れ替え
-            [LAYERS[i], LAYERS[j]] = [LAYERS[j], LAYERS[i]];
-            canvasStack.insertBefore(LAYERS[j].canvas, LAYERS[i].canvas);
-          }
-        }
-        buildLayerUI();
-        if(!activeLayer && LAYERS[0]) setActiveLayer(LAYERS[LAYERS.length-1].id);
-      });
-    });
-  }
-
-  // 初期レイヤ
-  makeLayer('Layer 1'); makeLayer('Layer 2'); makeLayer('Layer 3');
-
-  // ========= マネキン：ピンチズーム＋パン（安定版を最適化移植） =========
-  (function(){
-    const wrap   = $('#man-zoom');
-    const canvas = $('#canvasWrap');
-
-    let scale=1, targetScale=1;
-    let panX=0, targetPanX=0;
-    let panY=0, targetPanY=0;
-    const MIN=0.5, MAX=4;
-
-    // 初期サイズ：マス目単位（--grid）× 46 マスを高さ目安に
-    function fitMannequinToGrid(){
-      const grid = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--grid')) || 8;
-      const targetH = grid * 46; // 画像比率を保ちつつ、だいたいイメージどおり
-      const img = $('#mannequin');
-      img.style.height = toPx(targetH);
-    }
-    document.addEventListener('DOMContentLoaded', fitMannequinToGrid);
-
-    const apply = ()=>{
-      wrap.style.setProperty('--man-scale', scale);
-      wrap.style.setProperty('--man-x', panX+'px');
-      wrap.style.setProperty('--man-y', panY+'px');
-    };
-
-    let raf=null;
-    function animate(){
-      scale += (targetScale-scale)*0.20;
-      panX  += (targetPanX -panX )*0.20;
-      panY  += (targetPanY -panY )*0.20;
-      apply();
-      if (Math.abs(targetScale-scale)<0.0005 && Math.abs(targetPanX-panX)<0.1 && Math.abs(targetPanY-panY)<0.1){
-        cancelAnimationFrame(raf); raf=null; return;
+  // ============ UI 連動 ============
+  // tool
+  document.querySelectorAll('.tool').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tool = btn.dataset.tool;
+      document.querySelectorAll('.tool').forEach(b=>b.classList.toggle('active', b===btn));
+      const showSizer = (tool !== 'anchor'); // アンカーは線幅は今は size 反映でもOK
+      document.getElementById('size-wrap').style.display = showSizer ? 'grid' : 'none';
+      if(tool==='marker'){ /* markerの既定透明度(重ね塗り感) */
+        document.getElementById('opacity').value = 35; // 35%
+        updateOpacity();
       }
-      raf=requestAnimationFrame(animate);
-    }
-    const tick=()=>{ if(!raf) raf=requestAnimationFrame(animate); };
-
-    const setScale=s=>{ targetScale=clamp(s,MIN,MAX); tick(); };
-    const addPan=(dx,dy)=>{ targetPanX+=dx; targetPanY+=dy; tick(); };
-
-    // Ctrl+ホイール＝ズーム、2本指＝パン
-    canvas.addEventListener('wheel', (e)=>{
-      if (e.ctrlKey){ e.preventDefault(); setScale(targetScale * Math.exp(-e.deltaY*0.002)); }
-      else{ addPan(-e.deltaX, -e.deltaY); }
-    }, {passive:false});
-
-    // Safari gesture
-    let gBase=1;
-    addEventListener('gesturestart', ()=>{ gBase=targetScale; }, {passive:true});
-    addEventListener('gesturechange', (e)=>{ e.preventDefault(); setScale(gBase * e.scale); }, {passive:false});
-
-    // タッチピンチ＆パン
-    let t0=null, base=1;
-    const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
-    const mid =(a,b)=>({x:(a.clientX+b.clientX)/2, y:(a.clientY+b.clientY)/2});
-    canvas.addEventListener('touchstart', e=>{
-      if(e.touches.length===2){ const [a,b]=e.touches; t0={d:dist(a,b), c:mid(a,b)}; base=targetScale; }
-    }, {passive:true});
-    canvas.addEventListener('touchmove', e=>{
-      if(e.touches.length===2 && t0){ e.preventDefault();
-        const [a,b]=e.touches; const d=dist(a,b), c=mid(a,b);
-        setScale(base * (d/t0.d)); addPan((c.x - t0.c.x),(c.y - t0.c.y));
-      }
-    }, {passive:false});
-    canvas.addEventListener('touchend', ()=>{ t0=null; }, {passive:true});
-
-    // マウスドラッグでパン
-    let drag=false, mx=0,my=0;
-    wrap.addEventListener('mousedown', e=>{ drag=true; mx=e.clientX; my=e.clientY; e.preventDefault(); });
-    addEventListener('mousemove', e=>{ if(!drag) return; addPan(e.clientX-mx, e.clientY-my); mx=e.clientX; my=e.clientY; });
-    addEventListener('mouseup',   ()=>{ drag=false; });
-
-    // ダブルクリックでリセット
-    let last=0;
-    canvas.addEventListener('click', e=>{
-      const now=Date.now(); if(now-last<300){ targetScale=1; targetPanX=0; targetPanY=0; tick(); } last=now;
+      if(tool!=='anchor'){ anchorActive=false; anchorPoints.length=0; }
     });
+  });
 
-    apply();
+  // size
+  const sizeInput = document.getElementById('size');
+  const sizeVal = document.getElementById('size-val');
+  function updateSize(){
+    size = parseInt(sizeInput.value,10);
+    sizeVal.textContent = size;
+  }
+  sizeInput.addEventListener('input', updateSize);
+  updateSize();
+
+  // opacity
+  const opInput = document.getElementById('opacity');
+  const opVal = document.getElementById('op-val');
+  function updateOpacity(){
+    opacity = parseInt(opInput.value,10) / 100;
+    opVal.textContent = `${Math.round(opacity*100)}%`;
+  }
+  opInput.addEventListener('input', updateOpacity);
+  updateOpacity();
+
+  // colors
+  document.querySelectorAll('.color').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      color = btn.dataset.col;
+      document.querySelectorAll('.color').forEach(b=>b.classList.toggle('picked', b===btn));
+    });
+  });
+  // 既定色を選択状態に
+  document.querySelector('.c-black').classList.add('picked');
+
+  // grid
+  const gridBtn = document.getElementById('btn-grid');
+  function toggleGrid(){
+    grid.classList.toggle('show');
+  }
+  gridBtn.addEventListener('click', toggleGrid);
+  window.addEventListener('keydown', e=>{ if(e.key==='g' || e.key==='G') toggleGrid(); });
+
+  // contents / next step（ダミー）
+  document.getElementById('btn-next').addEventListener('click', ()=>alert('Next Step は後で接続します'));
+  document.querySelectorAll('.cont-btn').forEach(i=>i.addEventListener('click', ()=>alert('Contents は後で接続します')));
+
+  // Upload / Download / Save
+  document.getElementById('btn-upload').addEventListener('click', ()=>{
+    const inp = document.createElement('input');
+    inp.type='file'; inp.accept='image/*';
+    inp.onchange = e=>{
+      const file = e.target.files?.[0]; if(!file) return;
+      const url = URL.createObjectURL(file);
+      mannequin.src = url; // マネキン差し替え
+    };
+    inp.click();
+  });
+
+  document.getElementById('btn-download').addEventListener('click', ()=>{
+    // 合成用一時キャンバス
+    const tmp = document.createElement('canvas');
+    tmp.width = canvases[0].width;
+    tmp.height = canvases[0].height;
+    const tctx = tmp.getContext('2d');
+
+    // マネキンも合成（現在のtransformは無視して原寸で書き出し）
+    // 背景は白
+    tctx.fillStyle='#FFFFFF';
+    tctx.fillRect(0,0,tmp.width,tmp.height);
+
+    // マネキンを作業領域中央にフィット（現在の CSS レイアウトと同等比率で配置）
+    // ここでは、マネキンの自然サイズで中央配置（最頻ケース）
+    // 必要なら座標調整を追加
+    // Layer合成
+    canvases.forEach(c=>tctx.drawImage(c,0,0));
+
+    const a = document.createElement('a');
+    a.download = 'vivora_export.png';
+    a.href = tmp.toDataURL('image/png');
+    a.click();
+  });
+
+  function saveProject(){
+    const data = {
+      mannequinSrc: mannequin.src,
+      grid: grid.classList.contains('show'),
+      strokes: canvases.map(c=>c.toDataURL('image/png')),
+      color, size, opacity, activeLayer
+    };
+    localStorage.setItem('vivora_project', JSON.stringify(data));
+  }
+  document.getElementById('btn-save').addEventListener('click', ()=>{ saveProject(); alert('Saved'); });
+
+  // 起動時復元
+  (function restore(){
+    const raw = localStorage.getItem('vivora_project');
+    if(!raw) return;
+    try{
+      const data = JSON.parse(raw);
+      if(data.mannequinSrc) mannequin.src = data.mannequinSrc;
+      if(data.grid) grid.classList.add('show');
+      if(Array.isArray(data.strokes)){
+        data.strokes.forEach((url,i)=>{
+          if(!url) return;
+          const img = new Image();
+          img.onload = ()=>ctxs[i]?.drawImage(img,0,0);
+          img.src = url;
+        });
+      }
+      if(data.color){ color = data.color; }
+      if(data.size){ size = data.size; sizeInput.value = size; updateSize(); }
+      if(data.opacity){ opacity = data.opacity; opInput.value = Math.round(opacity*100); updateOpacity(); }
+      if(typeof data.activeLayer==='number'){
+        activeLayer = Math.min(2, Math.max(0, data.activeLayer));
+        document.querySelectorAll('.layer-box input[type=radio]')[2-activeLayer].checked = true;
+      }
+    }catch(e){}
   })();
 
-  // ========= ツール群（Illustrator寄りの挙動） =========
-  const toolState = {
-    current: 'select',
-    color: '#222222',
-    opacity: 1,
-    width: 3,
-    gridOn: false,
-    snap: 8, // マス目
-    eyedropper: false,
-  };
+  // Layer UI
+  document.querySelectorAll('.layer-box').forEach(box=>{
+    const idx = parseInt(box.dataset.layer,10)-1; // 0..2
+    const radio = box.querySelector('input[type=radio]');
+    const visBtn = box.querySelector('.vis');
+    const lockBtn= box.querySelector('.lock');
+    const clrBtn = box.querySelector('.clr');
 
-  const toolColumn = $('#toolColumn');
-  toolColumn.addEventListener('click', (e)=>{
-    const b = e.target.closest('.tool'); if(!b) return;
-    const t = b.dataset.tool;
-    if(t==='grid'){
-      toolState.gridOn = !toolState.gridOn;
-      $('#gridOverlay').classList.toggle('on', toolState.gridOn);
-      canvasWrap.classList.toggle('snap', toolState.gridOn);
-      return;
-    }
-    if(t==='layer'){ layerPanel.scrollIntoView({behavior:'smooth', block:'nearest'}); return; }
-    setTool(t);
-  });
+    radio.addEventListener('change', ()=>{ if(radio.checked) activeLayer = idx; });
 
-  function setTool(t){
-    toolState.current = t;
-    $$('.tool', toolColumn).forEach(btn=>btn.classList.toggle('active', btn.dataset.tool===t));
-    // 不透明度フローティング：描画系のみ表示
-    const drawTools = ['brush','rect','ellipse','line','text'];
-    $('#opacityFloat').hidden = !drawTools.includes(t);
-  }
-
-  // カラー
-  const paletteDefault = ['#ffffff','#c0c0c0','#808080','#000000','#e31e1e','#ff7a00','#ffd400','#33cc33','#00a0ff','#1450ff','#a600ff','#ff00aa'];
-  const colorColumn = $('#colorColumn');
-  function buildPalette(){
-    const list = document.createElement('div');
-    list.className='color-list';
-    paletteDefault.forEach(hex=>{
-      const sw = document.createElement('button');
-      sw.className='swatch'; sw.style.setProperty('--sw', hex);
-      sw.title = hex;
-      sw.addEventListener('click', ()=>{ toolState.color = hex; });
-      list.appendChild(sw);
+    visBtn.addEventListener('click', ()=>{
+      const c = canvases[idx];
+      c.classList.toggle('hidden');
+      visBtn.textContent = c.classList.contains('hidden') ? '🚫' : '👁';
     });
-    const old = $('.color-list', colorColumn); if(old) old.remove();
-    colorColumn.insertBefore(list, $('.color-actions', colorColumn));
-  }
-  buildPalette();
 
-  $('#btn-add-color').addEventListener('click', ()=>$('#hidden-color').click());
-  $('#hidden-color').addEventListener('input', e=>{
-    const hex = e.target.value;
-    if(!/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) return;
-    const sw = document.createElement('button');
-    sw.className='swatch'; sw.style.setProperty('--sw', hex); sw.title=hex;
-    sw.addEventListener('click', ()=>{ toolState.color = hex; });
-    $('.color-list', colorColumn).appendChild(sw);
+    lockBtn.addEventListener('click', ()=>{
+      canvases[idx].toggleAttribute('data-locked');
+      lockBtn.textContent = canvases[idx].hasAttribute('data-locked') ? '🔒' : '🔓';
+    });
+
+    clrBtn.addEventListener('click', ()=>{
+      if(confirm('このレイヤーをクリアしますか？')){
+        ctxs[idx].clearRect(0,0,canvases[idx].width, canvases[idx].height);
+      }
+    });
   });
 
-  $('#btn-eyedropper').addEventListener('click', ()=>{
-    toolState.eyedropper = true;
-    setTool('select');
-  });
+  // ============ 描画系（ポインタイベント） ============
+  const pointer = { down:false, x:0, y:0, prevX:0, prevY:0, id:null };
+  let secondTouch = null; // ピンチ判定
 
-  // 不透明度
-  const opRange = $('#opacityRange');
-  const opValue = $('#opacityValue');
-  opRange.addEventListener('input', ()=>{
-    toolState.opacity = parseFloat(opRange.value);
-    opValue.textContent = Math.round(toolState.opacity*100)+'%';
-  });
-
-  // ========= 描画エンジン（キャンバスレイヤに出力） =========
-  // ブラシ：通常描画／消しゴム＝destination-out
-  let drawing = false, startX=0, startY=0, lastX=0, lastY=0;
-  let tempShape = null; // 形状プレビュー（矩形・楕円・直線）
-
-  function pointerPos(e){
-    const r = canvasWrap.getBoundingClientRect();
-    const x = (e.clientX ?? e.touches?.[0]?.clientX) - r.left;
-    const y = (e.clientY ?? e.touches?.[0]?.clientY) - r.top;
-    if(toolState.gridOn){
-      const g = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--grid'))||8;
-      return { x: Math.round(x/g)*g, y: Math.round(y/g)*g };
+  function getActiveCtx(){
+    return ctxs[activeLayer];
     }
+  function localXY(e){
+    const rect = canvases[0].getBoundingClientRect();
+    const x = (e.clientX - rect.left - tx) / scale;
+    const y = (e.clientY - rect.top  - ty) / scale;
     return {x,y};
   }
 
-  function begin(e){
-    if(!activeLayer || activeLayer.locked) return;
-    // Eyedropper
-    if(toolState.eyedropper){
-      const p = pointerPos(e);
-      const ctx = activeLayer.ctx;
-      const data = ctx.getImageData(p.x, p.y, 1, 1).data;
-      toolState.color = `rgb(${data[0]},${data[1]},${data[2]})`;
-      toolState.eyedropper = false;
-      return;
-    }
+  function beginStroke(x,y){
+    const ctx = getActiveCtx();
+    if(canvases[activeLayer].hasAttribute('data-locked')) return;
+    ctx.globalAlpha = (tool==='marker') ? Math.min(0.35, opacity) : opacity;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
 
-    const p = pointerPos(e);
-    startX=lastX=p.x; startY=lastY=p.y;
-    drawing = true;
-
-    if(['rect','ellipse','line'].includes(toolState.current)){
-      // プレビュー用の一時Canvas
-      if(!tempShape){
-        tempShape = document.createElement('canvas');
-        tempShape.className='temp-shape';
-        tempShape.width = activeLayer.canvas.width;
-        tempShape.height= activeLayer.canvas.height;
-        canvasStack.appendChild(tempShape);
-      }
-    }
-
-    if(toolState.current==='text'){
-      const div = document.createElement('div');
-      div.className='text-node';
-      div.contentEditable='true';
-      div.style.left = toPx(p.x);
-      div.style.top  = toPx(p.y);
-      div.style.opacity = toolState.opacity;
-      div.style.color   = toolState.color;
-      div.textContent = 'Text';
-      canvasWrap.appendChild(div);
-      div.focus();
-      drawing=false;
-    }
-  }
-
-  function move(e){
-    if(!drawing || !activeLayer) return;
-    const p = pointerPos(e);
-    const ctx = activeLayer.ctx;
-    const color = toolState.color;
-    const alpha = toolState.opacity;
-
-    if(toolState.current==='brush' || toolState.current==='eraser'){
-      ctx.save();
-      ctx.globalCompositeOperation = (toolState.current==='eraser') ? 'destination-out' : 'source-over';
+    // ツール別設定
+    if(tool==='pencil'){
       ctx.strokeStyle = color;
-      ctx.globalAlpha = alpha;
-      ctx.lineWidth = toolState.width;
-      ctx.lineJoin = ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(lastX,lastY);
-      ctx.lineTo(p.x,p.y);
-      ctx.stroke();
-      ctx.restore();
-      lastX=p.x; lastY=p.y;
+      ctx.lineWidth = Math.max(1, size*0.6);
+    }else if(tool==='ballpen'){
+      ctx.strokeStyle = color;
+      ctx.lineWidth = size;
+    }else if(tool==='brush'){
+      ctx.strokeStyle = color;
+      ctx.lineWidth = size * 1.2;
+    }else if(tool==='marker'){
+      ctx.strokeStyle = color;
+      ctx.lineWidth = size * 1.8;
+    }else if(tool==='eraser'){
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineWidth = size * 1.6;
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+  }
+
+  function drawTo(x,y,spd=1){
+    const ctx = getActiveCtx();
+    if(tool==='brush'){
+      // 速度による擬似筆圧：速いほど細く
+      const lw = Math.max(1, size*1.2 - spd*0.5);
+      ctx.lineWidth = lw;
+    }
+    ctx.lineTo(x,y);
+    ctx.stroke();
+  }
+
+  function endStroke(){
+    const ctx = getActiveCtx();
+    // 合成を戻す
+    if(tool==='eraser'){
+      ctx.globalCompositeOperation = 'source-over';
+    }
+  }
+
+  // ポインターハンドラ（単指＝描画／二指＝パン・ズーム）
+  board.addEventListener('pointerdown', (e)=>{
+    board.setPointerCapture(e.pointerId);
+
+    // 二本目タッチ？
+    if(pointer.down && secondTouch===null){
+      secondTouch = { id:e.pointerId, x:e.clientX, y:e.clientY };
       return;
     }
 
-    if(['rect','ellipse','line'].includes(toolState.current) && tempShape){
-      const tctx = tempShape.getContext('2d');
-      tctx.clearRect(0,0,tempShape.width,tempShape.height);
-      tctx.save();
-      tctx.strokeStyle = color;
-      tctx.globalAlpha = alpha;
-      tctx.lineWidth = toolState.width;
-      if(toolState.current==='rect'){
-        tctx.strokeRect(Math.min(startX,p.x), Math.min(startY,p.y), Math.abs(p.x-startX), Math.abs(p.y-startY));
-      }else if(toolState.current==='ellipse'){
-        tctx.beginPath();
-        tctx.ellipse((startX+p.x)/2,(startY+p.y)/2, Math.abs(p.x-startX)/2, Math.abs(p.y-startY)/2, 0, 0, Math.PI*2);
-        tctx.stroke();
-      }else if(toolState.current==='line'){
-        tctx.beginPath(); tctx.moveTo(startX,startY); tctx.lineTo(p.x,p.y); tctx.stroke();
-      }
-      tctx.restore();
+    pointer.down = true;
+    pointer.id = e.pointerId;
+    const p = localXY(e);
+    pointer.x = pointer.prevX = p.x;
+    pointer.y = pointer.prevY = p.y;
+
+    if(tool==='anchor'){
+      anchorActive = true;
+      anchorPoints.push(p);
+      redrawAnchorPreview();
+      return;
     }
+
+    if(tool && tool!=='anchor'){
+      beginStroke(p.x, p.y);
+    }
+  });
+
+  board.addEventListener('pointermove', (e)=>{
+    if(secondTouch && (e.pointerId===pointer.id || e.pointerId===secondTouch.id)){
+      // ピンチ（距離の変化でscale、中心でパン）
+      const t1 = (e.pointerId===pointer.id) ? {x:e.clientX, y:e.clientY} : {x:pointer.prevClientX, y:pointer.prevClientY};
+      const t2 = (e.pointerId===secondTouch.id) ? {x:e.clientX, y:e.clientY} : {x:secondTouch.x, y:secondTouch.y};
+
+      const prevDist = Math.hypot((pointer.prevClientX??pointer.x)-(secondTouch.x), (pointer.prevClientY??pointer.y)-(secondTouch.y));
+      const dist = Math.hypot(t1.x - t2.x, t1.y - t2.y);
+      const ratio = (prevDist===0)?1: dist/prevDist;
+
+      scale = Math.min(3, Math.max(0.3, scale * ratio));
+
+      // 中心の移動分をパンに加算
+      const prevCx = ((pointer.prevClientX??t1.x) + secondTouch.x)/2;
+      const prevCy = ((pointer.prevClientY??t1.y) + secondTouch.y)/2;
+      const cx = (t1.x + t2.x)/2;
+      const cy = (t1.y + t2.y)/2;
+      tx += (cx - prevCx);
+      ty += (cy - prevCy);
+
+      applyTransform();
+      pointer.prevClientX = t1.x; pointer.prevClientY = t1.y;
+      secondTouch.x = t2.x; secondTouch.y = t2.y;
+      showZoomHUD();
+      return;
+    }
+
+    if(!pointer.down || tool==='anchor') return;
+
+    const p = localXY(e);
+    const spd = Math.hypot(p.x-pointer.prevX, p.y-pointer.prevY);
+    drawTo(p.x, p.y, spd);
+    pointer.prevX = p.x; pointer.prevY = p.y;
+  });
+
+  board.addEventListener('pointerup', (e)=>{
+    if(secondTouch && e.pointerId===secondTouch.id){ secondTouch=null; return; }
+    if(e.pointerId!==pointer.id){ return; }
+
+    if(tool && tool!=='anchor'){
+      endStroke();
+    }
+    pointer.down=false; pointer.id=null;
+  });
+
+  // ダブルクリックでアンカー確定
+  board.addEventListener('dblclick', (e)=>{
+    if(tool!=='anchor' || anchorPoints.length<2) return;
+    finalizeAnchorStroke();
+  });
+
+  // ホイールズーム（トラックパッドピンチ対応・または ctrl+wheel）
+  board.addEventListener('wheel', (e)=>{
+    if(!e.ctrlKey) return; // 通常スクロールは無視
+    e.preventDefault();
+    const rect = board.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const cy = e.clientY - rect.top;
+
+    const prevScale = scale;
+    scale = Math.min(3, Math.max(0.3, scale * (e.deltaY<0 ? 1.05 : 0.95)));
+    // ズーム中心を維持するように平行移動補正
+    tx = cx - (cx - tx) * (scale/prevScale);
+    ty = cy - (cy - ty) * (scale/prevScale);
+
+    applyTransform();
+    showZoomHUD();
+  }, {passive:false});
+
+  function applyTransform(){
+    const t = `translate(${tx}px, ${ty}px) scale(${scale})`;
+    mannequin.style.transform = t;
+    canvases.forEach(c=>c.style.transform = t);
+    grid.style.transform = t;
   }
 
-  function end(e){
-    if(!drawing || !activeLayer) return;
-    drawing=false;
-
-    if(['rect','ellipse','line'].includes(toolState.current) && tempShape){
-      const tctx = tempShape.getContext('2d');
-      const ctx = activeLayer.ctx;
-      ctx.drawImage(tempShape, 0,0);
-      tempShape.remove(); tempShape=null;
-    }
+  function showZoomHUD(){
+    zoomHUD.textContent = `${Math.round(scale*100)}%`;
+    zoomHUD.classList.add('show');
+    clearTimeout(showZoomHUD._t);
+    showZoomHUD._t = setTimeout(()=>zoomHUD.classList.remove('show'), 1000);
   }
 
-  ['mousedown','touchstart'].forEach(ev=>canvasWrap.addEventListener(ev, begin, {passive:false}));
-  ['mousemove','touchmove' ].forEach(ev=>canvasWrap.addEventListener(ev, move,  {passive:false}));
-  ['mouseup','mouseleave','touchend','touchcancel'].forEach(ev=>canvasWrap.addEventListener(ev, end, {passive:true}));
+  // ============ アンカーペン ============
+  function redrawAnchorPreview(){
+    // プレビューは最上段レイヤーに薄く表示
+    const ctx = getActiveCtx();
+    const c = canvases[activeLayer];
+    // クリアしてプレビュー
+    ctx.save();
+    ctx.globalAlpha = 1.0;
+    ctx.clearRect(0,0,c.width,c.height);
+    ctx.restore();
 
-  // 初期ツール
-  setTool('select');
+    // 既存内容は保持したいので、別にプレビューを描くのは難しい
+    // -> 簡易的にガイド点のみを描画
+    const g = ctx;
+    g.save();
+    g.strokeStyle = '#4E78DA';
+    g.fillStyle = '#4E78DA';
+    g.lineWidth = 1;
+    for(let i=0;i<anchorPoints.length;i++){
+      const p = anchorPoints[i];
+      g.beginPath(); g.arc(p.x, p.y, 3, 0, Math.PI*2); g.fill();
+      if(i>0){ g.beginPath(); g.moveTo(anchorPoints[i-1].x, anchorPoints[i-1].y); g.lineTo(p.x,p.y); g.stroke(); }
+    }
+    g.restore();
+  }
 
-  // ========= ファイル操作（Upload/Download/Save） =========
-  $('#btn-download').addEventListener('click', ()=>{
-    // 可視レイヤを合成してPNG保存
-    const out = document.createElement('canvas');
-    out.width = canvasWrap.clientWidth; out.height = canvasWrap.clientHeight;
-    const octx = out.getContext('2d');
-    LAYERS.forEach(L=>{ if(L.visible) octx.drawImage(L.canvas,0,0); });
-    const url = out.toDataURL('image/png');
-    const a = document.createElement('a'); a.href=url; a.download='vivora_board.png'; a.click();
-  });
+  function finalizeAnchorStroke(){
+    const ctx = getActiveCtx();
+    if(canvases[activeLayer].hasAttribute('data-locked')) return;
+    ctx.save();
+    ctx.globalAlpha = opacity;
+    ctx.strokeStyle = color;
+    ctx.lineWidth  = size;
+    ctx.lineJoin = 'round';
+    ctx.lineCap  = 'round';
+    ctx.beginPath();
+    ctx.moveTo(anchorPoints[0].x, anchorPoints[0].y);
+    for(let i=1;i<anchorPoints.length;i++){
+      ctx.lineTo(anchorPoints[i].x, anchorPoints[i].y);
+    }
+    ctx.stroke();
+    ctx.restore();
+    anchorPoints.length=0; anchorActive=false;
+  }
 
-  $('#btn-save').addEventListener('click', ()=>{
-    const dump = LAYERS.map(L=>({visible:L.visible, locked:L.locked, png:L.canvas.toDataURL()}));
-    localStorage.setItem('vivora.layers', JSON.stringify(dump));
-    alert('ローカルに保存しました。');
-  });
+  // ============ レイアウト初期化 ============
+  // 初回はグリッド非表示
+  grid.classList.remove('show');
 
-  $('#btn-upload').addEventListener('click', ()=>{
-    const data = localStorage.getItem('vivora.layers');
-    if(!data) return alert('保存データがありません。');
-    try{
-      const arr = JSON.parse(data);
-      arr.forEach((d,i)=>{
-        if(!LAYERS[i]) makeLayer('Layer '+(i+1));
-        const L = LAYERS[i];
-        const img = new Image();
-        img.onload = ()=>{ L.ctx.clearRect(0,0,L.canvas.width,L.canvas.height); L.ctx.drawImage(img,0,0); };
-        img.src = d.png; L.visible=d.visible; L.locked=d.locked; L.canvas.style.visibility=d.visible?'visible':'hidden';
-      });
-      buildLayerUI();
-    }catch(err){ alert('読み込みに失敗しました。'); }
-  });
-
-  // ========= contents / Next Step（ダミー） =========
-  $('#btn-next').addEventListener('click', ()=>{ alert('Next Step: 後続フローを接続予定'); });
-
-  // ========= 画像ドラッグ抑止 =========
-  document.addEventListener('DOMContentLoaded', ()=>{
-    $$('img').forEach(img=>{
-      img.addEventListener('mousedown', e=>e.preventDefault());
-      img.addEventListener('dragstart', e=>e.preventDefault());
-    });
-  });
+  // 自動保存（30秒ごと）
+  setInterval(saveProject, 30000);
   </script>
 </body>
 </html>
