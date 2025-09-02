@@ -9,214 +9,595 @@
 <body>
   <div class="viewport">
     <div class="app" role="application" aria-label="Vivora Fashion Illustration 2025">
-
-      <!-- 1段目：左にタイトル、右にhistory（stationery右端に同期） -->
-      <header class="top-strip">
-        <h1 class="title">Vivora Fashion Illustration 2025</h1>
-        <div class="history-tool" aria-label="history">
-          <img src="/create_parts/create_button/retreat.png"  alt="Redo"     title="戻る" draggable="false"/>
-          <img src="/create_parts/create_button/forward.png"  alt="Cycle"    title="進む" draggable="false"/>
-          <img src="/create_parts/create_button/reset.png"    alt="Undo"     title="リセット" draggable="false"/>
-          <img src="/create_parts/create_button/download.png" alt="Download" title="ダウンロード" draggable="false"/>
-          <img src="/create_parts/create_button/upload.png"   alt="Upload"   title="アップロード" draggable="false"/>
-          <img src="/create_parts/create_button/save.png"     alt="Save"     title="保存" draggable="false"/>
+      <!-- ====== ヘッダー（タイトル左 / Next Step 右） ====== -->
+      <header class="topbar">
+        <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
+        <div class="right-head">
+          <button id="btn-next" class="ghost-btn" type="button" title="次のステップ">Next Step ▶▶</button>
+          <nav class="contents" aria-label="contents">
+            <!-- リポジトリ内の contents_button を使用 -->
+            <img src="/create_parts/contents_button/0_home.png" alt="Home" title="Home" draggable="false"/>
+            <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="FI" title="Fashion Illustrations" draggable="false"/>
+            <img src="/create_parts/contents_button/2_fabric-matching.png"       alt="FM" title="Fabric Matching" draggable="false"/>
+            <img src="/create_parts/contents_button/3_clothing-design.png"        alt="CD" title="Clothing Design" draggable="false"/>
+            <img src="/create_parts/contents_button/4_pattern-creation.png"       alt="PC" title="Pattern Creation" draggable="false"/>
+            <img src="/create_parts/contents_button/5_grading.png"                alt="GD" title="Grading" draggable="false"/>
+            <img src="/create_parts/contents_button/6_print-layout-cut.png"       alt="PLC" title="Print/Layout/Cut" draggable="false"/>
+            <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="DD" title="Digital Dressing (Kids)" draggable="false"/>
+          </nav>
         </div>
       </header>
 
-      <!-- 2段目：Next Step + contents（タイトルの下に1マス空けて配置） -->
-      <div class="nav-strip">
-        <button id="next-step" class="ghost-btn" type="button">Next Step ▶▶</button>
-        <nav class="contents-button" aria-label="contents">
-          <img src="/create_parts/contents_button/0_home.png" alt="Home"  title="Home" draggable="false"/>
-          <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="Fi"  title="Fashion Illustrations" draggable="false"/>
-          <img src="/create_parts/contents_button/2_fabric-matching.png"       alt="Fm"  title="Fabric Matching" draggable="false"/>
-          <img src="/create_parts/contents_button/3_clothing-design.png"        alt="Cd"  title="Clothing Design" draggable="false"/>
-          <img src="/create_parts/contents_button/4_pattern-creation.png"       alt="Pc"  title="Pattern Creation" draggable="false"/>
-          <img src="/create_parts/contents_button/5_grading.png"                alt="Gd"  title="Grading" draggable="false"/>
-          <img src="/create_parts/contents_button/6_print-layout-cut.png"       alt="Plc" title="Print/Layout/Cut" draggable="false"/>
-          <img src="/create_parts/contents_button/digital-dressing-kids-mode.png" alt="Dk" title="Digital Dressing (Kids)" draggable="false"/>
-        </nav>
-      </div>
+      <!-- ====== ボード（キャンバス＋右パネル） ====== -->
+      <main class="board">
+        <!-- キャンバス面 -->
+        <section class="canvas-wrap" id="canvasWrap" aria-label="drawing board">
+          <!-- マス目（方眼紙） -->
+          <div id="gridOverlay" class="grid-overlay" aria-hidden="true"></div>
 
-      <!-- キャンバス -->
-      <main class="board" role="main">
-        <div class="canvas-wrapper" id="canvas">
-          <!-- Stationery（枠なし） -->
-          <div class="stationery-toolbar" id="stationery" aria-label="stationery">
-            <img src="/create_parts/object_btn/select.png"      alt="Select"  title="選択" draggable="false"/>
-            <img src="/create_parts/object_btn/square.png"      alt="Square"  title="図形" draggable="false"/>
-            <img src="/create_parts/object_btn/brush.png"       alt="Brush"   title="ペン" draggable="false"/>
-            <img src="/create_parts/object_btn/eraser.png"      alt="Eraser"  title="ケシゴム" draggable="false"/>
-            <img src="/create_parts/object_btn/sentence.png"    alt="Text"    title="テキスト" draggable="false"/>
-            <img src="/create_parts/object_btn/opasity_ber.png" alt="Opacity" title="透明度" draggable="false"/>
-            <img src="/create_parts/object_btn/graph_paper.png" alt="Grid"    title="方眼紙" draggable="false"/>
-            <img src="/create_parts/object_btn/layer.png"       alt="Layer"   title="レイヤー" draggable="false"/>
-          </div>
-
-          <!-- マネキン（スムーズピンチ＋二本指パン） -->
-          <div id="man-zoom">
+          <!-- マネキン（ピンチズーム＋パン） -->
+          <div id="man-zoom" class="man-zoom">
             <img id="mannequin"
                  src="/mannequin/mannequin_woman/mannequin_woman_front.png"
-                 alt="Mannequin (Woman Front)" draggable="false"/>
+                 alt="Mannequin - Woman Front" draggable="false"/>
           </div>
-        </div>
+
+          <!-- ドロー用レイヤー（キャンバスを積層） -->
+          <div id="canvasStack" class="canvas-stack" aria-live="off"></div>
+
+          <!-- 右中央に出る不透明度バー（ツール選択時のみ表示） -->
+          <div id="opacityFloat" class="opacity-float" hidden>
+            <label for="opacityRange">Opacity</label>
+            <input id="opacityRange" type="range" min="0" max="1" step="0.01" value="1"/>
+            <span id="opacityValue">100%</span>
+          </div>
+        </section>
+
+        <!-- 右パネル -->
+        <aside class="right-rail" aria-label="tool rail">
+          <!-- ファイル操作（右パネル最上部：レイヤとステーショナリの中央上） -->
+          <div class="file-ops">
+            <button id="btn-upload" class="icon-btn" title="アップロード">
+              <img src="/create_parts/create_button/upload.png" alt="Upload" draggable="false"/>
+            </button>
+            <button id="btn-download" class="icon-btn" title="ダウンロード">
+              <img src="/create_parts/create_button/download.png" alt="Download" draggable="false"/>
+            </button>
+            <button id="btn-save" class="icon-btn" title="保存（ローカル）">
+              <img src="/create_parts/create_button/save.png" alt="Save" draggable="false"/>
+            </button>
+          </div>
+
+          <!-- レイヤ（カセットUI・画像通りの縦並び） -->
+          <div class="layer-panel" id="layerPanel" aria-label="layers">
+            <!-- JSでアイテム生成（初期3枚） -->
+          </div>
+
+          <!-- ステーショナリ（縦アイコン） -->
+          <div class="tool-column" id="toolColumn" aria-label="stationery tools">
+            <button class="tool" data-tool="select" title="選択">
+              <img src="/create_parts/object_btn/select.png" alt="Select" draggable="false"/>
+            </button>
+            <button class="tool" data-tool="line" title="直線">
+              <img src="/create_parts/object_btn/triangle.png" alt="Line" draggable="false"/>
+            </button>
+            <button class="tool" data-tool="rect" title="長方形">
+              <img src="/create_parts/object_btn/square.png" alt="Rectangle" draggable="false"/>
+            </button>
+            <button class="tool" data-tool="ellipse" title="楕円">
+              <img src="/create_parts/object_btn/circle.png" alt="Ellipse" draggable="false"/>
+            </button>
+            <button class="tool" data-tool="brush" title="ブラシ（ドラッグで描画）">
+              <img src="/create_parts/object_btn/brush.png" alt="Brush" draggable="false"/>
+            </button>
+            <button class="tool" data-tool="eraser" title="消しゴム（ドラッグで消去）">
+              <img src="/create_parts/object_btn/eraser.png" alt="Eraser" draggable="false"/>
+            </button>
+            <button class="tool" data-tool="text" title="テキスト（クリックで配置）">
+              <img src="/create_parts/object_btn/sentence.png" alt="Text" draggable="false"/>
+            </button>
+            <button class="tool" data-tool="grid" title="方眼紙の表示/スナップ切替">
+              <img src="/create_parts/object_btn/graph_paper.png" alt="Grid" draggable="false"/>
+            </button>
+            <button class="tool" data-tool="layer" title="レイヤーパネルを強調表示">
+              <img src="/create_parts/object_btn/layer.png" alt="Layer" draggable="false"/>
+            </button>
+          </div>
+
+          <!-- カラーパレット（縦） -->
+          <div class="color-column" id="colorColumn" aria-label="colors">
+            <!-- JSで既定色を生成 -->
+            <div class="color-actions">
+              <button id="btn-add-color" class="pill-btn" title="色を追加">＋</button>
+              <button id="btn-eyedropper" class="pill-btn" title="スポイト">🩸</button>
+              <input id="hidden-color" type="color" hidden />
+            </div>
+          </div>
+        </aside>
       </main>
     </div>
   </div>
 
+  <!-- ====== JS：レイアウト/描画/ツール動作 ====== -->
   <script>
-    // ===== 1) ステージ自動フィット（整数pxスナップ） =====
-    (function(){
-      const css = () => getComputedStyle(document.documentElement);
-      const num = v => parseFloat(v) || 0;
+  // ========= ユーティリティ =========
+  const $ = (q, el=document) => el.querySelector(q);
+  const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+  const toPx = n => `${Math.round(n)}px`;
 
-      function snapScale(baseW, baseH, vw, vh){
-        const raw = Math.max(0.5, Math.min(vw/baseW, vh/baseH));
-        const wSnap = Math.floor(baseW * raw);
-        const hSnap = Math.floor(baseH * raw);
-        let s = Math.min(wSnap/baseW, hSnap/baseH);
-        const dpr = window.devicePixelRatio || 1;
-        s = Math.round(s * dpr * 2) / (dpr * 2); // 0.5/DPR刻み
-        return Math.max(0.5, s);
-      }
+  // ========= レイアウト（安定版のスケール＆テーマを継承） =========
+  (function autoFit(){   // 画面に応じて app をスケール（DPR半刻み）:contentReference[oaicite:2]{index=2}:contentReference[oaicite:3]{index=3}
+    const css = () => getComputedStyle(document.documentElement);
+    const num = v => parseFloat(v) || 0;
+    function snapScale(baseW, baseH, vw, vh){
+      const raw = Math.max(0.5, Math.min(vw/baseW, vh/baseH));
+      const wSnap = Math.floor(baseW * raw);
+      const hSnap = Math.floor(baseH * raw);
+      let s = Math.min(wSnap/baseW, hSnap/baseH);
+      const dpr = window.devicePixelRatio || 1;
+      s = Math.round(s * dpr * 2) / (dpr * 2);
+      return Math.max(0.5, s);
+    }
+    function fit(){
+      const W = num(css().getPropertyValue('--base-w')) || 1280;
+      const H = num(css().getPropertyValue('--base-h')) || 820;
+      const M = num(css().getPropertyValue('--viewport-margin')) || 24;
+      const vw = window.innerWidth  - M*2;
+      const vh = window.innerHeight - M*2;
+      const s  = snapScale(W,H,vw,vh);
+      document.documentElement.style.setProperty('--app-scale', s);
+    }
+    addEventListener('resize', fit, {passive:true});
+    addEventListener('orientationchange', fit, {passive:true});
+    document.addEventListener('DOMContentLoaded', fit);
+  })();
 
-      function fit(){
-        const W = num(css().getPropertyValue('--base-w')) || 1280;
-        const H = num(css().getPropertyValue('--base-h')) || 820;
-        const M = num(css().getPropertyValue('--viewport-margin')) || 24;
-        const vw = window.innerWidth  - M*2;
-        const vh = window.innerHeight - M*2;
-        const s  = snapScale(W,H,vw,vh);
-        document.documentElement.style.setProperty('--app-scale', s);
-      }
-      addEventListener('resize', fit, {passive:true});
-      addEventListener('orientationchange', fit, {passive:true});
-      document.addEventListener('DOMContentLoaded', fit);
-    })();
+  (function theme(){
+    const KEY='vivora.theme', root=document.documentElement;
+    function apply(t){ root.setAttribute('data-theme', t); }
+    window.setTheme = t=>{
+      if(!['light','dark','system'].includes(t)) return;
+      localStorage.setItem(KEY,t); apply(t);
+    };
+    apply(localStorage.getItem(KEY)||'system');
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{
+      if(root.getAttribute('data-theme')==='system') apply('system');
+    });
+  })();
 
-    // ===== 2) History の右端を Stationery の右端に同期 =====
-    (function(){
-      function sync(){
-        const canvas = document.getElementById('canvas');
-        const st = document.getElementById('stationery');
-        const hist = document.querySelector('.history-tool');
-        if(!canvas || !st || !hist) return;
-        const c = canvas.getBoundingClientRect();
-        const s = st.getBoundingClientRect();
-        const boardPad = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--board-pad'))||14;
-        const gap = Math.max(0, Math.round(c.right - s.right));
-        hist.style.marginRight = `${gap + boardPad}px`;
-      }
-      addEventListener('resize', sync, {passive:true});
-      addEventListener('load', sync, {passive:true});
-      new ResizeObserver(sync).observe(document.body);
-    })();
+  // ========= キャンバス＆レイヤ =========
+  const canvasWrap = $('#canvasWrap');
+  const canvasStack = $('#canvasStack');
+  const layerPanel = $('#layerPanel');
 
-    // ===== 3) 画像ドラッグ抑止 =====
-    document.addEventListener('DOMContentLoaded', ()=>{
-      document.querySelectorAll('img').forEach(img=>{
-        img.addEventListener('mousedown', e=>e.preventDefault());
-        img.addEventListener('dragstart', e=>e.preventDefault());
+  const LAYERS = []; // {id, name, canvas, ctx, visible, locked}
+  let activeLayer = null;
+
+  function makeLayer(name){
+    const c = document.createElement('canvas');
+    const rect = canvasWrap.getBoundingClientRect();
+    c.width = Math.floor(rect.width);
+    c.height = Math.floor(rect.height);
+    c.className = 'draw-layer';
+    canvasStack.appendChild(c);
+    const item = { id: crypto.randomUUID(), name, canvas:c, ctx:c.getContext('2d', {willReadFrequently:true}), visible:true, locked:false };
+    LAYERS.push(item);
+    buildLayerUI();
+    if(!activeLayer) setActiveLayer(item.id);
+    return item;
+  }
+
+  function resizeLayers(){ // ボードのサイズ変化でリサイズ（内容は保持しつつ再描画できるように ImageData を転送）
+    const rect = canvasWrap.getBoundingClientRect();
+    LAYERS.forEach(L=>{
+      const prev = L.ctx.getImageData(0,0,L.canvas.width,L.canvas.height);
+      L.canvas.width = Math.floor(rect.width);
+      L.canvas.height = Math.floor(rect.height);
+      L.ctx.putImageData(prev,0,0);
+    });
+  }
+  new ResizeObserver(resizeLayers).observe(canvasWrap);
+
+  function setActiveLayer(id){
+    activeLayer = LAYERS.find(l=>l.id===id) || null;
+    $$('.layer-item').forEach(n=>n.classList.toggle('active', n.dataset.id===id));
+  }
+
+  function buildLayerUI(){
+    layerPanel.innerHTML = '';
+    LAYERS.forEach((L, idx)=>{
+      const row = document.createElement('div');
+      row.className = 'layer-item';
+      row.dataset.id = L.id;
+      row.innerHTML = `
+        <div class="layer-head">
+          <span class="layer-name">${L.name}</span>
+          <div class="layer-ops">
+            <button class="i" data-act="up" title="上へ">▲</button>
+            <button class="i" data-act="down" title="下へ">▼</button>
+          </div>
+        </div>
+        <div class="layer-foot">
+          <button class="i" data-act="lock" title="${L.locked?'ロック解除':'ロック'}">🔒</button>
+          <button class="i" data-act="vis"  title="${L.visible?'非表示':'表示'}">${L.visible?'👁':'🚫'}</button>
+          <button class="i" data-act="clear" title="レイヤをクリア">🧹</button>
+          <button class="i danger" data-act="del" title="削除">🗑</button>
+        </div>
+      `;
+      row.addEventListener('click', e=>{
+        if(e.target.closest('.i')) return; // ボタンは別ハンドラ
+        setActiveLayer(L.id);
       });
+      row.addEventListener('mousedown', e=>e.preventDefault());
+      layerPanel.appendChild(row);
     });
 
-    // ===== 4) テーマ切替（light/dark/system） =====
-    (function(){
-      const KEY='vivora.theme', root=document.documentElement;
-      function apply(t){ root.setAttribute('data-theme', t); }
-      window.setTheme = t=>{
-        if(!['light','dark','system'].includes(t)) return;
-        localStorage.setItem(KEY,t); apply(t);
-      };
-      apply(localStorage.getItem(KEY)||'system');
-      matchMedia('(prefers-color-scheme: dark)')
-        .addEventListener('change',()=>{ if(root.getAttribute('data-theme')==='system') apply('system'); });
-    })();
+    // footer: add
+    const add = document.createElement('button');
+    add.className='layer-add';
+    add.textContent='＋ 新規レイヤ';
+    add.addEventListener('click', ()=>{
+      const layer = makeLayer('Layer ' + (LAYERS.length+1));
+      setActiveLayer(layer.id);
+    });
+    layerPanel.appendChild(add);
 
-    // ===== 5) マネキン：スムーズピンチ＋二本指パン =====
-    (function(){
-      const wrap   = document.getElementById('man-zoom');
-      const canvas = document.getElementById('canvas');
-
-      let scale=1, targetScale=1;
-      let panX=0, targetPanX=0;
-      let panY=0, targetPanY=0;
-      const MIN=0.5, MAX=4;
-
-      const apply = ()=>{
-        wrap.style.setProperty('--man-scale', scale);
-        wrap.style.setProperty('--man-x', panX+'px');
-        wrap.style.setProperty('--man-y', panY+'px');
-      };
-
-      // 慣性イージング
-      let raf=null;
-      function animate(){
-        scale += (targetScale-scale)*0.20;
-        panX  += (targetPanX -panX )*0.20;
-        panY  += (targetPanY -panY )*0.20;
-        apply();
-        if (Math.abs(targetScale-scale)<0.0005 && Math.abs(targetPanX-panX)<0.1 && Math.abs(targetPanY-panY)<0.1){
-          cancelAnimationFrame(raf); raf=null; return;
+    // ops
+    $$('.layer-item .i', layerPanel).forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        const row = e.currentTarget.closest('.layer-item');
+        const L = LAYERS.find(v=>v.id===row.dataset.id);
+        if(!L) return;
+        const act = e.currentTarget.dataset.act;
+        if(act==='lock'){ L.locked=!L.locked; }
+        if(act==='vis'){ L.visible=!L.visible; L.canvas.style.visibility = L.visible?'visible':'hidden'; }
+        if(act==='clear'){ L.ctx.clearRect(0,0,L.canvas.width,L.canvas.height); }
+        if(act==='del'){
+          if(confirm('このレイヤを削除しますか？')){
+            L.canvas.remove();
+            const i = LAYERS.indexOf(L);
+            LAYERS.splice(i,1);
+            activeLayer = null;
+          }
         }
-        raf=requestAnimationFrame(animate);
-      }
-      const tick=()=>{ if(!raf) raf=requestAnimationFrame(animate); };
-
-      const setScale=s=>{ targetScale=Math.min(MAX,Math.max(MIN,s)); tick(); };
-      const addPan=(dx,dy)=>{ targetPanX+=dx; targetPanY+=dy; tick(); };
-
-      // Ctrl+Wheel = ピンチ、2本指スクロール = パン
-      canvas.addEventListener('wheel', (e)=>{
-        if (e.ctrlKey){
-          e.preventDefault();
-          setScale(targetScale * Math.exp(-e.deltaY*0.002));
-        }else{
-          addPan(-e.deltaX, -e.deltaY);
+        if(act==='up' || act==='down'){
+          const i = LAYERS.indexOf(L);
+          const j = i + (act==='up'?-1:1);
+          if(j>=0 && j<LAYERS.length){
+            // スタック入れ替え
+            [LAYERS[i], LAYERS[j]] = [LAYERS[j], LAYERS[i]];
+            canvasStack.insertBefore(LAYERS[j].canvas, LAYERS[i].canvas);
+          }
         }
-      }, {passive:false});
-
-      // Safari gesture
-      let gBase=1;
-      addEventListener('gesturestart', ()=>{ gBase=targetScale; }, {passive:true});
-      addEventListener('gesturechange', (e)=>{
-        e.preventDefault();
-        setScale(gBase * e.scale);
-      }, {passive:false});
-
-      // タッチピンチ＆パン
-      let t0=null, base=1;
-      const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
-      const mid =(a,b)=>({x:(a.clientX+b.clientX)/2, y:(a.clientY+b.clientY)/2});
-      canvas.addEventListener('touchstart', e=>{
-        if(e.touches.length===2){
-          const [a,b]=e.touches; t0={d:dist(a,b), c:mid(a,b)}; base=targetScale;
-        }
-      }, {passive:true});
-      canvas.addEventListener('touchmove', e=>{
-        if(e.touches.length===2 && t0){
-          e.preventDefault();
-          const [a,b]=e.touches; const d=dist(a,b), c=mid(a,b);
-          setScale(base * (d/t0.d));
-          addPan((c.x - t0.c.x),(c.y - t0.c.y));
-        }
-      }, {passive:false});
-      canvas.addEventListener('touchend', ()=>{ t0=null; }, {passive:true});
-
-      // マウスドラッグ（任意・有効）
-      let drag=false, mx=0,my=0;
-      wrap.addEventListener('mousedown', e=>{ drag=true; mx=e.clientX; my=e.clientY; e.preventDefault(); });
-      addEventListener('mousemove', e=>{ if(!drag) return; addPan(e.clientX-mx, e.clientY-my); mx=e.clientX; my=e.clientY; });
-      addEventListener('mouseup',   ()=>{ drag=false; });
-
-      // ダブルクリック/タップでリセット
-      let last=0;
-      canvas.addEventListener('click', e=>{
-        const now=Date.now(); if(now-last<300){ targetScale=1; targetPanX=0; targetPanY=0; tick(); } last=now;
+        buildLayerUI();
+        if(!activeLayer && LAYERS[0]) setActiveLayer(LAYERS[LAYERS.length-1].id);
       });
+    });
+  }
 
+  // 初期レイヤ
+  makeLayer('Layer 1'); makeLayer('Layer 2'); makeLayer('Layer 3');
+
+  // ========= マネキン：ピンチズーム＋パン（安定版を最適化移植） =========
+  (function(){
+    const wrap   = $('#man-zoom');
+    const canvas = $('#canvasWrap');
+
+    let scale=1, targetScale=1;
+    let panX=0, targetPanX=0;
+    let panY=0, targetPanY=0;
+    const MIN=0.5, MAX=4;
+
+    // 初期サイズ：マス目単位（--grid）× 46 マスを高さ目安に
+    function fitMannequinToGrid(){
+      const grid = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--grid')) || 8;
+      const targetH = grid * 46; // 画像比率を保ちつつ、だいたいイメージどおり
+      const img = $('#mannequin');
+      img.style.height = toPx(targetH);
+    }
+    document.addEventListener('DOMContentLoaded', fitMannequinToGrid);
+
+    const apply = ()=>{
+      wrap.style.setProperty('--man-scale', scale);
+      wrap.style.setProperty('--man-x', panX+'px');
+      wrap.style.setProperty('--man-y', panY+'px');
+    };
+
+    let raf=null;
+    function animate(){
+      scale += (targetScale-scale)*0.20;
+      panX  += (targetPanX -panX )*0.20;
+      panY  += (targetPanY -panY )*0.20;
       apply();
-    })();
+      if (Math.abs(targetScale-scale)<0.0005 && Math.abs(targetPanX-panX)<0.1 && Math.abs(targetPanY-panY)<0.1){
+        cancelAnimationFrame(raf); raf=null; return;
+      }
+      raf=requestAnimationFrame(animate);
+    }
+    const tick=()=>{ if(!raf) raf=requestAnimationFrame(animate); };
+
+    const setScale=s=>{ targetScale=clamp(s,MIN,MAX); tick(); };
+    const addPan=(dx,dy)=>{ targetPanX+=dx; targetPanY+=dy; tick(); };
+
+    // Ctrl+ホイール＝ズーム、2本指＝パン
+    canvas.addEventListener('wheel', (e)=>{
+      if (e.ctrlKey){ e.preventDefault(); setScale(targetScale * Math.exp(-e.deltaY*0.002)); }
+      else{ addPan(-e.deltaX, -e.deltaY); }
+    }, {passive:false});
+
+    // Safari gesture
+    let gBase=1;
+    addEventListener('gesturestart', ()=>{ gBase=targetScale; }, {passive:true});
+    addEventListener('gesturechange', (e)=>{ e.preventDefault(); setScale(gBase * e.scale); }, {passive:false});
+
+    // タッチピンチ＆パン
+    let t0=null, base=1;
+    const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+    const mid =(a,b)=>({x:(a.clientX+b.clientX)/2, y:(a.clientY+b.clientY)/2});
+    canvas.addEventListener('touchstart', e=>{
+      if(e.touches.length===2){ const [a,b]=e.touches; t0={d:dist(a,b), c:mid(a,b)}; base=targetScale; }
+    }, {passive:true});
+    canvas.addEventListener('touchmove', e=>{
+      if(e.touches.length===2 && t0){ e.preventDefault();
+        const [a,b]=e.touches; const d=dist(a,b), c=mid(a,b);
+        setScale(base * (d/t0.d)); addPan((c.x - t0.c.x),(c.y - t0.c.y));
+      }
+    }, {passive:false});
+    canvas.addEventListener('touchend', ()=>{ t0=null; }, {passive:true});
+
+    // マウスドラッグでパン
+    let drag=false, mx=0,my=0;
+    wrap.addEventListener('mousedown', e=>{ drag=true; mx=e.clientX; my=e.clientY; e.preventDefault(); });
+    addEventListener('mousemove', e=>{ if(!drag) return; addPan(e.clientX-mx, e.clientY-my); mx=e.clientX; my=e.clientY; });
+    addEventListener('mouseup',   ()=>{ drag=false; });
+
+    // ダブルクリックでリセット
+    let last=0;
+    canvas.addEventListener('click', e=>{
+      const now=Date.now(); if(now-last<300){ targetScale=1; targetPanX=0; targetPanY=0; tick(); } last=now;
+    });
+
+    apply();
+  })();
+
+  // ========= ツール群（Illustrator寄りの挙動） =========
+  const toolState = {
+    current: 'select',
+    color: '#222222',
+    opacity: 1,
+    width: 3,
+    gridOn: false,
+    snap: 8, // マス目
+    eyedropper: false,
+  };
+
+  const toolColumn = $('#toolColumn');
+  toolColumn.addEventListener('click', (e)=>{
+    const b = e.target.closest('.tool'); if(!b) return;
+    const t = b.dataset.tool;
+    if(t==='grid'){
+      toolState.gridOn = !toolState.gridOn;
+      $('#gridOverlay').classList.toggle('on', toolState.gridOn);
+      canvasWrap.classList.toggle('snap', toolState.gridOn);
+      return;
+    }
+    if(t==='layer'){ layerPanel.scrollIntoView({behavior:'smooth', block:'nearest'}); return; }
+    setTool(t);
+  });
+
+  function setTool(t){
+    toolState.current = t;
+    $$('.tool', toolColumn).forEach(btn=>btn.classList.toggle('active', btn.dataset.tool===t));
+    // 不透明度フローティング：描画系のみ表示
+    const drawTools = ['brush','rect','ellipse','line','text'];
+    $('#opacityFloat').hidden = !drawTools.includes(t);
+  }
+
+  // カラー
+  const paletteDefault = ['#ffffff','#c0c0c0','#808080','#000000','#e31e1e','#ff7a00','#ffd400','#33cc33','#00a0ff','#1450ff','#a600ff','#ff00aa'];
+  const colorColumn = $('#colorColumn');
+  function buildPalette(){
+    const list = document.createElement('div');
+    list.className='color-list';
+    paletteDefault.forEach(hex=>{
+      const sw = document.createElement('button');
+      sw.className='swatch'; sw.style.setProperty('--sw', hex);
+      sw.title = hex;
+      sw.addEventListener('click', ()=>{ toolState.color = hex; });
+      list.appendChild(sw);
+    });
+    const old = $('.color-list', colorColumn); if(old) old.remove();
+    colorColumn.insertBefore(list, $('.color-actions', colorColumn));
+  }
+  buildPalette();
+
+  $('#btn-add-color').addEventListener('click', ()=>$('#hidden-color').click());
+  $('#hidden-color').addEventListener('input', e=>{
+    const hex = e.target.value;
+    if(!/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hex)) return;
+    const sw = document.createElement('button');
+    sw.className='swatch'; sw.style.setProperty('--sw', hex); sw.title=hex;
+    sw.addEventListener('click', ()=>{ toolState.color = hex; });
+    $('.color-list', colorColumn).appendChild(sw);
+  });
+
+  $('#btn-eyedropper').addEventListener('click', ()=>{
+    toolState.eyedropper = true;
+    setTool('select');
+  });
+
+  // 不透明度
+  const opRange = $('#opacityRange');
+  const opValue = $('#opacityValue');
+  opRange.addEventListener('input', ()=>{
+    toolState.opacity = parseFloat(opRange.value);
+    opValue.textContent = Math.round(toolState.opacity*100)+'%';
+  });
+
+  // ========= 描画エンジン（キャンバスレイヤに出力） =========
+  // ブラシ：通常描画／消しゴム＝destination-out
+  let drawing = false, startX=0, startY=0, lastX=0, lastY=0;
+  let tempShape = null; // 形状プレビュー（矩形・楕円・直線）
+
+  function pointerPos(e){
+    const r = canvasWrap.getBoundingClientRect();
+    const x = (e.clientX ?? e.touches?.[0]?.clientX) - r.left;
+    const y = (e.clientY ?? e.touches?.[0]?.clientY) - r.top;
+    if(toolState.gridOn){
+      const g = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--grid'))||8;
+      return { x: Math.round(x/g)*g, y: Math.round(y/g)*g };
+    }
+    return {x,y};
+  }
+
+  function begin(e){
+    if(!activeLayer || activeLayer.locked) return;
+    // Eyedropper
+    if(toolState.eyedropper){
+      const p = pointerPos(e);
+      const ctx = activeLayer.ctx;
+      const data = ctx.getImageData(p.x, p.y, 1, 1).data;
+      toolState.color = `rgb(${data[0]},${data[1]},${data[2]})`;
+      toolState.eyedropper = false;
+      return;
+    }
+
+    const p = pointerPos(e);
+    startX=lastX=p.x; startY=lastY=p.y;
+    drawing = true;
+
+    if(['rect','ellipse','line'].includes(toolState.current)){
+      // プレビュー用の一時Canvas
+      if(!tempShape){
+        tempShape = document.createElement('canvas');
+        tempShape.className='temp-shape';
+        tempShape.width = activeLayer.canvas.width;
+        tempShape.height= activeLayer.canvas.height;
+        canvasStack.appendChild(tempShape);
+      }
+    }
+
+    if(toolState.current==='text'){
+      const div = document.createElement('div');
+      div.className='text-node';
+      div.contentEditable='true';
+      div.style.left = toPx(p.x);
+      div.style.top  = toPx(p.y);
+      div.style.opacity = toolState.opacity;
+      div.style.color   = toolState.color;
+      div.textContent = 'Text';
+      canvasWrap.appendChild(div);
+      div.focus();
+      drawing=false;
+    }
+  }
+
+  function move(e){
+    if(!drawing || !activeLayer) return;
+    const p = pointerPos(e);
+    const ctx = activeLayer.ctx;
+    const color = toolState.color;
+    const alpha = toolState.opacity;
+
+    if(toolState.current==='brush' || toolState.current==='eraser'){
+      ctx.save();
+      ctx.globalCompositeOperation = (toolState.current==='eraser') ? 'destination-out' : 'source-over';
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = alpha;
+      ctx.lineWidth = toolState.width;
+      ctx.lineJoin = ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(lastX,lastY);
+      ctx.lineTo(p.x,p.y);
+      ctx.stroke();
+      ctx.restore();
+      lastX=p.x; lastY=p.y;
+      return;
+    }
+
+    if(['rect','ellipse','line'].includes(toolState.current) && tempShape){
+      const tctx = tempShape.getContext('2d');
+      tctx.clearRect(0,0,tempShape.width,tempShape.height);
+      tctx.save();
+      tctx.strokeStyle = color;
+      tctx.globalAlpha = alpha;
+      tctx.lineWidth = toolState.width;
+      if(toolState.current==='rect'){
+        tctx.strokeRect(Math.min(startX,p.x), Math.min(startY,p.y), Math.abs(p.x-startX), Math.abs(p.y-startY));
+      }else if(toolState.current==='ellipse'){
+        tctx.beginPath();
+        tctx.ellipse((startX+p.x)/2,(startY+p.y)/2, Math.abs(p.x-startX)/2, Math.abs(p.y-startY)/2, 0, 0, Math.PI*2);
+        tctx.stroke();
+      }else if(toolState.current==='line'){
+        tctx.beginPath(); tctx.moveTo(startX,startY); tctx.lineTo(p.x,p.y); tctx.stroke();
+      }
+      tctx.restore();
+    }
+  }
+
+  function end(e){
+    if(!drawing || !activeLayer) return;
+    drawing=false;
+
+    if(['rect','ellipse','line'].includes(toolState.current) && tempShape){
+      const tctx = tempShape.getContext('2d');
+      const ctx = activeLayer.ctx;
+      ctx.drawImage(tempShape, 0,0);
+      tempShape.remove(); tempShape=null;
+    }
+  }
+
+  ['mousedown','touchstart'].forEach(ev=>canvasWrap.addEventListener(ev, begin, {passive:false}));
+  ['mousemove','touchmove' ].forEach(ev=>canvasWrap.addEventListener(ev, move,  {passive:false}));
+  ['mouseup','mouseleave','touchend','touchcancel'].forEach(ev=>canvasWrap.addEventListener(ev, end, {passive:true}));
+
+  // 初期ツール
+  setTool('select');
+
+  // ========= ファイル操作（Upload/Download/Save） =========
+  $('#btn-download').addEventListener('click', ()=>{
+    // 可視レイヤを合成してPNG保存
+    const out = document.createElement('canvas');
+    out.width = canvasWrap.clientWidth; out.height = canvasWrap.clientHeight;
+    const octx = out.getContext('2d');
+    LAYERS.forEach(L=>{ if(L.visible) octx.drawImage(L.canvas,0,0); });
+    const url = out.toDataURL('image/png');
+    const a = document.createElement('a'); a.href=url; a.download='vivora_board.png'; a.click();
+  });
+
+  $('#btn-save').addEventListener('click', ()=>{
+    const dump = LAYERS.map(L=>({visible:L.visible, locked:L.locked, png:L.canvas.toDataURL()}));
+    localStorage.setItem('vivora.layers', JSON.stringify(dump));
+    alert('ローカルに保存しました。');
+  });
+
+  $('#btn-upload').addEventListener('click', ()=>{
+    const data = localStorage.getItem('vivora.layers');
+    if(!data) return alert('保存データがありません。');
+    try{
+      const arr = JSON.parse(data);
+      arr.forEach((d,i)=>{
+        if(!LAYERS[i]) makeLayer('Layer '+(i+1));
+        const L = LAYERS[i];
+        const img = new Image();
+        img.onload = ()=>{ L.ctx.clearRect(0,0,L.canvas.width,L.canvas.height); L.ctx.drawImage(img,0,0); };
+        img.src = d.png; L.visible=d.visible; L.locked=d.locked; L.canvas.style.visibility=d.visible?'visible':'hidden';
+      });
+      buildLayerUI();
+    }catch(err){ alert('読み込みに失敗しました。'); }
+  });
+
+  // ========= contents / Next Step（ダミー） =========
+  $('#btn-next').addEventListener('click', ()=>{ alert('Next Step: 後続フローを接続予定'); });
+
+  // ========= 画像ドラッグ抑止 =========
+  document.addEventListener('DOMContentLoaded', ()=>{
+    $$('img').forEach(img=>{
+      img.addEventListener('mousedown', e=>e.preventDefault());
+      img.addEventListener('dragstart', e=>e.preventDefault());
+    });
+  });
   </script>
 </body>
 </html>
