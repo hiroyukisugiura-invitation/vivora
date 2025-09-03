@@ -1,173 +1,172 @@
-/* ===== ベース ===== */
+/* =========================================
+   Vivora Illustration — Full Styles
+   ・HTML/CSS分離
+   ・方眼紙は .artboard 内だけ
+   ・ON/OFF: #gridToggle のチェックで切替（CSSのみ）
+========================================= */
+
+/* -------- Tokens -------- */
 :root{
-  --bg:#EDE7DF;      /* ベージュ背景 */
-  --panel:#F4F2F0;   /* 右レール */
-  --tile:#FFFFFF;    /* 白カード */
-  --line:#DCD6CF;    /* 枠線 */
-  --text:#2E2E2E;
-  --radius:10px;
+  /* colors */
+  --bg: #e9e4de;          /* ページ背景（薄ベージュ） */
+  --panel: #ffffff;       /* 白パネル */
+  --tile: #f2eee9;        /* ごく薄いタイル色（枠） */
+  --line: #d8d2cc;        /* 枠線 */
+  --text: #333333;
 
-  --app-w:1280px;
-  --app-h:820px;
+  /* layout */
+  --app-max-w: 1440px;
+  --app-pad-x: 24px;
 
-  --rail-w:92px;
+  /* artboard size (固定) */
+  --art-w: 1280px;
+  --art-h: 820px;
+  --art-radius: 14px;
+
+  /* grid (方眼紙) */
+  /* ファイルパスはプロジェクトに合わせて調整してください */
+  /* 例: /public/grid/W_4.51 mm・H_4.54 mm.png */
+  --grid-img: url("/public/grid/W_4.51 mm・H_4.54 mm.png");
+  --grid-opacity: 0.65;         /* 0〜1 */
+  --grid-blend-mode: multiply;  /* 背景となじませる */
 }
 
-*{ box-sizing:border-box; user-select:none; }
-html,body{ height:100%; }
+/* -------- Reset（最小限） -------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family: "Helvetica Neue","Inter",system-ui, -apple-system, sans-serif;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Hiragino Sans", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
 }
 
+/* -------- App Frame -------- */
 .app{
-  width:var(--app-w);
-  height:var(--app-h);
-  margin:0 auto;
-  display:flex;
-  flex-direction:column;
+  max-width: var(--app-max-w);
+  margin: 20px auto 40px;
+  padding: 0 var(--app-pad-x);
 }
 
-/* ===== ヘッダー ===== */
+/* ===== Topbar（キャンバスの外） ===== */
 .topbar{
-  height:56px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 10px;
 }
 
-.page-title{
-  font-size:16px;
-  font-weight:500;
-  opacity:.9;
+.title{
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .2px;
 }
 
-.top-controls{ display:flex; align-items:center; gap:12px; }
-.next-step{
-  border:none; background:transparent; font-size:14px; cursor:pointer; opacity:.9;
+.nextstep{
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 10px;
+  cursor: pointer;
 }
-.contents-button img{ width:22px; height:22px; margin-left:6px; cursor:pointer; opacity:.9; }
-.contents-button img:hover{ opacity:1; }
+.nextstep:hover{ filter: brightness(0.98); }
 
-/* ===== 作業領域 ===== */
-.workspace{
-  flex:1;
-  display:flex;
-  padding:0 12px 12px 12px;
-}
-
-/* ===== ボード（キャンバス） ===== */
-#board{
-  position:relative;
-  flex:1;
-  border-radius:12px;
-  background:#fff;
-  border:1px solid var(--line);
-  overflow:hidden;
+/* ===== Stage／Artboard ===== */
+.stage{
+  display: grid;
+  justify-content: center;   /* 中央寄せ */
 }
 
-#graph-paper,
-#mannequin,
-#board canvas{
-  position:absolute;
-  left:50%; top:50%;
-  transform:translate(-50%,-50%) scale(1); /* JSで上書き */
-  transform-origin: center center;
+.grid-control{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 8px;
+  user-select: none;
+}
+.grid-control > input{
+  width: 16px;
+  height: 16px;
+}
+.grid-control > label{
+  font-size: 12px;
+  opacity: .8;
+  cursor: pointer;
 }
 
-/* グリッドは初期非表示 */
-#graph-paper{ opacity:.22; display:block; }
-#graph-paper:not(.show){ visibility:hidden; opacity:0; }
-
-#mannequin{ pointer-events:none; max-width:100%; max-height:100%; opacity:.95; }
-
-#board canvas{
-  width:1024px; height:640px; /* 視覚サイズ（内部ピクセルはHTML側で設定） */
-  image-rendering:crisp-edges;
-}
-#board canvas.hidden{ visibility:hidden; }
-
-/* ズームHUD */
-#zoom-hud{
-  position:absolute; right:140px; top:50%; transform:translateY(-50%);
-  background:rgba(0,0,0,.55); color:#fff; padding:4px 8px; border-radius:6px;
-  font-size:12px; opacity:0; transition:opacity .15s;
-}
-#zoom-hud.show{ opacity:1; }
-
-/* ===== 右サイドバー ===== */
-.sidebar{
-  width:var(--rail-w);
-  margin-left:10px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:10px 8px;
-  display:flex; flex-direction:column; align-items:center; gap:12px;
+/* アートボード本体（固定 1280×820） */
+.artboard{
+  position: relative;
+  width: var(--art-w);
+  height: var(--art-h);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--art-radius);
+  /* 外周のごく薄いベージュ枠（添付イメージの雰囲気） */
+  box-shadow:
+    inset 0 0 0 8px var(--tile),       /* 内側ベージュ帯 */
+    0 1px 0 rgba(0,0,0,.04),
+    0 6px 20px rgba(0,0,0,.05);
+  overflow: hidden; /* 方眼紙と中身をクリップ */
 }
 
-.file-tools button,
-.stationery-tools .tool,
-.grid-btn{
-  width:36px; height:36px; border-radius:8px; border:1px solid #CFC9C2;
-  background:var(--tile); cursor:pointer; display:grid; place-items:center;
+/* ====== 方眼紙（artboard内だけ） ======
+   ::before を “最背面” オーバーレイとして使用 */
+.artboard::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--grid-img);
+  background-repeat: repeat;
+  background-position: center center;
+  background-size: auto;         /* 元画像ピッチを保持（等倍） */
+  opacity: var(--grid-opacity);
+  mix-blend-mode: var(--grid-blend-mode);
+  pointer-events: none;          /* 透過して操作可 */
+  z-index: 0;                    /* 最背面 */
 }
-.file-tools{ display:grid; gap:6px; }
 
-.layer-panel{
-  width:100%; display:flex; flex-direction:column; gap:8px;
+/* チェックが外れたら方眼紙を非表示（CSSのみで切替） */
+/* 構造: .grid-control > input + label + .artboard */
+#gridToggle:not(:checked) + label + .artboard::before{
+  opacity: 0;
 }
-.layer-box{
-  background:var(--tile); border:1px solid #D7D1CA; border-radius:8px; padding:6px 6px 8px;
-  display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto; row-gap:4px; column-gap:6px;
+
+/* ===== マネキン ===== */
+.mannequin{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* 完全中央 */
+  height: min(560px, 68%);          /* 画像高さ（比率で安全） */
+  opacity: .9;
+  z-index: 1;                       /* 方眼紙より上 */
+  user-select: none;
+  -webkit-user-drag: none;
 }
-.layer-box .layer-toolbar{ grid-column:1/3; display:flex; gap:6px; }
-.layer-box .layer-title{ font-size:12px; opacity:.8; }
-.layer-box input[type=radio]{ align-self:center; }
 
-.stationery-tools{
-  width:100%; display:grid; grid-template-columns:repeat(3, 36px); gap:6px; justify-content:center;
+/* ===== 右サイドのツールレール（土台のみ） ===== */
+.rail{
+  position: absolute;
+  top: 24px;
+  right: 16px;
+  width: 88px;
+  height: calc(100% - 48px);
+  border-radius: 12px;
+  background: linear-gradient(#f7f4f0, #f2eee9);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
+  z-index: 2;
+  pointer-events: none; /* まずは土台なので操作不可。後で解除 */
 }
-.tool.active{ outline:2px solid #4E78DA; }
 
-.size-wrap{
-  grid-column:1/4;
-  display:none; /* ツール選択時に表示 */
-  align-items:center; gap:6px;
-  background:var(--tile);
-  border:1px solid #D7D1CA;
-  border-radius:8px;
-  padding:6px;
+/* ===== 小さなレスポンシブ保護（縮小時のはみ出し対策） ===== */
+@media (max-width: 1320px){
+  .app{ padding: 0 16px; }
 }
-.size-wrap span{ font-size:12px; opacity:.8; }
-.size-wrap input[type=range]{ width:100%; }
-
-.opacity-tool{
-  width:100%;
-  background:var(--tile); border:1px solid #D7D1CA; border-radius:8px; padding:6px;
-  display:grid; grid-template-columns:1fr auto; gap:8px; align-items:center;
-}
-.opacity-tool input[type=range]{ width:100%; }
-.opacity-tool span{ font-size:12px; opacity:.8; }
-
-.color-tool{
-  width:100%; display:grid; grid-template-columns:repeat(2, 36px); gap:6px; justify-content:center;
-}
-.color{
-  width:28px; height:28px; border-radius:50%; border:1px solid #666; cursor:pointer; background:#0000;
-}
-.color.picked{ outline:2px solid #4E78DA; }
-
-.c-gray3{ background:#E6E6E6; } .c-gray2{ background:#BFBFBF; } .c-gray1{ background:#9E9E9E; }
-.c-ylw{ background:#F8D548; } .c-org{ background:#F6A34D; } .c-red{ background:#E25B5B; }
-.c-pink{ background:#DE6AAE; } .c-vio{ background:#8E65D8; } .c-blu{ background:#4E78DA; }
-.c-cyan{ background:#42BFD3; } .c-grn{ background:#58C16C; } .c-brwn{ background:#A46D4B; }
-.c-black{ background:#111; }
-
-.grid-btn{ width:36px; height:36px; font-family:monospace; }
-
-/* 小さなホバー */
-button:hover{ filter:brightness(0.98); }
