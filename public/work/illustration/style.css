@@ -1,293 +1,263 @@
-/* ========== ベース ========== */
+/* =========================
+   固定寸法と色定義
+   ========================= */
 :root{
-  --bg: #e8e2d8;           /* ベージュ（ページ背景） */
-  --ink:#1d1d1d;           /* 文字色 */
-  --panel:#efe9df;         /* 右サイドの地色に近いベージュ */
-  --white:#fff;
-  --line:#d9d3c9;          /* カンバスの境界色 */
-  --soft:#bfb8ac;
+  --board-w: 1280px;
+  --board-h: 820px;
+
+  --page-bg: #3d3d3f;   /* 外周（定規帯） */
+  --beige:   #e8e2d8;   /* ボード地 */
+  --panel:   #efe9df;   /* 右サイドの帯 */
+  --canvas:  #ffffff;   /* キャンバス白 */
+  --line:    #d7d1c7;   /* キャンバス枠線 */
+  --ink:     #1e1e1e;
+
+  /* 方眼紙セル（mm→px 目安）
+     4.51mm / 4.54mm を画面密度に合わせて ≒ 17px前後に調整 */
+  --grid-x: 17.0px;     /* 横ピッチ */
+  --grid-y: 17.1px;     /* 縦ピッチ（わずかに差） */
+
+  /* 10セルごとの太線カラー */
+  --grid-thin: #e7e3dd;
+  --grid-bold: #d6d0c7;
 }
 
+/* ベース */
 *{box-sizing:border-box}
 html,body{height:100%}
-body{
-  margin:0;
-  font-family: "Times New Roman", Georgia, serif;
-  color:var(--ink);
-  background:var(--bg);
-}
+body{margin:0;background:var(--page-bg);color:var(--ink);font-family:"Times New Roman",Georgia,serif}
 
-/* 画面中央に固定ボード */
-.page{
+/* =========================
+   外周（定規を含むワークエリア）
+   ========================= */
+.workarea{
   min-height:100%;
-  display:flex;
-  align-items:flex-start;
-  justify-content:center;
-  padding:20px 16px;
-}
-.board{
-  width:1280px;
-  height:820px;
-  display:flex;
-  flex-direction:column;
+  display:grid;
+  place-items:center;
+  position:relative;
+  padding:24px;  /* 周辺の余白 */
 }
 
-/* ========== ヘッダー ========== */
-.header{
-  height:56px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 12px 0 8px;
-}
-.title{
-  font-size:20px;
+/* =========================
+   ルーラー（定規）
+   ========================= */
+.ruler{
+  position:absolute;
+  pointer-events:none;
+  color:#cecece;
+  font-size:12px;
   line-height:1;
-  margin-left:4px;
 }
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:12px;
+.ruler .ruler-scale,
+.ruler .ruler-marks{position:absolute; inset:0}
+
+/* 上下：横方向の細目盛り（1単位）と10単位の太線 */
+.ruler-scale.ruler-scale-x{
+  background:
+    repeating-linear-gradient(90deg,
+      transparent 0 calc(var(--grid-x) - 1px),
+      rgba(255,255,255,.08) calc(var(--grid-x) - 1px) var(--grid-x)
+    );
 }
-.mini-icons{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.mini-icons img{
-  width:22px; height:22px;
-  display:block;
-  border-radius:4px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,.08) inset;
+.ruler-marks.ruler-marks-x{
+  background:
+    repeating-linear-gradient(90deg,
+      transparent 0 calc(var(--grid-x)*9 - 1px),
+      rgba(255,255,255,.22) calc(var(--grid-x)*9 - 1px) calc(var(--grid-x)*9),
+      rgba(255,255,255,.22) calc(var(--grid-x)*10 - 1px) calc(var(--grid-x)*10)
+    );
 }
 
-.next-btn{
-  height:28px;
-  padding:0 10px;
-  font-size:13px;
-  border-radius:14px;
+/* 左右：縦方向 */
+.ruler-scale.ruler-scale-y{
+  background:
+    repeating-linear-gradient(0deg,
+      transparent 0 calc(var(--grid-y) - 1px),
+      rgba(255,255,255,.08) calc(var(--grid-y) - 1px) var(--grid-y)
+    );
+}
+.ruler-marks.ruler-marks-y{
+  background:
+    repeating-linear-gradient(0deg,
+      transparent 0 calc(var(--grid-y)*9 - 1px),
+      rgba(255,255,255,.22) calc(var(--grid-y)*9 - 1px) calc(var(--grid-y)*9),
+      rgba(255,255,255,.22) calc(var(--grid-y)*10 - 1px) calc(var(--grid-y)*10)
+    );
+}
+
+/* 目盛数字（0,10,20...100） */
+.nums{position:absolute; inset:0; display:flex; justify-content:space-between; align-items:center; padding:0 8px}
+.nums span{opacity:.85}
+.nums-x{ height:24px; }
+.nums-y{
+  writing-mode:vertical-rl;
+  height:100%; width:24px; justify-content:space-between; padding:8px 0;
+}
+
+/* 定規の配置（ボード外周に沿わせる） */
+.ruler-top{
+  left: calc(50% - var(--board-w)/2);
+  top:  calc(50% - var(--board-h)/2 - 24px);
+  width: var(--board-w); height:24px;
+}
+.ruler-bottom{
+  left: calc(50% - var(--board-w)/2);
+  top:  calc(50% + var(--board-h)/2);
+  width: var(--board-w); height:24px;
+}
+.ruler-left{
+  top:  calc(50% - var(--board-h)/2);
+  left: calc(50% - var(--board-w)/2 - 24px);
+  width:24px; height:var(--board-h);
+}
+.ruler-right{
+  top:  calc(50% - var(--board-h)/2);
+  left: calc(50% + var(--board-w)/2);
+  width:24px; height:var(--board-h);
+}
+
+/* =========================
+   ボード本体
+   ========================= */
+.board{
+  width:var(--board-w);
+  height:var(--board-h);
+  background:var(--beige);
+  border-radius:6px;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.35) inset,
+    0 1px 4px rgba(0,0,0,.25);
+  display:grid;
+  grid-template-rows: 56px 1fr;
+  grid-template-columns: 1fr;
+  position:relative;
+}
+
+/* ヘッダー */
+.head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 14px 0 18px;
+}
+.title{font-size:18px}
+.top-actions{display:flex; align-items:center; gap:12px}
+.mini-icons{display:flex; gap:6px}
+.ic{width:18px; height:18px; border-radius:3px; background:#1f1f1f; display:inline-block}
+.next{
+  height:26px; padding:0 10px; font-size:12.5px; border-radius:13px;
   border:1px solid rgba(0,0,0,.25);
-  background:linear-gradient(#ffffff,#f3f3f3);
+  background:linear-gradient(#fff,#f4f4f4);
   cursor:pointer;
 }
 
-/* ========== ステージ（キャンバス＋サイドバー） ========== */
-.stage{
-  flex:1;
-  display:grid;
-  grid-template-columns: 1fr 128px; /* 右サイド幅 */
-  gap:12px;
-  padding:4px 0 0 0;
+/* ステージ：キャンバス＋右サイド */
+.board{
+  /* 二段目はステージ */
 }
-
-/* 白いキャンバス（角丸・薄い枠） */
 .canvas{
-  background:var(--white);
-  border:1px solid var(--line);
+  margin: 6px 156px 10px 16px; /* 右にサイドを空ける */
+  height: calc(100% - 56px - 16px);
+  background: var(--panel);
   border-radius:10px;
   position:relative;
-  overflow:hidden;
 }
-
-/* マネキン中央配置（初期は女性PNG） */
-.mannequin{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-45%); /* ほんの少し上に寄せる */
-  max-height:72%;
-  height:auto;
-  width:auto;
-  pointer-events:none;
-  user-select:none;
-}
-
-/* 右中ほどのズームパネル（見た目寄せ） */
-.zoom-panel{
-  position:absolute;
-  right:92px;
-  top:52%;
-  transform:translateY(-50%);
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:12px;
-}
-.zoom-label{
-  background:#7b7b7b;
-  color:#fff;
-  padding:3px 8px;
-  border-radius:3px;
-}
-.zoom-track{
-  width:42px; height:6px;
-  background:#bfbfbf;
-  border-radius:3px;
-  position:relative;
-}
-.zoom-dot{
-  position:absolute; top:1px; right:2px;
-  width:6px; height:6px;
-  background:#2f7abf;
-  border-radius:50%;
-}
-
-/* ========== 右サイドバー ========== */
-.sidebar{
-  display:grid;
-  grid-template-rows: auto auto 1fr;  /* ツール / レイヤー / パレット（下詰） */
-  align-items:start;
-  gap:10px;
-  background:transparent; /* スクショ同様、地はボードのベージュ */
-}
-
-/* ツール縦アイコン列 */
-.tool-strip{
-  width:100%;
-  display:grid;
-  grid-template-columns: 1fr;
-  gap:8px;
-  padding-right:8px;
-}
-.tool{
-  width:42px; height:42px;
-  border:1px solid #cfc6b7;
-  border-radius:6px;
-  background:var(--white);
-  margin-left:auto; /* 右寄せ */
-  position:relative;
-  cursor:default;
-}
-
-/* 簡易ピクト（SVGの代替。後でPNGへ差替） */
-.tool-arrow::before{
+.canvas::before{
+  /* 内側の白キャンバス（角丸＆薄枠） */
   content:"";
-  position:absolute; inset:0;
-  background:
-    linear-gradient(45deg, transparent 48%, #333 49% 51%, transparent 52%) center/60% 60% no-repeat;
-}
-.tool-triangle::before{
-  content:""; position:absolute; inset:0;
-  background:
-    conic-gradient(from 0deg at 50% 65%, transparent 0 60%, #333 60% 100%) center/60% 60% no-repeat;
-}
-.tool-rect::before{
-  content:""; position:absolute; inset:0;
-  box-shadow: inset 0 0 0 2px #333;
-  width:60%; height:60%; margin:auto; border-radius:2px;
-}
-.tool-ellipse::before{
-  content:""; position:absolute; inset:0;
-  width:62%; height:62%; margin:auto; border-radius:50%;
-  box-shadow: inset 0 0 0 2px #333;
-}
-.tool-brush::before{
-  content:""; position:absolute; left:10px; top:10px; right:10px; bottom:10px;
-  background:linear-gradient(120deg,#333 0 35%, transparent 35% 100%);
-  border-radius:10px 10px 18px 10px;
-}
-.tool-eraser::before{
-  content:""; position:absolute; inset:0;
-  background:
-    linear-gradient(135deg, #333 0 50%, transparent 50% 100%) center/60% 60% no-repeat;
-}
-.tool-drop::before{
-  content:""; position:absolute; inset:0;
-  background:
-    radial-gradient(circle at 50% 35%, #333 36%, transparent 37%),
-    linear-gradient(#333,#333) center/2px 16px no-repeat;
-}
-.tool-text::before{
-  content:"T"; position:absolute; inset:0;
-  display:grid; place-items:center; font: 18px/1 Georgia, serif; color:#333;
-}
-.tool-grid::before{
-  content:""; position:absolute; inset:0;
-  background:
-    linear-gradient(#333,#333) left 50% top 20% / 70% 2px no-repeat,
-    linear-gradient(#333,#333) left 50% top 45% / 70% 2px no-repeat,
-    linear-gradient(#333,#333) left 50% top 70% / 70% 2px no-repeat,
-    linear-gradient(#333,#333) left 20% top 50% / 2px 70% no-repeat,
-    linear-gradient(#333,#333) left 45% top 50% / 2px 70% no-repeat,
-    linear-gradient(#333,#333) left 70% top 50% / 2px 70% no-repeat;
-}
-.tool-layers::before{
-  content:""; position:absolute; inset:0;
-  background:
-    linear-gradient(#333,#333) center/70% 2px no-repeat,
-    linear-gradient(#333,#333) center 65%/70% 2px no-repeat,
-    linear-gradient(#333,#333) center 35%/70% 2px no-repeat;
+  position:absolute; inset:14px 12px;
+  background:var(--canvas);
+  border-radius:12px;
+  border:1px solid var(--line);
 }
 
-/* レイヤーカード */
-.layers{
-  display:grid;
-  gap:12px;
-  padding-right:8px;
-}
-.layer-card{
-  width:96px; margin-left:auto;
-  background:var(--white);
-  border:1px solid #cfc6b7;
-  border-radius:8px;
-  overflow:hidden;
-}
-.layer-head{
-  height:20px; display:flex; align-items:center; gap:6px;
-  padding:2px 6px;
-  background:#f6f1ea;
-  border-bottom:1px solid #e2dacd;
-}
-.layer-head .lock{
-  width:10px; height:10px; border:1px solid #999; border-radius:2px; display:inline-block;
-  background:linear-gradient(#bbb,#888);
-}
-.layer-head .dots{
-  margin-left:auto; width:18px; height:8px; display:inline-block;
+/* 方眼紙（白キャンバスの内側一杯に敷く） */
+.graph{
+  position:absolute; inset:14px 12px;
+  border-radius:12px; overflow:hidden;
+  /* 細線（1セル）と太線（10セル）を重ねる */
   background:
-    radial-gradient(circle,#666 2px,transparent 3px) left 2px top 50%/6px 6px repeat-x;
-  opacity:.8;
-}
-.layer-body{
-  height:74px;
-  background:
-    linear-gradient(#fefefe,#f7f5f2);
-}
-.layer-foot{
-  display:flex; gap:6px; justify-content:flex-start; align-items:center;
-  padding:4px 6px; border-top:1px solid #eee;
-}
-.layer-foot .ico{
-  width:10px; height:10px; border-radius:2px; background:#bbb; display:inline-block;
+    /* 10セルごとの太縦線 */
+    linear-gradient(90deg, var(--grid-bold) 1px, transparent 1px) 0 0 / calc(var(--grid-x)*10) 100% repeat-x,
+    /* 10セルごとの太横線 */
+    linear-gradient(0deg, var(--grid-bold) 1px, transparent 1px) 0 0 / 100% calc(var(--grid-y)*10) repeat-y,
+    /* 1セルの縦線 */
+    repeating-linear-gradient(90deg, var(--grid-thin), var(--grid-thin) 1px, transparent 1px, transparent var(--grid-x)),
+    /* 1セルの横線 */
+    repeating-linear-gradient(0deg, var(--grid-thin), var(--grid-thin) 1px, transparent 1px, transparent var(--grid-y));
 }
 
-/* パレット（縦並び） */
-.palette{
-  margin-top:auto;
-  display:grid; gap:8px;
-  grid-auto-rows:min-content;
-  justify-items:end;
-  padding-right:8px;
+/* マネキン */
+.mannequin{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-46%);
+  max-height:68%;
+  pointer-events:none; user-select:none;
+  filter: contrast(0.95) opacity(.9);
 }
-.swatch{
-  width:22px; height:22px; border-radius:50%;
-  border:1px solid #cfc6b7;
-  background:var(--c, #ccc);
+
+/* 100%チップ（右中） */
+.zoom{
+  position:absolute; right:78px; top:50%; transform:translateY(-50%);
+  display:flex; align-items:center; gap:6px; font-size:11px;
 }
-.eraser{
-  width:22px; height:22px; border-radius:50%;
-  border:1px solid #cfc6b7;
-  background:
-    conic-gradient(from 45deg, #fff 0 50%, #f3f3f3 50% 100%);
+.zoom .chip{
+  background:#7a7a7a; color:#fff; padding:2px 6px; border-radius:3px;
+}
+.zoom .bar{
+  display:inline-block; width:38px; height:5px; border-radius:3px; background:#bfc1c3; position:relative;
+}
+.zoom .bar b{
+  position:absolute; right:1px; top:0; width:5px; height:5px; background:#2f7abf; border-radius:50%;
+}
+
+/* 右サイド */
+.side{
+  position:absolute; right:8px; top:58px; bottom:12px;
+  width:134px; display:grid; grid-template-rows:auto auto 1fr; gap:10px;
+}
+
+/* ツール列（ダミー描画。後でPNGに差替え可） */
+.toolcol{display:grid; justify-items:end; gap:6px; padding-right:6px}
+.t{width:30px; height:30px; background:#fff; border:1px solid #cec4b4; border-radius:6px; position:relative}
+.t.arrow::before{content:""; position:absolute; inset:0; clip-path:polygon(28% 20%, 72% 50%, 28% 80%, 40% 52%, 28% 50%); background:#333}
+.t.tri::before{content:""; position:absolute; inset:0; clip-path:polygon(50% 22%, 78% 76%, 22% 76%); background:#333}
+.t.rect::before{content:""; position:absolute; inset:0; margin:auto; width:62%; height:62%; box-shadow:inset 0 0 0 2px #333; border-radius:2px}
+.t.circ::before{content:""; position:absolute; inset:0; margin:auto; width:62%; height:62%; border-radius:50%; box-shadow:inset 0 0 0 2px #333}
+.t.brush::before{content:""; position:absolute; left:10px; top:10px; right:10px; bottom:10px; background:linear-gradient(120deg,#333 0 35%, transparent 35%); border-radius:10px 10px 18px 10px}
+.t.pen2::before{content:""; position:absolute; left:8px; top:8px; right:8px; bottom:8px; background:linear-gradient(135deg,#333 0 50%, transparent 50%)}
+.t.drop::before{content:""; position:absolute; inset:0; background:
+  radial-gradient(circle at 50% 35%, #333 36%, transparent 37%),
+  linear-gradient(#333,#333) center/2px 16px no-repeat}
+.t.text::before{content:"T"; position:absolute; inset:0; display:grid; place-items:center; font: 18px/1 Georgia,serif; color:#333}
+.t.grid2::before{content:""; position:absolute; inset:0; background:
+  linear-gradient(#333,#333) left 50% top 20% / 70% 2px no-repeat,
+  linear-gradient(#333,#333) left 50% top 45% / 70% 2px no-repeat,
+  linear-gradient(#333,#333) left 50% top 70% / 70% 2px no-repeat,
+  linear-gradient(#333,#333) left 20% top 50% / 2px 70% no-repeat,
+  linear-gradient(#333,#333) left 45% top 50% / 2px 70% no-repeat,
+  linear-gradient(#333,#333) left 70% top 50% / 2px 70% no-repeat}
+.t.layers::before{content:""; position:absolute; inset:0; background:
+  linear-gradient(#333,#333) center/70% 2px no-repeat,
+  linear-gradient(#333,#333) center 65%/70% 2px no-repeat,
+  linear-gradient(#333,#333) center 35%/70% 2px no-repeat}
+
+/* レイヤー */
+.layers{display:grid; gap:10px; padding-right:6px; justify-items:end}
+.card{width:92px; background:#fff; border:1px solid #cec4b4; border-radius:8px; overflow:hidden}
+.card-h{height:18px; display:flex; align-items:center; gap:6px; padding:1px 6px; background:#f6f1ea; border-bottom:1px solid #e7decf}
+.card-h .lk{width:9px; height:9px; border-radius:2px; background:linear-gradient(#bbb,#888)}
+.card-h .dots{margin-left:auto; width:16px; height:6px; background:
+  radial-gradient(circle,#666 2px,transparent 3px) left 2px top 50%/6px 6px repeat-x; opacity:.75}
+.card-b{height:64px; background:linear-gradient(#fff,#f8f6f2)}
+.card-f{display:flex; gap:6px; padding:3px 6px; border-top:1px solid #eee}
+.card-f i{width:9px; height:9px; background:#b9b1a6; border-radius:2px}
+
+/* パレット */
+.palette{margin-top:auto; display:grid; gap:7px; justify-items:end; padding-right:6px}
+.palette button{width:18px; height:18px; border-radius:50%; border:1px solid #cfc6b7; background:var(--c,#ccc)}
+.palette hr{width:24px; border:none; border-top:1px solid #d6cec0; opacity:.7; margin:4px 0}
+.palette .eraser{
+  background: conic-gradient(from 45deg,#fff 0 50%, #f3f3f3 50% 100%);
   position:relative;
 }
-.eraser::after{
-  content:""; position:absolute; inset:4px;
-  background:linear-gradient(135deg,#222 0 50%, transparent 50% 100%);
-  border-radius:50%;
-}
-
-/* ========== 細部の微調整 ========== */
-button{appearance:none;background:none;border:none;padding:0}
-button:focus{outline:2px solid #86b7fe; outline-offset:2px}
+.palette .eraser::after{content:""; position:absolute; inset:3px; border-radius:50%;
+  background:linear-gradient(135deg,#222 0 50%, transparent 50%)}
