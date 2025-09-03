@@ -1,37 +1,38 @@
-/* =========================================
-   Vivora Illustration — Full Styles
-   ・HTML/CSS分離
-   ・方眼紙は .artboard 内だけ
-   ・ON/OFF: #gridToggle のチェックで切替（CSSのみ）
-========================================= */
+/* ======================================================
+   Vivora Fashion Illustration 2025 — UI Full Styles
+   ・固定アートボード（1280 × 820）
+   ・方眼紙は .artboard 内だけ（必要時 .show-grid を付与）
+   ・画像が無くてもレイアウトが崩れないプレースホルダ
+====================================================== */
 
 /* -------- Tokens -------- */
 :root{
-  /* colors */
-  --bg: #e9e4de;          /* ページ背景（薄ベージュ） */
-  --panel: #ffffff;       /* 白パネル */
-  --tile: #f2eee9;        /* ごく薄いタイル色（枠） */
-  --line: #d8d2cc;        /* 枠線 */
-  --text: #333333;
+  --bg:    #e9e4de;   /* ページ背景（薄ベージュ） */
+  --panel: #ffffff;   /* パネル白 */
+  --tile:  #f3efe9;   /* ごく淡いベージュ（アートボード外周帯） */
+  --line:  #d8d2cc;   /* 枠線 */
+  --text:  #333;
 
-  /* layout */
-  --app-max-w: 1440px;
-  --app-pad-x: 24px;
-
-  /* artboard size (固定) */
+  /* artboard */
   --art-w: 1280px;
   --art-h: 820px;
   --art-radius: 14px;
 
-  /* grid (方眼紙) */
-  /* ファイルパスはプロジェクトに合わせて調整してください */
-  /* 例: /public/grid/W_4.51 mm・H_4.54 mm.png */
+  /* rails */
+  --rail-w: 96px;     /* 右レール全体の幅 */
+  --gap: 12px;
+
+  /* icons */
+  --ti: 26px;         /* top icon size */
+  --tool: 28px;       /* tool icon size */
+
+  /* grid image（方眼紙PNGのパスは必要時に差し替え） */
   --grid-img: url("/public/grid/W_4.51 mm・H_4.54 mm.png");
-  --grid-opacity: 0.65;         /* 0〜1 */
-  --grid-blend-mode: multiply;  /* 背景となじませる */
+  --grid-opacity: .38;
+  --grid-blend: multiply;
 }
 
-/* -------- Reset（最小限） -------- */
+/* -------- Reset -------- */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body{
@@ -44,63 +45,60 @@ body{
 
 /* -------- App Frame -------- */
 .app{
-  max-width: var(--app-max-w);
+  max-width: calc(var(--art-w) + 160px);
   margin: 20px auto 40px;
-  padding: 0 var(--app-pad-x);
+  padding: 0 24px;
 }
 
-/* ===== Topbar（キャンバスの外） ===== */
+/* ========== Top Bar ========== */
 .topbar{
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   align-items: center;
   gap: 16px;
   margin-bottom: 10px;
 }
-
 .title{
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
-  letter-spacing: .2px;
+}
+
+.top-icons{
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 10px;
+}
+.ti{
+  width: var(--ti);
+  height: var(--ti);
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 0 transparent); /* 画像が無い時も高さ維持 */
+  background: linear-gradient(#f7f4f0,#efeae5);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px;
 }
 
 .nextstep{
   appearance: none;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  padding: 6px 12px;
+  background: transparent;
+  border: none;
   font-size: 13px;
-  border-radius: 10px;
+  padding: 6px 8px;
   cursor: pointer;
+  color: #333;
 }
-.nextstep:hover{ filter: brightness(0.98); }
 
-/* ===== Stage／Artboard ===== */
+/* ========== Stage / Artboard ========== */
 .stage{
   display: grid;
-  justify-content: center;   /* 中央寄せ */
+  justify-content: center;
 }
 
-.grid-control{
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 8px;
-  margin: 6px 0 8px;
-  user-select: none;
-}
-.grid-control > input{
-  width: 16px;
-  height: 16px;
-}
-.grid-control > label{
-  font-size: 12px;
-  opacity: .8;
-  cursor: pointer;
-}
-
-/* アートボード本体（固定 1280×820） */
+/* アートボード本体（白い大きな板） */
 .artboard{
   position: relative;
   width: var(--art-w);
@@ -108,65 +106,189 @@ body{
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--art-radius);
-  /* 外周のごく薄いベージュ枠（添付イメージの雰囲気） */
   box-shadow:
-    inset 0 0 0 8px var(--tile),       /* 内側ベージュ帯 */
+    inset 0 0 0 8px var(--tile),   /* 外周の淡い帯 */
     0 1px 0 rgba(0,0,0,.04),
     0 6px 20px rgba(0,0,0,.05);
-  overflow: hidden; /* 方眼紙と中身をクリップ */
+  overflow: hidden;
 }
 
-/* ====== 方眼紙（artboard内だけ） ======
-   ::before を “最背面” オーバーレイとして使用 */
-.artboard::before{
+/* 方眼紙（必要なら .artboard に .show-grid を付ける） */
+.artboard.show-grid::before{
   content: "";
   position: absolute;
   inset: 0;
   background-image: var(--grid-img);
   background-repeat: repeat;
-  background-position: center center;
-  background-size: auto;         /* 元画像ピッチを保持（等倍） */
+  background-position: center;
+  background-size: auto;
   opacity: var(--grid-opacity);
-  mix-blend-mode: var(--grid-blend-mode);
-  pointer-events: none;          /* 透過して操作可 */
-  z-index: 0;                    /* 最背面 */
+  mix-blend-mode: var(--grid-blend);
+  pointer-events: none;
 }
 
-/* チェックが外れたら方眼紙を非表示（CSSのみで切替） */
-/* 構造: .grid-control > input + label + .artboard */
-#gridToggle:not(:checked) + label + .artboard::before{
-  opacity: 0;
-}
-
-/* ===== マネキン ===== */
+/* マネキン（中央） */
 .mannequin{
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%); /* 完全中央 */
-  height: min(560px, 68%);          /* 画像高さ（比率で安全） */
-  opacity: .9;
-  z-index: 1;                       /* 方眼紙より上 */
+  transform: translate(-50%,-50%);
+  height: min(560px, 68%);
+  opacity: .95;
   user-select: none;
   -webkit-user-drag: none;
+  z-index: 1;
 }
 
-/* ===== 右サイドのツールレール（土台のみ） ===== */
+/* ========== 右レール群 ========== */
+/* レールの土台：見た目を画像に寄せる薄ベージュ */
 .rail{
   position: absolute;
-  top: 24px;
-  right: 16px;
-  width: 88px;
-  height: calc(100% - 48px);
+  right: 10px;
   border-radius: 12px;
-  background: linear-gradient(#f7f4f0, #f2eee9);
+  background: linear-gradient(#f7f4f0,#f1ede7);
   border: 1px solid var(--line);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
-  z-index: 2;
-  pointer-events: none; /* まずは土台なので操作不可。後で解除 */
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
 }
 
-/* ===== 小さなレスポンシブ保護（縮小時のはみ出し対策） ===== */
-@media (max-width: 1320px){
+/* 1) 保存/書き出し（上部の小さな3つ） */
+.rail-export{
+  top: 20px;
+  width: 44px;
+  padding: 10px 6px;
+  display: grid;
+  gap: 12px;
+  align-items: center;
+  justify-items: center;
+}
+.ri{
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+/* 2) メインツール（縦アイコン群） */
+.rail-tools{
+  top: 72px;
+  right: calc(10px + 44px + 10px); /* export の左隣に配置 */
+  width: 56px;
+  height: calc(100% - 110px);
+  padding: 12px 8px;
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 10px;
+}
+.tool{
+  width: var(--tool);
+  height: var(--tool);
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 3) レイヤーパネル（3枠） */
+.rail-panels{
+  top: 72px;
+  width: var(--rail-w);
+  right: 10px;
+  height: calc(100% - 260px);
+  padding: 12px 10px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.panel{
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  min-height: 120px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.03) inset;
+}
+.panel-icons{
+  position: absolute;
+  top: 6px; left: 6px;
+  display: grid; gap: 6px; grid-auto-flow: column;
+}
+.panel-actions{
+  position: absolute;
+  bottom: 6px; right: 6px;
+  display: grid; gap: 6px; grid-auto-flow: column;
+}
+.panel img{
+  width: 16px; height: 16px; object-fit: contain; display: block;
+}
+
+/* 4) カラーパレット（縦） */
+.rail-colors{
+  bottom: 18px;
+  right: 10px;
+  width: var(--rail-w);
+  padding: 12px 10px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.swatch{
+  --size: 22px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  border: 1px solid #cfc7bf;
+  background: var(--c,#eee);
+  display: block;
+  padding: 0;
+  appearance: none;
+  cursor: pointer;
+}
+.swatch.settings{
+  background: #fff;
+  position: relative;
+}
+.swatch.settings::after{
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 1px solid #cfc7bf;
+}
+
+/* ========== ズームチップ（右中央近く） ========== */
+.zoom-indicator{
+  position: absolute;
+  right: 180px;
+  top: 320px;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 3;
+}
+.zoom-indicator span{
+  font-size: 12px;
+  background: #8b8b8b;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.zoom-indicator i{
+  display: inline-block;
+  width: 48px; height: 8px;
+  background: #b9b6b3;
+  border-radius: 4px;
+  position: relative;
+}
+.zoom-indicator i::after{
+  content: "";
+  position: absolute;
+  right: 4px; top: 2px;
+  width: 6px; height: 6px;
+  background: #6ba9d6;
+  border-radius: 50%;
+}
+
+/* --- 小さな保護（横幅が足りない時の余白調整） --- */
+@media (max-width: 1440px){
   .app{ padding: 0 16px; }
 }
