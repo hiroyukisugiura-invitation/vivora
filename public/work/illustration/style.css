@@ -322,3 +322,24 @@ body{
 .icon-24{ width: var(--tool-icon); height: var(--tool-icon); object-fit: contain; }
 .icon-20{ width: var(--icon); height: var(--icon); object-fit: contain; }
 .icon-16{ width: var(--icon-s); height: var(--icon-s); object-fit: contain; }
+
+/* === page scope: illustration only =================================== */
+body[data-illustration]{
+  margin: 0;
+  background: #e9e2d6;      /* 明るいベージュ（全体） */
+  color: #1b1b1b;
+  font-family: "Times New Roman", Georgia, serif;
+}
+
+/* 既存のサイト全体CSSが強い場合の保険（このページだけ反映） */
+body[data-illustration] *{
+  box-sizing: border-box;
+}
+
+/* 既存のダークテーマを打ち消す代表プロパティ */
+body[data-illustration],
+body[data-illustration] .frame,
+body[data-illustration] .canvas{
+  background-color: initial !important;
+  background-image: none; /* 必要に応じて。canvas の graph-on は個別指定あり */
+}
