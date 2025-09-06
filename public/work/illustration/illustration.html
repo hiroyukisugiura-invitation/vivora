@@ -6,77 +6,74 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- タイトル -->
-  <div id="page-title">Vivora Fashion Illustration 2025</div>
+  <div class="workspace">
 
-  <!-- Next Step -->
-  <button id="next-step">Next Step »</button>
+    <!-- タイトル -->
+    <div class="title">Vivora Fashion Illustration 2025</div>
 
-  <!-- コンテンツボタン -->
-  <div id="contents-button">
-    <img src="/public/create_parts/create_button/home.png" alt="Home">
-    <img src="/public/create_parts/design_button/pen.png" alt="Pen">
-    <img src="/public/create_parts/design_button/brush.png" alt="Brush">
-    <img src="/public/create_parts/design_button/eraser.png" alt="Eraser">
-    <img src="/public/create_parts/design_button/fill.png" alt="Fill">
-    <img src="/public/create_parts/design_button/text.png" alt="Text">
+    <!-- Next Step ボタン -->
+    <img src="public/create_parts/create_button/next.png" class="next-btn" alt="Next">
+
+    <!-- カテゴリーボタン -->
+    <div class="category-btns">
+      <img src="public/create_parts/create_button/home.png" alt="Home">
+      <img src="public/create_parts/create_button/file.png" alt="File">
+      <img src="public/create_parts/create_button/edit.png" alt="Edit">
+      <!-- 必要に応じて追加 -->
+    </div>
+
+    <!-- キャンバス -->
+    <div class="canvas">
+      <img src="public/mannequin/mannequin_woman.png" class="mannequin" alt="Mannequin">
+    </div>
+
+    <!-- ダウンロード・アップロード・セーブ -->
+    <div class="file-btns">
+      <img src="public/create_parts/create_button/download.png" alt="Download">
+      <img src="public/create_parts/create_button/upload.png" alt="Upload">
+      <img src="public/create_parts/create_button/save.png" alt="Save">
+    </div>
+
+    <!-- レイヤーパネル -->
+    <div class="layer-panel">
+      <!-- 上3つ -->
+      <img src="public/create_parts/layer_button/layerdisplay.png" alt="Display">
+      <img src="public/create_parts/layer_button/layerhidden.png" alt="Hide">
+      <img src="public/create_parts/layer_button/layerlock.png" alt="Lock">
+      <!-- レイヤーボード -->
+      <div class="layer-board"></div>
+      <!-- 下4つ -->
+      <img src="public/create_parts/layer_button/layerpanelplus.png" alt="Add">
+      <img src="public/create_parts/layer_button/layerreproduction.png" alt="Duplicate">
+      <img src="public/create_parts/layer_button/layerdestruction.png" alt="Delete">
+    </div>
+
+    <!-- ステーショナリーツール -->
+    <div class="stationery">
+      <img src="public/create_parts/design_button/pen.png" alt="Pen">
+      <img src="public/create_parts/design_button/brush.png" alt="Brush">
+      <img src="public/create_parts/design_button/eraser.png" alt="Eraser">
+      <!-- 以下ツールを縦に配置 -->
+    </div>
+
+    <!-- カラーパレット -->
+    <div class="palette">
+      <div class="color" style="background:#ffffff;"></div>
+      <div class="color" style="background:#f4e03d;"></div>
+      <div class="color" style="background:#f28c38;"></div>
+      <div class="color" style="background:#e84343;"></div>
+      <div class="color" style="background:#43e860;"></div>
+      <div class="color" style="background:#38c2f2;"></div>
+      <div class="color" style="background:#4363e8;"></div>
+      <div class="color" style="background:#9b43e8;"></div>
+      <div class="color" style="background:#000000;"></div>
+    </div>
+
+    <!-- 透明度スライダー -->
+    <div class="opacity-slider">
+      <input type="range" min="0" max="100" value="100">
+    </div>
+
   </div>
-
-  <!-- キャンバス -->
-  <div id="canvas">
-    <img id="mannequin" src="/public/mannequin/mannequin_woman.png" alt="mannequin">
-  </div>
-
-  <!-- アップロード / ダウンロード / セーブ -->
-  <div id="file-buttons">
-    <img src="/public/create_parts/create_button/upload.png" alt="Upload">
-    <img src="/public/create_parts/create_button/download.png" alt="Download">
-    <img src="/public/create_parts/create_button/save.png" alt="Save">
-  </div>
-
-  <!-- レイヤーパネル -->
-  <div id="layer-panel">
-    <!-- 上3つ -->
-    <img src="/public/create_parts/layer_button/layerdisplay.png" alt="Display">
-    <img src="/public/create_parts/layer_button/layerhidden.png" alt="Hidden">
-    <img src="/public/create_parts/layer_button/layerlock.png" alt="Lock">
-    <!-- 真ん中ボード -->
-    <div class="layer-board"></div>
-    <!-- 下4つ -->
-    <img src="/public/create_parts/layer_button/layerpanelplus.png" alt="Add">
-    <img src="/public/create_parts/layer_button/layerreproduction.png" alt="Merge">
-    <img src="/public/create_parts/layer_button/layercopy.png" alt="Copy">
-    <img src="/public/create_parts/layer_button/layerdestruction.png" alt="Delete">
-  </div>
-
-  <!-- ステーショナリーツール -->
-  <div id="stationery-tool">
-    <img src="/public/create_parts/design_button/arrow.png" alt="Arrow">
-    <img src="/public/create_parts/design_button/line.png" alt="Line">
-    <img src="/public/create_parts/design_button/rect.png" alt="Rect">
-    <img src="/public/create_parts/design_button/circle.png" alt="Circle">
-    <img src="/public/create_parts/design_button/pen.png" alt="Pen">
-    <img src="/public/create_parts/design_button/brush.png" alt="Brush">
-    <img src="/public/create_parts/design_button/eraser.png" alt="Eraser">
-    <img src="/public/create_parts/design_button/fill.png" alt="Fill">
-    <img src="/public/create_parts/design_button/text.png" alt="Text">
-  </div>
-
-  <!-- カラーパレット -->
-  <div id="color-tool">
-    <div class="color" style="background:#ffffff;"></div>
-    <div class="color" style="background:#cccccc;"></div>
-    <div class="color" style="background:#ffcc00;"></div>
-    <div class="color" style="background:#ff9900;"></div>
-    <div class="color" style="background:#ff6699;"></div>
-    <div class="color" style="background:#cc66ff;"></div>
-    <div class="color" style="background:#6666ff;"></div>
-    <div class="color" style="background:#00cc99;"></div>
-    <div class="color" style="background:#009933;"></div>
-    <div class="color" style="background:#000000;"></div>
-  </div>
-
-  <!-- 透明度スライダー -->
-  <input type="range" id="opacity-slider" min="0" max="100" value="100">
 </body>
 </html>
