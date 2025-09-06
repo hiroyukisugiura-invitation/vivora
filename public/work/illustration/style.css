@@ -1,118 +1,88 @@
-body {
-  margin: 0;
-  background: url("W_4.51 mm・H_4.54 mm.png") no-repeat center center;
-  background-size: cover;
-  width: 1280px;
-  height: 820px;
-  position: relative;
-  font-family: serif;
+/* ===== ステージ：固定 1280×820 ===== */
+:root{
+  --stage-w: 1280px;
+  --stage-h: 820px;
 }
 
-.workspace {
-  position: relative;
-  width: 100%;
+html, body{
   height: 100%;
+  margin: 0;
+  background: #0a0a0a;
+  display: grid;
+  place-items: start center;
+  font-family: "Times New Roman", serif;
 }
 
-/* タイトル */
-.title {
-  position: absolute;
-  left: 3%;
-  top: 3%;
-  font-size: 20px;
+#stage{
+  position: relative;
+  width: var(--stage-w);
+  height: var(--stage-h);
+  background: #efeae4;      /* キャンバス外の下地 */
+  overflow: hidden;
+
+  /* マス目換算 (X=100, Y=70) */
+  --unit-x: calc(var(--stage-w) / 100);
+  --unit-y: calc(var(--stage-h) / 70);
 }
 
-/* Next Step ボタン */
-.next-btn {
+/* ===== マス目座標レイアウト（核） ===== */
+.xy{
   position: absolute;
-  left: 95%;
-  top: 4%;
-  width: 3%;
+  left:  calc(var(--x) * var(--unit-x));
+  top:   calc(var(--y) * var(--unit-y));
+  width:  calc(var(--w) * var(--unit-x));
+  height: calc(var(--h) * var(--unit-y));
+  box-sizing: border-box;
 }
 
-/* カテゴリーボタン */
-.category-btns {
-  position: absolute;
-  left: 81%;
-  top: 6%;
-  display: flex;
-  gap: 5px;
+.row, .col{ display: flex; }
+.row{ gap: calc(0.25 * var(--unit-x)); align-items: center; }
+.col{ gap: calc(0.6 * var(--unit-y)); flex-direction: column; align-items: center; }
+
+/* ===== 見た目 ===== */
+.title{
+  font-size: 18px; line-height: 1; color: #2b2b2b;
+  display: flex; align-items: center;
 }
 
-/* キャンバス */
-.canvas {
-  position: absolute;
-  left: 3%;
-  top: 10%;
-  width: 84%;
-  height: 58%;
-  border: 1px solid transparent;
+/* キャンバスだけに方眼適用（public直下） */
+.canvas{
+  background: url("/graph_paper.png") center/cover no-repeat;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
 }
 
-/* マネキン */
-.mannequin {
-  position: absolute;
-  left: 38%;
-  top: 19%;
-  width: 13%;
-  height: 42%;
-  object-fit: contain;
+/* アイコン */
+.icon{ width:100%; height:100%; object-fit: contain; }
+.icons-16 img{ width:calc(0.9 * var(--unit-x)); height:calc(0.9 * var(--unit-y)); object-fit:contain; }
+.icons-20 img{ width:calc(1.0 * var(--unit-x)); height:calc(1.0 * var(--unit-y)); object-fit:contain; }
+
+/* レイヤーボード */
+.layer-board{
+  background: #f3f1ee;
+  border: 1px solid #cfc9bf;
+  border-radius: 6px;
 }
 
-/* ダウンロード・アップロード・セーブ */
-.file-btns {
-  position: absolute;
-  left: 94%;
-  top: 10%;
-  display: flex;
-  gap: 5px;
-}
+/* マネキン（キャンバス内でさらに座標指定） */
+.abs{ position: absolute; }
+.mannequin{ object-fit: contain; opacity:.92; filter:saturate(.75) contrast(.9); }
 
-/* レイヤーパネル */
-.layer-panel {
-  position: absolute;
-  left: 90%;
-  top: 13%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.layer-board {
-  width: 80px;
-  height: 100px;
-  border: 1px solid #ccc;
-  margin: 5px 0;
-}
-
-/* ステーショナリーツール */
-.stationery {
-  position: absolute;
-  left: 96%;
-  top: 12%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* カラーパレット */
-.palette {
-  position: absolute;
-  left: 96%;
-  top: 41%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.color {
-  width: 25px;
-  height: 25px;
+/* パレットの色玉 */
+.palette{ justify-content: flex-start; }
+.palette span{
+  width: calc(1.0 * var(--unit-x));
+  height: calc(1.0 * var(--unit-y));
   border-radius: 50%;
+  background: var(--c);
+  border: 1px solid rgba(0,0,0,0.25);
 }
 
 /* 透明度スライダー */
-.opacity-slider {
-  position: absolute;
-  left: 81%;
-  top: 34%;
-  width: 6%;
+.opacity{
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.9);
+  padding: 6px 8px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.15);
 }
+.opacity input[type="range"]{ width: 100%; }
+.opacity .pct{ font-size: 12px; color: #333; }

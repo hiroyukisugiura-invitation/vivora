@@ -1,79 +1,111 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div class="workspace">
+  <!-- =========================================================
+    マス目指示（X=横0-100, Y=縦0-70）★完全一致
+    ■ タイトル：              X:3-22 ,  Y:3-3
+    ■ ネクストボタン：        X:95-98 , Y:4-4
+    ■ カテゴリーボタン：      X:81-98 , Y:6-7
+    ■ キャンバス：            X:3-87 ,  Y:10-68
+    ■ マネキン位置：          X:38-51 , Y:19-61
+    ■ ダウン/アップ/セーブ：  X:94-98 , Y:10-10
+    ■ レイヤー上3つ：         表示 X:90, 非表示 X:91, ロック X:93 (Y:13)
+    ■ レイヤーボード：        X:90-94 , Y:14-19
+    ■ レイヤー下4つ：         追加X:90, 統合X:91, 複製X:92, 削除X:93 (Y:20)
+    ■ ステーショナリー：      X:96-98 , Y:12-39
+    ■ カラーパレット：        X:96-98 , Y:41-68
+    ■ 透明度スライダー：      X:81-86 , Y:34-35.5
+  ========================================================== -->
 
+  <div id="stage" aria-label="grid-stage">
     <!-- タイトル -->
-    <div class="title">Vivora Fashion Illustration 2025</div>
+    <div class="xy title" style="--x:3; --y:3; --w:19; --h:1;">
+      Vivora Fashion Illustration 2025
+    </div>
 
-    <!-- Next Step ボタン -->
-    <img src="public/create_parts/create_button/next.png" class="next-btn" alt="Next">
+    <!-- Next Step -->
+    <img class="xy icon" style="--x:95; --y:4; --w:3; --h:1;"
+         src="/create_parts/create_button/next.png" alt="Next Step" />
 
-    <!-- カテゴリーボタン -->
-    <div class="category-btns">
-      <img src="public/create_parts/create_button/home.png" alt="Home">
-      <img src="public/create_parts/create_button/file.png" alt="File">
-      <img src="public/create_parts/create_button/edit.png" alt="Edit">
-      <!-- 必要に応じて追加 -->
+    <!-- カテゴリーボタン群 -->
+    <div class="xy row icons-16" style="--x:81; --y:6; --w:17; --h:1;">
+      <img src="/create_parts/create_button/home.png" alt="Home" />
+      <img src="/create_parts/create_button/file.png" alt="File" />
+      <img src="/create_parts/create_button/edit.png" alt="Edit" />
+      <img src="/create_parts/create_button/setting.png" alt="Setting" />
+      <img src="/create_parts/create_button/help.png" alt="Help" />
+    </div>
+
+    <!-- ダウンロード / アップロード / セーブ -->
+    <div class="xy row icons-16" style="--x:94; --y:10; --w:4; --h:1;">
+      <img src="/create_parts/create_button/download.png" alt="Download" />
+      <img src="/create_parts/create_button/upload.png"   alt="Upload" />
+      <img src="/create_parts/create_button/save.png"     alt="Save" />
     </div>
 
     <!-- キャンバス -->
-    <div class="canvas">
-      <img src="public/mannequin/mannequin_woman.png" class="mannequin" alt="Mannequin">
+    <div class="xy canvas" style="--x:3; --y:10; --w:84; --h:58;">
+      <!-- マネキン -->
+      <img class="xy abs mannequin" style="--x:38; --y:19; --w:13; --h:42;"
+           src="/mannequin/mannequin_woman.png" alt="Mannequin" />
     </div>
 
-    <!-- ダウンロード・アップロード・セーブ -->
-    <div class="file-btns">
-      <img src="public/create_parts/create_button/download.png" alt="Download">
-      <img src="public/create_parts/create_button/upload.png" alt="Upload">
-      <img src="public/create_parts/create_button/save.png" alt="Save">
-    </div>
+    <!-- レイヤーパネル（上3つ） -->
+    <img class="xy icon" style="--x:90; --y:13; --w:1; --h:1;"
+         src="/create_parts/layer_button/layerdisplay.png" alt="Display" />
+    <img class="xy icon" style="--x:91; --y:13; --w:1; --h:1;"
+         src="/create_parts/layer_button/layerhidden.png"  alt="Hide" />
+    <img class="xy icon" style="--x:93; --y:13; --w:1; --h:1;"
+         src="/create_parts/layer_button/layerlock.png"    alt="Lock" />
 
-    <!-- レイヤーパネル -->
-    <div class="layer-panel">
-      <!-- 上3つ -->
-      <img src="public/create_parts/layer_button/layerdisplay.png" alt="Display">
-      <img src="public/create_parts/layer_button/layerhidden.png" alt="Hide">
-      <img src="public/create_parts/layer_button/layerlock.png" alt="Lock">
-      <!-- レイヤーボード -->
-      <div class="layer-board"></div>
-      <!-- 下4つ -->
-      <img src="public/create_parts/layer_button/layerpanelplus.png" alt="Add">
-      <img src="public/create_parts/layer_button/layerreproduction.png" alt="Duplicate">
-      <img src="public/create_parts/layer_button/layerdestruction.png" alt="Delete">
-    </div>
+    <!-- レイヤーボード -->
+    <div class="xy layer-board" style="--x:90; --y:14; --w:4; --h:5;"></div>
+
+    <!-- レイヤーパネル（下4つ） -->
+    <img class="xy icon" style="--x:90; --y:20; --w:1; --h:1;"
+         src="/create_parts/layer_button/layerpanelplus.png"    alt="Add" />
+    <img class="xy icon" style="--x:91; --y:20; --w:1; --h:1;"
+         src="/create_parts/layer_button/layerintegration.png"  alt="MergeDown" />
+    <img class="xy icon" style="--x:92; --y:20; --w:1; --h:1;"
+         src="/create_parts/layer_button/layerreproduction.png" alt="Duplicate" />
+    <img class="xy icon" style="--x:93; --y:20; --w:1; --h:1;"
+         src="/create_parts/layer_button/layerdestruction.png"  alt="Delete" />
 
     <!-- ステーショナリーツール -->
-    <div class="stationery">
-      <img src="public/create_parts/design_button/pen.png" alt="Pen">
-      <img src="public/create_parts/design_button/brush.png" alt="Brush">
-      <img src="public/create_parts/design_button/eraser.png" alt="Eraser">
-      <!-- 以下ツールを縦に配置 -->
+    <div class="xy col icons-20" style="--x:96; --y:12; --w:2; --h:27;">
+      <img src="/create_parts/design_button/pen.png"    alt="Pen" />
+      <img src="/create_parts/design_button/brush.png"  alt="Brush" />
+      <img src="/create_parts/design_button/eraser.png" alt="Eraser" />
+      <img src="/create_parts/design_button/line.png"   alt="Line" />
+      <img src="/create_parts/design_button/rect.png"   alt="Rect" />
+      <img src="/create_parts/design_button/circle.png" alt="Circle" />
+      <img src="/create_parts/design_button/fill.png"   alt="Fill" />
+      <img src="/create_parts/design_button/text.png"   alt="Text" />
     </div>
 
     <!-- カラーパレット -->
-    <div class="palette">
-      <div class="color" style="background:#ffffff;"></div>
-      <div class="color" style="background:#f4e03d;"></div>
-      <div class="color" style="background:#f28c38;"></div>
-      <div class="color" style="background:#e84343;"></div>
-      <div class="color" style="background:#43e860;"></div>
-      <div class="color" style="background:#38c2f2;"></div>
-      <div class="color" style="background:#4363e8;"></div>
-      <div class="color" style="background:#9b43e8;"></div>
-      <div class="color" style="background:#000000;"></div>
+    <div class="xy col palette" style="--x:96; --y:41; --w:2; --h:27;">
+      <span style="--c:#ffffff"></span>
+      <span style="--c:#f4e03d"></span>
+      <span style="--c:#f28c38"></span>
+      <span style="--c:#e84343"></span>
+      <span style="--c:#43e860"></span>
+      <span style="--c:#38c2f2"></span>
+      <span style="--c:#4363e8"></span>
+      <span style="--c:#9b43e8"></span>
+      <span style="--c:#000000"></span>
     </div>
 
     <!-- 透明度スライダー -->
-    <div class="opacity-slider">
-      <input type="range" min="0" max="100" value="100">
+    <div class="xy opacity" style="--x:81; --y:34; --w:5; --h:1.5;">
+      <input type="range" min="0" max="100" value="100" />
+      <div class="pct">100%</div>
     </div>
-
   </div>
 </body>
 </html>
