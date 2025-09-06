@@ -1,140 +1,114 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vivora Fashion Illustration 2025 — Grid Board</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1280, initial-scale=1.0" />
+  <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- 画面全体（暗めの外周。定規がのる帯） -->
-  <div class="workarea">
-    <!-- 上定規（0〜100） -->
-    <div class="ruler ruler-top" aria-hidden="true">
-      <div class="ruler-scale ruler-scale-x"></div>
-      <div class="ruler-marks ruler-marks-x"></div>
-      <div class="nums nums-x">
-        <!-- 0〜100：等間隔配置（flexで均等） -->
-        <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span>
-        <span>50</span><span>60</span><span>70</span><span>80</span><span>90</span><span>100</span>
+  <div class="app-frame" role="application" aria-label="Vivora Fashion Illustration 2025">
+
+    <header class="app-header">
+      <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
+      <button class="btn next-step" type="button">Next Step</button>
+      <div class="contents-toolbar">
+        <button class="btn btn-contents">contents button</button>
       </div>
-    </div>
+    </header>
 
-    <!-- 左定規（0〜100） -->
-    <div class="ruler ruler-left" aria-hidden="true">
-      <div class="ruler-scale ruler-scale-y"></div>
-      <div class="ruler-marks ruler-marks-y"></div>
-      <div class="nums nums-y">
-        <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span>
-        <span>50</span><span>60</span><span>70</span><span>80</span><span>90</span><span>100</span>
-      </div>
-    </div>
+    <main class="app-main">
+      <!-- キャンバス -->
+      <section class="canvas-wrap">
+        <img id="mannequin" class="mannequin-base"
+             src="/mannequin/mannequin_woman.png"
+             alt="Mannequin" draggable="false"/>
+        <div class="graph-paper"></div>
+      </section>
 
-    <!-- 右定規（0〜100） -->
-    <div class="ruler ruler-right" aria-hidden="true">
-      <div class="ruler-scale ruler-scale-y"></div>
-      <div class="ruler-marks ruler-marks-y"></div>
-      <div class="nums nums-y">
-        <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span>
-        <span>50</span><span>60</span><span>70</span><span>80</span><span>90</span><span>100</span>
-      </div>
-    </div>
-
-    <!-- 下定規（0〜100） -->
-    <div class="ruler ruler-bottom" aria-hidden="true">
-      <div class="ruler-scale ruler-scale-x"></div>
-      <div class="ruler-marks ruler-marks-x"></div>
-      <div class="nums nums-x">
-        <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span>
-        <span>50</span><span>60</span><span>70</span><span>80</span><span>90</span><span>100</span>
-      </div>
-    </div>
-
-    <!-- 中央ボード（1280×820 固定） -->
-    <div class="board">
-      <!-- ヘッダー帯 -->
-      <header class="head">
-        <div class="title">Vivora Fashion Illustration 2025</div>
-        <div class="top-actions">
-          <!-- 右上ミニアイコン群（ダミー。後でPNGに差し替え） -->
-          <div class="mini-icons">
-            <i class="ic home"></i><i class="ic man"></i><i class="ic grid"></i>
-            <i class="ic ruler"></i><i class="ic pen"></i><i class="ic cut"></i>
-            <i class="ic cloud"></i><i class="ic share"></i>
-          </div>
-          <button class="next">Next Step ▶▶</button>
-        </div>
-      </header>
-
-      <!-- 白いキャンバス（角丸・ベージュ枠内） -->
-      <div class="canvas">
-        <!-- 方眼紙：CSS背景で生成（W4.51/H4.54mm相当比率に寄せ） -->
-        <div class="graph">
-          <!-- マネキン（中央。PNG差し替え可） -->
-          <img class="mannequin" src="/mannequin/mannequin_woman.png" alt="Mannequin">
-          <!-- 右中のズームUI（見た目のみ） -->
-          <div class="zoom">
-            <span class="chip">100 %</span>
-            <span class="bar"><b></b></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 右サイド（ツール列／レイヤー3／パレット） -->
-      <aside class="side">
-        <!-- 上：ツール -->
-        <div class="toolcol">
-          <button class="t arrow" title="Select"></button>
-          <button class="t tri"   title="Triangle"></button>
-          <button class="t rect"  title="Rectangle"></button>
-          <button class="t circ"  title="Ellipse"></button>
-          <button class="t brush" title="Brush"></button>
-          <button class="t pen2"  title="Pen"></button>
-          <button class="t drop"  title="Eyedropper"></button>
-          <button class="t text"  title="Text"></button>
-          <button class="t grid2" title="Grid"></button>
-          <button class="t layers"title="Layers"></button>
+      <!-- 右パネル -->
+      <aside class="right-panel">
+        <div class="right-panel-toolbar">
+          <button class="btn btn-contents small">contents button</button>
         </div>
 
-        <!-- 中：レイヤー３枚 -->
-        <div class="layers">
-          <div class="card">
-            <div class="card-h"><i class="lk"></i><i class="dots"></i></div>
-            <div class="card-b"></div>
-            <div class="card-f"><i></i><i></i><i></i><i></i></div>
-          </div>
-          <div class="card">
-            <div class="card-h"><i class="lk"></i><i class="dots"></i></div>
-            <div class="card-b"></div>
-            <div class="card-f"><i></i><i></i><i></i><i></i></div>
-          </div>
-          <div class="card">
-            <div class="card-h"><i class="lk"></i><i class="dots"></i></div>
-            <div class="card-b"></div>
-            <div class="card-f"><i></i><i></i><i></i><i></i></div>
-          </div>
-        </div>
+        <div class="right-panel-split">
+          <!-- レイヤーパネル -->
+          <section class="layer-panel">
+            <div class="layer-top-icons">
+              <img src="/create_parts/layer_button/layerdisplay.png"   alt="display" class="icon-16">
+              <img src="/create_parts/layer_button/layerhidden.png"    alt="hidden"  class="icon-16">
+              <img src="/create_parts/layer_button/layerlock.png"      alt="lock"    class="icon-16">
+            </div>
+            <div class="layer-board">
+              <div class="layer-row is-active"><span>Layer 1</span></div>
+              <div class="layer-row"><span>Layer 2</span></div>
+              <div class="layer-row"><span>Layer 3</span></div>
+              <div class="layer-row"><span>Layer 4</span></div>
+              <div class="layer-row"><span>Layer 5</span></div>
+            </div>
+            <div class="layer-bottom-icons">
+              <img src="/create_parts/layer_button/layerpanelplus.png"    alt="add"       class="icon-16">
+              <img src="/create_parts/layer_button/layerreproduction.png" alt="duplicate" class="icon-16">
+              <img src="/create_parts/layer_button/layerintegration.png"  alt="merge"     class="icon-16">
+              <img src="/create_parts/layer_button/layerdestruction.png"  alt="delete"    class="icon-16">
+            </div>
+          </section>
 
-        <!-- 下：カラーパレット -->
-        <div class="palette">
-          <button style="--c:#e6e6e6"></button>
-          <button style="--c:#dddddd"></button>
-          <hr>
-          <button style="--c:#ffd400"></button>
-          <button style="--c:#ff9900"></button>
-          <button style="--c:#ff5a5a"></button>
-          <button style="--c:#ff69b4"></button>
-          <button style="--c:#a66bff"></button>
-          <button style="--c:#5d7cff"></button>
-          <button style="--c:#49b0ff"></button>
-          <button style="--c:#00cfb0"></button>
-          <button style="--c:#47d764"></button>
-          <button style="--c:#9bd400"></button>
-          <button style="--c:#333333"></button>
-          <button class="eraser" title="Eraser"></button>
+          <!-- ツール群 -->
+          <section class="tools-stack">
+            <div class="stationery">
+              <h2 class="panel-title">Stationery</h2>
+              <div class="tool-grid">
+                <img src="/create_parts/design_button/pen.png"        alt="pen"        class="icon-24">
+                <img src="/create_parts/design_button/brush.png"      alt="brush"      class="icon-24">
+                <img src="/create_parts/design_button/pencil.png"     alt="pencil"     class="icon-24">
+                <img src="/create_parts/design_button/anchor_pen.png" alt="anchor pen" class="icon-24">
+                <img src="/create_parts/design_button/ball_pen.png"   alt="ball pen"   class="icon-24">
+                <img src="/create_parts/design_button/marker.png"     alt="marker"     class="icon-24">
+                <img src="/create_parts/design_button/eraser.png"     alt="eraser"     class="icon-24">
+              </div>
+            </div>
+
+            <div class="zoom">
+              <h2 class="panel-title">Zoom</h2>
+              <div class="slider-row">
+                <span class="min">0%</span>
+                <div class="slider-rail"><div class="slider-thumb" style="left: 80%;"></div></div>
+                <span class="max">100%</span>
+              </div>
+            </div>
+
+            <div class="opacity">
+              <h2 class="panel-title">Opacity</h2>
+              <div class="slider-row">
+                <span class="min">0%</span>
+                <div class="slider-rail"><div class="slider-thumb" style="left: 100%;"></div></div>
+                <span class="max">100%</span>
+              </div>
+            </div>
+
+            <div class="color">
+              <h2 class="panel-title">Color</h2>
+              <div class="swatch-row">
+                <span class="swatch" style="--c:#ffffff"></span>
+                <span class="swatch" style="--c:#000000"></span>
+                <span class="swatch" style="--c:#ff3b30"></span>
+                <span class="swatch" style="--c:#34c759"></span>
+                <span class="swatch" style="--c:#007aff"></span>
+                <span class="swatch" style="--c:#ffcc00"></span>
+              </div>
+            </div>
+          </section>
         </div>
       </aside>
-    </div><!-- /.board -->
-  </div><!-- /.workarea -->
+    </main>
+
+    <div class="quick-actions">
+      <img src="/create_parts/create_button/download.png" alt="download" class="icon-20">
+      <img src="/create_parts/create_button/upload.png"   alt="upload"   class="icon-20">
+      <img src="/create_parts/create_button/save.png"     alt="save"     class="icon-20">
+    </div>
+  </div>
 </body>
 </html>

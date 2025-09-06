@@ -1,263 +1,324 @@
 /* =========================
-   固定寸法と色定義
+   Vivora Fashion Illustration 2025
+   固定サイズ・レイアウト専用CSS
+   - HTML/JS と分離（JSは未導入）
+   - 2D/3Dボタンは仕様的に非掲載（指示まで記述しない）
    ========================= */
+
 :root{
-  --board-w: 1280px;
-  --board-h: 820px;
+  --frame-w: 1280px;
+  --frame-h: 820px;
+  --bg: #0f0f11;
+  --panel: #16171a;
+  --panel-2: #1b1c20;
+  --text: #e8eaf0;
+  --text-dim: #a9afbd;
+  --accent: #9aa5ff;   /* 目立ちすぎない淡色アクセント */
+  --line: #2a2c33;
 
-  --page-bg: #3d3d3f;   /* 外周（定規帯） */
-  --beige:   #e8e2d8;   /* ボード地 */
-  --panel:   #efe9df;   /* 右サイドの帯 */
-  --canvas:  #ffffff;   /* キャンバス白 */
-  --line:    #d7d1c7;   /* キャンバス枠線 */
-  --ink:     #1e1e1e;
+  --gap: 12px;
+  --radius: 12px;
 
-  /* 方眼紙セル（mm→px 目安）
-     4.51mm / 4.54mm を画面密度に合わせて ≒ 17px前後に調整 */
-  --grid-x: 17.0px;     /* 横ピッチ */
-  --grid-y: 17.1px;     /* 縦ピッチ（わずかに差） */
+  --header-h: 88px;
+  --rpanel-w: 340px;
 
-  /* 10セルごとの太線カラー */
-  --grid-thin: #e7e3dd;
-  --grid-bold: #d6d0c7;
-}
+  --tool-icon: 24px;
+  --icon: 20px;
+  --icon-s: 16px;
 
-/* ベース */
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:var(--page-bg);color:var(--ink);font-family:"Times New Roman",Georgia,serif}
-
-/* =========================
-   外周（定規を含むワークエリア）
-   ========================= */
-.workarea{
-  min-height:100%;
-  display:grid;
-  place-items:center;
-  position:relative;
-  padding:24px;  /* 周辺の余白 */
+  --shadow: 0 6px 22px rgba(0,0,0,.45);
 }
 
-/* =========================
-   ルーラー（定規）
-   ========================= */
-.ruler{
-  position:absolute;
-  pointer-events:none;
-  color:#cecece;
-  font-size:12px;
-  line-height:1;
+/* ページ全体：中央に固定サイズフレームを置く */
+html, body{
+  height: 100%;
+  margin: 0;
+  background: #000;
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
 }
-.ruler .ruler-scale,
-.ruler .ruler-marks{position:absolute; inset:0}
-
-/* 上下：横方向の細目盛り（1単位）と10単位の太線 */
-.ruler-scale.ruler-scale-x{
-  background:
-    repeating-linear-gradient(90deg,
-      transparent 0 calc(var(--grid-x) - 1px),
-      rgba(255,255,255,.08) calc(var(--grid-x) - 1px) var(--grid-x)
-    );
-}
-.ruler-marks.ruler-marks-x{
-  background:
-    repeating-linear-gradient(90deg,
-      transparent 0 calc(var(--grid-x)*9 - 1px),
-      rgba(255,255,255,.22) calc(var(--grid-x)*9 - 1px) calc(var(--grid-x)*9),
-      rgba(255,255,255,.22) calc(var(--grid-x)*10 - 1px) calc(var(--grid-x)*10)
-    );
+body{
+  display: grid;
+  place-items: center;
+  overflow: hidden; /* 画面外スクロール禁止（固定レイアウト） */
 }
 
-/* 左右：縦方向 */
-.ruler-scale.ruler-scale-y{
-  background:
-    repeating-linear-gradient(0deg,
-      transparent 0 calc(var(--grid-y) - 1px),
-      rgba(255,255,255,.08) calc(var(--grid-y) - 1px) var(--grid-y)
-    );
-}
-.ruler-marks.ruler-marks-y{
-  background:
-    repeating-linear-gradient(0deg,
-      transparent 0 calc(var(--grid-y)*9 - 1px),
-      rgba(255,255,255,.22) calc(var(--grid-y)*9 - 1px) calc(var(--grid-y)*9),
-      rgba(255,255,255,.22) calc(var(--grid-y)*10 - 1px) calc(var(--grid-y)*10)
-    );
-}
-
-/* 目盛数字（0,10,20...100） */
-.nums{position:absolute; inset:0; display:flex; justify-content:space-between; align-items:center; padding:0 8px}
-.nums span{opacity:.85}
-.nums-x{ height:24px; }
-.nums-y{
-  writing-mode:vertical-rl;
-  height:100%; width:24px; justify-content:space-between; padding:8px 0;
-}
-
-/* 定規の配置（ボード外周に沿わせる） */
-.ruler-top{
-  left: calc(50% - var(--board-w)/2);
-  top:  calc(50% - var(--board-h)/2 - 24px);
-  width: var(--board-w); height:24px;
-}
-.ruler-bottom{
-  left: calc(50% - var(--board-w)/2);
-  top:  calc(50% + var(--board-h)/2);
-  width: var(--board-w); height:24px;
-}
-.ruler-left{
-  top:  calc(50% - var(--board-h)/2);
-  left: calc(50% - var(--board-w)/2 - 24px);
-  width:24px; height:var(--board-h);
-}
-.ruler-right{
-  top:  calc(50% - var(--board-h)/2);
-  left: calc(50% + var(--board-w)/2);
-  width:24px; height:var(--board-h);
-}
-
-/* =========================
-   ボード本体
-   ========================= */
-.board{
-  width:var(--board-w);
-  height:var(--board-h);
-  background:var(--beige);
-  border-radius:6px;
-  box-shadow:
-    0 0 0 1px rgba(0,0,0,.35) inset,
-    0 1px 4px rgba(0,0,0,.25);
-  display:grid;
-  grid-template-rows: 56px 1fr;
+/* アプリ全体の外枠 */
+.app-frame{
+  width: var(--frame-w);
+  height: var(--frame-h);
+  background: var(--bg);
+  display: grid;
+  grid-template-rows: var(--header-h) 1fr;
   grid-template-columns: 1fr;
-  position:relative;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  position: relative; /* Quick Actions の絶対配置用 */
+  overflow: hidden;   /* 内側に影などを閉じ込める */
 }
 
 /* ヘッダー */
-.head{
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 14px 0 18px;
-}
-.title{font-size:18px}
-.top-actions{display:flex; align-items:center; gap:12px}
-.mini-icons{display:flex; gap:6px}
-.ic{width:18px; height:18px; border-radius:3px; background:#1f1f1f; display:inline-block}
-.next{
-  height:26px; padding:0 10px; font-size:12.5px; border-radius:13px;
-  border:1px solid rgba(0,0,0,.25);
-  background:linear-gradient(#fff,#f4f4f4);
-  cursor:pointer;
+.app-header{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 1fr auto; /* 2行目に contents button */
+  align-items: center;
+  gap: 6px 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
 }
 
-/* ステージ：キャンバス＋右サイド */
-.board{
-  /* 二段目はステージ */
+.app-title{
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  font-size: 18px;     /* 主張しすぎない小さめ */
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: .2px;
+  color: var(--text);
 }
-.canvas{
-  margin: 6px 156px 10px 16px; /* 右にサイドを空ける */
-  height: calc(100% - 56px - 16px);
+
+/* Next Step（右上） */
+.next-step{
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  justify-self: end;
+}
+
+/* ヘッダー内の contents button（Next Stepの下） */
+.contents-toolbar{
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  justify-self: end;
+}
+
+/* メインレイアウト：左=キャンバス、右=パネル */
+.app-main{
+  display: grid;
+  grid-template-columns: 1fr var(--rpanel-w);
+  gap: 0;
+  height: 100%;
+}
+
+/* キャンバス */
+.canvas-wrap{
+  position: relative;
+  background: #0c0d10;
+  border-right: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* 方眼紙（土台のみ。今は非表示相当のダミー） */
+.graph-paper{
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 30px 30px;   /* 方眼紙のマス目（仮） */
+  opacity: 0;                    /* 将来ON/OFF予定 */
+  pointer-events: none;
+}
+
+/* マネキン：中央配置、最大幅/高さを確保 */
+.mannequin-base{
+  max-width: min(560px, 80%);
+  max-height: 80%;
+  user-select: none;
+  -webkit-user-drag: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* 右パネル */
+.right-panel{
+  display: grid;
+  grid-template-rows: auto 1fr;
   background: var(--panel);
-  border-radius:10px;
-  position:relative;
-}
-.canvas::before{
-  /* 内側の白キャンバス（角丸＆薄枠） */
-  content:"";
-  position:absolute; inset:14px 12px;
-  background:var(--canvas);
-  border-radius:12px;
-  border:1px solid var(--line);
 }
 
-/* 方眼紙（白キャンバスの内側一杯に敷く） */
-.graph{
-  position:absolute; inset:14px 12px;
-  border-radius:12px; overflow:hidden;
-  /* 細線（1セル）と太線（10セル）を重ねる */
-  background:
-    /* 10セルごとの太縦線 */
-    linear-gradient(90deg, var(--grid-bold) 1px, transparent 1px) 0 0 / calc(var(--grid-x)*10) 100% repeat-x,
-    /* 10セルごとの太横線 */
-    linear-gradient(0deg, var(--grid-bold) 1px, transparent 1px) 0 0 / 100% calc(var(--grid-y)*10) repeat-y,
-    /* 1セルの縦線 */
-    repeating-linear-gradient(90deg, var(--grid-thin), var(--grid-thin) 1px, transparent 1px, transparent var(--grid-x)),
-    /* 1セルの横線 */
-    repeating-linear-gradient(0deg, var(--grid-thin), var(--grid-thin) 1px, transparent 1px, transparent var(--grid-y));
+/* 右パネル：上部の簡易ツールバー */
+.right-panel-toolbar{
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
 }
 
-/* マネキン */
-.mannequin{
-  position:absolute; left:50%; top:50%;
-  transform:translate(-50%,-46%);
-  max-height:68%;
-  pointer-events:none; user-select:none;
-  filter: contrast(0.95) opacity(.9);
+/* 右パネル：下部を左右に分割（レイヤー／ツール） */
+.right-panel-split{
+  display: grid;
+  grid-template-columns: 48% 52%;
+  gap: 10px;
+  padding: 10px;
+  height: 100%;
 }
 
-/* 100%チップ（右中） */
-.zoom{
-  position:absolute; right:78px; top:50%; transform:translateY(-50%);
-  display:flex; align-items:center; gap:6px; font-size:11px;
-}
-.zoom .chip{
-  background:#7a7a7a; color:#fff; padding:2px 6px; border-radius:3px;
-}
-.zoom .bar{
-  display:inline-block; width:38px; height:5px; border-radius:3px; background:#bfc1c3; position:relative;
-}
-.zoom .bar b{
-  position:absolute; right:1px; top:0; width:5px; height:5px; background:#2f7abf; border-radius:50%;
+/* レイヤーパネル */
+.layer-panel{
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
 }
 
-/* 右サイド */
-.side{
-  position:absolute; right:8px; top:58px; bottom:12px;
-  width:134px; display:grid; grid-template-rows:auto auto 1fr; gap:10px;
+/* 上3つの小アイコン */
+.layer-top-icons,
+.layer-bottom-icons{
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.layer-bottom-icons{
+  border-top: 1px solid var(--line);
+  border-bottom: none;
 }
 
-/* ツール列（ダミー描画。後でPNGに差替え可） */
-.toolcol{display:grid; justify-items:end; gap:6px; padding-right:6px}
-.t{width:30px; height:30px; background:#fff; border:1px solid #cec4b4; border-radius:6px; position:relative}
-.t.arrow::before{content:""; position:absolute; inset:0; clip-path:polygon(28% 20%, 72% 50%, 28% 80%, 40% 52%, 28% 50%); background:#333}
-.t.tri::before{content:""; position:absolute; inset:0; clip-path:polygon(50% 22%, 78% 76%, 22% 76%); background:#333}
-.t.rect::before{content:""; position:absolute; inset:0; margin:auto; width:62%; height:62%; box-shadow:inset 0 0 0 2px #333; border-radius:2px}
-.t.circ::before{content:""; position:absolute; inset:0; margin:auto; width:62%; height:62%; border-radius:50%; box-shadow:inset 0 0 0 2px #333}
-.t.brush::before{content:""; position:absolute; left:10px; top:10px; right:10px; bottom:10px; background:linear-gradient(120deg,#333 0 35%, transparent 35%); border-radius:10px 10px 18px 10px}
-.t.pen2::before{content:""; position:absolute; left:8px; top:8px; right:8px; bottom:8px; background:linear-gradient(135deg,#333 0 50%, transparent 50%)}
-.t.drop::before{content:""; position:absolute; inset:0; background:
-  radial-gradient(circle at 50% 35%, #333 36%, transparent 37%),
-  linear-gradient(#333,#333) center/2px 16px no-repeat}
-.t.text::before{content:"T"; position:absolute; inset:0; display:grid; place-items:center; font: 18px/1 Georgia,serif; color:#333}
-.t.grid2::before{content:""; position:absolute; inset:0; background:
-  linear-gradient(#333,#333) left 50% top 20% / 70% 2px no-repeat,
-  linear-gradient(#333,#333) left 50% top 45% / 70% 2px no-repeat,
-  linear-gradient(#333,#333) left 50% top 70% / 70% 2px no-repeat,
-  linear-gradient(#333,#333) left 20% top 50% / 2px 70% no-repeat,
-  linear-gradient(#333,#333) left 45% top 50% / 2px 70% no-repeat,
-  linear-gradient(#333,#333) left 70% top 50% / 2px 70% no-repeat}
-.t.layers::before{content:""; position:absolute; inset:0; background:
-  linear-gradient(#333,#333) center/70% 2px no-repeat,
-  linear-gradient(#333,#333) center 65%/70% 2px no-repeat,
-  linear-gradient(#333,#333) center 35%/70% 2px no-repeat}
-
-/* レイヤー */
-.layers{display:grid; gap:10px; padding-right:6px; justify-items:end}
-.card{width:92px; background:#fff; border:1px solid #cec4b4; border-radius:8px; overflow:hidden}
-.card-h{height:18px; display:flex; align-items:center; gap:6px; padding:1px 6px; background:#f6f1ea; border-bottom:1px solid #e7decf}
-.card-h .lk{width:9px; height:9px; border-radius:2px; background:linear-gradient(#bbb,#888)}
-.card-h .dots{margin-left:auto; width:16px; height:6px; background:
-  radial-gradient(circle,#666 2px,transparent 3px) left 2px top 50%/6px 6px repeat-x; opacity:.75}
-.card-b{height:64px; background:linear-gradient(#fff,#f8f6f2)}
-.card-f{display:flex; gap:6px; padding:3px 6px; border-top:1px solid #eee}
-.card-f i{width:9px; height:9px; background:#b9b1a6; border-radius:2px}
-
-/* パレット */
-.palette{margin-top:auto; display:grid; gap:7px; justify-items:end; padding-right:6px}
-.palette button{width:18px; height:18px; border-radius:50%; border:1px solid #cfc6b7; background:var(--c,#ccc)}
-.palette hr{width:24px; border:none; border-top:1px solid #d6cec0; opacity:.7; margin:4px 0}
-.palette .eraser{
-  background: conic-gradient(from 45deg,#fff 0 50%, #f3f3f3 50% 100%);
-  position:relative;
+/* 真ん中のレイヤーボード（5段） */
+.layer-board{
+  padding: 6px;
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 6px;
 }
-.palette .eraser::after{content:""; position:absolute; inset:3px; border-radius:50%;
-  background:linear-gradient(135deg,#222 0 50%, transparent 50%)}
+.layer-row{
+  display: grid;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px dashed #2f3240;
+  border-radius: 8px;
+  color: var(--text-dim);
+  background: #191b22;
+}
+.layer-row.is-active{
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--text);
+  background: #202332;
+}
+
+/* 右側の縦スタック（Stationery / Zoom / Opacity / Color） */
+.tools-stack{
+  display: grid;
+  grid-auto-rows: max-content;
+  gap: 10px;
+}
+
+.panel-title{
+  font-size: 12px;
+  letter-spacing: .3px;
+  color: var(--text-dim);
+  margin: 0 0 6px 0;
+}
+
+/* Stationery */
+.stationery{
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px;
+}
+.tool-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.tool-btn{
+  display: grid;
+  place-items: center;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #2a2d39;
+  background: #1a1c24;
+  cursor: default; /* 今は静的（将来JSでactive化） */
+}
+
+/* Zoom / Opacity（スライダーの見た目だけ） */
+.zoom, .opacity, .color{
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px;
+}
+.slider-row{
+  display: grid;
+  grid-template-columns: 28px 1fr 36px;
+  gap: 10px;
+  align-items: center;
+}
+.slider-rail{
+  position: relative;
+  height: 6px;
+  background: #242735;
+  border-radius: 999px;
+  border: 1px solid #313545;
+}
+.slider-thumb{
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px rgba(154,165,255,.25);
+}
+.min,.max{
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* Color（色見本） */
+.swatch-row{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+.swatch{
+  display: block;
+  width: 100%;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--c, #999);
+  border: 1px solid #2a2d39;
+}
+
+/* Quick Actions（右上：DL/UL/Save） */
+.quick-actions{
+  position: absolute;
+  top: 96px;          /* Y:10 近似 */
+  right: 12px;        /* X:94-98 エリア内 */
+  display: flex;
+  gap: 8px;
+}
+.qa-btn{
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  border: 1px solid #2a2d39;
+  background: #1a1c24;
+}
+
+/* 共通ボタン */
+.btn{
+  appearance: none;
+  border: 1px solid #2a2d39;
+  background: #1b1e28;
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  letter-spacing: .2px;
+}
+.btn:hover{ filter: brightness(1.05); }
+.btn.small{ padding: 6px 10px; font-size: 11px; }
+
+/* アイコンサイズ */
+.icon-24{ width: var(--tool-icon); height: var(--tool-icon); object-fit: contain; }
+.icon-20{ width: var(--icon); height: var(--icon); object-fit: contain; }
+.icon-16{ width: var(--icon-s); height: var(--icon-s); object-fit: contain; }
