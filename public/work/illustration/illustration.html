@@ -1,114 +1,146 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=1280, initial-scale=1.0" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="app-frame" role="application" aria-label="Vivora Fashion Illustration 2025">
+/* ========== フレームと座標系 ================================================= */
+/* 固定フレーム：1280x820px */
+.frame{
+  position: relative;
+  width: 1280px;
+  height: 820px;
+  margin: 12px auto;
+  background: #e9e2d6;             /* ベージュ系の背景 */
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px #bdb6aa inset;
+  font-family: "Times New Roman", Georgia, serif;
+  color: #1b1b1b;
+}
 
-    <header class="app-header">
-      <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
-      <button class="btn next-step" type="button">Next Step</button>
-      <div class="contents-toolbar">
-        <button class="btn btn-contents">contents button</button>
-      </div>
-    </header>
+/* 要素を“座標”で置くための共通クラス
+   --x1, --x2 は Xグリッド（0..100）
+   --y1, --y2 は Yグリッド（0..70）
+   left  = x1%
+   right = (100 - x2)%
+   top   = y1 * (100%/70)
+   bottom= (70 - y2) * (100%/70)
+*/
+.abs{ position:absolute; }
+.zone{
+  left:   calc(var(--x1) * 1%);
+  right:  calc((100 - var(--x2)) * 1%);
+  top:    calc(var(--y1) * (100% / 70));
+  bottom: calc((70 - var(--y2)) * (100% / 70));
+}
 
-    <main class="app-main">
-      <!-- キャンバス -->
-      <section class="canvas-wrap">
-        <img id="mannequin" class="mannequin-base"
-             src="/mannequin/mannequin_woman.png"
-             alt="Mannequin" draggable="false"/>
-        <div class="graph-paper"></div>
-      </section>
+/* ========== タイトル / ヘッダー ============================================= */
+h1{
+  margin: 0;
+  font-size: 18px;
+  line-height: 1;
+  display: flex; align-items: center;
+}
+.next-btn{
+  font: inherit;
+  padding: 4px 10px;
+  background:#f2efe8;
+  border:1px solid #b9b2a6;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-      <!-- 右パネル -->
-      <aside class="right-panel">
-        <div class="right-panel-toolbar">
-          <button class="btn btn-contents small">contents button</button>
-        </div>
+/* 右上の小アイコン列 */
+.top-toolbar ul,
+.io-toolbar ul{
+  margin:0; padding:0; list-style:none;
+  display:flex; gap:8px; align-items:center; justify-content:flex-end;
+}
+.ico{
+  width:20px; height:20px;
+  border:1px solid #8f877a;
+  border-radius:4px;
+  background:#f6f3ee;
+}
 
-        <div class="right-panel-split">
-          <!-- レイヤーパネル -->
-          <section class="layer-panel">
-            <div class="layer-top-icons">
-              <img src="/create_parts/layer_button/layerdisplay.png"   alt="display" class="icon-16">
-              <img src="/create_parts/layer_button/layerhidden.png"    alt="hidden"  class="icon-16">
-              <img src="/create_parts/layer_button/layerlock.png"      alt="lock"    class="icon-16">
-            </div>
-            <div class="layer-board">
-              <div class="layer-row is-active"><span>Layer 1</span></div>
-              <div class="layer-row"><span>Layer 2</span></div>
-              <div class="layer-row"><span>Layer 3</span></div>
-              <div class="layer-row"><span>Layer 4</span></div>
-              <div class="layer-row"><span>Layer 5</span></div>
-            </div>
-            <div class="layer-bottom-icons">
-              <img src="/create_parts/layer_button/layerpanelplus.png"    alt="add"       class="icon-16">
-              <img src="/create_parts/layer_button/layerreproduction.png" alt="duplicate" class="icon-16">
-              <img src="/create_parts/layer_button/layerintegration.png"  alt="merge"     class="icon-16">
-              <img src="/create_parts/layer_button/layerdestruction.png"  alt="delete"    class="icon-16">
-            </div>
-          </section>
+/* ダウンロード/アップロード/セーブの小枠 */
+.io-toolbar .ico{ width:22px; height:22px; }
 
-          <!-- ツール群 -->
-          <section class="tools-stack">
-            <div class="stationery">
-              <h2 class="panel-title">Stationery</h2>
-              <div class="tool-grid">
-                <img src="/create_parts/design_button/pen.png"        alt="pen"        class="icon-24">
-                <img src="/create_parts/design_button/brush.png"      alt="brush"      class="icon-24">
-                <img src="/create_parts/design_button/pencil.png"     alt="pencil"     class="icon-24">
-                <img src="/create_parts/design_button/anchor_pen.png" alt="anchor pen" class="icon-24">
-                <img src="/create_parts/design_button/ball_pen.png"   alt="ball pen"   class="icon-24">
-                <img src="/create_parts/design_button/marker.png"     alt="marker"     class="icon-24">
-                <img src="/create_parts/design_button/eraser.png"     alt="eraser"     class="icon-24">
-              </div>
-            </div>
+/* ========== キャンバス ======================================================= */
+.canvas{
+  background:#fff;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px #d6d2c8;
+  overflow:hidden;
+  position:absolute;
+}
 
-            <div class="zoom">
-              <h2 class="panel-title">Zoom</h2>
-              <div class="slider-row">
-                <span class="min">0%</span>
-                <div class="slider-rail"><div class="slider-thumb" style="left: 80%;"></div></div>
-                <span class="max">100%</span>
-              </div>
-            </div>
+/* キャンバス内グリッド（graph-on で有効） */
+.canvas.graph-on{
+  background:
+    linear-gradient(#0000, #0000),
+    repeating-linear-gradient(0deg, #e9e9e9 0, #e9e9e9 1px, #ffffff 1px, #ffffff 11px),
+    repeating-linear-gradient(90deg, #e9e9e9 0, #e9e9e9 1px, #ffffff 1px, #ffffff 11px);
+}
 
-            <div class="opacity">
-              <h2 class="panel-title">Opacity</h2>
-              <div class="slider-row">
-                <span class="min">0%</span>
-                <div class="slider-rail"><div class="slider-thumb" style="left: 100%;"></div></div>
-                <span class="max">100%</span>
-              </div>
-            </div>
+/* マネキン画像 */
+.mannequin{
+  object-fit: contain;
+  pointer-events: none;
+  filter: saturate(0.8) contrast(0.95);
+}
 
-            <div class="color">
-              <h2 class="panel-title">Color</h2>
-              <div class="swatch-row">
-                <span class="swatch" style="--c:#ffffff"></span>
-                <span class="swatch" style="--c:#000000"></span>
-                <span class="swatch" style="--c:#ff3b30"></span>
-                <span class="swatch" style="--c:#34c759"></span>
-                <span class="swatch" style="--c:#007aff"></span>
-                <span class="swatch" style="--c:#ffcc00"></span>
-              </div>
-            </div>
-          </section>
-        </div>
-      </aside>
-    </main>
+/* ========== レイヤーUI ======================================================= */
+.layer-ops .ico{
+  position:absolute;
+  transform: translate(-50%, -50%);
+  background:#f6f3ee;
+}
+.layer-board{
+  background:#f7f7f7;
+  border:1px solid #cfc8ba;
+  border-radius:6px;
+}
 
-    <div class="quick-actions">
-      <img src="/create_parts/create_button/download.png" alt="download" class="icon-20">
-      <img src="/create_parts/create_button/upload.png"   alt="upload"   class="icon-20">
-      <img src="/create_parts/create_button/save.png"     alt="save"     class="icon-20">
-    </div>
-  </div>
-</body>
-</html>
+/* ========== ツール縦列 / パレット =========================================== */
+.tools-vertical ul{
+  position:absolute; inset:0;
+  margin:0; padding:8px 6px; list-style:none;
+  display:flex; flex-direction:column; gap:8px; align-items:center;
+}
+.tools-vertical .tool{
+  width:22px; height:22px;
+  border:1px solid #8f877a; border-radius:6px; background:#fff;
+}
+
+.palette ul{
+  position:absolute; inset:0;
+  margin:0; padding:8px 10px; list-style:none;
+  display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:flex-start;
+}
+.palette li{
+  width:20px; height:20px; border-radius:50%;
+  border:1px solid #7b7367;
+  background: var(--c, #ddd);
+}
+
+/* ========== 透明度スライダー（見た目のみ） ================================= */
+.opacity-slider{
+  display:flex; align-items:center; gap:8px;
+}
+.opacity-slider .track{
+  position:relative; flex:1; height:6px; border-radius:999px;
+  background:linear-gradient(to right, rgba(0,0,0,.1), rgba(0,0,0,.6));
+}
+.opacity-slider .thumb{
+  position:absolute; top:50%; transform:translate(-50%, -50%);
+  width:14px; height:14px; border-radius:50%;
+  background:#fff; border:1px solid #777;
+}
+.opacity-slider .pct{
+  font-size:12px; opacity:.7;
+}
+
+/* ========== 補助：フレーム全体に格子を乗せたい時は .grid-on を使う ========== */
+.frame.grid-on{
+  background:
+    linear-gradient(#e9e2d6, #e9e2d6),
+    linear-gradient(#0000, #0000),
+    repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0, rgba(0,0,0,.05) 1px, #e9e2d6 1px, #e9e2d6 18px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.05) 0, rgba(0,0,0,.05) 1px, #e9e2d6 1px, #e9e2d6 18px);
+  background-blend-mode: normal, normal, multiply, multiply;
+}
