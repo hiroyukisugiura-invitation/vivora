@@ -1,146 +1,117 @@
-/* ========== フレームと座標系 ================================================= */
-/* 固定フレーム：1280x820px */
-.frame{
-  position: relative;
-  width: 1280px;
-  height: 820px;
-  margin: 12px auto;
-  background: #e9e2d6;             /* ベージュ系の背景 */
-  border-radius: 8px;
-  box-shadow: 0 0 0 2px #bdb6aa inset;
-  font-family: "Times New Roman", Georgia, serif;
-  color: #1b1b1b;
-}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vivora Fashion Illustration 2025</title>
+  <!-- 同一フォルダのCSSを明示パスで -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body data-illustration>
+  <!-- 固定フレーム：1280x820 / グリッド原点は左上, X=0..100, Y=0..70 -->
+  <main id="vf-illustration" class="frame grid-on" aria-label="Vivora Fashion Illustration 2025">
 
-/* 要素を“座標”で置くための共通クラス
-   --x1, --x2 は Xグリッド（0..100）
-   --y1, --y2 は Yグリッド（0..70）
-   left  = x1%
-   right = (100 - x2)%
-   top   = y1 * (100%/70)
-   bottom= (70 - y2) * (100%/70)
-*/
-.abs{ position:absolute; }
-.zone{
-  left:   calc(var(--x1) * 1%);
-  right:  calc((100 - var(--x2)) * 1%);
-  top:    calc(var(--y1) * (100% / 70));
-  bottom: calc((70 - var(--y2)) * (100% / 70));
-}
+    <!-- タイトル：X:3-22 , Y:3-3 -->
+    <h1 class="abs zone" style="--x1:3; --x2:22; --y1:3; --y2:3;">
+      Vivora Fashion Illustration 2025
+    </h1>
 
-/* ========== タイトル / ヘッダー ============================================= */
-h1{
-  margin: 0;
-  font-size: 18px;
-  line-height: 1;
-  display: flex; align-items: center;
-}
-.next-btn{
-  font: inherit;
-  padding: 4px 10px;
-  background:#f2efe8;
-  border:1px solid #b9b2a6;
-  border-radius: 4px;
-  cursor: pointer;
-}
+    <!-- Next Step：X:95-98 , Y:4-4 -->
+    <button class="abs next-btn zone" style="--x1:95; --x2:98; --y1:4; --y2:4;">Next Step</button>
 
-/* 右上の小アイコン列 */
-.top-toolbar ul,
-.io-toolbar ul{
-  margin:0; padding:0; list-style:none;
-  display:flex; gap:8px; align-items:center; justify-content:flex-end;
-}
-.ico{
-  width:20px; height:20px;
-  border:1px solid #8f877a;
-  border-radius:4px;
-  background:#f6f3ee;
-}
+    <!-- カテゴリーボタン群：X:81-98 , Y:6-7 -->
+    <nav class="abs top-toolbar zone" style="--x1:81; --x2:98; --y1:6; --y2:7;">
+      <ul>
+        <li class="ico" title="Home"></li>
+        <li class="ico" title="Template"></li>
+        <li class="ico" title="Grid"></li>
+        <li class="ico" title="Stationery"></li>
+        <li class="ico" title="Eraser"></li>
+        <li class="ico" title="Undo"></li>
+        <li class="ico" title="Redo"></li>
+      </ul>
+    </nav>
 
-/* ダウンロード/アップロード/セーブの小枠 */
-.io-toolbar .ico{ width:22px; height:22px; }
+    <!-- DL/UP/Save：X:94-98 , Y:10-10 -->
+    <nav class="abs io-toolbar zone" style="--x1:94; --x2:98; --y1:10; --y2:10;">
+      <ul>
+        <li class="ico" title="Download"></li>
+        <li class="ico" title="Upload"></li>
+        <li class="ico" title="Save"></li>
+      </ul>
+    </nav>
 
-/* ========== キャンバス ======================================================= */
-.canvas{
-  background:#fff;
-  border-radius: 12px;
-  box-shadow: inset 0 0 0 1px #d6d2c8;
-  overflow:hidden;
-  position:absolute;
-}
+    <!-- キャンバス：X:3-87 , Y:10-68（グリッドはこの中だけに適用） -->
+    <section class="abs canvas zone graph-on" style="--x1:3; --x2:87; --y1:10; --y2:68;" aria-label="Canvas">
+      <!-- マネキン：X:38-51 , Y:19-61 -->
+      <img class="abs mannequin zone"
+           style="--x1:38; --x2:51; --y1:19; --y2:61;"
+           src="/mannequin/mannequin_woman.png"
+           alt="Mannequin (Woman)" />
+    </section>
 
-/* キャンバス内グリッド（graph-on で有効） */
-.canvas.graph-on{
-  background:
-    linear-gradient(#0000, #0000),
-    repeating-linear-gradient(0deg, #e9e9e9 0, #e9e9e9 1px, #ffffff 1px, #ffffff 11px),
-    repeating-linear-gradient(90deg, #e9e9e9 0, #e9e9e9 1px, #ffffff 1px, #ffffff 11px);
-}
+    <!-- レイヤーパネル：上３つ -->
+    <div class="abs layer-ops zone">
+      <div class="ico small" style="--x1:90; --x2:90; --y1:13; --y2:13;" title="表示"></div>
+      <div class="ico small" style="--x1:91; --x2:91; --y1:13; --y2:13;" title="非表示"></div>
+      <div class="ico small" style="--x1:93; --x2:93; --y1:13; --y2:13;" title="ロック"></div>
+    </div>
 
-/* マネキン画像 */
-.mannequin{
-  object-fit: contain;
-  pointer-events: none;
-  filter: saturate(0.8) contrast(0.95);
-}
+    <!-- レイヤーボード（1段目）：X:90-94 , Y:14-19 -->
+    <div class="abs layer-board zone" style="--x1:90; --x2:94; --y1:14; --y2:19;"></div>
 
-/* ========== レイヤーUI ======================================================= */
-.layer-ops .ico{
-  position:absolute;
-  transform: translate(-50%, -50%);
-  background:#f6f3ee;
-}
-.layer-board{
-  background:#f7f7f7;
-  border:1px solid #cfc8ba;
-  border-radius:6px;
-}
+    <!-- 追加レイヤー例（1マス空けて下展開）：X:90-94 , Y:20-25 -->
+    <div class="abs layer-board zone" style="--x1:90; --x2:94; --y1:20; --y2:25;"></div>
 
-/* ========== ツール縦列 / パレット =========================================== */
-.tools-vertical ul{
-  position:absolute; inset:0;
-  margin:0; padding:8px 6px; list-style:none;
-  display:flex; flex-direction:column; gap:8px; align-items:center;
-}
-.tools-vertical .tool{
-  width:22px; height:22px;
-  border:1px solid #8f877a; border-radius:6px; background:#fff;
-}
+    <!-- 下４つ（Y:20 のライン） -->
+    <div class="abs layer-ops zone">
+      <div class="ico small" style="--x1:90; --x2:90; --y1:20; --y2:20;" title="レイヤー追加"></div>
+      <div class="ico small" style="--x1:91; --x2:91; --y1:20; --y2:20;" title="下部と統合"></div>
+      <div class="ico small" style="--x1:92; --x2:92; --y1:20; --y2:20;" title="複製"></div>
+      <div class="ico small" style="--x1:93; --x2:93; --y1:20; --y2:20;" title="削除"></div>
+    </div>
 
-.palette ul{
-  position:absolute; inset:0;
-  margin:0; padding:8px 10px; list-style:none;
-  display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:flex-start;
-}
-.palette li{
-  width:20px; height:20px; border-radius:50%;
-  border:1px solid #7b7367;
-  background: var(--c, #ddd);
-}
+    <!-- ステーショナリーツール：X:96-98 , Y:12-39 -->
+    <aside class="abs tools-vertical zone" style="--x1:96; --x2:98; --y1:12; --y2:39;">
+      <ul>
+        <li class="tool" title="Select"></li>
+        <li class="tool" title="Line"></li>
+        <li class="tool" title="Rectangle"></li>
+        <li class="tool" title="Oval"></li>
+        <li class="tool" title="Pen/Brush"></li>
+        <li class="tool" title="Eraser"></li>
+        <li class="tool" title="Fill"></li>
+        <li class="tool" title="Eyedrop"></li>
+        <li class="tool" title="Knife"></li>
+        <li class="tool" title="Text"></li>
+        <li class="tool" title="Grid toggle"></li>
+      </ul>
+    </aside>
 
-/* ========== 透明度スライダー（見た目のみ） ================================= */
-.opacity-slider{
-  display:flex; align-items:center; gap:8px;
-}
-.opacity-slider .track{
-  position:relative; flex:1; height:6px; border-radius:999px;
-  background:linear-gradient(to right, rgba(0,0,0,.1), rgba(0,0,0,.6));
-}
-.opacity-slider .thumb{
-  position:absolute; top:50%; transform:translate(-50%, -50%);
-  width:14px; height:14px; border-radius:50%;
-  background:#fff; border:1px solid #777;
-}
-.opacity-slider .pct{
-  font-size:12px; opacity:.7;
-}
+    <!-- カラーパレット：X:96-98 , Y:41-68 -->
+    <aside class="abs palette zone" style="--x1:96; --x2:98; --y1:41; --y2:68;">
+      <ul>
+        <li style="--c:#ffffff"></li>
+        <li style="--c:#ffe36a"></li>
+        <li style="--c:#ffb400"></li>
+        <li style="--c:#ff5757"></li>
+        <li style="--c:#f28dcc"></li>
+        <li style="--c:#b990ff"></li>
+        <li style="--c:#6aa9ff"></li>
+        <li style="--c:#22c7a2"></li>
+        <li style="--c:#6bdc5b"></li>
+        <li style="--c:#2b6b3f"></li>
+        <li style="--c:#000000"></li>
+      </ul>
+    </aside>
 
-/* ========== 補助：フレーム全体に格子を乗せたい時は .grid-on を使う ========== */
-.frame.grid-on{
-  background:
-    linear-gradient(#e9e2d6, #e9e2d6),
-    linear-gradient(#0000, #0000),
-    repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0, rgba(0,0,0,.05) 1px, #e9e2d6 1px, #e9e2d6 18px),
-    repeating-linear-gradient(90deg, rgba(0,0,0,.05) 0, rgba(0,0,0,.05) 1px, #e9e2d6 1px, #e9e2d6 18px);
-  background-blend-mode: normal, normal, multiply, multiply;
-}
+    <!-- 透明度スライダー：X:81-86 , Y:34-35.5 -->
+    <div class="abs opacity-slider zone" style="--x1:81; --x2:86; --y1:34; --y2:35.5;">
+      <div class="track"></div>
+      <div class="thumb" style="left:50%"></div>
+      <span class="pct">100%</span>
+    </div>
+
+  </main>
+</body>
+</html>
