@@ -144,3 +144,23 @@ h1{
     repeating-linear-gradient(90deg, rgba(0,0,0,.05) 0, rgba(0,0,0,.05) 1px, #e9e2d6 1px, #e9e2d6 18px);
   background-blend-mode: normal, normal, multiply, multiply;
 }
+/* === page scope: illustration only =================================== */
+body[data-illustration]{
+  margin: 0;
+  background: #e9e2d6;      /* 明るいベージュ（全体） */
+  color: #1b1b1b;
+  font-family: "Times New Roman", Georgia, serif;
+}
+
+/* 既存のサイト全体CSSが強い場合の保険（このページだけ反映） */
+body[data-illustration] *{
+  box-sizing: border-box;
+}
+
+/* 既存のダークテーマを打ち消す代表プロパティ */
+body[data-illustration],
+body[data-illustration] .frame,
+body[data-illustration] .canvas{
+  background-color: initial !important;
+  background-image: none; /* 必要に応じて。canvas の graph-on は個別指定あり */
+}
