@@ -4,22 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <!-- 同一フォルダのCSSを明示パスで -->
   <link rel="stylesheet" href="./style.css" />
 </head>
+
+<!-- このページだけにスタイルを限定 -->
 <body data-illustration>
-  <!-- 固定フレーム：1280x820 / グリッド原点は左上, X=0..100, Y=0..70 -->
-  <main id="vf-illustration" class="frame grid-on" aria-label="Vivora Fashion Illustration 2025">
+  <!-- 固定フレーム：1280×820（座標 X:0..100, Y:0..70） -->
+  <main id="vf-illustration" class="frame" aria-label="Vivora Fashion Illustration 2025">
 
     <!-- タイトル：X:3-22 , Y:3-3 -->
     <h1 class="abs zone" style="--x1:3; --x2:22; --y1:3; --y2:3;">
       Vivora Fashion Illustration 2025
     </h1>
 
-    <!-- Next Step：X:95-98 , Y:4-4 -->
-    <button class="abs next-btn zone" style="--x1:95; --x2:98; --y1:4; --y2:4;">Next Step</button>
+    <!-- ネクスト：X:95-98 , Y:4-4 -->
+    <button class="abs next-btn zone" style="--x1:95; --x2:98; --y1:4; --y2:4;">
+      Next Step &raquo;
+    </button>
 
-    <!-- カテゴリーボタン群：X:81-98 , Y:6-7 -->
+    <!-- カテゴリーボタン：X:81-98 , Y:6-7 -->
     <nav class="abs top-toolbar zone" style="--x1:81; --x2:98; --y1:6; --y2:7;">
       <ul>
         <li class="ico" title="Home"></li>
@@ -41,16 +44,18 @@
       </ul>
     </nav>
 
-    <!-- キャンバス：X:3-87 , Y:10-68（グリッドはこの中だけに適用） -->
+    <!-- キャンバス：X:3-87 , Y:10-68（グリッドはこの中だけ） -->
     <section class="abs canvas zone graph-on" style="--x1:3; --x2:87; --y1:10; --y2:68;" aria-label="Canvas">
       <!-- マネキン：X:38-51 , Y:19-61 -->
-      <img class="abs mannequin zone"
-           style="--x1:38; --x2:51; --y1:19; --y2:61;"
-           src="/mannequin/mannequin_woman.png"
-           alt="Mannequin (Woman)" />
+      <img
+        class="abs mannequin zone"
+        style="--x1:38; --x2:51; --y1:19; --y2:61;"
+        src="/mannequin/mannequin_woman.png"
+        alt="Mannequin (Woman)"
+      />
     </section>
 
-    <!-- レイヤーパネル：上３つ -->
+    <!-- レイヤーパネル：上３つ（表示 / 非表示 / ロック） -->
     <div class="abs layer-ops zone">
       <div class="ico small" style="--x1:90; --x2:90; --y1:13; --y2:13;" title="表示"></div>
       <div class="ico small" style="--x1:91; --x2:91; --y1:13; --y2:13;" title="非表示"></div>
@@ -60,10 +65,10 @@
     <!-- レイヤーボード（1段目）：X:90-94 , Y:14-19 -->
     <div class="abs layer-board zone" style="--x1:90; --x2:94; --y1:14; --y2:19;"></div>
 
-    <!-- 追加レイヤー例（1マス空けて下展開）：X:90-94 , Y:20-25 -->
+    <!-- 追加レイヤー（1マス下に空けて展開）：X:90-94 , Y:20-25 -->
     <div class="abs layer-board zone" style="--x1:90; --x2:94; --y1:20; --y2:25;"></div>
 
-    <!-- 下４つ（Y:20 のライン） -->
+    <!-- 下４つ（追加 / 下部と統合 / 複製 / 削除）：Y:20 のライン -->
     <div class="abs layer-ops zone">
       <div class="ico small" style="--x1:90; --x2:90; --y1:20; --y2:20;" title="レイヤー追加"></div>
       <div class="ico small" style="--x1:91; --x2:91; --y1:20; --y2:20;" title="下部と統合"></div>
@@ -71,7 +76,7 @@
       <div class="ico small" style="--x1:93; --x2:93; --y1:20; --y2:20;" title="削除"></div>
     </div>
 
-    <!-- ステーショナリーツール：X:96-98 , Y:12-39 -->
+    <!-- ステーショナリー：X:96-98 , Y:12-39 -->
     <aside class="abs tools-vertical zone" style="--x1:96; --x2:98; --y1:12; --y2:39;">
       <ul>
         <li class="tool" title="Select"></li>
