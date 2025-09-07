@@ -2,32 +2,114 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=1280, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- 固定ワークエリア（非レスポンシブ） -->
-  <main class="workarea">
+  <div class="stage">
 
-    <!-- 上帯（ヘッダーバー） -->
-    <div class="top-band" aria-hidden="true"></div>
+    <!-- タイトル：X:3-22 , Y:3-3 -->
+    <h1 class="title">Vivora Fashion Illustration 2025</h1>
 
-    <!-- タイトル：X:3-22, Y:3-3（2行） -->
-    <h1 class="abs title" style="--x:3; --y:3; --w:19; --h:2;">
-      Vivora Fashion Illustration<br>2025
-    </h1>
+    <!-- ネクストボタン：X:95-98 , Y:4-4 -->
+    <button class="next-btn">Next Step »</button>
 
-    <!-- Next Step：X:95-98, Y:4-4 -->
-    <button class="abs next-btn" style="--x:95; --y:4; --w:3; --h:1;">
-      Next Step »
-    </button>
+    <!-- カテゴリーボタン（contents button想定）：X:81-98 , Y:6-7 -->
+    <div class="category-bar">
+      <button>Home</button>
+      <button>Gallery</button>
+      <button>Template</button>
+      <button>Guide</button>
+      <button>Contents</button>
+    </div>
 
-    <!-- contents button：X:81-98, Y:6-7 -->
-    <button class="abs contents-btn" style="--x:81; --y:6; --w:17; --h:1;">
-      contents
-    </button>
+    <!-- キャンバス：X:3-87 , Y:10-68 -->
+    <section class="draw-canvas">
+      <!-- マネキン位置：X:38-51 , Y:19-61（キャンバス内でさらにグリッド重ねて厳密配置） -->
+      <img class="mannequin"
+           src="/public/mannequin/mannequin_woman.png"
+           alt="mannequin" />
+    </section>
 
-  </main>
+    <!-- ダウンロード・アップロード・セーブ：X:94-98 , Y:10-10 -->
+    <div class="dus-group">
+      <button class="icon-btn" title="Download">
+        <img src="/public/create_parts/create_button/download.png" alt="download">
+      </button>
+      <button class="icon-btn" title="Upload">
+        <img src="/public/create_parts/create_button/upload.png" alt="upload">
+      </button>
+      <button class="icon-btn" title="Save">
+        <img src="/public/create_parts/create_button/save.png" alt="save">
+      </button>
+    </div>
+
+    <!-- レイヤーパネル：右側縦帯 -->
+    <!-- 上３つのボタン：表示 / 非表示 / ロック -->
+    <!-- 表示：X:90 ,Y:13 ｜ 非表示：X:91 ,Y:13 ｜ ロック：X:93 ,Y:13 -->
+    <button class="layer-icon show"   title="Display"></button>
+    <button class="layer-icon hidden" title="Hide"></button>
+    <button class="layer-icon lock"   title="Lock"></button>
+
+    <!-- 真ん中のパネル：レイヤーボード X:90-94 ,Y:14-19 -->
+    <div class="layer-board">
+      <!-- 既定の5レイヤー例（スクショの縦5枠イメージ） -->
+      <div class="layer-card"></div>
+      <div class="layer-card"></div>
+      <div class="layer-card"></div>
+      <div class="layer-card"></div>
+      <div class="layer-card"></div>
+      <!-- 追加レイヤーは .layer-card を1マス下に追加でOK -->
+    </div>
+
+    <!-- 下の４つのボタン：X:90..93 ,Y:20 -->
+    <button class="layer-ctrl add"   title="Add"></button>
+    <button class="layer-ctrl merge" title="Merge Down"></button>
+    <button class="layer-ctrl copy"  title="Duplicate"></button>
+    <button class="layer-ctrl del"   title="Delete"></button>
+
+    <!-- ステーショナリーツール：X:96-98 ,Y:12-39 -->
+    <nav class="stationery">
+      <button class="tool" title="Pointer"><img src="/public/create_parts/design_button/pointer.png" alt=""></button>
+      <button class="tool" title="Line"><img src="/public/create_parts/design_button/line.png" alt=""></button>
+      <button class="tool" title="Shape"><img src="/public/create_parts/design_button/shape.png" alt=""></button>
+      <button class="tool" title="Brush"><img src="/public/create_parts/design_button/brush.png" alt=""></button>
+      <button class="tool" title="Eraser"><img src="/public/create_parts/design_button/eraser.png" alt=""></button>
+      <button class="tool" title="Fill"><img src="/public/create_parts/design_button/fill.png" alt=""></button>
+      <button class="tool" title="Text"><img src="/public/create_parts/design_button/text.png" alt=""></button>
+      <button class="tool" title="Grid"><img src="/public/create_parts/design_button/grid.png" alt=""></button>
+      <button class="tool" title="LayerFx"><img src="/public/create_parts/design_button/layerfx.png" alt=""></button>
+    </nav>
+
+    <!-- カラーパレット：X:96-98 ,Y:41-68 -->
+    <div class="palette">
+      <!-- 16色例（スクショ右下の並びイメージ） -->
+      <button class="swatch" style="--c:#ffd400"></button>
+      <button class="swatch" style="--c:#ffb400"></button>
+      <button class="swatch" style="--c:#ff7a00"></button>
+      <button class="swatch" style="--c:#ff4d4d"></button>
+      <button class="swatch" style="--c:#ff007a"></button>
+      <button class="swatch" style="--c:#d400ff"></button>
+      <button class="swatch" style="--c:#8a7aff"></button>
+      <button class="swatch" style="--c:#4d7aff"></button>
+      <button class="swatch" style="--c:#00aaff"></button>
+      <button class="swatch" style="--c:#00c896"></button>
+      <button class="swatch" style="--c:#00b341"></button>
+      <button class="swatch" style="--c:#6bbf00"></button>
+      <button class="swatch" style="--c:#b5cc00"></button>
+      <button class="swatch" style="--c:#888888"></button>
+      <button class="swatch" style="--c:#444444"></button>
+      <button class="swatch" style="--c:#ffffff"></button>
+    </div>
+
+    <!-- 透明度ボタン選択時のスライダー：X:81-86 ,Y:34-35.5（初期は非表示） -->
+    <div class="opacity-slider" aria-hidden="true">
+      <label>Opacity</label>
+      <input type="range" min="0" max="100" value="100" />
+      <span>100%</span>
+    </div>
+
+  </div>
 </body>
 </html>
