@@ -1,16 +1,21 @@
-/* 固定レイアウト：1280×820（スクショと同比率） */
+/* =========================
+   固定レイアウト：1280×820（スクショ比）
+   ========================= */
 :root{
   --w: 1280px;
   --h: 820px;
-  --rows: 70;               /* Y分割 */
-  --bg: #f0ede7;            /* 上部帯の雰囲気に近い下地 */
-  --ink: #1a1a1a;
-  --line: rgba(0,0,0,.08);
-  --line-10: rgba(0,0,0,.18);
+  --rows: 70;                 /* 縦70等分(Y) */
+  --bg-top: #e7e1d6;          /* 上帯のベージュ */
+  --panel: #efe9de;           /* 右パネルのベージュ */
+  --paper: #ffffff;           /* キャンバス白 */
+  --ink: #222;
+  --line: rgba(0,0,0,.08);    /* 細目格子 */
+  --line10: rgba(0,0,0,.18);  /* 10マスごと濃い線 */
+  --shadow: 0 2px 10px rgba(0,0,0,.06);
 }
 
 * { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; background: #e9e6e0; color: var(--ink); font-family: "Helvetica Neue", Arial, sans-serif; }
+html, body { height: 100%; margin: 0; background: #eae6df; color: var(--ink); font-family: ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif; }
 
 .workarea{
   position: relative;
@@ -18,45 +23,31 @@ html, body { height: 100%; margin: 0; background: #e9e6e0; color: var(--ink); fo
   height: var(--h);
   margin: 8px auto;
   background: #fff;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,.15);
-  border-radius: 6px;
 }
 
-/* グリッド（1x1）と10マス目の濃線 */
+/* -------- グリッド＆上/右帯 -------- */
 .grid{
   position: absolute; inset: 0;
   background:
+    /* 右側ベージュ帯（幅32px） */
+    linear-gradient(to left, var(--panel) 32px, transparent 32px) right/32px 100% no-repeat,
+    /* 上部ベージュ帯（高さ40px） */
+    linear-gradient(to bottom, var(--bg-top) 40px, transparent 40px) top/100% 40px no-repeat,
     /* 10マスごと濃線 */
-    linear-gradient(to right, var(--line-10) 1px, transparent 1px) 0 0 / calc(10% ) 100%,
-    linear-gradient(to bottom, var(--line-10) 1px, transparent 1px) 0 0 / 100% calc(100%/7),
-    /* 1マス */
+    linear-gradient(to right, var(--line10) 1px, transparent 1px) 0 0 / 10% 100%,
+    linear-gradient(to bottom, var(--line10) 1px, transparent 1px) 0 0 / 100% calc(100%/7),
+    /* 1マス格子 */
     linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 / 1% 100%,
     linear-gradient(to bottom, var(--line) 1px, transparent 1px) 0 0 / 100% calc(100%/var(--rows));
   pointer-events: none;
-  opacity: .7;
 }
 
-/* 目盛り（簡易） */
-.ruler::before,
-.ruler::after{
-  content: "";
-  position: absolute; inset: 0;
-  border-top: 32px solid var(--bg);       /* 上帯 */
-  border-right: 32px solid var(--bg);     /* 右帯 */
-  pointer-events: none;
-  opacity: .9;
-}
-/* メモリの小目盛り */
-.ruler{
-  position: absolute; inset: 0; pointer-events: none;
-  background:
-    linear-gradient(to right, rgba(0,0,0,.2) 1px, transparent 1px) 0 30px / 10% 2px no-repeat,
-    linear-gradient(to bottom, rgba(0,0,0,.2) 1px, transparent 1px) calc(100% - 30px) 0 / 2px calc(100%/7) no-repeat;
-  border-radius: 6px;
-}
+.ruler{ position: absolute; inset: 0; pointer-events: none; }
 
-/* 汎用：グリッド絶対配置（--x, --y, --w, --h を使用） */
+/* -------- 汎用：グリッド絶対配置 -------- */
 .abs{
   position: absolute;
   left: calc(var(--x,0) * 1%);
@@ -66,81 +57,102 @@ html, body { height: 100%; margin: 0; background: #e9e6e0; color: var(--ink); fo
   display: flex; align-items: center; justify-content: flex-start;
 }
 
-/* タイトル */
+/* -------- タイトル -------- */
 .title{
-  font-size: 18px; letter-spacing: .3px; font-weight: 600; color: #2a2a2a;
+  font-weight: 700; letter-spacing: .2px; color: #2d2d2d; line-height: 1.1;
+  font-size: 18px; /* 2段で控えめに */
 }
 
-/* Next Step */
+/* -------- Next Step -------- */
 .next-btn{
   width: 100%; height: 100%;
-  font: 600 14px/1.2 system-ui, sans-serif;
-  color: #333; background: #f4f0ea; border: 1px solid #cfc7bb; border-radius: 4px;
+  font: 600 13px/1.2 system-ui, sans-serif;
+  color: #2b2b2b; background: #f4efe7;
+  border: 1px solid #cfc7bb; border-radius: 6px;
+  box-shadow: var(--shadow);
   cursor: pointer;
 }
 
-/* カテゴリーバー */
-.category-bar{ gap: .6rem; align-items: center; }
+/* -------- カテゴリーバー（右上の小アイコン群） -------- */
+.category-bar{ gap: .5rem; align-items: center; justify-content: flex-end; padding-right: 2px; }
 .icon.sq{
-  width: calc(100% / 12); height: 100%;
-  border: 1px solid #bdb5a7; border-radius: 4px; background: #f7f4ee;
+  width: 18px; height: 18px;
+  border: 1px solid #bdb5a7; border-radius: 4px; background: #f7f3ec;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
 }
 
-/* キャンバス */
+/* -------- キャンバス -------- */
 .canvas{
-  background: #fafafa;
+  background: var(--paper);
   border: 1px solid #d6d0c6;
-  border-radius: 14px;
-  padding: 0;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
   overflow: hidden;
 }
 
-/* 透明度スライダー（キャンバス上の小UI） */
-.opacity-wrap{
-  gap: 8px; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.9);
-  border: 1px solid rgba(0,0,0,.15);
-  border-radius: 6px; padding: 6px 10px;
+/* -------- 透明度スライダー（スクショ風UI） -------- */
+.opacity-wrap{ align-items: center; justify-content: center; }
+.opacity-ui{
+  display: inline-grid; grid-template-columns: auto 160px auto; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.95);
+  border: 1px solid rgba(0,0,0,.2); border-radius: 8px; padding: 6px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
 }
-.opacity{ width: 70%; }
-.pct{ font-size: 12px; color: #555; }
+.opacity-ui .pct{ font-size: 12px; color: #444; min-width: 44px; text-align: right; }
+.opacity-ui .opacity{ width: 160px; appearance: none; height: 4px; background: #d0d0d0; border-radius: 2px; outline: none; }
+.opacity-ui .opacity::-webkit-slider-thumb{
+  -webkit-appearance: none; width: 12px; height: 12px; border-radius: 999px; background: #3a7bff; border: 0;
+  box-shadow: 0 0 0 2px #fff, 0 1px 3px rgba(0,0,0,.25);
+}
+.opacity-ui .nub{ width: 10px; height: 10px; border-radius: 999px; background: #9aa4b2; opacity: .6; }
 
-/* マネキン */
+/* -------- マネキン -------- */
 .mannequin{ justify-content: center; align-items: center; }
-.mannequin img{
-  max-width: 100%; max-height: 100%; object-fit: contain; opacity: .9; filter: contrast(1.05) sepia(.05);
-}
+.mannequin img{ max-width: 100%; max-height: 100%; object-fit: contain; opacity: .95; filter: contrast(1.02) sepia(.04); }
 
-/* DL/UP/SAVE */
+/* -------- DL/UP/SAVE -------- */
 .dus{ display: flex; gap: .4rem; align-items: center; }
 .dus .sq{ width: calc(100% / 3 - .3rem); height: 100%; }
 
-/* レイヤーパネル */
+/* -------- レイヤーパネル -------- */
 .layer-top, .layer-bottom{ display: flex; gap: .4rem; align-items: center; }
 .layer-top .sq, .layer-bottom .sq{
   width: calc(100% / 4 - .35rem); height: 100%;
-  border: 1px solid #bdb5a7; border-radius: 4px; background: #f7f4ee;
+  border: 1px solid #bdb5a7; border-radius: 6px; background: #f7f3ec;
 }
-
-/* 真ん中ボード */
 .layer-board{
-  background: #f3efe8; border: 1px solid #cfc7bb; border-radius: 6px; padding: 6px;
+  background: #f1ebe1; border: 1px solid #cfc7bb; border-radius: 8px; padding: 6px;
   display: grid; grid-auto-rows: minmax(22px, 1fr); gap: 6px;
+  box-shadow: var(--shadow);
 }
 .layer-row{ display: grid; grid-template-columns: 18px 18px 18px 1fr; gap: 6px; align-items: center; }
 .layer-row .mini.icon{ width: 18px; height: 18px; border: 1px solid #bdb5a7; border-radius: 4px; background: #fff; }
-.layer-row .mini.thumb{ height: 18px; border: 1px dashed #bdb5a7; border-radius: 4px; }
+.layer-row .mini.thumb{ height: 18px; border: 1px dashed #bdb5a7; border-radius: 4px; background: #fff; }
 
-/* ステーショナリーツール */
-.toolbox{ display: grid; grid-auto-rows: 1fr; gap: 6px; }
+/* -------- ステーショナリーツール（縦帯） -------- */
+.toolbox{ display: grid; grid-auto-rows: 1fr; gap: 8px; align-content: start; }
 .toolbox .tool{
-  border: 1px solid #bdb5a7; border-radius: 6px; background: #f7f4ee;
+  border: 1px solid #bdb5a7; border-radius: 8px; background: #f7f3ec; height: 100%;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
 }
 
-/* カラーパレット */
-.palette{ display: grid; grid-auto-rows: 1fr; gap: 6px; align-content: start; }
+/* -------- カラーパレット -------- */
+.palette{ display: grid; grid-auto-rows: 1fr; gap: 8px; align-content: start; }
 .palette .dot{
   width: 100%; height: 100%;
   border-radius: 999px; border: 1px solid rgba(0,0,0,.2);
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(0,0,0,.06));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.65);
+  background: #ddd;
 }
+.palette .c0{ background:#e5e5e5; }
+.palette .c1{ background:#f0cf2e; }
+.palette .c2{ background:#ffd23c; }
+.palette .c3{ background:#ffbb21; }
+.palette .c4{ background:#ff7a7a; }
+.palette .c5{ background:#ff6aa9; }
+.palette .c6{ background:#ff5f6d; }
+.palette .c7{ background:#1fb955; }
+.palette .c8{ background:#0ea5e9; }
+.palette .c9{ background:#2463eb; }
+.palette .c10{ background:#7c4dff; }
+.palette .c11{ background:#111; }
