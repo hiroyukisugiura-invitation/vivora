@@ -1,97 +1,149 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- 固定ステージ 1280×820 / マス目 X:0–100, Y:0–70 -->
-  <div id="stage">
+  <!-- 画面全体のベース（固定サイズ 1280×820） -->
+  <div class="app-frame">
+    <!-- ヘッダー帯 -->
+    <header class="app-header">
+      <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
 
-    <!-- タイトル：X:3-22 ,Y:3-3 -->
-    <div class="xy slot title" style="--x:3; --y:3; --w:19; --h:1;" aria-label="page title">
-      <span class="text">Vivora Fashion Illustration 2025</span>
-    </div>
+      <div class="header-right">
+        <!-- 上部ツール（右肩の小アイコン列） -->
+        <nav class="top-icons">
+          <!-- ※PNGは差し替え想定のダミー。サイズと並びのみ再現 -->
+          <img src="/public/create_parts/create_button/home.png" alt="home" />
+          <img src="/public/create_parts/create_button/grid.png" alt="grid" />
+          <img src="/public/create_parts/create_button/cam.png" alt="cam" />
+          <img src="/public/create_parts/create_button/cup.png" alt="cup" />
+          <img src="/public/create_parts/create_button/pin.png" alt="pin" />
+          <img src="/public/create_parts/create_button/gear.png" alt="gear" />
+        </nav>
 
-    <!-- ネクストボタン：X:95-98 ,Y:4-4 -->
-    <button class="xy hit next" style="--x:95; --y:4; --w:3; --h:1;" aria-label="Next Step"></button>
+        <!-- Next Step ボタン -->
+        <a class="next-btn" href="#">Next Step »</a>
+      </div>
+    </header>
 
-    <!-- カテゴリーボタン（横並びの帯）：X:81-98 ,Y:6-7 -->
-    <div class="xy row slot contents" style="--x:81; --y:6; --w:17; --h:1;" aria-label="contents">
-      <!-- ここにアイコン画像を並べる想定。今はプレースホルダ -->
-      <button class="hit btn"></button>
-      <button class="hit btn"></button>
-      <button class="hit btn"></button>
-      <button class="hit btn"></button>
-      <button class="hit btn"></button>
-      <button class="hit btn"></button>
-      <button class="hit btn"></button>
-      <button class="hit btn"></button>
-    </div>
+    <!-- 本体レイアウト：左＝キャンバス、右＝サイドバー -->
+    <main class="main-area">
+      <!-- 左：キャンバスボード -->
+      <section class="canvas-board">
+        <!-- マネキン（中央） -->
+        <img class="mannequin" src="/public/mannequin/mannequin_woman.png" alt="mannequin" />
+        <!-- 右寄りのズームUI（ダミー表示） -->
+        <div class="zoom-floating">
+          <span>100%</span>
+          <div class="zoom-rail">
+            <div class="zoom-dot"></div>
+          </div>
+        </div>
+      </section>
 
-    <!-- ダウンロード・アップロード・セーブ：X:94-98 ,Y:10-10 -->
-    <div class="xy row slot dus" style="--x:94; --y:10; --w:4; --h:1;" aria-label="download/upload/save">
-      <button class="hit btn" aria-label="download"></button>
-      <button class="hit btn" aria-label="upload"></button>
-      <button class="hit btn" aria-label="save"></button>
-    </div>
+      <!-- 右：サイドバー -->
+      <aside class="sidebar">
+        <!-- エクスポート系3アイコン（上部のDL/UP/Save っぽい並び） -->
+        <div class="export-icons">
+          <img src="/public/create_parts/create_button/download.png" alt="download" />
+          <img src="/public/create_parts/create_button/upload.png" alt="upload" />
+          <img src="/public/create_parts/create_button/save.png" alt="save" />
+        </div>
 
-    <!-- キャンバス：X:3-87 ,Y:10-68 -->
-    <div class="xy canvas" style="--x:3; --y:10; --w:84; --h:58;" aria-label="canvas">
-      <!-- マネキン：X:38-51 ,Y:19-61 -->
-      <div class="xy mannequin" style="--x:38; --y:19; --w:13; --h:42;" aria-label="mannequin"></div>
-    </div>
+        <!-- 縦ツール（ペン等） -->
+        <div class="tool-rail">
+          <button class="tool"><img src="/public/create_parts/design_button/cursor.png" alt="cursor"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/triangle.png" alt="triangle"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/rect.png" alt="rect"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/ellipse.png" alt="ellipse"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/pen.png" alt="pen"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/eraser.png" alt="eraser"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/brush.png" alt="brush"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/bucket.png" alt="bucket"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/lasso.png" alt="lasso"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/text.png" alt="text"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/pattern.png" alt="pattern"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/mesh.png" alt="mesh"></button>
+          <button class="tool"><img src="/public/create_parts/design_button/layers.png" alt="layers"></button>
+        </div>
 
-    <!-- レイヤーパネル：上３つ（Y:13） -->
-    <button class="xy hit layer-top" style="--x:90; --y:13; --w:1; --h:1;" aria-label="layer display"></button>
-    <button class="xy hit layer-top" style="--x:91; --y:13; --w:1; --h:1;" aria-label="layer hidden"></button>
-    <button class="xy hit layer-top" style="--x:93; --y:13; --w:1; --h:1;" aria-label="layer lock"></button>
+        <!-- レイヤーパネル群（4つ） -->
+        <div class="layers">
+          <!-- パネル1 -->
+          <div class="layer-card">
+            <div class="layer-thumb"></div>
+            <div class="layer-ops">
+              <img src="/public/create_parts/layer_button/layerdisplay.png" alt="display">
+              <img src="/public/create_parts/layer_button/layerhidden.png"  alt="hidden">
+              <img src="/public/create_parts/layer_button/layerlock.png"    alt="lock">
+            </div>
+          </div>
 
-    <!-- レイヤーボード：X:90-94 ,Y:14-19 -->
-    <div class="xy layer-board" style="--x:90; --y:14; --w:4; --h:5;" aria-label="layer board"></div>
+          <!-- パネル2 -->
+          <div class="layer-card">
+            <div class="layer-thumb"></div>
+            <div class="layer-ops">
+              <img src="/public/create_parts/layer_button/layerdisplay.png" alt="display">
+              <img src="/public/create_parts/layer_button/layerhidden.png"  alt="hidden">
+              <img src="/public/create_parts/layer_button/layerlock.png"    alt="lock">
+            </div>
+          </div>
 
-    <!-- レイヤーパネル：下４つ（Y:20） -->
-    <button class="xy hit layer-btm" style="--x:90; --y:20; --w:1; --h:1;" aria-label="layer add"></button>
-    <button class="xy hit layer-btm" style="--x:91; --y:20; --w:1; --h:1;" aria-label="layer merge-down"></button>
-    <button class="xy hit layer-btm" style="--x:92; --y:20; --w:1; --h:1;" aria-label="layer duplicate"></button>
-    <button class="xy hit layer-btm" style="--x:93; --y:20; --w:1; --h:1;" aria-label="layer delete"></button>
+          <!-- パネル3 -->
+          <div class="layer-card">
+            <div class="layer-thumb"></div>
+            <div class="layer-ops">
+              <img src="/public/create_parts/layer_button/layerdisplay.png" alt="display">
+              <img src="/public/create_parts/layer_button/layerhidden.png"  alt="hidden">
+              <img src="/public/create_parts/layer_button/layerlock.png"    alt="lock">
+            </div>
+          </div>
 
-    <!-- ステーショナリーツール（縦帯）：X:96-98 ,Y:12-39 -->
-    <div class="xy col slot tools" style="--x:96; --y:12; --w:2; --h:27;" aria-label="stationery tools">
-      <!-- 縦にアイコンを差し替え想定。今はプレースホルダ -->
-      <button class="hit btn tall"></button>
-      <button class="hit btn tall"></button>
-      <button class="hit btn tall"></button>
-      <button class="hit btn tall"></button>
-      <button class="hit btn tall"></button>
-      <button class="hit btn tall"></button>
-      <button class="hit btn tall"></button>
-      <button class="hit btn tall"></button>
-      <button class="hit btn tall"></button>
-      <button class="hit btn tall"></button>
-    </div>
+          <!-- パネル4（下部） -->
+          <div class="layer-card">
+            <div class="layer-thumb"></div>
+            <div class="layer-ops">
+              <img src="/public/create_parts/layer_button/layerdisplay.png" alt="display">
+              <img src="/public/create_parts/layer_button/layerhidden.png"  alt="hidden">
+              <img src="/public/create_parts/layer_button/layerlock.png"    alt="lock">
+            </div>
+          </div>
 
-    <!-- カラーパレット（縦帯）：X:96-98 ,Y:41-68 -->
-    <div class="xy col slot palette" style="--x:96; --y:41; --w:2; --h:27;" aria-label="color palette">
-      <!-- 後で差し替える前提。丸ボタンの枠だけ今は表示 -->
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-      <button class="hit dot"></button>
-    </div>
+          <!-- 下の縦3ボタン（＋／複製／削除） -->
+          <div class="layer-bottom">
+            <img src="/public/create_parts/layer_button/layerpanelplus.png"        alt="plus">
+            <img src="/public/create_parts/layer_button/layerreproduction.png"     alt="duplicate">
+            <img src="/public/create_parts/layer_button/layerdestruction.png"      alt="delete">
+          </div>
+        </div>
 
-    <!-- 透明度スライダー：X:81-86 ,Y:34-35.5 -->
-    <div class="xy opacity-slot" style="--x:81; --y:34; --w:5; --h:1.5;" aria-label="opacity slider"></div>
-
+        <!-- カラーパレット（縦） -->
+        <div class="palette">
+          <!-- 右端に丸を縦並び（スクショ同様に16色 + 設定点） -->
+          <button class="dot" style="--c:#f0e000"></button>
+          <button class="dot" style="--c:#ffd400"></button>
+          <button class="dot" style="--c:#ffb300"></button>
+          <button class="dot" style="--c:#ff8a00"></button>
+          <button class="dot" style="--c:#ff5a36"></button>
+          <button class="dot" style="--c:#ff3355"></button>
+          <button class="dot" style="--c:#e6006e"></button>
+          <button class="dot" style="--c:#b000b5"></button>
+          <button class="dot" style="--c:#7b00d6"></button>
+          <button class="dot" style="--c:#4a20ff"></button>
+          <button class="dot" style="--c:#2a55ff"></button>
+          <button class="dot" style="--c:#1290ff"></button>
+          <button class="dot" style="--c:#00a7d7"></button>
+          <button class="dot" style="--c:#00b38f"></button>
+          <button class="dot" style="--c:#00a54a"></button>
+          <button class="dot" style="--c:#222"></button>
+          <button class="dot more"><span>●</span></button>
+        </div>
+      </aside>
+    </main>
   </div>
 </body>
 </html>
