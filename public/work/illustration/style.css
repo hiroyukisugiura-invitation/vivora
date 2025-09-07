@@ -1,206 +1,176 @@
-/* ====== ページ土台 ====== */
+/* ================== 基本定数 ================== */
 :root{
-  --board-w: 1280px;     /* 固定：スクショ通り */
+  --board-w: 1280px;
   --board-h: 820px;
-  --right-w: 300px;      /* 右パネル総幅（Layers+Tools+Palette） */
-  --layers-w: 160px;     /* 左：レイヤー列 */
-  --tools-w: 64px;       /* 中：ツール列（正方アイコン縦並び） */
-  --palette-w: 44px;     /* 右：カラーパレット列 */
-  --gap: 16px;           /* 基本ギャップ */
-  --card-r: 12px;        /* 丸角 */
-  --line: #d9d9d9;       /* 枠線色（薄いグレー） */
-  --ink: #111;           /* 文字色 */
+
+  --bg: #e8e2d7;
+  --ink: #1b1b1b;
+  --panel: #ede7dd;
+  --stage: #ffffff;
+  --stage-border: #cfc9bf;
+  --shadow: 0 2px 2px rgba(0,0,0,.06);
+  --r: 14px;
 }
 
-* { box-sizing: border-box; }
-html, body{
-  margin: 0;
-  padding: 0;
-  background: #ffffff;
-  color: var(--ink);
-  font-family: "Inter", "SF Pro Text", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+*{ box-sizing:border-box; }
+html,body{
+  height:100%;
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Inter","Helvetica Neue",Arial,system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  overflow:hidden;
 }
 
-/* ====== 固定ボード：中央寄せ ====== */
+/* ===== 画面フィット（少し小さめにスケール） ===== */
+.fit{
+  height:100%;
+  display:grid;
+  place-items:center;
+}
+.fit > .board{
+  transform-origin: top center;
+  --sx: calc(100vw / var(--board-w));
+  --sy: calc(100vh / var(--board-h));
+  --s:  min(var(--sx), var(--sy));
+  /* 余白を確保するため 0.90 を掛ける（100%表示でも大きすぎない） */
+  transform: scale(calc(var(--s) * 0.90));
+}
+
+/* ===== ボード ===== */
 .board{
-  width: var(--board-w);
-  height: var(--board-h);
-  margin: 24px auto;           /* 画面中央に配置 */
-  position: relative;
+  width:var(--board-w);
+  height:var(--board-h);
+  display:grid;
+  grid-template-rows: 60px 1fr;
+  gap:14px;
+  position:relative;
 }
 
-/* ====== ヘッダー ====== */
-.header{
-  height: 48px;
-  display: grid;
+/* ===== ヘッダー ===== */
+.topbar{
+  display:grid;
   grid-template-columns: 1fr auto;
-  align-items: center;
-  user-select: none;
+  align-items:center;
+  padding: 0 8px;
 }
-.title{
-  margin: 0;
-  font-size: 20px;             /* スクショの控えめサイズに合わせる */
-  font-weight: 600;
-}
-.next-step{
-  display: inline-block;
-  font-size: 12px;
-  text-decoration: none;
-  color: var(--ink);
-  padding: 6px 10px;
+.app-title{ margin:0; font-weight:500; font-size:20px; letter-spacing:.2px; }
+.top-actions{ display:flex; align-items:center; gap:12px; justify-self:end; }
+.contents-buttons{ display:flex; gap:10px; align-items:center; }
+.contents-buttons img{ width:24px; height:24px; display:block; image-rendering:-webkit-optimize-contrast; }
+.next-btn{
+  padding:8px 14px; border-radius:10px; background:#fff; color:#111; text-decoration:none;
+  font-size:12.5px; box-shadow:var(--shadow); border:1px solid #ddd8cf;
 }
 
-/* ====== 作業エリア：キャンバス + 右パネル ====== */
-.work-area{
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 48px;                   /* ヘッダー高さの直下 */
-  bottom: 0;
-
-  display: grid;
-  grid-template-columns: 1fr var(--right-w);
-  gap: var(--gap);
+/* ===== メイン ===== */
+.main{
+  display:grid;
+  grid-template-columns: 1fr 360px; /* 右パネル2列ぶん */
+  gap: 16px;
+  height:100%;
 }
 
-/* ---- キャンバス ---- */
-.canvas-wrap{
-  padding: 0 var(--gap) 0 var(--gap);
-}
-.canvas-frame{
-  width: calc(100% - var(--gap));
-  height: calc(100% - 8px);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  box-shadow: 0 0 0 1px #eee inset;
-  position: relative;
-  background: #fff;
+/* === キャンバス === */
+.stage{
+  background:var(--stage);
+  border:1px solid var(--stage-border);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  position:relative;
+  padding:16px;
 }
 .mannequin{
-  position: absolute;
-  width: 300px;               /* スクショ基準：中央に立つサイズ */
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:240px;   /* ★ 初期サイズを小さめに */
+  height:auto; opacity:.95;
 }
 
-/* ズームUI（右中） */
-.zoom-chip{
-  position: absolute;
-  right: 72px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #f2f2f2;
-  border-radius: 4px;
-  padding: 2px 8px;
-  font-size: 11px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 0 0 1px #e5e5e5 inset;
+/* canvas内のopacity/zoom */
+.opacity-ui{
+  position:absolute; right:46px; top:44%;
+  display:grid; gap:6px; justify-items:center;
 }
-.zoom-chip .dot{
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #64a3ff; display: inline-block;
+.zoom-label{
+  font-size:11.5px; background:#fff; border:1px solid #ddd8cf; border-radius:6px; padding:2px 6px;
+}
+.zoom-bar{
+  width:120px; height:10px; background:#e5e0d6; border-radius:8px; border:1px solid #d5cec3; position:relative;
+}
+.zoom-bar i{
+  position:absolute; top:-3px; width:14px; height:14px; background:#5ea3ff; border-radius:50%; border:1px solid #507fbe;
 }
 
-/* ---- 右パネル ---- */
-.right-panel{
-  padding-right: var(--gap);
-  display: grid;
-  grid-template-rows: auto 1fr;
-  gap: var(--gap);
+/* === 右パネル === */
+.rightpanel{
+  background:var(--panel);
+  border:1px solid #d9d2c6;
+  border-radius:10px;
+  box-shadow:var(--shadow);
+  padding:10px 12px;
+  display:grid;
+  grid-template-rows: auto 1fr auto; /* IO / row2(同高さ) / palette */
+  gap:12px;
 }
 
-/* IO（DL/UP/Save） */
-.io-row{
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: end;
-  gap: 8px;
-}
-.io-btn{
-  width: 28px; height: 28px; padding: 0; border: 0; background: transparent;
-}
-.io-btn img{ width: 100%; height: 100%; object-fit: contain; }
+/* 行1：IO（右寄せ） */
+.quick-io{ display:flex; gap:10px; justify-content:flex-end; }
+.quick-io img{ width:20px; height:20px; display:block; }
 
-/* 3カラム：Layers / Tools / Palette */
-.side-columns{
-  display: grid;
-  grid-template-columns: var(--layers-w) var(--tools-w) var(--palette-w);
-  gap: 12px;
-  height: 100%;
+/* 行2：左右2カラム（同じ高さで開始位置を揃える） */
+.row2{
+  display:grid;
+  grid-template-columns: 210px 92px; /* 左=layers縦長 / 右=tools細め */
+  gap: 16px;
+  align-items: stretch; /* ★ 高さを合わせる */
+  height:100%;
 }
 
-/* ====== レイヤー列 ====== */
-.layers-col{
-  display: grid;
-  grid-template-rows: repeat(5, 1fr);
-  gap: 12px;
+/* 左：レイヤー列（縦長カード） */
+.layers{
+  display:grid;
+  grid-auto-rows: 160px;   /* ★ 縦長 */
+  gap:10px;
+  overflow:auto;           /* 内部スクロールで高さ維持 */
+  padding-right:4px;
 }
 .layer-card{
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  border: 1px solid var(--line);
-  border-radius: var(--card-r);
-  background: #fff;
-  overflow: hidden;
+  background:#fff; border:1px solid #dcd6cb; border-radius:10px;
+  display:grid; grid-template-rows:30px 1fr 30px; box-shadow:var(--shadow);
 }
-.layer-head, .layer-foot{
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: start;
-  gap: 6px;
-  padding: 6px 6px 0 6px;
-}
-.layer-foot{ padding: 6px; }
-.layer-head img, .layer-foot img{
-  width: 16px; height: 16px; object-fit: contain;
-}
-.layer-body{
-  margin: 6px;
-  border-radius: 8px;
-  background:
-    repeating-linear-gradient(45deg, #f3f3f3 0 8px, #eaeaea 8px 16px);
-  border: 1px dashed #d7d7d7;
-}
+.layer-head{ display:flex; gap:10px; align-items:center; justify-content:flex-end; padding:6px 8px 0; }
+.layer-head img{ width:16px; height:16px; }
+.layer-body{ margin:8px; border:1px dashed #e5dfd6; border-radius:6px;
+  background:repeating-conic-gradient(#faf7f0 0 25%, #f4efe7 0 50%) 50%/10px 10px; }
+.layer-foot{ display:flex; gap:10px; align-items:center; justify-content:flex-end; padding:0 8px 8px; }
+.layer-foot img{ width:16px; height:16px; }
 
-/* ====== ツール列（ステーショナリー） ====== */
-.tools-col{
-  display: grid;
-  grid-template-rows: repeat(14, minmax(0, 1fr));
-  gap: 8px;
-  align-items: start;
+/* 右：ステーショナリー列（layersと高さを揃える） */
+.tool-column{
+  display:grid;
+  grid-auto-rows: 38px;
+  gap:8px;
+  align-content:start;
+  justify-items:end;
+  overflow:auto;
+  padding-right:2px;
 }
 .tool{
-  width: 40px; height: 40px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  padding: 0;
-  display: grid;
-  place-items: center;
+  width:38px; height:38px; background:#fff; border:1px solid #ddd8cf; border-radius:8px;
+  display:grid; place-items:center; box-shadow:var(--shadow);
 }
-.tool img{
-  width: 24px; height: 24px; object-fit: contain;
+.tool img{ width:20px; height:20px; }
+
+/* 行3：カラーパレット（ツール列の下） */
+.palette{
+  display:grid; grid-auto-rows:28px; gap:8px; justify-items:end; align-content:start;
+}
+.palette i{
+  width:28px; height:28px; border-radius:50%;
+  background:var(--c,#ccc); border:1px solid rgba(0,0,0,.18);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
 }
 
-/* ====== カラーパレット列 ====== */
-.palette-col{
-  display: grid;
-  grid-auto-rows: 28px;
-  gap: 10px;
-  justify-items: center;
-}
-.swatch{
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  border: 1px solid #cfcfcf;
-  background: var(--c, #999);
-  padding: 0;
-}
-.swatch:focus{ outline: 2px solid #7aa7ff; outline-offset: 2px; }
-
-/* ====== 微調整（スクショ雰囲気） ====== */
-button{ cursor: pointer; }
-img{ display: block; }
+/* 画像のにじみ軽減 */
+img{ image-rendering: -webkit-optimize-contrast; }
