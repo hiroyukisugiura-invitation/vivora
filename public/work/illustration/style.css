@@ -1,67 +1,109 @@
-/* ==================== ステージ固定・座標換算 ==================== */
+/* ===== ステージ固定 & 座標システム ===== */
 :root{
-  --stage-w: 1280px;  /* 固定幅 */
-  --stage-h: 820px;   /* 固定高 */
+  --stage-w: 1280px;
+  --stage-h: 820px;
+  --dev-outline: 1; /* ← 0にすると枠が消える（本番） */
 }
 
 html, body{
   height: 100%;
   margin: 0;
-  background: #0a0a0a;
-  display: grid;
-  place-items: start center;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background:#0a0a0a;
+  display:grid;
+  place-items:start center;
+  font-family: "Times New Roman", serif;
 }
 
-/* ステージ：ここだけでXY→px換算を完結させる */
 #stage{
-  position: relative;
-  width: var(--stage-w);
-  height: var(--stage-h);
-  background: #efeae4;      /* 黒マスが未配置でも見やすい下地 */
-  overflow: hidden;
+  position:relative;
+  width:var(--stage-w);
+  height:var(--stage-h);
+  background:#ede7de; /* 背景ベージュ（スクショの雰囲気） */
+  overflow:hidden;
 
-  /* マス目換算（X=100 分割, Y=70 分割） */
+  /* マス目→px 換算（X=100分割, Y=70分割） */
   --unit-x: calc(var(--stage-w) / 100);
   --unit-y: calc(var(--stage-h) / 70);
 }
 
-/* 黒マスPNGを使いたい場合は、下記の url を有効なパスにする
-   例：/work/illustration/ui_mask_black.png（HiROYUKI側で配置）
-*/
-.mask-bg{
-  position: absolute;
-  inset: 0;
-  background: url("/work/illustration/ui_mask_black.png") center/cover no-repeat;
-  opacity: .25;         /* 25%の透過で下のヒット領域が見やすい */
-  pointer-events: none; /* クリックを透過させる */
-}
-
-/* すべての配置は「マス目 → px」変換で行う */
+/* 全要素：X,Y,W,H をマス指定で配置 */
 .xy{
-  position: absolute;
-  left:   calc(var(--x) * var(--unit-x));
-  top:    calc(var(--y) * var(--unit-y));
-  width:  calc(var(--w) * var(--unit-x));
-  height: calc(var(--h) * var(--unit-y));
-  box-sizing: border-box;
+  position:absolute;
+  left:  calc(var(--x) * var(--unit-x));
+  top:   calc(var(--y) * var(--unit-y));
+  width: calc(var(--w) * var(--unit-x));
+  height:calc(var(--h) * var(--unit-y));
+  box-sizing:border-box;
 }
 
-/* クリック領域：透明（開発中は .dev-outline を足すと枠が見える） */
+/* デバッグ枠（本番は --dev-outline:0 に） */
+.xy{
+  outline: calc(var(--dev-outline)*1px) dashed rgba(0,0,0,.25);
+  background: rgba(255,255,255,calc(var(--dev-outline)*0.15));
+}
+
+/* タイトルテキストのみ（後で画像差し替え可） */
+.title{ outline:0; background:transparent; }
+.title .text{
+  position:absolute; inset:auto 0 0 0;
+  font-size:22px; color:#222; line-height:1;
+}
+
+/* クリック可能な空ボタン（あとで背景画像を差し替え） */
 .hit{
-  display: block;
-  background: transparent;
-  cursor: pointer;
-  /* 開発確認用：必要時だけ以下をON
-  outline: 1px dashed rgba(0,0,0,.35);
-  background: rgba(0,0,0,.05);
-  */
+  width:100%; height:100%;
+  border:0; background:transparent; cursor:pointer;
 }
 
-/* 将来要素の場所マーカー（今は非クリックの単なるゾーン） */
-.zone{
-  background: transparent;
-  /* 開発確認用
-  outline: 1px dotted rgba(0,0,0,.25);
-  */
+/* 横並び/縦並びコンテナ（アイコン群の入れ物） */
+.row{ display:flex; align-items:center; gap: calc(0.3 * var(--unit-x)); }
+.col{ display:flex; flex-direction:column; align-items:center; gap: calc(0.5 * var(--unit-y)); }
+
+/* 小アイコンのプレース枠 */
+.btn{
+  width: calc(0.9 * var(--unit-x));
+  height:calc(0.9 * var(--unit-y));
+  border-radius:6px;
+  outline: calc(var(--dev-outline)*1px) solid rgba(0,0,0,.25);
+  background: rgba(0,0,0,calc(var(--dev-outline)*0.05));
+}
+.btn.tall{ height: calc(1.2 * var(--unit-y)); width: calc(1.2 * var(--unit-x)); }
+
+/* キャンバス（白／角丸） */
+.canvas{
+  background:#fff;
+  border:1px solid rgba(0,0,0,.2);
+  border-radius:14px;
+  outline:0;           /* デバッグ枠を消す */
+}
+
+/* マネキン置き場（中央に画像を置く前提のスロット） */
+.mannequin{
+  background: rgba(0,0,0,calc(var(--dev-outline)*0.04));
+  border-radius:8px;
+  outline: calc(var(--dev-outline)*1px) dashed rgba(0,0,0,.2);
+}
+
+/* レイヤーボード枠 */
+.layer-board{
+  background:#f3f1ee;
+  border:1px solid #cfc9bf;
+  border-radius:6px;
+  outline: calc(var(--dev-outline)*1px) dashed rgba(0,0,0,.15);
+}
+
+/* カラーパレットの丸（後で色画像へ差し替え） */
+.dot{
+  width: calc(1.2 * var(--unit-x));
+  height:calc(1.2 * var(--unit-y));
+  border-radius:999px;
+  outline: calc(var(--dev-outline)*1px) solid rgba(0,0,0,.25);
+  background: rgba(0,0,0,calc(var(--dev-outline)*0.05));
+}
+
+/* 透明度スライダー枠（後でUI差し替え） */
+.opacity-slot{
+  background:#fff;
+  border:1px solid rgba(0,0,0,.25);
+  border-radius:8px;
 }

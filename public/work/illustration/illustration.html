@@ -6,55 +6,92 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <!-- =========================================================
-    マス目（固定 1280×820 / X:0-100, Y:0-70）完全一致 クリック領域
-    ※ 今日は「遷移だけ」。見た目は黒マス（後でHiROYUKIが差し替え）
-  ========================================================== -->
+  <!-- 固定ステージ 1280×820 / マス目 X:0–100, Y:0–70 -->
+  <div id="stage">
 
-  <div id="stage" aria-label="grid-stage">
-    <!-- ▼ 背景：黒マスのPNG（任意：置いた場合だけ表示される） -->
-    <div class="mask-bg"></div>
+    <!-- タイトル：X:3-22 ,Y:3-3 -->
+    <div class="xy slot title" style="--x:3; --y:3; --w:19; --h:1;" aria-label="page title">
+      <span class="text">Vivora Fashion Illustration 2025</span>
+    </div>
 
-    <!-- page title：X:3-22 , Y:3-3 -->
-    <a class="xy hit" style="--x:3; --y:3; --w:19; --h:1;" href="#page-title" aria-label="page title"></a>
+    <!-- ネクストボタン：X:95-98 ,Y:4-4 -->
+    <button class="xy hit next" style="--x:95; --y:4; --w:3; --h:1;" aria-label="Next Step"></button>
 
-    <!-- next button：X:95-98 , Y:4-4 -->
-    <a class="xy hit" style="--x:95; --y:4; --w:3; --h:1;" href="#next" aria-label="next"></a>
+    <!-- カテゴリーボタン（横並びの帯）：X:81-98 ,Y:6-7 -->
+    <div class="xy row slot contents" style="--x:81; --y:6; --w:17; --h:1;" aria-label="contents">
+      <!-- ここにアイコン画像を並べる想定。今はプレースホルダ -->
+      <button class="hit btn"></button>
+      <button class="hit btn"></button>
+      <button class="hit btn"></button>
+      <button class="hit btn"></button>
+      <button class="hit btn"></button>
+      <button class="hit btn"></button>
+      <button class="hit btn"></button>
+      <button class="hit btn"></button>
+    </div>
 
-    <!-- contents button（バー全体ひとまず1領域）：X:81-98 , Y:6-7 -->
-    <a class="xy hit" style="--x:81; --y:6; --w:17; --h:1;" href="#contents" aria-label="contents"></a>
+    <!-- ダウンロード・アップロード・セーブ：X:94-98 ,Y:10-10 -->
+    <div class="xy row slot dus" style="--x:94; --y:10; --w:4; --h:1;" aria-label="download/upload/save">
+      <button class="hit btn" aria-label="download"></button>
+      <button class="hit btn" aria-label="upload"></button>
+      <button class="hit btn" aria-label="save"></button>
+    </div>
 
-    <!-- canvas：X:3-87 , Y:10-68 （将来キャンバス）-->
-    <div class="xy zone" style="--x:3; --y:10; --w:84; --h:58;" aria-label="canvas"></div>
+    <!-- キャンバス：X:3-87 ,Y:10-68 -->
+    <div class="xy canvas" style="--x:3; --y:10; --w:84; --h:58;" aria-label="canvas">
+      <!-- マネキン：X:38-51 ,Y:19-61 -->
+      <div class="xy mannequin" style="--x:38; --y:19; --w:13; --h:42;" aria-label="mannequin"></div>
+    </div>
 
-    <!-- mannequin：X:38-51 , Y:19-61 （将来ドラッグ対象など）-->
-    <div class="xy zone" style="--x:38; --y:19; --w:13; --h:42;" aria-label="mannequin"></div>
+    <!-- レイヤーパネル：上３つ（Y:13） -->
+    <button class="xy hit layer-top" style="--x:90; --y:13; --w:1; --h:1;" aria-label="layer display"></button>
+    <button class="xy hit layer-top" style="--x:91; --y:13; --w:1; --h:1;" aria-label="layer hidden"></button>
+    <button class="xy hit layer-top" style="--x:93; --y:13; --w:1; --h:1;" aria-label="layer lock"></button>
 
-    <!-- download / upload / save（バー全体ひとまず1領域）：X:94-98 , Y:10-10 -->
-    <a class="xy hit" style="--x:94; --y:10; --w:4; --h:1;" href="#dus" aria-label="download upload save"></a>
+    <!-- レイヤーボード：X:90-94 ,Y:14-19 -->
+    <div class="xy layer-board" style="--x:90; --y:14; --w:4; --h:5;" aria-label="layer board"></div>
 
-    <!-- layer panel（上3つ）Y:13 -->
-    <a class="xy hit" style="--x:90; --y:13; --w:1; --h:1;" href="#layer-display" aria-label="layer display"></a>
-    <a class="xy hit" style="--x:91; --y:13; --w:1; --h:1;" href="#layer-hide" aria-label="layer hide"></a>
-    <a class="xy hit" style="--x:93; --y:13; --w:1; --h:1;" href="#layer-lock" aria-label="layer lock"></a>
+    <!-- レイヤーパネル：下４つ（Y:20） -->
+    <button class="xy hit layer-btm" style="--x:90; --y:20; --w:1; --h:1;" aria-label="layer add"></button>
+    <button class="xy hit layer-btm" style="--x:91; --y:20; --w:1; --h:1;" aria-label="layer merge-down"></button>
+    <button class="xy hit layer-btm" style="--x:92; --y:20; --w:1; --h:1;" aria-label="layer duplicate"></button>
+    <button class="xy hit layer-btm" style="--x:93; --y:20; --w:1; --h:1;" aria-label="layer delete"></button>
 
-    <!-- layer board：X:90-94 , Y:14-19 -->
-    <div class="xy zone" style="--x:90; --y:14; --w:4; --h:5;" aria-label="layer board"></div>
+    <!-- ステーショナリーツール（縦帯）：X:96-98 ,Y:12-39 -->
+    <div class="xy col slot tools" style="--x:96; --y:12; --w:2; --h:27;" aria-label="stationery tools">
+      <!-- 縦にアイコンを差し替え想定。今はプレースホルダ -->
+      <button class="hit btn tall"></button>
+      <button class="hit btn tall"></button>
+      <button class="hit btn tall"></button>
+      <button class="hit btn tall"></button>
+      <button class="hit btn tall"></button>
+      <button class="hit btn tall"></button>
+      <button class="hit btn tall"></button>
+      <button class="hit btn tall"></button>
+      <button class="hit btn tall"></button>
+      <button class="hit btn tall"></button>
+    </div>
 
-    <!-- layer bottom 4：Y:20 -->
-    <a class="xy hit" style="--x:90; --y:20; --w:1; --h:1;" href="#layer-add" aria-label="layer add"></a>
-    <a class="xy hit" style="--x:91; --y:20; --w:1; --h:1;" href="#layer-merge" aria-label="layer merge down"></a>
-    <a class="xy hit" style="--x:92; --y:20; --w:1; --h:1;" href="#layer-dup" aria-label="layer duplicate"></a>
-    <a class="xy hit" style="--x:93; --y:20; --w:1; --h:1;" href="#layer-del" aria-label="layer delete"></a>
+    <!-- カラーパレット（縦帯）：X:96-98 ,Y:41-68 -->
+    <div class="xy col slot palette" style="--x:96; --y:41; --w:2; --h:27;" aria-label="color palette">
+      <!-- 後で差し替える前提。丸ボタンの枠だけ今は表示 -->
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+      <button class="hit dot"></button>
+    </div>
 
-    <!-- stationery tool：X:96-98 , Y:12-39（縦帯まるごと1領域） -->
-    <a class="xy hit" style="--x:96; --y:12; --w:2; --h:27;" href="#stationery" aria-label="stationery tool"></a>
+    <!-- 透明度スライダー：X:81-86 ,Y:34-35.5 -->
+    <div class="xy opacity-slot" style="--x:81; --y:34; --w:5; --h:1.5;" aria-label="opacity slider"></div>
 
-    <!-- color palette：X:96-98 , Y:41-68（縦帯まるごと1領域） -->
-    <a class="xy hit" style="--x:96; --y:41; --w:2; --h:27;" href="#palette" aria-label="color palette"></a>
-
-    <!-- opacity slider：X:81-86 , Y:34-35.5 -->
-    <a class="xy hit" style="--x:81; --y:34; --w:5; --h:1.5;" href="#opacity" aria-label="opacity slider"></a>
   </div>
 </body>
 </html>
