@@ -2,72 +2,73 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>Vivora Fashion Illustration 2025</title>
   <meta name="viewport" content="width=1280, initial-scale=1" />
+  <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div id="stage">
-    <!-- タイトル：X:3-22 ,Y:3-3 -->
-    <div class="xy title" style="--x:3; --y:3; --w:19; --h:1;">
-      Vivora Fashion Illustration 2025
-    </div>
+  <!-- 画面の中央に固定サイズの“額縁”を置く -->
+  <div id="frame">
+    <div id="stage">
 
-    <!-- ネクスト：X:95-98 ,Y:4-4 -->
-    <button class="xy btn next" style="--x:95; --y:4; --w:3; --h:1;"></button>
+      <!-- タイトル：X:3-22 , Y:3-3 -->
+      <div class="xy title" style="--x:3; --y:3; --w:19; --h:1;">
+        Vivora Fashion Illustration<br/>2025
+      </div>
 
-    <!-- カテゴリ：X:81-98 ,Y:6-7（8個の枠） -->
-    <div class="xy row" style="--x:81; --y:6; --w:17; --h:1;">
-      <button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button>
-      <button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button>
-    </div>
+      <!-- Next：X:95-98 , Y:4-4 -->
+      <button class="xy btn next" style="--x:95; --y:4; --w:3; --h:1;"></button>
 
-    <!-- DL/UP/Save：X:94-98 ,Y:10-10（3個） -->
-    <div class="xy row" style="--x:94; --y:10; --w:4; --h:1;">
-      <button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button>
-    </div>
+      <!-- カテゴリ：X:81-98 , Y:6-7（8枠） -->
+      <div class="xy row" style="--x:81; --y:6; --w:17; --h:1;">
+        <button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button>
+        <button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button>
+      </div>
 
-    <!-- キャンバス：X:3-87 ,Y:10-68 -->
-    <div class="xy canvas" style="--x:3; --y:10; --w:84; --h:58;"></div>
+      <!-- DL/UP/Save：X:94-98 , Y:10-10（3枠） -->
+      <div class="xy row" style="--x:94; --y:10; --w:4; --h:1;">
+        <button class="btn sm"></button><button class="btn sm"></button><button class="btn sm"></button>
+      </div>
 
-    <!-- マネキン：X:38-51 ,Y:19-61 -->
-    <div class="xy mannequin" style="--x:38; --y:19; --w:13; --h:42;"></div>
+      <!-- キャンバス：X:3-87 , Y:10-68 -->
+      <div class="xy canvas" style="--x:3; --y:10; --w:84; --h:58;"></div>
 
-    <!-- レイヤー上3：Y:13 -->
-    <button class="xy btn sm" style="--x:90; --y:13; --w:1; --h:1;"></button>
-    <button class="xy btn sm" style="--x:91; --y:13; --w:1; --h:1;"></button>
-    <button class="xy btn sm" style="--x:93; --y:13; --w:1; --h:1;"></button>
+      <!-- マネキン：X:38-51 , Y:19-61 -->
+      <div class="xy mannequin" style="--x:38; --y:19; --w:13; --h:42;"></div>
 
-    <!-- レイヤーボード：X:90-94 ,Y:14-19 -->
-    <div class="xy layer-board" style="--x:90; --y:14; --w:4; --h:5;"></div>
+      <!-- レイヤー上3：Y:13 -->
+      <button class="xy btn sm" style="--x:90; --y:13; --w:1; --h:1;"></button>
+      <button class="xy btn sm" style="--x:91; --y:13; --w:1; --h:1;"></button>
+      <button class="xy btn sm" style="--x:93; --y:13; --w:1; --h:1;"></button>
 
-    <!-- レイヤー下4：Y:20 -->
-    <button class="xy btn sm" style="--x:90; --y:20; --w:1; --h:1;"></button>
-    <button class="xy btn sm" style="--x:91; --y:20; --w:1; --h:1;"></button>
-    <button class="xy btn sm" style="--x:92; --y:20; --w:1; --h:1;"></button>
-    <button class="xy btn sm" style="--x:93; --y:20; --w:1; --h:1;"></button>
+      <!-- レイヤーボード：X:90-94 , Y:14-19 -->
+      <div class="xy layer-board" style="--x:90; --y:14; --w:4; --h:5;"></div>
 
-    <!-- ステーショナリー：X:96-98 ,Y:12-39（10個） -->
-    <div class="xy col" style="--x:96; --y:12; --w:2; --h:27;">
-      <button class="btn md"></button><button class="btn md"></button><button class="btn md"></button><button class="btn md"></button><button class="btn md"></button>
-      <button class="btn md"></button><button class="btn md"></button><button class="btn md"></button><button class="btn md"></button><button class="btn md"></button>
-    </div>
+      <!-- レイヤー下4：Y:20 -->
+      <button class="xy btn sm" style="--x:90; --y:20; --w:1; --h:1;"></button>
+      <button class="xy btn sm" style="--x:91; --y:20; --w:1; --h:1;"></button>
+      <button class="xy btn sm" style="--x:92; --y:20; --w:1; --h:1;"></button>
+      <button class="xy btn sm" style="--x:93; --y:20; --w:1; --h:1;"></button>
 
-    <!-- カラーパレット：X:96-98 ,Y:41-68（12個） -->
-    <div class="xy col" style="--x:96; --y:41; --w:2; --h:27;">
-      <button class="dot"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button>
-      <button class="dot"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button>
-      <button class="dot"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button>
-    </div>
+      <!-- ステーショナリー：X:96-98 , Y:12-39（10枠） -->
+      <div class="xy col" style="--x:96; --y:12; --w:2; --h:27;">
+        <button class="btn md"></button><button class="btn md"></button><button class="btn md"></button><button class="btn md"></button><button class="btn md"></button>
+        <button class="btn md"></button><button class="btn md"></button><button class="btn md"></button><button class="btn md"></button><button class="btn md"></button>
+      </div>
 
-    <!-- 透明度：X:81-86 ,Y:34-35.5 -->
-    <div class="xy opacity" style="--x:81; --y:34; --w:5; --h:1.5;">
-      <div class="bar"><span class="knob"></span></div><span class="pct">100%</span>
+      <!-- カラーパレット：X:96-98 , Y:41-68（12丸） -->
+      <div class="xy col" style="--x:96; --y:41; --w:2; --h:27;">
+        <button class="dot"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button>
+        <button class="dot"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button>
+        <button class="dot"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button>
+      </div>
+
+      <!-- 透明度：X:81-86 , Y:34-35.5 -->
+      <div class="xy opacity" style="--x:81; --y:34; --w:5; --h:1.5;">
+        <div class="bar"><span class="knob"></span></div><span class="pct">100%</span>
+      </div>
+
     </div>
   </div>
-
-  <script>
-    /* JSは今は空（将来、クリック遷移や挙動を追加） */
-  </script>
 </body>
 </html>
