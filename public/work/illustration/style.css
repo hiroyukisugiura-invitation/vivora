@@ -1,52 +1,68 @@
-/* —— 最小リセット —— */
+/* ====== リセット最小 ====== */
 *{ box-sizing:border-box; }
 html,body{ margin:0; padding:0; }
-img,button{ border:0; background:none; }
+button{ border:0; background:none; }
 
-/* —— ステージ固定 & 座標変換 —— */
-:root{ --stage-w:1280px; --stage-h:820px; }
-html,body{
-  height:100%; background:#0a0a0a;
-  display:grid; place-items:start center;
-  font-family:"Times New Roman", serif;
+/* ====== 1) 画面中央の“額縁” ====== */
+#frame{
+  width:1280px; height:820px;
+  margin:0 auto;
+  display:grid; place-items:center;
+  background:#0a0a0a;           /* 額縁の外側（黒帯） */
 }
+
+/* ====== 2) 額縁の中にステージを固定 ====== */
 #stage{
-  position:relative; width:var(--stage-w); height:var(--stage-h);
-  background:#efeae4;            /* ベージュ下地 */
-  --ux: calc(var(--stage-w)/100); /* X1マス */
-  --uy: calc(var(--stage-h)/70);  /* Y1マス */
+  position:relative;
+  width:100%; height:100%;
+  background:#efeae4;           /* ベージュの下地（スクショ通り） */
+  overflow:hidden;               /* はみ出し防止：右パネルも収める */
+
+  /* マス目→px を“ステージの中だけ”に限定 */
+  --ux: calc(1280px / 100);      /* X 1マス */
+  --uy: calc( 820px / 70 );      /* Y 1マス */
 }
+
+/* ====== 3) マス目→px 配置（絶対配置のみ） ====== */
 .xy{
   position:absolute;
-  left:calc(var(--x)*var(--ux));
-  top:calc(var(--y)*var(--uy));
-  width:calc(var(--w)*var(--ux));
-  height:calc(var(--h)*var(--uy));
+  left:  calc(var(--x) * var(--ux));
+  top:   calc(var(--y) * var(--uy));
+  width: calc(var(--w) * var(--ux));
+  height:calc(var(--h) * var(--uy));
 }
 
-/* —— タイトル —— */
-.title{ display:flex; align-items:center; font-size:22px; color:#222; line-height:1; }
+/* タイトル */
+.title{
+  display:flex; align-items:flex-end;
+  font-size:22px; line-height:1.05; color:#222;
+}
 
-/* —— 帯コンテナ —— */
-.row{ display:flex; align-items:center; gap:calc(0.35*var(--ux)); }
-.col{ display:flex; flex-direction:column; align-items:center; gap:calc(0.55*var(--uy)); }
+/* 帯コンテナ */
+.row{ display:flex; align-items:center; gap: calc(0.35 * var(--ux)); }
+.col{ display:flex; flex-direction:column; align-items:center; gap: calc(0.55 * var(--uy)); }
 
-/* —— プレースホルダ（後で画像差し替え） —— */
+/* プレースホルダ（後で画像に差し替え） */
 .btn{ width:calc(0.9*var(--ux)); height:calc(0.9*var(--uy)); border-radius:6px; background:#e9e9e9; box-shadow:inset 0 -1px 0 #cfcfcf; }
 .btn.md{ width:calc(1.2*var(--ux)); height:calc(1.2*var(--uy)); }
 .next{ width:100%; height:100%; border-radius:6px; background:#e9e9e9; }
 
-/* —— キャンバス & マネキン枠 —— */
+/* キャンバス */
 .canvas{ background:#fff; border:1px solid rgba(0,0,0,.18); border-radius:14px; }
+
+/* マネキン枠（位置ガイド） */
 .mannequin{ border:1px dashed rgba(0,0,0,.2); border-radius:8px; }
 
-/* —— レイヤーボード —— */
+/* レイヤーボード */
 .layer-board{ background:#f3f1ee; border:1px solid #cfc9bf; border-radius:6px; }
 
-/* —— カラーパレットの丸 —— */
-.dot{ width:calc(1.2*var(--ux)); height:calc(1.2*var(--uy)); border-radius:999px; border:1px solid rgba(0,0,0,.28); background:#fff; }
+/* カラーパレットの丸 */
+.dot{
+  width:calc(1.2*var(--ux)); height:calc(1.2*var(--uy));
+  border-radius:999px; border:1px solid rgba(0,0,0,.28); background:#fff;
+}
 
-/* —— 透明度バー（見た目ダミー） —— */
+/* 透明度（ダミー表示） */
 .opacity{ display:flex; align-items:center; gap:8px; }
 .opacity .bar{
   position:relative; flex:1; height:calc(0.35*var(--uy)); border-radius:999px;
