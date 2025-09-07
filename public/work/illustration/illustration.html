@@ -15,7 +15,7 @@
       <header class="topbar">
         <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
 
-        <!-- 右側の塊：contents → Next（右寄せ） -->
+        <!-- 右側：contents → Next（右寄せで横並び） -->
         <div class="top-actions">
           <nav class="contents-buttons" aria-label="contents">
             <img src="../../create_parts/contents_button/0_home.png" alt="Home" />
@@ -59,11 +59,11 @@
             <img src="../../create_parts/create_button/save.png" alt="save" />
           </div>
 
-          <!-- 行2：左右2カラムを同じ高さで並べる -->
+          <!-- 行2：左右2カラム（同じ高さで開始位置も揃える） -->
           <div class="row2">
-            <!-- 左：レイヤー列 -->
+            <!-- 左：レイヤー列（縦長カード） -->
             <div class="layers" aria-label="layers">
-              <!-- レイヤーカード ×5（表示/非表示/ロック → 追加/複製/統合/削除） -->
+              <!-- ×5枚の例。必要数に増減OK -->
               <div class="layer-card">
                 <div class="layer-head">
                   <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
@@ -74,7 +74,8 @@
                 <div class="layer-foot">
                   <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
                   <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <img src="../../create_parts/layer_button/layerlayer integration.png"   alt="merge down" />
+                  <!-- スペースを含むファイル名はURLエンコード -->
+                  <img src="../../create_parts/layer_button/layerlayer%20integration.png" alt="merge down" />
                   <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
                 </div>
               </div>
@@ -89,7 +90,7 @@
                 <div class="layer-foot">
                   <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
                   <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <img src="../../create_parts/layer_button/layerlayer integration.png"   alt="merge down" />
+                  <img src="../../create_parts/layer_button/layerlayer%20integration.png" alt="merge down" />
                   <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
                 </div>
               </div>
@@ -104,7 +105,7 @@
                 <div class="layer-foot">
                   <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
                   <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <img src="../../create_parts/layer_button/layerlayer integration.png"   alt="merge down" />
+                  <img src="../../create_parts/layer_button/layerlayer%20integration.png" alt="merge down" />
                   <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
                 </div>
               </div>
@@ -119,7 +120,7 @@
                 <div class="layer-foot">
                   <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
                   <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <img src="../../create_parts/layer_button/layerlayer integration.png"   alt="merge down" />
+                  <img src="../../create_parts/layer_button/layerlayer%20integration.png" alt="merge down" />
                   <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
                 </div>
               </div>
@@ -134,13 +135,13 @@
                 <div class="layer-foot">
                   <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
                   <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <img src="../../create_parts/layer_button/layerlayer integration.png"   alt="merge down" />
+                  <img src="../../create_parts/layer_button/layerlayer%20integration.png" alt="merge down" />
                   <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
                 </div>
               </div>
             </div>
 
-            <!-- 右：ステーショナリー列（layersと同じ高さで伸縮） -->
+            <!-- 右：ステーショナリー列（layersと高さを揃える） -->
             <div class="tool-column" aria-label="stationery tools">
               <button class="tool"><img src="../../create_parts/object_btn/select.png"        alt="Select" /></button>
               <button class="tool"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select" /></button>
