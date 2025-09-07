@@ -1,91 +1,17 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <!-- 固定ワークエリア（1280×820） -->
-  <main class="workarea">
+<!-- === HEADER START === -->
+<div class="top-band" aria-hidden="true"></div>
 
-    <!-- 1) ベースグリッド（最背面） -->
-    <div class="grid"></div>
+<h1 class="abs title" style="--x:3; --y:3; --w:19; --h:2;">
+  Vivora Fashion Illustration<br>2025
+</h1>
 
-    <!-- 2) 上帯（ベージュ） -->
-    <div class="top-band"></div>
+<button class="abs next-btn" style="--x:95; --y:4; --w:3; --h:1;">
+  Next Step »
+</button>
 
-    <!-- 3) 右帯（ベージュ） -->
-    <div class="right-band"></div>
-
-    <!-- 4) 以降は “グリッド座標” での絶対配置。--x, --y, --w, --h を%/行高換算 -->
-    <!-- タイトル：X:3-22 , Y:3-3（2行折り） -->
-    <h1 class="abs title" style="--x:3; --y:3; --w:19; --h:2;">
-      Vivora Fashion Illustration<br>2025
-    </h1>
-
-    <!-- Next Step：X:95-98 , Y:4-4 -->
-    <button class="abs next-btn" style="--x:95; --y:4; --w:3; --h:1;">Next Step »</button>
-
-    <!-- 右上アイコン帯（カテゴリ）：X:81-98 , Y:6-7 -->
-    <div class="abs category" style="--x:81; --y:6; --w:17; --h:1;">
-      <!-- 12個の小アイコン（見た目ダミー） -->
-      <i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i>
-    </div>
-
-    <!-- DL/UP/SAVE：X:94-98 , Y:10-10 -->
-    <div class="abs dus" style="--x:94; --y:10; --w:4; --h:1;">
-      <i title="Download"></i><i title="Upload"></i><i title="Save"></i>
-    </div>
-
-    <!-- レイヤーパネル：上３つ（X:90/91/93, Y:13） -->
-    <div class="abs layer-top" style="--x:90; --y:13; --w:4; --h:1;">
-      <i title="Visible"></i><i title="Hidden"></i><i title="Lock"></i>
-    </div>
-
-    <!-- レイヤーボード：X:90-94 , Y:14-19 -->
-    <div class="abs layer-board" style="--x:90; --y:14; --w:4; --h:5;">
-      <div class="row"><em></em><em></em><em></em><span></span></div>
-      <div class="row ghost"></div> <!-- 追加レイヤー用の1マス下スペース -->
-    </div>
-
-    <!-- レイヤー下４つ：X:90/91/92/93 , Y:20 -->
-    <div class="abs layer-bottom" style="--x:90; --y:20; --w:4; --h:1;">
-      <i title="Add"></i><i title="Merge Down"></i><i title="Duplicate"></i><i title="Delete"></i>
-    </div>
-
-    <!-- ステーショナリー：X:96-98 , Y:12-39 -->
-    <aside class="abs tools" style="--x:96; --y:12; --w:2; --h:27;">
-      <!-- 12本 -->
-      <i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i>
-    </aside>
-
-    <!-- カラーパレット：X:96-98 , Y:41-68 -->
-    <aside class="abs palette" style="--x:96; --y:41; --w:2; --h:27;">
-      <b class="c0"></b><b class="c1"></b><b class="c2"></b><b class="c3"></b><b class="c4"></b><b class="c5"></b>
-      <b class="c6"></b><b class="c7"></b><b class="c8"></b><b class="c9"></b><b class="c10"></b><b class="c11"></b>
-    </aside>
-
-    <!-- キャンバス枠：X:3-87 , Y:10-68 -->
-    <section class="abs canvas" style="--x:3; --y:10; --w:84; --h:58;">
-      <!-- 透明度スライダー：X:81-86 , Y:34-35.5（キャンバス相対） -->
-      <div class="abs op-wrap" style="--x:78; --y:24; --w:6; --h:1.6;">
-        <div class="op-ui">
-          <span class="pct">100 %</span>
-          <input type="range" min="0" max="100" value="100" class="op" />
-          <span class="nub"></span>
-        </div>
-      </div>
-
-      <!-- マネキン：X:38-51 , Y:19-61 -->
-      <figure class="abs mannequin" style="--x:38; --y:19; --w:13; --h:42;">
-        <img src="mannequin_woman.png" alt="Mannequin">
-      </figure>
-    </section>
-
-  </main>
-</body>
-</html>
+<!-- 右上カテゴリ（12個・小さめ） -->
+<div class="abs category" style="--x:81; --y:6; --w:17; --h:1;">
+  <i></i><i></i><i></i><i></i><i></i><i></i>
+  <i></i><i></i><i></i><i></i><i></i><i></i>
+</div>
+<!-- === HEADER END === -->
