@@ -1,7 +1,7 @@
-/* ===== ステージ：固定 1280×820 ===== */
+/* ==================== ステージ固定・座標換算 ==================== */
 :root{
-  --stage-w: 1280px;
-  --stage-h: 820px;
+  --stage-w: 1280px;  /* 固定幅 */
+  --stage-h: 820px;   /* 固定高 */
 }
 
 html, body{
@@ -10,79 +10,58 @@ html, body{
   background: #0a0a0a;
   display: grid;
   place-items: start center;
-  font-family: "Times New Roman", serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
+/* ステージ：ここだけでXY→px換算を完結させる */
 #stage{
   position: relative;
   width: var(--stage-w);
   height: var(--stage-h);
-  background: #efeae4;      /* キャンバス外の下地 */
+  background: #efeae4;      /* 黒マスが未配置でも見やすい下地 */
   overflow: hidden;
 
-  /* マス目換算 (X=100, Y=70) */
+  /* マス目換算（X=100 分割, Y=70 分割） */
   --unit-x: calc(var(--stage-w) / 100);
   --unit-y: calc(var(--stage-h) / 70);
 }
 
-/* ===== マス目座標レイアウト（核） ===== */
+/* 黒マスPNGを使いたい場合は、下記の url を有効なパスにする
+   例：/work/illustration/ui_mask_black.png（HiROYUKI側で配置）
+*/
+.mask-bg{
+  position: absolute;
+  inset: 0;
+  background: url("/work/illustration/ui_mask_black.png") center/cover no-repeat;
+  opacity: .25;         /* 25%の透過で下のヒット領域が見やすい */
+  pointer-events: none; /* クリックを透過させる */
+}
+
+/* すべての配置は「マス目 → px」変換で行う */
 .xy{
   position: absolute;
-  left:  calc(var(--x) * var(--unit-x));
-  top:   calc(var(--y) * var(--unit-y));
+  left:   calc(var(--x) * var(--unit-x));
+  top:    calc(var(--y) * var(--unit-y));
   width:  calc(var(--w) * var(--unit-x));
   height: calc(var(--h) * var(--unit-y));
   box-sizing: border-box;
 }
 
-.row, .col{ display: flex; }
-.row{ gap: calc(0.25 * var(--unit-x)); align-items: center; }
-.col{ gap: calc(0.6 * var(--unit-y)); flex-direction: column; align-items: center; }
-
-/* ===== 見た目 ===== */
-.title{
-  font-size: 18px; line-height: 1; color: #2b2b2b;
-  display: flex; align-items: center;
+/* クリック領域：透明（開発中は .dev-outline を足すと枠が見える） */
+.hit{
+  display: block;
+  background: transparent;
+  cursor: pointer;
+  /* 開発確認用：必要時だけ以下をON
+  outline: 1px dashed rgba(0,0,0,.35);
+  background: rgba(0,0,0,.05);
+  */
 }
 
-/* キャンバスだけに方眼適用（public直下） */
-.canvas{
-  background: url("/graph_paper.png") center/cover no-repeat;
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 14px;
+/* 将来要素の場所マーカー（今は非クリックの単なるゾーン） */
+.zone{
+  background: transparent;
+  /* 開発確認用
+  outline: 1px dotted rgba(0,0,0,.25);
+  */
 }
-
-/* アイコン */
-.icon{ width:100%; height:100%; object-fit: contain; }
-.icons-16 img{ width:calc(0.9 * var(--unit-x)); height:calc(0.9 * var(--unit-y)); object-fit:contain; }
-.icons-20 img{ width:calc(1.0 * var(--unit-x)); height:calc(1.0 * var(--unit-y)); object-fit:contain; }
-
-/* レイヤーボード */
-.layer-board{
-  background: #f3f1ee;
-  border: 1px solid #cfc9bf;
-  border-radius: 6px;
-}
-
-/* マネキン（キャンバス内でさらに座標指定） */
-.abs{ position: absolute; }
-.mannequin{ object-fit: contain; opacity:.92; filter:saturate(.75) contrast(.9); }
-
-/* パレットの色玉 */
-.palette{ justify-content: flex-start; }
-.palette span{
-  width: calc(1.0 * var(--unit-x));
-  height: calc(1.0 * var(--unit-y));
-  border-radius: 50%;
-  background: var(--c);
-  border: 1px solid rgba(0,0,0,0.25);
-}
-
-/* 透明度スライダー */
-.opacity{
-  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.9);
-  padding: 6px 8px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.15);
-}
-.opacity input[type="range"]{ width: 100%; }
-.opacity .pct{ font-size: 12px; color: #333; }
