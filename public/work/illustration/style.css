@@ -1,4 +1,13 @@
-/* ========== HEADER styles (STEP1) ========== */
+/* 固定サイズ（スクショ検証用） */
+:root{ --W:1280px; --H:820px; --rows:70; }
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; margin:0; background:#eae6df; color:#222; }
+
+.workarea{
+  position:relative; width:var(--W); height:var(--H);
+  margin:0 auto; background:#fff; overflow:hidden;
+}
 
 /* 上帯（高さ48px・ベージュ） */
 .top-band{
@@ -6,37 +15,38 @@
   background:#e7e1d6; z-index:1; pointer-events:none;
 }
 
-/* グリッド座標配置（共通） */
+/* グリッド座標で絶対配置：Xは%・Yは70分割 */
 .abs{
   position:absolute; z-index:2;
   left:calc(var(--x) * 1%);
-  top: calc(var(--y) * (100%/70));           /* Yは70分割 */
+  top: calc(var(--y) * (100%/var(--rows)));
   width: calc(var(--w) * 1%);
-  height:calc(var(--h) * (100%/70));
+  height:calc(var(--h) * (100%/var(--rows)));
   display:flex; align-items:center; justify-content:flex-start;
 }
 
-/* タイトル（左寄せ・2行） */
+/* タイトル：フォントは控えめ太字、2行 */
 .title{
   font-family: "Playfair Display", "Times New Roman", serif;
-  font-weight: 700; line-height: 1.05; letter-spacing:.2px;
-  font-size: 24px; color:#2b2b2b;
+  font-weight:700; line-height:1.05; letter-spacing:.2px;
+  font-size:24px; color:#2b2b2b; margin:0;
 }
 
-/* Next Step（小さめ pill 風） */
+/* Next Step：小さめのピル（右上） */
 .next-btn{
   width:100%; height:100%;
-  font: 600 13px/1 system-ui, -apple-system, sans-serif;
+  font:600 13px/1 system-ui, -apple-system, sans-serif;
   color:#2b2b2b; background:#f4efe7;
   border:1px solid #cfc7bb; border-radius:999px;
-  box-shadow:0 1px 2px rgba(0,0,0,.08);
-  cursor:pointer;
+  box-shadow:0 1px 2px rgba(0,0,0,.08); cursor:pointer;
 }
 
-/* 右上カテゴリ（12個を等間隔・小アイコン調） */
-.category{ gap:8px; justify-content:flex-end; align-items:center; }
-.category i{
-  display:inline-block; width:20px; height:20px;
-  border:1px solid #cfc7bb; border-radius:4px; background:#f7f3ec;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+/* contents：Nextの下段に横長ピル */
+.contents-btn{
+  width:100%; height:100%; padding:0 12px;
+  display:flex; align-items:center; justify-content:flex-end;
+  font:600 12px/1 system-ui, -apple-system, sans-serif;
+  text-transform:lowercase; color:#2b2b2b;
+  background:#f4efe7; border:1px solid #cfc7bb; border-radius:999px;
+  box-shadow:0 1px 2px rgba(0,0,0,.08); cursor:pointer;
 }
