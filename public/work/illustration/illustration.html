@@ -9,14 +9,102 @@
 <body>
   <div class="stage">
 
-    <!-- タイトル：X:3-22 , Y:3-3 -->
+    <!-- タイトル：X:3-22 , Y:3-3（1行固定） -->
     <h1 class="title">Vivora Fashion Illustration 2025</h1>
 
-    <!-- Next Step：X:95-98 , Y:4-4 -->
-    <button class="next-btn">Next Step »</button>
+    <!-- Next Step：X:95-98 , Y:4-4（小型） -->
+    <button class="next-btn" aria-label="Next">Next Step »</button>
+
+    <!-- カテゴリー列：X:81-98 , Y:6-7（右寄せ） -->
+    <nav class="category-bar" aria-label="categories">
+      <button>Home</button>
+      <button>Gallery</button>
+      <button>Template</button>
+      <button>Guide</button>
+      <button>Contents</button>
+    </nav>
 
     <!-- キャンバス：X:3-87 , Y:10-68 -->
-    <section class="draw-canvas" aria-label="main-canvas"></section>
+    <section class="draw-canvas" aria-label="main-canvas">
+      <!-- マネキン：X:38-51 , Y:19-61（キャンバス内100×100で厳密配置） -->
+      <img class="mannequin"
+           src="/public/mannequin/mannequin_woman.png"
+           alt="mannequin" />
+    </section>
+
+    <!-- D/U/S：X:94-98 , Y:10-10（右上の3つ） -->
+    <div class="dus-group" aria-label="file-actions">
+      <button class="icon-btn" title="Download">
+        <img src="/public/create_parts/create_button/download.png" alt="">
+      </button>
+      <button class="icon-btn" title="Upload">
+        <img src="/public/create_parts/create_button/upload.png" alt="">
+      </button>
+      <button class="icon-btn" title="Save">
+        <img src="/public/create_parts/create_button/save.png" alt="">
+      </button>
+    </div>
+
+    <!-- レイヤーパネル：右側帯 -->
+    <!-- 上3つ：表示 / 非表示 / ロック（各：X:90,91,93 , Y:13） -->
+    <button class="layer-icon show"   title="Display"></button>
+    <button class="layer-icon hidden" title="Hide"></button>
+    <button class="layer-icon lock"   title="Lock"></button>
+
+    <!-- レイヤーボード：X:90-94 , Y:14-19（5枠） -->
+    <div class="layer-board" aria-label="layers">
+      <div class="layer-card"></div>
+      <div class="layer-card"></div>
+      <div class="layer-card"></div>
+      <div class="layer-card"></div>
+      <div class="layer-card"></div>
+    </div>
+
+    <!-- 下4つ：X:90..93 , Y:20 -->
+    <button class="layer-ctrl add"   title="Add"></button>
+    <button class="layer-ctrl merge" title="Merge Down"></button>
+    <button class="layer-ctrl copy"  title="Duplicate"></button>
+    <button class="layer-ctrl del"   title="Delete"></button>
+
+    <!-- ステーショナリー：X:96-98 , Y:12-39（縦並び） -->
+    <nav class="stationery" aria-label="tools">
+      <button class="tool"><img src="/public/create_parts/design_button/pointer.png"  alt=""></button>
+      <button class="tool"><img src="/public/create_parts/design_button/line.png"     alt=""></button>
+      <button class="tool"><img src="/public/create_parts/design_button/shape.png"    alt=""></button>
+      <button class="tool"><img src="/public/create_parts/design_button/brush.png"    alt=""></button>
+      <button class="tool"><img src="/public/create_parts/design_button/eraser.png"   alt=""></button>
+      <button class="tool"><img src="/public/create_parts/design_button/fill.png"     alt=""></button>
+      <button class="tool"><img src="/public/create_parts/design_button/text.png"     alt=""></button>
+      <button class="tool"><img src="/public/create_parts/design_button/grid.png"     alt=""></button>
+      <button class="tool"><img src="/public/create_parts/design_button/layerfx.png"  alt=""></button>
+    </nav>
+
+    <!-- カラーパレット：X:96-98 , Y:41-68（単列） -->
+    <div class="palette" aria-label="palette">
+      <button class="swatch" style="--c:#ffd400"></button>
+      <button class="swatch" style="--c:#ffb400"></button>
+      <button class="swatch" style="--c:#ff7a00"></button>
+      <button class="swatch" style="--c:#ff4d4d"></button>
+      <button class="swatch" style="--c:#ff007a"></button>
+      <button class="swatch" style="--c:#d400ff"></button>
+      <button class="swatch" style="--c:#8a7aff"></button>
+      <button class="swatch" style="--c:#4d7aff"></button>
+      <button class="swatch" style="--c:#00aaff"></button>
+      <button class="swatch" style="--c:#00c896"></button>
+      <button class="swatch" style="--c:#00b341"></button>
+      <button class="swatch" style="--c:#6bbf00"></button>
+      <button class="swatch" style="--c:#b5cc00"></button>
+      <button class="swatch" style="--c:#888888"></button>
+      <button class="swatch" style="--c:#444444"></button>
+      <button class="swatch" style="--c:#ffffff"></button>
+    </div>
+
+    <!-- 透明度スライダー：X:81-86 , Y:34-35.5（初期非表示） -->
+    <div class="opacity-slider" aria-hidden="true">
+      <label>Opacity</label>
+      <input type="range" min="0" max="100" value="100" />
+      <span>100%</span>
+    </div>
 
   </div>
 </body>
