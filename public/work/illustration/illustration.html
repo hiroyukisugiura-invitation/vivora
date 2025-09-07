@@ -3,51 +3,48 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vivora Fashion Illustration 2025 - Grid Exact</title>
+  <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- 固定サイズワークエリア（スクショ基準） -->
-  <main class="workarea" aria-label="Illustration Fixed Canvas">
+  <!-- 固定ワークエリア（1280×820・非レスポンシブ） -->
+  <main class="workarea" aria-label="Illustration Canvas">
 
-    <!-- 参考グリッド（薄い方眼＆10単位メモリ。必要なければ .grid を外す） -->
+    <!-- グリッドと上/右の帯（スクショ風） -->
     <div class="grid" aria-hidden="true"></div>
     <div class="ruler" aria-hidden="true"></div>
 
     <!-- タイトル：X:3-22 , Y:3-3 -->
     <h1 class="abs title" style="--x:3; --y:3; --w:19; --h:1;">
-      Vivora Fashion Illustration 2025
+      Vivora Fashion Illustration<br/>2025
     </h1>
 
     <!-- Next Step：X:95-98 , Y:4-4 -->
-    <button class="abs next-btn" style="--x:95; --y:4; --w:3; --h:1;">
-      Next Step »
-    </button>
+    <button class="abs next-btn" style="--x:95; --y:4; --w:3; --h:1;">Next Step »</button>
 
     <!-- カテゴリーボタン帯：X:81-98 , Y:6-7 -->
     <div class="abs category-bar" style="--x:81; --y:6; --w:17; --h:1;">
-      <div class="icon sq"></div>
-      <div class="icon sq"></div>
-      <div class="icon sq"></div>
-      <div class="icon sq"></div>
-      <div class="icon sq"></div>
-      <div class="icon sq"></div>
-      <div class="icon sq"></div>
-      <div class="icon sq"></div>
-      <div class="icon sq"></div>
+      <!-- 右上の小さめアイコン群（密度を上げる） -->
+      <div class="icon sq"></div><div class="icon sq"></div><div class="icon sq"></div>
+      <div class="icon sq"></div><div class="icon sq"></div><div class="icon sq"></div>
+      <div class="icon sq"></div><div class="icon sq"></div><div class="icon sq"></div>
+      <div class="icon sq"></div><div class="icon sq"></div><div class="icon sq"></div>
     </div>
 
     <!-- キャンバス枠：X:3-87 , Y:10-68 -->
     <section class="abs canvas" style="--x:3; --y:10; --w:84; --h:58;">
-      <!-- 透明度スライダー：X:81-86 , Y:34-35.5（キャンバス内に見た目を合わせる） -->
-      <div class="abs opacity-wrap" style="--x:78; --y:24; --w:5; --h:1.5;">
-        <input type="range" min="0" max="100" value="100" class="opacity" aria-label="Opacity"/>
-        <span class="pct">100%</span>
+      <!-- 透明度スライダー：X:81-86 , Y:34-35.5（キャンバス相対で右寄せ） -->
+      <div class="abs opacity-wrap" style="--x:78; --y:24; --w:6; --h:1.6;">
+        <div class="opacity-ui">
+          <span class="pct">100 %</span>
+          <input type="range" min="0" max="100" value="100" class="opacity" aria-label="Opacity"/>
+          <span class="nub"></span>
+        </div>
       </div>
 
       <!-- マネキン：X:38-51 , Y:19-61 -->
       <figure class="abs mannequin" style="--x:38; --y:19; --w:13; --h:42;">
-        <!-- ここは後でGitのPNGに差し替えてください -->
+        <!-- 後でGitのPNGに差し替え（今はダミー名を想定） -->
         <img src="mannequin_woman.png" alt="Mannequin"/>
       </figure>
     </section>
@@ -59,27 +56,26 @@
       <div class="icon sq" title="Save"></div>
     </div>
 
-    <!-- レイヤーパネル：右側帯 -->
-    <!-- 上3つ：表示 / 非表示 / ロック（X:90,91,93 , Y:13） -->
+    <!-- レイヤーパネル：上３つ（表示 / 非表示 / ロック） -->
     <div class="abs layer-top" style="--x:90; --y:13; --w:4; --h:1;">
       <div class="icon sq" title="Visible"></div>
       <div class="icon sq" title="Hidden"></div>
       <div class="icon sq" title="Lock"></div>
     </div>
 
-    <!-- 真ん中ボード：X:90-94 , Y:14-19 -->
+    <!-- レイヤーボード：X:90-94 , Y:14-19 -->
     <div class="abs layer-board" style="--x:90; --y:14; --w:4; --h:5;">
-      <!-- 1段目（追加レイヤーは1マス下に展開） -->
       <div class="layer-row">
         <div class="mini icon" title="eye"></div>
         <div class="mini icon" title="lock"></div>
         <div class="mini icon" title="opts"></div>
         <div class="mini thumb"></div>
       </div>
+      <!-- 追加レイヤーは1マス下に展開（ダミー） -->
       <div class="layer-row ghost"></div>
     </div>
 
-    <!-- 下4つ：追加 / 下部と統合 / 複製 / 削除（X:90,91,92,93 , Y:20） -->
+    <!-- 下４つ：追加 / 下部と統合 / 複製 / 削除 -->
     <div class="abs layer-bottom" style="--x:90; --y:20; --w:4; --h:1;">
       <div class="icon sq" title="Add"></div>
       <div class="icon sq" title="Merge Down"></div>
@@ -89,27 +85,20 @@
 
     <!-- ステーショナリーツール：X:96-98 , Y:12-39 -->
     <aside class="abs toolbox" style="--x:96; --y:12; --w:2; --h:27;">
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
-      <div class="tool icon"></div>
+      <!-- 12本（矢・線・矩形・円…っぽい密度） -->
+      <div class="tool icon"></div><div class="tool icon"></div><div class="tool icon"></div>
+      <div class="tool icon"></div><div class="tool icon"></div><div class="tool icon"></div>
+      <div class="tool icon"></div><div class="tool icon"></div><div class="tool icon"></div>
+      <div class="tool icon"></div><div class="tool icon"></div><div class="tool icon"></div>
     </aside>
 
     <!-- カラーパレット：X:96-98 , Y:41-68 -->
     <aside class="abs palette" style="--x:96; --y:41; --w:2; --h:27;">
-      <!-- 12色の丸（ダミー） -->
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <!-- 12色の丸（グレー→黒まで含める） -->
+      <div class="dot c0"></div><div class="dot c1"></div><div class="dot c2"></div>
+      <div class="dot c3"></div><div class="dot c4"></div><div class="dot c5"></div>
+      <div class="dot c6"></div><div class="dot c7"></div><div class="dot c8"></div>
+      <div class="dot c9"></div><div class="dot c10"></div><div class="dot c11"></div>
     </aside>
 
   </main>
