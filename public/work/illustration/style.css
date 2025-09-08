@@ -1,23 +1,30 @@
-/* ============ 基本 ============ */
+/* ================== 基本設定 ================== */
 :root{
   /* 固定ボード寸法 */
   --board-w: 1280px;
   --board-h: 820px;
 
-  /* グリッド総数：X=0..100, Y=0..68 */
+  /* グリッド（X:0-100, Y:0-68） */
   --grid-x: 100;
   --grid-y: 68;
+
+  /* 汎用 */
+  --radius-lg: 16px;
+  --border: #d9d9d9;
+  --ink: #111;
+  --paper: #fff;
+  --bg: #f6f6f6;
 }
 
-*{ box-sizing: border-box; }
+*{ box-sizing:border-box; }
 html,body{ height:100%; margin:0; }
 body{
-  background:#f6f6f6;
-  color:#111;
-  font: 500 14px/1.4 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  font: 500 14px/1.45 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;
 }
 
-/* 画面中央へ固定ボードを配置 */
+/* 画面中央にボードを1枚だけ配置 */
 .fit{
   min-height:100%;
   display:grid;
@@ -25,17 +32,16 @@ body{
   padding:24px 16px;
 }
 
-/* 固定サイズのワークボード */
+/* 固定ボード */
 .board{
   position:relative;
-  width: var(--board-w);
-  height: var(--board-h);
-  background:#fff;
-  border-radius: 0;
+  width:var(--board-w);
+  height:var(--board-h);
+  background:var(--paper);
 }
 
-/* ============ グリッド座標ヘルパ ============ */
-/* 各要素は --x1, --x2, --y1, --y2 を “グリッド値”で指定（%換算で絶対配置） */
+/* ========== 座標制御（X,Yグリッド→絶対配置） ========== */
+/* 各要素に --x1 --x2 --y1 --y2（単位＝グリッド）を与える */
 .pos{
   position:absolute;
   left:  calc((var(--x1) / var(--grid-x)) * 100%);
@@ -44,106 +50,96 @@ body{
   height:calc(((var(--y2) - var(--y1)) / var(--grid-y)) * 100%);
 }
 
-/* ============ ヘッダー系 ============ */
+/* ========== ヘッダー ========== */
 .title{
   margin:0;
-  font-size:20px;
-  display:flex;
-  align-items:center;
+  display:flex; align-items:center;
+  font-size:18px;
+  white-space:nowrap;      /* 折返し防止（2行になる場合はx2を広げてもOK） */
 }
+
 .next-step{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  text-decoration:none;
-  color:#111;
-  font-size:13px;
+  display:flex; align-items:center; justify-content:flex-end;
+  font-size:13px; text-decoration:none; color:var(--ink);
 }
+
 .categories{
-  display:flex;
-  gap:8px;
-  align-items:center;
+  display:flex; gap:8px; align-items:center; justify-content:flex-end;
 }
 .categories img{ height:18px; width:auto; display:block; }
 
-/* ============ キャンバス ============ */
+/* ========== キャンバス ========== */
 .stage{
-  background:#fff;
-  border-radius:16px;
-  box-shadow: inset 0 0 0 2px #d9d9d9;
+  background:var(--paper);
+  border-radius:var(--radius-lg);
+  box-shadow: inset 0 0 0 2px var(--border);
   overflow:hidden;
 }
+
+/* マネキン（ボード座標で配置） */
 .mannequin{
-  object-fit:contain;
-  width:auto; height:auto; /* pos で枠を取っているので自動調整 */
-  max-width:100%; max-height:100%;
-}
-.opacity-slider{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  pointer-events:none;     /* 見た目だけ（必要なら外して） */
-}
-.opacity-slider .val{ font-size:11px; color:#333; }
-.opacity-slider .track{
-  position:relative;
-  height:6px;
-  flex:1;
-  background:#bdbdbd;
-  border-radius:4px;
-}
-.opacity-slider .thumb{
-  position:absolute; top:50%; transform:translate(-50%,-50%);
-  width:10px; height:10px; border-radius:50%;
-  background:#4a90e2;
+  width:100%; height:100%;
+  object-fit:contain; object-position:center;
+  pointer-events:none; user-select:none;
 }
 
-/* ============ IO（DL/UP/SAVE） ============ */
+/* ========== IO（DL/UP/SAVE） ========== */
 .io-buttons{
   display:flex; gap:10px; align-items:center; justify-content:flex-end;
 }
 .io-buttons button{
   width:22px; height:22px; padding:0; border:0; background:transparent;
 }
-.io-buttons img{ width:100%; height:100%; object-fit:contain; }
+.io-buttons img{ width:100%; height:100%; display:block; object-fit:contain; }
 
-/* ============ レイヤー ============ */
-.layer-btn, .layer-op{ width:22px; height:22px; }
-.layer-btn img, .layer-op img{ width:100%; height:100%; object-fit:contain; }
+/* ========== レイヤーパネル ========== */
+.layer-top{ width:22px; height:22px; padding:0; border:0; background:transparent; }
+.layer-top img{ width:100%; height:100%; display:block; object-fit:contain; }
 
 .layer-board{
   background:#fff;
-  border:1px solid #dcdcdc;
+  border:1px solid var(--border);
   border-radius:8px;
   padding:6px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+  display:flex; flex-direction:column; gap:6px;
 }
 .layer-row{
-  height:22px;
-  padding:0 8px;
-  border-radius:6px;
-  background:#f2f2f2;
+  height:22px; padding:0 8px;
+  border-radius:6px; background:#f2f2f2;
   display:flex; align-items:center; justify-content:space-between;
   font-size:12px; color:#333;
 }
 .layer-row.active{ background:#e7f1ff; }
+.layer-op{ width:22px; height:22px; padding:0; border:0; background:transparent; }
+.layer-op img{ width:100%; height:100%; display:block; object-fit:contain; }
+.hidden{ display:none; }
 
-/* ============ ツール＆パレット ============ */
+/* ========== ツール列 / カラーパレット ========== */
 .tools{
-  display:flex; flex-direction:column; gap:8px; align-items:center;
+  margin:0; padding:0; list-style:none;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
 }
-.tools .tool{
-  width:26px; height:26px; padding:0; border:0; background:transparent;
-}
-.tools .tool img{ width:100%; height:100%; object-fit:contain; }
+.tools li{ width:24px; height:24px; }
+.tools img{ width:100%; height:100%; display:block; object-fit:contain; }
 
 .palette{
-  display:flex; flex-direction:column;
-  gap:8px; align-items:center; justify-content:flex-start;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
 }
 .palette button{
   width:22px; height:22px; border-radius:50%;
-  border:1px solid #d0d0d0; background: var(--c, #999);
+  border:1px solid #d0d0d0; background:var(--c, #999);
+}
+
+/* ========== 透明度スライダー（見た目のみ） ========== */
+.opacity-slider{
+  display:flex; gap:8px; align-items:center;
+  pointer-events:none;  /* 実装時は外す */
+}
+.opacity-slider .val{ font-size:11px; color:#333; }
+.opacity-slider .track{
+  position:relative; flex:1; height:6px; border-radius:4px; background:#bdbdbd;
+}
+.opacity-slider .thumb{
+  position:absolute; top:50%; transform:translate(-50%,-50%);
+  width:10px; height:10px; border-radius:50%; background:#4a90e2;
 }
