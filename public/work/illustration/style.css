@@ -1,145 +1,159 @@
-/* ================== 基本設定 ================== */
+/* ================== 定数 ================== */
 :root{
-  /* 固定ボード寸法 */
   --board-w: 1280px;
   --board-h: 820px;
 
-  /* グリッド（X:0-100, Y:0-68） */
-  --grid-x: 100;
-  --grid-y: 68;
-
-  /* 汎用 */
-  --radius-lg: 16px;
-  --border: #d9d9d9;
-  --ink: #111;
-  --paper: #fff;
-  --bg: #f6f6f6;
+  --bg: #f5f2ec;          /* ページ地色（スクショの白に近いトーン） */
+  --ink:#1b1b1b;
+  --stage:#fff;           /* キャンバスの白 */
+  --stage-br:#cfccc5;     /* 枠の薄グレー */
+  --shadow: 0 2px 2px rgba(0,0,0,.06);
+  --r: 14px;
 }
 
-*{ box-sizing:border-box; }
-html,body{ height:100%; margin:0; }
-body{
-  background:var(--bg);
-  color:var(--ink);
-  font: 500 14px/1.45 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;
-}
-
-/* 画面中央にボードを1枚だけ配置 */
-.fit{
-  min-height:100%;
-  display:grid;
-  place-items:center;
-  padding:24px 16px;
-}
-
-/* 固定ボード */
-.board{
-  position:relative;
-  width:var(--board-w);
-  height:var(--board-h);
-  background:var(--paper);
-}
-
-/* ========== 座標制御（X,Yグリッド→絶対配置） ========== */
-/* 各要素に --x1 --x2 --y1 --y2（単位＝グリッド）を与える */
-.pos{
-  position:absolute;
-  left:  calc((var(--x1) / var(--grid-x)) * 100%);
-  top:   calc((var(--y1) / var(--grid-y)) * 100%);
-  width: calc(((var(--x2) - var(--x1)) / var(--grid-x)) * 100%);
-  height:calc(((var(--y2) - var(--y1)) / var(--grid-y)) * 100%);
-}
-
-/* ========== ヘッダー ========== */
-.title{
-  margin:0;
-  display:flex; align-items:center;
-  font-size:18px;
-  white-space:nowrap;      /* 折返し防止（2行になる場合はx2を広げてもOK） */
-}
-
-.next-step{
-  display:flex; align-items:center; justify-content:flex-end;
-  font-size:13px; text-decoration:none; color:var(--ink);
-}
-
-.categories{
-  display:flex; gap:8px; align-items:center; justify-content:flex-end;
-}
-.categories img{ height:18px; width:auto; display:block; }
-
-/* ========== キャンバス ========== */
-.stage{
-  background:var(--paper);
-  border-radius:var(--radius-lg);
-  box-shadow: inset 0 0 0 2px var(--border);
+*{ box-sizing: border-box; }
+html,body{ height:100%; margin:0; background:var(--bg); color:var(--ink);
+  font-family: "Inter","Helvetica Neue",Arial,system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
   overflow:hidden;
 }
 
-/* マネキン（ボード座標で配置） */
-.mannequin{
+/* ===== 画面フィット（固定ボードを縮尺） ===== */
+.fit{ height:100%; display:grid; place-items:center; }
+.fit>.board{
+  width:var(--board-w); height:var(--board-h);
+  transform-origin: top center;
+  --sx: calc(100vw / var(--board-w));
+  --sy: calc(100vh / var(--board-h));
+  --s: min(var(--sx), var(--sy));
+  transform: scale(calc(var(--s) * 0.90));
+}
+
+/* ===== ボードレイアウト ===== */
+.board{
+  display:grid;
+  grid-template-rows: 78px 1fr;  /* 上:ヘッダーは2段確保 */
   width:100%; height:100%;
-  object-fit:contain; object-position:center;
-  pointer-events:none; user-select:none;
 }
 
-/* ========== IO（DL/UP/SAVE） ========== */
-.io-buttons{
-  display:flex; gap:10px; align-items:center; justify-content:flex-end;
+/* ===== ヘッダー（左=タイトル／右=2段） ===== */
+.topbar{
+  display:grid;
+  grid-template-columns: 1fr 520px;
+  align-items:end;
+  padding: 10px 8px 0;
 }
-.io-buttons button{
-  width:22px; height:22px; padding:0; border:0; background:transparent;
+.app-title{ margin:0; font-size:20px; font-weight:500; letter-spacing:.2px; }
+.topbar-right{ display:grid; grid-template-rows: 18px 1fr; gap:6px; }
+.nextline{ display:flex; justify-content:flex-end; }
+.next-btn{
+  display:inline-block; font-size:11px; color:#1b1b1b; text-decoration:none;
+  opacity:.85;
 }
-.io-buttons img{ width:100%; height:100%; display:block; object-fit:contain; }
+.contents-buttons{ display:flex; gap:12px; justify-content:flex-end; align-items:center; }
+.contents-buttons img{ width:22px; height:22px; display:block; image-rendering:-webkit-optimize-contrast; }
 
-/* ========== レイヤーパネル ========== */
-.layer-top{ width:22px; height:22px; padding:0; border:0; background:transparent; }
-.layer-top img{ width:100%; height:100%; display:block; object-fit:contain; }
-
-.layer-board{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:6px;
-  display:flex; flex-direction:column; gap:6px;
+/* ===== メイン（左:stage / 右:rail） ===== */
+.main{
+  display:grid;
+  grid-template-columns: 1fr 264px; /* 右レール幅は細め */
+  column-gap: 16px;
+  padding: 8px 8px 0 8px;
 }
-.layer-row{
-  height:22px; padding:0 8px;
-  border-radius:6px; background:#f2f2f2;
-  display:flex; align-items:center; justify-content:space-between;
-  font-size:12px; color:#333;
-}
-.layer-row.active{ background:#e7f1ff; }
-.layer-op{ width:22px; height:22px; padding:0; border:0; background:transparent; }
-.layer-op img{ width:100%; height:100%; display:block; object-fit:contain; }
-.hidden{ display:none; }
 
-/* ========== ツール列 / カラーパレット ========== */
+/* === stage：大きなラウンド枠 === */
+.stage{
+  border: 1px solid var(--stage-br);
+  border-radius: var(--r);
+  background: var(--stage);
+  position: relative;
+  padding: 16px;
+  min-height: 0;
+}
+.mannequin{
+  position:absolute; top:50%; left:50%;
+  transform: translate(-50%,-50%);
+  width:240px; height:auto; opacity:.96;
+  image-rendering:-webkit-optimize-contrast;
+}
+/* ズームUI（右中段の小さなフローティング） */
+.zoom-ui{
+  position:absolute; right:42px; top:42%;
+  display:grid; gap:6px; justify-items:center;
+}
+.zoom-label{
+  font-size:11px; background:#fff; border:1px solid #ddd8cf;
+  border-radius:6px; padding:2px 6px;
+}
+.zoom-bar{
+  width:120px; height:10px; background:#ece8df; border:1px solid #d7d1c7; border-radius:8px; position:relative;
+}
+.zoom-bar i{
+  position:absolute; top:-3px; width:14px; height:14px; background:#5ea3ff;
+  border:1px solid #507fbe; border-radius:50%;
+}
+
+/* === 右レール全体 === */
+.rail{
+  display:grid;
+  grid-template-rows: auto auto 1fr auto; /* IO / tools / layers / palette */
+  row-gap: 12px;
+  align-content:start;
+}
+
+/* IO（右上の小アイコン） */
+.quick-io{ display:flex; gap:10px; justify-content:flex-end; }
+.quick-io img{ width:20px; height:20px; display:block; }
+
+/* ツール（細いボタン列） */
 .tools{
-  margin:0; padding:0; list-style:none;
-  display:flex; flex-direction:column; align-items:center; gap:10px;
+  display:grid;
+  grid-auto-rows: 36px;
+  gap:8px;
+  justify-items:end;
 }
-.tools li{ width:24px; height:24px; }
-.tools img{ width:100%; height:100%; display:block; object-fit:contain; }
+.tool{
+  width:36px; height:36px; display:grid; place-items:center;
+  background:#fff; border:1px solid #ddd8cf; border-radius:8px; box-shadow:var(--shadow);
+}
+.tool img{ width:20px; height:20px; }
+.tool.mini{ width:28px; height:28px; }
 
+/* レイヤー群（小パネルが等間隔で縦に） */
+.layers{
+  display:grid; gap:10px; align-content:start;
+  grid-auto-rows: 124px; /* スクショ比率に寄せた高さ */
+}
+.layer-card{
+  position:relative; background:#fff; border:1px solid #dcd6cb; border-radius:10px; box-shadow:var(--shadow);
+  display:grid; grid-template-rows: 18px 1fr 26px;
+}
+.layer-top{ position:relative; }
+.pin{ position:absolute; right:8px; top:2px; width:16px; height:16px; display:grid; place-items:center; }
+.pin img{ width:14px; height:14px; }
+
+.layer-body{
+  margin: 6px 8px;
+  border:1px dashed #e7e1d8; border-radius:6px;
+  background: repeating-conic-gradient(#faf7f0 0 25%, #f4efe7 0 50%) 50%/10px 10px;
+}
+
+.layer-ctrls{
+  display:flex; gap:8px; align-items:center; justify-content:flex-end;
+  padding: 0 8px 6px;
+}
+.layer-ctrls img{ width:16px; height:16px; }
+
+/* パレット（最右の細い縦列） */
 .palette{
-  display:flex; flex-direction:column; align-items:center; gap:10px;
+  display:grid; gap:8px; justify-items:end; align-content:start;
+  grid-auto-rows: 28px;
 }
-.palette button{
-  width:22px; height:22px; border-radius:50%;
-  border:1px solid #d0d0d0; background:var(--c, #999);
+.palette i{
+  width:28px; height:28px; border-radius:50%;
+  background: var(--c,#ccc);
+  border:1px solid rgba(0,0,0,.18);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
 }
 
-/* ========== 透明度スライダー（見た目のみ） ========== */
-.opacity-slider{
-  display:flex; gap:8px; align-items:center;
-  pointer-events:none;  /* 実装時は外す */
-}
-.opacity-slider .val{ font-size:11px; color:#333; }
-.opacity-slider .track{
-  position:relative; flex:1; height:6px; border-radius:4px; background:#bdbdbd;
-}
-.opacity-slider .thumb{
-  position:absolute; top:50%; transform:translate(-50%,-50%);
-  width:10px; height:10px; border-radius:50%; background:#4a90e2;
-}
+/* 画像にじみ軽減 */
+img{ image-rendering:-webkit-optimize-contrast; }
