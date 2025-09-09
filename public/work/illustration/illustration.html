@@ -44,7 +44,7 @@
           </div>
         </section>
 
-        <!-- 右：レール（IO → row2( Layers | Tools ) → Palette） -->
+        <!-- 右：レール（IO → row2( Layers | Tools+Palette )） -->
         <aside class="rightpanel">
 
           <!-- 行1：IO -->
@@ -54,7 +54,7 @@
             <img src="../../create_parts/create_button/save.png"     alt="save" />
           </div>
 
-          <!-- 行2：左右2カラム（左=Layers / 右=Tools）-->
+          <!-- 行2：左右2カラム（左=Layers / 右=Tools+Palette 縦スタック）-->
           <div class="row2">
             <!-- 左：レイヤー（カード×5） -->
             <div class="layers" aria-label="layers">
@@ -62,6 +62,8 @@
                 <div class="layer-head">
                   <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
                   <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
+                  <!-- ★ ここが追加：1マス分のスペーサー -->
+                  <span class="gap-1" aria-hidden="true"></span>
                   <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
                 </div>
                 <div class="layer-body"></div>
@@ -76,6 +78,7 @@
                 <div class="layer-head">
                   <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
                   <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
+                  <span class="gap-1" aria-hidden="true"></span>
                   <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
                 </div>
                 <div class="layer-body"></div>
@@ -90,6 +93,7 @@
                 <div class="layer-head">
                   <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
                   <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
+                  <span class="gap-1" aria-hidden="true"></span>
                   <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
                 </div>
                 <div class="layer-body"></div>
@@ -104,6 +108,7 @@
                 <div class="layer-head">
                   <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
                   <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
+                  <span class="gap-1" aria-hidden="true"></span>
                   <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
                 </div>
                 <div class="layer-body"></div>
@@ -118,6 +123,7 @@
                 <div class="layer-head">
                   <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
                   <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
+                  <span class="gap-1" aria-hidden="true"></span>
                   <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
                 </div>
                 <div class="layer-body"></div>
@@ -130,39 +136,46 @@
               </div>
             </div>
 
-            <!-- 右：ステーショナリー（1〜13。最初の2つは形状を変える） -->
-            <div class="tools" aria-label="stationery tools">
-              <button class="tool t-select"><img src="../../create_parts/object_btn/select.png"        alt="Select" /></button>
-              <button class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/square.png"        alt="Square" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/circle.png"        alt="Circle" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/brush.png"         alt="Brush" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/pen.png"           alt="Pen" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/circlebrush.png"   alt="Circle Brush" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/ballpointpen.png"  alt="Ballpoint" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/markerpen.png"     alt="Marker" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/eraser.png"        alt="Eraser" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/sentence.png"      alt="Text" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/opasity_ber.png"   alt="Opacity" /></button>
-              <button class="tool"><img src="../../create_parts/object_btn/graph_paper.png"   alt="Grid" /></button>
+            <!-- 右：ステーショナリー + （1マス空け）+ カラーパレット -->
+            <div class="tools-stack">
+              <div class="tools" aria-label="stationery tools">
+                <button class="tool t-select"><img src="../../create_parts/object_btn/select.png"        alt="Select" /></button>
+                <button class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/square.png"        alt="Square" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/circle.png"        alt="Circle" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/brush.png"         alt="Brush" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/pen.png"           alt="Pen" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/circlebrush.png"   alt="Circle Brush" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/ballpointpen.png"  alt="Ballpoint" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/markerpen.png"     alt="Marker" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/eraser.png"        alt="Eraser" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/sentence.png"      alt="Text" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/opasity_ber.png"   alt="Opacity" /></button>
+                <button class="tool"><img src="../../create_parts/object_btn/graph_paper.png"   alt="Grid" /></button>
+              </div>
+
+              <!-- ★ 1マス空き -->
+              <div class="stack-gap-1" aria-hidden="true"></div>
+
+              <!-- ★ パレットを tools の直下へ移設 -->
+              <div class="palette" aria-label="color palette">
+                <i style="--c:#bdbdbd"></i>
+                <i style="--c:#ffffff"></i>
+                <i style="--c:#ffe14d"></i>
+                <i style="--c:#ffb000"></i>
+                <i style="--c:#ff7aa2"></i>
+                <i style="--c:#ff4d6d"></i>
+                <i style="--c:#6ad58b"></i>
+                <i style="--c:#00a14b"></i>
+                <i style="--c:#3e7bd8"></i>
+                <i style="--c:#1b2a4a"></i>
+                <i style="--c:#5b2a86"></i>
+                <i style="--c:#000000"></i>
+              </div>
             </div>
           </div>
 
-          <!-- 行3：カラー（Toolsの“下”に配置。1マス分の間隔あり） -->
-          <div class="palette" aria-label="color palette">
-            <i style="--c:#bdbdbd"></i>
-            <i style="--c:#ffffff"></i>
-            <i style="--c:#ffe14d"></i>
-            <i style="--c:#ffb000"></i>
-            <i style="--c:#ff7aa2"></i>
-            <i style="--c:#ff4d6d"></i>
-            <i style="--c:#6ad58b"></i>
-            <i style="--c:#00a14b"></i>
-            <i style="--c:#3e7bd8"></i>
-            <i style="--c:#1b2a4a"></i>
-            <i style="--c:#5b2a86"></i>
-            <i style="--c:#000000"></i>
-          </div>
+          <!-- ※ 旧：行3のパレットは tools 直下へ移設したため削除 -->
 
         </aside>
       </main>
