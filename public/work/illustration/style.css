@@ -116,7 +116,7 @@ html,body{
   border-radius:10px;
   padding:10px 12px;
   display:grid;
-  grid-template-rows: auto auto; /* IO / row2( layers | tools+palette ) */
+  grid-template-rows: auto auto auto; /* IO / row2 / palette */
   gap:12px;
 }
 
@@ -124,18 +124,20 @@ html,body{
 .quick-io{ display:flex; gap:10px; justify-content:flex-end; }
 .quick-io img{ width:20px; height:20px; }
 
-/* row2：Layers | Tools+Palette（横並び） */
+/* row2：Layers | Tools（横並び） */
 .row2{
   display:grid;
-  grid-template-columns: 210px 92px; /* 左=layers / 右=tools+palette */
+  /* ★ 修正：左を細く（140px）して縦長比を強調 */
+  grid-template-columns: 140px 92px;
   gap:16px;
-  align-items:start;
+  align-items:stretch;
 }
 
 /* Layers（カードを縦に複数） */
 .layers{
   display:grid;
-  grid-auto-rows: 132px; /* 小さめカード */
+  /* ★ 修正：カードの高さを 220px に拡大 */
+  grid-auto-rows: 220px;
   gap:10px;
   overflow:auto;
   padding-right:4px;
@@ -154,7 +156,10 @@ html,body{
 .gap-1{ display:inline-block; width:12px; }
 
 .layer-body{
-  margin:6px 8px; border:1px dashed #e7e1d8; border-radius:6px;
+  /* ★ 修正：余白を抑え、縦長枠を確保 */
+  margin:6px 6px;
+  min-height:170px;
+  border:1px dashed #e7e1d8; border-radius:6px;
   background:repeating-conic-gradient(#faf7f0 0 25%, #f4efe7 0 50%) 50%/10px 10px;
 }
 .layer-foot{
@@ -180,18 +185,9 @@ html,body{
 .tool.t-select img,
 .tool.t-direct img{ width:18px; height:18px; }
 
-/* ★ 追加：tools と palette を縦に積む */
-.tools-stack{
-  display:flex;
-  flex-direction:column;
-  align-items:end;          /* 右端で揃える（従来の見え方を維持） */
-}
-.stack-gap-1{ height:8px; } /* 「1マス」相当 */
-
-/* Palette（tools の“直下”に移設） */
+/* Palette（Toolsの“下” / 1マス分の余白を明示） */
 .palette{
-  /* 旧: margin-top:8px; → tools-stack で隙間を管理するので0 */
-  margin-top:0;
+  margin-top:8px;            /* ★ ツールとの間に1マス */
   display:grid; grid-auto-rows:28px; gap:8px; justify-items:end; align-content:start;
 }
 .palette i{
