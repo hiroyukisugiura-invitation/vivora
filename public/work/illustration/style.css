@@ -1,200 +1,130 @@
 :root{
   --board-w: 1280px;
   --board-h: 820px;
+  --grid: 12px;        /* ＝ 1マス */
+  --panel-w-layer: 160px;
+  --panel-w-tool: 44px;
 
-  --bg: #e8e2d7;
-  --ink: #1b1b1b;
-  --panel: #ede7dd;
-  --stage: #ffffff;
-  --stage-border: #cfc9bf;
-
-  --shadow: 0 2px 2px rgba(0,0,0,.06);
-  --r: 14px;
+  /* 右パネルの基準位置（微調整はここだけでOK） */
+  --rp-top: 120px;
+  --rp-right: 28px;
 }
 
-*{ box-sizing:border-box; }
-html,body{
-  height:100%;
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:"Inter","Helvetica Neue",Arial,system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
-  overflow:auto; /* スクロール可 */
-}
-
-/* ===== 画面フィット（比率ズレ対策：dvh使用） ===== */
-.fit{
-  min-height:100dvh;
-  display:grid;
-  place-items:center;
-}
-.fit > .board{
+/* 画面フィット（固定ボードを自動スケール） */
+body { margin:0; background:#e3d8c9; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; color:#222; }
+.fit { display:grid; place-items:start center; min-height:100vh; overflow:hidden; }
+.board{
+  position:relative;
   width:var(--board-w);
   height:var(--board-h);
+  background:#f7f3ee;
+  border-radius:12px;
+  box-shadow:0 1px 0 rgba(0,0,0,.2) inset;
   transform-origin: top center;
-  --sx: calc(100vw  / var(--board-w));
-  --sy: calc(100dvh / var(--board-h));
-  --s:  min(var(--sx), var(--sy));
+  --sx: calc(100vw / var(--board-w));
+  --sy: calc(100vh / var(--board-h));
+  --s : min(var(--sx), var(--sy));
   transform: scale(calc(var(--s) * 0.90));
 }
 
-/* ===== ボード ===== */
-.board{
-  display:grid;
-  grid-template-rows: 78px 1fr;
-  gap:14px;
+/* ヘッダー */
+.topbar{ position:relative; display:flex; align-items:center; gap:calc(var(--grid) * 2); padding:18px 22px; }
+.app-title{ font-size:18px; font-weight:600; margin:0; }
+.contents-buttons{ display:flex; gap:10px; align-items:center; }
+.contents-buttons img{ height:22px; }
+
+.next-step-btn{
+  position:absolute; top:18px; right:22px;
+  background:#fff; border:1px solid #d7d2c9; border-radius:8px;
+  padding:8px 12px; font-size:12px; cursor:pointer;
 }
 
-/* ===== ヘッダー ===== */
-.topbar{
-  display:grid;
-  grid-template-columns: 1fr 520px;
-  align-items:end;
-  padding: 10px 8px 0;
-}
-.app-title{ margin:0; font-weight:500; font-size:20px; letter-spacing:.2px; }
-
-.top-right{
-  display:grid;
-  grid-template-rows: 18px 1fr; /* 上=Next / 下=contents */
-  gap:6px;
-}
-.nextline{ display:flex; justify-content:flex-end; }
-.next-btn{
-  font-size:11px;
-  color:#1b1b1b;
-  text-decoration:none;
-  opacity:.9;
-}
-.contents-buttons{
-  display:flex; gap:12px; justify-content:flex-end; align-items:center;
-}
-.contents-buttons img{ width:22px; height:22px; image-rendering:-webkit-optimize-contrast; }
-
-/* ===== メイン ===== */
-.main{
-  display:grid;
-  grid-template-columns: 1fr 360px; /* 右パネルがスクショ比 */
-  gap:16px;
-}
-
-/* === キャンバス === */
+/* メイン（キャンバス） */
+.main{ position:relative; padding:0 22px; }
 .stage{
-  background:var(--stage);
-  border:1px solid var(--stage-border);
-  border-radius:var(--r);
   position:relative;
-  padding:16px;
-  min-height:0;
+  height: 652px; /* = 820 - header(約) */
+  border:2px solid #cfc6bb; border-radius:12px;
+  background:#fff;
+  margin-right: 320px; /* 右パネルぶんの余白 */
 }
 .mannequin{
-  position:absolute; top:50%; left:50%;
+  position:absolute; left:50%; top:50%;
   transform:translate(-50%,-50%);
-  width:240px; height:auto; opacity:.96;
-  image-rendering:-webkit-optimize-contrast;
+  width:240px; height:auto; user-select:none; pointer-events:none;
 }
-
-/* ズーム（ラベル→バーの縦） */
 .opacity-ui{
-  position:absolute; right:42px; top:42%;
-  display:grid; gap:6px; justify-items:center;
-}
-.zoom-label{
-  font-size:11px; background:#fff; border:1px solid #ddd8cf; border-radius:6px; padding:2px 6px;
-}
-.zoom-bar{
-  width:120px; height:10px; background:#ece8df; border:1px solid #d7d1c7; border-radius:8px; position:relative;
-}
-.zoom-bar i{
-  position:absolute; top:-3px; width:14px; height:14px; background:#5ea3ff; border:1px solid #507fbe; border-radius:50%;
+  position:absolute; right:120px; top:50%;
+  transform:translateY(-50%);
+  background:#444; color:#fff; border-radius:6px; padding:4px 8px; font-size:11px; opacity:.85;
 }
 
-/* === 右パネル === */
+/* 右パネル：ボード内側の右に固定 */
 .rightpanel{
-  background:var(--panel);
-  border:1px solid #d9d2c6;
-  border-radius:10px;
-  padding:10px 12px;
+  position:absolute;
+  top:var(--rp-top);
+  right:var(--rp-right);
   display:grid;
-  grid-template-rows: auto auto auto; /* IO / row2 / palette */
-  gap:12px;
+  grid-template-rows: auto auto auto;  /* row1 / row2 / row3 */
+  row-gap: var(--grid);
+  z-index:3;
 }
 
-/* IO */
-.quick-io{ display:flex; gap:10px; justify-content:flex-end; }
-.quick-io img{ width:20px; height:20px; }
+/* 上段：IO（右寄せ） */
+.quick-io{ display:flex; gap:10px; justify-content:flex-end; align-items:center; }
+.quick-io img{ width:18px; height:18px; }
 
-/* row2：Layers | Tools（横並び） */
+/* 中段：左=Layers / 右=Stationery（1マスだけ離す） */
 .row2{
   display:grid;
-  /* ★ 修正：左を細く（140px）して縦長比を強調 */
-  grid-template-columns: 140px 92px;
-  gap:16px;
-  align-items:stretch;
+  grid-template-columns: var(--panel-w-layer) var(--panel-w-tool);
+  column-gap: var(--grid); /* ← 1マス */
+  align-items:start;
 }
 
-/* Layers（カードを縦に複数） */
-.layers{
+/* Layers（白枠は撤去） */
+.layer-column{
   display:grid;
-  /* ★ 修正：カードの高さを 220px に拡大 */
-  grid-auto-rows: 220px;
-  gap:10px;
-  overflow:auto;
-  padding-right:4px;
+  grid-auto-rows: 132px;   /* 各カードの高さ */
+  row-gap: 14px;
+  width: var(--panel-w-layer);
 }
 .layer-card{
-  background:#fff; border:1px solid #dcd6cb; border-radius:10px; box-shadow:var(--shadow);
-  display:grid; grid-template-rows:22px 1fr 24px;
+  position:relative;
+  width:100%; height:100%;
+  /* 白枠・背景を削除して透明に */
+  border:none; background:transparent; box-shadow:none;
 }
-.layer-head{
-  display:flex; gap:10px; align-items:center; justify-content:flex-end;
-  padding:4px 8px 0;
+.layer-head, .layer-foot{
+  position:absolute; left:6px; right:6px; display:flex; gap:6px; align-items:center; justify-content:flex-end;
 }
-.layer-head img{ width:16px; height:16px; }
+.layer-head{ top:6px; }
+.layer-foot{ bottom:6px; }
+.layer-head img, .layer-foot img{ width:14px; height:14px; filter: drop-shadow(0 0 0 rgba(0,0,0,0.15)); }
 
-/* ★ 追加：上段の「1マス」スペーサー */
-.gap-1{ display:inline-block; width:12px; }
-
-.layer-body{
-  /* ★ 修正：余白を抑え、縦長枠を確保 */
-  margin:6px 6px;
-  min-height:170px;
-  border:1px dashed #e7e1d8; border-radius:6px;
-  background:repeating-conic-gradient(#faf7f0 0 25%, #f4efe7 0 50%) 50%/10px 10px;
-}
-.layer-foot{
-  display:flex; gap:8px; align-items:center; justify-content:flex-end; padding:0 8px 6px;
-}
-.layer-foot img{ width:16px; height:16px; }
-
-/* Tools（縦ボタン列） */
-.tools{
+/* Stationery（縦並び） */
+.tool-column{
   display:grid;
-  grid-auto-rows: 36px;
-  gap:8px;
-  justify-items:end;
+  grid-auto-rows: 32px;
+  row-gap: 12px;
+  width: var(--panel-w-tool);
+  justify-items:center;
 }
-.tool{
-  width:36px; height:36px; background:#fff; border:1px solid #ddd8cf; border-radius:8px;
-  display:grid; place-items:center; box-shadow:var(--shadow);
-}
-.tool img{ width:20px; height:20px; }
-/* 1:選択 / 2:ダイレクト選択 → 形をスクショ寄せ（角浅め・アイコンやや小さめ） */
-.tool.t-select,
-.tool.t-direct{ border-radius:6px; }
-.tool.t-select img,
-.tool.t-direct img{ width:18px; height:18px; }
+.tool{ all:unset; width:32px; height:32px; display:grid; place-items:center; cursor:pointer; }
+.tool img{ width:22px; height:22px; }
 
-/* Palette（Toolsの“下” / 1マス分の余白を明示） */
-.palette{
-  margin-top:8px;            /* ★ ツールとの間に1マス */
-  display:grid; grid-auto-rows:28px; gap:8px; justify-items:end; align-content:start;
+/* 下段：Color（ツール列の“1マス下”から開始） */
+.row3{ margin-top: var(--grid); }
+.color-column{
+  display:grid;
+  grid-auto-rows: 26px;
+  row-gap: 10px;
+  width: var(--panel-w-tool);
+  justify-items:center;
 }
-.palette i{
-  width:28px; height:28px; border-radius:50%;
-  background:var(--c,#ccc); border:1px solid rgba(0,0,0,.18);
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
+.color-dot{
+  width:24px; height:24px; border-radius:999px; background:var(--c, #ddd); border:none; cursor:pointer;
 }
 
-/* 画像にじみ軽減 */
-img{ image-rendering: -webkit-optimize-contrast; }
+/* 画像のドラッグ選択などを無効化 */
+img{ user-select:none; -webkit-user-drag:none; }
