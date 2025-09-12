@@ -3,25 +3,25 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <!-- 画面全体を100%で使う固定ステージ（スクロール禁止） -->
-  <div class="stage">
+  <!-- 画面中央に固定で置く 1280x820 のボード（リサイズ追従なし） -->
+  <div id="board" class="board">
 
-    <!-- ===== ヘッダー（左：タイトル／右：contentsボタン群＋Next Step） ===== -->
+    <!-- ===== ヘッダー（左：タイトル／右：contents群＋Next Step） ===== -->
     <header class="topbar">
       <h1 class="title">Vivora Fashion Illustration 2025</h1>
       <div class="header-right">
         <nav class="contents" aria-label="contents buttons">
-          <!-- ※ 画像はGitのpngのみを使用 -->
-          <img src="../../create_parts/contents_button/0_home.png"               alt="Home" />
+          <!-- 画像はGitのpngのみ -->
+          <img src="../../create_parts/contents_button/0_home.png" alt="Home" />
           <img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations" />
-          <img src="../../create_parts/contents_button/2_fabric-matching.png"    alt="Fabric Matching" />
-          <img src="../../create_parts/contents_button/3_clothing-design.png"    alt="Clothing Design" />
-          <img src="../../create_parts/contents_button/4_color-palette.png"      alt="Color Palette" />
+          <img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching" />
+          <img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design" />
+          <img src="../../create_parts/contents_button/4_color-palette.png" alt="Color Palette" />
         </nav>
         <button class="next-step" aria-label="Next Step">
           <img src="../../create_parts/create_button/nextstep.png" alt="Next Step" />
@@ -29,55 +29,47 @@
       </div>
     </header>
 
-    <!-- ===== メイン領域：左＝キャンバス／右＝コントロールパネル ===== -->
+    <!-- ===== 本体：左キャンバス / 右パネル（I/O → Stationery → Color → Layers） ===== -->
     <main class="main">
-
-      <!-- ---- キャンバス（白板なし。マネキンは常に中央） ---- -->
+      <!-- 左：キャンバス（白いボードなし） -->
       <section class="canvas-area" aria-label="canvas">
         <div class="canvas-inner">
           <img id="mannequin" class="mannequin" src="../../mannequin/mannequin_woman.png" alt="Mannequin" />
-          <!-- 右上オーバーレイ：Zoom / Opacity（表示のみ。動作は次工程） -->
           <div class="overlay">
-            <div class="zoom">Zoom</div>
-            <div class="opacity">Opacity</div>
+            <div class="chip">Zoom</div>
+            <div class="chip">Opacity</div>
           </div>
         </div>
       </section>
 
-      <!-- ---- 右パネル（上：I/O → その直下：Stationery → その直下：Color） ---- -->
+      <!-- 右：パネル -->
       <aside class="right-panel" aria-label="side panel">
-        <!-- I/O（Download / Upload / Save） -->
-        <div class="io-row" aria-label="file io">
-          <button class="io-btn" aria-label="Download">
-            <img src="../../create_parts/create_button/download.png" alt="Download" />
-          </button>
-          <button class="io-btn" aria-label="Upload">
-            <img src="../../create_parts/create_button/upload.png" alt="Upload" />
-          </button>
-          <button class="io-btn" aria-label="Save" id="saveBtn">
-            <img src="../../create_parts/create_button/save.png" alt="Save" />
-          </button>
+        <!-- I/O（最上段） -->
+        <div class="io-row">
+          <button class="io-btn"><img src="../../create_parts/create_button/download.png" alt="Download" /></button>
+          <button class="io-btn"><img src="../../create_parts/create_button/upload.png" alt="Upload" /></button>
+          <button class="io-btn" id="saveBtn"><img src="../../create_parts/create_button/save.png" alt="Save" /></button>
         </div>
 
-        <!-- Stationery tools（SAVE直下に縦配置／レイヤーパネルの白板は置かない） -->
-        <div class="tools" aria-label="stationery tools">
-          <button class="tool"><img src="../../create_parts/design_button/select.png"         alt="Select" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/direct_select.png"  alt="Direct Select" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/square.png"         alt="Square" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/circle.png"         alt="Circle" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/brush.png"          alt="Brush" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/pen.png"            alt="Pen" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/circlebrush.png"    alt="Circle Brush" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/ballpointpen.png"   alt="Ballpoint Pen" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/markerpen.png"      alt="Marker Pen" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/eraser.png"         alt="Eraser" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/sentence.png"       alt="Text" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/graph_paper.png"    alt="Grid" /></button>
-          <button class="tool"><img src="../../create_parts/design_button/layer.png"          alt="Layer Tool" /></button>
+        <!-- Stationery（SAVE直下・縦並びグリッド） -->
+        <div class="tools">
+          <button class="tool"><img src="../../create_parts/design_button/select.png" alt="Select" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/direct_select.png" alt="Direct Select" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/square.png" alt="Square" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/circle.png" alt="Circle" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/brush.png" alt="Brush" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/pen.png" alt="Pen" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/circlebrush.png" alt="Circle Brush" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/ballpointpen.png" alt="Ballpoint Pen" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/markerpen.png" alt="Marker Pen" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/eraser.png" alt="Eraser" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/sentence.png" alt="Text" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/graph_paper.png" alt="Grid" /></button>
+          <button class="tool"><img src="../../create_parts/design_button/layer.png" alt="Layer Tool" /></button>
         </div>
 
-        <!-- Color パレット（toolsの真下。1マス空けて配置） -->
-        <div class="color-panel" aria-label="color panel">
+        <!-- 1マス空けて Color -->
+        <div class="color-panel">
           <div class="swatch" style="--c:#ffffff" title="#FFFFFF"></div>
           <div class="swatch" style="--c:#000000" title="#000000"></div>
           <div class="swatch" style="--c:#ff3b30" title="#FF3B30"></div>
@@ -91,56 +83,48 @@
           <div class="swatch" style="--c:#ff2d55" title="#FF2D55"></div>
         </div>
 
-        <!-- レイヤーパネル（白いボードは不要：透明な列＋ヘッダなし） -->
-        <div class="layers" aria-label="layers">
-          <!-- 行1（表示/非表示/ロック） -->
+        <!-- Layers（白ボードなしの簡素UI） -->
+        <div class="layers">
           <div class="layer-row">
             <img src="../../create_parts/layer_button/layerdisplay.png"  alt="Display" />
             <img src="../../create_parts/layer_button/layerhidden.png"   alt="Hidden" />
             <img src="../../create_parts/layer_button/layerlock.png"     alt="Lock" />
           </div>
-          <!-- 行2（追加/複製/削除） -->
           <div class="layer-row">
-            <img src="../../create_parts/layer_button/layerpanelplus.png"      alt="Add Layer" />
-            <img src="../../create_parts/layer_button/layerreproduction.png"   alt="Duplicate Layer" />
-            <img src="../../create_parts/layer_button/layerdestruction.png"    alt="Delete Layer" />
+            <img src="../../create_parts/layer_button/layerpanelplus.png"    alt="Add Layer" />
+            <img src="../../create_parts/layer_button/layerreproduction.png" alt="Duplicate Layer" />
+            <img src="../../create_parts/layer_button/layerdestruction.png"  alt="Delete Layer" />
           </div>
-          <!-- 以降、必要に応じてアイコンを縦積み -->
         </div>
       </aside>
     </main>
   </div>
 
   <script>
-    // =============== JS（中央配置と安全なリサイズのみ） ===============
-    const stage = document.querySelector('.stage');
-    const mannequin = document.getElementById('mannequin');
+    // ===== ここだけJS：初回表示時に 1280x820 ボードを画面に一度だけフィットさせる（リサイズ追従しない） =====
+    (function() {
+      const BOARD_W = 1280;
+      const BOARD_H = 820;
+      const board = document.getElementById('board');
 
-    function fitMannequin() {
-      // キャンバス枠いっぱいに過度に拡大しない程度で収める
-      const canvas = document.querySelector('.canvas-inner');
-      if (!canvas || !mannequin.complete) return;
+      function scaleOnceToFit() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const s = Math.min(vw / BOARD_W, vh / BOARD_H); // 一度だけスケール
+        board.style.transform = `scale(${s})`;
+        board.style.transformOrigin = 'top left';
+        // 余白を中央化
+        const offsetX = (vw - BOARD_W * s) / 2;
+        const offsetY = (vh - BOARD_H * s) / 2;
+        board.style.left = `${Math.max(0, offsetX)}px`;
+        board.style.top  = `${Math.max(0, offsetY)}px`;
+      }
 
-      const cw = canvas.clientWidth;
-      const ch = canvas.clientHeight;
-
-      // 基準幅（UI仕様：初期幅240px程度）をベースにスケール
-      const baseW = 240;
-      // 余白を残しつつ最大でもキャンバスの70%に
-      const maxW = Math.min(baseW, cw * 0.7, ch * 0.7);
-      mannequin.style.width = `${Math.max(120, maxW)}px`;
-    }
-
-    function onReady() {
-      fitMannequin();
-      // スクロール禁止（全画面固定）
+      window.addEventListener('load', scaleOnceToFit, { once: true });
+      // ★ リサイズ時は自動追従しない（＝レスポンシブ無効）
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
-    }
-
-    window.addEventListener('load', onReady);
-    window.addEventListener('resize', fitMannequin);
-    mannequin.addEventListener('load', fitMannequin);
+    })();
   </script>
 </body>
 </html>
