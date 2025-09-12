@@ -1,200 +1,165 @@
+/* ===== Base ===== */
 :root{
-  --board-w: 1280px;
-  --board-h: 820px;
-
-  --bg: #e8e2d7;
-  --ink: #1b1b1b;
-  --panel: #ede7dd;
-  --stage: #ffffff;
-  --stage-border: #cfc9bf;
-
-  --shadow: 0 2px 2px rgba(0,0,0,.06);
-  --r: 14px;
+  --bg:#f7f3f0;
+  --ink:#1b1b1b;
+  --rail:#ffffff;
+  --line:#d4cbc5;
+  --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 18px rgba(0,0,0,.06);
+  --board-w:1280px;
+  --board-h:820px;
+  --radius:12px;
+  --rail-w: 280px;           /* right rail area (tools + layers) */
+  --palette-w: 56px;         /* vertical color bar */
+  --io-row-h: 40px;
+  --tool-btn: 36px;
 }
-
-*{ box-sizing:border-box; }
-html,body{
-  height:100%;
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
   margin:0;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Hiragino Sans", "Noto Sans JP", sans-serif;
   background:var(--bg);
   color:var(--ink);
-  font-family:"Inter","Helvetica Neue",Arial,system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
-  overflow:auto; /* スクロール可 */
+  overflow:hidden;
 }
 
-/* ===== 画面フィット（比率ズレ対策：dvh使用） ===== */
-.fit{
-  min-height:100dvh;
-  display:grid;
-  place-items:center;
-}
-.fit > .board{
-  width:var(--board-w);
-  height:var(--board-h);
-  transform-origin: top center;
-  --sx: calc(100vw  / var(--board-w));
-  --sy: calc(100dvh / var(--board-h));
-  --s:  min(var(--sx), var(--sy));
-  transform: scale(calc(var(--s) * 0.90));
-}
-
-/* ===== ボード ===== */
-.board{
-  display:grid;
-  grid-template-rows: 78px 1fr;
-  gap:14px;
-}
-
-/* ===== ヘッダー ===== */
+/* ===== Header ===== */
 .topbar{
-  display:grid;
-  grid-template-columns: 1fr 520px;
-  align-items:end;
-  padding: 10px 8px 0;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 24px;
 }
-.app-title{ margin:0; font-weight:500; font-size:20px; letter-spacing:.2px; }
+.topbar .title{font-weight:600; font-size:20px;}
+.topbar .next-step .next{font-size:14px; text-decoration:none; color:#666}
+.topbar .next-step .next:hover{text-decoration:underline}
 
-.top-right{
-  display:grid;
-  grid-template-rows: 18px 1fr; /* 上=Next / 下=contents */
-  gap:6px;
+/* ===== Fit area (auto scale) ===== */
+.fit{
+  width:100vw; height:calc(100vh - 56px);
+  display:grid; place-items:center;
 }
-.nextline{ display:flex; justify-content:flex-end; }
-.next-btn{
-  font-size:11px;
-  color:#1b1b1b;
-  text-decoration:none;
-  opacity:.9;
-}
-.contents-buttons{
-  display:flex; gap:12px; justify-content:flex-end; align-items:center;
-}
-.contents-buttons img{ width:22px; height:22px; image-rendering:-webkit-optimize-contrast; }
-
-/* ===== メイン ===== */
-.main{
-  display:grid;
-  grid-template-columns: 1fr 360px; /* 右パネルがスクショ比 */
-  gap:16px;
-}
-
-/* === キャンバス === */
-.stage{
-  background:var(--stage);
-  border:1px solid var(--stage-border);
-  border-radius:var(--r);
+.board{
+  width: min(var(--board-w), 96vw);
+  aspect-ratio: var(--board-w) / var(--board-h);
+  height: auto;
+  background:#fff;
+  border:2px solid var(--line);
+  border-radius:16px;
+  box-shadow: var(--shadow);
   position:relative;
-  padding:16px;
-  min-height:0;
-}
-.mannequin{
-  position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  width:240px; height:auto; opacity:.96;
-  image-rendering:-webkit-optimize-contrast;
+  overflow:hidden;
+  padding-right: calc(var(--rail-w) + var(--palette-w));
 }
 
-/* ズーム（ラベル→バーの縦） */
-.opacity-ui{
-  position:absolute; right:42px; top:42%;
-  display:grid; gap:6px; justify-items:center;
+/* ===== Canvas Area ===== */
+.canvas-area{
+  position:absolute; inset:0;
+  padding:24px;
+  padding-right: calc(var(--rail-w) + var(--palette-w) + 24px);
 }
-.zoom-label{
-  font-size:11px; background:#fff; border:1px solid #ddd8cf; border-radius:6px; padding:2px 6px;
+.paper{
+  position:relative;
+  width:100%; height:100%;
+  background: #fff;
+  border:2px solid var(--line);
+  border-radius:12px;
 }
-.zoom-bar{
-  width:120px; height:10px; background:#ece8df; border:1px solid #d7d1c7; border-radius:8px; position:relative;
+#mannequin{
+  position:absolute; left:50%; top:50%;
+  width:240px; height:auto;
+  transform: translate(-50%,-50%) scale(1);
+  transform-origin:center;
+  transition: transform .1s linear;
+  pointer-events:none;
+  user-select:none;
 }
-.zoom-bar i{
-  position:absolute; top:-3px; width:14px; height:14px; background:#5ea3ff; border:1px solid #507fbe; border-radius:50%;
-}
-
-/* === 右パネル === */
-.rightpanel{
-  background:var(--panel);
-  border:1px solid #d9d2c6;
+.hud{
+  position:absolute; right:24px; top:50%;
+  transform:translateY(-50%);
+  background:#ffffffea;
+  border:1px solid var(--line);
   border-radius:10px;
   padding:10px 12px;
+  box-shadow: var(--shadow);
+  width:140px;
+  backdrop-filter:saturate(140%) blur(4px);
+}
+.hud-row{display:flex; align-items:center; gap:8px; margin:6px 0;}
+.hud-label{font-size:12px; color:#333; width:48px; text-align:right;}
+.hud input[type="range"]{width:100%}
+
+/* ===== Right Rail ===== */
+.right-rail{
+  position:absolute; top:0; right:0; bottom:0;
+  width: calc(var(--rail-w) + var(--palette-w));
+  display:flex; gap:8px; align-items:stretch; justify-content:flex-end;
+  padding:16px;
+}
+
+/* IO row (download/upload/save) */
+.io-row{
+  position:absolute;
+  top:18px; right: calc(var(--palette-w) + 24px);
+  display:flex; gap:12px;
+}
+.io-btn{
+  width:32px; height:32px; border:none; background:#fff; border-radius:8px;
+  display:grid; place-items:center; box-shadow: var(--shadow); cursor:pointer;
+}
+.io-btn img{max-width:20px; height:auto; display:block}
+
+/* Two columns (layers + tools) */
+.two-cols{
+  position:absolute;
+  top:64px; bottom:16px;
+  right: calc(var(--palette-w) + 16px);
+  width: var(--rail-w);
   display:grid;
-  grid-template-rows: auto auto auto; /* IO / row2 / palette */
+  grid-template-columns: 1fr auto;
+  gap:16px;
+}
+
+/* Layers column */
+.layers-col{
+  display:grid;
+  grid-template-rows: repeat(5, 1fr);
   gap:12px;
 }
-
-/* IO */
-.quick-io{ display:flex; gap:10px; justify-content:flex-end; }
-.quick-io img{ width:20px; height:20px; }
-
-/* row2：Layers | Tools（横並び） */
-.row2{
-  display:grid;
-  /* ★ 修正：左を細く（140px）して縦長比を強調 */
-  grid-template-columns: 140px 92px;
-  gap:16px;
-  align-items:stretch;
-}
-
-/* Layers（カードを縦に複数） */
-.layers{
-  display:grid;
-  /* ★ 修正：カードの高さを 220px に拡大 */
-  grid-auto-rows: 220px;
-  gap:10px;
-  overflow:auto;
-  padding-right:4px;
-}
 .layer-card{
-  background:#fff; border:1px solid #dcd6cb; border-radius:10px; box-shadow:var(--shadow);
-  display:grid; grid-template-rows:22px 1fr 24px;
+  border:1px solid var(--line); border-radius:10px; background:#fff; display:grid;
+  grid-template-rows: 28px 1fr 28px;
+  box-shadow: var(--shadow);
+  overflow:hidden;
 }
-.layer-head{
-  display:flex; gap:10px; align-items:center; justify-content:flex-end;
-  padding:4px 8px 0;
+.layer-head, .layer-foot{
+  display:flex; align-items:center; gap:8px; padding:4px 6px; justify-content:flex-start;
 }
-.layer-head img{ width:16px; height:16px; }
+.layer-head img, .layer-foot img{height:18px; width:auto; display:block}
+.layer-body{background:#faf9f7}
 
-/* ★ 追加：上段の「1マス」スペーサー */
-.gap-1{ display:inline-block; width:12px; }
-
-.layer-body{
-  /* ★ 修正：余白を抑え、縦長枠を確保 */
-  margin:6px 6px;
-  min-height:170px;
-  border:1px dashed #e7e1d8; border-radius:6px;
-  background:repeating-conic-gradient(#faf7f0 0 25%, #f4efe7 0 50%) 50%/10px 10px;
-}
-.layer-foot{
-  display:flex; gap:8px; align-items:center; justify-content:flex-end; padding:0 8px 6px;
-}
-.layer-foot img{ width:16px; height:16px; }
-
-/* Tools（縦ボタン列） */
-.tools{
-  display:grid;
-  grid-auto-rows: 36px;
-  gap:8px;
-  justify-items:end;
+/* Tools column */
+.tools-col{
+  display:flex; flex-direction:column; gap:8px;
 }
 .tool{
-  width:36px; height:36px; background:#fff; border:1px solid #ddd8cf; border-radius:8px;
-  display:grid; place-items:center; box-shadow:var(--shadow);
+  width:36px; height:36px; border:1px solid var(--line); background:#fff; border-radius:8px;
+  display:grid; place-items:center; cursor:pointer; box-shadow: var(--shadow);
 }
-.tool img{ width:20px; height:20px; }
-/* 1:選択 / 2:ダイレクト選択 → 形をスクショ寄せ（角浅め・アイコンやや小さめ） */
-.tool.t-select,
-.tool.t-direct{ border-radius:6px; }
-.tool.t-select img,
-.tool.t-direct img{ width:18px; height:18px; }
+.tool img{max-width:18px; height:auto; display:block}
 
-/* Palette（Toolsの“下” / 1マス分の余白を明示） */
-.palette{
-  margin-top:8px;            /* ★ ツールとの間に1マス */
-  display:grid; grid-auto-rows:28px; gap:8px; justify-items:end; align-content:start;
+/* Color palette vertical rail */
+.palette-rail{
+  position:absolute; top:64px; bottom:16px; right:16px; width: var(--palette-w);
+  border:1px solid var(--line); border-radius:12px; background:#fff; box-shadow: var(--shadow);
+  display:flex; flex-direction:column; align-items:center; padding:8px; gap:8px;
 }
-.palette i{
-  width:28px; height:28px; border-radius:50%;
-  background:var(--c,#ccc); border:1px solid rgba(0,0,0,.18);
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
+.swatch{
+  width:28px; height:28px; border-radius:999px; border:1px solid #ddd; cursor:pointer;
+  background: var(--sw, #ccc);
 }
+.swatch[data-color]{ background: attr(data-color color, #888); } /* fallback for older */
+.swatch.active{ outline:3px solid #4a90e2; outline-offset:2px;}
 
-/* 画像にじみ軽減 */
-img{ image-rendering: -webkit-optimize-contrast; }
+/* Responsive guard */
+@media (max-width: 1200px){
+  :root{ --board-w: 1100px; --board-h: 760px; }
+}
