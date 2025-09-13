@@ -198,3 +198,16 @@ html,body{
 
 /* 画像にじみ軽減 */
 img{ image-rendering: -webkit-optimize-contrast; }
+/* 旧 .quick-io を置換 */
+.quick-io{
+  /* row2 と同じ列幅で2カラム化：左=Layers列幅/右=Tools列幅 */
+  display:grid;
+  grid-template-columns: 140px 92px;
+  gap:16px;
+  align-items:center;
+}
+
+/* 追加 */
+.io-left{ display:flex; gap:10px; justify-content:flex-start; }
+.io-right{ display:flex; justify-content:flex-end; }
+.quick-io img{ width:20px; height:20px; } /* 既存定義があればそのままでOK */
