@@ -12,16 +12,16 @@
     <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
 
     <nav class="header-right">
-      <!-- contents buttons（Gitのpngをそのまま使用） -->
+      <!-- contents buttons（Gitのpng使用） -->
       <div class="contents-buttons" aria-label="contents">
-        <img src="create_parts/contents_button/0_home.png" alt="home" />
-        <img src="create_parts/contents_button/1_fashion-illustrations.png" alt="illustrations" />
-        <img src="create_parts/contents_button/2_fabric-matching.png" alt="fabric" />
-        <img src="create_parts/contents_button/3_clothing-design.png" alt="clothing" />
-        <img src="create_parts/contents_button/4_pattern-making.png" alt="pattern" />
-        <img src="create_parts/contents_button/5_measurement.png" alt="measure" />
-        <img src="create_parts/contents_button/6_library.png" alt="library" />
-        <img src="create_parts/contents_button/7_setting.png" alt="setting" />
+        <img src="../../create_parts/contents_button/0_home.png" alt="home" />
+        <img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="illustrations" />
+        <img src="../../create_parts/contents_button/2_fabric-matching.png" alt="fabric" />
+        <img src="../../create_parts/contents_button/3_clothing-design.png" alt="clothing" />
+        <img src="../../create_parts/contents_button/4_pattern-making.png" alt="pattern" />
+        <img src="../../create_parts/contents_button/5_measurement.png" alt="measure" />
+        <img src="../../create_parts/contents_button/6_library.png" alt="library" />
+        <img src="../../create_parts/contents_button/7_setting.png" alt="setting" />
       </div>
 
       <!-- Next Step：右上に分離 -->
@@ -29,83 +29,78 @@
     </nav>
   </header>
 
-  <!-- ===== 全体ボード（ブラウザーに100%で収まる） ===== -->
+  <!-- ===== ボード：100%表示でブラウザーに収める ===== -->
   <main class="fit">
     <section class="board">
-      <!-- ホワイトキャンバス -->
+      <!-- キャンバス（白板） -->
       <div class="whiteboard">
-        <img id="mannequin" class="mannequin-base" src="mannequin/mannequin_woman.png" alt="mannequin" />
-        <!-- 右内側のズーム表示（固定100%） -->
+        <img id="mannequin" class="mannequin-base" src="../../mannequin/mannequin_woman.png" alt="mannequin" />
+
+        <!-- 右内側のズーム表示（ダミー） -->
         <div class="zoom-indicator">
           <span>100%</span>
-          <div class="bar"><i style="left: 60%"></i></div>
+          <div class="bar"><i></i></div>
         </div>
       </div>
 
-      <!-- 右パネル（stationery tool は削除） -->
+      <!-- 右パネル（stationery tool は不要なので未配置） -->
       <aside class="right-panel">
-        <!-- IO：DL / UP / SAVE（任意のpngに差し替え可） -->
+        <!-- IO（DL / UP / SAVE） -->
         <div class="io-row" aria-label="io">
-          <img src="create_parts/create_button/download.png" alt="download" />
-          <img src="create_parts/create_button/upload.png"   alt="upload" />
-          <img src="create_parts/create_button/save.png"     alt="save" />
+          <img src="../../create_parts/create_button/download.png" alt="download" />
+          <img src="../../create_parts/create_button/upload.png"   alt="upload" />
+          <img src="../../create_parts/create_button/save.png"     alt="save" />
         </div>
 
         <!-- 縦長レイヤーパネル：表示・非表示・（1マス空け）・ロック -->
         <div class="layers" aria-label="layers">
-          <!-- 5本分のレイヤーカード -->
+          <!-- 5枚 -->
           <div class="layer-card">
             <div class="layer-head">
-              <button class="btn-eye on"    title="表示">
-                <img src="create_parts/layer_button/layerdisplay.png" alt="display">
-              </button>
-              <button class="btn-eye off"   title="非表示">
-                <img src="create_parts/layer_button/layerhidden.png"  alt="hidden">
-              </button>
+              <button class="btn-eye on"  title="表示"><img src="../../create_parts/layer_button/layerdisplay.png" alt=""></button>
+              <button class="btn-eye off" title="非表示"><img src="../../create_parts/layer_button/layerhidden.png"  alt=""></button>
               <span class="gap"></span>
-              <button class="btn-lock"      title="ロック">
-                <img src="create_parts/layer_button/layerlock.png"    alt="lock">
-              </button>
+              <button class="btn-lock"    title="ロック"><img src="../../create_parts/layer_button/layerlock.png"    alt=""></button>
             </div>
             <div class="layer-body"></div>
           </div>
 
           <div class="layer-card">
             <div class="layer-head">
-              <button class="btn-eye on"><img src="create_parts/layer_button/layerdisplay.png" alt=""></button>
-              <button class="btn-eye off"><img src="create_parts/layer_button/layerhidden.png"  alt=""></button>
+              <button class="btn-eye on"><img src="../../create_parts/layer_button/layerdisplay.png" alt=""></button>
+              <button class="btn-eye off"><img src="../../create_parts/layer_button/layerhidden.png"  alt=""></button>
               <span class="gap"></span>
-              <button class="btn-lock"><img src="create_parts/layer_button/layerlock.png" alt=""></button>
+              <button class="btn-lock"><img src="../../create_parts/layer_button/layerlock.png" alt=""></button>
             </div>
             <div class="layer-body"></div>
           </div>
 
           <div class="layer-card">
             <div class="layer-head">
-              <button class="btn-eye on"><img src="create_parts/layer_button/layerdisplay.png" alt=""></button>
-              <button class="btn-eye off"><img src="create_parts/layer_button/layerhidden.png"  alt=""></button>
+              <button class="btn-eye on"><img src="../../create_parts/layer_button/layerdisplay.png" alt=""></button>
+              <button class="btn-eye off"><img src="../../create_parts/layer_button/layerhidden.png"  alt=""></button>
               <span class="gap"></span>
-              <button class="btn-lock"><img src="create_parts/layer_button/layerlock.png" alt=""></button>
+              <button class="btn-lock"><img src="../../create_parts/layer_button/layerlock.png" alt=""></button>
             </div>
             <div class="layer-body"></div>
           </div>
 
           <div class="layer-card">
             <div class="layer-head">
-              <button class="btn-eye on"><img src="create_parts/layer_button/layerdisplay.png" alt=""></button>
-              <button class="btn-eye off"><img src="create_parts/layer_button/layerhidden.png"  alt=""></button>
+              <button class="btn-eye on"><img src="../../create_parts/layer_button/layerdisplay.png" alt=""></button>
+              <button class="btn-eye off"><img src="../../create_parts/layer_button/layerhidden.png"  alt=""></button>
               <span class="gap"></span>
-              <button class="btn-lock"><img src="create_parts/layer_button/layerlock.png" alt=""></button>
+              <button class="btn-lock"><img src="../../create_parts/layer_button/layerlock.png" alt=""></button>
             </div>
             <div class="layer-body"></div>
           </div>
 
           <div class="layer-card">
             <div class="layer-head">
-              <button class="btn-eye on"><img src="create_parts/layer_button/layerdisplay.png" alt=""></button>
-              <button class="btn-eye off"><img src="create_parts/layer_button/layerhidden.png"  alt=""></button>
+              <button class="btn-eye on"><img src="../../create_parts/layer_button/layerdisplay.png" alt=""></button>
+              <button class="btn-eye off"><img src="../../create_parts/layer_button/layerhidden.png"  alt=""></button>
               <span class="gap"></span>
-              <button class="btn-lock"><img src="create_parts/layer_button/layerlock.png" alt=""></button>
+              <button class="btn-lock"><img src="../../create_parts/layer_button/layerlock.png" alt=""></button>
             </div>
             <div class="layer-body"></div>
           </div>
@@ -137,42 +132,34 @@
   </main>
 
   <script>
-    // Next Step（必要に応じて遷移先を設定）
+    // Next Step（必要なら遷移先URLへ）
     document.getElementById('nextStepBtn').addEventListener('click', () => {
-      // location.href = 'next.html';
+      // location.href = '../next/next.html';
       alert('Next Step');
     });
 
-    // レイヤー：表示/非表示/ロックの簡易トグル
+    // レイヤー表示/非表示/ロックのトグル
     document.querySelectorAll('.layer-card').forEach(card => {
       const body = card.querySelector('.layer-body');
       const btnOn  = card.querySelector('.btn-eye.on');
       const btnOff = card.querySelector('.btn-eye.off');
       const btnLock= card.querySelector('.btn-lock');
 
-      function setHidden(hide){
-        body.classList.toggle('hidden', hide);
-        btnOn.classList.toggle('active', !hide);
-        btnOff.classList.toggle('active', hide);
+      function setHidden(h){
+        body.classList.toggle('hidden', h);
+        btnOn.classList.toggle('active', !h);
+        btnOff.classList.toggle('active', h);
       }
-      function setLocked(lock){
-        body.classList.toggle('locked', lock);
-        btnLock.classList.toggle('active', lock);
+      function setLocked(l){
+        body.classList.toggle('locked', l);
+        btnLock.classList.toggle('active', l);
       }
       btnOn.addEventListener('click',  () => setHidden(false));
       btnOff.addEventListener('click', () => setHidden(true));
       btnLock.addEventListener('click', () => setLocked(!body.classList.contains('locked')));
     });
 
-    // パレット選択
-    document.querySelectorAll('.swatch').forEach(s => {
-      s.addEventListener('click', () => {
-        document.querySelectorAll('.swatch').forEach(x => x.classList.remove('sel'));
-        s.classList.add('sel');
-      });
-    });
-
-    // 100%表示固定：スクロール禁止
+    // 100%表示固定（iOS慣性スクロール抑止）
     document.addEventListener('touchmove', e => e.preventDefault(), { passive:false });
   </script>
 </body>
