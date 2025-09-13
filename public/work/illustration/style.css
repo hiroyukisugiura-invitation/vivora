@@ -22,7 +22,7 @@ html,body{
   overflow:auto; /* スクロール可 */
 }
 
-/* 画面フィット（非レスポンシブ固定ボードを自動スケール） */
+/* 画面フィット（固定ボードを自動スケール） */
 .fit{
   min-height:100dvh;
   display:grid;
@@ -35,14 +35,14 @@ html,body{
   --sx: calc(100vw  / var(--board-w));
   --sy: calc(100dvh / var(--board-h));
   --s:  min(var(--sx), var(--sy));
-  transform: scale(calc(var(--s) * 0.90));
+  transform: scale(calc(var(--s) * 0.98)); /* 0.90→0.98 */
 }
 
 /* ボード */
 .board{
   display:grid;
   grid-template-rows: 78px 1fr;
-  gap:14px;
+  gap:10px; /* 14→10 */
 }
 
 /* ヘッダー */
@@ -50,7 +50,7 @@ html,body{
   display:grid;
   grid-template-columns: 1fr 520px;
   align-items:end;
-  padding: 10px 8px 0;
+  padding: 6px 8px 0; /* 10px→6px */
 }
 .app-title{ margin:0; font-weight:500; font-size:20px; letter-spacing:.2px; }
 
@@ -74,7 +74,7 @@ html,body{
 /* メイン */
 .main{
   display:grid;
-  grid-template-columns: 1fr 360px; /* 右パネル幅 */
+  grid-template-columns: 1fr 360px; /* 右レール幅 */
   gap:16px;
 }
 
@@ -109,14 +109,14 @@ html,body{
   position:absolute; top:-3px; width:14px; height:14px; background:#5ea3ff; border:1px solid #507fbe; border-radius:50%;
 }
 
-/* 右パネル */
+/* 右レール：背景ボードを廃止 */
 .rightpanel{
-  background:var(--panel);
-  border:1px solid #d9d2c6;
-  border-radius:10px;
-  padding:10px 12px;
+  background: transparent;  /* ← 右の“ベージュ板”なし */
+  border: none;
+  border-radius: 0;
+  padding: 0;
   display:grid;
-  grid-template-rows: auto auto auto; /* IO / row2 / palette(内部用) */
+  grid-template-rows: auto auto; /* IO / row2 */
   gap:12px;
 }
 
@@ -124,10 +124,10 @@ html,body{
 .quick-io{ display:flex; gap:10px; justify-content:flex-end; }
 .quick-io img{ width:20px; height:20px; }
 
-/* 行2：Layers | Tools */
+/* 行2：Layers | Tools+Palette */
 .row2{
   display:grid;
-  grid-template-columns: 140px 92px; /* 左細め / 右ツール列 */
+  grid-template-columns: 132px 88px; /* 右カラムを少し細く */
   gap:16px;
   align-items:stretch;
 }
@@ -135,7 +135,7 @@ html,body{
 /* Layers（縦長） */
 .layers{
   display:grid;
-  grid-auto-rows: 220px; /* 縦長比 */
+  grid-auto-rows: 240px; /* 220→240 */
   gap:10px;
   overflow:auto;
   padding-right:4px;
@@ -150,12 +150,12 @@ html,body{
 }
 .layer-head img{ width:16px; height:16px; }
 
-/* 表示/非表示 と ロックの間に1マス */
+/* 表示/非表示 と ロックの間に“1マス” */
 .gap-1{ display:inline-block; width:12px; }
 
 .layer-body{
   margin:6px 6px;
-  min-height:170px;
+  min-height:188px; /* 170→188 */
   border:1px dashed #e7e1d8; border-radius:6px;
   background:repeating-conic-gradient(#faf7f0 0 25%, #f4efe7 0 50%) 50%/10px 10px;
 }
@@ -177,12 +177,12 @@ html,body{
 }
 .tool img{ width:20px; height:20px; }
 .tool.t-select,
-.tool.t-direct{ border-radius:6px; } /* 角浅め */
+.tool.t-direct{ border-radius:6px; }              /* 角浅め */
 .tool.t-select img,
-.tool.t-direct img{ width:18px; height:18px; }
+.tool.t-direct img{ width:18px; height:18px; }    /* アイコン小さめ */
 
 /* Tools 下に 1マス空けてパレット */
-.stack-gap-1{ height:8px; }
+.stack-gap-1{ height:12px; }                      /* 8→12 */
 
 .palette{
   margin-top:8px;
