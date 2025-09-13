@@ -1,4 +1,6 @@
-/* 画面全体の背景は白。余白ゼロ、スクロールなし（固定ボードをスケール） */
+/* illustration.css */
+
+/* 画面全体（固定ボードをスケール表示。スクロールさせない） */
 html, body {
   height: 100%;
   margin: 0;
@@ -18,7 +20,7 @@ html, body {
   text-decoration: none;
 }
 
-/* スケール対象の外枠 */
+/* スケール親 */
 #fit {
   width: 100vw;
   height: 100vh;
@@ -26,7 +28,7 @@ html, body {
   place-items: center;
 }
 
-/* 固定ボード：1280×820 を基準。transform-origin は左上固定。 */
+/* 固定ボード：1280×820。左上基準で拡大縮小 */
 #board {
   width: 1280px;
   height: 820px;
@@ -45,13 +47,11 @@ html, body {
   align-items: center;
   justify-content: space-between;
 }
-
 .title {
   margin: 0;
   font-size: 18px;
   font-weight: 500;
 }
-
 .contents img {
   height: 22px;
   margin-left: 10px;
@@ -60,11 +60,11 @@ html, body {
   user-select: none;
 }
 
-/* キャンバスの白枠（角丸・薄いグレー枠） */
+/* キャンバス白枠 */
 .canvas {
   position: absolute;
   left: 20px;
-  right: 334px;            /* 右パネルの幅ぶんを空ける */
+  right: 334px;              /* 右パネルぶん */
   top: 60px;
   bottom: 20px;
   background: #fff;
@@ -73,7 +73,7 @@ html, body {
   overflow: hidden;
 }
 
-/* マネキンを中央に配置（サイズはスクショ比） */
+/* マネキン：中央に固定 */
 .mannequin {
   position: absolute;
   width: 180px;
@@ -106,7 +106,7 @@ html, body {
   position: absolute;
   top: 60px;
   right: 20px;
-  width: 294px;           /* ツール+レイヤー+パレットの合計横幅 */
+  width: 294px;
   height: calc(100% - 80px);
   display: grid;
   grid-template-columns: 60px 180px 54px; /* 左=ツール / 中=レイヤー / 右=パレット */
@@ -138,12 +138,12 @@ html, body {
   border-radius: 10px;
   padding: 10px;
   display: grid;
-  grid-auto-rows: 110px;      /* カード縦の目安 */
+  grid-auto-rows: 110px;
   gap: 12px;
-  overflow: hidden;           /* 内部に白いボードを作らない（要求通り） */
+  overflow: hidden;   /* 内側の白ボードは作らない */
 }
 
-/* レイヤーカード（中身はヘッダーのみ） */
+/* レイヤーカード */
 .layer-card {
   border: 1px solid #d9d9d9;
   border-radius: 10px;
@@ -158,7 +158,7 @@ html, body {
   right: 8px;
   height: 22px;
   display: grid;
-  grid-template-columns: 18px 18px 1fr 18px;  /* 表示・非表示・１マル開けて・ロック */
+  grid-template-columns: 18px 18px 1fr 18px; /* 表示・非表示・１マル開けて・ロック */
   align-items: center;
   gap: 8px;
 }
