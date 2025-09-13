@@ -26,29 +26,27 @@
     <div id="fit">
       <div id="board" role="application" aria-label="Illustration Board">
 
-        <!-- キャンバス枠：X:3-82 , Y:10-68（右パネルを収めるため幅を再設定） -->
-        <div class="grid-xy canvas-frame" style="--x1:3; --x2:82; --y1:10; --y2:68;"></div>
+        <!-- キャンバス：X:3-82 , Y:10-68（内部にマネキン＆ズーム） -->
+        <section class="grid-xy canvas-frame" style="--x1:3; --x2:82; --y1:10; --y2:68;">
+          <!-- マネキン 240px センター -->
+          <img id="mannequin" class="mannequin-center"
+               src="/mannequin/mannequin_woman.png" alt="Mannequin" />
 
-        <!-- マネキン：X:38-51 , Y:19-61 -->
-        <img id="mannequin" class="grid-xy mannequin"
-             style="--x1:38; --x2:51; --y1:19; --y2:61;"
-             src="/mannequin/mannequin_woman.png" alt="Mannequin" />
-
-        <!-- ズーム/不透明度：キャンバス内右寄せ -->
-        <div class="grid-xy zoom-pane" style="--x1:70; --x2:80; --y1:36; --y2:42;">
-          <div class="zoom-row">
-            <span id="zoomLabel">100 %</span>
-            <input id="zoomRange" type="range" min="25" max="200" value="100" />
+          <!-- ズーム/不透明度（キャンバス内右） -->
+          <div class="zoom-pane">
+            <div class="zoom-row">
+              <span id="zoomLabel">100 %</span>
+              <input id="zoomRange" type="range" min="25" max="200" value="100" />
+            </div>
+            <div class="opacity-row">
+              <span>Opacity</span>
+              <input id="opacityRange" type="range" min="0" max="100" value="100" />
+            </div>
           </div>
-          <div class="opacity-row">
-            <span id="opacityLabel">Opacity</span>
-            <input id="opacityRange" type="range" min="0" max="100" value="100" />
-          </div>
-        </div>
+        </section>
 
-        <!-- 右パネル：X:84-99 , Y:10-68（幅15セルでLayers+Stationeryを並列表示） -->
+        <!-- 右パネル：X:84-99 , Y:10-68 -->
         <aside class="grid-xy right-panel" style="--x1:84; --x2:99; --y1:10; --y2:68;">
-
           <!-- Row1: IO -->
           <div class="io-row">
             <button class="io"><img src="/create_parts/create_button/download.png" alt="download"/></button>
@@ -58,14 +56,14 @@
 
           <!-- Row2: 左=Layers / 右=Stationery -->
           <div class="panel-row">
-            <!-- Layers(×5) -->
+            <!-- Layers ×5（白ボード無し／表示-非表示とロックの間を1マス空け） -->
             <div class="layers-column">
-              <!-- layer-card を5つ -->
+              <!-- card×5 -->
               <div class="layer-card">
                 <div class="layer-head">
                   <img src="/create_parts/layer_button/layerdisplay.png" alt="display"/>
                   <img src="/create_parts/layer_button/layerhidden.png"  alt="hidden"/>
-                  <img src="/create_parts/layer_button/layerlock.png"    alt="lock" class="lock"/>
+                  <img class="lock" src="/create_parts/layer_button/layerlock.png" alt="lock"/>
                 </div>
                 <div class="layer-body"></div>
                 <div class="layer-foot">
@@ -75,87 +73,106 @@
                   <img src="/create_parts/layer_button/layerdestruction.png"  alt="delete"/>
                 </div>
               </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
+              <div class="layer-card"><div class="layer-head">
                   <img src="/create_parts/layer_button/layerdisplay.png" alt="display"/>
                   <img src="/create_parts/layer_button/layerhidden.png"  alt="hidden"/>
-                  <img src="/create_parts/layer_button/layerlock.png"    alt="lock" class="lock"/>
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
+                  <img class="lock" src="/create_parts/layer_button/layerlock.png" alt="lock"/>
+                </div><div class="layer-body"></div><div class="layer-foot">
                   <img src="/create_parts/layer_button/layerpanelplus.png"    alt="plus"/>
                   <img src="/create_parts/layer_button/layerreproduction.png" alt="duplicate"/>
                   <img src="/create_parts/layer_button/layerintegration.png"  alt="merge"/>
                   <img src="/create_parts/layer_button/layerdestruction.png"  alt="delete"/>
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
+                </div></div>
+              <div class="layer-card"><div class="layer-head">
                   <img src="/create_parts/layer_button/layerdisplay.png" alt="display"/>
                   <img src="/create_parts/layer_button/layerhidden.png"  alt="hidden"/>
-                  <img src="/create_parts/layer_button/layerlock.png"    alt="lock" class="lock"/>
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
+                  <img class="lock" src="/create_parts/layer_button/layerlock.png" alt="lock"/>
+                </div><div class="layer-body"></div><div class="layer-foot">
                   <img src="/create_parts/layer_button/layerpanelplus.png"    alt="plus"/>
                   <img src="/create_parts/layer_button/layerreproduction.png" alt="duplicate"/>
                   <img src="/create_parts/layer_button/layerintegration.png"  alt="merge"/>
                   <img src="/create_parts/layer_button/layerdestruction.png"  alt="delete"/>
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
+                </div></div>
+              <div class="layer-card"><div class="layer-head">
                   <img src="/create_parts/layer_button/layerdisplay.png" alt="display"/>
                   <img src="/create_parts/layer_button/layerhidden.png"  alt="hidden"/>
-                  <img src="/create_parts/layer_button/layerlock.png"    alt="lock" class="lock"/>
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
+                  <img class="lock" src="/create_parts/layer_button/layerlock.png" alt="lock"/>
+                </div><div class="layer-body"></div><div class="layer-foot">
                   <img src="/create_parts/layer_button/layerpanelplus.png"    alt="plus"/>
                   <img src="/create_parts/layer_button/layerreproduction.png" alt="duplicate"/>
                   <img src="/create_parts/layer_button/layerintegration.png"  alt="merge"/>
                   <img src="/create_parts/layer_button/layerdestruction.png"  alt="delete"/>
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
+                </div></div>
+              <div class="layer-card"><div class="layer-head">
                   <img src="/create_parts/layer_button/layerdisplay.png" alt="display"/>
                   <img src="/create_parts/layer_button/layerhidden.png"  alt="hidden"/>
-                  <img src="/create_parts/layer_button/layerlock.png"    alt="lock" class="lock"/>
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
+                  <img class="lock" src="/create_parts/layer_button/layerlock.png" alt="lock"/>
+                </div><div class="layer-body"></div><div class="layer-foot">
                   <img src="/create_parts/layer_button/layerpanelplus.png"    alt="plus"/>
                   <img src="/create_parts/layer_button/layerreproduction.png" alt="duplicate"/>
                   <img src="/create_parts/layer_button/layerintegration.png"  alt="merge"/>
                   <img src="/create_parts/layer_button/layerdestruction.png"  alt="delete"/>
-                </div>
-              </div>
+                </div></div>
             </div>
 
-            <!-- Stationery（レイヤー系なし） -->
+            <!-- Stationery（design_button → 無ければ object_btn にフォールバック） -->
             <div class="tool-column">
-              <button class="tool"><img src="/create_parts/design_button/select.png"        alt="Select"/></button>
-              <button class="tool"><img src="/create_parts/design_button/direct_select.png" alt="Direct Select"/></button>
-              <button class="tool"><img src="/create_parts/design_button/square.png"        alt="Square"/></button>
-              <button class="tool"><img src="/create_parts/design_button/circle.png"        alt="Circle"/></button>
-              <button class="tool"><img src="/create_parts/design_button/brush.png"         alt="Brush"/></button>
-              <button class="tool"><img src="/create_parts/design_button/pen.png"           alt="Pen"/></button>
-              <button class="tool"><img src="/create_parts/design_button/circlebrush.png"   alt="Circle Brush"/></button>
-              <button class="tool"><img src="/create_parts/design_button/ballpointpen.png"  alt="Ballpoint"/></button>
-              <button class="tool"><img src="/create_parts/design_button/markerpen.png"     alt="Marker"/></button>
-              <button class="tool"><img src="/create_parts/design_button/eraser.png"        alt="Eraser"/></button>
-              <button class="tool"><img src="/create_parts/design_button/sentence.png"      alt="Text"/></button>
-              <button class="tool"><img src="/create_parts/design_button/opasity_ber.png"   alt="Opacity Bar"/></button>
-              <button class="tool"><img src="/create_parts/design_button/graph_paper.png"   alt="Graph Paper"/></button>
+              <button class="tool">
+                <img src="/create_parts/design_button/select.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/select.png';" alt="Select"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/direct_select.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/direct_select.png';" alt="Direct"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/square.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/square.png';" alt="Square"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/circle.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/circle.png';" alt="Circle"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/brush.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/brush.png';" alt="Brush"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/pen.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/pen.png';" alt="Pen"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/circlebrush.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/circlebrush.png';" alt="CircleBrush"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/ballpointpen.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/ballpointpen.png';" alt="Ballpoint"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/markerpen.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/markerpen.png';" alt="Marker"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/eraser.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/eraser.png';" alt="Eraser"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/sentence.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/sentence.png';" alt="Text"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/opasity_ber.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/opasity_ber.png';" alt="OpacityBar"/>
+              </button>
+              <button class="tool">
+                <img src="/create_parts/design_button/graph_paper.png"
+                     onerror="this.onerror=null;this.src='/create_parts/object_btn/graph_paper.png';" alt="GraphPaper"/>
+              </button>
             </div>
           </div>
 
-          <!-- Row3: カラーパレット -->
+          <!-- Row3: パレット -->
           <div class="palette">
             <button style="--c:#ffe0da"></button>
             <button style="--c:#ffc1b5"></button>
@@ -191,16 +208,16 @@
     window.addEventListener('load', fitScale);
     window.addEventListener('resize', fitScale);
 
-    // ズーム/不透明度（マネキンのみ）
-    const mannequin = document.getElementById('mannequin');
-    const zoomRange = document.getElementById('zoomRange');
-    const zoomLabel = document.getElementById('zoomLabel');
-    const opacityRange = document.getElementById('opacityRange');
+    // マネキン ズーム/不透明度
+    const mannequin   = document.getElementById('mannequin');
+    const zoomRange   = document.getElementById('zoomRange');
+    const zoomLabel   = document.getElementById('zoomLabel');
+    const opacityRange= document.getElementById('opacityRange');
 
     zoomRange.oninput = () => {
       const z = Number(zoomRange.value);
       zoomLabel.textContent = `${z} %`;
-      mannequin.style.transform = `scale(${z/100})`;
+      mannequin.style.transform = `translate(-50%,-50%) scale(${z/100})`;
     };
     opacityRange.oninput = () => {
       mannequin.style.opacity = (Number(opacityRange.value)/100).toFixed(2);
