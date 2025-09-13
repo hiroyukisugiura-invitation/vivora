@@ -211,3 +211,13 @@ img{ image-rendering: -webkit-optimize-contrast; }
 .io-left{ display:flex; gap:10px; justify-content:flex-start; }
 .io-right{ display:flex; justify-content:flex-end; }
 .quick-io img{ width:20px; height:20px; } /* 既存定義があればそのままでOK */
+/* SAVEをStationeryと右端合わせ（追記用） */
+.right-panel .quick-io{
+  display: grid;
+  grid-template-columns: var(--card-w) 1fr; /* 左=Layers幅 / 右=Tools側 */
+  gap: 10px;
+  align-items: center;
+}
+.right-panel .io-left{ display:flex; gap:10px; justify-content:flex-start; }
+.right-panel .io-right{ display:flex; justify-content:flex-end; }
+.right-panel .quick-io img{ width:20px; height:20px; display:block; }
