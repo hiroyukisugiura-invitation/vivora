@@ -221,3 +221,37 @@ img{ image-rendering: -webkit-optimize-contrast; }
 .right-panel .io-left{ display:flex; gap:10px; justify-content:flex-start; }
 .right-panel .io-right{ display:flex; justify-content:flex-end; }
 .right-panel .quick-io img{ width:20px; height:20px; display:block; }
+/* ========= SAVE & Stationery を同一右端に揃える ========= */
+.right-panel{ padding-right: 0 !important; }                  /* 右端ぴったり */
+.right-panel .panel-row{ grid-template-columns: var(--card-w) 1fr; }
+.right-panel .tool-column{ justify-items: end; }              /* ツールを右寄せ */
+.right-panel .quick-io{
+  display: grid;
+  grid-template-columns: var(--card-w) 1fr;                   /* Layers幅 / Tools幅 */
+  align-items: center;
+}
+.right-panel .io-left{ display:flex; gap:10px; justify-content:flex-start; }
+.right-panel .io-right{ display:flex; justify-content:flex-end; }
+
+/* ========= ツール背面の枠（背景・境界）を消す ========= */
+.right-panel,
+.right-panel .panel-row,
+.right-panel .tool-column{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* ========= レイヤーに掛かる白枠を消す ========= */
+.right-panel .layer-card{
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.right-panel .layer-body{
+  border-top: none !important;
+  border-bottom: none !important;
+  background: transparent !important;
+}
+
