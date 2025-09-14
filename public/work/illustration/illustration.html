@@ -1,119 +1,74 @@
-<!-- vivora_illustrations_grid.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="vivora_illustrations_grid.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="fit">
-    <div class="board">
-      <!-- タイトル：X:3-22 , Y:4-4 -->
-      <h1 class="g title" style="--x1:3; --x2:22; --y1:4; --y2:4;">Vivora Fashion Illustration 2025</h1>
+  <div class="board">
+    <!-- タイトル -->
+    <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-      <!-- コンテンツボタン：X:73.5-93 , Y:4-5 -->
-      <nav class="g contents" style="--x1:73.5; --x2:93; --y1:4; --y2:5;" aria-label="contents">
-        <img src="../../create_parts/contents_button/0_home.png" alt="home" />
-        <img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="illustrations" />
-        <img src="../../create_parts/contents_button/2_fabric-matching.png" alt="fabric" />
-        <img src="../../create_parts/contents_button/3_clothing-design.png" alt="design" />
-        <img src="../../create_parts/contents_button/4_pattern-creation.png" alt="pattern" />
-        <img src="../../create_parts/contents_button/5_grading.png" alt="grading" />
-        <img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="print-cut" />
-        <img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="kids" />
-      </nav>
+    <!-- コンテンツボタン -->
+    <div class="contents-buttons">
+      <img src="create_parts/contents_button/0_home.png" alt="home">
+      <img src="create_parts/contents_button/1_fashion-illustrations.png" alt="fashion">
+      <img src="create_parts/contents_button/2_fabric-matching.png" alt="fabric">
+      <img src="create_parts/contents_button/3_clothing-design.png" alt="design">
+      <img src="create_parts/contents_button/4_inspiration.png" alt="inspiration">
+      <img src="create_parts/contents_button/5_ai-assistant.png" alt="assistant">
+    </div>
 
-      <!-- DL/UP/SAVE：X:97-97 , Y:8-12 -->
-      <div class="g io" style="--x1:97; --x2:97; --y1:8; --y2:12;">
-        <img src="../../create_parts/create_button/download.png" alt="download" />
-        <img src="../../create_parts/create_button/upload.png"   alt="upload" />
-        <img src="../../create_parts/create_button/save.png"     alt="save" />
-      </div>
+    <!-- Upload / Download / Save -->
+    <div class="io-buttons">
+      <img src="create_parts/create_button/download.png" alt="download">
+      <img src="create_parts/create_button/upload.png" alt="upload">
+      <img src="create_parts/create_button/save.png" alt="save">
+    </div>
 
-      <!-- キャンバス：X:3-93 , Y:8-68 -->
-      <section class="g stage" style="--x1:3; --x2:93; --y1:8; --y2:68;" aria-label="canvas"></section>
+    <!-- キャンバス -->
+    <div class="canvas">
+      <img src="mannequin/mannequin_woman.png" alt="mannequin" class="mannequin">
+    </div>
 
-      <!-- マネキン：X:42-54 , Y:17-60（枠内フィット） -->
-      <img class="g mannequin"
-           style="--x1:42; --x2:54; --y1:17; --y2:60;"
-           src="../../mannequin/mannequin_woman/mannequin_woman_front.png"
-           alt="mannequin" />
+    <!-- ステーショナリーツール -->
+    <div class="stationery-tool">
+      <img src="create_parts/design_button/select.png" alt="select">
+      <img src="create_parts/design_button/direct_select.png" alt="direct">
+      <img src="create_parts/design_button/square.png" alt="square">
+      <img src="create_parts/design_button/circle.png" alt="circle">
+      <img src="create_parts/design_button/brush.png" alt="brush">
+      <img src="create_parts/design_button/pen.png" alt="pen">
+      <img src="create_parts/design_button/circlebrush.png" alt="circlebrush">
+      <img src="create_parts/design_button/ballpointpen.png" alt="ballpointpen">
+      <img src="create_parts/design_button/markerpen.png" alt="markerpen">
+      <img src="create_parts/design_button/eraser.png" alt="eraser">
+      <img src="create_parts/design_button/text.png" alt="text">
+      <img src="create_parts/design_button/grid.png" alt="grid">
+    </div>
 
-      <!-- ステーショナリーツール：X:96-98 , Y:14-39 -->
-      <aside class="g tools" style="--x1:96; --x2:98; --y1:14; --y2:39;" aria-label="tools">
-        <button class="tool" data-role="select"><img src="../../create_parts/object_btn/select.png"        alt="select" /></button>
-        <button class="tool" data-role="direct"><img src="../../create_parts/object_btn/direct_select.png" alt="direct" /></button>
-        <button class="tool"><img src="../../create_parts/object_btn/pen.png"           alt="pen" /></button>
-        <button class="tool"><img src="../../create_parts/object_btn/brush.png"         alt="brush" /></button>
-        <button class="tool"><img src="../../create_parts/object_btn/square.png"        alt="square" /></button>
-        <button class="tool"><img src="../../create_parts/object_btn/circle.png"        alt="circle" /></button>
-        <button class="tool" data-role="text"><img src="../../create_parts/object_btn/sentence.png"      alt="text" /></button>
-        <button class="tool"><img src="../../create_parts/object_btn/eraser.png"        alt="eraser" /></button>
-        <button class="tool" data-role="opacity"><img src="../../create_parts/object_btn/opasity_ber.png"   alt="opacity" /></button>
-        <button class="tool"><img src="../../create_parts/object_btn/graph_paper.png"   alt="grid" /></button>
-      </aside>
+    <!-- カラーパレット -->
+    <div class="color-panel">
+      <div class="color" style="background:#fff"></div>
+      <div class="color" style="background:#e0e0e0"></div>
+      <div class="color" style="background:#ff0"></div>
+      <div class="color" style="background:#f90"></div>
+      <div class="color" style="background:#f00"></div>
+      <div class="color" style="background:#f99"></div>
+      <div class="color" style="background:#0f0"></div>
+      <div class="color" style="background:#090"></div>
+      <div class="color" style="background:#0ff"></div>
+      <div class="color" style="background:#00f"></div>
+      <div class="color" style="background:#609"></div>
+      <div class="color" style="background:#000"></div>
+    </div>
 
-      <!-- カラーパレット：X:96-98 , Y:41-68 -->
-      <div class="g palette" style="--x1:96; --x2:98; --y1:41; --y2:68;" aria-label="palette">
-        <i style="--c:#cfcfcf"></i>
-        <i style="--c:#ffffff"></i>
-        <i style="--c:#ffe14d"></i>
-        <i style="--c:#ffb000"></i>
-        <i style="--c:#ff7676"></i>
-        <i style="--c:#ff4d6d"></i>
-        <i style="--c:#7adf98"></i>
-        <i style="--c:#00a14b"></i>
-        <i style="--c:#4b83ff"></i>
-        <i style="--c:#233a66"></i>
-        <i style="--c:#6a44a3"></i>
-        <i style="--c:#000000"></i>
-      </div>
-
-      <!-- 透明度スライダー：X:86-92 , Y:36-37.5（opacityボタンで表示） -->
-      <div id="opacity-slider" class="g opacity hidden" style="--x1:86; --x2:92; --y1:36; --y2:37.5;">
-        <span class="zl" id="zl">100 %</span>
-        <div class="zb" id="zb"><i id="zthumb"></i></div>
-      </div>
+    <!-- 透明度スライダー -->
+    <div class="opacity-slider">
+      <label>100%</label>
+      <input type="range" min="0" max="100" value="100">
     </div>
   </div>
-
-  <script>
-    // ツール選択（opacityでスライダー表示/非表示）
-    (function(){
-      const tools = document.querySelectorAll('.tools .tool');
-      const slider = document.getElementById('opacity-slider');
-      tools.forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          tools.forEach(b=>b.classList.remove('active'));
-          btn.classList.add('active');
-          if(btn.dataset.role === 'opacity'){ slider.classList.remove('hidden'); }
-          else { slider.classList.add('hidden'); }
-        });
-      });
-    })();
-
-    // スライダー（数値のみ更新）
-    (function(){
-      const bar   = document.getElementById('zb');
-      const thumb = document.getElementById('zthumb');
-      const label = document.getElementById('zl');
-      let dragging = false;
-
-      const setFromX = (x) => {
-        const r = bar.getBoundingClientRect();
-        let t = (x - r.left) / r.width;
-        if(t < 0) t = 0; if(t > 1) t = 1;
-        thumb.style.left = (t * 100) + '%';
-        label.textContent = Math.round(100 * t) + ' %';
-      };
-
-      thumb.addEventListener('mousedown', e => { dragging = true; e.preventDefault(); });
-      window.addEventListener('mouseup',  () => dragging = false);
-      window.addEventListener('mousemove', e => { if(dragging) setFromX(e.clientX); });
-      bar.addEventListener('mousedown', e => setFromX(e.clientX));
-    })();
-  </script>
 </body>
 </html>
