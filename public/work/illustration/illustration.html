@@ -1,179 +1,44 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="grid.css">
 </head>
 <body>
-  <div class="page">
-    <div class="board">
+  <div class="board">
+    <!-- タイトル -->
+    <div class="title">Vivora Fashion Illustration 2025</div>
 
-      <!-- Header -->
-      <header class="header">
-        <h1 class="title">Vivora Fashion Illustration 2025</h1>
-
-        <nav class="header-right">
-          <div class="contents-row" aria-label="contents">
-            <img class="icon" src="./create_parts/contents_button/0_home.png" alt="Home" />
-            <img class="icon" src="./create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations" />
-            <img class="icon" src="./create_parts/contents_button/2_fabric-matching.png" alt="Fabric" />
-            <img class="icon" src="./create_parts/contents_button/3_clothing-design.png" alt="Design" />
-            <img class="icon" src="./create_parts/contents_button/4_shop.png" alt="Shop" />
-            <img class="icon" src="./create_parts/contents_button/5_settings.png" alt="Settings" />
-          </div>
-          <button class="next-step" type="button">Next Step ➜</button>
-        </nav>
-      </header>
-
-      <!-- Main -->
-      <main class="main">
-
-        <!-- Canvas -->
-        <section class="canvas-wrap">
-          <div class="canvas">
-            <img class="mannequin" src="./mannequin/mannequin_woman.png" alt="mannequin" />
-            <div class="overlay">
-              <div class="overlay-row">
-                <label>Zoom</label>
-                <input type="range" min="0" max="200" value="100" />
-                <span class="val">100%</span>
-              </div>
-              <div class="overlay-row">
-                <label>Opacity</label>
-                <input type="range" min="0" max="100" value="100" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Right Panel -->
-        <aside class="right-panel">
-
-          <!-- Row1: IO -->
-          <div class="io-row">
-            <button class="io-btn" title="Download">
-              <img class="icon" src="./create_parts/create_button/download.png" alt="download" />
-            </button>
-            <button class="io-btn" title="Upload">
-              <img class="icon" src="./create_parts/create_button/upload.png" alt="upload" />
-            </button>
-            <button class="io-btn primary" title="Save">
-              <img class="icon" src="./create_parts/create_button/save.png" alt="save" />
-              <span>SAVE</span>
-            </button>
-          </div>
-
-          <!-- Row2: Layers + Stationery -->
-          <div class="tools-grid">
-            <!-- Layers column (5 tall cards) -->
-            <div class="layers-col">
-              <!-- card x5 -->
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img class="icon" src="./create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img class="icon" src="./create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <img class="icon" src="./create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img class="icon" src="./create_parts/layer_button/layerpanelplus.png"       alt="plus" />
-                  <img class="icon" src="./create_parts/layer_button/layerreproduction.png"   alt="duplicate" />
-                  <img class="icon" src="./create_parts/layer_button/layerdestruction.png"    alt="delete" />
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img class="icon" src="./create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img class="icon" src="./create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <img class="icon" src="./create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img class="icon" src="./create_parts/layer_button/layerpanelplus.png"       alt="plus" />
-                  <img class="icon" src="./create_parts/layer_button/layerreproduction.png"   alt="duplicate" />
-                  <img class="icon" src="./create_parts/layer_button/layerdestruction.png"    alt="delete" />
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img class="icon" src="./create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img class="icon" src="./create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <img class="icon" src="./create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img class="icon" src="./create_parts/layer_button/layerpanelplus.png"       alt="plus" />
-                  <img class="icon" src="./create_parts/layer_button/layerreproduction.png"   alt="duplicate" />
-                  <img class="icon" src="./create_parts/layer_button/layerdestruction.png"    alt="delete" />
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img class="icon" src="./create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img class="icon" src="./create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <img class="icon" src="./create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img class="icon" src="./create_parts/layer_button/layerpanelplus.png"       alt="plus" />
-                  <img class="icon" src="./create_parts/layer_button/layerreproduction.png"   alt="duplicate" />
-                  <img class="icon" src="./create_parts/layer_button/layerdestruction.png"    alt="delete" />
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img class="icon" src="./create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img class="icon" src="./create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <img class="icon" src="./create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img class="icon" src="./create_parts/layer_button/layerpanelplus.png"       alt="plus" />
-                  <img class="icon" src="./create_parts/layer_button/layerreproduction.png"   alt="duplicate" />
-                  <img class="icon" src="./create_parts/layer_button/layerdestruction.png"    alt="delete" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Stationery column -->
-            <div class="stationery-col">
-              <button class="tool"><img class="icon" src="./create_parts/design_button/select.png"         alt="select" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/direct_select.png"  alt="direct select" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/square.png"         alt="square" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/circle.png"         alt="circle" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/brush.png"          alt="brush" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/pen.png"            alt="pen" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/circlebrush.png"    alt="circlebrush" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/ballpointpen.png"   alt="ballpointpen" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/markerpen.png"      alt="markerpen" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/eraser.png"         alt="eraser" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/sentence.png"       alt="text" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/opasity_ber.png"    alt="opacity bar" /></button>
-              <button class="tool"><img class="icon" src="./create_parts/design_button/graph_paper.png"    alt="grid" /></button>
-            </div>
-          </div>
-
-          <!-- Row3: Color palette -->
-          <div class="color-row">
-            <button class="chip" style="--c:#000"></button>
-            <button class="chip" style="--c:#fff"></button>
-            <button class="chip" style="--c:#f44336"></button>
-            <button class="chip" style="--c:#ff9800"></button>
-            <button class="chip" style="--c:#ffeb3b"></button>
-            <button class="chip" style="--c:#4caf50"></button>
-            <button class="chip" style="--c:#2196f3"></button>
-            <button class="chip" style="--c:#9c27b0"></button>
-          </div>
-
-        </aside>
-      </main>
+    <!-- X軸ラベル -->
+    <div class="x-axis">
+      <span>0</span>
+      <span>10</span>
+      <span>20</span>
+      <span>30</span>
+      <span>40</span>
+      <span>50</span>
+      <span>60</span>
+      <span>70</span>
+      <span>80</span>
+      <span>90</span>
+      <span>100</span>
     </div>
+
+    <!-- Y軸ラベル -->
+    <div class="y-axis">
+      <span>0</span>
+      <span>10</span>
+      <span>20</span>
+      <span>30</span>
+      <span>40</span>
+      <span>50</span>
+      <span>60</span>
+      <span>70</span>
+    </div>
+
+    <!-- グリッド -->
+    <div class="grid"></div>
   </div>
 </body>
 </html>
