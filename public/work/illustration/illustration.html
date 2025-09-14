@@ -1,80 +1,81 @@
-<!-- index.html -->
+<!-- index.html（/public をWebルートとして配置） -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <div class="board">
-
-    <!-- タイトル：X3-22,Y4 -->
+    <!-- タイトル：X3-22 , Y4 -->
     <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-    <!-- コンテンツボタン：X73.5-93,Y4-5 -->
+    <!-- contents button：X73.5-93 , Y4-5 -->
     <nav class="contents-buttons" aria-label="contents">
-      <img src="./create_parts/contents_button/0_home.png" alt="home" />
-      <img src="./create_parts/contents_button/1_fashion-illustrations.png" alt="fashion" />
-      <img src="./create_parts/contents_button/2_fabric-matching.png" alt="fabric" />
-      <img src="./create_parts/contents_button/3_clothing-design.png" alt="design" />
-      <img src="./create_parts/contents_button/4_inspiration.png" alt="inspiration" />
-      <img src="./create_parts/contents_button/5_ai-assistant.png" alt="assistant" />
+      <img src="/create_parts/contents_button/0_home.png" alt="home" />
+      <img src="/create_parts/contents_button/1_fashion-illustrations.png" alt="fashion" />
+      <img src="/create_parts/contents_button/2_fabric-matching.png" alt="fabric" />
+      <img src="/create_parts/contents_button/3_clothing-design.png" alt="design" />
+      <img src="/create_parts/contents_button/4_inspiration.png" alt="inspiration" />
+      <img src="/create_parts/contents_button/5_ai-assistant.png" alt="assistant" />
+      <img src="/create_parts/contents_button/6_tips.png" alt="tips" />
+      <img src="/create_parts/contents_button/7_setting.png" alt="setting" />
     </nav>
 
-    <!-- DL/UP/SAVE：X97,Y8-12（縦並び） -->
+    <!-- upload / download / save：X97-97 , Y8-12（縦） -->
     <div class="io-buttons" aria-label="io">
-      <img src="./create_parts/create_button/download.png" alt="download" />
-      <img src="./create_parts/create_button/upload.png" alt="upload" />
-      <img src="./create_parts/create_button/save.png" alt="save" />
+      <img src="/create_parts/create_button/upload.png" alt="upload" />
+      <img src="/create_parts/create_button/download.png" alt="download" />
+      <img src="/create_parts/create_button/save.png" alt="save" />
     </div>
 
-    <!-- キャンバス：X3-93,Y8-68 -->
-    <section class="canvas">
+    <!-- stationery tool：X96-98 , Y14-39（縦） -->
+    <aside class="stationery" aria-label="tools">
+      <img src="/create_parts/design_button/select.png" alt="select" />
+      <img src="/create_parts/design_button/direct_select.png" alt="direct-select" />
+      <img src="/create_parts/design_button/square.png" alt="square" />
+      <img src="/create_parts/design_button/circle.png" alt="circle" />
+      <img src="/create_parts/design_button/brush.png" alt="brush" />
+      <img src="/create_parts/design_button/pen.png" alt="pen" />
+      <img src="/create_parts/design_button/circlebrush.png" alt="circlebrush" />
+      <img src="/create_parts/design_button/ballpointpen.png" alt="ballpointpen" />
+      <img src="/create_parts/design_button/markerpen.png" alt="markerpen" />
+      <img src="/create_parts/design_button/eraser.png" alt="eraser" />
+      <img src="/create_parts/design_button/text.png" alt="text" />
+      <img src="/create_parts/design_button/grid.png" alt="grid" />
+    </aside>
+
+    <!-- color panel：X96-98 , Y41-68（縦） -->
+    <aside class="color-panel" aria-label="colors">
+      <button class="c" style="--c:#ffffff" aria-label="white"></button>
+      <button class="c" style="--c:#d9d9d9" aria-label="gray"></button>
+      <button class="c" style="--c:#ffd400" aria-label="yellow"></button>
+      <button class="c" style="--c:#ff9900" aria-label="orange"></button>
+      <button class="c" style="--c:#ff5a36" aria-label="red-orange"></button>
+      <button class="c" style="--c:#ffa0a8" aria-label="pink"></button>
+      <button class="c" style="--c:#24c157" aria-label="green"></button>
+      <button class="c" style="--c:#0fa34a" aria-label="darkgreen"></button>
+      <button class="c" style="--c:#00d5e6" aria-label="cyan"></button>
+      <button class="c" style="--c:#2979ff" aria-label="blue"></button>
+      <button class="c" style="--c:#6a3dbf" aria-label="purple"></button>
+      <button class="c" style="--c:#000000" aria-label="black"></button>
+    </aside>
+
+    <!-- canvas：X3-93 , Y8-68 -->
+    <section class="canvas" aria-label="canvas">
       <div class="canvas-inner">
-        <!-- マネキン：X42-54,Y17-60  -->
-        <img class="mannequin" src="./mannequin/mannequin_woman.png" alt="mannequin" />
+        <!-- mannequin：X42-54 , Y17-60（キャンバス内基準） -->
+        <img class="mannequin" src="/mannequin/mannequin_woman.png" alt="mannequin" />
+        <!-- opacity：X86-92 , Y36-37.5（キャンバス内右側に重ねる） -->
+        <div class="opacity">
+          <span class="pct">100 %</span>
+          <input type="range" min="0" max="100" value="100" />
+          <span class="nub"></span>
+        </div>
       </div>
     </section>
-
-    <!-- ステーショナリー：X96-98,Y14-39（縦） -->
-    <aside class="stationery">
-      <img src="./create_parts/design_button/select.png" alt="select" />
-      <img src="./create_parts/design_button/direct_select.png" alt="direct" />
-      <img src="./create_parts/design_button/square.png" alt="square" />
-      <img src="./create_parts/design_button/circle.png" alt="circle" />
-      <img src="./create_parts/design_button/brush.png" alt="brush" />
-      <img src="./create_parts/design_button/pen.png" alt="pen" />
-      <img src="./create_parts/design_button/circlebrush.png" alt="circlebrush" />
-      <img src="./create_parts/design_button/ballpointpen.png" alt="ballpointpen" />
-      <img src="./create_parts/design_button/markerpen.png" alt="markerpen" />
-      <img src="./create_parts/design_button/eraser.png" alt="eraser" />
-      <img src="./create_parts/design_button/text.png" alt="text" />
-      <img src="./create_parts/design_button/grid.png" alt="grid" />
-    </aside>
-
-    <!-- カラーパレット：X96-98,Y41-68（縦） -->
-    <aside class="color-panel" aria-label="colors">
-      <button class="c white" aria-label="white"></button>
-      <button class="c gray" aria-label="gray"></button>
-      <button class="c yellow" aria-label="yellow"></button>
-      <button class="c orange" aria-label="orange"></button>
-      <button class="c red" aria-label="red"></button>
-      <button class="c pink" aria-label="pink"></button>
-      <button class="c green" aria-label="green"></button>
-      <button class="c darkgreen" aria-label="darkgreen"></button>
-      <button class="c cyan" aria-label="cyan"></button>
-      <button class="c blue" aria-label="blue"></button>
-      <button class="c purple" aria-label="purple"></button>
-      <button class="c black" aria-label="black"></button>
-    </aside>
-
-    <!-- 透明度スライダー：X86-92,Y36-37.5 -->
-    <div class="opacity">
-      <span class="pct">100%</span>
-      <input type="range" min="0" max="100" value="100" />
-    </div>
-
   </div>
 </body>
 </html>
