@@ -1,60 +1,60 @@
-body {
-  margin: 0;
-  background: white;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+/* ===== 基本 ===== */
+:root { --font: "Helvetica Neue", Arial, sans-serif; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background:#fff; font-family: var(--font); }
+
+.stage {
+  /* 盤面サイズと分割数（HTMLのstyleで指定） */
+  --cell-w: calc(var(--board-w) / var(--cols));
+  --cell-h: calc(var(--board-h) / var(--rows));
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .board {
   position: relative;
-  width: 1280px;
-  height: 820px;
-  margin: 20px auto;
-  background: white;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+  width: var(--board-w);
+  height: var(--board-h);
+  border: 1px solid #cfcfcf;
   overflow: hidden;
+  background:#fff;
 }
 
-.title {
-  position: absolute;
-  top: 5px;
-  left: 10px;
-  font-size: 14px;
-  z-index: 10;
-}
-
+/* ===== グリッド（1マス＋10マス濃線） ===== */
 .grid {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 1280px;
-  height: 820px;
+  inset: 0;
   background-image:
-    linear-gradient(to right, #ddd 1px, transparent 1px),
-    linear-gradient(to bottom, #ddd 1px, transparent 1px);
-  background-size: calc(1280px / 100) calc(820px / 70);
+    /* 1マス格子 */
+    repeating-linear-gradient(to right, #e7e7e7 0 1px, transparent 1px calc(var(--cell-w))),
+    repeating-linear-gradient(to bottom, #e7e7e7 0 1px, transparent 1px calc(var(--cell-h))),
+    /* 10マス濃線 */
+    repeating-linear-gradient(to right, #cfcfcf 0 1px, transparent 1px calc(var(--cell-w) * 10)),
+    repeating-linear-gradient(to bottom, #cfcfcf 0 1px, transparent 1px calc(var(--cell-h) * 10));
   z-index: 1;
 }
 
-.x-axis {
-  position: absolute;
-  top: -20px;
-  left: 0;
-  width: 1280px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  z-index: 10;
+/* ===== 目盛り ===== */
+.title {
+  position: absolute; top: 6px; left: 10px; font-size: 14px; color:#111; z-index: 3;
 }
 
-.y-axis {
+.ruler-x, .ruler-y { position: absolute; font-size: 12px; color:#333; z-index: 3; }
+.ruler-x { top: -20px; left: 0; width: 100%; display: flex; justify-content: space-between; }
+.ruler-y { top: 0; left: -28px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+
+/* ===== 座標配置ユーティリティ ===== */
+/* 要素に style="--x:?, --y:?, --w:?, --h:?" を与える。w/h 省略時は内容サイズ */
+.place {
   position: absolute;
-  top: 0;
-  left: -25px;
-  height: 820px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 12px;
-  z-index: 10;
+  left: calc(var(--cell-w) * var(--x));
+  top:  calc(var(--cell-h) * var(--y));
+  width:  calc(var(--cell-w) * var(--w, 0));
+  height: calc(var(--cell-h) * var(--h, 0));
+  z-index: 5;
 }
+
+/* 開発確認用（必要なければ削除） */
+.demo { background: rgba(0,0,0,.08); outline:1px dashed rgba(0,0,0,.25); }
