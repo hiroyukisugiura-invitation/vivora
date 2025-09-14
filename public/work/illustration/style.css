@@ -1,198 +1,108 @@
-/* style.css — スクショ忠実配置・固定ボード・自動フィット */
+/* vivora_illustrations_grid.css */
+/* 基本：1280×820 / GRID 100×70（X=12.8px, Y≈11.714px） */
 :root{
   --board-w: 1280px;
   --board-h: 820px;
+  --grid-x: 100;
+  --grid-y: 70;
+  --ux: calc(var(--board-w) / var(--grid-x));
+  --uy: calc(var(--board-h) / var(--grid-y));
 
-  --bg: #e8e2d7;
-  --ink: #1b1b1b;
-  --panel: #ede7dd;
+  --bg: #f3eadf;
   --stage: #ffffff;
   --stage-border: #cfc9bf;
 
-  --shadow: 0 2px 2px rgba(0,0,0,.06);
   --r: 14px;
 }
 
 *{ box-sizing:border-box; }
 html,body{
-  height:100%;
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:"Inter","Helvetica Neue",Arial,system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
-  overflow:auto; /* ブラウザ全体のスクロールを許可（スクショ同等の固定ボード運用） */
+  height:100%; margin:0; background:var(--bg); color:#1b1b1b;
+  font-family:"Inter",system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
 }
 
-/* 画面フィット：固定ボードをビューポートに収める（比率維持） */
 .fit{ min-height:100vh; }
-.fit > .board{
-  width:var(--board-w);
-  height:var(--board-h);
+.board{
+  position:relative;
+  width:var(--board-w); height:var(--board-h);
   margin:16px auto;
   transform-origin: top center;
-  --sx: calc(100vw  / var(--board-w));
-  --sy: calc(100vh / var(--board-h));
-  --s:  min(var(--sx), var(--sy));
-  transform: scale(calc(var(--s) * 0.98)); /* 100%で画面内に収まる微調整 */
+  --sx: calc((100vw - 16px) / var(--board-w));
+  --sy: calc((100vh - 16px) / var(--board-h));
+  transform: scale(min(var(--sx), var(--sy)));
 }
 
-/* ボード全体レイアウト */
-.board{
-  display:grid;
-  grid-template-rows: 78px 1fr;
-  gap:14px;
+/* グリッド座標配置（幅/高さは最低1マス確保） */
+.g{
+  position:absolute;
+  left:   calc(var(--x1) * var(--ux));
+  top:    calc(var(--y1) * var(--uy));
+  width:  calc((max(var(--x2), calc(var(--x1) + 1)) - var(--x1)) * var(--ux));
+  height: calc((max(var(--y2), calc(var(--y1) + 1)) - var(--y1)) * var(--uy));
 }
 
-/* ヘッダー */
-.topbar{
-  position:relative;
-  display:grid;
-  grid-template-columns: 1fr;
-  align-items:end;
-  padding: 10px 8px 0;
-}
-.app-title{ margin:0; font-weight:500; font-size:20px; letter-spacing:.2px; }
-
-/* Next Step（右上固定） */
-.next-btn{
-  position:absolute; top:6px; right:10px;
-  font-size:11px; color:#1b1b1b; text-decoration:none; opacity:.9;
+/* タイトル */
+.title{
+  display:flex; align-items:center;
+  font-size:10px; line-height:1; font-weight:500; letter-spacing:.2px;
 }
 
-/* contents buttons（右寄せ） */
-.contents-buttons{
-  display:flex; gap:12px; justify-content:flex-end; align-items:center;
-  margin-top:22px;
-}
-.contents-buttons img{ display:block; width:22px; height:22px; image-rendering:-webkit-optimize-contrast; }
+/* コンテンツボタン（高さ1マス） */
+.contents{ display:flex; align-items:center; justify-content:flex-end; gap:6px; }
+.contents img{ height:10px; width:auto; display:block; image-rendering:-webkit-optimize-contrast; }
 
-/* メイン2カラム：左=1fr / 右=360px */
-.main{
-  display:grid;
-  grid-template-columns: 1fr 360px;
-  gap:16px;
-}
+/* IO（縦3つ、領域4マス） */
+.io{ display:grid; grid-template-rows: repeat(3, 12px); gap:4px; justify-items:center; align-content:center; }
+.io img{ height:12px; width:auto; display:block; }
 
-/* キャンバス（白・角丸・境界線） */
+/* ステージ */
 .stage{
   background:var(--stage);
   border:1px solid var(--stage-border);
   border-radius:var(--r);
-  position:relative;
-  padding:16px;
-  min-height:0;
 }
 
-/* マネキン：常に中央・幅240px */
+/* マネキン（枠内フィット） */
 .mannequin{
-  position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  width:240px; height:auto; opacity:.96;
+  object-fit:contain; width:100%; height:100%;
+  filter: contrast(0.98) saturate(0.94);
   image-rendering:-webkit-optimize-contrast;
 }
 
-/* ズームUI（右中段） */
-.opacity-ui{
-  position:absolute; right:42px; top:42%;
-  display:grid; gap:6px; justify-items:center;
-}
-.zoom-label{
-  font-size:11px; background:#fff; border:1px solid #ddd8cf;
-  border-radius:6px; padding:2px 6px; line-height:1;
-}
-.zoom-bar{
-  width:118px; height:8px; background:#ece8df;
-  border:1px solid #d7d1c7; border-radius:999px; position:relative;
-}
-.zoom-thumb{
-  position:absolute; top:-3px; width:12px; height:12px;
-  background:#5ea3ff; border:1px solid #507fbe; border-radius:50%;
-}
-
-/* 右パネル */
-.rightpanel{
-  background:var(--panel);
-  border:1px solid #d9d2c6;
-  border-radius:10px;
-  padding:10px 12px;
-  display:grid;
-  grid-template-rows: auto auto;
-  gap:12px;
-}
-
-/* IO（右寄せ・間隔固定） */
-.quick-io{ display:flex; gap:14px; justify-content:flex-end; }
-.quick-io img{ width:20px; height:20px; }
-
-/* row2：Layers | Tools */
-.row2{
-  display:grid;
-  grid-template-columns: 150px 92px; /* レイヤー側を太く */
-  gap:16px;
-  align-items:stretch;
-}
-
-/* Layers（カード5枚・縦スクロール） */
-.layers{
-  display:grid;
-  grid-auto-rows: 220px;
-  gap:10px;
-  overflow:auto;
-  padding-right:4px;
-}
-.layer-card{
-  background:#ffffff;                 /* 前回“白”に復帰 */
-  border:1px solid #dcd6cb;           /* 実線 */
-  border-radius:10px;
-  box-shadow:var(--shadow);
-  display:grid; grid-template-rows:22px 1fr 24px;
-}
-.layer-head{
-  display:flex; gap:10px; align-items:center; justify-content:flex-end;
-  padding:4px 8px 0;
-}
-.layer-head img{ width:16px; height:16px; }
-.gap-1{ display:inline-block; width:12px; } /* 1マス */
-
-.layer-body{
-  margin:6px 6px;
-  min-height:170px;
-  border:1px dashed #e7e1d8; border-radius:6px;
-  background:#f8f4ec;                 /* ボード色 */
-}
-.layer-foot{
-  display:flex; gap:8px; align-items:center; justify-content:flex-end; padding:0 8px 6px;
-}
-.layer-foot img{ width:16px; height:16px; }
-
-/* Stationery tools（縦ボタン列） */
+/* ツール列：領域 Y:14-39（約293px） */
 .tools{
-  display:grid;
-  grid-auto-rows: 36px;
-  gap:8px;
-  justify-items:end;
+  display:grid; grid-auto-rows:22px; gap:4px; align-content:start; justify-items:center;
 }
 .tool{
-  width:36px; height:36px; background:#fff; border:1px solid #ddd8cf; border-radius:8px;
-  display:grid; place-items:center; box-shadow:var(--shadow);
+  width:100%; height:100%;
+  background:#fff; border:1px solid #ddd8cf; border-radius:8px;
+  display:grid; place-items:center;
 }
-.tool img{ width:20px; height:20px; }
-/* 選択/ダイレクト選択のみ角浅め＆アイコン小さめ（スクショ調整） */
-.tool.t-select,
-.tool.t-direct{ border-radius:6px; }
-.tool.t-select img,
-.tool.t-direct img{ width:18px; height:18px; }
+.tool img{ width:16px; height:16px; display:block; }
+.tool.active{ outline:1px solid #5a8dee; }
 
-/* パレット（ツール下／1マス空け） */
-.stack-gap-1{ height:8px; }
+/* パレット：領域 Y:41-68（約316px） */
 .palette{
-  display:grid; grid-auto-rows:28px; gap:8px; justify-items:end; align-content:start;
+  display:grid; grid-auto-rows:20px; gap:6px; align-content:start; justify-items:center;
 }
 .palette i{
-  width:28px; height:28px; border-radius:50%;
-  background:var(--c,#ccc); border:1px solid rgba(0,0,0,.18);
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
+  width:20px; height:20px; border-radius:50%;
+  background:var(--c,#ccc);
+  border:1px solid rgba(0,0,0,.18);
 }
 
-/* 画像にじみ軽減 */
-img{ image-rendering: -webkit-optimize-contrast; }
+/* 透明度スライダー：X:86-92 , Y:36-37.5 */
+.opacity{ display:grid; grid-template-columns:auto; justify-items:center; gap:4px; }
+.opacity.hidden{ display:none; }
+.zl{
+  font-size:9px; line-height:1;
+  background:#fff; border:1px solid #ddd8cf; border-radius:6px; padding:1px 4px;
+}
+.zb{
+  position:relative; width:100%; height:8px;
+  background:#ece8df; border:1px solid #d7d1c7; border-radius:999px;
+}
+.zb i{
+  position:absolute; top:-3px; width:12px; height:12px; border-radius:50%;
+  background:#5ea3ff; border:1px solid #507fbe;
+}
