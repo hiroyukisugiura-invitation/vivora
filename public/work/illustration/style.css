@@ -1,15 +1,18 @@
-/* style.css */
-/* 100×70マスの%直指定（X=0..100, Y=0..70） */
+/* style.css（100×70方眼の%直打ち：X=0..100 , Y=0..70） */
 :root{
   --bg:#f6ede3;
   --panel:#ffffff;
-  --line:#d9d1c7;
+  --line:#cfc6bb;
+  --header:#f1e7db;
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
-body{background:var(--bg);font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif}
-
-/* ボード全体 */
+body{
+  background:var(--bg);
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,
+               "Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;
+  color:#1b1b1b;
+}
 .board{
   position:relative;
   width:100vw;
@@ -17,140 +20,153 @@ body{background:var(--bg);font-family:system-ui,-apple-system,"Hiragino Kaku Got
   overflow:hidden;
 }
 
-/* タイトル：X3-22,Y4 */
+/* 上部の薄い帯（スクショ通り） */
+.board::before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto 0;
+  height:8%;
+  background:var(--header);
+}
+
+/* タイトル：X3-22 , Y4 */
 .page-title{
   position:absolute;
   left:3%;
-  top:calc(4% * 1);       /* Yはそのまま% */
+  top:4%;
   margin:0;
   font-size:20px;
-  line-height:1;
   font-weight:600;
+  line-height:1;
 }
 
-/* コンテンツボタン：X73.5-93,Y4-5（横並び） */
+/* contents：X73.5-93 , Y4-5 */
 .contents-buttons{
   position:absolute;
   left:73.5%;
   right:7%;
   top:4%;
-  height:calc((5% - 4%) * 1); /* 行の高さを確保 */
+  height:1%;
   display:flex;
   align-items:center;
-  gap:0.7%;
+  gap:10px;
 }
 .contents-buttons img{
-  height:100%;
+  height:28px;
   display:block;
+  image-rendering:-webkit-optimize-contrast;
 }
 
-/* IO：X97,Y8-12（縦） */
+/* IO：X97-97 , Y8-12（右端に沿わせる） */
 .io-buttons{
   position:absolute;
   left:97%;
   top:8%;
-  bottom:calc(70% - 12%); /* Y12まで */
   display:flex;
   flex-direction:column;
-  gap:8px;
-  transform:translateX(-100%); /* 右端に沿わせる */
+  gap:10px;
+  transform:translateX(-100%);
 }
-.io-buttons img{height:22px;display:block}
-
-/* キャンバス：X3-93,Y8-68 */
-.canvas{
-  position:absolute;
-  left:3%;
-  right:7%;
-  top:8%;
-  bottom:2%;              /* 68%まで＝下端は70-68=2% */
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:10px;
-}
-.canvas-inner{
-  position:relative;
-  width:100%;
-  height:100%;
+.io-buttons img{
+  width:28px;height:28px;display:block;object-fit:contain;
 }
 
-/* マネキン：X42-54,Y17-60（キャンバス内基準に%で合わせる） */
-.mannequin{
-  position:absolute;
-  left:42%;
-  right:46%;             /* 100-(42..54)=46% */
-  top:17%;
-  bottom:10%;            /* 70-(17..60)=? → 下端余白を近似固定 */
-  transform:translateX(-0%); /* 画像は透明余白があるためそのまま配置 */
-  height:auto;
-  max-height:70%;
-}
-
-/* ステーショナリー：X96-98,Y14-39（縦） */
+/* tools：X96-98 , Y14-39 */
 .stationery{
   position:absolute;
   left:96%;
   right:2%;
   top:14%;
-  bottom:31%;            /* 70-39=31% */
+  bottom:31%;            /* 70-39=31 */
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:8px;
-  padding:6px 0;
-  background:#ffffff;
+  gap:10px;
+  padding:8px 0;
+  background:#fff;
   border:1px solid var(--line);
   border-radius:6px;
 }
-.stationery img{width:20px;height:20px;object-fit:contain;display:block}
+.stationery img{width:22px;height:22px;display:block;object-fit:contain}
 
-/* カラー：X96-98,Y41-68（縦） */
+/* colors：X96-98 , Y41-68 */
 .color-panel{
   position:absolute;
   left:96%;
   right:2%;
   top:41%;
-  bottom:2%;             /* 70-68=2% */
+  bottom:2%;             /* 70-68=2 */
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:8px;
+  gap:10px;
   padding:10px 0;
-  background:#ffffff;
+  background:#fff;
   border:1px solid var(--line);
   border-radius:6px;
 }
 .c{
-  width:20px;height:20px;border-radius:50%;
-  border:1px solid #999;cursor:pointer;background:#000;
+  width:22px;height:22px;border-radius:50%;
+  border:1px solid #9a9a9a;background:var(--c);cursor:pointer;
 }
-.white{background:#fff}
-.gray{background:#d9d9d9}
-.yellow{background:#ffd400}
-.orange{background:#ff9900}
-.red{background:#ff2a2a}
-.pink{background:#ffa0a8}
-.green{background:#00c853}
-.darkgreen{background:#0a8f3c}
-.cyan{background:#00e5ff}
-.blue{background:#2979ff}
-.purple{background:#6a1b9a}
-.black{background:#000}
 
-/* 透明度：X86-92,Y36-37.5（横スライダー） */
+/* canvas：X3-93 , Y8-68 */
+.canvas{
+  position:absolute;
+  left:3%;
+  right:7%;
+  top:8%;
+  bottom:2%;
+  background:var(--panel);
+  border:2px solid var(--line);
+  border-radius:18px;
+}
+.canvas::before{
+  content:"";
+  position:absolute;
+  left:1.4%; right:1.4%;
+  top:3.5%; bottom:3.5%;
+  border:2px solid var(--line);
+  border-radius:16px;
+}
+.canvas-inner{position:relative;width:100%;height:100%}
+
+/* mannequin：X42-54 , Y17-60（キャンバス内%） */
+.mannequin{
+  position:absolute;
+  left:42%;
+  top:17%;
+  height:43%;
+  display:block;
+  image-rendering:-webkit-optimize-contrast;
+}
+
+/* opacity：X86-92 , Y36-37.5 */
 .opacity{
   position:absolute;
   left:86%;
-  right:8%;
   top:36%;
+  width:6%;
   height:1.5%;
   display:flex;
   align-items:center;
-  gap:8px;
-  padding:4px 6px;
+  gap:6px;
   background:#ffffffcc;
   border:1px solid var(--line);
   border-radius:4px;
+  padding:4px 6px;
 }
-.opacity .pct{font-size:12px;white-space:nowrap}
-.opacity input[type="range"]{width:100%}
+.opacity .pct{font-size:12px;line-height:1;white-space:nowrap}
+.opacity input[type="range"]{
+  -webkit-appearance:none;appearance:none;
+  width:70%;height:4px;background:#bfbfbf;border-radius:2px;outline:none;
+}
+.opacity input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:14px;height:14px;border-radius:50%;
+  background:#3f82ff;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.35);
+  margin-top:-5px;
+}
+.opacity .nub{
+  width:6px;height:6px;border-radius:50%;background:#58b1ff;display:block;
+}
