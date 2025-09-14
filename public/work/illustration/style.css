@@ -1,156 +1,198 @@
-/* public/style.css */
-
-/* ===== 基本レイアウト：固定ボードを画面にフィット（非レスポンシブ／拡大縮小のみ） ===== */
+/* style.css — スクショ忠実配置・固定ボード・自動フィット */
 :root{
-  --board-w:1280px;   /* 固定幅 */
-  --board-h:820px;    /* 固定高 */
-  --grid-cols:100;    /* X軸 0-100 */
-  --grid-rows:70;     /* Y軸 0-70  */
-  --gap:0px;
-  --ui-font:"Times New Roman", serif;
+  --board-w: 1280px;
+  --board-h: 820px;
+
+  --bg: #e8e2d7;
+  --ink: #1b1b1b;
+  --panel: #ede7dd;
+  --stage: #ffffff;
+  --stage-border: #cfc9bf;
+
+  --shadow: 0 2px 2px rgba(0,0,0,.06);
+  --r: 14px;
 }
 
-*{box-sizing:border-box; image-rendering:-webkit-optimize-contrast}
-html,body{height:100%;margin:0;background:#fff;color:#222}
-
-.fit{
-  width:100vw;height:100vh;display:grid;place-items:center;
-}
-
-.board{
-  width:calc(min(100vw, 100vh * (var(--board-w)/var(--board-h))) * 0.90);
-  aspect-ratio: calc(var(--board-w) / var(--board-h));
-  position:relative;
-  background:
-    /* 大目盛（10単位） */
-    repeating-linear-gradient(to right, rgba(0,0,0,.18) 0 1px, transparent 1px calc(12.8px)),
-    repeating-linear-gradient(to bottom, rgba(0,0,0,.18) 0 1px, transparent 1px calc(11.7142857px)),
-    /* 細目盛（1単位） */
-    repeating-linear-gradient(to right, rgba(0,0,0,.08) 0 1px, transparent 1px calc(1.28px)),
-    repeating-linear-gradient(to bottom, rgba(0,0,0,.08) 0 1px, transparent 1px calc(0.  117142857*100px));
-  /* ↑ 背景は実寸1280×820の比率に依存せず描画（見た目一致用） */
-  border:1px solid #bbb;
-  overflow:hidden;
-  border-radius:6px;
-  font-family:var(--ui-font);
-}
-
-/* ===== 100×70 グリッド（座標で厳密配置） ===== */
-.grid-100x70{
-  display:grid;
-  grid-template-columns: repeat(var(--grid-cols), 1fr);
-  grid-template-rows:    repeat(var(--grid-rows), 1fr);
-  gap:var(--gap);
-  position:relative;
-}
-
-/* ===== ユーティリティ：座標指定（.pos + xA-B yC-D） ===== */
-/* X（列） */
-[class*=" x3-22"]{grid-column:3 / 22}
-[class*=" x81-98"]{grid-column:81 / 98}
-[class*=" x95-98"]{grid-column:95 / 98}
-[class*=" x94-98"]{grid-column:94 / 98}
-[class*=" x89-92"]{grid-column:89 / 92}
-[class*=" x94-96"]{grid-column:94 / 96}
-[class*=" x3-87"]{grid-column:3 / 87}
-/* Y（行） */
-[class*=" y3-3"]{grid-row:3 / 4}
-[class*=" y4-4"]{grid-row:4 / 5}
-[class*=" y6-7"]{grid-row:6 / 8}
-[class*=" y10-10"]{grid-row:10 / 11}
-[class*=" y12-62"]{grid-row:12 / 62}
-[class*=" y40-62"]{grid-row:40 / 62}
-[class*=" y10-68"]{grid-row:10 / 68}
-
-/* ===== タイトル ===== */
-.title{
-  align-self:start; justify-self:start;
-  font-size:18px; font-weight:500; letter-spacing:.2px;
+*{ box-sizing:border-box; }
+html,body{
+  height:100%;
   margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Inter","Helvetica Neue",Arial,system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  overflow:auto; /* ブラウザ全体のスクロールを許可（スクショ同等の固定ボード運用） */
 }
 
-/* ===== Next Step ===== */
-.next-step{
-  justify-self:end; align-self:center;
-  padding:6px 10px; font-size:12px; border:1px solid #777; background:#f5f5f5;
-  border-radius:3px; cursor:pointer;
+/* 画面フィット：固定ボードをビューポートに収める（比率維持） */
+.fit{ min-height:100vh; }
+.fit > .board{
+  width:var(--board-w);
+  height:var(--board-h);
+  margin:16px auto;
+  transform-origin: top center;
+  --sx: calc(100vw  / var(--board-w));
+  --sy: calc(100vh / var(--board-h));
+  --s:  min(var(--sx), var(--sy));
+  transform: scale(calc(var(--s) * 0.98)); /* 100%で画面内に収まる微調整 */
 }
 
-/* ===== コンテンツボタン列 ===== */
-.contents{
-  display:flex; align-items:center; justify-content:flex-end; gap:6px;
+/* ボード全体レイアウト */
+.board{
+  display:grid;
+  grid-template-rows: 78px 1fr;
+  gap:14px;
 }
-.contents img{height:18px; width:auto; display:block;}
 
-/* ===== I/O 行 ===== */
-.io-row{display:flex; gap:10px; align-items:center; justify-self:end;}
-.icon{padding:0; border:none; background:transparent; line-height:0; cursor:pointer;}
-.icon img{width:18px; height:18px; display:block}
+/* ヘッダー */
+.topbar{
+  position:relative;
+  display:grid;
+  grid-template-columns: 1fr;
+  align-items:end;
+  padding: 10px 8px 0;
+}
+.app-title{ margin:0; font-weight:500; font-size:20px; letter-spacing:.2px; }
 
-/* ===== レイヤーパネル ===== */
+/* Next Step（右上固定） */
+.next-btn{
+  position:absolute; top:6px; right:10px;
+  font-size:11px; color:#1b1b1b; text-decoration:none; opacity:.9;
+}
+
+/* contents buttons（右寄せ） */
+.contents-buttons{
+  display:flex; gap:12px; justify-content:flex-end; align-items:center;
+  margin-top:22px;
+}
+.contents-buttons img{ display:block; width:22px; height:22px; image-rendering:-webkit-optimize-contrast; }
+
+/* メイン2カラム：左=1fr / 右=360px */
+.main{
+  display:grid;
+  grid-template-columns: 1fr 360px;
+  gap:16px;
+}
+
+/* キャンバス（白・角丸・境界線） */
+.stage{
+  background:var(--stage);
+  border:1px solid var(--stage-border);
+  border-radius:var(--r);
+  position:relative;
+  padding:16px;
+  min-height:0;
+}
+
+/* マネキン：常に中央・幅240px */
+.mannequin{
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:240px; height:auto; opacity:.96;
+  image-rendering:-webkit-optimize-contrast;
+}
+
+/* ズームUI（右中段） */
+.opacity-ui{
+  position:absolute; right:42px; top:42%;
+  display:grid; gap:6px; justify-items:center;
+}
+.zoom-label{
+  font-size:11px; background:#fff; border:1px solid #ddd8cf;
+  border-radius:6px; padding:2px 6px; line-height:1;
+}
+.zoom-bar{
+  width:118px; height:8px; background:#ece8df;
+  border:1px solid #d7d1c7; border-radius:999px; position:relative;
+}
+.zoom-thumb{
+  position:absolute; top:-3px; width:12px; height:12px;
+  background:#5ea3ff; border:1px solid #507fbe; border-radius:50%;
+}
+
+/* 右パネル */
+.rightpanel{
+  background:var(--panel);
+  border:1px solid #d9d2c6;
+  border-radius:10px;
+  padding:10px 12px;
+  display:grid;
+  grid-template-rows: auto auto;
+  gap:12px;
+}
+
+/* IO（右寄せ・間隔固定） */
+.quick-io{ display:flex; gap:14px; justify-content:flex-end; }
+.quick-io img{ width:20px; height:20px; }
+
+/* row2：Layers | Tools */
+.row2{
+  display:grid;
+  grid-template-columns: 150px 92px; /* レイヤー側を太く */
+  gap:16px;
+  align-items:stretch;
+}
+
+/* Layers（カード5枚・縦スクロール） */
 .layers{
   display:grid;
-  grid-template-rows:auto 1fr;
-  align-items:start;
-  justify-items:stretch;
-  gap:8px;
+  grid-auto-rows: 220px;
+  gap:10px;
+  overflow:auto;
+  padding-right:4px;
 }
-.layer-head{display:flex; gap:8px; justify-content:flex-start; align-items:center;}
-.layer-head img{width:16px; height:16px; display:block;}
-
-.layer-list{display:grid; grid-auto-rows:1fr; gap:10px;}
 .layer-card{
-  border:1px solid #ccc; border-radius:10px; padding:8px 6px; background:#fff;
-  display:grid; grid-template-rows:auto auto; gap:8px;
+  background:#ffffff;                 /* 前回“白”に復帰 */
+  border:1px solid #dcd6cb;           /* 実線 */
+  border-radius:10px;
+  box-shadow:var(--shadow);
+  display:grid; grid-template-rows:22px 1fr 24px;
 }
-.layer-row{
-  display:grid; grid-template-columns:16px 1fr 16px; gap:6px; align-items:center;
-  font-size:12px;
+.layer-head{
+  display:flex; gap:10px; align-items:center; justify-content:flex-end;
+  padding:4px 8px 0;
 }
-.layer-row img{width:16px; height:16px;}
-.layer-foot{display:flex; gap:8px; justify-content:flex-end; align-items:center}
-.layer-foot img{width:14px; height:14px}
+.layer-head img{ width:16px; height:16px; }
+.gap-1{ display:inline-block; width:12px; } /* 1マス */
 
-/* ===== ステーショナリーツール列 ===== */
+.layer-body{
+  margin:6px 6px;
+  min-height:170px;
+  border:1px dashed #e7e1d8; border-radius:6px;
+  background:#f8f4ec;                 /* ボード色 */
+}
+.layer-foot{
+  display:flex; gap:8px; align-items:center; justify-content:flex-end; padding:0 8px 6px;
+}
+.layer-foot img{ width:16px; height:16px; }
+
+/* Stationery tools（縦ボタン列） */
 .tools{
   display:grid;
-  grid-auto-rows:minmax(22px, 26px);
-  justify-items:center; align-items:center;
+  grid-auto-rows: 36px;
   gap:8px;
+  justify-items:end;
 }
-.tool{border:none; background:transparent; padding:0; line-height:0; cursor:pointer;}
-.tool img{width:18px; height:18px; display:block}
-
-/* ===== パレット ===== */
-.palette{list-style:none; margin:0; padding:0; display:grid; gap:10px; align-content:start; justify-items:center}
-.palette li{width:18px; height:18px; border-radius:50%; background:var(--c); border:1px solid rgba(0,0,0,.35)}
-.palette li.picker{background:transparent; border:none}
-.palette li.picker img{width:18px; height:18px; display:block}
-
-/* ===== キャンバス ===== */
-.canvas{
-  position:relative; background:transparent;
-  border:1px solid rgba(0,0,0,.08);
-  border-radius:14px;
+.tool{
+  width:36px; height:36px; background:#fff; border:1px solid #ddd8cf; border-radius:8px;
+  display:grid; place-items:center; box-shadow:var(--shadow);
 }
-/* 角丸の内側ガイド（スクショにある薄いライン） */
-.canvas .inner-corner{
-  position:absolute; inset:12px; border:1px solid rgba(0,0,0,.15); border-radius:12px; pointer-events:none;
-}
+.tool img{ width:20px; height:20px; }
+/* 選択/ダイレクト選択のみ角浅め＆アイコン小さめ（スクショ調整） */
+.tool.t-select,
+.tool.t-direct{ border-radius:6px; }
+.tool.t-select img,
+.tool.t-direct img{ width:18px; height:18px; }
 
-/* マネキン：キャンバス中央 / 初期幅240px（スクショ準拠） */
-.mannequin{
-  position:absolute; left:50%; top:50%;
-  width:240px; height:auto; transform:translate(-50%,-44%);
-  opacity:.95; filter:contrast(95%) saturate(80%);
-  image-rendering:auto;
+/* パレット（ツール下／1マス空け） */
+.stack-gap-1{ height:8px; }
+.palette{
+  display:grid; grid-auto-rows:28px; gap:8px; justify-items:end; align-content:start;
+}
+.palette i{
+  width:28px; height:28px; border-radius:50%;
+  background:var(--c,#ccc); border:1px solid rgba(0,0,0,.18);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.5);
 }
 
-/* オーバーレイ（ズーム） */
-.overlay-zoom{
-  position:absolute; right:8%; top:48%;
-  display:flex; gap:6px; align-items:center; font-size:12px; background:#e6e6e6;
-  padding:2px 6px; border-radius:3px; border:1px solid #888;
-}
-.overlay-zoom .bar{position:relative; width:96px; height:8px; background:#bdbdbd; border-radius:4px; overflow:hidden}
-.overlay-zoom .bar i{position:absolute; top:0; transform:translateX(-50%); width:10px; height:100%; background:#777; border-radius:4px}
+/* 画像にじみ軽減 */
+img{ image-rendering: -webkit-optimize-contrast; }
