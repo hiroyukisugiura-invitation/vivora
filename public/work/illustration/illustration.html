@@ -1,71 +1,112 @@
+<!-- index.html (HTML+js) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
   <title>Vivora Fashion Illustration 2025</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=1280, initial-scale=1.0" />
 </head>
 <body>
-  <div class="fit">
-    <div class="board">
-
-      <!-- タイトル：X:3-22 ,Y:4-4 -->
-      <h1 id="title">Vivora Fashion Illustration 2025</h1>
-
-      <!-- コンテンツボタン：X:73.5-93 ,Y:4-5 -->
-      <nav id="contents">
-        <img src="public/create_parts/contents_button/0_home.png" alt="Home" />
-        <img src="public/create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations" />
-        <img src="public/create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching" />
-        <img src="public/create_parts/contents_button/3_clothing-design.png" alt="Clothing Design" />
-        <img src="public/create_parts/contents_button/4_color-palette.png" alt="Color" />
-        <img src="public/create_parts/contents_button/5_export.png" alt="Export" />
+  <div class="board">
+    <!-- Header -->
+    <header class="topbar">
+      <h1 class="title">Vivora Fashion Illustration 2025</h1>
+      <nav class="contents">
+        <!-- 必ずGitのpngを使用（パスは環境に合わせて変更可） -->
+        <img src="public/create_parts/contents_button/0_home.png" alt="home" />
+        <img src="public/create_parts/contents_button/1_fashion-illustrations.png" alt="illustrations" />
+        <img src="public/create_parts/contents_button/2_fabric-matching.png" alt="fabric" />
+        <img src="public/create_parts/contents_button/3_clothing-design.png" alt="clothing" />
+        <img src="public/create_parts/contents_button/4_ai-fitting.png" alt="ai" />
+        <img src="public/create_parts/contents_button/5_measurement.png" alt="measure" />
+        <img src="public/create_parts/contents_button/6_export.png" alt="export" />
+        <img src="public/create_parts/contents_button/7_setting.png" alt="setting" />
       </nav>
+    </header>
 
-      <!-- ダウンロード・アップロード・セーブ：X:97-97 ,Y:8-12 -->
-      <img id="io-upload"   src="public/create_parts/create_button/upload.png"   alt="Upload" />
-      <img id="io-download" src="public/create_parts/create_button/download.png" alt="Download" />
-      <img id="io-save"     src="public/create_parts/create_button/save.png"     alt="Save" />
-
-      <!-- キャンバス：X:3-93 ,Y:8-68 -->
-      <div id="canvas">
-        <!-- マネキン位置：X:42-54 ,Y:17-60 -->
-        <img id="mannequin" src="public/mannequin/mannequin_woman.png" alt="Mannequin" />
+    <!-- Canvas Area -->
+    <main class="workarea">
+      <div class="stage">
+        <img class="mannequin" src="public/mannequin/mannequin_woman.png" alt="mannequin" />
+        <div class="zoom-indicator" id="zoomIndicator">100%</div>
       </div>
 
-      <!-- ステーショナリーツール（レイヤー系は含めない）：X:96-98 ,Y:14-39 -->
-      <div id="stationery">
-        <img class="tool" src="public/create_parts/design_button/select.png"         alt="select" />
-        <img class="tool" src="public/create_parts/design_button/direct_select.png"  alt="direct_select" />
-        <img class="tool" src="public/create_parts/design_button/square.png"         alt="square" />
-        <img class="tool" src="public/create_parts/design_button/circle.png"         alt="circle" />
-        <img class="tool" src="public/create_parts/design_button/brush.png"          alt="brush" />
-        <img class="tool" src="public/create_parts/design_button/pen.png"            alt="pen" />
-        <img class="tool" src="public/create_parts/design_button/circlebrush.png"    alt="circlebrush" />
-        <img class="tool" src="public/create_parts/design_button/ballpointpen.png"   alt="ballpointpen" />
-        <img class="tool" src="public/create_parts/design_button/markerpen.png"      alt="markerpen" />
-        <img class="tool" src="public/create_parts/design_button/eraser.png"         alt="eraser" />
-        <img class="tool" src="public/create_parts/design_button/sentence.png"       alt="sentence" />
-        <img class="tool" src="public/create_parts/design_button/opasity_ber.png"    alt="opasity_ber" />
-        <img class="tool" src="public/create_parts/design_button/graph_paper.png"    alt="graph_paper" />
-      </div>
+      <!-- Right Tool Rail -->
+      <aside class="right-rail">
 
-      <!-- カラーパレット：X:96-98 ,Y:41-68 -->
-      <div id="color-palette">
-        <div class="swatch"></div><div class="swatch"></div><div class="swatch"></div>
-        <div class="swatch"></div><div class="swatch"></div><div class="swatch"></div>
-        <div class="swatch"></div><div class="swatch"></div><div class="swatch"></div>
-        <div class="swatch"></div><div class="swatch"></div><div class="swatch"></div>
-        <div class="swatch"></div><div class="swatch"></div>
-      </div>
+        <div class="rail-top">
+          <button class="rail-btn"><img src="public/create_parts/create_button/undo.png" alt="undo"></button>
+          <button class="rail-btn"><img src="public/create_parts/create_button/redo.png" alt="redo"></button>
+          <button class="rail-btn"><img src="public/create_parts/create_button/save.png" alt="save"></button>
+        </div>
 
-      <!-- 透明度ボタン選択時のスライダー：X:86-92 ,Y:36-37.5 -->
-      <div id="opacity-slider">
-        <input type="range" min="0" max="100" value="100" />
-      </div>
+        <div class="tool-rail" id="toolRail">
+          <!-- Stationery tools（レイヤー系は含めない） -->
+          <button class="tool" data-tool="select"><img src="public/create_parts/design_button/select.png" alt="select" /></button>
+          <button class="tool" data-tool="direct_select"><img src="public/create_parts/design_button/direct_select.png" alt="direct_select" /></button>
+          <button class="tool" data-tool="line"><img src="public/create_parts/design_button/line.png" alt="line" /></button>
+          <button class="tool" data-tool="square"><img src="public/create_parts/design_button/square.png" alt="square" /></button>
+          <button class="tool" data-tool="circle"><img src="public/create_parts/design_button/circle.png" alt="circle" /></button>
+          <button class="tool" data-tool="brush"><img src="public/create_parts/design_button/brush.png" alt="brush" /></button>
+          <button class="tool" data-tool="pen"><img src="public/create_parts/design_button/pen.png" alt="pen" /></button>
+          <button class="tool" data-tool="circlebrush"><img src="public/create_parts/design_button/circlebrush.png" alt="circlebrush" /></button>
+          <button class="tool" data-tool="ballpointpen"><img src="public/create_parts/design_button/ballpointpen.png" alt="ballpointpen" /></button>
+          <button class="tool" data-tool="markerpen"><img src="public/create_parts/design_button/markerpen.png" alt="markerpen" /></button>
+          <button class="tool" data-tool="eraser"><img src="public/create_parts/design_button/eraser.png" alt="eraser" /></button>
+          <button class="tool" data-tool="text"><img src="public/create_parts/design_button/sentence.png" alt="text" /></button>
+          <button class="tool" data-tool="grid"><img src="public/create_parts/design_button/graph_paper.png" alt="grid" /></button>
+        </div>
 
-    </div>
+        <!-- Color dots -->
+        <div class="palette" id="palette">
+          <button class="dot" style="--c:#f3c200" aria-label="yellow"></button>
+          <button class="dot" style="--c:#f3a200"></button>
+          <button class="dot" style="--c:#f37800"></button>
+          <button class="dot" style="--c:#f34c00"></button>
+          <button class="dot" style="--c:#f31e00"></button>
+          <button class="dot" style="--c:#f3003f"></button>
+          <button class="dot" style="--c:#e8007f"></button>
+          <button class="dot" style="--c:#ba00a8"></button>
+          <button class="dot" style="--c:#7a00c7"></button>
+          <button class="dot" style="--c:#3a28d7"></button>
+          <button class="dot" style="--c:#0067e8"></button>
+          <button class="dot" style="--c:#0099e8"></button>
+          <button class="dot" style="--c:#00b8c8"></button>
+          <button class="dot" style="--c:#00b878"></button>
+          <button class="dot" style="--c:#37b800"></button>
+          <button class="dot" style="--c:#78b800"></button>
+          <button class="dot" style="--c:#a8b800"></button>
+          <button class="dot" style="--c:#000000"></button>
+          <button class="dot" style="--c:#6e6e6e"></button>
+          <button class="dot" style="--c:#bfbfbf"></button>
+        </div>
+
+      </aside>
+    </main>
   </div>
+
+  <script>
+    // 最低限のUI動作（選択状態表示と色選択）
+    const toolRail = document.getElementById('toolRail');
+    toolRail.addEventListener('click', (e) => {
+      const btn = e.target.closest('.tool');
+      if (!btn) return;
+      document.querySelectorAll('.tool').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+
+    const palette = document.getElementById('palette');
+    palette.addEventListener('click', (e) => {
+      const dot = e.target.closest('.dot');
+      if (!dot) return;
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('picked'));
+      dot.classList.add('picked');
+    });
+
+    // ズーム表示は固定 100%（見た目用）
+    const zoomIndicator = document.getElementById('zoomIndicator');
+    zoomIndicator.textContent = '100%';
+  </script>
 </body>
 </html>
