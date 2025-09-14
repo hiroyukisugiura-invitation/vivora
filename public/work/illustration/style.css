@@ -1,60 +1,156 @@
-/* ===== 基本 ===== */
-:root { --font: "Helvetica Neue", Arial, sans-serif; }
-* { box-sizing: border-box; }
-html, body { margin: 0; height: 100%; background:#fff; font-family: var(--font); }
+/* public/style.css */
 
-.stage {
-  /* 盤面サイズと分割数（HTMLのstyleで指定） */
-  --cell-w: calc(var(--board-w) / var(--cols));
-  --cell-h: calc(var(--board-h) / var(--rows));
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
+/* ===== 基本レイアウト：固定ボードを画面にフィット（非レスポンシブ／拡大縮小のみ） ===== */
+:root{
+  --board-w:1280px;   /* 固定幅 */
+  --board-h:820px;    /* 固定高 */
+  --grid-cols:100;    /* X軸 0-100 */
+  --grid-rows:70;     /* Y軸 0-70  */
+  --gap:0px;
+  --ui-font:"Times New Roman", serif;
 }
 
-.board {
-  position: relative;
-  width: var(--board-w);
-  height: var(--board-h);
-  border: 1px solid #cfcfcf;
-  overflow: hidden;
-  background:#fff;
+*{box-sizing:border-box; image-rendering:-webkit-optimize-contrast}
+html,body{height:100%;margin:0;background:#fff;color:#222}
+
+.fit{
+  width:100vw;height:100vh;display:grid;place-items:center;
 }
 
-/* ===== グリッド（1マス＋10マス濃線） ===== */
-.grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    /* 1マス格子 */
-    repeating-linear-gradient(to right, #e7e7e7 0 1px, transparent 1px calc(var(--cell-w))),
-    repeating-linear-gradient(to bottom, #e7e7e7 0 1px, transparent 1px calc(var(--cell-h))),
-    /* 10マス濃線 */
-    repeating-linear-gradient(to right, #cfcfcf 0 1px, transparent 1px calc(var(--cell-w) * 10)),
-    repeating-linear-gradient(to bottom, #cfcfcf 0 1px, transparent 1px calc(var(--cell-h) * 10));
-  z-index: 1;
+.board{
+  width:calc(min(100vw, 100vh * (var(--board-w)/var(--board-h))) * 0.90);
+  aspect-ratio: calc(var(--board-w) / var(--board-h));
+  position:relative;
+  background:
+    /* 大目盛（10単位） */
+    repeating-linear-gradient(to right, rgba(0,0,0,.18) 0 1px, transparent 1px calc(12.8px)),
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.18) 0 1px, transparent 1px calc(11.7142857px)),
+    /* 細目盛（1単位） */
+    repeating-linear-gradient(to right, rgba(0,0,0,.08) 0 1px, transparent 1px calc(1.28px)),
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.08) 0 1px, transparent 1px calc(0.  117142857*100px));
+  /* ↑ 背景は実寸1280×820の比率に依存せず描画（見た目一致用） */
+  border:1px solid #bbb;
+  overflow:hidden;
+  border-radius:6px;
+  font-family:var(--ui-font);
 }
 
-/* ===== 目盛り ===== */
-.title {
-  position: absolute; top: 6px; left: 10px; font-size: 14px; color:#111; z-index: 3;
+/* ===== 100×70 グリッド（座標で厳密配置） ===== */
+.grid-100x70{
+  display:grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  grid-template-rows:    repeat(var(--grid-rows), 1fr);
+  gap:var(--gap);
+  position:relative;
 }
 
-.ruler-x, .ruler-y { position: absolute; font-size: 12px; color:#333; z-index: 3; }
-.ruler-x { top: -20px; left: 0; width: 100%; display: flex; justify-content: space-between; }
-.ruler-y { top: 0; left: -28px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+/* ===== ユーティリティ：座標指定（.pos + xA-B yC-D） ===== */
+/* X（列） */
+[class*=" x3-22"]{grid-column:3 / 22}
+[class*=" x81-98"]{grid-column:81 / 98}
+[class*=" x95-98"]{grid-column:95 / 98}
+[class*=" x94-98"]{grid-column:94 / 98}
+[class*=" x89-92"]{grid-column:89 / 92}
+[class*=" x94-96"]{grid-column:94 / 96}
+[class*=" x3-87"]{grid-column:3 / 87}
+/* Y（行） */
+[class*=" y3-3"]{grid-row:3 / 4}
+[class*=" y4-4"]{grid-row:4 / 5}
+[class*=" y6-7"]{grid-row:6 / 8}
+[class*=" y10-10"]{grid-row:10 / 11}
+[class*=" y12-62"]{grid-row:12 / 62}
+[class*=" y40-62"]{grid-row:40 / 62}
+[class*=" y10-68"]{grid-row:10 / 68}
 
-/* ===== 座標配置ユーティリティ ===== */
-/* 要素に style="--x:?, --y:?, --w:?, --h:?" を与える。w/h 省略時は内容サイズ */
-.place {
-  position: absolute;
-  left: calc(var(--cell-w) * var(--x));
-  top:  calc(var(--cell-h) * var(--y));
-  width:  calc(var(--cell-w) * var(--w, 0));
-  height: calc(var(--cell-h) * var(--h, 0));
-  z-index: 5;
+/* ===== タイトル ===== */
+.title{
+  align-self:start; justify-self:start;
+  font-size:18px; font-weight:500; letter-spacing:.2px;
+  margin:0;
 }
 
-/* 開発確認用（必要なければ削除） */
-.demo { background: rgba(0,0,0,.08); outline:1px dashed rgba(0,0,0,.25); }
+/* ===== Next Step ===== */
+.next-step{
+  justify-self:end; align-self:center;
+  padding:6px 10px; font-size:12px; border:1px solid #777; background:#f5f5f5;
+  border-radius:3px; cursor:pointer;
+}
+
+/* ===== コンテンツボタン列 ===== */
+.contents{
+  display:flex; align-items:center; justify-content:flex-end; gap:6px;
+}
+.contents img{height:18px; width:auto; display:block;}
+
+/* ===== I/O 行 ===== */
+.io-row{display:flex; gap:10px; align-items:center; justify-self:end;}
+.icon{padding:0; border:none; background:transparent; line-height:0; cursor:pointer;}
+.icon img{width:18px; height:18px; display:block}
+
+/* ===== レイヤーパネル ===== */
+.layers{
+  display:grid;
+  grid-template-rows:auto 1fr;
+  align-items:start;
+  justify-items:stretch;
+  gap:8px;
+}
+.layer-head{display:flex; gap:8px; justify-content:flex-start; align-items:center;}
+.layer-head img{width:16px; height:16px; display:block;}
+
+.layer-list{display:grid; grid-auto-rows:1fr; gap:10px;}
+.layer-card{
+  border:1px solid #ccc; border-radius:10px; padding:8px 6px; background:#fff;
+  display:grid; grid-template-rows:auto auto; gap:8px;
+}
+.layer-row{
+  display:grid; grid-template-columns:16px 1fr 16px; gap:6px; align-items:center;
+  font-size:12px;
+}
+.layer-row img{width:16px; height:16px;}
+.layer-foot{display:flex; gap:8px; justify-content:flex-end; align-items:center}
+.layer-foot img{width:14px; height:14px}
+
+/* ===== ステーショナリーツール列 ===== */
+.tools{
+  display:grid;
+  grid-auto-rows:minmax(22px, 26px);
+  justify-items:center; align-items:center;
+  gap:8px;
+}
+.tool{border:none; background:transparent; padding:0; line-height:0; cursor:pointer;}
+.tool img{width:18px; height:18px; display:block}
+
+/* ===== パレット ===== */
+.palette{list-style:none; margin:0; padding:0; display:grid; gap:10px; align-content:start; justify-items:center}
+.palette li{width:18px; height:18px; border-radius:50%; background:var(--c); border:1px solid rgba(0,0,0,.35)}
+.palette li.picker{background:transparent; border:none}
+.palette li.picker img{width:18px; height:18px; display:block}
+
+/* ===== キャンバス ===== */
+.canvas{
+  position:relative; background:transparent;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+}
+/* 角丸の内側ガイド（スクショにある薄いライン） */
+.canvas .inner-corner{
+  position:absolute; inset:12px; border:1px solid rgba(0,0,0,.15); border-radius:12px; pointer-events:none;
+}
+
+/* マネキン：キャンバス中央 / 初期幅240px（スクショ準拠） */
+.mannequin{
+  position:absolute; left:50%; top:50%;
+  width:240px; height:auto; transform:translate(-50%,-44%);
+  opacity:.95; filter:contrast(95%) saturate(80%);
+  image-rendering:auto;
+}
+
+/* オーバーレイ（ズーム） */
+.overlay-zoom{
+  position:absolute; right:8%; top:48%;
+  display:flex; gap:6px; align-items:center; font-size:12px; background:#e6e6e6;
+  padding:2px 6px; border-radius:3px; border:1px solid #888;
+}
+.overlay-zoom .bar{position:relative; width:96px; height:8px; background:#bdbdbd; border-radius:4px; overflow:hidden}
+.overlay-zoom .bar i{position:absolute; top:0; transform:translateX(-50%); width:10px; height:100%; background:#777; border-radius:4px}
