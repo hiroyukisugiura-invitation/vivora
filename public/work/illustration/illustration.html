@@ -1,112 +1,235 @@
-<!-- index.html (HTML+js) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css" />
-  <meta name="viewport" content="width=1280, initial-scale=1.0" />
+  <title>Vivora Illustration — Absolute Grid</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="board">
-    <!-- Header -->
-    <header class="topbar">
-      <h1 class="title">Vivora Fashion Illustration 2025</h1>
-      <nav class="contents">
-        <!-- 必ずGitのpngを使用（パスは環境に合わせて変更可） -->
-        <img src="public/create_parts/contents_button/0_home.png" alt="home" />
-        <img src="public/create_parts/contents_button/1_fashion-illustrations.png" alt="illustrations" />
-        <img src="public/create_parts/contents_button/2_fabric-matching.png" alt="fabric" />
-        <img src="public/create_parts/contents_button/3_clothing-design.png" alt="clothing" />
-        <img src="public/create_parts/contents_button/4_ai-fitting.png" alt="ai" />
-        <img src="public/create_parts/contents_button/5_measurement.png" alt="measure" />
-        <img src="public/create_parts/contents_button/6_export.png" alt="export" />
-        <img src="public/create_parts/contents_button/7_setting.png" alt="setting" />
-      </nav>
-    </header>
+  <!-- 固定サイズボード（100×70 グリッド基準）。非レスポンシブ、1280×820px。 -->
+  <div id="board" class="board">
 
-    <!-- Canvas Area -->
-    <main class="workarea">
-      <div class="stage">
-        <img class="mannequin" src="public/mannequin/mannequin_woman.png" alt="mannequin" />
-        <div class="zoom-indicator" id="zoomIndicator">100%</div>
-      </div>
+    <!-- グリッド表示トグル（必要時のみ） -->
+    <input id="gridToggle" class="grid-toggle" type="checkbox" />
+    <label for="gridToggle" class="grid-label">GRID</label>
 
-      <!-- Right Tool Rail -->
-      <aside class="right-rail">
+    <!-- タイトル：X:3-22 , Y:4-4 -->
+    <div class="abs box title"
+         data-x="3" data-y="4" data-w="19" data-h="1">
+      <h1 class="ttl">Vivora Fashion Illustration</h1>
+    </div>
 
-        <div class="rail-top">
-          <button class="rail-btn"><img src="public/create_parts/create_button/undo.png" alt="undo"></button>
-          <button class="rail-btn"><img src="public/create_parts/create_button/redo.png" alt="redo"></button>
-          <button class="rail-btn"><img src="public/create_parts/create_button/save.png" alt="save"></button>
-        </div>
+    <!-- コンテンツボタン群：X:73.5-93 , Y:4-5 -->
+    <div class="abs box contents-buttons"
+         data-x="73.5" data-y="4" data-w="19.5" data-h="1">
+      <button class="cbtn">Home</button>
+      <button class="cbtn">Illustration</button>
+      <button class="cbtn">Pattern</button>
+      <button class="cbtn">Export</button>
+      <button class="cbtn next">Next Step</button>
+    </div>
 
-        <div class="tool-rail" id="toolRail">
-          <!-- Stationery tools（レイヤー系は含めない） -->
-          <button class="tool" data-tool="select"><img src="public/create_parts/design_button/select.png" alt="select" /></button>
-          <button class="tool" data-tool="direct_select"><img src="public/create_parts/design_button/direct_select.png" alt="direct_select" /></button>
-          <button class="tool" data-tool="line"><img src="public/create_parts/design_button/line.png" alt="line" /></button>
-          <button class="tool" data-tool="square"><img src="public/create_parts/design_button/square.png" alt="square" /></button>
-          <button class="tool" data-tool="circle"><img src="public/create_parts/design_button/circle.png" alt="circle" /></button>
-          <button class="tool" data-tool="brush"><img src="public/create_parts/design_button/brush.png" alt="brush" /></button>
-          <button class="tool" data-tool="pen"><img src="public/create_parts/design_button/pen.png" alt="pen" /></button>
-          <button class="tool" data-tool="circlebrush"><img src="public/create_parts/design_button/circlebrush.png" alt="circlebrush" /></button>
-          <button class="tool" data-tool="ballpointpen"><img src="public/create_parts/design_button/ballpointpen.png" alt="ballpointpen" /></button>
-          <button class="tool" data-tool="markerpen"><img src="public/create_parts/design_button/markerpen.png" alt="markerpen" /></button>
-          <button class="tool" data-tool="eraser"><img src="public/create_parts/design_button/eraser.png" alt="eraser" /></button>
-          <button class="tool" data-tool="text"><img src="public/create_parts/design_button/sentence.png" alt="text" /></button>
-          <button class="tool" data-tool="grid"><img src="public/create_parts/design_button/graph_paper.png" alt="grid" /></button>
-        </div>
+    <!-- I/O（Upload / Download / Save）：X:97-97 , Y:8-12（1列×4行） -->
+    <div class="abs box io-vertical"
+         data-x="97" data-y="8" data-w="1" data-h="4">
+      <button class="iobtn" title="Upload">
+        <img src="public/create_parts/create_button/upload.png" alt="upload" />
+      </button>
+      <button class="iobtn" title="Download">
+        <img src="public/create_parts/create_button/download.png" alt="download" />
+      </button>
+      <button class="iobtn" title="Save">
+        <img src="public/create_parts/create_button/save.png" alt="save" />
+      </button>
+      <div class="spacer"></div>
+    </div>
 
-        <!-- Color dots -->
-        <div class="palette" id="palette">
-          <button class="dot" style="--c:#f3c200" aria-label="yellow"></button>
-          <button class="dot" style="--c:#f3a200"></button>
-          <button class="dot" style="--c:#f37800"></button>
-          <button class="dot" style="--c:#f34c00"></button>
-          <button class="dot" style="--c:#f31e00"></button>
-          <button class="dot" style="--c:#f3003f"></button>
-          <button class="dot" style="--c:#e8007f"></button>
-          <button class="dot" style="--c:#ba00a8"></button>
-          <button class="dot" style="--c:#7a00c7"></button>
-          <button class="dot" style="--c:#3a28d7"></button>
-          <button class="dot" style="--c:#0067e8"></button>
-          <button class="dot" style="--c:#0099e8"></button>
-          <button class="dot" style="--c:#00b8c8"></button>
-          <button class="dot" style="--c:#00b878"></button>
-          <button class="dot" style="--c:#37b800"></button>
-          <button class="dot" style="--c:#78b800"></button>
-          <button class="dot" style="--c:#a8b800"></button>
-          <button class="dot" style="--c:#000000"></button>
-          <button class="dot" style="--c:#6e6e6e"></button>
-          <button class="dot" style="--c:#bfbfbf"></button>
-        </div>
+    <!-- キャンバス：X:3-93 , Y:8-68 -->
+    <div id="canvasArea" class="abs box canvas"
+         data-x="3" data-y="8" data-w="90" data-h="60">
+      <!-- マネキン（キャンバス内絶対配置）：X:42-54 , Y:17-60 をキャンバス原点に補正して配置 -->
+      <img id="mannequin" class="mannequin"
+           src="public/mannequin/mannequin_woman.png" alt="mannequin" />
 
-      </aside>
-    </main>
+      <!-- 透明度スライダー（選択時表示）：X:86-92 , Y:36-37.5（キャンバス上にオーバーレイ） -->
+      <div id="opacityOverlay" class="opacity-overlay hidden"></div>
+    </div>
+
+    <!-- ステーショナリーツール：X:96-98 , Y:14-39（レイヤー系アイコンは入れない） -->
+    <div class="abs box tools"
+         data-x="96" data-y="14" data-w="2" data-h="25">
+      <button class="tool" data-tool="select" title="Select">
+        <img src="public/create_parts/design_button/select.png" alt="select" />
+      </button>
+      <button class="tool" data-tool="direct_select" title="Direct Select">
+        <img src="public/create_parts/design_button/direct_select.png" alt="direct_select" />
+      </button>
+      <button class="tool" data-tool="square" title="Square">
+        <img src="public/create_parts/design_button/square.png" alt="square" />
+      </button>
+      <button class="tool" data-tool="circle" title="Circle">
+        <img src="public/create_parts/design_button/circle.png" alt="circle" />
+      </button>
+      <button class="tool" data-tool="brush" title="Brush">
+        <img src="public/create_parts/design_button/brush.png" alt="brush" />
+      </button>
+      <button class="tool" data-tool="pen" title="Pen">
+        <img src="public/create_parts/design_button/pen.png" alt="pen" />
+      </button>
+      <button class="tool" data-tool="circlebrush" title="Circle Brush">
+        <img src="public/create_parts/design_button/circlebrush.png" alt="circlebrush" />
+      </button>
+      <button class="tool" data-tool="ballpointpen" title="Ballpoint Pen">
+        <img src="public/create_parts/design_button/ballpointpen.png" alt="ballpointpen" />
+      </button>
+      <button class="tool" data-tool="markerpen" title="Marker Pen">
+        <img src="public/create_parts/design_button/markerpen.png" alt="markerpen" />
+      </button>
+      <button class="tool" data-tool="eraser" title="Eraser">
+        <img src="public/create_parts/design_button/eraser.png" alt="eraser" />
+      </button>
+      <button class="tool" data-tool="sentence" title="Text">
+        <img src="public/create_parts/design_button/sentence.png" alt="sentence" />
+      </button>
+      <button class="tool" data-tool="opacity" title="Opacity">
+        <img src="public/create_parts/design_button/opasity_ber.png" alt="opacity" />
+      </button>
+      <button class="tool" data-tool="graph_paper" title="Graph Paper">
+        <img src="public/create_parts/design_button/graph_paper.png" alt="graph_paper" />
+      </button>
+    </div>
+
+    <!-- カラーパレット：X:96-98 , Y:41-68 -->
+    <div class="abs box palette"
+         data-x="96" data-y="41" data-w="2" data-h="27">
+      <div class="swatch" style="--c:#000000"></div>
+      <div class="swatch" style="--c:#FFFFFF"></div>
+      <div class="swatch" style="--c:#C62828"></div>
+      <div class="swatch" style="--c:#AD1457"></div>
+      <div class="swatch" style="--c:#6A1B9A"></div>
+      <div class="swatch" style="--c:#283593"></div>
+      <div class="swatch" style="--c:#1565C0"></div>
+      <div class="swatch" style="--c:#00838F"></div>
+      <div class="swatch" style="--c:#2E7D32"></div>
+      <div class="swatch" style="--c:#9E9D24"></div>
+      <div class="swatch" style="--c:#EF6C00"></div>
+      <div class="swatch" style="--c:#4E342E"></div>
+    </div>
+
+    <!-- 100×70 ガイド（トグルで表示） -->
+    <div id="gridGuide" class="grid-guide"></div>
   </div>
 
   <script>
-    // 最低限のUI動作（選択状態表示と色選択）
-    const toolRail = document.getElementById('toolRail');
-    toolRail.addEventListener('click', (e) => {
-      const btn = e.target.closest('.tool');
-      if (!btn) return;
-      document.querySelectorAll('.tool').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
+    // ====== 定数（固定ボード：1280×820 / 100×70） ======
+    const BOARD_W = 1280;
+    const BOARD_H = 820;
+    const GRID_COLS = 100;
+    const GRID_ROWS = 70;
+    const CELL_W = BOARD_W / GRID_COLS; // 12.8px
+    const CELL_H = BOARD_H / GRID_ROWS; // ≈11.7142857px
 
-    const palette = document.getElementById('palette');
-    palette.addEventListener('click', (e) => {
-      const dot = e.target.closest('.dot');
-      if (!dot) return;
-      document.querySelectorAll('.dot').forEach(d => d.classList.remove('picked'));
-      dot.classList.add('picked');
-    });
+    // ====== 汎用配置（data-x,y,w,h を px に変換） ======
+    function applyGridPosition(el) {
+      const x = parseFloat(el.dataset.x);
+      const y = parseFloat(el.dataset.y);
+      const w = parseFloat(el.dataset.w);
+      const h = parseFloat(el.dataset.h);
+      el.style.left = (x * CELL_W) + 'px';
+      el.style.top  = (y * CELL_H) + 'px';
+      el.style.width  = (w * CELL_W) + 'px';
+      el.style.height = (h * CELL_H) + 'px';
+    }
 
-    // ズーム表示は固定 100%（見た目用）
-    const zoomIndicator = document.getElementById('zoomIndicator');
-    zoomIndicator.textContent = '100%';
+    // 初期配置
+    document.querySelectorAll('.abs').forEach(applyGridPosition);
+
+    // グリッドガイド生成
+    (function buildGrid() {
+      const g = document.getElementById('gridGuide');
+      g.style.width = BOARD_W + 'px';
+      g.style.height = BOARD_H + 'px';
+      // 縦線
+      for (let c = 0; c <= GRID_COLS; c++) {
+        const v = document.createElement('div');
+        v.className = 'gline v';
+        v.style.left = (c * CELL_W) + 'px';
+        g.appendChild(v);
+      }
+      // 横線
+      for (let r = 0; r <= GRID_ROWS; r++) {
+        const h = document.createElement('div');
+        h.className = 'gline h';
+        h.style.top = (r * CELL_H) + 'px';
+        g.appendChild(h);
+      }
+    })();
+
+    // マネキン位置（キャンバス原点へ補正）
+    (function placeMannequin() {
+      const canvas = document.getElementById('canvasArea');
+      const mannequin = document.getElementById('mannequin');
+
+      // グローバル座標
+      const gx1 = 42, gx2 = 54, gy1 = 17, gy2 = 60;
+      const gw = (gx2 - gx1) * CELL_W;
+      const gh = (gy2 - gy1) * CELL_H;
+
+      // キャンバスのグローバルXY
+      const cx = parseFloat(canvas.dataset.x) * CELL_W;
+      const cy = parseFloat(canvas.dataset.y) * CELL_H;
+
+      // マネキン左上（キャンバス内座標）
+      const mx = (gx1 * CELL_W) - cx;
+      const my = (gy1 * CELL_H) - cy;
+
+      mannequin.style.left = mx + 'px';
+      mannequin.style.top  = my + 'px';
+      mannequin.style.width  = gw + 'px';
+      mannequin.style.height = gh + 'px';
+    })();
+
+    // ツール：Opacity 選択でスライダー表示（X:86-92 , Y:36-37.5 をキャンバス内に敷く）
+    (function setupTools() {
+      const opacityOverlay = document.getElementById('opacityOverlay');
+      const canvas = document.getElementById('canvasArea');
+
+      function placeOpacityOverlay() {
+        // グローバル → キャンバス内補正
+        const gx1 = 86, gx2 = 92, gy1 = 36, gy2 = 37.5;
+        const cx = parseFloat(canvas.dataset.x) * CELL_W;
+        const cy = parseFloat(canvas.dataset.y) * CELL_H;
+
+        const x = (gx1 * CELL_W) - cx;
+        const y = (gy1 * CELL_H) - cy;
+        const w = (gx2 - gx1) * CELL_W;
+        const h = (gy2 - gy1) * CELL_H;
+
+        opacityOverlay.style.left = x + 'px';
+        opacityOverlay.style.top  = y + 'px';
+        opacityOverlay.style.width  = w + 'px';
+        opacityOverlay.style.height = h + 'px';
+      }
+      placeOpacityOverlay();
+
+      document.querySelectorAll('.tool').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tool').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const t = btn.dataset.tool;
+          if (t === 'opacity') {
+            opacityOverlay.classList.remove('hidden');
+          } else {
+            opacityOverlay.classList.add('hidden');
+          }
+        });
+      });
+    })();
+
+    // グリッド表示トグル
+    document.getElementById('gridToggle').addEventListener('change', (e) => {
+      document.getElementById('gridGuide').classList.toggle('show', e.target.checked);
+    });
   </script>
 </body>
 </html>
