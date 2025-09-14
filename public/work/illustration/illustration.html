@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="grid.css">
+  <link rel="stylesheet" href="illustration.css" />
 </head>
 <body>
-  <div class="board">
-    <!-- グリッド背景 -->
-    <div class="grid"></div>
+  <div class="stage" style="--board-w:1280px; --board-h:820px; --cols:100; --rows:70;">
+    <div class="board">
+      <div class="grid"></div>
 
-    <!-- タイトル -->
-    <div class="title">Vivora Fashion Illustration 2025</div>
+      <!-- タイトル（任意） -->
+      <div class="title">Vivora Fashion Illustration 2025</div>
 
-    <!-- X軸ラベル -->
-    <div class="x-axis">
-      <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span>
-      <span>50</span><span>60</span><span>70</span><span>80</span><span>90</span><span>100</span>
-    </div>
+      <!-- 上・左の座標目盛り -->
+      <div class="ruler-x">
+        <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span>
+        <span>60</span><span>70</span><span>80</span><span>90</span><span>100</span>
+      </div>
+      <div class="ruler-y">
+        <span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span>
+      </div>
 
-    <!-- Y軸ラベル -->
-    <div class="y-axis">
-      <span>0</span><span>10</span><span>20</span><span>30</span>
-      <span>40</span><span>50</span><span>60</span><span>70</span>
+      <!-- 以降、要素は .place に座標を与えて配置 -->
+      <!-- 例：X:94–98, Y:10–10 の横長ボタン帯（幅=4, 高さ=1）-->
+      <!-- <div class="place demo" style="--x:94; --y:10; --w:4; --h:1;"></div> -->
     </div>
   </div>
 </body>
