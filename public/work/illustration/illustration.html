@@ -1,74 +1,80 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="board">
-    <!-- タイトル -->
+
+    <!-- タイトル：X3-22,Y4 -->
     <h1 class="page-title">Vivora Fashion Illustration 2025</h1>
 
-    <!-- コンテンツボタン -->
-    <div class="contents-buttons">
-      <img src="create_parts/contents_button/0_home.png" alt="home">
-      <img src="create_parts/contents_button/1_fashion-illustrations.png" alt="fashion">
-      <img src="create_parts/contents_button/2_fabric-matching.png" alt="fabric">
-      <img src="create_parts/contents_button/3_clothing-design.png" alt="design">
-      <img src="create_parts/contents_button/4_inspiration.png" alt="inspiration">
-      <img src="create_parts/contents_button/5_ai-assistant.png" alt="assistant">
+    <!-- コンテンツボタン：X73.5-93,Y4-5 -->
+    <nav class="contents-buttons" aria-label="contents">
+      <img src="./create_parts/contents_button/0_home.png" alt="home" />
+      <img src="./create_parts/contents_button/1_fashion-illustrations.png" alt="fashion" />
+      <img src="./create_parts/contents_button/2_fabric-matching.png" alt="fabric" />
+      <img src="./create_parts/contents_button/3_clothing-design.png" alt="design" />
+      <img src="./create_parts/contents_button/4_inspiration.png" alt="inspiration" />
+      <img src="./create_parts/contents_button/5_ai-assistant.png" alt="assistant" />
+    </nav>
+
+    <!-- DL/UP/SAVE：X97,Y8-12（縦並び） -->
+    <div class="io-buttons" aria-label="io">
+      <img src="./create_parts/create_button/download.png" alt="download" />
+      <img src="./create_parts/create_button/upload.png" alt="upload" />
+      <img src="./create_parts/create_button/save.png" alt="save" />
     </div>
 
-    <!-- Upload / Download / Save -->
-    <div class="io-buttons">
-      <img src="create_parts/create_button/download.png" alt="download">
-      <img src="create_parts/create_button/upload.png" alt="upload">
-      <img src="create_parts/create_button/save.png" alt="save">
+    <!-- キャンバス：X3-93,Y8-68 -->
+    <section class="canvas">
+      <div class="canvas-inner">
+        <!-- マネキン：X42-54,Y17-60  -->
+        <img class="mannequin" src="./mannequin/mannequin_woman.png" alt="mannequin" />
+      </div>
+    </section>
+
+    <!-- ステーショナリー：X96-98,Y14-39（縦） -->
+    <aside class="stationery">
+      <img src="./create_parts/design_button/select.png" alt="select" />
+      <img src="./create_parts/design_button/direct_select.png" alt="direct" />
+      <img src="./create_parts/design_button/square.png" alt="square" />
+      <img src="./create_parts/design_button/circle.png" alt="circle" />
+      <img src="./create_parts/design_button/brush.png" alt="brush" />
+      <img src="./create_parts/design_button/pen.png" alt="pen" />
+      <img src="./create_parts/design_button/circlebrush.png" alt="circlebrush" />
+      <img src="./create_parts/design_button/ballpointpen.png" alt="ballpointpen" />
+      <img src="./create_parts/design_button/markerpen.png" alt="markerpen" />
+      <img src="./create_parts/design_button/eraser.png" alt="eraser" />
+      <img src="./create_parts/design_button/text.png" alt="text" />
+      <img src="./create_parts/design_button/grid.png" alt="grid" />
+    </aside>
+
+    <!-- カラーパレット：X96-98,Y41-68（縦） -->
+    <aside class="color-panel" aria-label="colors">
+      <button class="c white" aria-label="white"></button>
+      <button class="c gray" aria-label="gray"></button>
+      <button class="c yellow" aria-label="yellow"></button>
+      <button class="c orange" aria-label="orange"></button>
+      <button class="c red" aria-label="red"></button>
+      <button class="c pink" aria-label="pink"></button>
+      <button class="c green" aria-label="green"></button>
+      <button class="c darkgreen" aria-label="darkgreen"></button>
+      <button class="c cyan" aria-label="cyan"></button>
+      <button class="c blue" aria-label="blue"></button>
+      <button class="c purple" aria-label="purple"></button>
+      <button class="c black" aria-label="black"></button>
+    </aside>
+
+    <!-- 透明度スライダー：X86-92,Y36-37.5 -->
+    <div class="opacity">
+      <span class="pct">100%</span>
+      <input type="range" min="0" max="100" value="100" />
     </div>
 
-    <!-- キャンバス -->
-    <div class="canvas">
-      <img src="mannequin/mannequin_woman.png" alt="mannequin" class="mannequin">
-    </div>
-
-    <!-- ステーショナリーツール -->
-    <div class="stationery-tool">
-      <img src="create_parts/design_button/select.png" alt="select">
-      <img src="create_parts/design_button/direct_select.png" alt="direct">
-      <img src="create_parts/design_button/square.png" alt="square">
-      <img src="create_parts/design_button/circle.png" alt="circle">
-      <img src="create_parts/design_button/brush.png" alt="brush">
-      <img src="create_parts/design_button/pen.png" alt="pen">
-      <img src="create_parts/design_button/circlebrush.png" alt="circlebrush">
-      <img src="create_parts/design_button/ballpointpen.png" alt="ballpointpen">
-      <img src="create_parts/design_button/markerpen.png" alt="markerpen">
-      <img src="create_parts/design_button/eraser.png" alt="eraser">
-      <img src="create_parts/design_button/text.png" alt="text">
-      <img src="create_parts/design_button/grid.png" alt="grid">
-    </div>
-
-    <!-- カラーパレット -->
-    <div class="color-panel">
-      <div class="color" style="background:#fff"></div>
-      <div class="color" style="background:#e0e0e0"></div>
-      <div class="color" style="background:#ff0"></div>
-      <div class="color" style="background:#f90"></div>
-      <div class="color" style="background:#f00"></div>
-      <div class="color" style="background:#f99"></div>
-      <div class="color" style="background:#0f0"></div>
-      <div class="color" style="background:#090"></div>
-      <div class="color" style="background:#0ff"></div>
-      <div class="color" style="background:#00f"></div>
-      <div class="color" style="background:#609"></div>
-      <div class="color" style="background:#000"></div>
-    </div>
-
-    <!-- 透明度スライダー -->
-    <div class="opacity-slider">
-      <label>100%</label>
-      <input type="range" min="0" max="100" value="100">
-    </div>
   </div>
 </body>
 </html>
