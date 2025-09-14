@@ -1,94 +1,156 @@
-body {
-  margin: 0;
-  background: #f8f2ea;
-  font-family: sans-serif;
+/* style.css */
+/* 100×70マスの%直指定（X=0..100, Y=0..70） */
+:root{
+  --bg:#f6ede3;
+  --panel:#ffffff;
+  --line:#d9d1c7;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif}
+
+/* ボード全体 */
+.board{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
 }
 
-.board {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
+/* タイトル：X3-22,Y4 */
+.page-title{
+  position:absolute;
+  left:3%;
+  top:calc(4% * 1);       /* Yはそのまま% */
+  margin:0;
+  font-size:20px;
+  line-height:1;
+  font-weight:600;
 }
 
-/* タイトル */
-.page-title {
-  position: absolute;
-  left: 3%;
-  top: 4%;
-  font-size: 18px;
+/* コンテンツボタン：X73.5-93,Y4-5（横並び） */
+.contents-buttons{
+  position:absolute;
+  left:73.5%;
+  right:7%;
+  top:4%;
+  height:calc((5% - 4%) * 1); /* 行の高さを確保 */
+  display:flex;
+  align-items:center;
+  gap:0.7%;
+}
+.contents-buttons img{
+  height:100%;
+  display:block;
 }
 
-/* コンテンツボタン */
-.contents-buttons {
-  position: absolute;
-  left: 73.5%;
-  top: 4%;
-  display: flex;
-  gap: 5px;
+/* IO：X97,Y8-12（縦） */
+.io-buttons{
+  position:absolute;
+  left:97%;
+  top:8%;
+  bottom:calc(70% - 12%); /* Y12まで */
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  transform:translateX(-100%); /* 右端に沿わせる */
+}
+.io-buttons img{height:22px;display:block}
+
+/* キャンバス：X3-93,Y8-68 */
+.canvas{
+  position:absolute;
+  left:3%;
+  right:7%;
+  top:8%;
+  bottom:2%;              /* 68%まで＝下端は70-68=2% */
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+}
+.canvas-inner{
+  position:relative;
+  width:100%;
+  height:100%;
 }
 
-/* Upload/Download/Save */
-.io-buttons {
-  position: absolute;
-  left: 97%;
-  top: 8%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* マネキン：X42-54,Y17-60（キャンバス内基準に%で合わせる） */
+.mannequin{
+  position:absolute;
+  left:42%;
+  right:46%;             /* 100-(42..54)=46% */
+  top:17%;
+  bottom:10%;            /* 70-(17..60)=? → 下端余白を近似固定 */
+  transform:translateX(-0%); /* 画像は透明余白があるためそのまま配置 */
+  height:auto;
+  max-height:70%;
 }
 
-/* キャンバス */
-.canvas {
-  position: absolute;
-  left: 3%;
-  top: 8%;
-  width: 90%;
-  height: 60%;
-  border: 1px solid #ccc;
-  background: #fff;
+/* ステーショナリー：X96-98,Y14-39（縦） */
+.stationery{
+  position:absolute;
+  left:96%;
+  right:2%;
+  top:14%;
+  bottom:31%;            /* 70-39=31% */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  padding:6px 0;
+  background:#ffffff;
+  border:1px solid var(--line);
+  border-radius:6px;
 }
-.mannequin {
-  position: absolute;
-  left: 42%;
-  top: 17%;
-  height: 60%;
-}
+.stationery img{width:20px;height:20px;object-fit:contain;display:block}
 
-/* ステーショナリーツール */
-.stationery-tool {
-  position: absolute;
-  left: 96%;
-  top: 14%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+/* カラー：X96-98,Y41-68（縦） */
+.color-panel{
+  position:absolute;
+  left:96%;
+  right:2%;
+  top:41%;
+  bottom:2%;             /* 70-68=2% */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  padding:10px 0;
+  background:#ffffff;
+  border:1px solid var(--line);
+  border-radius:6px;
 }
+.c{
+  width:20px;height:20px;border-radius:50%;
+  border:1px solid #999;cursor:pointer;background:#000;
+}
+.white{background:#fff}
+.gray{background:#d9d9d9}
+.yellow{background:#ffd400}
+.orange{background:#ff9900}
+.red{background:#ff2a2a}
+.pink{background:#ffa0a8}
+.green{background:#00c853}
+.darkgreen{background:#0a8f3c}
+.cyan{background:#00e5ff}
+.blue{background:#2979ff}
+.purple{background:#6a1b9a}
+.black{background:#000}
 
-/* カラーパレット */
-.color-panel {
-  position: absolute;
-  left: 96%;
-  top: 41%;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+/* 透明度：X86-92,Y36-37.5（横スライダー） */
+.opacity{
+  position:absolute;
+  left:86%;
+  right:8%;
+  top:36%;
+  height:1.5%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:4px 6px;
+  background:#ffffffcc;
+  border:1px solid var(--line);
+  border-radius:4px;
 }
-.color {
-  width: 20px;
-  height: 20px;
-  border: 1px solid #999;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-/* 透明度スライダー */
-.opacity-slider {
-  position: absolute;
-  left: 86%;
-  top: 36%;
-  width: 6%;
-  background: rgba(255,255,255,0.7);
-  padding: 2px;
-  border-radius: 5px;
-  font-size: 12px;
-}
+.opacity .pct{font-size:12px;white-space:nowrap}
+.opacity input[type="range"]{width:100%}
