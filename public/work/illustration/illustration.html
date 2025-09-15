@@ -1,211 +1,147 @@
-<!-- index.html (HTML + JS) -->
+<!-- index.html (HTML+js) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8"/>
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="topbar">
-    <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
-
-    <nav class="mode-pills">
-      <button class="pill">home</button>
-      <button class="pill pill-active">fashion<br>illustration</button>
-      <button class="pill">fabric<br>matching</button>
-      <button class="pill">clothing<br>design</button>
-      <button class="pill">pattern</button>
-      <button class="pill">grading</button>
-      <button class="pill">print<br>layout</button>
+  <header class="hdr">
+    <h1>Vivora Fashion Illustration 2025</h1>
+    <nav class="tabs">
+      <button>home</button>
+      <button class="on">fashion<br>illustration</button>
+      <button>fabric<br>matching</button>
+      <button>clothing<br>design</button>
+      <button>pattern</button>
+      <button>grading</button>
+      <button>print<br>layout</button>
     </nav>
   </header>
 
-  <!-- MAIN STAGE -->
-  <main class="stage">
-    <!-- DRAW BOARD -->
+  <main class="wrap">
+    <!-- 左：ボード -->
     <section class="board">
-      <div class="canvas-frame">
-        <img id="mannequin" class="mannequin-base" src="public/mannequin/mannequin_woman.png" alt="mannequin"/>
-        <div id="zoomBadge" class="zoom-badge">
-          <span id="zoomValue">100%</span>
-          <input id="zoomDot" class="zoom-dot" type="range" min="50" max="200" value="100" />
+      <div class="board-inner">
+        <img id="mannequin" class="mannequin" src="public/mannequin/mannequin_woman.png" alt="">
+        <div class="zoom">
+          <span id="zoomLabel">100%</span>
+          <input id="zoomRange" type="range" min="50" max="200" value="100">
         </div>
       </div>
     </section>
 
-    <!-- RIGHT CONTROL WALL -->
-    <aside class="right-wall">
-
-      <!-- IO row -->
-      <div class="io-row">
-        <button class="io-btn" title="Upload"><img src="public/create_parts/create_button/upload.png" alt="upload"></button>
-        <button class="io-btn" title="Download"><img src="public/create_parts/create_button/download.png" alt="download"></button>
-        <button class="io-btn" title="Save"><img src="public/create_parts/create_button/save.png" alt="save"></button>
+    <!-- 右：壁 -->
+    <aside class="wall">
+      <!-- IO -->
+      <div class="io">
+        <button class="io-btn"><img src="public/create_parts/create_button/upload.png" alt=""></button>
+        <button class="io-btn"><img src="public/create_parts/create_button/download.png" alt=""></button>
+        <button class="io-btn"><img src="public/create_parts/create_button/save.png" alt=""></button>
       </div>
 
-      <!-- Tools + Category rail -->
-      <div class="rail">
-        <!-- TOOL BAR (no layer icon) -->
-        <div class="tool-bar">
-          <button class="tool" title="Select"><img src="public/create_parts/design_button/select.png" alt=""></button>
-          <button class="tool" title="Direct Select"><img src="public/create_parts/design_button/direct_select.png" alt=""></button>
-          <button class="tool" title="Square"><img src="public/create_parts/design_button/square.png" alt=""></button>
-          <button class="tool" title="Circle"><img src="public/create_parts/design_button/circle.png" alt=""></button>
-          <button class="tool" title="Brush"><img src="public/create_parts/design_button/brush.png" alt=""></button>
-          <button class="tool" title="Pen"><img src="public/create_parts/design_button/pen.png" alt=""></button>
-          <button class="tool" title="Circle Brush"><img src="public/create_parts/design_button/circlebrush.png" alt=""></button>
-          <button class="tool" title="Ballpoint"><img src="public/create_parts/design_button/ballpointpen.png" alt=""></button>
-          <button class="tool" title="Marker"><img src="public/create_parts/design_button/markerpen.png" alt=""></button>
-          <button class="tool" title="Eraser"><img src="public/create_parts/design_button/eraser.png" alt=""></button>
-          <button class="tool" title="Text"><img src="public/create_parts/design_button/sentence.png" alt=""></button>
-          <button id="opacityTool" class="tool" title="Opacity"><img src="public/create_parts/design_button/opasity_ber.png" alt=""></button>
-          <button class="tool" title="Grid"><img src="public/create_parts/design_button/graph_paper.png" alt=""></button>
+      <div class="wall-grid">
+        <!-- ツール -->
+        <div class="tools">
+          <button class="tool"><img src="public/create_parts/design_button/select.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/direct_select.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/square.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/circle.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/brush.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/pen.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/circlebrush.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/ballpointpen.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/markerpen.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/eraser.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/sentence.png" alt=""></button>
+          <button id="opacityBtn" class="tool"><img src="public/create_parts/design_button/opasity_ber.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/graph_paper.png" alt=""></button>
         </div>
 
-        <!-- CATEGORY STACK -->
-        <div class="category-stack">
-          <!-- Each row: label + preview cell -->
-          <div class="cat-row">
-            <button class="cat-btn">Tops</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Bottoms</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Sleeves</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Collar</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Pockets</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Buttons</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Skirts</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Belts</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Zippers</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Hems</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Necklines</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Backstyle</button>
-            <div class="cat-cell"></div>
-          </div>
-          <div class="cat-row">
-            <button class="cat-btn">Accessories</button>
-            <div class="cat-cell"></div>
-          </div>
+        <!-- カテゴリ -->
+        <div class="cats">
+          <div class="cat"><button>Tops</button><div class="cell"></div></div>
+          <div class="cat"><button>Bottoms</button><div class="cell"></div></div>
+          <div class="cat"><button>Sleeves</button><div class="cell"></div></div>
+          <div class="cat"><button>Collar</button><div class="cell"></div></div>
+          <div class="cat"><button>Pockets</button><div class="cell"></div></div>
+          <div class="cat"><button>Buttons</button><div class="cell"></div></div>
+          <div class="cat"><button>Skirts</button><div class="cell"></div></div>
+          <div class="cat"><button>Belts</button><div class="cell"></div></div>
+          <div class="cat"><button>Zippers</button><div class="cell"></div></div>
+          <div class="cat"><button>Hems</button><div class="cell"></div></div>
+          <div class="cat"><button>Necklines</button><div class="cell"></div></div>
+          <div class="cat"><button>Backstyle</button><div class="cell"></div></div>
+          <div class="cat"><button>Accessories</button><div class="cell"></div></div>
         </div>
 
-        <!-- COLOR PALETTE -->
+        <!-- パレット -->
         <div class="palette">
-          <button class="dot" style="--c:#e9e8e3" aria-label="color"></button>
+          <button class="dot" style="--c:#ffffff;border:1px solid #c8c8c8"></button>
+          <button class="dot" style="--c:#e9e8e3"></button>
           <button class="dot" style="--c:#f5d0aa"></button>
-          <button class="dot" style="--c:#f7b27b"></button>
           <button class="dot" style="--c:#f2955f"></button>
-          <button class="dot" style="--c:#f06f49"></button>
-          <button class="dot" style="--c:#f04b3a"></button>
           <button class="dot" style="--c:#ef2c2c"></button>
-          <button class="dot" style="--c:#d11e54"></button>
           <button class="dot" style="--c:#a91d8f"></button>
           <button class="dot" style="--c:#6d27c4"></button>
           <button class="dot" style="--c:#2f55d4"></button>
           <button class="dot" style="--c:#1b8bd1"></button>
-          <button class="dot" style="--c:#15a3a1"></button>
           <button class="dot" style="--c:#1fa24c"></button>
-          <button class="dot" style="--c:#7cab33"></button>
           <button class="dot" style="--c:#c3c33b"></button>
           <button class="dot" style="--c:#000000"></button>
-          <button class="dot" style="--c:#ffffff; border:1px solid #bfbfbf"></button>
         </div>
       </div>
 
-      <!-- OPACITY SLIDER (appears when opacity tool clicked) -->
-      <div id="opacityPanel" class="opacity-panel" hidden>
+      <!-- 透明度 -->
+      <div id="opacityPanel" class="opacity" hidden>
         <label>Opacity</label>
-        <input id="opacityRange" type="range" min="0" max="100" value="100"/>
-        <span id="opacityValue">100%</span>
+        <input id="opacityRange" type="range" min="0" max="100" value="100">
+        <span id="opacityVal">100%</span>
       </div>
     </aside>
   </main>
 
-  <!-- BOTTOM STRIP (thumbnail scroller) -->
-  <footer class="thumb-strip">
+  <!-- 下：サムネ帯 -->
+  <footer class="strip">
     <div class="thumbs">
-      <figure class="thumb"><img src="public/clothing/tshirt.png" alt=""><figcaption>tshirt</figcaption></figure>
-      <figure class="thumb"><img src="public/bottoms/jeans.png" alt=""><figcaption>jeans</figcaption></figure>
-      <figure class="thumb"><img src="public/sleeves/shortsleeve.png" alt=""><figcaption>shortsleeve</figcaption></figure>
-      <figure class="thumb"><img src="public/collars/roundcollar.png" alt=""><figcaption>roundcollar</figcaption></figure>
-      <figure class="thumb"><img src="public/pockets/patchpocket.png" alt=""><figcaption>patchpocket</figcaption></figure>
-      <figure class="thumb"><img src="public/buttons/centerbutton.png" alt=""><figcaption>centerbutton</figcaption></figure>
-      <figure class="thumb"><img src="public/skirts/aline_skirt.png" alt=""><figcaption>alineskirt.png</figcaption></figure>
-      <figure class="thumb"><img src="public/belts/waistbelt.png" alt=""><figcaption>waistbelt</figcaption></figure>
-      <figure class="thumb"><img src="public/zippers/frontzipper.png" alt=""><figcaption>frontzipper</figcaption></figure>
-      <figure class="thumb"><img src="public/hems/rawhem.png" alt=""><figcaption>rawhem</figcaption></figure>
-      <figure class="thumb"><img src="public/necklines/boatneck.png" alt=""><figcaption>boatneck</figcaption></figure>
-      <figure class="thumb"><img src="public/backstyle/openback.png" alt=""><figcaption>openback</figcaption></figure>
-      <figure class="thumb"><img src="public/accessories/ribbon.png" alt=""><figcaption>ribbon</figcaption></figure>
+      <figure class="th"><img src="public/clothing/tshirt.png" alt=""><figcaption>tshirt</figcaption></figure>
+      <figure class="th"><img src="public/bottoms/jeans.png" alt=""><figcaption>jeans</figcaption></figure>
+      <figure class="th"><img src="public/sleeves/shortsleeve.png" alt=""><figcaption>shortsleeve</figcaption></figure>
+      <figure class="th"><img src="public/collars/roundcollar.png" alt=""><figcaption>roundcollar</figcaption></figure>
+      <figure class="th"><img src="public/pockets/patchpocket.png" alt=""><figcaption>patchpocket</figcaption></figure>
+      <figure class="th"><img src="public/buttons/centerbutton.png" alt=""><figcaption>centerbutton</figcaption></figure>
+      <figure class="th"><img src="public/skirts/aline_skirt.png" alt=""><figcaption>alineskirt</figcaption></figure>
+      <figure class="th"><img src="public/belts/waistbelt.png" alt=""><figcaption>waistbelt</figcaption></figure>
+      <figure class="th"><img src="public/zippers/frontzipper.png" alt=""><figcaption>frontzipper</figcaption></figure>
+      <figure class="th"><img src="public/hems/rawhem.png" alt=""><figcaption>rawhem</figcaption></figure>
+      <figure class="th"><img src="public/necklines/boatneck.png" alt=""><figcaption>boatneck</figcaption></figure>
+      <figure class="th"><img src="public/backstyle/openback.png" alt=""><figcaption>openback</figcaption></figure>
+      <figure class="th"><img src="public/accessories/ribbon.png" alt=""><figcaption>ribbon</figcaption></figure>
     </div>
   </footer>
 
   <script>
-    // マネキン拡大縮小（右サイドの小さなスライダー風）
-    const zoomDot = document.getElementById('zoomDot');
-    const zoomValue = document.getElementById('zoomValue');
-    const mannequin = document.getElementById('mannequin');
+    // Zoom
+    const r = document.getElementById('zoomRange');
+    const lbl = document.getElementById('zoomLabel');
+    const man = document.getElementById('mannequin');
+    const setZoom = v => { lbl.textContent = v + '%'; man.style.transform = `translate(-50%,-50%) scale(${v/100})`; };
+    r.addEventListener('input', e => setZoom(e.target.value)); setZoom(100);
 
-    function applyZoom(v){
-      zoomValue.textContent = v + '%';
-      mannequin.style.transform = `translate(-50%, -50%) scale(${v/100})`;
-    }
-    zoomDot.addEventListener('input', e => applyZoom(e.target.value));
-    applyZoom(100);
+    // Opacity
+    const opBtn = document.getElementById('opacityBtn');
+    const opPanel = document.getElementById('opacityPanel');
+    const opRange = document.getElementById('opacityRange');
+    const opVal = document.getElementById('opacityVal');
+    opBtn.addEventListener('click', ()=> opPanel.hidden = !opPanel.hidden);
+    opRange.addEventListener('input', e => { man.style.opacity = e.target.value/100; opVal.textContent = e.target.value + '%'; });
 
-    // 透明度パネル
-    const opacityTool = document.getElementById('opacityTool');
-    const opacityPanel = document.getElementById('opacityPanel');
-    const opacityRange = document.getElementById('opacityRange');
-    const opacityValue = document.getElementById('opacityValue');
-
-    opacityTool.addEventListener('click', () => {
-      opacityPanel.hidden = !opacityPanel.hidden;
-    });
-    opacityRange.addEventListener('input', e => {
-      mannequin.style.opacity = e.target.value / 100;
-      opacityValue.textContent = e.target.value + '%';
-    });
-
-    // カラーパレット選択（UI反応のみ）
-    document.querySelectorAll('.palette .dot').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        document.querySelectorAll('.palette .dot').forEach(b=>b.classList.remove('dot-active'));
-        btn.classList.add('dot-active');
+    // Palette UI
+    document.querySelectorAll('.palette .dot').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        document.querySelectorAll('.palette .dot').forEach(x=>x.classList.remove('on'));
+        b.classList.add('on');
       });
     });
   </script>
