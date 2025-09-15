@@ -2,76 +2,205 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Header -->
-  <header class="vf-header">
-    <h1 class="vf-title">Vivora Fashion Illustration 2025</h1>
-    <div class="vf-top-icons">
-      <!-- 上部右側の小アイコン群（左から順に） -->
-      <button class="icon-btn"><img src="public/create_parts/create_button/home.png" alt=""></button>
-      <button class="icon-btn"><img src="public/create_parts/create_button/user.png" alt=""></button>
-      <button class="icon-btn"><img src="public/create_parts/create_button/info.png" alt=""></button>
-      <button class="icon-btn"><img src="public/create_parts/create_button/grid.png" alt=""></button>
-      <button class="icon-btn"><img src="public/create_parts/create_button/pen_small.png" alt=""></button>
-      <button class="icon-btn"><img src="public/create_parts/create_button/cut.png" alt=""></button>
-      <button class="icon-btn"><img src="public/create_parts/create_button/setting.png" alt=""></button>
-      <button class="icon-btn"><img src="public/create_parts/create_button/help.png" alt=""></button>
-      <button class="icon-btn"><img src="public/create_parts/create_button/more.png" alt=""></button>
-    </div>
+  <!-- ヘッダー -->
+  <header id="head">
+    <h1>Vivora Fashion Illustration 2025</h1>
+
+    <!-- ページ切替などの小さなピルボタン群（スクショ右上の列） -->
+    <nav class="mode-pills">
+      <button class="pill">home</button>
+      <button class="pill">fashion illustration</button>
+      <button class="pill">fabric / stitching</button>
+      <button class="pill">clothing design</button>
+      <button class="pill">pattern create</button>
+      <button class="pill">grading</button>
+      <button class="pill">print layout & mark</button>
+    </nav>
   </header>
 
-  <!-- Board -->
-  <main class="vf-stage">
-    <section class="vf-board">
+  <!-- キャンバス枠 -->
+  <main id="stage">
+    <section id="board">
+      <!-- 内枠線 -->
+      <div class="inner"></div>
+
       <!-- マネキン -->
-      <img class="mannequin-base" src="public/mannequin/mannequin_woman.png" alt="mannequin" />
+      <img id="mannequin" src="public/mannequin/mannequin_woman.png" alt="mannequin" />
 
       <!-- ズームHUD -->
       <div class="zoom-hud">
         <span>100 %</span>
-        <div class="zoom-bar">
-          <div class="dot"></div>
-        </div>
+        <div class="zoom-bar"><i class="dot"></i></div>
       </div>
 
-      <!-- 右ツールバー -->
-      <aside class="right-rail">
-        <div class="tool-rail">
-          <button class="tool-btn is-active"><img src="public/create_parts/design_button/select.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/pen.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/square.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/circle.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/brush.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/eraser.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/fill.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/pick.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/anchor.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/line.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/text.png" alt=""></button>
-          <button class="tool-btn"><img src="public/create_parts/design_button/grid.png" alt=""></button>
+      <!-- 右：上部のIO（upload / download / save / help など） -->
+      <div class="io-rail">
+        <button class="io"><img src="public/create_parts/create_button/upload.png" alt=""></button>
+        <button class="io"><img src="public/create_parts/create_button/download.png" alt=""></button>
+        <button class="io"><img src="public/create_parts/create_button/save.png" alt=""></button>
+        <button class="io"><img src="public/create_parts/create_button/help.png" alt=""></button>
+      </div>
+
+      <!-- 右：カテゴリ列（左側） -->
+      <aside class="catalog">
+        <div class="cat-col">
+          <button class="cat">Tops</button>
+          <button class="cat">Bottoms</button>
+          <button class="cat">Sleeves</button>
+          <button class="cat">Collars</button>
+          <button class="cat">Pockets</button>
+          <button class="cat">Buttons</button>
+          <button class="cat">Skirts</button>
+          <button class="cat">Belts</button>
+          <button class="cat">Zippers</button>
+          <button class="cat">Hems</button>
+          <button class="cat">Necklines</button>
+          <button class="cat">Backstyle</button>
+          <div class="cat-row">
+            <span>Accessories</span>
+            <button class="cat-plus">+</button>
+          </div>
         </div>
 
-        <!-- カラーパレット -->
-        <div class="color-rail" id="colorRail">
-          <!-- 12色（上からグレー→黒まで） -->
-          <button class="swatch" style="--c:#f6f6f6"></button>
-          <button class="swatch" style="--c:#ffe000"></button>
-          <button class="swatch" style="--c:#ffb400"></button>
-          <button class="swatch" style="--c:#ff7a59"></button>
-          <button class="swatch" style="--c:#ff4e81"></button>
-          <button class="swatch" style="--c:#ff68c0"></button>
-          <button class="swatch" style="--c:#8d69ff"></button>
-          <button class="swatch" style="--c:#4aa8ff"></button>
-          <button class="swatch" style="--c:#00b3a4"></button>
-          <button class="swatch" style="--c:#0fbf5b"></button>
-          <button class="swatch" style="--c:#7a7a7a"></button>
-          <button class="swatch" style="--c:#111111"></button>
+        <!-- 中央：素材列 -->
+        <div class="mat-col">
+          <button class="cat">Cotton</button>
+          <button class="cat">Linen</button>
+          <button class="cat">Wool</button>
+          <button class="cat">Silk</button>
+          <button class="cat">Synthetic</button>
+          <button class="cat small two">Design<br>Knit Special</button>
+          <button class="cat-plus wide">+</button>
+        </div>
+
+        <!-- レイヤーパネル（小ボード3段） -->
+        <div class="layers">
+          <div class="layer-card">
+            <div class="layer-head">
+              <button class="lh"><img src="public/create_parts/layer_button/layerdisplay.png" alt=""></button>
+              <button class="lh"><img src="public/create_parts/layer_button/layerhidden.png" alt=""></button>
+              <button class="lh"><img src="public/create_parts/layer_button/layerlock.png" alt=""></button>
+            </div>
+            <div class="layer-body"></div>
+            <div class="layer-foot">
+              <button class="lf"><img src="public/create_parts/layer_button/layerpanelplus.png" alt=""></button>
+              <button class="lf"><img src="public/create_parts/layer_button/layerreproduction.png" alt=""></button>
+              <button class="lf"><img src="public/create_parts/layer_button/layerdestruction.png" alt=""></button>
+            </div>
+          </div>
+
+          <div class="layer-card">
+            <div class="layer-head">
+              <button class="lh"><img src="public/create_parts/layer_button/layerdisplay.png" alt=""></button>
+              <button class="lh"><img src="public/create_parts/layer_button/layerhidden.png" alt=""></button>
+              <button class="lh"><img src="public/create_parts/layer_button/layerlock.png" alt=""></button>
+            </div>
+            <div class="layer-body"></div>
+            <div class="layer-foot">
+              <button class="lf"><img src="public/create_parts/layer_button/layerpanelplus.png" alt=""></button>
+              <button class="lf"><img src="public/create_parts/layer_button/layerreproduction.png" alt=""></button>
+              <button class="lf"><img src="public/create_parts/layer_button/layerdestruction.png" alt=""></button>
+            </div>
+          </div>
+
+          <div class="layer-card">
+            <div class="layer-head">
+              <button class="lh"><img src="public/create_parts/layer_button/layerdisplay.png" alt=""></button>
+              <button class="lh"><img src="public/create_parts/layer_button/layerhidden.png" alt=""></button>
+              <button class="lh"><img src="public/create_parts/layer_button/layerlock.png" alt=""></button>
+            </div>
+            <div class="layer-body"></div>
+            <div class="layer-foot">
+              <button class="lf"><img src="public/create_parts/layer_button/layerpanelplus.png" alt=""></button>
+              <button class="lf"><img src="public/create_parts/layer_button/layerreproduction.png" alt=""></button>
+              <button class="lf"><img src="public/create_parts/layer_button/layerdestruction.png" alt=""></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 一番右：ステーショナリーツール（縦） -->
+        <div class="tool-rail">
+          <button class="tool is-active"><img src="public/create_parts/design_button/select.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/direct_select.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/triangle.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/rect.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/circle.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/brush.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/pen.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/fill.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/knife.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/rubber.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/design_button/text.png" alt=""></button>
+          <button class="tool"><img src="public/create_parts/create_button/grid.png" alt=""></button>
+        </div>
+
+        <!-- カラーパレット（縦） -->
+        <div class="color-rail">
+          <button class="sw" style="--c:#f1f1f1"></button>
+          <button class="sw" style="--c:#ffe178"></button>
+          <button class="sw" style="--c:#ffc64d"></button>
+          <button class="sw" style="--c:#ff9a76"></button>
+          <button class="sw" style="--c:#ff6c7a"></button>
+          <button class="sw" style="--c:#ff90c8"></button>
+          <button class="sw" style="--c:#a497ff"></button>
+          <button class="sw" style="--c:#6db8ff"></button>
+          <button class="sw" style="--c:#00b3a4"></button>
+          <button class="sw" style="--c:#34c759"></button>
+          <button class="sw" style="--c:#707070"></button>
+          <button class="sw" style="--c:#111111"></button>
+
+          <div class="color-tools">
+            <button class="pipette"><img src="public/create_parts/design_button/pipette.png" alt=""></button>
+          </div>
         </div>
       </aside>
+    </section>
+
+    <!-- 下：パーツサムネ列（スクショ下部のカード群） -->
+    <section id="bottom-strip">
+      <div class="thumb">
+        <img src="public/clothing/tops/tshirt.png" alt=""><span>tshirt</span>
+      </div>
+      <div class="thumb">
+        <img src="public/clothing/bottoms/jeans.png" alt=""><span>jeans</span>
+      </div>
+      <div class="thumb">
+        <img src="public/clothing/tops/shortsleeve.png" alt=""><span>shortsleeve</span>
+      </div>
+      <div class="thumb">
+        <img src="public/collars/roundcollar.png" alt=""><span>roundcollar</span>
+      </div>
+      <div class="thumb">
+        <img src="public/pockets/patchpocket.png" alt=""><span>patchpocket</span>
+      </div>
+      <div class="thumb">
+        <img src="public/buttons/centerbutton.png" alt=""><span>centerbutton</span>
+      </div>
+      <div class="thumb">
+        <img src="public/bottoms/alineskirt.png" alt=""><span>alineskirt.png</span>
+      </div>
+      <div class="thumb">
+        <img src="public/belts/waistbelt.png" alt=""><span>waistbelt</span>
+      </div>
+      <div class="thumb">
+        <img src="public/zippers/frontzipper.png" alt=""><span>frontzipper</span>
+      </div>
+      <div class="thumb">
+        <img src="public/hems/rawhem.png" alt=""><span>rawhem</span>
+      </div>
+      <div class="thumb">
+        <img src="public/necklines/boatneck.png" alt=""><span>boatneck</span>
+      </div>
+      <div class="thumb">
+        <img src="public/backstyle/openback.png" alt=""><span>openback</span>
+      </div>
+      <div class="thumb">
+        <img src="public/accessories/ribbon.png" alt=""><span>ribbon</span>
+      </div>
     </section>
   </main>
 
