@@ -1,250 +1,262 @@
-/* styles.css */
+<!-- index.html — Vivora Fashion Illustration 2025 (Stable Baseline, HTML+JS統合) -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vivora Fashion Illustration 2025 — Stable</title>
+  <link rel="preload" href="public/mannequin/mannequin_woman.png" as="image">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- 画面全体を固定し、ボードを中央配置 -->
+  <div id="app">
+    <!-- 固定ボード（1280×820） -->
+    <div id="board" role="application" aria-label="Vivora Board">
+      <!-- タイトル：X:3–22, Y:4 -->
+      <h1 class="abs grid"
+          style="--x1:3;--x2:22;--y1:4;--y2:6;">
+        Vivora Fashion Illustration 2025
+      </h1>
 
-/* ベース */
-* { box-sizing: border-box; }
-html, body {
-  margin: 0;
-  height: 100%;
-  background: #0f0f12;
-  color: #eaeaf0;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  overflow: hidden; /* スクロール無効（固定ボードをオートスケール） */
-}
+      <!-- コンテンツボタン行：X:73.5–93, Y:4–5 -->
+      <div class="abs grid row buttons contents-row"
+           style="--x1:73.5;--x2:93;--y1:4;--y2:6;">
+        <button class="btn ghost">Home</button>
+        <button class="btn ghost">Design</button>
+        <button class="btn ghost">Fabric</button>
+        <button class="btn ghost">Illustration</button>
+        <button id="nextStep" class="btn primary">Next Step</button>
+      </div>
 
-/* 固定ボード 1280×820 を中央配置＆スケール */
-#board-wrapper {
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  place-items: center;
-}
-.board {
-  position: relative;
-  width: 1280px;
-  height: 820px;
-  background: #15161a;
-  border: 1px solid #2a2c33;
-  border-radius: 10px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.55);
-  transform-origin: center center;
-}
+      <!-- IO（Download/Upload/Save）：X:94–98, Y:6 -->
+      <div class="abs grid io-row"
+           style="--x1:94;--x2:98;--y1:6;--y2:8;">
+        <button class="icon-btn" data-title="Upload"
+                style="--icon:url('public/create_parts/create_button/upload.png');"></button>
+        <button class="icon-btn" data-title="Download"
+                style="--icon:url('public/create_parts/create_button/download.png');"></button>
+        <button id="saveBtn" class="icon-btn" data-title="Save"
+                style="--icon:url('public/create_parts/create_button/save.png');"></button>
+      </div>
 
-/* スケール（min(vw, vh) * 0.90 基準） */
-@media (min-aspect-ratio: 1280/820) {
-  .board {
-    transform: scale(calc((100vh * 0.90) / 820));
-  }
-}
-@media (max-aspect-ratio: 1280/820) {
-  .board {
-    transform: scale(calc((100vw * 0.90) / 1280));
-  }
-}
+      <!-- キャンバス：X:3–92, Y:8–78 -->
+      <div id="canvas-area" class="abs grid"
+           style="--x1:3;--x2:92;--y1:8;--y2:78;">
+        <div id="canvas-board">
+          <!-- マネキン領域：X:42–54, Y:17–60（キャンバス内相対） -->
+          <div id="mannequin-wrap" class="subgrid"
+               style="--sx1:42;--sx2:54;--sy1:17;--sy2:60;">
+            <img id="mannequin" class="mannequin-base"
+                 src="public/mannequin/mannequin_woman.png" alt="Mannequin" />
+          </div>
 
-/* グリッド座標に基づく絶対配置 */
-.abs {
-  position: absolute;
-}
+          <!-- 透明度スライダー（選択時のみ表示）：X:85–91, Y:29.5–31（キャンバス内相対） -->
+          <div id="opacity-wrap" class="subgrid hide"
+               style="--sx1:85;--sx2:91;--sy1:29.5;--sy2:31;">
+            <input id="opacityRange" type="range" min="0" max="100" value="100" />
+            <div class="opacity-label">Opacity</div>
+          </div>
+        </div>
+      </div>
 
-/* タイトル */
-.text-title {
-  font-weight: 700;
-  font-size: 22px;
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-}
+      <!-- 右パネル：レイヤー（左列） X:93–95, Y:8–62 -->
+      <aside id="layers-panel" class="abs grid"
+             style="--x1:93;--x2:95;--y1:8;--y2:62;">
+        <!-- 5つの縦長カード（表示/非表示/ロック）＋下部アクション -->
+        <div class="layer-card">
+          <div class="layer-head">
+            <button class="icon-16" title="Display"
+                    style="--icon:url('public/create_parts/layer_button/layerdisplay.png');"></button>
+            <button class="icon-16" title="Hidden"
+                    style="--icon:url('public/create_parts/layer_button/layerhidden.png');"></button>
+            <button class="icon-16" title="Lock"
+                    style="--icon:url('public/create_parts/layer_button/layerlock.png');"></button>
+          </div>
+          <div class="layer-body"></div>
+        </div>
+        <div class="layer-card"><div class="layer-head">
+          <button class="icon-16" title="Display"
+                  style="--icon:url('public/create_parts/layer_button/layerdisplay.png');"></button>
+          <button class="icon-16" title="Hidden"
+                  style="--icon:url('public/create_parts/layer_button/layerhidden.png');"></button>
+          <button class="icon-16" title="Lock"
+                  style="--icon:url('public/create_parts/layer_button/layerlock.png');"></button>
+        </div><div class="layer-body"></div></div>
+        <div class="layer-card"><div class="layer-head">
+          <button class="icon-16" title="Display"
+                  style="--icon:url('public/create_parts/layer_button/layerdisplay.png');"></button>
+          <button class="icon-16" title="Hidden"
+                  style="--icon:url('public/create_parts/layer_button/layerhidden.png');"></button>
+          <button class="icon-16" title="Lock"
+                  style="--icon:url('public/create_parts/layer_button/layerlock.png');"></button>
+        </div><div class="layer-body"></div></div>
+        <div class="layer-card"><div class="layer-head">
+          <button class="icon-16" title="Display"
+                  style="--icon:url('public/create_parts/layer_button/layerdisplay.png');"></button>
+          <button class="icon-16" title="Hidden"
+                  style="--icon:url('public/create_parts/layer_button/layerhidden.png');"></button>
+          <button class="icon-16" title="Lock"
+                  style="--icon:url('public/create_parts/layer_button/layerlock.png');"></button>
+        </div><div class="layer-body"></div></div>
+        <div class="layer-card"><div class="layer-head">
+          <button class="icon-16" title="Display"
+                  style="--icon:url('public/create_parts/layer_button/layerdisplay.png');"></button>
+          <button class="icon-16" title="Hidden"
+                  style="--icon:url('public/create_parts/layer_button/layerhidden.png');"></button>
+          <button class="icon-16" title="Lock"
+                  style="--icon:url('public/create_parts/layer_button/layerlock.png');"></button>
+        </div><div class="layer-body"></div></div>
 
-/* コンテンツボタン列 + Next */
-.contents-row {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  align-items: center;
-}
+        <div class="layer-actions">
+          <button class="icon-20" title="Add"
+                  style="--icon:url('public/create_parts/layer_button/layerpanelplus.png');"></button>
+          <button class="icon-20" title="Duplicate"
+                  style="--icon:url('public/create_parts/layer_button/layerreproduction.png');"></button>
+          <button class="icon-20" title="Merge"
+                  style="--icon:url('public/create_parts/layer_button/layerlayer integration.png');"></button>
+          <button class="icon-20 danger" title="Delete"
+                  style="--icon:url('public/create_parts/layer_button/layerdestruction.png');"></button>
+        </div>
+      </aside>
 
-/* ボタン */
-.btn {
-  height: 34px;
-  padding: 0 14px;
-  border-radius: 8px;
-  border: 1px solid #2f3240;
-  background: #1b1d24;
-  color: #eaeaf0;
-  font-size: 13px;
-  cursor: pointer;
-}
-.btn:hover { background: #232634; }
-.btn:active { transform: translateY(1px); }
+      <!-- 文房具ツール（右列）：X:95–97, Y:8–33 -->
+      <nav id="tools-panel" class="abs grid"
+           style="--x1:95;--x2:97;--y1:8;--y2:33;">
+        <button class="tool" id="tool-select"
+                style="--icon:url('public/create_parts/design_button/select.png');" title="Select"></button>
+        <button class="tool" id="tool-direct-select"
+                style="--icon:url('public/create_parts/design_button/direct_select.png');" title="Direct Select"></button>
+        <button class="tool" id="tool-rect"
+                style="--icon:url('public/create_parts/design_button/square.png');" title="Square"></button>
+        <button class="tool" id="tool-circle"
+                style="--icon:url('public/create_parts/design_button/circle.png');" title="Circle"></button>
+        <button class="tool" id="tool-brush"
+                style="--icon:url('public/create_parts/design_button/brush.png');" title="Brush"></button>
+        <button class="tool" id="tool-pen"
+                style="--icon:url('public/create_parts/design_button/pen.png');" title="Pen"></button>
+        <button class="tool" id="tool-circlebrush"
+                style="--icon:url('public/create_parts/design_button/circlebrush.png');" title="Circle Brush"></button>
+        <button class="tool" id="tool-ballpoint"
+                style="--icon:url('public/create_parts/design_button/ballpointpen.png');" title="Ballpoint Pen"></button>
+        <button class="tool" id="tool-marker"
+                style="--icon:url('public/create_parts/design_button/markerpen.png');" title="Marker Pen"></button>
+        <button class="tool" id="tool-eraser"
+                style="--icon:url('public/create_parts/design_button/eraser.png');" title="Eraser"></button>
+        <button class="tool" id="tool-text"
+                style="--icon:url('public/create_parts/design_button/sentence.png');" title="Text"></button>
+        <button class="tool" id="tool-opacity"
+                style="--icon:url('public/create_parts/design_button/opasity_ber.png');" title="Opacity"></button>
+        <button class="tool" id="tool-graph"
+                style="--icon:url('public/create_parts/design_button/graph_paper.png');" title="Graph Paper"></button>
+      </nav>
 
-.content-btn { }
-.next-btn {
-  width: 120px;
-  background: #2a7cff;
-  border-color: #2a7cff;
-}
+      <!-- カラーパレット：X:95–97, Y:35–62 -->
+      <section id="color-panel" class="abs grid"
+               style="--x1:95;--x2:97;--y1:35;--y2:62;">
+        <div class="color-grid">
+          <button class="swatch" style="--c:#000000" title="#000000"></button>
+          <button class="swatch" style="--c:#FFFFFF" title="#FFFFFF"></button>
+          <button class="swatch" style="--c:#FF3B30" title="#FF3B30"></button>
+          <button class="swatch" style="--c:#FF9500" title="#FF9500"></button>
+          <button class="swatch" style="--c:#FFCC00" title="#FFCC00"></button>
+          <button class="swatch" style="--c:#34C759" title="#34C759"></button>
+          <button class="swatch" style="--c:#5AC8FA" title="#5AC8FA"></button>
+          <button class="swatch" style="--c:#007AFF" title="#007AFF"></button>
+          <button class="swatch" style="--c:#5856D6" title="#5856D6"></button>
+          <button class="swatch" style="--c:#AF52DE" title="#AF52DE"></button>
+          <button class="swatch" style="--c:#FF2D55" title="#FF2D55"></button>
+          <button class="swatch" style="--c:#8E8E93" title="#8E8E93"></button>
+        </div>
+        <div class="color-current">
+          <div class="chip fg"></div>
+          <div class="chip bg"></div>
+        </div>
+      </section>
+    </div>
+  </div>
 
-/* IO 縦列 */
-.io-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-.icon-btn {
-  width: 60px;
-  height: 34px;
-  border-radius: 8px;
-  border: 1px solid #2f3240;
-  background: #1b1d24;
-  color: #eaeaf0;
-  font-size: 12px;
-  letter-spacing: 0.4px;
-  cursor: pointer;
-}
-.icon-btn:hover { background: #232634; }
+  <script>
+    // ==== 固定ボードスケール（min(vw, vh) * 0.90 相当）====
+    (function () {
+      const app = document.getElementById('app');
+      const board = document.getElementById('board');
+      const BASE_W = 1280, BASE_H = 820;
 
-/* キャンバス */
-.canvas-area {
-  border: 1px dashed #2a2c33;
-  border-radius: 10px;
-  background: #0e0f13;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-}
+      function fit() {
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const scale = Math.min(vw / BASE_W, vh / BASE_H) * 0.90;
+        board.style.transform = `scale(${scale})`;
+        app.style.setProperty('--s', scale);
+      }
+      window.addEventListener('resize', fit, { passive: true });
+      fit();
+    })();
 
-/* マネキン */
-.mannequin-base {
-  width: 240px;
-  height: auto;
-  user-select: none;
-  pointer-events: none;
-  opacity: 1;
-  image-rendering: -webkit-optimize-contrast;
-}
+    // ==== サブグリッド絶対配置（キャンバス内相対）====
+    // subgrid: --sx1.., --sy1.. をキャンバス実寸にマップ
+    (function () {
+      const canvasArea = document.getElementById('canvas-area');
+      const canvasBoard = document.getElementById('canvas-board');
 
-/* Opacity スライダー */
-.opacity-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid #2f3240;
-  background: rgba(20,22,28,0.95);
-}
-.opacity-wrap input[type="range"] {
-  width: 180px;
-  accent-color: #2a7cff;
-}
-.opacity-label {
-  font-size: 12px;
-  opacity: 0.8;
-}
+      function applySubgridPositions() {
+        const rect = canvasBoard.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        document.querySelectorAll('.subgrid').forEach(el => {
+          const sx1 = parseFloat(getComputedStyle(el).getPropertyValue('--sx1')) || 0;
+          const sx2 = parseFloat(getComputedStyle(el).getPropertyValue('--sx2')) || 0;
+          const sy1 = parseFloat(getComputedStyle(el).getPropertyValue('--sy1')) || 0;
+          const sy2 = parseFloat(getComputedStyle(el).getPropertyValue('--sy2')) || 0;
 
-/* ツール */
-.tools-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.tool-btn {
-  width: 100%;
-  height: 34px;
-  border-radius: 8px;
-  border: 1px solid #2f3240;
-  background: #1b1d24;
-  color: #eaeaf0;
-  font-size: 12px;
-  cursor: pointer;
-}
-.tool-btn:hover { background: #232634; }
-.tool-btn.active {
-  outline: 2px solid #2a7cff;
-  background: #1b2a4f;
-}
+          // 100×100基準
+          const left = (sx1 / 100) * w;
+          const top  = (sy1 / 100) * h;
+          const width = ((sx2 - sx1) / 100) * w;
+          const height = ((sy2 - sy1) / 100) * h;
 
-/* 2D/3D 行（Next Step 左隣の基準を満たすよう tools 内に併設） */
-.twod3d-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 6px;
-}
-.mode-btn {}
+          el.style.left = left + 'px';
+          el.style.top = top + 'px';
+          el.style.width = width + 'px';
+          el.style.height = height + 'px';
+        });
+      }
+      new ResizeObserver(applySubgridPositions).observe(canvasBoard);
+      window.addEventListener('resize', applySubgridPositions, { passive: true });
+      applySubgridPositions();
+    })();
 
-/* カラーパレット */
-.color-panel {
-  display: grid;
-  align-content: start;
-}
-.color-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 24px);
-  gap: 8px;
-  padding: 6px 2px;
-}
-.color-swatch {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  border: 1px solid #2f3240;
-  cursor: pointer;
-}
+    // ==== 透明度UI：ツール押下でスライダー表示、マネキンのみ透明度変更 ====
+    (function () {
+      const opacityTool = document.getElementById('tool-opacity');
+      const opacityWrap = document.getElementById('opacity-wrap');
+      const range = document.getElementById('opacityRange');
+      const mannequin = document.getElementById('mannequin');
 
-/* レイヤーパネル（白ボード無し） */
-.layers-panel {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  gap: 10px;
-}
-.layer-list {
-  display: grid;
-  grid-auto-rows: 56px;
-  gap: 10px;
-}
-.layer-item {
-  display: grid;
-  grid-template-columns: 24px 1fr 24px; /* 表示/非表示｜名前/空欄｜ロック */
-  align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  border: 1px solid #2f3240;
-  border-radius: 10px;
-  background: #121318;
-}
-.layer-eye, .layer-lock {
-  width: 24px; height: 24px;
-  display: grid; place-items: center;
-  border-radius: 6px;
-  border: 1px solid #2f3240;
-  background: #1b1d24;
-  font-size: 12px;
-  cursor: pointer;
-}
-.layer-name {
-  font-size: 12px;
-  opacity: 0.9;
-  padding-left: 2px;
-}
-.layer-actions {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-.layer-act {
-  height: 32px;
-  border-radius: 8px;
-  border: 1px solid #2f3240;
-  background: #1b1d24;
-  color: #eaeaf0;
-  cursor: pointer;
-}
-.layer-act:hover { background: #232634; }
+      function toggleOpacityUI() {
+        opacityWrap.classList.toggle('hide');
+      }
+      function applyOpacity() {
+        const v = Number(range.value) / 100; // 0.0–1.0
+        mannequin.style.opacity = String(v);
+      }
+      opacityTool.addEventListener('click', toggleOpacityUI);
+      range.addEventListener('input', applyOpacity, { passive: true });
+    })();
 
-/* —— ユーティリティ —— */
-
-/* data-x/y をパーセンテージに変換した style を JS が付与する */
-.hidden { display: none !important; }
-
-/* 選択状態の可視化 */
-.is-selected { outline: 2px solid #2a7cff; }
+    // ==== カラースワッチ：前景/背景のチップ反映のみ（描画処理は未実装のまま）====
+    (function () {
+      const fg = document.querySelector('.color-current .fg');
+      const bg = document.querySelector('.color-current .bg');
+      let last = 'fg';
+      document.querySelectorAll('#color-panel .swatch').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const color = getComputedStyle(btn).getPropertyValue('--c').trim();
+          const target = last === 'fg' ? fg : bg;
+          target.style.setProperty('--chip', color);
+          last = last === 'fg' ? 'bg' : 'fg';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
