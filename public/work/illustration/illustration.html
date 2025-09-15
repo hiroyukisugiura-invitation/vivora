@@ -1,61 +1,47 @@
-<!-- index.html (assetパス修正版 / Firebase Hosting ルート = public/) -->
+<!-- index.html | Vivora Fashion Illustration 2025（スクショ準拠・固定1280×820） -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vivora Illustration — Absolute Grid</title>
+  <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
+  <!-- 固定ボードを中央配置（等倍フィット） -->
   <div id="board-scale">
     <div id="board">
-      <div class="grid-overlay" aria-hidden="true"><div class="h-lines"></div><div class="v-lines"></div></div>
-
-      <!-- タイトル：X:3–22 , Y:4–4 -->
-      <h1 class="cell title" style="grid-column: 3 / 23; grid-row: 4 / 5;">Vivora Fashion Illustration</h1>
-
-      <!-- コンテンツボタン：X:73–92 , Y:5–6 -->
-      <div class="cell contents-buttons" style="grid-column: 73 / 93; grid-row: 5 / 7;">
-        <button class="btn">Home</button>
-        <button class="btn">Illustration</button>
-        <button class="btn">Template</button>
-        <button class="btn">Help</button>
-      </div>
-
-      <!-- NEXT STEP：X:93–98 , Y:5–6 -->
-      <div class="cell next-step" style="grid-column: 93 / 99; grid-row: 5 / 7;">
-        <button class="btn btn-accent">Next Step</button>
-      </div>
-
-      <!-- IO：X:94–98 , Y:6–6 -->
-      <div class="cell io-bar" style="grid-column: 94 / 99; grid-row: 6 / 7;">
-        <button class="icon-btn" title="Upload">
-          <img src="./create_parts/create_button/upload.png" alt="Upload" />
-        </button>
-        <button class="icon-btn" title="Download">
-          <img src="./create_parts/create_button/download.png" alt="Download" />
-        </button>
-        <button class="icon-btn" title="Save">
-          <img src="./create_parts/create_button/save.png" alt="Save" />
-        </button>
-      </div>
-
-      <!-- キャンバス：X:3–92 , Y:8–78 -->
-      <div id="canvas-area" class="cell" style="grid-column: 3 / 93; grid-row: 8 / 79;">
-        <!-- マネキン：X:42–54 , Y:17–60 -->
-        <img id="mannequin" class="mannequin-base" src="./mannequin/mannequin_woman.png" alt="Mannequin" />
-        <!-- 透明度スライダー：X:85–91 , Y:29.5–31 -->
-        <div id="opacity-wrap">
-          <label for="opacityRange">Opacity</label>
-          <input id="opacityRange" type="range" min="0" max="100" value="100" />
-          <span id="opacityValue">100%</span>
+      <!-- ヘッダー行 -->
+      <header class="topbar">
+        <h1 class="title">Vivora Fashion Illustration 2025</h1>
+        <div class="io-icons">
+          <!-- gitの既存pngのみ使用 -->
+          <button class="io"><img src="./create_parts/create_button/upload.png" alt="Upload" /></button>
+          <button class="io"><img src="./create_parts/create_button/download.png" alt="Download" /></button>
+          <button class="io"><img src="./create_parts/create_button/save.png" alt="Save" /></button>
         </div>
-      </div>
+      </header>
 
-      <!-- Stationery tools：X:95–97 , Y:8–33（レイヤー系は含めない） -->
-      <div class="cell tools" style="grid-column: 95 / 98; grid-row: 8 / 34;">
-        <div class="tool-col">
+      <!-- 大きなキャンバス枠 -->
+      <section id="canvas-wrap">
+        <div id="canvas-surface">
+          <!-- マネキン（中央） -->
+          <img id="mannequin" src="./mannequin/mannequin_woman.png" alt="Mannequin" />
+
+          <!-- 右中段：不透明度バー（スクショのフローティングUI） -->
+          <div id="opacity-float">
+            <span class="badge"><span id="opacityText">100</span> %</span>
+            <div class="bar">
+              <input id="opacityRange" type="range" min="0" max="100" value="100" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 右サイド：ツール縦並び -->
+      <aside id="right-rail">
+        <nav class="tool-rail">
+          <!-- レイヤー系は入れない -->
           <button class="tool"><img src="./create_parts/design_button/select.png" alt="Select" /></button>
           <button class="tool"><img src="./create_parts/design_button/direct_select.png" alt="Direct Select" /></button>
           <button class="tool"><img src="./create_parts/design_button/square.png" alt="Square" /></button>
@@ -67,76 +53,63 @@
           <button class="tool"><img src="./create_parts/design_button/markerpen.png" alt="Marker Pen" /></button>
           <button class="tool"><img src="./create_parts/design_button/eraser.png" alt="Eraser" /></button>
           <button class="tool"><img src="./create_parts/design_button/sentence.png" alt="Text" /></button>
-          <button class="tool"><img src="./create_parts/design_button/opasity_ber.png" alt="Opacity Tool" /></button>
-          <button class="tool"><img src="./create_parts/design_button/graph_paper.png" alt="Graph Paper" /></button>
-        </div>
-      </div>
+          <button class="tool"><img src="./create_parts/design_button/graph_paper.png" alt="Grid" /></button>
+        </nav>
 
-      <!-- レイヤーパネル（右列の柱。白ボード無し） -->
-      <div id="layers-column">
-        <div class="layer-card">
-          <div class="head">
-            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display" />
-            <img src="./create_parts/layer_button/layerhidden.png" alt="Hidden" />
-            <img src="./create_parts/layer_button/layerlock.png" alt="Lock" />
-          </div>
-          <div class="body"></div>
-          <div class="foot">
-            <img src="./create_parts/layer_button/layerpanelplus.png" alt="Add" />
-            <img src="./create_parts/layer_button/layerreproduction.png" alt="Duplicate" />
-            <img src="./create_parts/layer_button/layerlayer integration.png" alt="Merge" />
-            <img src="./create_parts/layer_button/layerdestruction.png" alt="Delete" />
-          </div>
+        <!-- カラーパレット（縦並び） -->
+        <div class="palette">
+          <!-- 丸スウォッチ。色は見やすい既定値 -->
+          <button class="sw" style="--c:#eeeeee"></button>
+          <button class="sw" style="--c:#d0d0d0"></button>
+          <button class="sw" style="--c:#f7c600"></button>
+          <button class="sw" style="--c:#ffda33"></button>
+          <button class="sw" style="--c:#ffc1c1"></button>
+          <button class="sw" style="--c:#ff7f7f"></button>
+          <button class="sw" style="--c:#ff5a5a"></button>
+          <button class="sw" style="--c:#2ECC71"></button>
+          <button class="sw" style="--c:#1ABC9C"></button>
+          <button class="sw" style="--c:#3498DB"></button>
+          <button class="sw" style="--c:#8E44AD"></button>
+          <button class="sw" style="--c:#000000"></button>
         </div>
-        <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
-        <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
-        <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
-        <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
-      </div>
+      </aside>
     </div>
   </div>
 
   <script>
-    (function fitBoard() {
+    // 固定1280×820を画面にフィット
+    (function fit() {
       const wrap = document.getElementById('board-scale');
-      function apply() {
-        const vw = window.innerWidth, vh = window.innerHeight;
-        wrap.style.setProperty('--scale', Math.min(vw / 1280, vh / 820));
-      }
-      window.addEventListener('resize', apply); apply();
+      function apply(){ wrap.style.setProperty('--scale', Math.min(innerWidth/1280, innerHeight/820)); }
+      addEventListener('resize', apply); apply();
     })();
 
-    (function placeMannequin() {
-      const board = document.getElementById('board');
+    // マネキンを中央に等倍表示（スクショ比率）
+    (function centerMannequin(){
+      const surface = document.getElementById('canvas-surface');
       const img = document.getElementById('mannequin');
-      function apply() {
-        const W = board.clientWidth, H = board.clientHeight;
-        const left = (42 / 100) * W, top = (17 / 80) * H;
-        const width = ((54 - 42) / 100) * W, height = ((60 - 17) / 80) * H;
-        Object.assign(img.style, { left: left + 'px', top: top + 'px', width: width + 'px', height: height + 'px' });
+      function place(){
+        const W = surface.clientWidth, H = surface.clientHeight;
+        const targetW = 230;    // スクショ相当の見た目幅(px)
+        const x = (W - targetW)/2;
+        const topMargin = 50;   // 上部余白
+        img.style.width = targetW + 'px';
+        img.style.left  = x + 'px';
+        img.style.top   = topMargin + 'px';
       }
-      window.addEventListener('resize', apply);
-      new ResizeObserver(apply).observe(board);
+      new ResizeObserver(place).observe(surface);
+      addEventListener('load', place);
     })();
 
-    (function placeOpacity() {
-      const board = document.getElementById('board');
-      const wrap = document.getElementById('opacity-wrap');
-      function apply() {
-        const W = board.clientWidth, H = board.clientHeight;
-        const left = (85 / 100) * W, top = (29.5 / 80) * H;
-        const width = ((91 - 85) / 100) * W, height = ((31 - 29.5) / 80) * H;
-        Object.assign(wrap.style, { left: left + 'px', top: top + 'px', width: width + 'px', height: height + 'px' });
-      }
-      window.addEventListener('resize', apply);
-      new ResizeObserver(apply).observe(board);
-    })();
-
-    (function bindOpacity() {
+    // 不透明度フロート
+    (function opacity(){
       const range = document.getElementById('opacityRange');
-      const value = document.getElementById('opacityValue');
+      const text  = document.getElementById('opacityText');
       const mannequin = document.getElementById('mannequin');
-      function update() { value.textContent = range.value + '%'; mannequin.style.opacity = (Number(range.value) / 100); }
+      function update(){
+        text.textContent = range.value;
+        mannequin.style.opacity = (Number(range.value)/100).toString();
+      }
       range.addEventListener('input', update); update();
     })();
   </script>
