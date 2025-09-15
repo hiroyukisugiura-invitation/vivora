@@ -1,9 +1,8 @@
-<!-- work/illustration/illustration.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -13,14 +12,14 @@
     <header class="topbar">
       <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
       <nav class="contents-buttons" aria-label="contents">
-        <a href="../../index.html"><img src="../../create_parts/contents_button/0_home.png" alt="Home" /></a>
-        <a href="../illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations" /></a>
-        <a href="../fabric/fabric.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching" /></a>
-        <a href="../clothing/clothing.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design" /></a>
-        <a href="../pattern/pattern.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation" /></a>
-        <a href="../grading/grading.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading" /></a>
-        <a href="../print/print.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout & Cut" /></a>
-        <a href="../kids/kids.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode" /></a>
+        <a href="../../index.html"><img src="../../create_parts/contents_button/0_home.png" alt="Home"/></a>
+        <a href="../illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations"/></a>
+        <a href="../fabric/fabric.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"/></a>
+        <a href="../clothing/clothing.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"/></a>
+        <a href="../pattern/pattern.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"/></a>
+        <a href="../grading/grading.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"/></a>
+        <a href="../print/print.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"/></a>
+        <a href="../kids/kids.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode"/></a>
       </nav>
     </header>
 
@@ -28,15 +27,15 @@
       <section id="stage" class="stage" aria-label="canvas">
         <img id="mannequin" class="mannequin"
              src="../../mannequin/mannequin_woman/mannequin_woman_front.png"
-             alt="Mannequin Woman Front" />
+             alt="Mannequin Woman Front"/>
 
         <!-- 描画キャンバス -->
         <canvas id="draw"></canvas>
 
-        <!-- アップロード画像レイヤー（ドラッグ可） -->
+        <!-- アップロード画像（ステージ内相対座標でドラッグ移動） -->
         <img id="imgLayer" class="img-layer" alt="" />
 
-        <!-- 透明度アイコン（押下時に一瞬表示） -->
+        <!-- 透明度アイコン（押下で出現→フェード） -->
         <img id="opacityIcon" class="opacity-icon"
              src="../../create_parts/object_btn/opasity_ber.png" alt="opacity icon" />
       </section>
@@ -44,37 +43,35 @@
       <aside class="rail" aria-label="tool rail">
         <!-- IO -->
         <div class="io-stack">
-          <button id="btnDownload" class="io"><img src="../../create_parts/create_button/download.png" alt="download" /></button>
-          <button id="btnUpload"   class="io"><img src="../../create_parts/create_button/upload.png"   alt="upload" /></button>
-          <button id="btnSave"     class="io"><img src="../../create_parts/create_button/save.png"     alt="save" /></button>
+          <button id="btnDownload" class="io" title="Download (統合PNG)"><img src="../../create_parts/create_button/download.png" alt="download" /></button>
+          <button id="btnUpload"   class="io" title="Upload image"><img src="../../create_parts/create_button/upload.png"   alt="upload" /></button>
+          <button id="btnSave"     class="io" title="Save (描画PNG)"><img src="../../create_parts/create_button/save.png"     alt="save" /></button>
           <input id="fileInput" type="file" accept="image/*" hidden />
         </div>
 
         <!-- ツール -->
-        <div class="tools" aria-label="stationery tools">
-          <button data-tool="select"      class="tool t-select"><img src="../../create_parts/object_btn/select.png"        alt="Select" /></button>
-          <button data-tool="direct"      class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select" /></button>
-          <button data-tool="rect"        class="tool"><img src="../../create_parts/object_btn/square.png"        alt="Square" /></button>
-          <button data-tool="circle"      class="tool"><img src="../../create_parts/object_btn/circle.png"        alt="Circle" /></button>
-          <button data-tool="brush"       class="tool"><img src="../../create_parts/object_btn/brush.png"         alt="Brush" /></button>
-          <button data-tool="pen"         class="tool"><img src="../../create_parts/object_btn/pen.png"           alt="Pen" /></button>
-          <button data-tool="circlebrush" class="tool"><img src="../../create_parts/object_btn/circlebrush.png"   alt="Circle Brush" /></button>
-          <button data-tool="ballpoint"   class="tool"><img src="../../create_parts/object_btn/ballpointpen.png"  alt="Ballpoint" /></button>
-          <button data-tool="marker"      class="tool"><img src="../../create_parts/object_btn/markerpen.png"     alt="Marker" /></button>
-          <button data-tool="eraser"      class="tool"><img src="../../create_parts/object_btn/eraser.png"        alt="Eraser" /></button>
-          <button data-tool="text"        class="tool"><img src="../../create_parts/object_btn/sentence.png"      alt="Text" /></button>
-          <button data-tool="opacity"     class="tool"><img src="../../create_parts/object_btn/opasity_ber.png"   alt="Opacity" /></button>
-          <button data-tool="grid"        class="tool"><img src="../../create_parts/object_btn/graph_paper.png"   alt="Grid" /></button>
+        <div class="tools">
+          <button data-tool="select"      class="tool t-select"><img src="../../create_parts/object_btn/select.png"        alt="Select"/></button>
+          <button data-tool="direct"      class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select"/></button>
+          <button data-tool="rect"        class="tool"><img src="../../create_parts/object_btn/square.png"        alt="Square"/></button>
+          <button data-tool="circle"      class="tool"><img src="../../create_parts/object_btn/circle.png"        alt="Circle"/></button>
+          <button data-tool="brush"       class="tool"><img src="../../create_parts/object_btn/brush.png"         alt="Brush"/></button>
+          <button data-tool="pen"         class="tool"><img src="../../create_parts/object_btn/pen.png"           alt="Pen"/></button>
+          <button data-tool="marker"      class="tool"><img src="../../create_parts/object_btn/markerpen.png"     alt="Marker"/></button>
+          <button data-tool="eraser"      class="tool"><img src="../../create_parts/object_btn/eraser.png"        alt="Eraser"/></button>
+          <button data-tool="text"        class="tool"><img src="../../create_parts/object_btn/sentence.png"      alt="Text"/></button>
+          <button data-tool="opacity"     class="tool"><img src="../../create_parts/object_btn/opasity_ber.png"   alt="Opacity"/></button>
+          <button data-tool="grid"        class="tool"><img src="../../create_parts/object_btn/graph_paper.png"   alt="Grid"/></button>
         </div>
 
         <!-- パレット -->
         <div id="palette" class="palette" aria-label="color palette">
           <i style="--c:#000000" data-col="#000000"></i>
-          <i style="--c:#ff0000" data-col="#ff0000"></i>
-          <i style="--c:#00a14b" data-col="#00a14b"></i>
-          <i style="--c:#3e7bd8" data-col="#3e7bd8"></i>
-          <i style="--c:#ffe14d" data-col="#ffe14d"></i>
+          <i style="--c:#ff4d6d" data-col="#ff4d6d"></i>
           <i style="--c:#ff7aa2" data-col="#ff7aa2"></i>
+          <i style="--c:#3e7bd8" data-col="#3e7bd8"></i>
+          <i style="--c:#00a14b" data-col="#00a14b"></i>
+          <i style="--c:#ffe14d" data-col="#ffe14d"></i>
           <i style="--c:#ffffff" data-col="#ffffff"></i>
         </div>
       </aside>
@@ -91,7 +88,7 @@
   const imgLayer = document.getElementById('imgLayer');
   const opacityIcon = document.getElementById('opacityIcon');
 
-  // キャンバス初期化（DPR補正）
+  /* ========= Canvas サイズ（DPR補正 & ステージ相対） ========= */
   function fitCanvas() {
     const r = stage.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -100,232 +97,217 @@
     canvas.style.width = r.width + 'px';
     canvas.style.height = r.height + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    snapshot(); // 初期状態を履歴に
+    // 初回ヒストリのため白塗り
+    if (!state._inited) { ctx.clearRect(0,0,canvas.width,canvas.height); snapshot(); state._inited=true; }
   }
   new ResizeObserver(fitCanvas).observe(stage);
 
-  // ---- 描画状態 ----
+  /* ================== 状態 ================== */
   const state = {
-    tool: 'pen',
-    color: '#000000',
-    lineWidth: 2.4,
-    drawing: false,
-    sx: 0, sy: 0,
-    history: [],
-    future: []
+    tool:'pen', color:'#000000', lineWidth:2.4, alpha:1,
+    drawing:false, sx:0, sy:0,
+    history:[], future:[], _inited:false
   };
 
-  // 履歴
-  function snapshot() {
-    const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    state.history.push(img);
-    if (state.history.length > 100) state.history.shift();
-    state.future.length = 0;
+  /* ================== 履歴（Undo/Redo） ================== */
+  function snapshot(){
+    try{
+      state.history.push(ctx.getImageData(0,0,canvas.width,canvas.height));
+      if (state.history.length>120) state.history.shift();
+      state.future.length=0;
+    }catch(_){}
   }
-  function undo() {
-    if (state.history.length <= 1) return;
+  function undo(){ if(state.history.length<=1) return;
     state.future.push(state.history.pop());
-    ctx.putImageData(state.history[state.history.length - 1], 0, 0);
+    ctx.putImageData(state.history[state.history.length-1],0,0);
   }
-  function redo() {
-    if (!state.future.length) return;
-    const im = state.future.pop();
-    state.history.push(im);
-    ctx.putImageData(im, 0, 0);
+  function redo(){ if(!state.future.length) return;
+    const img=state.future.pop(); state.history.push(img); ctx.putImageData(img,0,0);
   }
 
-  // ツール切替
-  const toolBtns = [...document.querySelectorAll('.tool')];
-  function setTool(t) {
-    state.tool = t;
-    toolBtns.forEach(b => b.classList.toggle('active', b.dataset.tool === t));
-    state.lineWidth =
-      t === 'brush'       ? 6  :
-      t === 'marker'      ? 10 :
-      t === 'ballpoint'   ? 1.6:
-      t === 'circlebrush' ? 12 :
-      t === 'eraser'      ? 18 : 2.4;
+  /* ================== ツール ================== */
+  const toolBtns=[...document.querySelectorAll('.tool')];
+  function setTool(t){
+    state.tool=t;
+    toolBtns.forEach(b=>b.classList.toggle('active', b.dataset.tool===t));
+    // 線幅・アルファ
+    if(t==='brush'){ state.lineWidth=6; state.alpha=1; }
+    else if(t==='marker'){ state.lineWidth=10; state.alpha=.7; }
+    else if(t==='eraser'){ state.lineWidth=18; state.alpha=1; }
+    else if(t==='pen'){ state.lineWidth=2.4; state.alpha=1; }
+    else if(t==='rect' || t==='circle'){ state.lineWidth=2; state.alpha=1; }
   }
-  toolBtns.forEach(b => b.addEventListener('click', () => {
-    const t = b.dataset.tool;
-    if (t === 'opacity') {
-      mannequin.style.opacity = (parseFloat(getComputedStyle(mannequin).opacity) > 0.6) ? 0.35 : 0.98;
+  toolBtns.forEach(b=>b.addEventListener('click',()=>{
+    const t=b.dataset.tool;
+    if(t==='opacity'){
+      mannequin.style.opacity = (parseFloat(getComputedStyle(mannequin).opacity)>0.6)?0.35:0.98;
+      // アイコン出現（右中段）
       opacityIcon.classList.add('show');
-      setTimeout(() => opacityIcon.classList.remove('show'), 750);
+      setTimeout(()=>opacityIcon.classList.remove('show'), 900);
       return;
     }
-    if (t === 'grid') { stage.classList.toggle('grid'); return; }
-    if (t === 'text') {
-      const txt = prompt('Text:'); if (!txt) return;
-      ctx.save();
-      ctx.fillStyle = state.color;
-      ctx.font = '20px Inter, Arial, sans-serif';
-      ctx.fillText(txt, 40, canvas.height / (window.devicePixelRatio||1) - 40);
-      ctx.restore();
-      snapshot();
-      return;
-    }
+    if(t==='grid'){ stage.classList.toggle('grid'); return; }
     setTool(t);
   }));
   setTool('pen');
 
-  // パレット
-  let currentSwatch = null;
-  document.querySelectorAll('#palette i').forEach(i => {
-    i.addEventListener('click', () => {
-      if (currentSwatch) currentSwatch.classList.remove('active');
-      currentSwatch = i; i.classList.add('active');
-      state.color = i.dataset.col;
+  /* ================== パレット ================== */
+  let swatch=null;
+  document.querySelectorAll('#palette i').forEach(i=>{
+    i.addEventListener('click',()=>{
+      if(swatch) swatch.classList.remove('active'); swatch=i; swatch.classList.add('active');
+      state.color=i.dataset.col;
     });
   });
   document.querySelector('#palette i[data-col="#000000"]').click();
 
-  // ポインタ座標（CSSピクセル→キャンバス座標は ctx の transform で吸収済み）
-  function pos(e) {
+  /* ========== 座標取得：オフセットずれ完全補正（transform対応） ========== */
+  function getPos(ev){
+    // pointer が canvas をターゲットにしているなら offsetX/Y が最も正確（CSS transform 後もOK）
+    if (ev.target === canvas && ev.offsetX !== undefined) {
+      return {x: ev.offsetX, y: ev.offsetY};
+    }
     const r = canvas.getBoundingClientRect();
-    const p = e.touches ? e.touches[0] : e;
+    const p = ev.touches ? ev.touches[0] : ev;
     return { x: p.clientX - r.left, y: p.clientY - r.top };
   }
 
-  // 描画
-  function down(e) {
-    if (state.tool === 'select' || state.tool === 'direct') return; // 選択ツールは未実装占位
-    e.preventDefault();
-    const p = pos(e);
-    state.drawing = true;
-    state.sx = p.x; state.sy = p.y;
+  /* ================== 描画 ================== */
+  function down(ev){
+    // Text ツール：クリック位置に文字を描く
+    if (state.tool==='text'){
+      const p=getPos(ev); const txt=prompt('Text:'); if(!txt) return;
+      ctx.save(); ctx.fillStyle=state.color; ctx.font='20px Inter, Arial, sans-serif';
+      ctx.fillText(txt, p.x, p.y); ctx.restore(); snapshot(); return;
+    }
+    if (state.tool==='select' || state.tool==='direct') return;
+
+    ev.preventDefault();
+    const p=getPos(ev);
+    state.drawing=true; state.sx=p.x; state.sy=p.y;
 
     ctx.beginPath();
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.lineWidth = state.lineWidth;
-    ctx.strokeStyle = state.color;
-    ctx.globalAlpha = (state.tool === 'marker') ? 0.7 : 1;
-    ctx.globalCompositeOperation = (state.tool === 'eraser') ? 'destination-out' : 'source-over';
-    ctx.moveTo(p.x, p.y);
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.lineWidth=state.lineWidth; ctx.strokeStyle=state.color;
+    ctx.globalAlpha=state.alpha;
+    ctx.globalCompositeOperation = (state.tool==='eraser') ? 'destination-out' : 'source-over';
+    ctx.moveTo(p.x,p.y);
   }
-  function move(e) {
-    if (!state.drawing) return;
-    const p = pos(e);
-    if (state.tool === 'rect' || state.tool === 'circle') return; // 最終確定は up
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
+  function move(ev){
+    if(!state.drawing) return;
+    const p=getPos(ev);
+    if(state.tool==='rect' || state.tool==='circle') return; // 形は up で確定
+    ctx.lineTo(p.x,p.y); ctx.stroke();
   }
-  function up(e) {
-    if (!state.drawing) return;
-    state.drawing = false;
-    const p = pos(e);
-
-    if (state.tool === 'rect' || state.tool === 'circle') {
+  function up(ev){
+    if(!state.drawing) return; state.drawing=false;
+    const p=getPos(ev);
+    if(state.tool==='rect' || state.tool==='circle'){
       ctx.beginPath();
-      ctx.lineWidth = state.lineWidth;
-      ctx.strokeStyle = state.color;
-      ctx.globalAlpha = 1;
-      ctx.globalCompositeOperation = 'source-over';
-      if (state.tool === 'rect') {
-        const x = Math.min(state.sx, p.x);
-        const y = Math.min(state.sy, p.y);
-        const w = Math.abs(p.x - state.sx);
-        const h = Math.abs(p.y - state.sy);
-        ctx.strokeRect(x, y, w, h);
-      } else {
-        const r = Math.hypot(p.x - state.sx, p.y - state.sy);
-        ctx.arc(state.sx, state.sy, r, 0, Math.PI * 2);
-        ctx.stroke();
+      ctx.lineWidth=state.lineWidth; ctx.strokeStyle=state.color;
+      ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
+      if(state.tool==='rect'){
+        const x=Math.min(state.sx,p.x), y=Math.min(state.sy,p.y);
+        ctx.strokeRect(x,y, Math.abs(p.x-state.sx), Math.abs(p.y-state.sy));
+      }else{
+        const r=Math.hypot(p.x-state.sx,p.y-state.sy);
+        ctx.arc(state.sx,state.sy,r,0,Math.PI*2); ctx.stroke();
       }
     }
     snapshot();
   }
-  canvas.addEventListener('pointerdown', down);
-  canvas.addEventListener('pointermove', move);
-  window.addEventListener('pointerup', up);
+  canvas.addEventListener('pointerdown',down);
+  canvas.addEventListener('pointermove',move);
+  window.addEventListener('pointerup',up);
 
-  // 画像アップロード & ドラッグ移動
-  const fileInput = document.getElementById('fileInput');
-  document.getElementById('btnUpload').addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', () => {
-    const f = fileInput.files[0]; if (!f) return;
-    const url = URL.createObjectURL(f);
-    imgLayer.onload = () => {
-      // 中央に初期配置（left/top 数値）に固定
-      const r = stage.getBoundingClientRect();
-      imgLayer.style.left = (r.left + r.width / 2 - imgLayer.width / 2) + 'px';
-      imgLayer.style.top  = (r.top  + r.height/ 2 - imgLayer.height/2) + 'px';
-      imgLayer.style.transform = 'translate(0,0)';
-      imgLayer.style.display = 'block';
+  /* ========== 画像アップロード & ステージ内ドラッグ ========== */
+  const fileInput=document.getElementById('fileInput');
+  document.getElementById('btnUpload').addEventListener('click',()=>fileInput.click());
+  fileInput.addEventListener('change',()=>{
+    const f=fileInput.files[0]; if(!f) return;
+    const url=URL.createObjectURL(f);
+    imgLayer.onload=()=>{ // ステージ中心
+      imgLayer.dataset.x = '0.5'; // 0..1 の相対位置
+      imgLayer.dataset.y = '0.5';
+      placeImgFromRatio();
+      imgLayer.style.display='block';
       URL.revokeObjectURL(url);
     };
-    imgLayer.src = url;
+    imgLayer.src=url;
   });
-  let dragging = false, offX = 0, offY = 0;
-  imgLayer.addEventListener('mousedown', (e) => { dragging = true; offX = e.offsetX; offY = e.offsetY; e.preventDefault(); });
-  window.addEventListener('mousemove', (e) => {
-    if (!dragging) return;
-    imgLayer.style.left = (e.clientX - offX) + 'px';
-    imgLayer.style.top  = (e.clientY - offY) + 'px';
-  });
-  window.addEventListener('mouseup', () => dragging = false);
 
-  // Save（描画レイヤーのみ）
-  document.getElementById('btnSave').addEventListener('click', () => {
-    const a = document.createElement('a');
-    a.download = 'vivora_drawing.png';
-    a.href = canvas.toDataURL('image/png');
+  function placeImgFromRatio(){
+    const sr=stage.getBoundingClientRect();
+    const x = parseFloat(imgLayer.dataset.x||'0.5') * sr.width;
+    const y = parseFloat(imgLayer.dataset.y||'0.5') * sr.height;
+    // ステージ左上を原点に px 指定
+    imgLayer.style.left = (x - imgLayer.width/2) + 'px';
+    imgLayer.style.top  = (y - imgLayer.height/2) + 'px';
+  }
+  let dragging=false, dx=0, dy=0;
+  imgLayer.addEventListener('mousedown',e=>{
+    dragging=true;
+    const r=imgLayer.getBoundingClientRect();
+    dx=e.clientX - r.left; dy=e.clientY - r.top;
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove',e=>{
+    if(!dragging) return;
+    const sr=stage.getBoundingClientRect();
+    let lx=e.clientX - sr.left - dx + imgLayer.width/2;
+    let ly=e.clientY - sr.top  - dy + imgLayer.height/2;
+    // 相対0..1に保存
+    imgLayer.dataset.x = (lx / sr.width).toString();
+    imgLayer.dataset.y = (ly / sr.height).toString();
+    placeImgFromRatio();
+  });
+  window.addEventListener('mouseup',()=>dragging=false);
+  new ResizeObserver(()=>{ if(imgLayer.style.display!=='none') placeImgFromRatio(); }).observe(stage);
+
+  /* ================== Save / Download ================== */
+  document.getElementById('btnSave').addEventListener('click',()=>{
+    const a=document.createElement('a');
+    a.download='vivora_drawing.png';
+    a.href=canvas.toDataURL('image/png');
     a.click();
   });
-
-  // Download（統合PNG：マネキン + アップロード画像 + 描画）
-  document.getElementById('btnDownload').addEventListener('click', () => {
-    const r = stage.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    const out = document.createElement('canvas');
-    out.width = Math.round(r.width * dpr);
-    out.height = Math.round(r.height * dpr);
-    const o = out.getContext('2d');
-    o.scale(dpr, dpr);
-
-    // 背景白
-    o.fillStyle = '#ffffff';
-    o.fillRect(0, 0, r.width, r.height);
-
-    // マネキン
-    const mr = mannequin.getBoundingClientRect();
-    o.globalAlpha = parseFloat(getComputedStyle(mannequin).opacity) || 1;
-    o.drawImage(mannequin, mr.left - r.left, mr.top - r.top, mr.width, mr.height);
-    o.globalAlpha = 1;
-
-    // アップロード画像
-    if (imgLayer.style.display !== 'none' && imgLayer.src) {
-      const ir = imgLayer.getBoundingClientRect();
-      o.drawImage(imgLayer, ir.left - r.left, ir.top - r.top, ir.width, ir.height);
+  document.getElementById('btnDownload').addEventListener('click',()=>{
+    const sr=stage.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+    const out=document.createElement('canvas');
+    out.width=Math.round(sr.width*dpr); out.height=Math.round(sr.height*dpr);
+    const o=out.getContext('2d'); o.scale(dpr,dpr);
+    o.fillStyle='#fff'; o.fillRect(0,0,sr.width,sr.height);
+    const mr=mannequin.getBoundingClientRect();
+    o.globalAlpha=parseFloat(getComputedStyle(mannequin).opacity)||1;
+    o.drawImage(mannequin, mr.left-sr.left, mr.top-sr.top, mr.width, mr.height);
+    o.globalAlpha=1;
+    if(imgLayer.style.display!=='none' && imgLayer.src){
+      const ir=imgLayer.getBoundingClientRect();
+      o.drawImage(imgLayer, ir.left-sr.left, ir.top-sr.top, ir.width, ir.height);
     }
-
-    // 描画キャンバス
-    o.drawImage(canvas, 0, 0, r.width, r.height);
-
-    const a = document.createElement('a');
-    a.download = 'vivora_illustration.png';
-    a.href = out.toDataURL('image/png');
-    a.click();
+    o.drawImage(canvas, 0, 0, sr.width, sr.height);
+    const a=document.createElement('a');
+    a.download='vivora_illustration.png'; a.href=out.toDataURL('image/png'); a.click();
   });
 
-  // Illustrator風ショートカット
-  window.addEventListener('keydown', (e) => {
-    // ⌘/Ctrl + Z / Shift+Z
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
-      e.preventDefault(); e.shiftKey ? redo() : undo(); return;
-    }
-    // V/P/B/E
-    if (!e.metaKey && !e.ctrlKey) {
-      if (e.key.toLowerCase() === 'v') setTool('select');
-      if (e.key.toLowerCase() === 'p') setTool('pen');
-      if (e.key.toLowerCase() === 'b') setTool('brush');
-      if (e.key.toLowerCase() === 'e') setTool('eraser');
-      if (e.key.toLowerCase() === 'g') setTool('grid');
+  /* ================== Illustrator風ショートカット ================== */
+  window.addEventListener('keydown',e=>{
+    if((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==='z'){ e.preventDefault(); e.shiftKey?redo():undo(); return; }
+    if(!e.metaKey && !e.ctrlKey){
+      const k=e.key.toLowerCase();
+      if(k==='v') setTool('select');
+      if(k==='p') setTool('pen');
+      if(k==='b') setTool('brush');
+      if(k==='e') setTool('eraser');
+      if(k==='g') setTool('grid');
+      if(k==='t') setTool('text');
+      if(k==='o') { // O: opacity toggle
+        mannequin.style.opacity = (parseFloat(getComputedStyle(mannequin).opacity)>0.6)?0.35:0.98;
+        opacityIcon.classList.add('show'); setTimeout(()=>opacityIcon.classList.remove('show'),900);
+      }
     }
   });
 
-  // 初期化
   fitCanvas();
 })();
 </script>
