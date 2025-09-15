@@ -1,171 +1,213 @@
-<!-- index.html (HTML+js) -->
+<!-- index.html (HTML + JS) -->
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Vivora Design Suite 2025</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="./styles.css" rel="stylesheet" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <main id="board" data-mode="illustration">
-    <!-- ヘッダー：左タイトル / 右タブ -->
-    <header id="topbar">
-      <h1 id="title">Vivora Design Suite 2025</h1>
-      <nav id="mode-tabs" role="tablist" aria-label="Modes">
-        <button class="tab on" data-mode="illustration" role="tab" aria-selected="true">Vivora Fashion Illustration 2025</button>
-        <button class="tab" data-mode="fabric" role="tab" aria-selected="false">Vivora Fabric Matching 2025</button>
-        <button class="tab" data-mode="clothing" role="tab" aria-selected="false">Vivora Clothing Design 2025</button>
-      </nav>
-      <button id="next-step" class="btn primary" aria-label="Next Step">Next Step</button>
-    </header>
+  <!-- HEADER -->
+  <header class="topbar">
+    <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
 
-    <!-- IO -->
-    <div id="io-stack">
-      <button class="icon-btn" title="Download"><img src="./public/create_parts/create_button/download.png" alt=""></button>
-      <button class="icon-btn" title="Upload"><img src="./public/create_parts/create_button/upload.png" alt=""></button>
-      <button class="icon-btn" title="Save"><img src="./public/create_parts/create_button/save.png" alt=""></button>
-    </div>
+    <nav class="mode-pills">
+      <button class="pill">home</button>
+      <button class="pill pill-active">fashion<br>illustration</button>
+      <button class="pill">fabric<br>matching</button>
+      <button class="pill">clothing<br>design</button>
+      <button class="pill">pattern</button>
+      <button class="pill">grading</button>
+      <button class="pill">print<br>layout</button>
+    </nav>
+  </header>
 
-    <!-- 共有キャンバス -->
-    <section id="canvas-area">
-      <div id="mannequin-wrap">
-        <img id="mannequin" class="mannequin-base" src="./public/mannequin/mannequin_woman.png" alt="">
+  <!-- MAIN STAGE -->
+  <main class="stage">
+    <!-- DRAW BOARD -->
+    <section class="board">
+      <div class="canvas-frame">
+        <img id="mannequin" class="mannequin-base" src="public/mannequin/mannequin_woman.png" alt="mannequin"/>
+        <div id="zoomBadge" class="zoom-badge">
+          <span id="zoomValue">100%</span>
+          <input id="zoomDot" class="zoom-dot" type="range" min="50" max="200" value="100" />
+        </div>
       </div>
-      <svg id="draw-surface" viewBox="0 0 1000 700" preserveAspectRatio="none"></svg>
-
-      <!-- モード別オーバーレイ（必要時に表示） -->
-      <div id="fabric-overlay" hidden></div>
-      <div id="clothing-overlay" hidden></div>
     </section>
 
-    <!-- 右：ツール／パレット（共通） -->
-    <aside id="stationery">
-      <button class="tool-btn" data-tool="select"><img src="./public/create_parts/design_button/select.png" alt=""></button>
-      <button class="tool-btn" data-tool="direct"><img src="./public/create_parts/design_button/direct_select.png" alt=""></button>
-      <button class="tool-btn" data-tool="rect"><img src="./public/create_parts/design_button/square.png" alt=""></button>
-      <button class="tool-btn" data-tool="circle"><img src="./public/create_parts/design_button/circle.png" alt=""></button>
-      <button class="tool-btn" data-tool="brush"><img src="./public/create_parts/design_button/brush.png" alt=""></button>
-      <button class="tool-btn" data-tool="pen"><img src="./public/create_parts/design_button/pen.png" alt=""></button>
-      <button class="tool-btn" data-tool="eraser"><img src="./public/create_parts/design_button/eraser.png" alt=""></button>
-      <button class="tool-btn" data-tool="text"><img src="./public/create_parts/design_button/sentence.png" alt=""></button>
-      <button class="tool-btn" id="opacity-tool" data-tool="opacity"><img src="./public/create_parts/design_button/opasity_ber.png" alt=""></button>
-    </aside>
+    <!-- RIGHT CONTROL WALL -->
+    <aside class="right-wall">
 
-    <div id="color-palette">
-      <button class="swatch" data-color="#000000"></button>
-      <button class="swatch" data-color="#FFFFFF"></button>
-      <button class="swatch" data-color="#FF3B30"></button>
-      <button class="swatch" data-color="#FF9500"></button>
-      <button class="swatch" data-color="#FFCC00"></button>
-      <button class="swatch" data-color="#34C759"></button>
-      <button class="swatch" data-color="#007AFF"></button>
-      <button class="swatch" data-color="#AF52DE"></button>
-      <button class="swatch" data-color="#5AC8FA"></button>
-      <button class="swatch" data-color="#8E8E93"></button>
-      <div class="fields">
-        <label>Stroke <input id="stroke-width" type="number" min="1" max="16" value="2"></label>
-        <label>Alpha <input id="color-alpha" type="range" min="0" max="100" value="100"></label>
+      <!-- IO row -->
+      <div class="io-row">
+        <button class="io-btn" title="Upload"><img src="public/create_parts/create_button/upload.png" alt="upload"></button>
+        <button class="io-btn" title="Download"><img src="public/create_parts/create_button/download.png" alt="download"></button>
+        <button class="io-btn" title="Save"><img src="public/create_parts/create_button/save.png" alt="save"></button>
       </div>
-    </div>
 
-    <!-- 透明度スライダー -->
-    <div id="opacity-slider" hidden>
-      <label>Mannequin Opacity <input id="mannequin-opacity" type="range" min="0" max="100" value="100"></label>
-      <button id="opacity-close" class="btn small">Close</button>
-    </div>
+      <!-- Tools + Category rail -->
+      <div class="rail">
+        <!-- TOOL BAR (no layer icon) -->
+        <div class="tool-bar">
+          <button class="tool" title="Select"><img src="public/create_parts/design_button/select.png" alt=""></button>
+          <button class="tool" title="Direct Select"><img src="public/create_parts/design_button/direct_select.png" alt=""></button>
+          <button class="tool" title="Square"><img src="public/create_parts/design_button/square.png" alt=""></button>
+          <button class="tool" title="Circle"><img src="public/create_parts/design_button/circle.png" alt=""></button>
+          <button class="tool" title="Brush"><img src="public/create_parts/design_button/brush.png" alt=""></button>
+          <button class="tool" title="Pen"><img src="public/create_parts/design_button/pen.png" alt=""></button>
+          <button class="tool" title="Circle Brush"><img src="public/create_parts/design_button/circlebrush.png" alt=""></button>
+          <button class="tool" title="Ballpoint"><img src="public/create_parts/design_button/ballpointpen.png" alt=""></button>
+          <button class="tool" title="Marker"><img src="public/create_parts/design_button/markerpen.png" alt=""></button>
+          <button class="tool" title="Eraser"><img src="public/create_parts/design_button/eraser.png" alt=""></button>
+          <button class="tool" title="Text"><img src="public/create_parts/design_button/sentence.png" alt=""></button>
+          <button id="opacityTool" class="tool" title="Opacity"><img src="public/create_parts/design_button/opasity_ber.png" alt=""></button>
+          <button class="tool" title="Grid"><img src="public/create_parts/design_button/graph_paper.png" alt=""></button>
+        </div>
 
-    <!-- 下部：アセットスライダー（共通） -->
-    <div id="assets-strip" aria-label="Assets">
-      <!-- 必要に応じて各モードで差し替え -->
-      <div class="asset"><img src="./public/clothing/bottoms/jeans.png" alt=""><span>jeans</span></div>
-      <div class="asset"><img src="./public/buttons/centerbutton.png" alt=""><span>centerbutton</span></div>
-      <div class="asset"><img src="./public/belts/waistbelt.png" alt=""><span>waistbelt</span></div>
-      <div class="asset"><img src="./public/hems/rawhem.png" alt=""><span>rawhem</span></div>
-      <div class="asset"><img src="./public/backstyle/openback.png" alt=""><span>openback</span></div>
-      <div class="asset"><img src="./public/accessories/ribbon.png" alt=""><span>ribbon</span></div>
-    </div>
+        <!-- CATEGORY STACK -->
+        <div class="category-stack">
+          <!-- Each row: label + preview cell -->
+          <div class="cat-row">
+            <button class="cat-btn">Tops</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Bottoms</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Sleeves</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Collar</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Pockets</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Buttons</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Skirts</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Belts</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Zippers</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Hems</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Necklines</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Backstyle</button>
+            <div class="cat-cell"></div>
+          </div>
+          <div class="cat-row">
+            <button class="cat-btn">Accessories</button>
+            <div class="cat-cell"></div>
+          </div>
+        </div>
+
+        <!-- COLOR PALETTE -->
+        <div class="palette">
+          <button class="dot" style="--c:#e9e8e3" aria-label="color"></button>
+          <button class="dot" style="--c:#f5d0aa"></button>
+          <button class="dot" style="--c:#f7b27b"></button>
+          <button class="dot" style="--c:#f2955f"></button>
+          <button class="dot" style="--c:#f06f49"></button>
+          <button class="dot" style="--c:#f04b3a"></button>
+          <button class="dot" style="--c:#ef2c2c"></button>
+          <button class="dot" style="--c:#d11e54"></button>
+          <button class="dot" style="--c:#a91d8f"></button>
+          <button class="dot" style="--c:#6d27c4"></button>
+          <button class="dot" style="--c:#2f55d4"></button>
+          <button class="dot" style="--c:#1b8bd1"></button>
+          <button class="dot" style="--c:#15a3a1"></button>
+          <button class="dot" style="--c:#1fa24c"></button>
+          <button class="dot" style="--c:#7cab33"></button>
+          <button class="dot" style="--c:#c3c33b"></button>
+          <button class="dot" style="--c:#000000"></button>
+          <button class="dot" style="--c:#ffffff; border:1px solid #bfbfbf"></button>
+        </div>
+      </div>
+
+      <!-- OPACITY SLIDER (appears when opacity tool clicked) -->
+      <div id="opacityPanel" class="opacity-panel" hidden>
+        <label>Opacity</label>
+        <input id="opacityRange" type="range" min="0" max="100" value="100"/>
+        <span id="opacityValue">100%</span>
+      </div>
+    </aside>
   </main>
 
+  <!-- BOTTOM STRIP (thumbnail scroller) -->
+  <footer class="thumb-strip">
+    <div class="thumbs">
+      <figure class="thumb"><img src="public/clothing/tshirt.png" alt=""><figcaption>tshirt</figcaption></figure>
+      <figure class="thumb"><img src="public/bottoms/jeans.png" alt=""><figcaption>jeans</figcaption></figure>
+      <figure class="thumb"><img src="public/sleeves/shortsleeve.png" alt=""><figcaption>shortsleeve</figcaption></figure>
+      <figure class="thumb"><img src="public/collars/roundcollar.png" alt=""><figcaption>roundcollar</figcaption></figure>
+      <figure class="thumb"><img src="public/pockets/patchpocket.png" alt=""><figcaption>patchpocket</figcaption></figure>
+      <figure class="thumb"><img src="public/buttons/centerbutton.png" alt=""><figcaption>centerbutton</figcaption></figure>
+      <figure class="thumb"><img src="public/skirts/aline_skirt.png" alt=""><figcaption>alineskirt.png</figcaption></figure>
+      <figure class="thumb"><img src="public/belts/waistbelt.png" alt=""><figcaption>waistbelt</figcaption></figure>
+      <figure class="thumb"><img src="public/zippers/frontzipper.png" alt=""><figcaption>frontzipper</figcaption></figure>
+      <figure class="thumb"><img src="public/hems/rawhem.png" alt=""><figcaption>rawhem</figcaption></figure>
+      <figure class="thumb"><img src="public/necklines/boatneck.png" alt=""><figcaption>boatneck</figcaption></figure>
+      <figure class="thumb"><img src="public/backstyle/openback.png" alt=""><figcaption>openback</figcaption></figure>
+      <figure class="thumb"><img src="public/accessories/ribbon.png" alt=""><figcaption>ribbon</figcaption></figure>
+    </div>
+  </footer>
+
   <script>
-    // ====== タブ切替（モード管理） ======
-    const board = document.getElementById('board');
-    const tabs = [...document.querySelectorAll('#mode-tabs .tab')];
+    // マネキン拡大縮小（右サイドの小さなスライダー風）
+    const zoomDot = document.getElementById('zoomDot');
+    const zoomValue = document.getElementById('zoomValue');
     const mannequin = document.getElementById('mannequin');
-    const fabricOverlay = document.getElementById('fabric-overlay');
-    const clothingOverlay = document.getElementById('clothing-overlay');
 
-    tabs.forEach(tab=>{
-      tab.addEventListener('click', ()=>{
-        tabs.forEach(t=>t.classList.toggle('on', t===tab));
-        const mode = tab.dataset.mode;
-        board.dataset.mode = mode;
-        // モード別表示
-        fabricOverlay.hidden = mode !== 'fabric';
-        clothingOverlay.hidden = mode !== 'clothing';
-        mannequin.style.display = (mode === 'illustration' || mode === 'clothing') ? 'block' : 'none';
-      });
+    function applyZoom(v){
+      zoomValue.textContent = v + '%';
+      mannequin.style.transform = `translate(-50%, -50%) scale(${v/100})`;
+    }
+    zoomDot.addEventListener('input', e => applyZoom(e.target.value));
+    applyZoom(100);
+
+    // 透明度パネル
+    const opacityTool = document.getElementById('opacityTool');
+    const opacityPanel = document.getElementById('opacityPanel');
+    const opacityRange = document.getElementById('opacityRange');
+    const opacityValue = document.getElementById('opacityValue');
+
+    opacityTool.addEventListener('click', () => {
+      opacityPanel.hidden = !opacityPanel.hidden;
+    });
+    opacityRange.addEventListener('input', e => {
+      mannequin.style.opacity = e.target.value / 100;
+      opacityValue.textContent = e.target.value + '%';
     });
 
-    // ====== 既存の描画/色/透明度（前回コードと同じ） ======
-    const drawSurface = document.getElementById('draw-surface');
-    const swatches = [...document.querySelectorAll('.swatch')];
-    const strokeWidthInput = document.getElementById('stroke-width');
-    const colorAlphaInput = document.getElementById('color-alpha');
-    const toolButtons = [...document.querySelectorAll('.tool-btn')];
-    const opacityPanel = document.getElementById('opacity-slider');
-    const mannequinOpacity = document.getElementById('mannequin-opacity');
-    const opacityClose = document.getElementById('opacity-close');
-
-    let currentTool='select', currentColor='#000000', currentAlpha=1, currentStroke=2;
-    let isDrawing=false, startPt=null, activeEl=null;
-
-    function rgba(hex,a){const v=hex.slice(1);return`rgba(${parseInt(v.slice(0,2),16)},${parseInt(v.slice(2,4),16)},${parseInt(v.slice(4,6),16)},${a})`;}
-    function applyStyle(el){
-      el.setAttribute('stroke', rgba(currentColor,currentAlpha));
-      el.setAttribute('fill', (currentTool==='brush'||currentTool==='pen') ? 'none' : rgba(currentColor, Math.min(0.12,currentAlpha)));
-      el.setAttribute('stroke-width', currentStroke);
-      el.style.transition='opacity .18s, transform .18s'; el.style.opacity='0'; el.style.transform='scale(.98)';
-      requestAnimationFrame(()=>{el.style.opacity='1'; el.style.transform='scale(1)';});
-    }
-    swatches.forEach(s=>{s.style.setProperty('--sw', s.dataset.color); s.addEventListener('click',()=>{currentColor=s.dataset.color; swatches.forEach(x=>x.classList.toggle('on',x===s));});}); swatches[0].click();
-    strokeWidthInput.addEventListener('input',e=>currentStroke=Math.max(1,Math.min(16,+e.target.value||2)));
-    colorAlphaInput.addEventListener('input',e=>currentAlpha=(+e.target.value)/100);
-
-    toolButtons.forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        toolButtons.forEach(b=>b.classList.toggle('active',b===btn));
-        if(btn.dataset.tool==='opacity'){opacityPanel.hidden=false; return;}
-        currentTool=btn.dataset.tool;
+    // カラーパレット選択（UI反応のみ）
+    document.querySelectorAll('.palette .dot').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.palette .dot').forEach(b=>b.classList.remove('dot-active'));
+        btn.classList.add('dot-active');
       });
     });
-    document.querySelector('.tool-btn[data-tool="select"]').classList.add('active');
-    opacityClose.addEventListener('click',()=>opacityPanel.hidden=true);
-    mannequinOpacity.addEventListener('input',e=>mannequin.style.opacity=String((+e.target.value)/100));
-
-    function getSvgPoint(evt){const r=drawSurface.getBoundingClientRect();return {x:((evt.clientX-r.left)/r.width)*1000,y:((evt.clientY-r.top)/r.height)*700};}
-    function onPointerDown(e){
-      if(!['rect','circle','brush','pen','eraser','text'].includes(currentTool))return;
-      isDrawing=true; const p=getSvgPoint(e); startPt=p;
-      if(currentTool==='rect'){activeEl=document.createElementNS('http://www.w3.org/2000/svg','rect');activeEl.setAttribute('x',p.x);activeEl.setAttribute('y',p.y);activeEl.setAttribute('width',0);activeEl.setAttribute('height',0);drawSurface.appendChild(activeEl);applyStyle(activeEl);}
-      else if(currentTool==='circle'){activeEl=document.createElementNS('http://www.w3.org/2000/svg','ellipse');activeEl.setAttribute('cx',p.x);activeEl.setAttribute('cy',p.y);activeEl.setAttribute('rx',0);activeEl.setAttribute('ry',0);drawSurface.appendChild(activeEl);applyStyle(activeEl);}
-      else if(currentTool==='brush'||currentTool==='pen'){activeEl=document.createElementNS('http://www.w3.org/2000/svg','path');activeEl.setAttribute('fill','none');activeEl.setAttribute('d',`M ${p.x.toFixed(1)} ${p.y.toFixed(1)}`);drawSurface.appendChild(activeEl);applyStyle(activeEl);}
-      else if(currentTool==='eraser'){const all=[...drawSurface.querySelectorAll('path,rect,ellipse,text')];if(all.length){let min=1e9,t=null;all.forEach(el=>{const b=el.getBBox();const d=Math.hypot(b.x+b.width/2-p.x,b.y+b.height/2-p.y);if(d<min){min=d;t=el;}});if(t)t.remove();}isDrawing=false;}
-      else if(currentTool==='text'){const t=prompt('Text:');if(t&&t.trim()){activeEl=document.createElementNS('http://www.w3.org/2000/svg','text');activeEl.setAttribute('x',p.x);activeEl.setAttribute('y',p.y);activeEl.setAttribute('font-size','22');activeEl.setAttribute('font-family','ui-sans-serif,system-ui,-apple-system,"Segoe UI"');activeEl.textContent=t.trim();drawSurface.appendChild(activeEl);applyStyle(activeEl);}isDrawing=false;}
-    }
-    function onPointerMove(e){
-      if(!isDrawing||!activeEl) return; const p=getSvgPoint(e);
-      if(activeEl.tagName==='rect'){const x=Math.min(p.x,startPt.x),y=Math.min(p.y,startPt.y),w=Math.abs(p.x-startPt.x),h=Math.abs(p.y-startPt.y);activeEl.setAttribute('x',x);activeEl.setAttribute('y',y);activeEl.setAttribute('width',w);activeEl.setAttribute('height',h);}
-      else if(activeEl.tagName==='ellipse'){activeEl.setAttribute('cx',(startPt.x+p.x)/2);activeEl.setAttribute('cy',(startPt.y+p.y)/2);activeEl.setAttribute('rx',Math.abs(p.x-startPt.x)/2);activeEl.setAttribute('ry',Math.abs(p.y-startPt.y)/2);}
-      else if(activeEl.tagName==='path'){activeEl.setAttribute('d', activeEl.getAttribute('d')+` L ${p.x.toFixed(1)} ${p.y.toFixed(1)}`);}
-    }
-    function onPointerUp(){isDrawing=false; activeEl=null;}
-    drawSurface.addEventListener('pointerdown',onPointerDown);
-    window.addEventListener('pointermove',onPointerMove);
-    window.addEventListener('pointerup',onPointerUp);
-
-    // スクロール固定
-    document.documentElement.style.overflow='hidden';
   </script>
 </body>
 </html>
