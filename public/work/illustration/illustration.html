@@ -1,180 +1,80 @@
-<!DOCTYPE html><html lang="ja"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Vivora Fashion Illustration 2025</title>
-<link rel="stylesheet" href="style.css"/>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vivora Fashion Illustration 2025</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="fit"><div class="board">
-  <header class="topbar">
-    <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
-    <nav class="contents-buttons" aria-label="contents">
-      <img src="../../create_parts/contents_button/0_home.png" alt="Home"/>
-      <img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations"/>
-      <img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"/>
-      <img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"/>
-      <img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"/>
-      <img src="../../create_parts/contents_button/5_grading.png" alt="Grading"/>
-      <img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout & Cut"/>
-      <img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode"/>
-    </nav>
-  </header>
+<div class="fit">
+  <div class="board">
+    <header class="topbar">
+      <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
+      <!-- contentsボタン：リンク付き -->
+      <nav class="contents-buttons" aria-label="contents">
+        <a href="../../index.html"><img src="../../create_parts/contents_button/0_home.png" alt="Home"/></a>
+        <a href="../illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations"/></a>
+        <a href="../fabric/fabric.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"/></a>
+        <a href="../clothing/clothing.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"/></a>
+        <a href="../pattern/pattern.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"/></a>
+        <a href="../grading/grading.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"/></a>
+        <a href="../print/print.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"/></a>
+        <a href="../kids/kids.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode"/></a>
+      </nav>
+    </header>
 
-  <main class="main">
-    <section id="stage" class="stage" aria-label="canvas">
-      <img id="mannequin" class="mannequin"
-           src="../../mannequin/mannequin_woman/mannequin_woman_front.png"
-           alt="Mannequin Woman Front"/>
-      <canvas id="draw"></canvas>
-      <img id="imgLayer" class="img-layer" alt=""/>
-      <div class="opacity-ui" role="group" aria-label="Zoom/Opacity HUD">
-        <span id="zoomLabel" class="zoom-label">100 %</span>
-        <div class="zoom-bar"><i id="zoomThumb" class="zoom-thumb"></i><i class="zoom-dot"></i></div>
-      </div>
-    </section>
+    <main class="main">
+      <section id="stage" class="stage" aria-label="canvas">
+        <img id="mannequin" class="mannequin"
+             src="../../mannequin/mannequin_woman/mannequin_woman_front.png"
+             alt="Mannequin Woman Front"/>
+        <canvas id="draw"></canvas>
+        <img id="imgLayer" class="img-layer" alt=""/>
+        <!-- 透明度アイコン -->
+        <img id="opacityIcon" class="opacity-icon" src="../../create_parts/object_btn/opasity_ber.png" alt="opacity icon"/>
+      </section>
 
-    <aside class="rail" aria-label="tool rail">
-      <div class="io-stack">
-        <button id="btnDownload" class="io"><img src="../../create_parts/create_button/download.png" alt="download"/></button>
-        <button id="btnUpload"   class="io"><img src="../../create_parts/create_button/upload.png"   alt="upload"/></button>
-        <button id="btnSave"     class="io"><img src="../../create_parts/create_button/save.png"     alt="save"/></button>
-        <input id="fileInput" type="file" accept="image/*" hidden/>
-      </div>
+      <aside class="rail" aria-label="tool rail">
+        <!-- IO -->
+        <div class="io-stack">
+          <button id="btnDownload" class="io"><img src="../../create_parts/create_button/download.png" alt="download"/></button>
+          <button id="btnUpload" class="io"><img src="../../create_parts/create_button/upload.png" alt="upload"/></button>
+          <button id="btnSave" class="io"><img src="../../create_parts/create_button/save.png" alt="save"/></button>
+          <input id="fileInput" type="file" accept="image/*" hidden/>
+        </div>
 
-      <div class="tools" aria-label="stationery tools">
-        <button data-tool="select"        class="tool t-select"><img src="../../create_parts/object_btn/select.png"        alt="Select"/></button>
-        <button data-tool="direct"        class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select"/></button>
-        <button data-tool="rect"          class="tool"><img src="../../create_parts/object_btn/square.png"        alt="Square"/></button>
-        <button data-tool="circle"        class="tool"><img src="../../create_parts/object_btn/circle.png"        alt="Circle"/></button>
-        <button data-tool="brush"         class="tool"><img src="../../create_parts/object_btn/brush.png"         alt="Brush"/></button>
-        <button data-tool="pen"           class="tool"><img src="../../create_parts/object_btn/pen.png"           alt="Pen"/></button>
-        <button data-tool="circlebrush"   class="tool"><img src="../../create_parts/object_btn/circlebrush.png"   alt="Circle Brush"/></button>
-        <button data-tool="ballpoint"     class="tool"><img src="../../create_parts/object_btn/ballpointpen.png"  alt="Ballpoint"/></button>
-        <button data-tool="marker"        class="tool"><img src="../../create_parts/object_btn/markerpen.png"     alt="Marker"/></button>
-        <button data-tool="eraser"        class="tool"><img src="../../create_parts/object_btn/eraser.png"        alt="Eraser"/></button>
-        <button data-tool="text"          class="tool"><img src="../../create_parts/object_btn/sentence.png"      alt="Text"/></button>
-        <button data-tool="opacity"       class="tool"><img src="../../create_parts/object_btn/opasity_ber.png"   alt="Opacity"/></button>
-        <button data-tool="grid"          class="tool"><img src="../../create_parts/object_btn/graph_paper.png"   alt="Grid"/></button>
-      </div>
+        <!-- Tools -->
+        <div class="tools">
+          <button data-tool="select" class="tool t-select"><img src="../../create_parts/object_btn/select.png" alt="Select"/></button>
+          <button data-tool="direct" class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select"/></button>
+          <button data-tool="rect" class="tool"><img src="../../create_parts/object_btn/square.png" alt="Square"/></button>
+          <button data-tool="circle" class="tool"><img src="../../create_parts/object_btn/circle.png" alt="Circle"/></button>
+          <button data-tool="brush" class="tool"><img src="../../create_parts/object_btn/brush.png" alt="Brush"/></button>
+          <button data-tool="pen" class="tool"><img src="../../create_parts/object_btn/pen.png" alt="Pen"/></button>
+          <button data-tool="circlebrush" class="tool"><img src="../../create_parts/object_btn/circlebrush.png" alt="Circle Brush"/></button>
+          <button data-tool="ballpoint" class="tool"><img src="../../create_parts/object_btn/ballpointpen.png" alt="Ballpoint"/></button>
+          <button data-tool="marker" class="tool"><img src="../../create_parts/object_btn/markerpen.png" alt="Marker"/></button>
+          <button data-tool="eraser" class="tool"><img src="../../create_parts/object_btn/eraser.png" alt="Eraser"/></button>
+          <button data-tool="text" class="tool"><img src="../../create_parts/object_btn/sentence.png" alt="Text"/></button>
+          <button data-tool="opacity" class="tool"><img src="../../create_parts/object_btn/opasity_ber.png" alt="Opacity"/></button>
+          <button data-tool="grid" class="tool"><img src="../../create_parts/object_btn/graph_paper.png" alt="Grid"/></button>
+        </div>
 
-      <div id="palette" class="palette" aria-label="color palette">
-        <i style="--c:#bdbdbd" data-col="#bdbdbd"></i>
-        <i style="--c:#ffffff" data-col="#ffffff"></i>
-        <i style="--c:#ffe14d" data-col="#ffe14d"></i>
-        <i style="--c:#ffb000" data-col="#ffb000"></i>
-        <i style="--c:#ff7aa2" data-col="#ff7aa2"></i>
-        <i style="--c:#ff4d6d" data-col="#ff4d6d"></i>
-        <i style="--c:#6ad58b" data-col="#6ad58b"></i>
-        <i style="--c:#00a14b" data-col="#00a14b"></i>
-        <i style="--c:#3e7bd8" data-col="#3e7bd8"></i>
-        <i style="--c:#1b2a4a" data-col="#1b2a4a"></i>
-        <i style="--c:#5b2a86" data-col="#5b2a86"></i>
-        <i style="--c:#000000" data-col="#000000"></i>
-      </div>
-
-      <button class="more-dot" aria-label="more"></button>
-    </aside>
-  </main>
-</div></div>
-
-<!-- JS統合：描画・消しゴム・アップロード・保存／書き出し -->
-<script>
-(() => {
-  const stage = document.getElementById('stage');
-  const mannequin = document.getElementById('mannequin');
-  const canvas = document.getElementById('draw');
-  const ctx = canvas.getContext('2d');
-  const imgLayer = document.getElementById('imgLayer');
-
-  function fitCanvas() {
-    const r = stage.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = Math.floor(r.width * dpr);
-    canvas.height = Math.floor(r.height * dpr);
-    canvas.style.width = r.width + 'px';
-    canvas.style.height = r.height + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  new ResizeObserver(fitCanvas).observe(stage);
-
-  const state = { tool:'pen', color:'#000000', lineWidth:2.4, isDown:false, sx:0, sy:0 };
-
-  const toolBtns = [...document.querySelectorAll('.tool')];
-  function setTool(name){
-    state.tool = name;
-    toolBtns.forEach(b=>b.classList.toggle('active', b.dataset.tool===name));
-    state.lineWidth =
-      name==='brush'?6 : name==='marker'?10 : name==='ballpoint'?1.6 :
-      name==='circlebrush'?12 : name==='eraser'?18 : 2.4;
-  }
-  toolBtns.forEach(b=>b.addEventListener('click',()=>{
-    const t=b.dataset.tool;
-    if(t==='opacity'){ mannequin.style.opacity=(+getComputedStyle(mannequin).opacity>0.6)?0.35:0.98; return; }
-    if(t==='grid'){ stage.classList.toggle('grid'); return; }
-    if(t==='text'){ const txt=prompt('Text:'); if(txt){ const r=stage.getBoundingClientRect(); ctx.font='20px Inter, Arial'; ctx.fillStyle=state.color; ctx.fillText(txt, r.width/2-ctx.measureText(txt).width/2, r.height*0.85);} return; }
-    setTool(t);
-  }));
-  setTool('pen');
-
-  const palette = document.getElementById('palette');
-  let swatch=null;
-  palette.querySelectorAll('i').forEach(i=>i.addEventListener('click',()=>{
-    if(swatch) swatch.classList.remove('active'); swatch=i; swatch.classList.add('active');
-    state.color=i.dataset.col;
-  }));
-  palette.querySelector('i[data-col="#000000"]').click();
-
-  function pos(e){ const r=canvas.getBoundingClientRect(); const p=e.touches?e.touches[0]:e; return {x:p.clientX-r.left, y:p.clientY-r.top}; }
-
-  function down(e){
-    e.preventDefault();
-    const p=pos(e); state.isDown=true; state.sx=p.x; state.sy=p.y;
-    if(state.tool==='rect'||state.tool==='circle') return;
-    ctx.beginPath(); ctx.lineCap='round'; ctx.lineJoin='round';
-    ctx.lineWidth=state.lineWidth; ctx.strokeStyle=state.color;
-    ctx.globalCompositeOperation=(state.tool==='eraser')?'destination-out':'source-over';
-    ctx.moveTo(p.x,p.y);
-  }
-  function move(e){
-    if(!state.isDown) return; const p=pos(e);
-    if(state.tool==='rect'||state.tool==='circle') return;
-    ctx.lineTo(p.x,p.y); ctx.stroke();
-  }
-  function up(e){
-    if(!state.isDown) return; state.isDown=false; const p=pos(e);
-    if(state.tool==='rect'||state.tool==='circle'){
-      ctx.beginPath(); ctx.lineWidth=state.lineWidth; ctx.strokeStyle=state.color; ctx.globalCompositeOperation='source-over';
-      if(state.tool==='rect'){ const x=Math.min(state.sx,p.x), y=Math.min(state.sy,p.y), w=Math.abs(p.x-state.sx), h=Math.abs(p.y-state.sy); ctx.strokeRect(x,y,w,h); }
-      else { const r=Math.hypot(p.x-state.sx,p.y-state.sy); ctx.arc(state.sx,state.sy,r,0,Math.PI*2); ctx.stroke(); }
-    }
-  }
-  canvas.addEventListener('pointerdown',down);
-  canvas.addEventListener('pointermove',move);
-  window.addEventListener('pointerup',up);
-
-  const fileInput=document.getElementById('fileInput');
-  document.getElementById('btnUpload').addEventListener('click',()=>fileInput.click());
-  fileInput.addEventListener('change',()=>{
-    const f=fileInput.files[0]; if(!f) return;
-    const url=URL.createObjectURL(f); imgLayer.onload=()=>{imgLayer.style.display='block'; URL.revokeObjectURL(url);}; imgLayer.src=url;
-  });
-
-  document.getElementById('btnSave').addEventListener('click',()=>{
-    const a=document.createElement('a'); a.download='vivora-drawing.png'; a.href=canvas.toDataURL('image/png'); a.click();
-  });
-
-  document.getElementById('btnDownload').addEventListener('click',()=>{
-    const r=stage.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
-    const tmp=document.createElement('canvas'); tmp.width=Math.floor(r.width*dpr); tmp.height=Math.floor(r.height*dpr);
-    const t=tmp.getContext('2d'); t.scale(dpr,dpr);
-    t.fillStyle='#fff'; t.fillRect(0,0,r.width,r.height);
-    const mr=mannequin.getBoundingClientRect(); t.globalAlpha=parseFloat(getComputedStyle(mannequin).opacity)||1;
-    t.drawImage(mannequin, mr.left-r.left, mr.top-r.top, mr.width, mr.height); t.globalAlpha=1;
-    if(imgLayer.src && imgLayer.style.display!=='none'){ const ir=imgLayer.getBoundingClientRect(); t.drawImage(imgLayer, ir.left-r.left, ir.top-r.top, ir.width, ir.height); }
-    t.drawImage(canvas,0,0,r.width,r.height);
-    const a=document.createElement('a'); a.download='vivora-illustration.png'; a.href=tmp.toDataURL('image/png'); a.click();
-  });
-
-  fitCanvas();
-})();
-</script>
-</body></html>
+        <!-- Palette -->
+        <div id="palette" class="palette">
+          <i style="--c:#000000" data-col="#000000"></i>
+          <i style="--c:#ff0000" data-col="#ff0000"></i>
+          <i style="--c:#00a14b" data-col="#00a14b"></i>
+          <i style="--c:#3e7bd8" data-col="#3e7bd8"></i>
+          <i style="--c:#ffe14d" data-col="#ffe14d"></i>
+          <i style="--c:#ff7aa2" data-col="#ff7aa2"></i>
+          <i style="--c:#ffffff" data-col="#ffffff"></i>
+        </div>
+      </aside>
+    </main>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
