@@ -3,82 +3,55 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <title>Vivora Fashion Illustration 2025</title>
+  <title>Vivora Design Suite 2025</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="./styles.css" rel="stylesheet" />
 </head>
 <body>
-  <!-- 固定ボード 1280x820／100×70グリッド -->
-  <main id="board">
-    <!-- タイトル：X3-22 Y4-4 -->
-    <h1 id="title">Vivora Fashion Illustration 2025</h1>
+  <main id="board" data-mode="illustration">
+    <!-- ヘッダー：左タイトル / 右タブ -->
+    <header id="topbar">
+      <h1 id="title">Vivora Design Suite 2025</h1>
+      <nav id="mode-tabs" role="tablist" aria-label="Modes">
+        <button class="tab on" data-mode="illustration" role="tab" aria-selected="true">Vivora Fashion Illustration 2025</button>
+        <button class="tab" data-mode="fabric" role="tab" aria-selected="false">Vivora Fabric Matching 2025</button>
+        <button class="tab" data-mode="clothing" role="tab" aria-selected="false">Vivora Clothing Design 2025</button>
+      </nav>
+      <button id="next-step" class="btn primary" aria-label="Next Step">Next Step</button>
+    </header>
 
-    <!-- コンテンツボタン列：X73.5-93 Y4-5 -->
-    <div id="contents-buttons" class="row">
-      <button class="btn small">Home</button>
-      <button class="btn small">Illustration</button>
-      <button class="btn small">Pattern</button>
-      <button class="btn small">3D</button>
-      <button class="btn small">Export</button>
-      <button id="next-step" class="btn primary">Next Step</button>
-    </div>
-
-    <!-- IO（DL/UP/SAVE）：X97-97 Y8-12 -->
+    <!-- IO -->
     <div id="io-stack">
-      <button class="icon-btn" title="Download">
-        <img src="./public/create_parts/create_button/download.png" alt="download">
-      </button>
-      <button class="icon-btn" title="Upload">
-        <img src="./public/create_parts/create_button/upload.png" alt="upload">
-      </button>
-      <button class="icon-btn" title="Save">
-        <img src="./public/create_parts/create_button/save.png" alt="save">
-      </button>
+      <button class="icon-btn" title="Download"><img src="./public/create_parts/create_button/download.png" alt=""></button>
+      <button class="icon-btn" title="Upload"><img src="./public/create_parts/create_button/upload.png" alt=""></button>
+      <button class="icon-btn" title="Save"><img src="./public/create_parts/create_button/save.png" alt=""></button>
     </div>
 
-    <!-- キャンバス領域：X3-93 Y8-68 -->
+    <!-- 共有キャンバス -->
     <section id="canvas-area">
-      <!-- マネキン：X42-54 Y17-60（内部で絶対配置） -->
       <div id="mannequin-wrap">
-        <img id="mannequin" class="mannequin-base" src="./public/mannequin/mannequin_woman.png" alt="mannequin" />
+        <img id="mannequin" class="mannequin-base" src="./public/mannequin/mannequin_woman.png" alt="">
       </div>
-
-      <!-- 描画レイヤ（SVG） -->
       <svg id="draw-surface" viewBox="0 0 1000 700" preserveAspectRatio="none"></svg>
+
+      <!-- モード別オーバーレイ（必要時に表示） -->
+      <div id="fabric-overlay" hidden></div>
+      <div id="clothing-overlay" hidden></div>
     </section>
 
-    <!-- ステーショナリーツール：X96-98 Y14-39（縦） -->
+    <!-- 右：ツール／パレット（共通） -->
     <aside id="stationery">
-      <button class="tool-btn" data-tool="select" title="Select">
-        <img src="./public/create_parts/design_button/select.png" alt="select">
-      </button>
-      <button class="tool-btn" data-tool="direct" title="Direct Select">
-        <img src="./public/create_parts/design_button/direct_select.png" alt="direct">
-      </button>
-      <button class="tool-btn" data-tool="rect" title="Rectangle">
-        <img src="./public/create_parts/design_button/square.png" alt="rect">
-      </button>
-      <button class="tool-btn" data-tool="circle" title="Circle">
-        <img src="./public/create_parts/design_button/circle.png" alt="circle">
-      </button>
-      <button class="tool-btn" data-tool="brush" title="Brush">
-        <img src="./public/create_parts/design_button/brush.png" alt="brush">
-      </button>
-      <button class="tool-btn" data-tool="pen" title="Pen">
-        <img src="./public/create_parts/design_button/pen.png" alt="pen">
-      </button>
-      <button class="tool-btn" data-tool="eraser" title="Eraser">
-        <img src="./public/create_parts/design_button/eraser.png" alt="eraser">
-      </button>
-      <button class="tool-btn" data-tool="text" title="Text">
-        <img src="./public/create_parts/design_button/sentence.png" alt="text">
-      </button>
-      <button class="tool-btn" id="opacity-tool" data-tool="opacity" title="Opacity (Mannequin)">
-        <img src="./public/create_parts/design_button/opasity_ber.png" alt="opacity">
-      </button>
+      <button class="tool-btn" data-tool="select"><img src="./public/create_parts/design_button/select.png" alt=""></button>
+      <button class="tool-btn" data-tool="direct"><img src="./public/create_parts/design_button/direct_select.png" alt=""></button>
+      <button class="tool-btn" data-tool="rect"><img src="./public/create_parts/design_button/square.png" alt=""></button>
+      <button class="tool-btn" data-tool="circle"><img src="./public/create_parts/design_button/circle.png" alt=""></button>
+      <button class="tool-btn" data-tool="brush"><img src="./public/create_parts/design_button/brush.png" alt=""></button>
+      <button class="tool-btn" data-tool="pen"><img src="./public/create_parts/design_button/pen.png" alt=""></button>
+      <button class="tool-btn" data-tool="eraser"><img src="./public/create_parts/design_button/eraser.png" alt=""></button>
+      <button class="tool-btn" data-tool="text"><img src="./public/create_parts/design_button/sentence.png" alt=""></button>
+      <button class="tool-btn" id="opacity-tool" data-tool="opacity"><img src="./public/create_parts/design_button/opasity_ber.png" alt=""></button>
     </aside>
 
-    <!-- カラーパレット：X96-98 Y41-68 -->
     <div id="color-palette">
       <button class="swatch" data-color="#000000"></button>
       <button class="swatch" data-color="#FFFFFF"></button>
@@ -90,214 +63,109 @@
       <button class="swatch" data-color="#AF52DE"></button>
       <button class="swatch" data-color="#5AC8FA"></button>
       <button class="swatch" data-color="#8E8E93"></button>
-
       <div class="fields">
-        <label>Stroke
-          <input id="stroke-width" type="number" min="1" max="16" value="2">
-        </label>
-        <label>Alpha
-          <input id="color-alpha" type="range" min="0" max="100" value="100">
-        </label>
+        <label>Stroke <input id="stroke-width" type="number" min="1" max="16" value="2"></label>
+        <label>Alpha <input id="color-alpha" type="range" min="0" max="100" value="100"></label>
       </div>
     </div>
 
-    <!-- 透明度スライダー（表示時のみ）：X86-92 Y36-37.5 -->
+    <!-- 透明度スライダー -->
     <div id="opacity-slider" hidden>
-      <label>Mannequin Opacity
-        <input id="mannequin-opacity" type="range" min="0" max="100" value="100">
-      </label>
+      <label>Mannequin Opacity <input id="mannequin-opacity" type="range" min="0" max="100" value="100"></label>
       <button id="opacity-close" class="btn small">Close</button>
+    </div>
+
+    <!-- 下部：アセットスライダー（共通） -->
+    <div id="assets-strip" aria-label="Assets">
+      <!-- 必要に応じて各モードで差し替え -->
+      <div class="asset"><img src="./public/clothing/bottoms/jeans.png" alt=""><span>jeans</span></div>
+      <div class="asset"><img src="./public/buttons/centerbutton.png" alt=""><span>centerbutton</span></div>
+      <div class="asset"><img src="./public/belts/waistbelt.png" alt=""><span>waistbelt</span></div>
+      <div class="asset"><img src="./public/hems/rawhem.png" alt=""><span>rawhem</span></div>
+      <div class="asset"><img src="./public/backstyle/openback.png" alt=""><span>openback</span></div>
+      <div class="asset"><img src="./public/accessories/ribbon.png" alt=""><span>ribbon</span></div>
     </div>
   </main>
 
   <script>
-    // ========= 定数 =========
+    // ====== タブ切替（モード管理） ======
     const board = document.getElementById('board');
+    const tabs = [...document.querySelectorAll('#mode-tabs .tab')];
+    const mannequin = document.getElementById('mannequin');
+    const fabricOverlay = document.getElementById('fabric-overlay');
+    const clothingOverlay = document.getElementById('clothing-overlay');
+
+    tabs.forEach(tab=>{
+      tab.addEventListener('click', ()=>{
+        tabs.forEach(t=>t.classList.toggle('on', t===tab));
+        const mode = tab.dataset.mode;
+        board.dataset.mode = mode;
+        // モード別表示
+        fabricOverlay.hidden = mode !== 'fabric';
+        clothingOverlay.hidden = mode !== 'clothing';
+        mannequin.style.display = (mode === 'illustration' || mode === 'clothing') ? 'block' : 'none';
+      });
+    });
+
+    // ====== 既存の描画/色/透明度（前回コードと同じ） ======
     const drawSurface = document.getElementById('draw-surface');
-    const colorPalette = document.getElementById('color-palette');
     const swatches = [...document.querySelectorAll('.swatch')];
     const strokeWidthInput = document.getElementById('stroke-width');
     const colorAlphaInput = document.getElementById('color-alpha');
     const toolButtons = [...document.querySelectorAll('.tool-btn')];
-    const mannequin = document.getElementById('mannequin');
-    const opacityToolBtn = document.getElementById('opacity-tool');
     const opacityPanel = document.getElementById('opacity-slider');
     const mannequinOpacity = document.getElementById('mannequin-opacity');
     const opacityClose = document.getElementById('opacity-close');
 
-    // ========= 状態 =========
-    let currentTool = 'select';
-    let currentColor = '#000000';
-    let currentAlpha = 1.0;
-    let currentStroke = 2;
+    let currentTool='select', currentColor='#000000', currentAlpha=1, currentStroke=2;
+    let isDrawing=false, startPt=null, activeEl=null;
 
-    let isDrawing = false;
-    let startPt = null;
-    let activeEl = null;
-
-    // ========= 色・線設定 =========
-    function rgba(hex, a) {
-      const v = hex.replace('#','');
-      const r = parseInt(v.slice(0,2),16);
-      const g = parseInt(v.slice(2,4),16);
-      const b = parseInt(v.slice(4,6),16);
-      return `rgba(${r},${g},${b},${a})`;
-    }
-
-    function applyStyle(el) {
-      if (!el) return;
-      el.setAttribute('stroke', rgba(currentColor, currentAlpha));
-      el.setAttribute('fill', currentTool === 'brush' || currentTool === 'pen' ? 'none' : rgba(currentColor, Math.min(0.12, currentAlpha)));
+    function rgba(hex,a){const v=hex.slice(1);return`rgba(${parseInt(v.slice(0,2),16)},${parseInt(v.slice(2,4),16)},${parseInt(v.slice(4,6),16)},${a})`;}
+    function applyStyle(el){
+      el.setAttribute('stroke', rgba(currentColor,currentAlpha));
+      el.setAttribute('fill', (currentTool==='brush'||currentTool==='pen') ? 'none' : rgba(currentColor, Math.min(0.12,currentAlpha)));
       el.setAttribute('stroke-width', currentStroke);
-      el.style.transition = 'opacity .18s ease, transform .18s ease';
-      el.style.opacity = '0';
-      el.style.transform = 'scale(0.98)';
-      requestAnimationFrame(() => {
-        el.style.opacity = '1';
-        el.style.transform = 'scale(1)';
-      });
+      el.style.transition='opacity .18s, transform .18s'; el.style.opacity='0'; el.style.transform='scale(.98)';
+      requestAnimationFrame(()=>{el.style.opacity='1'; el.style.transform='scale(1)';});
     }
+    swatches.forEach(s=>{s.style.setProperty('--sw', s.dataset.color); s.addEventListener('click',()=>{currentColor=s.dataset.color; swatches.forEach(x=>x.classList.toggle('on',x===s));});}); swatches[0].click();
+    strokeWidthInput.addEventListener('input',e=>currentStroke=Math.max(1,Math.min(16,+e.target.value||2)));
+    colorAlphaInput.addEventListener('input',e=>currentAlpha=(+e.target.value)/100);
 
-    swatches.forEach(s => {
-      s.style.setProperty('--sw', s.dataset.color);
-      s.addEventListener('click', () => {
-        currentColor = s.dataset.color;
-        swatches.forEach(x => x.classList.toggle('on', x===s));
+    toolButtons.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        toolButtons.forEach(b=>b.classList.toggle('active',b===btn));
+        if(btn.dataset.tool==='opacity'){opacityPanel.hidden=false; return;}
+        currentTool=btn.dataset.tool;
       });
     });
-    swatches[0].click();
-
-    strokeWidthInput.addEventListener('input', e => currentStroke = Math.max(1, Math.min(16, +e.target.value||2)));
-    colorAlphaInput.addEventListener('input', e => currentAlpha = (+e.target.value)/100);
-
-    // ========= ツール切替 =========
-    toolButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        toolButtons.forEach(b => b.classList.toggle('active', b===btn));
-        const tool = btn.dataset.tool;
-        if (tool === 'opacity') {
-          showOpacityPanel();
-          return;
-        }
-        currentTool = tool;
-      });
-    });
-    // 初期ツール
     document.querySelector('.tool-btn[data-tool="select"]').classList.add('active');
+    opacityClose.addEventListener('click',()=>opacityPanel.hidden=true);
+    mannequinOpacity.addEventListener('input',e=>mannequin.style.opacity=String((+e.target.value)/100));
 
-    // ========= 透明度 =========
-    function showOpacityPanel() {
-      opacityPanel.hidden = false;
+    function getSvgPoint(evt){const r=drawSurface.getBoundingClientRect();return {x:((evt.clientX-r.left)/r.width)*1000,y:((evt.clientY-r.top)/r.height)*700};}
+    function onPointerDown(e){
+      if(!['rect','circle','brush','pen','eraser','text'].includes(currentTool))return;
+      isDrawing=true; const p=getSvgPoint(e); startPt=p;
+      if(currentTool==='rect'){activeEl=document.createElementNS('http://www.w3.org/2000/svg','rect');activeEl.setAttribute('x',p.x);activeEl.setAttribute('y',p.y);activeEl.setAttribute('width',0);activeEl.setAttribute('height',0);drawSurface.appendChild(activeEl);applyStyle(activeEl);}
+      else if(currentTool==='circle'){activeEl=document.createElementNS('http://www.w3.org/2000/svg','ellipse');activeEl.setAttribute('cx',p.x);activeEl.setAttribute('cy',p.y);activeEl.setAttribute('rx',0);activeEl.setAttribute('ry',0);drawSurface.appendChild(activeEl);applyStyle(activeEl);}
+      else if(currentTool==='brush'||currentTool==='pen'){activeEl=document.createElementNS('http://www.w3.org/2000/svg','path');activeEl.setAttribute('fill','none');activeEl.setAttribute('d',`M ${p.x.toFixed(1)} ${p.y.toFixed(1)}`);drawSurface.appendChild(activeEl);applyStyle(activeEl);}
+      else if(currentTool==='eraser'){const all=[...drawSurface.querySelectorAll('path,rect,ellipse,text')];if(all.length){let min=1e9,t=null;all.forEach(el=>{const b=el.getBBox();const d=Math.hypot(b.x+b.width/2-p.x,b.y+b.height/2-p.y);if(d<min){min=d;t=el;}});if(t)t.remove();}isDrawing=false;}
+      else if(currentTool==='text'){const t=prompt('Text:');if(t&&t.trim()){activeEl=document.createElementNS('http://www.w3.org/2000/svg','text');activeEl.setAttribute('x',p.x);activeEl.setAttribute('y',p.y);activeEl.setAttribute('font-size','22');activeEl.setAttribute('font-family','ui-sans-serif,system-ui,-apple-system,"Segoe UI"');activeEl.textContent=t.trim();drawSurface.appendChild(activeEl);applyStyle(activeEl);}isDrawing=false;}
     }
-    opacityClose.addEventListener('click', () => opacityPanel.hidden = true);
-    mannequinOpacity.addEventListener('input', e => {
-      const v = (+e.target.value)/100;
-      mannequin.style.opacity = String(v);
-    });
-
-    // ========= 座標変換（キャンバス内 offset -> SVG座標） =========
-    function getSvgPoint(evt) {
-      const rect = drawSurface.getBoundingClientRect();
-      const x = ((evt.clientX - rect.left) / rect.width) * 1000;
-      const y = ((evt.clientY - rect.top) / rect.height) * 700;
-      return {x, y};
+    function onPointerMove(e){
+      if(!isDrawing||!activeEl) return; const p=getSvgPoint(e);
+      if(activeEl.tagName==='rect'){const x=Math.min(p.x,startPt.x),y=Math.min(p.y,startPt.y),w=Math.abs(p.x-startPt.x),h=Math.abs(p.y-startPt.y);activeEl.setAttribute('x',x);activeEl.setAttribute('y',y);activeEl.setAttribute('width',w);activeEl.setAttribute('height',h);}
+      else if(activeEl.tagName==='ellipse'){activeEl.setAttribute('cx',(startPt.x+p.x)/2);activeEl.setAttribute('cy',(startPt.y+p.y)/2);activeEl.setAttribute('rx',Math.abs(p.x-startPt.x)/2);activeEl.setAttribute('ry',Math.abs(p.y-startPt.y)/2);}
+      else if(activeEl.tagName==='path'){activeEl.setAttribute('d', activeEl.getAttribute('d')+` L ${p.x.toFixed(1)} ${p.y.toFixed(1)}`);}
     }
+    function onPointerUp(){isDrawing=false; activeEl=null;}
+    drawSurface.addEventListener('pointerdown',onPointerDown);
+    window.addEventListener('pointermove',onPointerMove);
+    window.addEventListener('pointerup',onPointerUp);
 
-    // ========= 描画ハンドラ =========
-    function onPointerDown(e) {
-      if (!['rect','circle','brush','pen','eraser','text'].includes(currentTool)) return;
-      isDrawing = true;
-      const p = getSvgPoint(e);
-      startPt = p;
-
-      if (currentTool === 'rect') {
-        activeEl = document.createElementNS('http://www.w3.org/2000/svg','rect');
-        activeEl.setAttribute('x', p.x);
-        activeEl.setAttribute('y', p.y);
-        activeEl.setAttribute('width', 0);
-        activeEl.setAttribute('height', 0);
-        drawSurface.appendChild(activeEl);
-        applyStyle(activeEl);
-      } else if (currentTool === 'circle') {
-        activeEl = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
-        activeEl.setAttribute('cx', p.x);
-        activeEl.setAttribute('cy', p.y);
-        activeEl.setAttribute('rx', 0);
-        activeEl.setAttribute('ry', 0);
-        drawSurface.appendChild(activeEl);
-        applyStyle(activeEl);
-      } else if (currentTool === 'brush' || currentTool === 'pen') {
-        activeEl = document.createElementNS('http://www.w3.org/2000/svg','path');
-        activeEl.setAttribute('fill', 'none');
-        activeEl.setAttribute('d', `M ${p.x.toFixed(1)} ${p.y.toFixed(1)}`);
-        drawSurface.appendChild(activeEl);
-        applyStyle(activeEl);
-      } else if (currentTool === 'eraser') {
-        // クリック位置に一番近いパスを消去（簡易）
-        const all = [...drawSurface.querySelectorAll('path,rect,ellipse,text')];
-        if (all.length) {
-          let minD = 1e9, target = null;
-          all.forEach(el=>{
-            const bb = el.getBBox();
-            const cx = bb.x + bb.width/2, cy = bb.y + bb.height/2;
-            const d = Math.hypot(cx - p.x, cy - p.y);
-            if (d < minD) { minD = d; target = el; }
-          });
-          if (target) target.remove();
-        }
-        isDrawing = false;
-      } else if (currentTool === 'text') {
-        const t = prompt('Text:');
-        if (t && t.trim()) {
-          activeEl = document.createElementNS('http://www.w3.org/2000/svg','text');
-          activeEl.setAttribute('x', p.x);
-          activeEl.setAttribute('y', p.y);
-          activeEl.setAttribute('font-size','22');
-          activeEl.setAttribute('font-family','ui-sans-serif, system-ui, -apple-system, "Segoe UI"');
-          activeEl.textContent = t.trim();
-          drawSurface.appendChild(activeEl);
-          applyStyle(activeEl);
-        }
-        isDrawing = false;
-      }
-    }
-
-    function onPointerMove(e) {
-      if (!isDrawing || !activeEl) return;
-      const p = getSvgPoint(e);
-
-      if (activeEl.tagName === 'rect') {
-        const x = Math.min(p.x, startPt.x);
-        const y = Math.min(p.y, startPt.y);
-        const w = Math.abs(p.x - startPt.x);
-        const h = Math.abs(p.y - startPt.y);
-        activeEl.setAttribute('x', x);
-        activeEl.setAttribute('y', y);
-        activeEl.setAttribute('width', w);
-        activeEl.setAttribute('height', h);
-      } else if (activeEl.tagName === 'ellipse') {
-        activeEl.setAttribute('cx', (startPt.x + p.x)/2);
-        activeEl.setAttribute('cy', (startPt.y + p.y)/2);
-        activeEl.setAttribute('rx', Math.abs(p.x - startPt.x)/2);
-        activeEl.setAttribute('ry', Math.abs(p.y - startPt.y)/2);
-      } else if (activeEl.tagName === 'path') {
-        const d = activeEl.getAttribute('d') + ` L ${p.x.toFixed(1)} ${p.y.toFixed(1)}`;
-        activeEl.setAttribute('d', d);
-      }
-    }
-
-    function onPointerUp() {
-      isDrawing = false;
-      activeEl = null;
-    }
-
-    drawSurface.addEventListener('pointerdown', onPointerDown);
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', onPointerUp);
-
-    // ========= 初期 =========
-    // スクロール禁止（固定ボード）
-    document.documentElement.style.overflow = 'hidden';
+    // スクロール固定
+    document.documentElement.style.overflow='hidden';
   </script>
 </body>
 </html>
