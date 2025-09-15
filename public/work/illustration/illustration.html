@@ -1,209 +1,137 @@
+<!-- illustration.html (HTML+js) -->
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" href="webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- ヘッダー -->
-  <header id="head">
-    <h1>Vivora Fashion Illustration 2025</h1>
+  <!-- 固定ボード：100×70 グリッド / 1280×820px を基準にスケール -->
+  <div id="board">
+    <!-- タイトル：X:3-22 , Y:4-4 -->
+    <h1 class="cell" style="--x1:3; --x2:22; --y1:4; --y2:4;">Vivora Fashion Illustration 2025</h1>
 
-    <!-- ページ切替などの小さなピルボタン群（スクショ右上の列） -->
-    <nav class="mode-pills">
-      <button class="pill">home</button>
-      <button class="pill">fashion illustration</button>
-      <button class="pill">fabric / stitching</button>
-      <button class="pill">clothing design</button>
-      <button class="pill">pattern create</button>
-      <button class="pill">grading</button>
-      <button class="pill">print layout & mark</button>
+    <!-- コンテンツボタン列：X:73.5-93 , Y:4-5 -->
+    <div class="cell contents-row" style="--x1:73.5; --x2:93; --y1:4; --y2:5;">
+      <img src="create_parts/contents_button/0_home.png" alt="home">
+      <img src="create_parts/contents_button/1_fashion-illustrations.png" alt="illustrations">
+      <img src="create_parts/contents_button/2_fabric-matching.png" alt="fabric-matching">
+      <img src="create_parts/contents_button/3_clothing-design.png" alt="clothing-design">
+      <img src="create_parts/contents_button/4_pattern-creation.png" alt="pattern-creation">
+      <img src="create_parts/contents_button/5_grading.png" alt="grading">
+      <img src="create_parts/contents_button/6_print-layout-cut.png" alt="print-layout-cut">
+    </div>
+
+    <!-- IO（Upload/Download/Save）：X:97-97 , Y:8-12 縦配置 -->
+    <div class="cell io-stack" style="--x1:97; --x2:97; --y1:8; --y2:12;">
+      <button class="icon-btn"><img src="create_parts/create_button/upload.png" alt="upload"></button>
+      <button class="icon-btn"><img src="create_parts/create_button/download.png" alt="download"></button>
+      <button class="icon-btn"><img src="create_parts/create_button/save.png" alt="save"></button>
+    </div>
+
+    <!-- キャンバス：X:3-93 , Y:8-68 -->
+    <div id="canvas" class="cell" style="--x1:3; --x2:93; --y1:8; --y2:68;">
+      <!-- マネキン：X:42-54 , Y:17-60（キャンバス内グリッドで中央配置） -->
+      <img id="mannequin" src="mannequin/mannequin_woman/mannequin_woman_front.png" alt="mannequin">
+      <!-- 透明度スライダー（選択時表示）：X:86-92 , Y:36-37.5（キャンバス座標） -->
+      <div id="opacityHud" class="hud">
+        <span id="opacityValue">100%</span>
+        <input id="opacityRange" type="range" min="0" max="100" value="100" />
+      </div>
+    </div>
+
+    <!-- ステーショナリーツール：X:96-98 , Y:14-39（縦ツールバー） -->
+    <nav class="cell tools" style="--x1:96; --x2:98; --y1:14; --y2:39;">
+      <button class="tool"><img src="create_parts/object_btn/select.png" alt="select"></button>
+      <button class="tool"><img src="create_parts/object_btn/direct_select.png" alt="direct select"></button>
+      <button class="tool"><img src="create_parts/object_btn/square.png" alt="square"></button>
+      <button class="tool"><img src="create_parts/object_btn/circle.png" alt="circle"></button>
+      <button class="tool"><img src="create_parts/object_btn/brush.png" alt="brush"></button>
+      <button class="tool"><img src="create_parts/object_btn/pen.png" alt="pen"></button>
+      <button class="tool"><img src="create_parts/object_btn/circlebrush.png" alt="circle brush"></button>
+      <button class="tool"><img src="create_parts/object_btn/ballpointpen.png" alt="ballpoint"></button>
+      <button class="tool"><img src="create_parts/object_btn/markerpen.png" alt="marker"></button>
+      <button class="tool"><img src="create_parts/object_btn/eraser.png" alt="eraser"></button>
+      <button class="tool"><img src="create_parts/object_btn/sentence.png" alt="text"></button>
+      <button class="tool"><img src="create_parts/object_btn/opasity_ber.png" alt="opacity"></button>
+      <button class="tool"><img src="create_parts/object_btn/graph_paper.png" alt="grid"></button>
     </nav>
-  </header>
 
-  <!-- キャンバス枠 -->
-  <main id="stage">
-    <section id="board">
-      <!-- 内枠線 -->
-      <div class="inner"></div>
+    <!-- カラーパレット：X:96-98 , Y:41-68 -->
+    <div class="cell palette" style="--x1:96; --x2:98; --y1:41; --y2:68;">
+      <img src="color/pad color/white.png" alt="white">
+      <img src="color/pad color/light gray.png" alt="light gray">
+      <img src="color/pad color/dark gray.png" alt="dark gray">
+      <img src="color/pad color/black.png" alt="black">
+      <img src="color/pad color/yellow.png" alt="yellow">
+      <img src="color/pad color/lime.png" alt="lime">
+      <img src="color/pad color/green.png" alt="green">
+      <img src="color/pad color/sky blue.png" alt="sky blue">
+      <img src="color/pad color/blue.png" alt="blue">
+      <img src="color/pad color/purple.png" alt="purple">
+      <img src="color/pad color/pink.png" alt="pink">
+      <img src="color/pad color/red.png" alt="red">
+      <img src="color/pad color/orange.png" alt="orange">
+      <img src="color/pad color/brown.png" alt="brown">
+    </div>
+  </div>
 
-      <!-- マネキン -->
-      <img id="mannequin" src="public/mannequin/mannequin_woman.png" alt="mannequin" />
+  <script>
+    // ===== スケール制御：ボード（1280×820）をビューポートに100%表示 =====
+    (function fitBoard() {
+      const board = document.getElementById('board');
+      const BASE_W = 1280, BASE_H = 820;
+      function apply() {
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const scale = Math.min(vw / BASE_W, vh / BASE_H);
+        board.style.setProperty('--scale', scale);
+      }
+      window.addEventListener('resize', apply, { passive: true });
+      apply();
+    })();
 
-      <!-- ズームHUD -->
-      <div class="zoom-hud">
-        <span>100 %</span>
-        <div class="zoom-bar"><i class="dot"></i></div>
-      </div>
+    // ===== 透明度HUD：ツール「opacity」相当の簡易表示 =====
+    const opacityHud = document.getElementById('opacityHud');
+    const opacityRange = document.getElementById('opacityRange');
+    const opacityValue = document.getElementById('opacityValue');
+    const mannequin = document.getElementById('mannequin');
 
-      <!-- 右：上部のIO（upload / download / save / help など） -->
-      <div class="io-rail">
-        <button class="io"><img src="public/create_parts/create_button/upload.png" alt=""></button>
-        <button class="io"><img src="public/create_parts/create_button/download.png" alt=""></button>
-        <button class="io"><img src="public/create_parts/create_button/save.png" alt=""></button>
-        <button class="io"><img src="public/create_parts/create_button/help.png" alt=""></button>
-      </div>
+    // 初期表示（常時表示にしておく：UI確認のため）
+    opacityHud.classList.add('show');
 
-      <!-- 右：カテゴリ列（左側） -->
-      <aside class="catalog">
-        <div class="cat-col">
-          <button class="cat">Tops</button>
-          <button class="cat">Bottoms</button>
-          <button class="cat">Sleeves</button>
-          <button class="cat">Collars</button>
-          <button class="cat">Pockets</button>
-          <button class="cat">Buttons</button>
-          <button class="cat">Skirts</button>
-          <button class="cat">Belts</button>
-          <button class="cat">Zippers</button>
-          <button class="cat">Hems</button>
-          <button class="cat">Necklines</button>
-          <button class="cat">Backstyle</button>
-          <div class="cat-row">
-            <span>Accessories</span>
-            <button class="cat-plus">+</button>
-          </div>
-        </div>
+    opacityRange.addEventListener('input', () => {
+      const v = Number(opacityRange.value);
+      mannequin.style.opacity = (v / 100).toFixed(2);
+      opacityValue.textContent = v + '%';
+    });
 
-        <!-- 中央：素材列 -->
-        <div class="mat-col">
-          <button class="cat">Cotton</button>
-          <button class="cat">Linen</button>
-          <button class="cat">Wool</button>
-          <button class="cat">Silk</button>
-          <button class="cat">Synthetic</button>
-          <button class="cat small two">Design<br>Knit Special</button>
-          <button class="cat-plus wide">+</button>
-        </div>
+    // ===== キャンバス内配置（グリッド座標 → px） =====
+    // キャンバス内も 100×70 の内部比例基準を仮定し、指定座標にHUDを配置
+    (function placeHudInCanvas() {
+      const canvas = document.getElementById('canvas');
+      const CAN_W = canvas.clientWidth;
+      const CAN_H = canvas.clientHeight;
 
-        <!-- レイヤーパネル（小ボード3段） -->
-        <div class="layers">
-          <div class="layer-card">
-            <div class="layer-head">
-              <button class="lh"><img src="public/create_parts/layer_button/layerdisplay.png" alt=""></button>
-              <button class="lh"><img src="public/create_parts/layer_button/layerhidden.png" alt=""></button>
-              <button class="lh"><img src="public/create_parts/layer_button/layerlock.png" alt=""></button>
-            </div>
-            <div class="layer-body"></div>
-            <div class="layer-foot">
-              <button class="lf"><img src="public/create_parts/layer_button/layerpanelplus.png" alt=""></button>
-              <button class="lf"><img src="public/create_parts/layer_button/layerreproduction.png" alt=""></button>
-              <button class="lf"><img src="public/create_parts/layer_button/layerdestruction.png" alt=""></button>
-            </div>
-          </div>
+      function posFromGrid(x1, y1, x2, y2) {
+        // グリッドは 100×70
+        const gridW = CAN_W / 100;
+        const gridH = CAN_H / 70;
+        const left = x1 * gridW;
+        const top  = y1 * gridH;
+        const width  = (x2 - x1) * gridW;
+        const height = (y2 - y1) * gridH;
+        return { left, top, width, height };
+      }
 
-          <div class="layer-card">
-            <div class="layer-head">
-              <button class="lh"><img src="public/create_parts/layer_button/layerdisplay.png" alt=""></button>
-              <button class="lh"><img src="public/create_parts/layer_button/layerhidden.png" alt=""></button>
-              <button class="lh"><img src="public/create_parts/layer_button/layerlock.png" alt=""></button>
-            </div>
-            <div class="layer-body"></div>
-            <div class="layer-foot">
-              <button class="lf"><img src="public/create_parts/layer_button/layerpanelplus.png" alt=""></button>
-              <button class="lf"><img src="public/create_parts/layer_button/layerreproduction.png" alt=""></button>
-              <button class="lf"><img src="public/create_parts/layer_button/layerdestruction.png" alt=""></button>
-            </div>
-          </div>
-
-          <div class="layer-card">
-            <div class="layer-head">
-              <button class="lh"><img src="public/create_parts/layer_button/layerdisplay.png" alt=""></button>
-              <button class="lh"><img src="public/create_parts/layer_button/layerhidden.png" alt=""></button>
-              <button class="lh"><img src="public/create_parts/layer_button/layerlock.png" alt=""></button>
-            </div>
-            <div class="layer-body"></div>
-            <div class="layer-foot">
-              <button class="lf"><img src="public/create_parts/layer_button/layerpanelplus.png" alt=""></button>
-              <button class="lf"><img src="public/create_parts/layer_button/layerreproduction.png" alt=""></button>
-              <button class="lf"><img src="public/create_parts/layer_button/layerdestruction.png" alt=""></button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 一番右：ステーショナリーツール（縦） -->
-        <div class="tool-rail">
-          <button class="tool is-active"><img src="public/create_parts/design_button/select.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/direct_select.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/triangle.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/rect.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/circle.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/brush.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/pen.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/fill.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/knife.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/rubber.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/text.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/create_button/grid.png" alt=""></button>
-        </div>
-
-        <!-- カラーパレット（縦） -->
-        <div class="color-rail">
-          <button class="sw" style="--c:#f1f1f1"></button>
-          <button class="sw" style="--c:#ffe178"></button>
-          <button class="sw" style="--c:#ffc64d"></button>
-          <button class="sw" style="--c:#ff9a76"></button>
-          <button class="sw" style="--c:#ff6c7a"></button>
-          <button class="sw" style="--c:#ff90c8"></button>
-          <button class="sw" style="--c:#a497ff"></button>
-          <button class="sw" style="--c:#6db8ff"></button>
-          <button class="sw" style="--c:#00b3a4"></button>
-          <button class="sw" style="--c:#34c759"></button>
-          <button class="sw" style="--c:#707070"></button>
-          <button class="sw" style="--c:#111111"></button>
-
-          <div class="color-tools">
-            <button class="pipette"><img src="public/create_parts/design_button/pipette.png" alt=""></button>
-          </div>
-        </div>
-      </aside>
-    </section>
-
-    <!-- 下：パーツサムネ列（スクショ下部のカード群） -->
-    <section id="bottom-strip">
-      <div class="thumb">
-        <img src="public/clothing/tops/tshirt.png" alt=""><span>tshirt</span>
-      </div>
-      <div class="thumb">
-        <img src="public/clothing/bottoms/jeans.png" alt=""><span>jeans</span>
-      </div>
-      <div class="thumb">
-        <img src="public/clothing/tops/shortsleeve.png" alt=""><span>shortsleeve</span>
-      </div>
-      <div class="thumb">
-        <img src="public/collars/roundcollar.png" alt=""><span>roundcollar</span>
-      </div>
-      <div class="thumb">
-        <img src="public/pockets/patchpocket.png" alt=""><span>patchpocket</span>
-      </div>
-      <div class="thumb">
-        <img src="public/buttons/centerbutton.png" alt=""><span>centerbutton</span>
-      </div>
-      <div class="thumb">
-        <img src="public/bottoms/alineskirt.png" alt=""><span>alineskirt.png</span>
-      </div>
-      <div class="thumb">
-        <img src="public/belts/waistbelt.png" alt=""><span>waistbelt</span>
-      </div>
-      <div class="thumb">
-        <img src="public/zippers/frontzipper.png" alt=""><span>frontzipper</span>
-      </div>
-      <div class="thumb">
-        <img src="public/hems/rawhem.png" alt=""><span>rawhem</span>
-      </div>
-      <div class="thumb">
-        <img src="public/necklines/boatneck.png" alt=""><span>boatneck</span>
-      </div>
-      <div class="thumb">
-        <img src="public/backstyle/openback.png" alt=""><span>openback</span>
-      </div>
-      <div class="thumb">
-        <img src="public/accessories/ribbon.png" alt=""><span>ribbon</span>
-      </div>
-    </section>
-  </main>
-
-  <script src="ui.js"></script>
+      // 透明度スライダー：X:86-92 , Y:36-37.5
+      const r = posFromGrid(86, 36, 92, 37.5);
+      opacityHud.style.left = `${r.left}px`;
+      opacityHud.style.top  = `${r.top}px`;
+      opacityHud.style.width = `${r.width}px`;
+    })();
+  </script>
 </body>
 </html>
