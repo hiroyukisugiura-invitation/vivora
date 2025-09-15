@@ -1,178 +1,64 @@
-/* styles.css (CSS) */
-/* 固定ボード：1280x820 ／ 100×70 グリッド（1col=12.8px, 1row=~11.714px） */
+/* styles.css */
+/* 固定ボード 1280x820 ／ 100×70 グリッド */
 :root{
-  --board-w:1280px;
-  --board-h:820px;
-  --cols:100;
-  --rows:70;
-  --gap:0px;
-  --bg:#0f0f12;
-  --panel:#15151a;
-  --ink:#e9e9ee;
-  --muted:#9aa0a6;
-  --brand:#4f8cff;
-  --accent:#2ee6a6;
-  --card:#1a1b20;
-  --stroke:#2a2b31;
+  --board-w:1280px; --board-h:820px; --cols:100; --rows:70;
+  --bg:#0f0f12; --panel:#15151a; --ink:#e9e9ee; --muted:#9aa0a6;
+  --stroke:#2a2b31; --brand:#4f8cff;
 }
-
-*{box-sizing:border-box}
-html,body{height:100%}
-html{background:#000}
-body{
-  margin:0; display:grid; place-items:center; height:100%;
-  color:var(--ink); font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
-  background:radial-gradient(1200px 800px at 50% 45%, #0b0b10 0%, #050507 70%, #000 100%);
-}
+*{box-sizing:border-box} html,body{height:100%} html{background:#000}
+body{margin:0;display:grid;place-items:center;height:100%;color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI","Noto Sans JP",sans-serif;background:#000}
 
 #board{
   width:var(--board-w); height:var(--board-h);
-  display:grid;
-  grid-template-columns: repeat(var(--cols), 1fr);
-  grid-template-rows: repeat(var(--rows), 1fr);
-  gap:var(--gap);
-  background:var(--bg);
-  border:1px solid #1e1f25;
-  border-radius:10px;
-  position:relative;
-  box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.04);
-  overflow:hidden;
+  display:grid; grid-template-columns:repeat(var(--cols),1fr); grid-template-rows:repeat(var(--rows),1fr);
+  background:var(--bg); border:1px solid #1e1f25; border-radius:10px; position:relative; overflow:hidden;
 }
 
-/* ユーティリティ */
-.row{display:flex; gap:10px; align-items:center}
-.btn{
-  appearance:none; border:1px solid #2a2b31; background:#1b1c22; color:var(--ink);
-  padding:10px 14px; border-radius:10px; font-weight:600; letter-spacing:.2px;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
-}
-.btn.small{padding:6px 10px; font-size:12px; border-radius:8px}
-.btn.primary{background:linear-gradient(#3d7bff,#3b64ff); border-color:#3558e6}
-.btn.primary:hover{filter:brightness(1.05)}
-.btn:hover{background:#21222a}
+/* ヘッダー：タイトル X3-22 Y4-4、タブ X23-92 Y4-5、NextStep右上 */
+#topbar{grid-column:1 / -1; grid-row:1 / 7; display:grid; grid-template-columns: repeat(var(--cols),1fr); align-items:center}
+#title{grid-column:3 / 22; grid-row:4 / 5; margin:0; font-size:22px; font-weight:800}
+#mode-tabs{grid-column:23 / 92; grid-row:4 / 6; display:flex; gap:8px; justify-self:start}
+.tab{border:1px solid var(--stroke); background:#1b1c22; color:var(--ink); padding:6px 10px; border-radius:8px; font-size:12px; white-space:nowrap}
+.tab.on{outline:2px solid var(--brand)}
+#next-step{grid-column:93 / 99; grid-row:4 / 6; justify-self:end; padding:8px 12px; border:1px solid #3558e6; border-radius:10px; background:linear-gradient(#3d7bff,#3b64ff); color:#fff}
 
-.icon-btn{
-  width:48px; height:48px; padding:6px; border-radius:12px;
-  display:grid; place-items:center;
-  background:#1b1c22; border:1px solid #2a2b31;
-}
-.icon-btn img{width:28px; height:28px; object-fit:contain; image-rendering:auto; display:block; filter:drop-shadow(0 1px 0 rgba(255,255,255,.05))}
-.icon-btn:hover{background:#23242c}
-
-/* タイトル：X3-22 Y4-4 */
-#title{
-  grid-column: 3 / 22;
-  grid-row: 4 / 5;
-  align-self:center;
-  margin:0;
-  font-size:22px; font-weight:800; letter-spacing:.4px;
-}
-
-/* コンテンツボタン列：X73.5-93 Y4-5 */
-#contents-buttons{
-  grid-column: 74 / 93; /* 73.5≈74 */
-  grid-row: 4 / 6;
-  justify-self:end;
-}
-#next-step{margin-left:12px}
-
-/* IO：X97-97 Y8-12（縦積み） */
-#io-stack{
-  grid-column: 97 / 98;
-  grid-row: 8 / 13;
-  display:flex; flex-direction:column; gap:10px; align-items:center; justify-content:flex-start;
-}
+/* IO：X97-97 Y8-12 */
+#io-stack{grid-column:97 / 98; grid-row:8 / 13; display:flex; flex-direction:column; gap:10px; align-items:center}
+.icon-btn{width:48px;height:48px;padding:6px;border-radius:12px;background:#1b1c22;border:1px solid var(--stroke);display:grid;place-items:center}
+.icon-btn img{width:28px;height:28px;object-fit:contain}
 
 /* キャンバス：X3-93 Y8-68 */
-#canvas-area{
-  grid-column: 3 / 93;
-  grid-row: 8 / 69;
-  background:linear-gradient(180deg, #111217, #0f1116);
-  border:1px solid #24262d;
-  border-radius:12px;
-  position:relative;
-  overflow:hidden;
-}
-
-/* マネキン：X42-54 Y17-60（キャンバス内の絶対配置） */
-#mannequin-wrap{
-  position:absolute;
-  left: calc((42 - 3) / (93 - 3) * 100%);
-  top:  calc((17 - 8) / (69 - 8) * 100%);
-  width: calc((54 - 42) / (93 - 3) * 100%);
-  height: calc((60 - 17) / (69 - 8) * 100%);
-  display:grid; place-items:center;
-  pointer-events:none;
-}
-.mannequin-base{
-  max-width:100%; max-height:100%;
-  object-fit:contain;
-  opacity:1; transition:opacity .2s ease;
-}
-
-/* SVG描画面（キャンバス全面） */
-#draw-surface{
-  position:absolute; inset:0; width:100%; height:100%;
-}
+#canvas-area{grid-column:3 / 93; grid-row:8 / 69; position:relative; background:#111217; border:1px solid #24262d; border-radius:12px; overflow:hidden}
+#mannequin-wrap{position:absolute; left: calc((42 - 3) / (93 - 3) * 100%); top: calc((17 - 8) / (69 - 8) * 100%);
+  width: calc((54 - 42) / (93 - 3) * 100%); height: calc((60 - 17) / (69 - 8) * 100%); display:grid; place-items:center; pointer-events:none}
+.mannequin-base{max-width:100%;max-height:100%;object-fit:contain;transition:opacity .2s}
+#draw-surface{position:absolute; inset:0}
 #draw-surface *{vector-effect:non-scaling-stroke}
+#fabric-overlay,#clothing-overlay{position:absolute; inset:0; pointer-events:none}
 
-/* ステーショナリーツール：X96-98 Y14-39 */
-#stationery{
-  grid-column: 96 / 99;
-  grid-row: 14 / 40;
-  display:flex; flex-direction:column; gap:10px; align-items:center; padding:8px 0;
-  background:var(--panel);
-  border:1px solid var(--stroke);
-  border-radius:12px;
-}
-#stationery .tool-btn{
-  width:54px; height:54px; border-radius:12px; padding:8px;
-  background:#1b1c22; border:1px solid #2a2b31; display:grid; place-items:center;
-}
-#stationery .tool-btn img{width:30px; height:30px; object-fit:contain}
-#stationery .tool-btn:hover{background:#23242c}
-#stationery .tool-btn.active{outline:2px solid #4f8cff; outline-offset:0}
+/* 右：ツール X96-98 Y14-39、パレット X96-98 Y41-68 */
+#stationery{grid-column:96 / 99; grid-row:14 / 40; display:flex; flex-direction:column; gap:10px; align-items:center; padding:8px 0;
+  background:var(--panel); border:1px solid var(--stroke); border-radius:12px}
+.tool-btn{width:54px;height:54px;border-radius:12px;padding:8px;background:#1b1c22;border:1px solid var(--stroke);display:grid;place-items:center}
+.tool-btn img{width:30px;height:30px;object-fit:contain}
+.tool-btn.active{outline:2px solid var(--brand)}
 
-/* カラーパレット：X96-98 Y41-68 */
-#color-palette{
-  grid-column: 96 / 99;
-  grid-row: 41 / 69;
-  background:var(--panel);
-  border:1px solid var(--stroke);
-  border-radius:12px;
-  padding:10px;
-  display:grid; grid-template-columns: repeat(5, 1fr); gap:8px;
-}
-.swatch{
-  width:40px; height:32px; border-radius:8px; border:1px solid #2a2b31; background:var(--sw, #000);
-}
-.swatch.on{outline:2px solid var(--brand); outline-offset:1px}
-#color-palette .fields{
-  grid-column: 1 / -1; display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:4px;
-}
-#color-palette label{
-  display:flex; gap:8px; align-items:center; font-size:12px; color:var(--muted);
-  background:#121319; padding:8px 10px; border:1px solid #24262d; border-radius:8px;
-}
-#color-palette input[type="number"],
-#color-palette input[type="range"]{width:100%}
+#color-palette{grid-column:96 / 99; grid-row:41 / 69; background:var(--panel); border:1px solid var(--stroke); border-radius:12px; padding:10px; display:grid; grid-template-columns:repeat(5,1fr); gap:8px}
+.swatch{width:40px;height:32px;border-radius:8px;border:1px solid var(--stroke);background:var(--sw,#000)}
+.swatch.on{outline:2px solid var(--brand)}
+#color-palette .fields{grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:10px}
+#color-palette label{display:flex; gap:8px; align-items:center; font-size:12px; color:var(--muted); background:#121319; padding:8px 10px; border:1px solid #24262d; border-radius:8px}
 
 /* 透明度スライダー：X86-92 Y36-37.5 */
-#opacity-slider{
-  position:absolute;
-  /* グリッド→絶対配置（ボード内） */
-  left: calc(86 / var(--cols) * 100%);
-  top:  calc(36 / var(--rows) * 100%);
-  width: calc((92 - 86) / var(--cols) * 100%);
-  height: calc((37.5 - 36) / var(--rows) * 100%);
-  transform: translate(-1%, -10%);
-  background:#14151b; border:1px solid #2a2b31; border-radius:10px;
-  padding:10px; display:flex; align-items:center; gap:10px;
-  box-shadow:0 6px 24px rgba(0,0,0,.45);
-  z-index:20;
-}
-#opacity-slider label{display:flex; gap:8px; align-items:center; color:var(--muted); font-size:12px}
-#opacity-slider input[type="range"]{width:100%}
+#opacity-slider{position:absolute; left:calc(86 / var(--cols) * 100%); top:calc(36 / var(--rows) * 100%); width:calc((92-86)/var(--cols) * 100%);
+  background:#14151b; border:1px solid var(--stroke); border-radius:10px; padding:10px; display:flex; align-items:center; gap:10px; z-index:20}
 
-/* スクロールバー隠し（念のため） */
+/* 下部アセット：X3-98 Y69-70 相当の帯 */
+#assets-strip{position:absolute; left:calc(3/var(--cols)*100%); right:calc(2/var(--cols)*100%); bottom:calc(1/var(--rows)*100%);
+  display:flex; gap:10px; padding:10px; background:#d9d3c6; border-radius:8px}
+.asset{width:120px; height:70px; background:#efe9da; border-radius:8px; display:grid; grid-template-rows:auto 18px; place-items:center; padding:8px}
+.asset img{max-width:100%; max-height:42px; object-fit:contain}
+.asset span{font-size:11px; color:#6b655b}
+
+/* スクロール非表示 */
 ::-webkit-scrollbar{width:0;height:0}
