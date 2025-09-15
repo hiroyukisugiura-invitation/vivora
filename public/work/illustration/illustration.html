@@ -1,117 +1,80 @@
-<!-- index.html | Vivora Fashion Illustration 2025（スクショ準拠・固定1280×820） -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- 固定ボードを中央配置（等倍フィット） -->
-  <div id="board-scale">
-    <div id="board">
-      <!-- ヘッダー行 -->
-      <header class="topbar">
-        <h1 class="title">Vivora Fashion Illustration 2025</h1>
-        <div class="io-icons">
-          <!-- gitの既存pngのみ使用 -->
-          <button class="io"><img src="./create_parts/create_button/upload.png" alt="Upload" /></button>
-          <button class="io"><img src="./create_parts/create_button/download.png" alt="Download" /></button>
-          <button class="io"><img src="./create_parts/create_button/save.png" alt="Save" /></button>
+  <!-- Header -->
+  <header class="vf-header">
+    <h1 class="vf-title">Vivora Fashion Illustration 2025</h1>
+    <div class="vf-top-icons">
+      <!-- 上部右側の小アイコン群（左から順に） -->
+      <button class="icon-btn"><img src="public/create_parts/create_button/home.png" alt=""></button>
+      <button class="icon-btn"><img src="public/create_parts/create_button/user.png" alt=""></button>
+      <button class="icon-btn"><img src="public/create_parts/create_button/info.png" alt=""></button>
+      <button class="icon-btn"><img src="public/create_parts/create_button/grid.png" alt=""></button>
+      <button class="icon-btn"><img src="public/create_parts/create_button/pen_small.png" alt=""></button>
+      <button class="icon-btn"><img src="public/create_parts/create_button/cut.png" alt=""></button>
+      <button class="icon-btn"><img src="public/create_parts/create_button/setting.png" alt=""></button>
+      <button class="icon-btn"><img src="public/create_parts/create_button/help.png" alt=""></button>
+      <button class="icon-btn"><img src="public/create_parts/create_button/more.png" alt=""></button>
+    </div>
+  </header>
+
+  <!-- Board -->
+  <main class="vf-stage">
+    <section class="vf-board">
+      <!-- マネキン -->
+      <img class="mannequin-base" src="public/mannequin/mannequin_woman.png" alt="mannequin" />
+
+      <!-- ズームHUD -->
+      <div class="zoom-hud">
+        <span>100 %</span>
+        <div class="zoom-bar">
+          <div class="dot"></div>
         </div>
-      </header>
+      </div>
 
-      <!-- 大きなキャンバス枠 -->
-      <section id="canvas-wrap">
-        <div id="canvas-surface">
-          <!-- マネキン（中央） -->
-          <img id="mannequin" src="./mannequin/mannequin_woman.png" alt="Mannequin" />
-
-          <!-- 右中段：不透明度バー（スクショのフローティングUI） -->
-          <div id="opacity-float">
-            <span class="badge"><span id="opacityText">100</span> %</span>
-            <div class="bar">
-              <input id="opacityRange" type="range" min="0" max="100" value="100" />
-            </div>
-          </div>
+      <!-- 右ツールバー -->
+      <aside class="right-rail">
+        <div class="tool-rail">
+          <button class="tool-btn is-active"><img src="public/create_parts/design_button/select.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/pen.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/square.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/circle.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/brush.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/eraser.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/fill.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/pick.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/anchor.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/line.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/text.png" alt=""></button>
+          <button class="tool-btn"><img src="public/create_parts/design_button/grid.png" alt=""></button>
         </div>
-      </section>
 
-      <!-- 右サイド：ツール縦並び -->
-      <aside id="right-rail">
-        <nav class="tool-rail">
-          <!-- レイヤー系は入れない -->
-          <button class="tool"><img src="./create_parts/design_button/select.png" alt="Select" /></button>
-          <button class="tool"><img src="./create_parts/design_button/direct_select.png" alt="Direct Select" /></button>
-          <button class="tool"><img src="./create_parts/design_button/square.png" alt="Square" /></button>
-          <button class="tool"><img src="./create_parts/design_button/circle.png" alt="Circle" /></button>
-          <button class="tool"><img src="./create_parts/design_button/brush.png" alt="Brush" /></button>
-          <button class="tool"><img src="./create_parts/design_button/pen.png" alt="Pen" /></button>
-          <button class="tool"><img src="./create_parts/design_button/circlebrush.png" alt="Circle Brush" /></button>
-          <button class="tool"><img src="./create_parts/design_button/ballpointpen.png" alt="Ballpoint Pen" /></button>
-          <button class="tool"><img src="./create_parts/design_button/markerpen.png" alt="Marker Pen" /></button>
-          <button class="tool"><img src="./create_parts/design_button/eraser.png" alt="Eraser" /></button>
-          <button class="tool"><img src="./create_parts/design_button/sentence.png" alt="Text" /></button>
-          <button class="tool"><img src="./create_parts/design_button/graph_paper.png" alt="Grid" /></button>
-        </nav>
-
-        <!-- カラーパレット（縦並び） -->
-        <div class="palette">
-          <!-- 丸スウォッチ。色は見やすい既定値 -->
-          <button class="sw" style="--c:#eeeeee"></button>
-          <button class="sw" style="--c:#d0d0d0"></button>
-          <button class="sw" style="--c:#f7c600"></button>
-          <button class="sw" style="--c:#ffda33"></button>
-          <button class="sw" style="--c:#ffc1c1"></button>
-          <button class="sw" style="--c:#ff7f7f"></button>
-          <button class="sw" style="--c:#ff5a5a"></button>
-          <button class="sw" style="--c:#2ECC71"></button>
-          <button class="sw" style="--c:#1ABC9C"></button>
-          <button class="sw" style="--c:#3498DB"></button>
-          <button class="sw" style="--c:#8E44AD"></button>
-          <button class="sw" style="--c:#000000"></button>
+        <!-- カラーパレット -->
+        <div class="color-rail" id="colorRail">
+          <!-- 12色（上からグレー→黒まで） -->
+          <button class="swatch" style="--c:#f6f6f6"></button>
+          <button class="swatch" style="--c:#ffe000"></button>
+          <button class="swatch" style="--c:#ffb400"></button>
+          <button class="swatch" style="--c:#ff7a59"></button>
+          <button class="swatch" style="--c:#ff4e81"></button>
+          <button class="swatch" style="--c:#ff68c0"></button>
+          <button class="swatch" style="--c:#8d69ff"></button>
+          <button class="swatch" style="--c:#4aa8ff"></button>
+          <button class="swatch" style="--c:#00b3a4"></button>
+          <button class="swatch" style="--c:#0fbf5b"></button>
+          <button class="swatch" style="--c:#7a7a7a"></button>
+          <button class="swatch" style="--c:#111111"></button>
         </div>
       </aside>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <script>
-    // 固定1280×820を画面にフィット
-    (function fit() {
-      const wrap = document.getElementById('board-scale');
-      function apply(){ wrap.style.setProperty('--scale', Math.min(innerWidth/1280, innerHeight/820)); }
-      addEventListener('resize', apply); apply();
-    })();
-
-    // マネキンを中央に等倍表示（スクショ比率）
-    (function centerMannequin(){
-      const surface = document.getElementById('canvas-surface');
-      const img = document.getElementById('mannequin');
-      function place(){
-        const W = surface.clientWidth, H = surface.clientHeight;
-        const targetW = 230;    // スクショ相当の見た目幅(px)
-        const x = (W - targetW)/2;
-        const topMargin = 50;   // 上部余白
-        img.style.width = targetW + 'px';
-        img.style.left  = x + 'px';
-        img.style.top   = topMargin + 'px';
-      }
-      new ResizeObserver(place).observe(surface);
-      addEventListener('load', place);
-    })();
-
-    // 不透明度フロート
-    (function opacity(){
-      const range = document.getElementById('opacityRange');
-      const text  = document.getElementById('opacityText');
-      const mannequin = document.getElementById('mannequin');
-      function update(){
-        text.textContent = range.value;
-        mannequin.style.opacity = (Number(range.value)/100).toString();
-      }
-      range.addEventListener('input', update); update();
-    })();
-  </script>
+  <script src="ui.js"></script>
 </body>
 </html>
