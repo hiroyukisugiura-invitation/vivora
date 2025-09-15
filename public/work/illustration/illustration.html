@@ -1,149 +1,80 @@
-<!-- index.html (HTML+js) -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Fashion Illustration 2025</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="hdr">
-    <h1>Vivora Fashion Illustration 2025</h1>
-    <nav class="tabs">
-      <button>home</button>
-      <button class="on">fashion<br>illustration</button>
-      <button>fabric<br>matching</button>
-      <button>clothing<br>design</button>
-      <button>pattern</button>
-      <button>grading</button>
-      <button>print<br>layout</button>
-    </nav>
-  </header>
+<div class="fit">
+  <div class="board">
+    <header class="topbar">
+      <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
+      <!-- contentsボタン：リンク付き -->
+      <nav class="contents-buttons" aria-label="contents">
+        <a href="../../index.html"><img src="../../create_parts/contents_button/0_home.png" alt="Home"/></a>
+        <a href="../illustration/illustration.html"><img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations"/></a>
+        <a href="../fabric/fabric.html"><img src="../../create_parts/contents_button/2_fabric-matching.png" alt="Fabric Matching"/></a>
+        <a href="../clothing/clothing.html"><img src="../../create_parts/contents_button/3_clothing-design.png" alt="Clothing Design"/></a>
+        <a href="../pattern/pattern.html"><img src="../../create_parts/contents_button/4_pattern-creation.png" alt="Pattern Creation"/></a>
+        <a href="../grading/grading.html"><img src="../../create_parts/contents_button/5_grading.png" alt="Grading"/></a>
+        <a href="../print/print.html"><img src="../../create_parts/contents_button/6_print-layout-cut.png" alt="Print Layout"/></a>
+        <a href="../kids/kids.html"><img src="../../create_parts/contents_button/digital-dressing-kids-mode.png" alt="Kids Mode"/></a>
+      </nav>
+    </header>
 
-  <main class="wrap">
-    <!-- 左：ボード -->
-    <section class="board">
-      <div class="board-inner">
-        <img id="mannequin" class="mannequin" src="public/mannequin/mannequin_woman.png" alt="">
-        <div class="zoom">
-          <span id="zoomLabel">100%</span>
-          <input id="zoomRange" type="range" min="50" max="200" value="100">
+    <main class="main">
+      <section id="stage" class="stage" aria-label="canvas">
+        <img id="mannequin" class="mannequin"
+             src="../../mannequin/mannequin_woman/mannequin_woman_front.png"
+             alt="Mannequin Woman Front"/>
+        <canvas id="draw"></canvas>
+        <img id="imgLayer" class="img-layer" alt=""/>
+        <!-- 透明度アイコン -->
+        <img id="opacityIcon" class="opacity-icon" src="../../create_parts/object_btn/opasity_ber.png" alt="opacity icon"/>
+      </section>
+
+      <aside class="rail" aria-label="tool rail">
+        <!-- IO -->
+        <div class="io-stack">
+          <button id="btnDownload" class="io"><img src="../../create_parts/create_button/download.png" alt="download"/></button>
+          <button id="btnUpload" class="io"><img src="../../create_parts/create_button/upload.png" alt="upload"/></button>
+          <button id="btnSave" class="io"><img src="../../create_parts/create_button/save.png" alt="save"/></button>
+          <input id="fileInput" type="file" accept="image/*" hidden/>
         </div>
-      </div>
-    </section>
 
-    <!-- 右：壁 -->
-    <aside class="wall">
-      <!-- IO -->
-      <div class="io">
-        <button class="io-btn"><img src="public/create_parts/create_button/upload.png" alt=""></button>
-        <button class="io-btn"><img src="public/create_parts/create_button/download.png" alt=""></button>
-        <button class="io-btn"><img src="public/create_parts/create_button/save.png" alt=""></button>
-      </div>
-
-      <div class="wall-grid">
-        <!-- ツール -->
+        <!-- Tools -->
         <div class="tools">
-          <button class="tool"><img src="public/create_parts/design_button/select.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/direct_select.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/square.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/circle.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/brush.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/pen.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/circlebrush.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/ballpointpen.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/markerpen.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/eraser.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/sentence.png" alt=""></button>
-          <button id="opacityBtn" class="tool"><img src="public/create_parts/design_button/opasity_ber.png" alt=""></button>
-          <button class="tool"><img src="public/create_parts/design_button/graph_paper.png" alt=""></button>
+          <button data-tool="select" class="tool t-select"><img src="../../create_parts/object_btn/select.png" alt="Select"/></button>
+          <button data-tool="direct" class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select"/></button>
+          <button data-tool="rect" class="tool"><img src="../../create_parts/object_btn/square.png" alt="Square"/></button>
+          <button data-tool="circle" class="tool"><img src="../../create_parts/object_btn/circle.png" alt="Circle"/></button>
+          <button data-tool="brush" class="tool"><img src="../../create_parts/object_btn/brush.png" alt="Brush"/></button>
+          <button data-tool="pen" class="tool"><img src="../../create_parts/object_btn/pen.png" alt="Pen"/></button>
+          <button data-tool="circlebrush" class="tool"><img src="../../create_parts/object_btn/circlebrush.png" alt="Circle Brush"/></button>
+          <button data-tool="ballpoint" class="tool"><img src="../../create_parts/object_btn/ballpointpen.png" alt="Ballpoint"/></button>
+          <button data-tool="marker" class="tool"><img src="../../create_parts/object_btn/markerpen.png" alt="Marker"/></button>
+          <button data-tool="eraser" class="tool"><img src="../../create_parts/object_btn/eraser.png" alt="Eraser"/></button>
+          <button data-tool="text" class="tool"><img src="../../create_parts/object_btn/sentence.png" alt="Text"/></button>
+          <button data-tool="opacity" class="tool"><img src="../../create_parts/object_btn/opasity_ber.png" alt="Opacity"/></button>
+          <button data-tool="grid" class="tool"><img src="../../create_parts/object_btn/graph_paper.png" alt="Grid"/></button>
         </div>
 
-        <!-- カテゴリ -->
-        <div class="cats">
-          <div class="cat"><button>Tops</button><div class="cell"></div></div>
-          <div class="cat"><button>Bottoms</button><div class="cell"></div></div>
-          <div class="cat"><button>Sleeves</button><div class="cell"></div></div>
-          <div class="cat"><button>Collar</button><div class="cell"></div></div>
-          <div class="cat"><button>Pockets</button><div class="cell"></div></div>
-          <div class="cat"><button>Buttons</button><div class="cell"></div></div>
-          <div class="cat"><button>Skirts</button><div class="cell"></div></div>
-          <div class="cat"><button>Belts</button><div class="cell"></div></div>
-          <div class="cat"><button>Zippers</button><div class="cell"></div></div>
-          <div class="cat"><button>Hems</button><div class="cell"></div></div>
-          <div class="cat"><button>Necklines</button><div class="cell"></div></div>
-          <div class="cat"><button>Backstyle</button><div class="cell"></div></div>
-          <div class="cat"><button>Accessories</button><div class="cell"></div></div>
+        <!-- Palette -->
+        <div id="palette" class="palette">
+          <i style="--c:#000000" data-col="#000000"></i>
+          <i style="--c:#ff0000" data-col="#ff0000"></i>
+          <i style="--c:#00a14b" data-col="#00a14b"></i>
+          <i style="--c:#3e7bd8" data-col="#3e7bd8"></i>
+          <i style="--c:#ffe14d" data-col="#ffe14d"></i>
+          <i style="--c:#ff7aa2" data-col="#ff7aa2"></i>
+          <i style="--c:#ffffff" data-col="#ffffff"></i>
         </div>
-
-        <!-- パレット -->
-        <div class="palette">
-          <button class="dot" style="--c:#ffffff;border:1px solid #c8c8c8"></button>
-          <button class="dot" style="--c:#e9e8e3"></button>
-          <button class="dot" style="--c:#f5d0aa"></button>
-          <button class="dot" style="--c:#f2955f"></button>
-          <button class="dot" style="--c:#ef2c2c"></button>
-          <button class="dot" style="--c:#a91d8f"></button>
-          <button class="dot" style="--c:#6d27c4"></button>
-          <button class="dot" style="--c:#2f55d4"></button>
-          <button class="dot" style="--c:#1b8bd1"></button>
-          <button class="dot" style="--c:#1fa24c"></button>
-          <button class="dot" style="--c:#c3c33b"></button>
-          <button class="dot" style="--c:#000000"></button>
-        </div>
-      </div>
-
-      <!-- 透明度 -->
-      <div id="opacityPanel" class="opacity" hidden>
-        <label>Opacity</label>
-        <input id="opacityRange" type="range" min="0" max="100" value="100">
-        <span id="opacityVal">100%</span>
-      </div>
-    </aside>
-  </main>
-
-  <!-- 下：サムネ帯 -->
-  <footer class="strip">
-    <div class="thumbs">
-      <figure class="th"><img src="public/clothing/tshirt.png" alt=""><figcaption>tshirt</figcaption></figure>
-      <figure class="th"><img src="public/bottoms/jeans.png" alt=""><figcaption>jeans</figcaption></figure>
-      <figure class="th"><img src="public/sleeves/shortsleeve.png" alt=""><figcaption>shortsleeve</figcaption></figure>
-      <figure class="th"><img src="public/collars/roundcollar.png" alt=""><figcaption>roundcollar</figcaption></figure>
-      <figure class="th"><img src="public/pockets/patchpocket.png" alt=""><figcaption>patchpocket</figcaption></figure>
-      <figure class="th"><img src="public/buttons/centerbutton.png" alt=""><figcaption>centerbutton</figcaption></figure>
-      <figure class="th"><img src="public/skirts/aline_skirt.png" alt=""><figcaption>alineskirt</figcaption></figure>
-      <figure class="th"><img src="public/belts/waistbelt.png" alt=""><figcaption>waistbelt</figcaption></figure>
-      <figure class="th"><img src="public/zippers/frontzipper.png" alt=""><figcaption>frontzipper</figcaption></figure>
-      <figure class="th"><img src="public/hems/rawhem.png" alt=""><figcaption>rawhem</figcaption></figure>
-      <figure class="th"><img src="public/necklines/boatneck.png" alt=""><figcaption>boatneck</figcaption></figure>
-      <figure class="th"><img src="public/backstyle/openback.png" alt=""><figcaption>openback</figcaption></figure>
-      <figure class="th"><img src="public/accessories/ribbon.png" alt=""><figcaption>ribbon</figcaption></figure>
-    </div>
-  </footer>
-
-  <script>
-    // Zoom
-    const r = document.getElementById('zoomRange');
-    const lbl = document.getElementById('zoomLabel');
-    const man = document.getElementById('mannequin');
-    const setZoom = v => { lbl.textContent = v + '%'; man.style.transform = `translate(-50%,-50%) scale(${v/100})`; };
-    r.addEventListener('input', e => setZoom(e.target.value)); setZoom(100);
-
-    // Opacity
-    const opBtn = document.getElementById('opacityBtn');
-    const opPanel = document.getElementById('opacityPanel');
-    const opRange = document.getElementById('opacityRange');
-    const opVal = document.getElementById('opacityVal');
-    opBtn.addEventListener('click', ()=> opPanel.hidden = !opPanel.hidden);
-    opRange.addEventListener('input', e => { man.style.opacity = e.target.value/100; opVal.textContent = e.target.value + '%'; });
-
-    // Palette UI
-    document.querySelectorAll('.palette .dot').forEach(b=>{
-      b.addEventListener('click', ()=>{
-        document.querySelectorAll('.palette .dot').forEach(x=>x.classList.remove('on'));
-        b.classList.add('on');
-      });
-    });
-  </script>
+      </aside>
+    </main>
+  </div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
