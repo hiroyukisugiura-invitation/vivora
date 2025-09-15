@@ -1,12 +1,12 @@
-/* ベース */
+/* 固定レイアウト（非レスポンシブ） */
 :root{
-  --bg:#f7efe6;              /* 画面の生成色（薄いベージュ） */
-  --ink:#1e1e1e;
-  --board:#ffffff;
-  --board-line:#cfc7bf;
-  --rail:#f4f0eb;
-  --rail-line:#d6cec6;
-  --shadow:0 1px 0 rgba(0,0,0,.05),0 0 0 1px rgba(0,0,0,.04) inset;
+  --bg:#f0f0f0;          /* 外側グレー（スクショの周囲） */
+  --paper:#faf7f2;       /* ページ色（ほんのり温かい白） */
+  --line:#c9c2ba;        /* ボード枠 */
+  --rail:#f6f1e8;        /* 右レールの板色 */
+  --railLine:#d7cfc5;
+  --ink:#222;
+  --shadow:0 1px 0 rgba(0,0,0,.05),0 0 0 1px rgba(0,0,0,.05) inset;
 }
 
 *{box-sizing:border-box}
@@ -14,138 +14,153 @@ html,body{height:100%}
 body{
   margin:0;
   background:var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"Noto Sans JP","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
   color:var(--ink);
-  font-family: ui-sans-serif, -apple-system, "Helvetica Neue", Arial, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-  overflow:auto; /* スクロール許可（崩れ防止） */
 }
 
-/* ヘッダー */
-.vf-header{
-  height:56px;
+/* ページ */
+#head{
+  width:1280px;
+  margin:18px auto 8px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 18px 0 18px;
 }
-.vf-title{
+#head h1{
   margin:0;
-  font-weight:500;
   font-size:18px;
-  letter-spacing:.2px;
+  font-weight:500;
 }
-.vf-top-icons{display:flex; gap:10px;}
-.icon-btn{
-  width:22px; height:22px; padding:0; border:0; background:transparent; cursor:pointer;
-  display:grid; place-items:center; opacity:.95;
+.mode-pills{
+  display:flex; gap:8px;
 }
-.icon-btn img{width:100%; height:100%; object-fit:contain; filter:grayscale(.05);}
-
-/* ステージ（余白含む） */
-.vf-stage{
-  padding:6px 18px 22px 18px;
+.pill{
+  height:26px; padding:0 10px; border-radius:14px; border:1px solid #e4dbcf;
+  background:#efe6d6; font-size:12px; cursor:pointer;
 }
 
-/* ボード本体（固定感を出すためのpxベース） */
-.vf-board{
+/* ステージ（ページ背景） */
+#stage{
+  width:1280px;
+  margin:0 auto 20px;
+  background:var(--paper);
+  border-radius:8px;
+  padding:12px 14px 16px;
+  box-shadow:0 0 0 10px #bbb8b5 inset; /* スクショの外枠っぽい濃い影 */
+}
+
+/* キャンバス領域 */
+#board{
   position:relative;
-  width: 1044px;             /* スクショ比の固定幅 */
-  height: 700px;             /* スクショ比の固定高 */
-  background:var(--board);
-  border-radius:12px;
-  border:1px solid var(--board-line);
-  box-shadow: var(--shadow);
-  margin: 6px auto 28px;
+  height:670px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#fff;
   overflow:hidden;
+}
+#board .inner{
+  position:absolute; inset:12px;
+  border:1px solid #e6ded4;
+  border-radius:8px;
+  pointer-events:none;
 }
 
 /* マネキン */
-.mannequin-base{
+#mannequin{
   position:absolute;
-  left:50%;
-  top:50%;
-  width: 120px;              /* スクショの見た目に合わせたサイズ */
-  transform: translate(-50%,-45%);
-  user-select:none;
-  pointer-events:none;
-  opacity:.98;
+  left:50%; top:50%;
+  width:132px;
+  transform:translate(-50%,-46%);
+  pointer-events:none; user-select:none;
 }
-
-/* 右レール（ツールバー＋カラーパレット） */
-.right-rail{
-  position:absolute;
-  right:10px;
-  top:18px;
-  bottom:18px;
-  width:56px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  gap:14px;
-}
-
-/* 縦ツールバー */
-.tool-rail{
-  width:56px;
-  background:var(--rail);
-  border:1px solid var(--rail-line);
-  border-radius:8px;
-  padding:8px 6px;
-  display:grid;
-  grid-auto-rows:32px;
-  gap:8px;
-}
-.tool-btn{
-  width:100%; height:32px; border:0; background:transparent; cursor:pointer;
-  display:grid; place-items:center; border-radius:6px;
-}
-.tool-btn img{width:22px; height:22px; object-fit:contain; filter:grayscale(.15);}
-.tool-btn:hover{background:#fff; outline:1px solid #e1dad3;}
-.tool-btn.is-active{background:#fff; outline:2px solid #a0a0a0;}
-
-/* カラーパレット */
-.color-rail{
-  margin-top:8px;
-  width:56px;
-  background:var(--rail);
-  border:1px solid var(--rail-line);
-  border-radius:8px;
-  padding:10px 0 10px;
-  display:grid;
-  grid-auto-rows:28px;
-  place-items:center;
-  gap:6px;
-}
-.swatch{
-  width:22px; height:22px; border-radius:50%;
-  border:2px solid #e8e0d8;
-  background:var(--c);
-  cursor:pointer;
-}
-.swatch:focus-visible{outline:2px solid #333; outline-offset:2px;}
 
 /* ズームHUD（右中段） */
 .zoom-hud{
   position:absolute;
-  right:92px;
-  top: 330px;
+  right:150px; top:310px;
   display:flex; align-items:center; gap:8px;
-  font-size:12px;
-  background:rgba(0,0,0,.05);
-  border-radius:4px;
-  padding:2px 4px 2px 6px;
+  font-size:12px; background:rgba(0,0,0,.05);
+  border-radius:4px; padding:2px 6px;
 }
-.zoom-bar{
-  width:64px; height:10px; background:#d8d3cd; border-radius:10px; position:relative;
+.zoom-bar{width:70px;height:12px;background:#d6d1cc;border-radius:999px;position:relative;}
+.zoom-bar .dot{position:absolute;right:8px;top:3px;width:6px;height:6px;background:#5aa2d8;border-radius:50%}
+
+/* 右IO（Upload/Download/Save/Help） */
+.io-rail{
+  position:absolute; right:36px; top:22px;
+  display:flex; gap:10px;
 }
-.zoom-bar .dot{
-  position:absolute; top:2px; right:6px; width:6px; height:6px; background:#4a98c9; border-radius:50%;
+.io{
+  width:26px;height:26px;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;
+}
+.io img{width:100%;height:100%;object-fit:contain}
+
+/* 右側レール集合 */
+.catalog{
+  position:absolute; right:14px; top:70px; bottom:20px;
+  display:grid; grid-template-columns: 140px 120px 172px 52px 56px; /* 左からカテゴリ/素材/レイヤー/ツール/色 */
+  align-items:start; gap:12px;
 }
 
-/* ボードの内側フレーム（スクショの薄い内枠表現） */
-.vf-board::before{
-  content:"";
-  position:absolute; inset:10px;
-  border-radius:10px;
-  border:1px solid #e7dfd6;
-  pointer-events:none;
+/* カテゴリ列 */
+.cat-col, .mat-col{display:grid; gap:10px}
+.cat{
+  height:34px; padding:0 10px; border-radius:8px;
+  background:#efe7d7; border:1px solid #e3dacb; cursor:pointer;
+  font-size:13px; text-align:left;
 }
+.cat.small{font-size:11px; line-height:1.1}
+.cat.two{height:44px}
+.cat-plus{
+  width:34px; height:34px; border-radius:8px; border:1px solid #e3dacb; background:#efe7d7; cursor:pointer;
+}
+.cat-plus.wide{width:100%}
+.cat-row{display:flex; align-items:center; gap:8px}
+.cat-row span{font-size:13px}
+
+/* レイヤーカード */
+.layers{display:grid; gap:12px}
+.layer-card{
+  width:172px; height:148px; background:#fff; border:1px solid #e1dbd3; border-radius:10px; box-shadow:var(--shadow);
+  display:grid; grid-template-rows:28px 1fr 30px;
+}
+.layer-head,.layer-foot{
+  display:flex; align-items:center; justify-content:flex-end; gap:6px; padding:0 6px;
+}
+.lh,.lf{
+  width:20px;height:20px;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;
+}
+.lh img,.lf img{width:100%;height:100%;object-fit:contain}
+.layer-body{margin:4px 6px; border:1px dashed #d9d0c6; border-radius:6px; background:#fbf8f3}
+
+/* ステーショナリーツール */
+.tool-rail{
+  width:52px; background:var(--rail); border:1px solid var(--railLine); border-radius:10px; padding:8px 6px;
+  display:grid; grid-auto-rows:34px; gap:8px;
+}
+.tool{
+  width:100%; height:34px; border:0; background:transparent; display:grid; place-items:center; cursor:pointer; border-radius:6px;
+}
+.tool img{width:22px;height:22px;object-fit:contain;filter:grayscale(.1)}
+.tool:hover{background:#fff; outline:1px solid #e1dad3}
+.tool.is-active{background:#fff; outline:2px solid #999}
+
+/* カラーレール */
+.color-rail{
+  width:56px; background:var(--rail); border:1px solid var(--railLine); border-radius:10px;
+  padding:10px 0; display:grid; grid-auto-rows:28px; place-items:center; gap:8px;
+}
+.sw{width:22px;height:22px;border-radius:50%;background:var(--c);border:2px solid #e8e0d8;cursor:pointer}
+.color-tools{margin-top:8px}
+.pipette{width:26px;height:26px;border:0;background:transparent}
+
+/* 下部サムネ列 */
+#bottom-strip{
+  width:1248px; margin:14px auto 0; padding:10px 8px; display:flex; gap:16px; overflow:hidden;
+}
+.thumb{
+  width:92px; height:92px; background:#efe7d7; border:1px solid #e3dacb; border-radius:10px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+}
+.thumb img{width:62px;height:54px;object-fit:contain; filter:grayscale(.05)}
+.thumb span{font-size:11px; color:#6a625a}
