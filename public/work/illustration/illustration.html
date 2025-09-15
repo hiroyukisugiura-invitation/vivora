@@ -1,235 +1,234 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Illustration — Absolute Grid</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- 固定サイズボード（100×70 グリッド基準）。非レスポンシブ、1280×820px。 -->
-  <div id="board" class="board">
+  <!-- 固定ボード：1280×820 を基準。画面に収まるよう等倍スケール -->
+  <div id="board-scale">
+    <div id="board">
 
-    <!-- グリッド表示トグル（必要時のみ） -->
-    <input id="gridToggle" class="grid-toggle" type="checkbox" />
-    <label for="gridToggle" class="grid-label">GRID</label>
+      <!-- グリッド（開発時の目安。必要ならCSSでdisplay:noneに） -->
+      <div class="grid-overlay" aria-hidden="true">
+        <!-- 100×80 の補助線 -->
+        <!-- 横線 -->
+        <div class="h-lines"></div>
+        <!-- 縦線 -->
+        <div class="v-lines"></div>
+      </div>
 
-    <!-- タイトル：X:3-22 , Y:4-4 -->
-    <div class="abs box title"
-         data-x="3" data-y="4" data-w="19" data-h="1">
-      <h1 class="ttl">Vivora Fashion Illustration</h1>
+      <!-- タイトル：X:3–22 , Y:4–4  => CSS: col 3/23, row 4/5 -->
+      <h1 class="cell title" style="grid-column: 3 / 23; grid-row: 4 / 5;">
+        Vivora Fashion Illustration
+      </h1>
+
+      <!-- コンテンツボタン群：X:73–92 , Y:5–6 -->
+      <div class="cell contents-buttons" style="grid-column: 73 / 93; grid-row: 5 / 7;">
+        <button class="btn">Home</button>
+        <button class="btn">Illustration</button>
+        <button class="btn">Template</button>
+        <button class="btn">Help</button>
+      </div>
+
+      <!-- NEXT STEP：右端に分離（基準）：X:93–98 , Y:5–6 -->
+      <div class="cell next-step" style="grid-column: 93 / 99; grid-row: 5 / 7;">
+        <button class="btn btn-accent">Next Step</button>
+      </div>
+
+      <!-- IO（download / upload / save）：X:94–98 , Y:6–6 -->
+      <div class="cell io-bar" style="grid-column: 94 / 99; grid-row: 6 / 7;">
+        <button class="icon-btn" title="Upload">
+          <img src="public/create_parts/create_button/upload.png" alt="Upload" />
+        </button>
+        <button class="icon-btn" title="Download">
+          <img src="public/create_parts/create_button/download.png" alt="Download" />
+        </button>
+        <button class="icon-btn" title="Save">
+          <img src="public/create_parts/create_button/save.png" alt="Save" />
+        </button>
+      </div>
+
+      <!-- キャンバス：X:3–92 , Y:8–78 -->
+      <div id="canvas-area" class="cell" style="grid-column: 3 / 93; grid-row: 8 / 79;">
+        <!-- マネキン領域：X:42–54 , Y:17–60（絶対座標%で配置） -->
+        <img
+          id="mannequin"
+          class="mannequin-base"
+          src="public/mannequin/mannequin_woman.png"
+          alt="Mannequin"
+        />
+
+        <!-- 透明度スライダー（選択時表示）X:85–91 , Y:29.5–31 を絶対座標%で -->
+        <div id="opacity-wrap">
+          <label for="opacityRange">Opacity</label>
+          <input id="opacityRange" type="range" min="0" max="100" value="100" />
+          <span id="opacityValue">100%</span>
+        </div>
+      </div>
+
+      <!-- Stationery tools：X:95–97 , Y:8–33（レイヤー系は含めない） -->
+      <div class="cell tools" style="grid-column: 95 / 98; grid-row: 8 / 34;">
+        <div class="tool-col">
+          <button class="tool">
+            <img src="public/create_parts/design_button/select.png" alt="Select" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/direct_select.png" alt="Direct Select" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/square.png" alt="Square" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/circle.png" alt="Circle" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/brush.png" alt="Brush" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/pen.png" alt="Pen" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/circlebrush.png" alt="Circle Brush" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/ballpointpen.png" alt="Ballpoint Pen" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/markerpen.png" alt="Marker Pen" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/eraser.png" alt="Eraser" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/sentence.png" alt="Text" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/opasity_ber.png" alt="Opacity Tool" />
+          </button>
+          <button class="tool">
+            <img src="public/create_parts/design_button/graph_paper.png" alt="Graph Paper" />
+          </button>
+        </div>
+      </div>
+
+      <!-- カラーパレット：X:95–97 , Y:35–62 -->
+      <div class="cell color-palette" style="grid-column: 95 / 98; grid-row: 35 / 63;">
+        <div class="swatches">
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+          <button class="sw"></button>
+        </div>
+      </div>
+
+      <!-- レイヤーパネル（右側・縦長 5枚）：X:?? 仕様基準=右パネル左列。絶対配置で柱を生成 -->
+      <div id="layers-column">
+        <!-- 5つの縦長カード。上：表示/非表示/ロック、下：追加/複製/統合(merge)/削除 -->
+        <div class="layer-card">
+          <div class="head">
+            <img src="public/create_parts/layer_button/layerdisplay.png" alt="Display" />
+            <img src="public/create_parts/layer_button/layerhidden.png" alt="Hidden" />
+            <img src="public/create_parts/layer_button/layerlock.png" alt="Lock" />
+          </div>
+          <div class="body"></div>
+          <div class="foot">
+            <img src="public/create_parts/layer_button/layerpanelplus.png" alt="Add" />
+            <img src="public/create_parts/layer_button/layerreproduction.png" alt="Duplicate" />
+            <img src="public/create_parts/layer_button/layerlayer integration.png" alt="Merge" />
+            <img src="public/create_parts/layer_button/layerdestruction.png" alt="Delete" />
+          </div>
+        </div>
+
+        <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
+        <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
+        <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
+        <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
+      </div>
+
     </div>
-
-    <!-- コンテンツボタン群：X:73.5-93 , Y:4-5 -->
-    <div class="abs box contents-buttons"
-         data-x="73.5" data-y="4" data-w="19.5" data-h="1">
-      <button class="cbtn">Home</button>
-      <button class="cbtn">Illustration</button>
-      <button class="cbtn">Pattern</button>
-      <button class="cbtn">Export</button>
-      <button class="cbtn next">Next Step</button>
-    </div>
-
-    <!-- I/O（Upload / Download / Save）：X:97-97 , Y:8-12（1列×4行） -->
-    <div class="abs box io-vertical"
-         data-x="97" data-y="8" data-w="1" data-h="4">
-      <button class="iobtn" title="Upload">
-        <img src="public/create_parts/create_button/upload.png" alt="upload" />
-      </button>
-      <button class="iobtn" title="Download">
-        <img src="public/create_parts/create_button/download.png" alt="download" />
-      </button>
-      <button class="iobtn" title="Save">
-        <img src="public/create_parts/create_button/save.png" alt="save" />
-      </button>
-      <div class="spacer"></div>
-    </div>
-
-    <!-- キャンバス：X:3-93 , Y:8-68 -->
-    <div id="canvasArea" class="abs box canvas"
-         data-x="3" data-y="8" data-w="90" data-h="60">
-      <!-- マネキン（キャンバス内絶対配置）：X:42-54 , Y:17-60 をキャンバス原点に補正して配置 -->
-      <img id="mannequin" class="mannequin"
-           src="public/mannequin/mannequin_woman.png" alt="mannequin" />
-
-      <!-- 透明度スライダー（選択時表示）：X:86-92 , Y:36-37.5（キャンバス上にオーバーレイ） -->
-      <div id="opacityOverlay" class="opacity-overlay hidden"></div>
-    </div>
-
-    <!-- ステーショナリーツール：X:96-98 , Y:14-39（レイヤー系アイコンは入れない） -->
-    <div class="abs box tools"
-         data-x="96" data-y="14" data-w="2" data-h="25">
-      <button class="tool" data-tool="select" title="Select">
-        <img src="public/create_parts/design_button/select.png" alt="select" />
-      </button>
-      <button class="tool" data-tool="direct_select" title="Direct Select">
-        <img src="public/create_parts/design_button/direct_select.png" alt="direct_select" />
-      </button>
-      <button class="tool" data-tool="square" title="Square">
-        <img src="public/create_parts/design_button/square.png" alt="square" />
-      </button>
-      <button class="tool" data-tool="circle" title="Circle">
-        <img src="public/create_parts/design_button/circle.png" alt="circle" />
-      </button>
-      <button class="tool" data-tool="brush" title="Brush">
-        <img src="public/create_parts/design_button/brush.png" alt="brush" />
-      </button>
-      <button class="tool" data-tool="pen" title="Pen">
-        <img src="public/create_parts/design_button/pen.png" alt="pen" />
-      </button>
-      <button class="tool" data-tool="circlebrush" title="Circle Brush">
-        <img src="public/create_parts/design_button/circlebrush.png" alt="circlebrush" />
-      </button>
-      <button class="tool" data-tool="ballpointpen" title="Ballpoint Pen">
-        <img src="public/create_parts/design_button/ballpointpen.png" alt="ballpointpen" />
-      </button>
-      <button class="tool" data-tool="markerpen" title="Marker Pen">
-        <img src="public/create_parts/design_button/markerpen.png" alt="markerpen" />
-      </button>
-      <button class="tool" data-tool="eraser" title="Eraser">
-        <img src="public/create_parts/design_button/eraser.png" alt="eraser" />
-      </button>
-      <button class="tool" data-tool="sentence" title="Text">
-        <img src="public/create_parts/design_button/sentence.png" alt="sentence" />
-      </button>
-      <button class="tool" data-tool="opacity" title="Opacity">
-        <img src="public/create_parts/design_button/opasity_ber.png" alt="opacity" />
-      </button>
-      <button class="tool" data-tool="graph_paper" title="Graph Paper">
-        <img src="public/create_parts/design_button/graph_paper.png" alt="graph_paper" />
-      </button>
-    </div>
-
-    <!-- カラーパレット：X:96-98 , Y:41-68 -->
-    <div class="abs box palette"
-         data-x="96" data-y="41" data-w="2" data-h="27">
-      <div class="swatch" style="--c:#000000"></div>
-      <div class="swatch" style="--c:#FFFFFF"></div>
-      <div class="swatch" style="--c:#C62828"></div>
-      <div class="swatch" style="--c:#AD1457"></div>
-      <div class="swatch" style="--c:#6A1B9A"></div>
-      <div class="swatch" style="--c:#283593"></div>
-      <div class="swatch" style="--c:#1565C0"></div>
-      <div class="swatch" style="--c:#00838F"></div>
-      <div class="swatch" style="--c:#2E7D32"></div>
-      <div class="swatch" style="--c:#9E9D24"></div>
-      <div class="swatch" style="--c:#EF6C00"></div>
-      <div class="swatch" style="--c:#4E342E"></div>
-    </div>
-
-    <!-- 100×70 ガイド（トグルで表示） -->
-    <div id="gridGuide" class="grid-guide"></div>
   </div>
 
   <script>
-    // ====== 定数（固定ボード：1280×820 / 100×70） ======
-    const BOARD_W = 1280;
-    const BOARD_H = 820;
-    const GRID_COLS = 100;
-    const GRID_ROWS = 70;
-    const CELL_W = BOARD_W / GRID_COLS; // 12.8px
-    const CELL_H = BOARD_H / GRID_ROWS; // ≈11.7142857px
-
-    // ====== 汎用配置（data-x,y,w,h を px に変換） ======
-    function applyGridPosition(el) {
-      const x = parseFloat(el.dataset.x);
-      const y = parseFloat(el.dataset.y);
-      const w = parseFloat(el.dataset.w);
-      const h = parseFloat(el.dataset.h);
-      el.style.left = (x * CELL_W) + 'px';
-      el.style.top  = (y * CELL_H) + 'px';
-      el.style.width  = (w * CELL_W) + 'px';
-      el.style.height = (h * CELL_H) + 'px';
-    }
-
-    // 初期配置
-    document.querySelectorAll('.abs').forEach(applyGridPosition);
-
-    // グリッドガイド生成
-    (function buildGrid() {
-      const g = document.getElementById('gridGuide');
-      g.style.width = BOARD_W + 'px';
-      g.style.height = BOARD_H + 'px';
-      // 縦線
-      for (let c = 0; c <= GRID_COLS; c++) {
-        const v = document.createElement('div');
-        v.className = 'gline v';
-        v.style.left = (c * CELL_W) + 'px';
-        g.appendChild(v);
+    // === 等倍スケール（1280×820を基準に画面へフィット） ===
+    (function fitBoard() {
+      const scaleWrap = document.getElementById('board-scale');
+      function applyScale() {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const scale = Math.min(vw / 1280, vh / 820);
+        scaleWrap.style.setProperty('--scale', scale);
       }
-      // 横線
-      for (let r = 0; r <= GRID_ROWS; r++) {
-        const h = document.createElement('div');
-        h.className = 'gline h';
-        h.style.top = (r * CELL_H) + 'px';
-        g.appendChild(h);
-      }
+      window.addEventListener('resize', applyScale);
+      applyScale();
     })();
 
-    // マネキン位置（キャンバス原点へ補正）
+    // === マネキン位置（X:42–54 , Y:17–60 をボード%で反映） ===
     (function placeMannequin() {
-      const canvas = document.getElementById('canvasArea');
+      const board = document.getElementById('board');
       const mannequin = document.getElementById('mannequin');
-
-      // グローバル座標
-      const gx1 = 42, gx2 = 54, gy1 = 17, gy2 = 60;
-      const gw = (gx2 - gx1) * CELL_W;
-      const gh = (gy2 - gy1) * CELL_H;
-
-      // キャンバスのグローバルXY
-      const cx = parseFloat(canvas.dataset.x) * CELL_W;
-      const cy = parseFloat(canvas.dataset.y) * CELL_H;
-
-      // マネキン左上（キャンバス内座標）
-      const mx = (gx1 * CELL_W) - cx;
-      const my = (gy1 * CELL_H) - cy;
-
-      mannequin.style.left = mx + 'px';
-      mannequin.style.top  = my + 'px';
-      mannequin.style.width  = gw + 'px';
-      mannequin.style.height = gh + 'px';
-    })();
-
-    // ツール：Opacity 選択でスライダー表示（X:86-92 , Y:36-37.5 をキャンバス内に敷く）
-    (function setupTools() {
-      const opacityOverlay = document.getElementById('opacityOverlay');
-      const canvas = document.getElementById('canvasArea');
-
-      function placeOpacityOverlay() {
-        // グローバル → キャンバス内補正
-        const gx1 = 86, gx2 = 92, gy1 = 36, gy2 = 37.5;
-        const cx = parseFloat(canvas.dataset.x) * CELL_W;
-        const cy = parseFloat(canvas.dataset.y) * CELL_H;
-
-        const x = (gx1 * CELL_W) - cx;
-        const y = (gy1 * CELL_H) - cy;
-        const w = (gx2 - gx1) * CELL_W;
-        const h = (gy2 - gy1) * CELL_H;
-
-        opacityOverlay.style.left = x + 'px';
-        opacityOverlay.style.top  = y + 'px';
-        opacityOverlay.style.width  = w + 'px';
-        opacityOverlay.style.height = h + 'px';
+      function apply() {
+        const W = board.clientWidth;
+        const H = board.clientHeight;
+        const left = (42 / 100) * W;
+        const top = (17 / 80) * H;
+        const right = (54 / 100) * W;
+        const bottom = (60 / 80) * H;
+        const width = right - left;
+        const height = bottom - top;
+        mannequin.style.left = left + 'px';
+        mannequin.style.top = top + 'px';
+        mannequin.style.width = width + 'px';
+        mannequin.style.height = height + 'px';
       }
-      placeOpacityOverlay();
-
-      document.querySelectorAll('.tool').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.tool').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const t = btn.dataset.tool;
-          if (t === 'opacity') {
-            opacityOverlay.classList.remove('hidden');
-          } else {
-            opacityOverlay.classList.add('hidden');
-          }
-        });
-      });
+      window.addEventListener('resize', apply);
+      new ResizeObserver(apply).observe(board);
     })();
 
-    // グリッド表示トグル
-    document.getElementById('gridToggle').addEventListener('change', (e) => {
-      document.getElementById('gridGuide').classList.toggle('show', e.target.checked);
-    });
+    // === 透明度スライダー：X:85–91 , Y:29.5–31 を%配置 ===
+    (function placeOpacity() {
+      const board = document.getElementById('board');
+      const wrap = document.getElementById('opacity-wrap');
+      function apply() {
+        const W = board.clientWidth;
+        const H = board.clientHeight;
+        const left = (85 / 100) * W;
+        const top = (29.5 / 80) * H;
+        const width = ((91 - 85) / 100) * W;
+        const height = ((31 - 29.5) / 80) * H;
+        wrap.style.left = left + 'px';
+        wrap.style.top = top + 'px';
+        wrap.style.width = width + 'px';
+        wrap.style.height = height + 'px';
+      }
+      window.addEventListener('resize', apply);
+      new ResizeObserver(apply).observe(board);
+    })();
+
+    // === Opacity 値反映 & マネキン透過 ===
+    (function bindOpacity() {
+      const range = document.getElementById('opacityRange');
+      const value = document.getElementById('opacityValue');
+      const mannequin = document.getElementById('mannequin');
+      function update() {
+        const v = Number(range.value);
+        value.textContent = v + '%';
+        mannequin.style.opacity = (v / 100).toString();
+      }
+      range.addEventListener('input', update);
+      update();
+    })();
   </script>
 </body>
 </html>
