@@ -1,3 +1,4 @@
+<!-- work/illustration/illustration.html -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -32,12 +33,11 @@
         <!-- 描画キャンバス -->
         <canvas id="draw"></canvas>
 
-        <!-- アップロード画像（ステージ内相対座標でドラッグ移動） -->
+        <!-- アップロード画像（ドラッグ移動可） -->
         <img id="imgLayer" class="img-layer" alt="" />
 
-        <!-- 透明度アイコン（押下で出現→フェード） -->
-        <img id="opacityIcon" class="opacity-icon"
-             src="../../create_parts/object_btn/opasity_ber.png" alt="opacity icon" />
+        <!-- 文字入力用オーバーレイ（確定でCanvasへ描画） -->
+        <div id="textEditor" contenteditable="true" spellcheck="false"></div>
       </section>
 
       <aside class="rail" aria-label="tool rail">
@@ -49,10 +49,8 @@
           <input id="fileInput" type="file" accept="image/*" hidden />
         </div>
 
-        <!-- ツール -->
+        <!-- ツール（Select/Direct は一旦除外） -->
         <div class="tools">
-          <button data-tool="select"      class="tool t-select"><img src="../../create_parts/object_btn/select.png"        alt="Select"/></button>
-          <button data-tool="direct"      class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select"/></button>
           <button data-tool="rect"        class="tool"><img src="../../create_parts/object_btn/square.png"        alt="Square"/></button>
           <button data-tool="circle"      class="tool"><img src="../../create_parts/object_btn/circle.png"        alt="Circle"/></button>
           <button data-tool="brush"       class="tool"><img src="../../create_parts/object_btn/brush.png"         alt="Brush"/></button>
@@ -64,15 +62,23 @@
           <button data-tool="grid"        class="tool"><img src="../../create_parts/object_btn/graph_paper.png"   alt="Grid"/></button>
         </div>
 
-        <!-- パレット -->
+        <!-- パレット（スクショ準拠 15色） -->
         <div id="palette" class="palette" aria-label="color palette">
-          <i style="--c:#000000" data-col="#000000"></i>
-          <i style="--c:#ff4d6d" data-col="#ff4d6d"></i>
-          <i style="--c:#ff7aa2" data-col="#ff7aa2"></i>
-          <i style="--c:#3e7bd8" data-col="#3e7bd8"></i>
-          <i style="--c:#00a14b" data-col="#00a14b"></i>
-          <i style="--c:#ffe14d" data-col="#ffe14d"></i>
+          <i style="--c:#bdbdbd" data-col="#bdbdbd"></i>
           <i style="--c:#ffffff" data-col="#ffffff"></i>
+          <i style="--c:#6b6b6b" data-col="#6b6b6b"></i>
+          <i style="--c:#000000" data-col="#000000"></i>
+          <i style="--c:#ffe14d" data-col="#ffe14d"></i>
+          <i style="--c:#b07f00" data-col="#b07f00"></i>
+          <i style="--c:#ff7aa2" data-col="#ff7aa2"></i>
+          <i style="--c:#ff4d6d" data-col="#ff4d6d"></i>
+          <i style="--c:#6ad58b" data-col="#6ad58b"></i>
+          <i style="--c:#00a14b" data-col="#00a14b"></i>
+          <i style="--c:#7fc8ff" data-col="#7fc8ff"></i>
+          <i style="--c:#3e7bd8" data-col="#3e7bd8"></i>
+          <i style="--c:#8151d0" data-col="#8151d0"></i>
+          <i style="--c:#9b6b3d" data-col="#9b6b3d"></i>
+          <i style="--c:#ff8c00" data-col="#ff8c00"></i>
         </div>
       </aside>
     </main>
@@ -86,133 +92,102 @@
   const canvas = document.getElementById('draw');
   const ctx = canvas.getContext('2d', { willReadFrequently: true });
   const imgLayer = document.getElementById('imgLayer');
-  const opacityIcon = document.getElementById('opacityIcon');
+  const editor = document.getElementById('textEditor');
 
-  /* ========= Canvas サイズ（DPR補正 & ステージ相対） ========= */
-  function fitCanvas() {
+  /* ===== Canvasサイズ（DPR補正） ===== */
+  function fitCanvas(){
     const r = stage.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
     canvas.width = Math.round(r.width * dpr);
     canvas.height = Math.round(r.height * dpr);
     canvas.style.width = r.width + 'px';
     canvas.style.height = r.height + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    // 初回ヒストリのため白塗り
-    if (!state._inited) { ctx.clearRect(0,0,canvas.width,canvas.height); snapshot(); state._inited=true; }
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    if(!state._init){ snapshot(); state._init=true; }
+    // テキストエディタの基準も更新
+    const sr = stage.getBoundingClientRect();
+    editor.style.setProperty('--stage-left', sr.left + 'px');
+    editor.style.setProperty('--stage-top',  sr.top  + 'px');
   }
   new ResizeObserver(fitCanvas).observe(stage);
 
-  /* ================== 状態 ================== */
-  const state = {
-    tool:'pen', color:'#000000', lineWidth:2.4, alpha:1,
-    drawing:false, sx:0, sy:0,
-    history:[], future:[], _inited:false
-  };
+  /* ===== 状態 ===== */
+  const state = { tool:'pen', color:'#000', lineWidth:2.4, alpha:1, drawing:false, sx:0, sy:0, history:[], future:[], _init:false };
 
-  /* ================== 履歴（Undo/Redo） ================== */
-  function snapshot(){
-    try{
-      state.history.push(ctx.getImageData(0,0,canvas.width,canvas.height));
-      if (state.history.length>120) state.history.shift();
-      state.future.length=0;
-    }catch(_){}
-  }
-  function undo(){ if(state.history.length<=1) return;
-    state.future.push(state.history.pop());
-    ctx.putImageData(state.history[state.history.length-1],0,0);
-  }
-  function redo(){ if(!state.future.length) return;
-    const img=state.future.pop(); state.history.push(img); ctx.putImageData(img,0,0);
-  }
+  /* ===== 履歴 ===== */
+  function snapshot(){ try{ state.history.push(ctx.getImageData(0,0,canvas.width,canvas.height)); state.future.length=0; if(state.history.length>120) state.history.shift(); }catch(_){ } }
+  function undo(){ if(state.history.length<=1) return; state.future.push(state.history.pop()); ctx.putImageData(state.history[state.history.length-1],0,0); }
+  function redo(){ if(!state.future.length) return; const im=state.future.pop(); state.history.push(im); ctx.putImageData(im,0,0); }
 
-  /* ================== ツール ================== */
+  /* ===== ツール ===== */
   const toolBtns=[...document.querySelectorAll('.tool')];
   function setTool(t){
     state.tool=t;
     toolBtns.forEach(b=>b.classList.toggle('active', b.dataset.tool===t));
-    // 線幅・アルファ
     if(t==='brush'){ state.lineWidth=6; state.alpha=1; }
     else if(t==='marker'){ state.lineWidth=10; state.alpha=.7; }
     else if(t==='eraser'){ state.lineWidth=18; state.alpha=1; }
     else if(t==='pen'){ state.lineWidth=2.4; state.alpha=1; }
-    else if(t==='rect' || t==='circle'){ state.lineWidth=2; state.alpha=1; }
+    else if(t==='rect'||t==='circle'){ state.lineWidth=2; state.alpha=1; }
   }
   toolBtns.forEach(b=>b.addEventListener('click',()=>{
     const t=b.dataset.tool;
-    if(t==='opacity'){
-      mannequin.style.opacity = (parseFloat(getComputedStyle(mannequin).opacity)>0.6)?0.35:0.98;
-      // アイコン出現（右中段）
-      opacityIcon.classList.add('show');
-      setTimeout(()=>opacityIcon.classList.remove('show'), 900);
-      return;
-    }
+    if(t==='opacity'){ mannequin.style.opacity = (parseFloat(getComputedStyle(mannequin).opacity)>0.6)?0.35:0.98; return; }
     if(t==='grid'){ stage.classList.toggle('grid'); return; }
     setTool(t);
+    if(t==='text'){ // 文字は即モード表示（クリックで配置）
+      editor.classList.add('armed');
+    }else{
+      commitEditor(); editor.classList.remove('armed');
+    }
   }));
   setTool('pen');
 
-  /* ================== パレット ================== */
+  /* ===== パレット ===== */
   let swatch=null;
   document.querySelectorAll('#palette i').forEach(i=>{
     i.addEventListener('click',()=>{
       if(swatch) swatch.classList.remove('active'); swatch=i; swatch.classList.add('active');
       state.color=i.dataset.col;
+      editor.style.color = state.color;
     });
   });
   document.querySelector('#palette i[data-col="#000000"]').click();
 
-  /* ========== 座標取得：オフセットずれ完全補正（transform対応） ========== */
+  /* ===== 座標（ズレ補正済） ===== */
   function getPos(ev){
-    // pointer が canvas をターゲットにしているなら offsetX/Y が最も正確（CSS transform 後もOK）
-    if (ev.target === canvas && ev.offsetX !== undefined) {
-      return {x: ev.offsetX, y: ev.offsetY};
-    }
-    const r = canvas.getBoundingClientRect();
-    const p = ev.touches ? ev.touches[0] : ev;
-    return { x: p.clientX - r.left, y: p.clientY - r.top };
+    if(ev.target===canvas && ev.offsetX!==undefined) return {x:ev.offsetX,y:ev.offsetY};
+    const r=canvas.getBoundingClientRect(); const p=ev.touches?ev.touches[0]:ev;
+    return {x:p.clientX-r.left,y:p.clientY-r.top};
   }
 
-  /* ================== 描画 ================== */
+  /* ===== 描画 ===== */
   function down(ev){
-    // Text ツール：クリック位置に文字を描く
-    if (state.tool==='text'){
-      const p=getPos(ev); const txt=prompt('Text:'); if(!txt) return;
-      ctx.save(); ctx.fillStyle=state.color; ctx.font='20px Inter, Arial, sans-serif';
-      ctx.fillText(txt, p.x, p.y); ctx.restore(); snapshot(); return;
+    if(state.tool==='text'){ // クリック位置でエディタを出す（イラレ風ポイントテキスト）
+      const p=getPos(ev); openEditor(p.x,p.y); return;
     }
-    if (state.tool==='select' || state.tool==='direct') return;
-
     ev.preventDefault();
     const p=getPos(ev);
     state.drawing=true; state.sx=p.x; state.sy=p.y;
-
     ctx.beginPath();
     ctx.lineCap='round'; ctx.lineJoin='round';
-    ctx.lineWidth=state.lineWidth; ctx.strokeStyle=state.color;
-    ctx.globalAlpha=state.alpha;
-    ctx.globalCompositeOperation = (state.tool==='eraser') ? 'destination-out' : 'source-over';
+    ctx.lineWidth=state.lineWidth; ctx.strokeStyle=state.color; ctx.globalAlpha=state.alpha;
+    ctx.globalCompositeOperation = (state.tool==='eraser')?'destination-out':'source-over';
     ctx.moveTo(p.x,p.y);
   }
   function move(ev){
     if(!state.drawing) return;
     const p=getPos(ev);
-    if(state.tool==='rect' || state.tool==='circle') return; // 形は up で確定
+    if(state.tool==='rect'||state.tool==='circle') return;
     ctx.lineTo(p.x,p.y); ctx.stroke();
   }
   function up(ev){
     if(!state.drawing) return; state.drawing=false;
     const p=getPos(ev);
-    if(state.tool==='rect' || state.tool==='circle'){
-      ctx.beginPath();
-      ctx.lineWidth=state.lineWidth; ctx.strokeStyle=state.color;
-      ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
-      if(state.tool==='rect'){
-        const x=Math.min(state.sx,p.x), y=Math.min(state.sy,p.y);
-        ctx.strokeRect(x,y, Math.abs(p.x-state.sx), Math.abs(p.y-state.sy));
-      }else{
-        const r=Math.hypot(p.x-state.sx,p.y-state.sy);
-        ctx.arc(state.sx,state.sy,r,0,Math.PI*2); ctx.stroke();
-      }
+    if(state.tool==='rect'||state.tool==='circle'){
+      ctx.beginPath(); ctx.lineWidth=state.lineWidth; ctx.strokeStyle=state.color; ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
+      if(state.tool==='rect'){ const x=Math.min(state.sx,p.x), y=Math.min(state.sy,p.y); ctx.strokeRect(x,y,Math.abs(p.x-state.sx),Math.abs(p.y-state.sy)); }
+      else { const r=Math.hypot(p.x-state.sx,p.y-state.sy); ctx.arc(state.sx,state.sy,r,0,Math.PI*2); ctx.stroke(); }
     }
     snapshot();
   }
@@ -220,91 +195,90 @@
   canvas.addEventListener('pointermove',move);
   window.addEventListener('pointerup',up);
 
-  /* ========== 画像アップロード & ステージ内ドラッグ ========== */
+  /* ===== テキスト（クリック→編集→確定でCanvas） ===== */
+  function openEditor(x,y){
+    const sr = stage.getBoundingClientRect();
+    editor.style.left = (sr.left + x) + 'px';
+    editor.style.top  = (sr.top  + y) + 'px';
+    editor.style.display = 'block';
+    editor.style.color = state.color;
+    editor.textContent = '';
+    editor.focus();
+    // 1行ポイントテキストにする
+    editor.onkeydown = e=>{
+      if(e.key==='Enter'){ e.preventDefault(); commitEditor(); }
+      if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'){ e.preventDefault(); } // undoはキャンセル
+    };
+  }
+  function commitEditor(){
+    if(editor.style.display!=='block') return;
+    const sr = stage.getBoundingClientRect();
+    const x = parseFloat(editor.style.left) - sr.left;
+    const y = parseFloat(editor.style.top)  - sr.top;
+    const txt = editor.textContent.trim();
+    if(txt){
+      ctx.save();
+      ctx.fillStyle = editor.style.color || state.color;
+      ctx.font = '20px Inter, Arial, sans-serif';
+      ctx.textBaseline = 'top';
+      ctx.fillText(txt, x, y);
+      ctx.restore();
+      snapshot();
+    }
+    editor.style.display='none';
+    editor.textContent='';
+  }
+  window.addEventListener('mousedown', e=>{
+    if(e.target!==editor && editor.style.display==='block' && !editor.contains(e.target)) commitEditor();
+  });
+
+  /* ===== 画像アップロード＋ドラッグ ===== */
   const fileInput=document.getElementById('fileInput');
   document.getElementById('btnUpload').addEventListener('click',()=>fileInput.click());
   fileInput.addEventListener('change',()=>{
     const f=fileInput.files[0]; if(!f) return;
     const url=URL.createObjectURL(f);
-    imgLayer.onload=()=>{ // ステージ中心
-      imgLayer.dataset.x = '0.5'; // 0..1 の相対位置
-      imgLayer.dataset.y = '0.5';
-      placeImgFromRatio();
-      imgLayer.style.display='block';
+    imgLayer.onload=()=>{ // ステージ中央
+      const sr=stage.getBoundingClientRect();
+      imgLayer.style.left = (sr.left + sr.width/2 - imgLayer.width/2) + 'px';
+      imgLayer.style.top  = (sr.top  + sr.height/2 - imgLayer.height/2) + 'px';
+      imgLayer.style.transform='translate(0,0)'; imgLayer.style.display='block';
       URL.revokeObjectURL(url);
     };
     imgLayer.src=url;
   });
-
-  function placeImgFromRatio(){
-    const sr=stage.getBoundingClientRect();
-    const x = parseFloat(imgLayer.dataset.x||'0.5') * sr.width;
-    const y = parseFloat(imgLayer.dataset.y||'0.5') * sr.height;
-    // ステージ左上を原点に px 指定
-    imgLayer.style.left = (x - imgLayer.width/2) + 'px';
-    imgLayer.style.top  = (y - imgLayer.height/2) + 'px';
-  }
   let dragging=false, dx=0, dy=0;
-  imgLayer.addEventListener('mousedown',e=>{
-    dragging=true;
-    const r=imgLayer.getBoundingClientRect();
-    dx=e.clientX - r.left; dy=e.clientY - r.top;
-    e.preventDefault();
-  });
-  window.addEventListener('mousemove',e=>{
-    if(!dragging) return;
-    const sr=stage.getBoundingClientRect();
-    let lx=e.clientX - sr.left - dx + imgLayer.width/2;
-    let ly=e.clientY - sr.top  - dy + imgLayer.height/2;
-    // 相対0..1に保存
-    imgLayer.dataset.x = (lx / sr.width).toString();
-    imgLayer.dataset.y = (ly / sr.height).toString();
-    placeImgFromRatio();
-  });
+  imgLayer.addEventListener('mousedown',e=>{dragging=true;const r=imgLayer.getBoundingClientRect();dx=e.clientX-r.left;dy=e.clientY-r.top;e.preventDefault();});
+  window.addEventListener('mousemove',e=>{if(!dragging) return; imgLayer.style.left=(e.clientX-dx)+'px'; imgLayer.style.top=(e.clientY-dy)+'px';});
   window.addEventListener('mouseup',()=>dragging=false);
-  new ResizeObserver(()=>{ if(imgLayer.style.display!=='none') placeImgFromRatio(); }).observe(stage);
 
-  /* ================== Save / Download ================== */
+  /* ===== Save / Download ===== */
   document.getElementById('btnSave').addEventListener('click',()=>{
-    const a=document.createElement('a');
-    a.download='vivora_drawing.png';
-    a.href=canvas.toDataURL('image/png');
-    a.click();
+    const a=document.createElement('a'); a.download='vivora_drawing.png'; a.href=canvas.toDataURL('image/png'); a.click();
   });
   document.getElementById('btnDownload').addEventListener('click',()=>{
     const sr=stage.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
-    const out=document.createElement('canvas');
-    out.width=Math.round(sr.width*dpr); out.height=Math.round(sr.height*dpr);
+    const out=document.createElement('canvas'); out.width=Math.round(sr.width*dpr); out.height=Math.round(sr.height*dpr);
     const o=out.getContext('2d'); o.scale(dpr,dpr);
     o.fillStyle='#fff'; o.fillRect(0,0,sr.width,sr.height);
-    const mr=mannequin.getBoundingClientRect();
-    o.globalAlpha=parseFloat(getComputedStyle(mannequin).opacity)||1;
-    o.drawImage(mannequin, mr.left-sr.left, mr.top-sr.top, mr.width, mr.height);
-    o.globalAlpha=1;
-    if(imgLayer.style.display!=='none' && imgLayer.src){
-      const ir=imgLayer.getBoundingClientRect();
-      o.drawImage(imgLayer, ir.left-sr.left, ir.top-sr.top, ir.width, ir.height);
-    }
-    o.drawImage(canvas, 0, 0, sr.width, sr.height);
-    const a=document.createElement('a');
-    a.download='vivora_illustration.png'; a.href=out.toDataURL('image/png'); a.click();
+    const mr=mannequin.getBoundingClientRect(); o.globalAlpha=parseFloat(getComputedStyle(mannequin).opacity)||1;
+    o.drawImage(mannequin, mr.left-sr.left, mr.top-sr.top, mr.width, mr.height); o.globalAlpha=1;
+    if(imgLayer.style.display!=='none' && imgLayer.src){ const ir=imgLayer.getBoundingClientRect(); o.drawImage(imgLayer, ir.left-sr.left, ir.top-sr.top, ir.width, ir.height); }
+    o.drawImage(canvas,0,0,sr.width,sr.height);
+    const a=document.createElement('a'); a.download='vivora_illustration.png'; a.href=out.toDataURL('image/png'); a.click();
   });
 
-  /* ================== Illustrator風ショートカット ================== */
+  /* ===== ショートカット（Illustrator風） ===== */
   window.addEventListener('keydown',e=>{
-    if((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==='z'){ e.preventDefault(); e.shiftKey?redo():undo(); return; }
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'){ e.preventDefault(); e.shiftKey?redo():undo(); return; }
     if(!e.metaKey && !e.ctrlKey){
       const k=e.key.toLowerCase();
-      if(k==='v') setTool('select');
       if(k==='p') setTool('pen');
       if(k==='b') setTool('brush');
       if(k==='e') setTool('eraser');
       if(k==='g') setTool('grid');
       if(k==='t') setTool('text');
-      if(k==='o') { // O: opacity toggle
-        mannequin.style.opacity = (parseFloat(getComputedStyle(mannequin).opacity)>0.6)?0.35:0.98;
-        opacityIcon.classList.add('show'); setTimeout(()=>opacityIcon.classList.remove('show'),900);
-      }
+      if(k==='o'){ mannequin.style.opacity=(parseFloat(getComputedStyle(mannequin).opacity)>0.6)?0.35:0.98; }
     }
   });
 
