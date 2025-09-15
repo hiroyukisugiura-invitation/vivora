@@ -1,32 +1,21 @@
-<!-- index.html -->
+<!-- index.html (assetパス修正版 / Firebase Hosting ルート = public/) -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vivora Illustration — Absolute Grid</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <!-- 固定ボード：1280×820 を基準。画面に収まるよう等倍スケール -->
   <div id="board-scale">
     <div id="board">
+      <div class="grid-overlay" aria-hidden="true"><div class="h-lines"></div><div class="v-lines"></div></div>
 
-      <!-- グリッド（開発時の目安。必要ならCSSでdisplay:noneに） -->
-      <div class="grid-overlay" aria-hidden="true">
-        <!-- 100×80 の補助線 -->
-        <!-- 横線 -->
-        <div class="h-lines"></div>
-        <!-- 縦線 -->
-        <div class="v-lines"></div>
-      </div>
+      <!-- タイトル：X:3–22 , Y:4–4 -->
+      <h1 class="cell title" style="grid-column: 3 / 23; grid-row: 4 / 5;">Vivora Fashion Illustration</h1>
 
-      <!-- タイトル：X:3–22 , Y:4–4  => CSS: col 3/23, row 4/5 -->
-      <h1 class="cell title" style="grid-column: 3 / 23; grid-row: 4 / 5;">
-        Vivora Fashion Illustration
-      </h1>
-
-      <!-- コンテンツボタン群：X:73–92 , Y:5–6 -->
+      <!-- コンテンツボタン：X:73–92 , Y:5–6 -->
       <div class="cell contents-buttons" style="grid-column: 73 / 93; grid-row: 5 / 7;">
         <button class="btn">Home</button>
         <button class="btn">Illustration</button>
@@ -34,35 +23,29 @@
         <button class="btn">Help</button>
       </div>
 
-      <!-- NEXT STEP：右端に分離（基準）：X:93–98 , Y:5–6 -->
+      <!-- NEXT STEP：X:93–98 , Y:5–6 -->
       <div class="cell next-step" style="grid-column: 93 / 99; grid-row: 5 / 7;">
         <button class="btn btn-accent">Next Step</button>
       </div>
 
-      <!-- IO（download / upload / save）：X:94–98 , Y:6–6 -->
+      <!-- IO：X:94–98 , Y:6–6 -->
       <div class="cell io-bar" style="grid-column: 94 / 99; grid-row: 6 / 7;">
         <button class="icon-btn" title="Upload">
-          <img src="public/create_parts/create_button/upload.png" alt="Upload" />
+          <img src="./create_parts/create_button/upload.png" alt="Upload" />
         </button>
         <button class="icon-btn" title="Download">
-          <img src="public/create_parts/create_button/download.png" alt="Download" />
+          <img src="./create_parts/create_button/download.png" alt="Download" />
         </button>
         <button class="icon-btn" title="Save">
-          <img src="public/create_parts/create_button/save.png" alt="Save" />
+          <img src="./create_parts/create_button/save.png" alt="Save" />
         </button>
       </div>
 
       <!-- キャンバス：X:3–92 , Y:8–78 -->
       <div id="canvas-area" class="cell" style="grid-column: 3 / 93; grid-row: 8 / 79;">
-        <!-- マネキン領域：X:42–54 , Y:17–60（絶対座標%で配置） -->
-        <img
-          id="mannequin"
-          class="mannequin-base"
-          src="public/mannequin/mannequin_woman.png"
-          alt="Mannequin"
-        />
-
-        <!-- 透明度スライダー（選択時表示）X:85–91 , Y:29.5–31 を絶対座標%で -->
+        <!-- マネキン：X:42–54 , Y:17–60 -->
+        <img id="mannequin" class="mannequin-base" src="./mannequin/mannequin_woman.png" alt="Mannequin" />
+        <!-- 透明度スライダー：X:85–91 , Y:29.5–31 -->
         <div id="opacity-wrap">
           <label for="opacityRange">Opacity</label>
           <input id="opacityRange" type="range" min="0" max="100" value="100" />
@@ -73,161 +56,88 @@
       <!-- Stationery tools：X:95–97 , Y:8–33（レイヤー系は含めない） -->
       <div class="cell tools" style="grid-column: 95 / 98; grid-row: 8 / 34;">
         <div class="tool-col">
-          <button class="tool">
-            <img src="public/create_parts/design_button/select.png" alt="Select" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/direct_select.png" alt="Direct Select" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/square.png" alt="Square" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/circle.png" alt="Circle" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/brush.png" alt="Brush" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/pen.png" alt="Pen" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/circlebrush.png" alt="Circle Brush" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/ballpointpen.png" alt="Ballpoint Pen" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/markerpen.png" alt="Marker Pen" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/eraser.png" alt="Eraser" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/sentence.png" alt="Text" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/opasity_ber.png" alt="Opacity Tool" />
-          </button>
-          <button class="tool">
-            <img src="public/create_parts/design_button/graph_paper.png" alt="Graph Paper" />
-          </button>
+          <button class="tool"><img src="./create_parts/design_button/select.png" alt="Select" /></button>
+          <button class="tool"><img src="./create_parts/design_button/direct_select.png" alt="Direct Select" /></button>
+          <button class="tool"><img src="./create_parts/design_button/square.png" alt="Square" /></button>
+          <button class="tool"><img src="./create_parts/design_button/circle.png" alt="Circle" /></button>
+          <button class="tool"><img src="./create_parts/design_button/brush.png" alt="Brush" /></button>
+          <button class="tool"><img src="./create_parts/design_button/pen.png" alt="Pen" /></button>
+          <button class="tool"><img src="./create_parts/design_button/circlebrush.png" alt="Circle Brush" /></button>
+          <button class="tool"><img src="./create_parts/design_button/ballpointpen.png" alt="Ballpoint Pen" /></button>
+          <button class="tool"><img src="./create_parts/design_button/markerpen.png" alt="Marker Pen" /></button>
+          <button class="tool"><img src="./create_parts/design_button/eraser.png" alt="Eraser" /></button>
+          <button class="tool"><img src="./create_parts/design_button/sentence.png" alt="Text" /></button>
+          <button class="tool"><img src="./create_parts/design_button/opasity_ber.png" alt="Opacity Tool" /></button>
+          <button class="tool"><img src="./create_parts/design_button/graph_paper.png" alt="Graph Paper" /></button>
         </div>
       </div>
 
-      <!-- カラーパレット：X:95–97 , Y:35–62 -->
-      <div class="cell color-palette" style="grid-column: 95 / 98; grid-row: 35 / 63;">
-        <div class="swatches">
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-          <button class="sw"></button>
-        </div>
-      </div>
-
-      <!-- レイヤーパネル（右側・縦長 5枚）：X:?? 仕様基準=右パネル左列。絶対配置で柱を生成 -->
+      <!-- レイヤーパネル（右列の柱。白ボード無し） -->
       <div id="layers-column">
-        <!-- 5つの縦長カード。上：表示/非表示/ロック、下：追加/複製/統合(merge)/削除 -->
         <div class="layer-card">
           <div class="head">
-            <img src="public/create_parts/layer_button/layerdisplay.png" alt="Display" />
-            <img src="public/create_parts/layer_button/layerhidden.png" alt="Hidden" />
-            <img src="public/create_parts/layer_button/layerlock.png" alt="Lock" />
+            <img src="./create_parts/layer_button/layerdisplay.png" alt="Display" />
+            <img src="./create_parts/layer_button/layerhidden.png" alt="Hidden" />
+            <img src="./create_parts/layer_button/layerlock.png" alt="Lock" />
           </div>
           <div class="body"></div>
           <div class="foot">
-            <img src="public/create_parts/layer_button/layerpanelplus.png" alt="Add" />
-            <img src="public/create_parts/layer_button/layerreproduction.png" alt="Duplicate" />
-            <img src="public/create_parts/layer_button/layerlayer integration.png" alt="Merge" />
-            <img src="public/create_parts/layer_button/layerdestruction.png" alt="Delete" />
+            <img src="./create_parts/layer_button/layerpanelplus.png" alt="Add" />
+            <img src="./create_parts/layer_button/layerreproduction.png" alt="Duplicate" />
+            <img src="./create_parts/layer_button/layerlayer integration.png" alt="Merge" />
+            <img src="./create_parts/layer_button/layerdestruction.png" alt="Delete" />
           </div>
         </div>
-
         <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
         <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
         <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
         <div class="layer-card"><div class="head"></div><div class="body"></div><div class="foot"></div></div>
       </div>
-
     </div>
   </div>
 
   <script>
-    // === 等倍スケール（1280×820を基準に画面へフィット） ===
     (function fitBoard() {
-      const scaleWrap = document.getElementById('board-scale');
-      function applyScale() {
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-        const scale = Math.min(vw / 1280, vh / 820);
-        scaleWrap.style.setProperty('--scale', scale);
+      const wrap = document.getElementById('board-scale');
+      function apply() {
+        const vw = window.innerWidth, vh = window.innerHeight;
+        wrap.style.setProperty('--scale', Math.min(vw / 1280, vh / 820));
       }
-      window.addEventListener('resize', applyScale);
-      applyScale();
+      window.addEventListener('resize', apply); apply();
     })();
 
-    // === マネキン位置（X:42–54 , Y:17–60 をボード%で反映） ===
     (function placeMannequin() {
       const board = document.getElementById('board');
-      const mannequin = document.getElementById('mannequin');
+      const img = document.getElementById('mannequin');
       function apply() {
-        const W = board.clientWidth;
-        const H = board.clientHeight;
-        const left = (42 / 100) * W;
-        const top = (17 / 80) * H;
-        const right = (54 / 100) * W;
-        const bottom = (60 / 80) * H;
-        const width = right - left;
-        const height = bottom - top;
-        mannequin.style.left = left + 'px';
-        mannequin.style.top = top + 'px';
-        mannequin.style.width = width + 'px';
-        mannequin.style.height = height + 'px';
+        const W = board.clientWidth, H = board.clientHeight;
+        const left = (42 / 100) * W, top = (17 / 80) * H;
+        const width = ((54 - 42) / 100) * W, height = ((60 - 17) / 80) * H;
+        Object.assign(img.style, { left: left + 'px', top: top + 'px', width: width + 'px', height: height + 'px' });
       }
       window.addEventListener('resize', apply);
       new ResizeObserver(apply).observe(board);
     })();
 
-    // === 透明度スライダー：X:85–91 , Y:29.5–31 を%配置 ===
     (function placeOpacity() {
       const board = document.getElementById('board');
       const wrap = document.getElementById('opacity-wrap');
       function apply() {
-        const W = board.clientWidth;
-        const H = board.clientHeight;
-        const left = (85 / 100) * W;
-        const top = (29.5 / 80) * H;
-        const width = ((91 - 85) / 100) * W;
-        const height = ((31 - 29.5) / 80) * H;
-        wrap.style.left = left + 'px';
-        wrap.style.top = top + 'px';
-        wrap.style.width = width + 'px';
-        wrap.style.height = height + 'px';
+        const W = board.clientWidth, H = board.clientHeight;
+        const left = (85 / 100) * W, top = (29.5 / 80) * H;
+        const width = ((91 - 85) / 100) * W, height = ((31 - 29.5) / 80) * H;
+        Object.assign(wrap.style, { left: left + 'px', top: top + 'px', width: width + 'px', height: height + 'px' });
       }
       window.addEventListener('resize', apply);
       new ResizeObserver(apply).observe(board);
     })();
 
-    // === Opacity 値反映 & マネキン透過 ===
     (function bindOpacity() {
       const range = document.getElementById('opacityRange');
       const value = document.getElementById('opacityValue');
       const mannequin = document.getElementById('mannequin');
-      function update() {
-        const v = Number(range.value);
-        value.textContent = v + '%';
-        mannequin.style.opacity = (v / 100).toString();
-      }
-      range.addEventListener('input', update);
-      update();
+      function update() { value.textContent = range.value + '%'; mannequin.style.opacity = (Number(range.value) / 100); }
+      range.addEventListener('input', update); update();
     })();
   </script>
 </body>
