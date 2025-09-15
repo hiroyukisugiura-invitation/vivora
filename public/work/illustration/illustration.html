@@ -8,17 +8,14 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- 100×70基準ボードを常に画面内100%でフィット -->
   <div class="fit">
     <div class="board">
 
-      <!-- ===== ヘッダー ===== -->
+      <!-- ========== ヘッダー（タイトル左／コンテンツボタン右／Next右上） ========== -->
       <header class="topbar">
         <h1 class="app-title">Vivora Fashion Illustration 2025</h1>
-
-        <!-- Next Step：右上固定 -->
         <a class="next-btn" href="../../index.html">Next Step »»</a>
-
-        <!-- contents buttons：X:73.5-93 , Y:4-5 相当 -->
         <nav class="contents-buttons" aria-label="contents">
           <img src="../../create_parts/contents_button/0_home.png" alt="Home" />
           <img src="../../create_parts/contents_button/1_fashion-illustrations.png" alt="Illustrations" />
@@ -31,175 +28,71 @@
         </nav>
       </header>
 
-      <!-- ===== メイン：左=キャンバス / 右=レール ===== -->
+      <!-- ========== メイン：左キャンバス / 右レール ========== -->
       <main class="main">
 
-        <!-- 左：キャンバス（X:3-93 , Y:8-68） -->
+        <!-- キャンバス（X:3-93 , Y:8-68） -->
         <section class="stage" aria-label="canvas">
-          <!-- マネキン（X:42-54 , Y:17-60） -->
+          <!-- マネキン中央（X:42-54 , Y:17-60相当） -->
           <img
             class="mannequin"
             src="../../mannequin/mannequin_woman/mannequin_woman_front.png"
             alt="Mannequin Woman Front" />
 
-          <!-- Opacity/Zoom UI（X:86-92 , Y:36-37.5 相当） -->
-          <div class="opacity-ui" role="group" aria-label="Zoom">
+          <!-- HUD（X:86-92 , Y:36-37.5相当 / 100%表示） -->
+          <div class="opacity-ui" role="group" aria-label="Zoom/Opacity HUD">
             <span class="zoom-label">100 %</span>
             <div class="zoom-bar">
               <i class="zoom-thumb" style="left:100%"></i>
+              <i class="zoom-dot"></i>
             </div>
           </div>
         </section>
 
-        <!-- 右：レール -->
-        <aside class="rightpanel">
-
-          <!-- 行1：IO（X:97-97 , Y:8-12 縦栓まとめ・右寄せ） -->
-          <div class="quick-io">
+        <!-- 右レール（X:96-98全域） -->
+        <aside class="rail" aria-label="tool rail">
+          <!-- IO：X:97-97 , Y:8-12（縦三つ） -->
+          <div class="io-stack">
             <img src="../../create_parts/create_button/download.png" alt="download" />
             <img src="../../create_parts/create_button/upload.png"   alt="upload" />
             <img src="../../create_parts/create_button/save.png"     alt="save" />
           </div>
 
-          <!-- 行2：左右2カラム -->
-          <div class="row2">
-            <!-- 左：Layers（5カード / 表示・非表示・1マス空け・ロック / 下部 追加・複製・統合・削除） -->
-            <div class="layers" aria-label="layers">
-              <!-- card ×5 -->
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <span class="gap-1" aria-hidden="true"></span>
-                  <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
-                  <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <picture>
-                    <source srcset="../../create_parts/layer_button/layerlayer%20integration.png" />
-                    <img src="../../create_parts/layer_button/layerlayerintegration.png" alt="merge down" />
-                  </picture>
-                  <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <span class="gap-1" aria-hidden="true"></span>
-                  <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
-                  <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <picture>
-                    <source srcset="../../create_parts/layer_button/layerlayer%20integration.png" />
-                    <img src="../../create_parts/layer_button/layerlayerintegration.png" alt="merge down" />
-                  </picture>
-                  <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <span class="gap-1" aria-hidden="true"></span>
-                  <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
-                  <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <picture>
-                    <source srcset="../../create_parts/layer_button/layerlayer%20integration.png" />
-                    <img src="../../create_parts/layer_button/layerlayerintegration.png" alt="merge down" />
-                  </picture>
-                  <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <span class="gap-1" aria-hidden="true"></span>
-                  <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
-                  <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <picture>
-                    <source srcset="../../create_parts/layer_button/layerlayer%20integration.png" />
-                    <img src="../../create_parts/layer_button/layerlayerintegration.png" alt="merge down" />
-                  </picture>
-                  <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
-                </div>
-              </div>
-
-              <div class="layer-card">
-                <div class="layer-head">
-                  <img src="../../create_parts/layer_button/layerdisplay.png" alt="display" />
-                  <img src="../../create_parts/layer_button/layerhidden.png"  alt="hidden" />
-                  <span class="gap-1" aria-hidden="true"></span>
-                  <img src="../../create_parts/layer_button/layerlock.png"    alt="lock" />
-                </div>
-                <div class="layer-body"></div>
-                <div class="layer-foot">
-                  <img src="../../create_parts/layer_button/layerpanelplus.png"     alt="plus" />
-                  <img src="../../create_parts/layer_button/layerreproduction.png"  alt="duplicate" />
-                  <picture>
-                    <source srcset="../../create_parts/layer_button/layerlayer%20integration.png" />
-                    <img src="../../create_parts/layer_button/layerlayerintegration.png" alt="merge down" />
-                  </picture>
-                  <img src="../../create_parts/layer_button/layerdestruction.png"   alt="delete" />
-                </div>
-              </div>
-            </div>
-
-            <!-- 右：ツール群（X:96-98 , Y:14-39）+ パレット（X:96-98 , Y:41-68） -->
-            <div class="tools-stack">
-              <div class="tools" aria-label="stationery tools">
-                <button class="tool t-select"><img src="../../create_parts/object_btn/select.png"        alt="Select" /></button>
-                <button class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/square.png"        alt="Square" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/circle.png"        alt="Circle" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/brush.png"         alt="Brush" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/pen.png"           alt="Pen" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/circlebrush.png"   alt="Circle Brush" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/ballpointpen.png"  alt="Ballpoint" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/markerpen.png"     alt="Marker" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/eraser.png"        alt="Eraser" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/sentence.png"      alt="Text" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/opasity_ber.png"   alt="Opacity" /></button>
-                <button class="tool"><img src="../../create_parts/object_btn/graph_paper.png"   alt="Grid" /></button>
-              </div>
-
-              <div class="stack-gap-1" aria-hidden="true"></div>
-
-              <div class="palette" aria-label="color palette">
-                <i style="--c:#ffffff"></i>
-                <i style="--c:#d9d9d9"></i>
-                <i style="--c:#6b6b6b"></i>
-                <i style="--c:#000000"></i>
-                <i style="--c:#ffe14d"></i>
-                <i style="--c:#6ad58b"></i>
-                <i style="--c:#00a14b"></i>
-                <i style="--c:#7fc8ff"></i>
-                <i style="--c:#3e7bd8"></i>
-                <i style="--c:#8151d0"></i>
-                <i style="--c:#ff7aa2"></i>
-                <i style="--c:#ff4d6d"></i>
-                <i style="--c:#ffb000"></i>
-                <i style="--c:#9b6b3d"></i>
-              </div>
-            </div>
+          <!-- ツール：X:96-98 , Y:14-39 -->
+          <div class="tools">
+            <button class="tool t-select"><img src="../../create_parts/object_btn/select.png"        alt="Select" /></button>
+            <button class="tool t-direct"><img src="../../create_parts/object_btn/direct_select.png" alt="Direct Select" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/square.png"        alt="Square" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/circle.png"        alt="Circle" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/brush.png"         alt="Brush" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/pen.png"           alt="Pen" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/circlebrush.png"   alt="Circle Brush" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/ballpointpen.png"  alt="Ballpoint" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/markerpen.png"     alt="Marker" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/eraser.png"        alt="Eraser" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/sentence.png"      alt="Text" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/opasity_ber.png"   alt="Opacity" /></button>
+            <button class="tool"><img src="../../create_parts/object_btn/graph_paper.png"   alt="Grid" /></button>
           </div>
+
+          <!-- パレット：X:96-98 , Y:41-68（縦ドット） -->
+          <div class="palette">
+            <i style="--c:#bdbdbd"></i>
+            <i style="--c:#ffffff"></i>
+            <i style="--c:#ffe14d"></i>
+            <i style="--c:#ffb000"></i>
+            <i style="--c:#ff7aa2"></i>
+            <i style="--c:#ff4d6d"></i>
+            <i style="--c:#6ad58b"></i>
+            <i style="--c:#00a14b"></i>
+            <i style="--c:#3e7bd8"></i>
+            <i style="--c:#1b2a4a"></i>
+            <i style="--c:#5b2a86"></i>
+            <i style="--c:#000000"></i>
+          </div>
+
+          <!-- 右下の丸メニュー（スクショの…ボタン位置） -->
+          <button class="more-dot" aria-label="more"></button>
         </aside>
       </main>
     </div>
